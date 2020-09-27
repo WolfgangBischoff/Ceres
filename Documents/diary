@@ -30,3 +30,4 @@
 23 09 20    - improved debugging
             - added air system
             - added first Global System
+27 09 20    - moved Project to Java 11 and Gradle; now "Ceres"
