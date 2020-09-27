@@ -57,7 +57,7 @@ import static Core.Config.RUMBLE_GRADE_DECREASE;
 import static Core.Config.RUMBLE_MAX_DURATION;
 import static Core.WorldView.WorldViewStatus.WORLD;
 
-public class WorldView implements GUIController
+public class WorldView
 {
     private static final String CLASSNAME = "WorldView ";
     private static WorldView singleton;
@@ -325,7 +325,7 @@ public class WorldView implements GUIController
 
     }
 
-    @Override
+
     public void update(Long currentNanoTime)
     {
         String methodName = "update(Long) ";
@@ -574,7 +574,6 @@ public class WorldView implements GUIController
 
     }
 
-    @Override
     public void render(Long currentNanoTime)
     {
         String methodName = "render(Long) ";
@@ -706,24 +705,9 @@ public class WorldView implements GUIController
         gc.setGlobalBlendMode(BlendMode.SRC_OVER);
     }
 
-    public Pane load()
+    public Pane getRoot()
     {
         return root;
-
-        /*try
-        {
-
-           return fxmlLoader.load();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
-
-         */
-
-
     }
 
     public static List<Sprite> getPassiveCollisionRelevantSpritesLayer()
@@ -773,21 +757,10 @@ public class WorldView implements GUIController
         return personalityScreenPosition;
     }
 
-
-//    public static void setIsTextBoxActive(boolean isTextBoxActive)
-//    {
-//        WorldView.isTextBoxActive = isTextBoxActive;
-//    }
-
     public static void setPersonalityScreenController(PersonalityScreenController personalityScreenController)
     {
         WorldView.personalityScreenController = personalityScreenController;
     }
-
-//    public static void setIsDiscussionGameActive(boolean isDiscussionGameActive)
-//    {
-//        WorldView.isDiscussionGameActive = isDiscussionGameActive;
-//    }
 
     public static void setDiscussionGame(DiscussionGame discussionGame)
     {
@@ -804,21 +777,9 @@ public class WorldView implements GUIController
         return levelName;
     }
 
-//    public static void setIsDaySummaryActive(boolean isDaySummaryActive)
-//    {
-//        if (isDaySummaryActive)
-//            daySummaryScreenController.newDay();
-//        WorldView.isDaySummaryActive = isDaySummaryActive;
-//    }
-
     public static String getCLASSNAME()
     {
         return CLASSNAME;
-    }
-
-    public Pane getRoot()
-    {
-        return root;
     }
 
     public Canvas getWorldCanvas()

@@ -17,9 +17,7 @@ public class Main extends Application
     public void start(Stage primaryStage)
     {
         GameWindow gameWindowController = GameWindow.getSingleton();
-        //MainMenuController mainMenuController = new MainMenuController();
         gameWindowController.setTitle("Game Window");
-        //gameWindowController.createNextScene(mainMenuController);
         gameWindowController.createNextScene(WorldView.getSingleton());
         gameWindowController.showWindow();
 

@@ -1,5 +1,6 @@
 package Core;
 
+import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -15,7 +16,7 @@ public class GameWindow extends Stage
     private static long currentNanoRenderTimeGameWindow = 0L;
     private Stage gameStage;
     private Scene gameScene;
-    GUIController currentView;
+    WorldView currentView;
     boolean mouseClicked = false;
     Point2D mousePosition = new Point2D(0,0); //To avoid NullPointerException of mouse was not moved at first
     boolean mouseMoved;
@@ -32,16 +33,15 @@ public class GameWindow extends Stage
         return singleton;
     }
 
-    public void createNextScene(GUIController controller)
+    public void createNextScene(WorldView controller)
     {
         String methodName = "createNextScene()";
         this.currentView = controller;
-        gameScene = new Scene(controller.load(), Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
+        gameScene = new Scene(controller.getRoot(), Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
         //input
         gameScene.setOnKeyPressed(
                 e -> {
                     String code = e.getCode().toString();
-                    //System.out.println(CLASSNAME + methodName + " pushed: " + code);
                     if (!input.contains(code))
                         input.add(code);
                 });
@@ -54,7 +54,6 @@ public class GameWindow extends Stage
             mouseClicked = true;
         });
         gameScene.setOnMouseMoved(event -> {
-            //System.out.println(className + methodName + "Mouse moved");
             mouseMoved = true;
             mousePosition = new Point2D(event.getX(), event.getY());
         });
@@ -98,7 +97,7 @@ public class GameWindow extends Stage
         return input;
     }
 
-    public GUIController getCurrentView()
+    public WorldView getCurrentView()
     {
         return currentView;
     }
@@ -168,7 +167,7 @@ public class GameWindow extends Stage
         this.gameScene = gameScene;
     }
 
-    public void setCurrentView(GUIController currentView)
+    public void setCurrentView(WorldView currentView)
     {
         this.currentView = currentView;
     }

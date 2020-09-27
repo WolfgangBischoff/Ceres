@@ -738,7 +738,7 @@ public class Actor
     public void activateTextbox()
     {
         String methodName = "activateDialogue() ";
-        GUIController gameWindow = GameWindow.getSingleton().currentView;
+        WorldView gameWindow = GameWindow.getSingleton().currentView;
 
         if (gameWindow instanceof WorldView)
         {
