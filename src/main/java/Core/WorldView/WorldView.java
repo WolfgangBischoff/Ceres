@@ -15,6 +15,7 @@ import Core.Menus.VariableStatusOverlay;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -23,6 +24,7 @@ import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
@@ -59,11 +61,7 @@ public class WorldView implements GUIController
 {
     private static final String CLASSNAME = "WorldView ";
     private static WorldView singleton;
-
-    @FXML
     Pane root;
-    FXMLLoader fxmlLoader;
-
     Canvas worldCanvas;
     GraphicsContext gc;
     Canvas shadowMask;
@@ -136,10 +134,9 @@ public class WorldView implements GUIController
 
     private WorldView(String levelName)
     {
-        //fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerView.fxml"));
-        //fxmlLoader = new FXMLLoader(getClass().getResource("../Ceres/build/resources/main/fxml/PlayerView.fxml"));
-        fxmlLoader = new FXMLLoader(getClass().getResource("../../../../resources/main/fxml/PlayerView.fxml"));
-        fxmlLoader.setController(this);
+        StackPane stackPane = new StackPane();
+        stackPane.setAlignment(Pos.CENTER);
+        root = stackPane;
 
         worldCanvas = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
@@ -711,16 +708,20 @@ public class WorldView implements GUIController
 
     public Pane load()
     {
-        try
+        return root;
+
+        /*try
         {
 
-            return fxmlLoader.load();
+           return fxmlLoader.load();
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
         return null;
+
+         */
 
 
     }
@@ -818,11 +819,6 @@ public class WorldView implements GUIController
     public Pane getRoot()
     {
         return root;
-    }
-
-    public FXMLLoader getFxmlLoader()
-    {
-        return fxmlLoader;
     }
 
     public Canvas getWorldCanvas()

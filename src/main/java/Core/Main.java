@@ -1,11 +1,8 @@
 package Core;
 
 import Core.WorldView.WorldView;
-import GuiController.MainMenuController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class Main extends Application
@@ -19,11 +16,11 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage)
     {
-        //Game Window
         GameWindow gameWindowController = GameWindow.getSingleton();
-        MainMenuController mainMenuController = new MainMenuController();
+        //MainMenuController mainMenuController = new MainMenuController();
         gameWindowController.setTitle("Game Window");
-        gameWindowController.createNextScene(mainMenuController);
+        //gameWindowController.createNextScene(mainMenuController);
+        gameWindowController.createNextScene(WorldView.getSingleton());
         gameWindowController.showWindow();
 
 

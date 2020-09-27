@@ -58,8 +58,6 @@ public class GameWindow extends Stage
             mouseMoved = true;
             mousePosition = new Point2D(event.getX(), event.getY());
         });
-
-
         gameStage.setScene(gameScene);
     }
 
