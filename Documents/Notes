@@ -130,17 +130,20 @@
 
 QUEST 1:
 
-GGF rework:
-1) Regular Day: deactivate (unknown) cryo capsule, air system repair, repair personal bot, grow plant for life support
-2) Now Work Day: steal and check capsules
-3) Meteor find secret
-
 Staff: 2 technicians, doctor, housekeeper, tenderer, 2 guards
 Start in WC, after exiting, your roomate approaches you:
     This took long haha, at least the toilet is free for now.
-    Do you have some food, I didnt get a job today (medincinist)? => no, unfortunately not
+    Do you have some food, I didnt get work today (medincinist)? => no, unfortunately not
     Go to the tenderer, maybe there is something for technicians, You need something
-Commander at command center: (few work)
+    I am broke, but we should arrive Ceres soon..
+Regular Day:
+    Deactivate (unknown) Cryocapsule
+    Repair Air System
+    Repair personal bot
+    Grow Plant for life support
+        => Get Money
+No Work Day:
+    Commander at command center:
     1 Maintenance Job today, average workday actually 20; Who wants it?
     [You bet]
     Other Tec Collegue: I will do it for 15. - Is there a better offer?
