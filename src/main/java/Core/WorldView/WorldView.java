@@ -76,7 +76,7 @@ public class WorldView
 
     //TextBox Overlay
     static Textbox textbox;
-    static Point2D textBoxPosition = new Point2D(CAMERA_WIDTH / 2f - Textbox.getTEXT_BOX_WIDTH() / 2, CAMERA_HEIGHT - Textbox.getTEXT_BOX_HEIGHT() - 32);
+    static Point2D textBoxPosition = TEXT_BOX_POSITION;
 
     //Personality Overlay
     static PersonalityScreenController personalityScreenController;

@@ -2,6 +2,7 @@ package Core;
 
 import Core.ActorSystem.GlobalSystemStatus;
 import Core.ActorSystem.SystemStatus;
+import Core.Menus.Textbox.Textbox;
 import javafx.geometry.Point2D;
 
 import java.util.List;
@@ -18,8 +19,10 @@ public class Config
     public static final double GAME_WINDOW_HEIGHT = 900;
     public static final int CAMERA_WIDTH = 1200;
     public static final int CAMERA_HEIGHT = 800;
+
     public static final int TEXTBOX_WIDTH = 800;
     public static final int TEXTBOX_HEIGHT = 400;
+    public static final Point2D TEXT_BOX_POSITION = new Point2D(CAMERA_WIDTH / 2f - TEXTBOX_WIDTH / 2, CAMERA_HEIGHT - TEXTBOX_HEIGHT - 32);
     public static final int FONT_Y_OFFSET_ESTROG__SIZE30 = 10;
 
     public static final int PERSONALITY_WIDTH = 900;

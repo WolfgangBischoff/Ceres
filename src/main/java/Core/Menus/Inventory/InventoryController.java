@@ -79,14 +79,13 @@ public class InventoryController
         boolean clickedIntoOverlayOther = otherInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean clickedIntoOverlayShop = shopOverlay.getSCREEN_AREA().contains(mousePosition);
 
-
+        //Check if player clicked outside the inventory to exit
         if(isMouseClicked && !clickedIntoOverlayPlayer && WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY)
         {
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
             playerActor.setLastInteraction(currentNanoTime);
         }else
             playerInventoryOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
-
 
         if (WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_EXCHANGE)
         {

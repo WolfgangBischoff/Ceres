@@ -8,14 +8,13 @@
 - Mechanics
     - Game Over if health == 0
     - Add set item mechanic
-    - Quest aka tenderer checks if condition fullfilled
+    - Quest aka tenderer checks if condition full filled
         - add global system state (on/off), that know ancessors and precessors
         - status checked by tenderer
 - Economy
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
     - Vendor to buy items by debit card
 - Textbox
-    - textbox skip function; eg with "skipbreakers" dialiguesIn
     - DialogueFile part of sprite status, part of sprite?
     - more items with description, ggf more light weight textbox, function like coffee
     - change Door status if discussion won
