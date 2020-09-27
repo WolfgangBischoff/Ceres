@@ -1,0 +1,34 @@
+
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision
+spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
+<-->
+
+<root name="airControl">
+    <dialogue id="none" type="normal">
+        <line>No message defined</line>
+    </dialogue>
+
+    <dialogue id="on" type="normal">
+        <line>You activated the air hub.</line>
+    </dialogue>
+
+
+    <dialogue id="off" type="normal">
+        <line>You de-activated the air hub.</line>
+    </dialogue>
+
+
+    <dialogue id="analysis-on" type="normal">
+        <line> Atmosphere junction operates at full power.</line>
+    </dialogue>
+
+    <dialogue id="analysis-off" type="normal">
+        <line> Atmosphere junction has failed.</line>
+    </dialogue>
+</root>
+

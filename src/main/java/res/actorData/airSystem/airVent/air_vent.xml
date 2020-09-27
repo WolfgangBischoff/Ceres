@@ -1,0 +1,74 @@
+
+
+
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision
+spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
+
+    <dialogue id="welcome" type="normal" spritestatus="transition">
+        <line>Shown message</line>
+        <line>Shown message 2</line>
+        <nextDialogue>nextDialogueID</nextDialogue>
+    </dialogue>
+
+    <dialogue id="info" type="decision" spritestatus="transition">
+        <option>
+            <line>Optiontext1</line>
+            <nextDialogue>option1ID</nextDialogue>
+        </option>
+
+        <option>
+            <line>Optiontext1, Nothing happens</line>
+        </option>
+    </dialogue>
+<-->
+
+<root name="air_vent">
+    <dialogue id="none" type="normal">
+        <line>air_vent No message defined</line>
+    </dialogue>
+
+    <dialogue id="analysis-init-on" type="normal">
+        <line> is at full capacity</line>
+    </dialogue>
+
+    <dialogue id="analysis-init-off" type="normal">
+        <line> detected an unknown malfunction</line>
+    </dialogue>
+
+    <dialogue id="analysis-init-baseSystemOffline" type="normal">
+        <line> has no air pressure</line>
+    </dialogue>
+
+    <dialogue id="init-on" type="normal">
+        <line>Fresh air streams into your face</line>
+    </dialogue>
+
+    <dialogue id="init-off" type="normal">
+        <line>Looks dirty and congested</line>
+        <nextDialogue>off-cleanDec</nextDialogue>
+    </dialogue>
+
+    <dialogue id="init-baseSystemOffline" type="normal">
+        <line>Looks good, but no air streams</line>
+    </dialogue>
+
+    <dialogue id="off-cleanDec" type="decision">
+        <option>
+            <line>[Clean the ventilation]</line>
+            <nextDialogue>cleanDec-cleaned</nextDialogue>
+        </option>
+        <option>
+            <line>[Go away]</line>
+        </option>
+    </dialogue>
+
+    <dialogue id="cleanDec-cleaned" type="normal" spritestatus="on">
+        <line>The air can stream again.</line>
+    </dialogue>
+</root>
+

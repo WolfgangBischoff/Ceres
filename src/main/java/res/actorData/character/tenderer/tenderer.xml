@@ -1,0 +1,87 @@
+
+
+
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision
+spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
+
+    <dialogue id="welcome" type="normal" spritestatus="transition">
+        <line>Shown message</line>
+        <line>Shown message 2</line>
+        <nextDialogue>nextDialogueID</nextDialogue>
+    </dialogue>
+
+    <dialogue id="info" type="decision" spritestatus="transition">
+        <option>
+            <line>Optiontext1</line>
+            <nextDialogue>option1ID</nextDialogue>
+        </option>
+
+        <option>
+            <line>Optiontext1, Nothing happens</line>
+        </option>
+    </dialogue>
+
+"   &quot;
+'   &apos;
+<   &lt;
+>   &gt;
+&   &amp;
+
+<-->
+
+<root name="tenderer">
+    <dialogue id="day0" type="normal">
+       <line>Hi, I am the tenderer</line>
+       <line>I have a job for you, if you are interested...</line>
+        <nextDialogue>job-decision</nextDialogue>
+    </dialogue>
+
+    <dialogue id="job-decision" type="decision">
+        <option>
+            <line>&gt;What should I do?&lt;</line>
+            <nextDialogue>game-explanation</nextDialogue>
+        </option>
+        <option>
+            <line>[Do the job]</line>
+            <nextDialogue>tenderer-game</nextDialogue>
+        </option>
+        <option>
+            <line>Never mind.</line>
+        </option>
+    </dialogue>
+
+    <dialogue id="tenderer-game" type="discussion" game="lifesupport" success="game-success" defeat="game-defeat"/>
+
+    <dialogue id="game-success" type = "normal">
+        <line>CereX thanks for you cooperation.</line>
+        <nextDialogue>getMoney</nextDialogue>
+    </dialogue>
+    <dialogue id="game-defeat" type = "normal">
+        <line>Maybe you should take a CereX Trainee Course.</line>
+        <nextDialogue>good-bye</nextDialogue>
+    </dialogue>
+
+    <dialogue id="getMoney" type="getMoney" amount="50">
+        <line>Here you have your salary.</line>
+    </dialogue>
+
+    <dialogue id="good-bye" type="normal">
+        <line>Have a nice day.</line>
+    </dialogue>
+
+    <dialogue id="game-explanation" type="normal">
+        <line>Lets discuss the value of your work. Once the discussion begins, you have to click on the right coins, which fit to me.</line>
+        <line>But as long you dont know me well, you basically have to guess. Once we get in touch more often you get more hints. Check out INFO</line>
+        <nextDialogue>job-decision</nextDialogue>
+    </dialogue>
+
+
+
+
+</root>
+

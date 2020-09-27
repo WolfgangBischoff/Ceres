@@ -1,0 +1,48 @@
+
+
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision
+actorstatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
+
+    <dialogue id="welcome" type="normal" actorstatus="transition">
+        <line>Shown message</line>
+        <line>Shown message 2</line>
+        <nextDialogue>nextDialogueID</nextDialogue>
+    </dialogue>
+
+    <dialogue id="info" type="decision" actorstatus="transition">
+        <option>
+            <line>Optiontext1</line>
+            <nextDialogue>option1ID</nextDialogue>
+        </option>
+
+        <option>
+            <line>Optiontext1, Nothing happens</line>
+        </option>
+    </dialogue>
+<-->
+
+<root name = "box">
+    <dialogue id="none" type="normal">
+        <line>Lorem Ipsum</line>
+    </dialogue>
+
+    <dialogue id="default" type="normal">
+        <line>Your found a green box.</line>
+    </dialogue>
+
+    <dialogue id="init-locked" type="normal">
+        <line>The box is locked.</line>
+    </dialogue>
+
+    <dialogue id="init-get" type="normal">
+        <line>You have the fitting key.</line>
+    </dialogue>
+
+</root>
+
+

@@ -1,0 +1,17 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+#condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
+
+#sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+sensorStatus	;default																			;none																					;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+sensorStatus	;inventory																	;inventory_shop											;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;persistent										;none
+
+#status to image
+#status 			;name   						;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning 						;duration ;velocity ;dialogueID ;AnimationEnds
+default				;smile vendor	;../actorData/system_vendor/smile/vendor_128_160									;true				;1												;000	;000										;000	;000	;000								;000									;000											;100	 									;128									;60											;whitelight_256		;000						;000						;none							;false
+
+#contains_collectible ;actor file path								;IngameName							;SpriteStatus;AMOUNT
+contains_collectible 	;collectibles/food/food	;Algae Stew							;algaeStew			;15
+contains_collectible 	;collectibles/food/food	;Asia Star Bento		;asiaStar				;3

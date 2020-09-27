@@ -1,0 +1,20 @@
+
+#interactionArea
+#dialogueFile; path
+#transition; fromStatus; toStatus
+
+textbox_analysis_group; airSystemMonitor
+
+#Status transition map
+transition; on; off
+transition; off; on
+
+#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;on--SensorTT ;on--SensorTT ;onInRangeTT	;inRangeStatus	;on--SensorTT ;on--SensorTT ;onIntersectionTT	;intersectionStatus;on--SensorTT ;on--SensorTT ;onUpdate			;UpdateToStatus	;on--SensorTT ;on--SensorTT ;onMonitor;on--SensorTT ;onTextBox;on--SensorTT
+sensorStatus	;default										;textbox_analysis									;none  	 																;none								 ;none								 ;none								;none										;none								 ;none								 ;none													;none														;none								 ;none								 ;none							;none											;none								 ;none								 ;none					;none								 ;persistent;none
+
+dialogueFile; actorData/statusScreen/airTerminal
+
+#status to image
+#status 																;name   				;spritename  																						;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+ON  			 																;screen 				;machines/statusScreenG												;true				;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;whitelight_256;0								;0								;init-on				;false
+OFF 		  																;screen 				;machines/statusScreenR												;true				;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;0								;0								;init-off			;false

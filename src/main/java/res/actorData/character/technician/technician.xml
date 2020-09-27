@@ -1,0 +1,125 @@
+
+
+
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision
+spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
+
+    <dialogue id="welcome" type="normal" spritestatus="transition">
+        <line>Shown message</line>
+        <line>Shown message 2</line>
+        <nextDialogue>nextDialogueID</nextDialogue>
+    </dialogue>
+
+    <dialogue id="info" type="decision" spritestatus="transition">
+        <option>
+            <line>Optiontext1</line>
+            <nextDialogue>option1ID</nextDialogue>
+        </option>
+
+        <option>
+            <line>Optiontext1, Nothing happens</line>
+        </option>
+    </dialogue>
+<-->
+
+<root name="technician">
+    <dialogue id="init-door" type="decision">
+        <option>
+            <line>Whats behind this door?</line>
+            <nextDialogue>door-info</nextDialogue>
+        </option>
+        <option>
+            <line>Can you open the door?</line>
+            <nextDialogue>door-discussion</nextDialogue>
+        </option>
+        <option>
+            <line>[Leave]</line>
+        </option>
+    </dialogue>
+
+    <dialogue id="door-info" type = "normal">
+        <line>Its the life support systems, but nobody has access without a good reason.</line>
+        <nextDialogue>init-door</nextDialogue>
+    </dialogue>
+
+
+    <dialogue id="door-discussion" type = "normal">
+        <line>If you don't have a good reason stop bothering me.</line>
+        <nextDialogue>discussion-game</nextDialogue>
+    </dialogue>
+
+    <dialogue id="discussion-game" type="decision">
+        <option>
+            <line>[Tell him, that you need access]</line>
+           <nextDialogue>game-test</nextDialogue>
+        </option>
+        <option>
+            <line>[Test II]</line>
+            <nextDialogue>game-test2</nextDialogue>
+        </option>
+        <option>
+            <line>[Go away]</line>
+            <nextDialogue>init-door</nextDialogue>
+        </option>
+    </dialogue>
+
+    <dialogue id="game-test" type="discussion" game="lifesupport" success="game-success" defeat="game-defeat"/>
+    <dialogue id="game-test2" type="discussion" game="circles" success="game-success" defeat="game-defeat"/>
+
+    <dialogue id="game-success" type = "normal">
+        <line>Ok, ist ja gut. Geh einfach rein.</line>
+        <line>[Opens the door]</line>
+    </dialogue>
+    <dialogue id="game-defeat" type = "normal">
+        <line>Absolutely not, I am not convinced</line>
+        <line>[You could not convince him, maybe you should talk more to get more familiar]</line>
+    </dialogue>
+
+
+
+
+
+
+    <dialogue id="intro" type = "normal">
+        <line>Hi, hope you are ok. We will reach Ceres in around three days. Thank God, I am slowly running out of money. :O</line>
+        <line>Anyway, you have to go to the tenderer in the command center to get some money for the vendor, otherwise you have to starve..</line>
+        <line>If the stars stand well, he will give you a good price.. and if not.. you know..</line>
+        <line>.. one freight capsule is full of food supplies for Ceres, but if they note something is missing they will increase security.</line>
+        <line>Take care man, we have weird times..</line>
+        <nextDialogue>intro-questions</nextDialogue>
+    </dialogue>
+
+    <dialogue id="intro-questions" type="decision">
+        <option>
+            <line>&gt;Where is the command center?&lt;</line>
+            <nextDialogue>command-center-info</nextDialogue>
+        </option>
+        <option>
+            <line>&gt;Where is the vendor?&lt;</line>
+            <nextDialogue>vendor-info</nextDialogue>
+        </option>
+        <option>
+            <line>[Go away]</line>
+        </option>
+    </dialogue>
+
+    <dialogue id="command-center-info" type = "normal">
+        <line>Its on the upper freight deck, just take the elevator up and follow the hallway.</line>
+        <nextDialogue>intro-questions</nextDialogue>
+    </dialogue>
+
+    <dialogue id="vendor-info" type = "normal">
+        <line>Its on the lower crew-deck, next to the elevator.</line>
+        <nextDialogue>intro-questions</nextDialogue>
+    </dialogue>
+
+
+
+
+</root>
+
