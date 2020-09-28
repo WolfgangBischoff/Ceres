@@ -23,6 +23,7 @@
     - crew deck (competitor, doctor, security, rescue pods, storage, fix enviroment)
     - freight deck
         - implement bump on trigger
+        - add right capsule wall
 - Cleaning Bot Moving
     - add definition in file
 - Inventory

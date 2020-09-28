@@ -19,8 +19,10 @@ public class SpriteData
     final static int hitboxWidthIdx = 13;
     final static int hitboxHeightIdx = 14;
     final static int lightningSpriteNameIdx = 15;
+
     final static int animationDurationIdx = 16;
     final static int velocityIdx = 17;
+    final static int dialogueFileIdx = 17; //TODO
     final static int dialogueIDIdx = 18;
     final static int animationEndsIdx = 19;
 
