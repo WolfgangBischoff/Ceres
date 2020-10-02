@@ -18,6 +18,16 @@ public class ActorGroup
         systemMembers.add(actor);
     }
 
+    public Actor getActor(String ingameName)
+    {
+        for (Actor a : systemMembers)
+        {
+            if (a.getActorInGameName().equals(ingameName))
+                return a;
+        }
+        return null;
+    }
+
     public ActorGroup(String id)
     {
         this.id = id;

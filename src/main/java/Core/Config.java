@@ -123,6 +123,7 @@ public class Config
     //Paths
     public static final String CSV_POSTFIX = ".csv";
     public static final String PNG_POSTFIX = ".png";
+    public static final String RESOURCES_FILE_PATH = "build/resources/main/";
     public static final String DIALOGUE_FILE_PATH = "build/resources/main/";
     public static final String ACTOR_DIRECTORY_PATH = "build/resources/main/actorData/";
     public static final String STAGE_FILE_PATH = "build/resources/main/level/";
@@ -148,8 +149,5 @@ public class Config
     //Management-Attention-Meter MAM
     public static final int MAM_DAILY_DECREASE = 2;
     public static final int MAM_THRESHOLD_INTERROGATION = 6;
-
-    //Global System Init Statii
-    public static final List<GlobalSystemStatus> INIT_GLOBAL_SYSTEM_STATUS_LIST = List.of(new GlobalSystemStatus("transporter_airSystem_base", SystemStatus.ON));
 
 }

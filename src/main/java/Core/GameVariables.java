@@ -41,7 +41,7 @@ public class GameVariables
     {
         clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
         lastTimeHungerFromTime = clock.time.getValue();
-        GlobalSystemStatus.init();
+        globalSystemStatusList = GlobalSystemStatus.init();
     }
 
     public static void setPlayer(Sprite player)

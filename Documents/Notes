@@ -9,6 +9,8 @@
     - Game Over if health == 0
     - Add set item mechanic
     - Quest aka tenderer checks if condition full filled
+        - check if Stage Monitor is reusable
+        - add global system file and initialize
         - add global system state (on/off), that know ancessors and precessors
         - status checked by tenderer
 - Economy

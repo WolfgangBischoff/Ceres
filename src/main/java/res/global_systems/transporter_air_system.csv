@@ -1,0 +1,14 @@
+
+
+#air System
+ACTORS:
+airVeR					;airSystem/airVent/airVent															;Right ventilation								;off																;default							;undefined
+airVeL					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;default							;undefined
+hydrOK					;airSystem/hydraulic/hydraulic											;Air hub																		;OFF																;default							;undefined
+
+
+#Air System
+ACTORGROUPS:
+#airSystemMonitor	;none 																										;none 													;airCon ;airVeR; airVeL
+airSystemBase				;isBaseSystem 																		;airSystemEnd 					;hydrOK
+airSystemEnd					;none 																										;none 													;airVeR ;airVeL

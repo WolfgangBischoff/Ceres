@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class StageMonitor
 {
-    private final static String CLASSNAME = "StageMonitor/";
-    Map<String, String> groupToLogicMap = new HashMap<>(); //TODO Use ENUM
+    private final static String CLASSNAME = "StageMonitor ";
+    Map<String, String> groupToLogicMap = new HashMap<>();
     Map<String, String> groupIdToInfluencedGroupIdMap = new HashMap<>();
     Map<String, ActorGroup> groupIdToActorGroupMap = new HashMap<>();
 
