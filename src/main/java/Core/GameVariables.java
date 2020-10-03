@@ -1,6 +1,6 @@
 package Core;
 
-import Core.ActorSystem.GlobalSystemStatus;
+import Core.ActorSystem.GlobalActorsManager;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Core.Config.*;
 import static Core.Config.INIT_HEALTH;
 import static Core.Config.INIT_HUNGER;
 import static Core.Config.INIT_MONEY;
@@ -28,7 +27,8 @@ public class GameVariables
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
     static private int day = 0;
     static private Clock clock;
-    static private List<GlobalSystemStatus> globalSystemStatusList = new ArrayList<>();
+    static private List<GlobalActorsManager> globalActorsManagerList = new ArrayList<>();
+    static private StageMonitor globalSystemsMonitor = new StageMonitor();
 
     //Game State persistent over days
     static Sprite player;
@@ -41,7 +41,7 @@ public class GameVariables
     {
         clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
         lastTimeHungerFromTime = clock.time.getValue();
-        globalSystemStatusList = GlobalSystemStatus.init();
+        //globalActorsManagerList = GlobalActorsManager.init();
     }
 
     public static void setPlayer(Sprite player)
@@ -236,10 +236,5 @@ public class GameVariables
     {
         if (health <= MAX_HEALTH)
             GameVariables.health = health;
-    }
-
-    public static List<GlobalSystemStatus> getGlobalSystemStatusList()
-    {
-        return globalSystemStatusList;
     }
 }

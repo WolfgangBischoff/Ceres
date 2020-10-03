@@ -55,9 +55,4 @@ public class ActorCondition
         }
         return false;
     }
-
-    public enum WorldViewStatus
-    {
-        WORLD_VIEW, INVENTORY_OPEN, INVENTORY_EXCHANGE, INVENTORY_SHOP
-    }
 }

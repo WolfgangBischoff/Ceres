@@ -45,6 +45,7 @@ public class Actor
 
     //General
     String actorFileName;
+    String actorId;
     String actorInGameName;
     private Direction direction;
     private double velocityX;
@@ -1038,5 +1039,20 @@ public class Actor
     public Point2D getTarget2()
     {
         return target2;
+    }
+
+    public void setStageMonitor(StageMonitor stageMonitor)
+    {
+        this.stageMonitor = stageMonitor;
+    }
+
+    public String getActorId()
+    {
+        return actorId;
+    }
+
+    public void setActorId(String actorId)
+    {
+        this.actorId = actorId;
     }
 }

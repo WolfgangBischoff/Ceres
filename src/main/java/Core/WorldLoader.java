@@ -1,5 +1,6 @@
 package Core;
 
+import Core.ActorSystem.GlobalActorsManager;
 import Core.Enums.Direction;
 import Core.WorldView.WorldView;
 import javafx.geometry.Rectangle2D;
@@ -42,6 +43,7 @@ public class WorldLoader
     Set<String> definedMapCodesSet = new HashSet<>();
     Map<String, SpriteData> tileDataMap = new HashMap<>();
     Map<String, ActorData> actorDataMap = new HashMap<>();
+    Map<String, Actor> globalActorsMap = new HashMap<>();
     Map<String, SpawnData> spawnPointsMap = new HashMap<>();
     StageMonitor stageMonitor = new StageMonitor();
     Map<String, ActorGroupData> actorGroupDataMap = new HashMap<>();
@@ -68,6 +70,7 @@ public class WorldLoader
             keywords.add(KEYWORD_SPAWNPOINTS);
             keywords.add(KEYWORD_INCLUDE);
             keywords.add(KEYWORD_POSITION);
+            keywords.add(KEYWORD_GLOBAL_SYSTEM_ACTOR);
         }
 
     }
@@ -160,10 +163,28 @@ public class WorldLoader
                 case KEYWORD_POSITION:
                     readPosition(lineData);
                     break;
+                case KEYWORD_GLOBAL_SYSTEM_ACTOR:
+                   getGlobalSystemActor(lineData);
+                   break;
                 default:
                     throw new RuntimeException(CLASSNAME + methodName + "readMode unknown: " + readMode);
             }
         }
+
+    }
+
+    private void getGlobalSystemActor(String[] linedata)
+    {
+        String methodName = "getGlobalSystemActor() ";
+        GlobalActorsManager.loadGlobalSystem(linedata[0]);
+        List<String> actorIds = Arrays.asList(linedata).subList(1,linedata.length);
+        globalActorsMap.putAll(GlobalActorsManager.getGlobalActors(actorIds));
+        System.out.println(CLASSNAME + methodName+  globalActorsMap);
+                    /*//TODO
+                    Load Global System if not already loaded
+                    get Actors with sprites, add to globalActorMap
+                    Set position on Map
+                     */
 
     }
 
@@ -332,7 +353,6 @@ public class WorldLoader
                 lineNumber = lineData[0];
                 lineData = Arrays.copyOfRange(lineData, 1, lineData.length);
             }
-
 
             //Is Tile
             if (tileDataMap.containsKey(lineData[currentHorizontalTile]))

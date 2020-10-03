@@ -18,11 +18,21 @@ public class ActorGroup
         systemMembers.add(actor);
     }
 
-    public Actor getActor(String ingameName)
+    public boolean containsActor(String actorId)
     {
         for (Actor a : systemMembers)
         {
-            if (a.getActorInGameName().equals(ingameName))
+            if (a.getActorId().equals(actorId))
+                return true;
+        }
+        return false;
+    }
+
+    public Actor getActor(String actorId)
+    {
+        for (Actor a : systemMembers)
+        {
+            if (a.getActorId().equals(actorId))
                 return a;
         }
         return null;

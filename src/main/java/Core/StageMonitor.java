@@ -14,6 +14,16 @@ public class StageMonitor
     Map<String, String> groupIdToInfluencedGroupIdMap = new HashMap<>();
     Map<String, ActorGroup> groupIdToActorGroupMap = new HashMap<>();
 
+    public Actor getActorById(String actorId)
+    {
+        for(Map.Entry<String, ActorGroup> entry : groupIdToActorGroupMap.entrySet())
+        {
+            if(entry.getValue().containsActor(actorId))
+            return entry.getValue().getActor(actorId);
+        }
+        return null;
+    }
+
     public void addActorToActorSystem(String actorSystemId, Actor actor)
     {
         boolean debug = false;
@@ -191,4 +201,43 @@ public class StageMonitor
         return influencedStatus;
     }
 
+    public Map<String, String> getGroupToLogicMap()
+    {
+        return groupToLogicMap;
+    }
+
+    public void setGroupToLogicMap(Map<String, String> groupToLogicMap)
+    {
+        this.groupToLogicMap = groupToLogicMap;
+    }
+
+    public Map<String, String> getGroupIdToInfluencedGroupIdMap()
+    {
+        return groupIdToInfluencedGroupIdMap;
+    }
+
+    public void setGroupIdToInfluencedGroupIdMap(Map<String, String> groupIdToInfluencedGroupIdMap)
+    {
+        this.groupIdToInfluencedGroupIdMap = groupIdToInfluencedGroupIdMap;
+    }
+
+    public Map<String, ActorGroup> getGroupIdToActorGroupMap()
+    {
+        return groupIdToActorGroupMap;
+    }
+
+    public void setGroupIdToActorGroupMap(Map<String, ActorGroup> groupIdToActorGroupMap)
+    {
+        this.groupIdToActorGroupMap = groupIdToActorGroupMap;
+    }
+
+    @Override
+    public String toString()
+    {
+        return
+                "groupToLogicMap=" + groupToLogicMap +
+                ", groupIdToInfluencedGroupIdMap=" + groupIdToInfluencedGroupIdMap +
+                ", groupIdToActorGroupMap=" + groupIdToActorGroupMap
+                ;
+    }
 }
