@@ -577,4 +577,114 @@ public class Sprite
     {
         this.layer = layer;
     }
+
+    public void setFps(double fps)
+    {
+        this.fps = fps;
+    }
+
+    public void setTotalFrames(int totalFrames)
+    {
+        this.totalFrames = totalFrames;
+    }
+
+    public void setCols(int cols)
+    {
+        this.cols = cols;
+    }
+
+    public void setRows(int rows)
+    {
+        this.rows = rows;
+    }
+
+    public void setFrameWidth(double frameWidth)
+    {
+        this.frameWidth = frameWidth;
+    }
+
+    public void setFrameHeight(double frameHeight)
+    {
+        this.frameHeight = frameHeight;
+    }
+
+    public void setCurrentCol(int currentCol)
+    {
+        this.currentCol = currentCol;
+    }
+
+    public void setCurrentRow(int currentRow)
+    {
+        this.currentRow = currentRow;
+    }
+
+    public void setBlockedByOtherSprite(Boolean blockedByOtherSprite)
+    {
+        this.blockedByOtherSprite = blockedByOtherSprite;
+    }
+
+    public void setHitBoxOffsetX(double hitBoxOffsetX)
+    {
+        this.hitBoxOffsetX = hitBoxOffsetX;
+    }
+
+    public void setHitBoxOffsetY(double hitBoxOffsetY)
+    {
+        this.hitBoxOffsetY = hitBoxOffsetY;
+    }
+
+    public void setHitBoxWidth(double hitBoxWidth)
+    {
+        this.hitBoxWidth = hitBoxWidth;
+    }
+
+    public void setHitBoxHeight(double hitBoxHeight)
+    {
+        this.hitBoxHeight = hitBoxHeight;
+    }
+
+    public void setBaseimage(Image baseimage)
+    {
+        this.baseimage = baseimage;
+    }
+
+    public void setBasewidth(double basewidth)
+    {
+        this.basewidth = basewidth;
+    }
+
+    public void setBaseheight(double baseheight)
+    {
+        this.baseheight = baseheight;
+    }
+
+    public void setPositionX(double positionX)
+    {
+        this.positionX = positionX;
+    }
+
+    public void setPositionY(double positionY)
+    {
+        this.positionY = positionY;
+    }
+
+    public void setLastFrame(Long lastFrame)
+    {
+        this.lastFrame = lastFrame;
+    }
+
+    public void setLastUpdated(Long lastUpdated)
+    {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public void setInteractionArea(Rectangle2D interactionArea)
+    {
+        this.interactionArea = interactionArea;
+    }
+
+    public void setActor(Actor actor)
+    {
+        this.actor = actor;
+    }
 }

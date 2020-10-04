@@ -59,7 +59,7 @@ public class StageMonitor
     public void sendSignalFrom(String notifyingGroup)
     {
         String methodName = "sendSignalFrom(String)";
-        boolean debug = false;
+        boolean debug = true;
         String targetGroupID = groupIdToInfluencedGroupIdMap.get(notifyingGroup);
         String logicCode = groupToLogicMap.get(notifyingGroup);
 

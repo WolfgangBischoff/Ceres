@@ -410,8 +410,8 @@ public class Actor
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
+            //System.out.println(CLASSNAME + methodName + getActorInGameName());
             updateStatusFromConditions(activeSprite);
-
             //react
             evaluateTriggerType(sensorStatus.onInteraction_TriggerSprite, sensorStatus.onInteractionToStatusSprite, activeSprite.actor);
             setLastInteraction(currentNanoTime);
@@ -786,7 +786,7 @@ public class Actor
             System.out.println(CLASSNAME + methodName + "No status transition found for " + actorFileName + " " + generalStatus + " in " + statusTransitions);
     }
 
-    void updateCompoundStatus()
+    public void updateCompoundStatus()
     {
         String methodName = "updateCompoundStatus() ";
         boolean debug = true;
@@ -803,8 +803,6 @@ public class Actor
 
         if (!(oldCompoundStatus.equals(compoundStatus)))
         {
-            if (actorFileName.equals("desinfection"))
-                System.out.println(CLASSNAME + methodName + " set sprite status from " + oldCompoundStatus + " to " + compoundStatus);
             changeSprites();
         }
 
@@ -1054,5 +1052,130 @@ public class Actor
     public void setActorId(String actorId)
     {
         this.actorId = actorId;
+    }
+
+    public void setActorFileName(String actorFileName)
+    {
+        this.actorFileName = actorFileName;
+    }
+
+    public void setActorInGameName(String actorInGameName)
+    {
+        this.actorInGameName = actorInGameName;
+    }
+
+    public void setVelocityX(double velocityX)
+    {
+        this.velocityX = velocityX;
+    }
+
+    public void setVelocityY(double velocityY)
+    {
+        this.velocityY = velocityY;
+    }
+
+    public void setInteractionAreaWidth(double interactionAreaWidth)
+    {
+        this.interactionAreaWidth = interactionAreaWidth;
+    }
+
+    public void setInteractionAreaDistance(double interactionAreaDistance)
+    {
+        this.interactionAreaDistance = interactionAreaDistance;
+    }
+
+    public void setInteractionAreaOffsetX(double interactionAreaOffsetX)
+    {
+        this.interactionAreaOffsetX = interactionAreaOffsetX;
+    }
+
+    public void setInteractionAreaOffsetY(double interactionAreaOffsetY)
+    {
+        this.interactionAreaOffsetY = interactionAreaOffsetY;
+    }
+
+    public void setGeneralStatus(String generalStatus)
+    {
+        this.generalStatus = generalStatus;
+    }
+
+    public void setCompoundStatus(String compoundStatus)
+    {
+        this.compoundStatus = compoundStatus;
+    }
+
+    public void setSensorStatusMap(Map<String, SensorStatus> sensorStatusMap)
+    {
+        this.sensorStatusMap = sensorStatusMap;
+    }
+
+    public void setSensorStatus(SensorStatus sensorStatus)
+    {
+        this.sensorStatus = sensorStatus;
+    }
+
+    public void setConditions(List<ActorCondition> conditions)
+    {
+        this.conditions = conditions;
+    }
+
+    public void setDialogueFileName(String dialogueFileName)
+    {
+        this.dialogueFileName = dialogueFileName;
+    }
+
+    public void setDialogueStatusID(String dialogueStatusID)
+    {
+        this.dialogueStatusID = dialogueStatusID;
+    }
+
+    public void setCollectable_type(String collectable_type)
+    {
+        this.collectable_type = collectable_type;
+    }
+
+    public void setTextbox_analysis_group_name(String textbox_analysis_group_name)
+    {
+        this.textbox_analysis_group_name = textbox_analysis_group_name;
+    }
+
+    public void setMemberActorGroups(List<String> memberActorGroups)
+    {
+        this.memberActorGroups = memberActorGroups;
+    }
+
+    public void setInventory(Inventory inventory)
+    {
+        this.inventory = inventory;
+    }
+
+    public void setTags(Set<ActorTag> tags)
+    {
+        this.tags = tags;
+    }
+
+    public void setPersonalityContainer(PersonalityContainer personalityContainer)
+    {
+        this.personalityContainer = personalityContainer;
+    }
+
+    public void setNumeric_generic_attributes(Map<String, Double> numeric_generic_attributes)
+    {
+        this.numeric_generic_attributes = numeric_generic_attributes;
+    }
+
+    public void setMovenmentPointsList(List<Point2D> movenmentPointsList)
+    {
+        this.movenmentPointsList = movenmentPointsList;
+    }
+
+    public void setTarget(Point2D target)
+    {
+        this.target = target;
+    }
+
+    public void setTarget2(Point2D target2)
+    {
+        this.target2 = target2;
     }
 }

@@ -40,7 +40,7 @@ public class WorldLoader
     List<Sprite> mediumLayer = new ArrayList<>();
     List<Sprite> upperLayer = new ArrayList<>();
 
-    Set<String> definedMapCodesSet = new HashSet<>();
+    Set<String> loadedTileIdsSet = new HashSet<>();
     Map<String, SpriteData> tileDataMap = new HashMap<>();
     Map<String, ActorData> actorDataMap = new HashMap<>();
     Map<String, Actor> globalActorsMap = new HashMap<>();
@@ -112,9 +112,9 @@ public class WorldLoader
         readFile(this.levelName);
         borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64, (maxVerticalTile) * 64);
 
-        if (definedMapCodesSet.size() > 0)
-            System.out.println(CLASSNAME + methodName + " found unused tile or actor definitions "+ definedMapCodesSet + " while loading: " + levelName);
-        definedMapCodesSet.clear();
+        if (loadedTileIdsSet.size() > 0)
+            System.out.println(CLASSNAME + methodName + " found unused tile or actor definitions "+ loadedTileIdsSet + " while loading: " + levelName);
+        loadedTileIdsSet.clear();
 
     }
 
@@ -135,7 +135,7 @@ public class WorldLoader
             {
                 case KEYWORD_TILEDEF:
                     tileDataMap.put(lineData[SpriteData.tileCodeIdx], SpriteData.tileDefinition(lineData));
-                    definedMapCodesSet.add(lineData[SpriteData.tileCodeIdx]);
+                    loadedTileIdsSet.add(lineData[SpriteData.tileCodeIdx]);
                     break;
                 case KEYWORD_NEW_LAYER:
                     readLineOfTiles(lineData, false);
@@ -179,13 +179,8 @@ public class WorldLoader
         GlobalActorsManager.loadGlobalSystem(linedata[0]);
         List<String> actorIds = Arrays.asList(linedata).subList(1,linedata.length);
         globalActorsMap.putAll(GlobalActorsManager.getGlobalActors(actorIds));
-        System.out.println(CLASSNAME + methodName+  globalActorsMap);
-                    /*//TODO
-                    Load Global System if not already loaded
-                    get Actors with sprites, add to globalActorMap
-                    Set position on Map
-                     */
-
+        loadedTileIdsSet.addAll(actorIds);
+        //System.out.println(CLASSNAME + methodName+  globalActorsMap);
     }
 
     private void readPosition(String[] lineData)
@@ -203,7 +198,7 @@ public class WorldLoader
         {
             actor.spriteList.get(j).setPosition(xPos, yPos);
             addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
-            definedMapCodesSet.remove(actorId);//Check for ununsed Definitions
+            loadedTileIdsSet.remove(actorId);//Check for ununsed Definitions
             //System.out.println(CLASSNAME + methodName + actor.spriteList.get(j).getPositionX() +" "+ actor.spriteList.get(j).getPositionY());
         }
     }
@@ -380,10 +375,23 @@ public class WorldLoader
                 else
                     addToCollisionLayer(ca, tile.heightLayer);
             }
-            //Is Actor
+            //Is Actor that is just relevant on this stage
             else if (actorDataMap.containsKey(lineData[currentHorizontalTile]))
             {
                 Actor actor = createActor(lineData[currentHorizontalTile]);
+                activeLayer.addAll(actor.spriteList);
+                List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
+                for (int j = 0; j < spriteDataList.size(); j++)
+                    addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
+            }
+            //Is Actor of global System
+            else if(globalActorsMap.containsKey(lineData[currentHorizontalTile]))
+            {
+                Actor actor = globalActorsMap.get(lineData[currentHorizontalTile]);
+                actor.getSpriteList().forEach(sprite -> {
+                    sprite.setPosition(currentHorizontalTile * 64, currentVerticalTile * 64);
+                });
+
                 activeLayer.addAll(actor.spriteList);
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
                 for (int j = 0; j < spriteDataList.size(); j++)
@@ -401,7 +409,7 @@ public class WorldLoader
             else if (!lineData[currentHorizontalTile].equals(Config.MAPDEFINITION_EMPTY))
                 System.out.println("WorldLoader readTile: tile definition not found: " + lineData[currentHorizontalTile] + " in line " + lineNumber + " column " + currentHorizontalTile);
 
-            definedMapCodesSet.remove(lineData[currentHorizontalTile]); //For usage check of defined tiles and actors
+            loadedTileIdsSet.remove(lineData[currentHorizontalTile]); //For usage check of defined tiles and actors
             maxHorizontalTile = Math.max(currentHorizontalTile, maxHorizontalTile);
         }
 
@@ -421,6 +429,7 @@ public class WorldLoader
 
         //foreach Sprite Data add Sprite to layer, Actor save sprite
         Actor actor = new Actor(actorData.actorFileName, actorData.actorInGameName, actorData.generalStatus, actorData.sensor_status, actorData.direction);
+        actor.setActorId(actorId);
         actor.updateCompoundStatus();
         List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
         if(spriteDataList == null)
@@ -470,7 +479,7 @@ public class WorldLoader
         if (actorData.actorFileName.toLowerCase().equals("player"))
             createPlayer(actorData);
         else
-            definedMapCodesSet.add(lineData[actorCodeIdx]);//Player is not defined by layers
+            loadedTileIdsSet.add(lineData[actorCodeIdx]);//Player is not defined by layers
     }
 
     private void createPlayer(ActorData actorData)
@@ -628,9 +637,9 @@ public class WorldLoader
         return activeLayer;
     }
 
-    public Set<String> getDefinedMapCodesSet()
+    public Set<String> getLoadedTileIdsSet()
     {
-        return definedMapCodesSet;
+        return loadedTileIdsSet;
     }
 
     public Map<String, SpriteData> getTileDataMap()
