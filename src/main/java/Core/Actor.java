@@ -1,6 +1,7 @@
 package Core;
 
 
+import Core.ActorMonitor.StageMonitor;
 import Core.Enums.*;
 import Core.Menus.Inventory.Inventory;
 import Core.Menus.Inventory.InventoryController;
@@ -19,7 +20,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static Core.Config.*;
 import static Core.Config.ACTOR_DIRECTORY_PATH;
 import static Core.Config.CONTAINS_COLLECTIBLE_KEYWORD;
 import static Core.Config.CSV_POSTFIX;
@@ -40,7 +40,7 @@ import static Core.Enums.ActorTag.*;
 
 public class Actor
 {
-    private static final String CLASSNAME = "Actor ";
+    private static final String CLASSNAME = "Actor/";
     private static final Set<String> actorDefinitionKeywords = new HashSet<>();
 
     //General
@@ -750,7 +750,7 @@ public class Actor
                 try
                 {
                     analyzedGroupName = textbox_analysis_group_name;//set in actor file
-                    analyzedGroup = stageMonitor.groupIdToActorGroupMap.get(analyzedGroupName).getSystemMembers();
+                    analyzedGroup = stageMonitor.getGroupIdToActorGroupMap().get(analyzedGroupName).getSystemMembers();
                     WorldView.getTextbox().groupAnalysis(analyzedGroup, this);
                 }
                 catch (NullPointerException e)

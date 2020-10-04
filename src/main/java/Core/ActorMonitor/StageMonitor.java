@@ -1,5 +1,6 @@
-package Core;
+package Core.ActorMonitor;
 
+import Core.Actor;
 import Core.ActorSystem.ActorGroup;
 import Core.WorldView.WorldView;
 
@@ -9,7 +10,7 @@ import java.util.Map;
 
 public class StageMonitor
 {
-    private final static String CLASSNAME = "StageMonitor ";
+    private final static String CLASSNAME = "StageMonitor/";
     Map<String, String> groupToLogicMap = new HashMap<>();
     Map<String, String> groupIdToInfluencedGroupIdMap = new HashMap<>();
     Map<String, ActorGroup> groupIdToActorGroupMap = new HashMap<>();
@@ -34,7 +35,7 @@ public class StageMonitor
         actorGroup.addActor(actor);
 
         if (debug)
-            System.out.println(CLASSNAME + methodName + " added " + actor.actorInGameName + " to " + actorGroup);
+            System.out.println(CLASSNAME + methodName + " added " + actor.getActorInGameName() + " to " + actorGroup);
     }
 
     public String isDependentOnGroup(List<String> checkedGroupId)
@@ -92,7 +93,7 @@ public class StageMonitor
 
     private void transitionOnChange(String notifyingGroup, String targetGroupID)
     {
-        String methodName = "triggerOnChange()";
+        String methodName = "triggerOnChange() ";
         ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
         ActorGroup signaled = groupIdToActorGroupMap.get(targetGroupID);
 
@@ -101,7 +102,7 @@ public class StageMonitor
 
     private void changeLevel(String filename_level, String spawnId)
     {
-        String methodName = "changeLevel(String)";
+        String methodName = "changeLevel(String) ";
         System.out.println(CLASSNAME + methodName + "loaded: " + filename_level + " spawn at " + spawnId);
         WorldView.getSingleton().saveStage();
         WorldView.getSingleton().loadStage(filename_level, spawnId);
@@ -156,7 +157,7 @@ public class StageMonitor
 
         for (Actor influenced : dependentSystem.getSystemMembers())
         {
-            String status = influenced.generalStatus;
+            String status = influenced.getGeneralStatus();
             String statusConsideringLogic = statusTransition_baseSystemLogic(influencingSystemStatus, status);
             influenced.onMonitorSignal(statusConsideringLogic);
         }

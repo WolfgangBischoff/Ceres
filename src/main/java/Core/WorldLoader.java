@@ -1,5 +1,6 @@
 package Core;
 
+import Core.ActorMonitor.StageMonitor;
 import Core.ActorSystem.GlobalActorsManager;
 import Core.Enums.Direction;
 import Core.WorldView.WorldView;
@@ -26,7 +27,7 @@ import static Core.Config.STAGE_FILE_PATH;
 
 public class WorldLoader
 {
-    private static final String CLASSNAME = "WorldLoader ";
+    private static final String CLASSNAME = "WorldLoader/";
     private static final Set<String> keywords = new HashSet<>();
 
     String levelName;
@@ -268,8 +269,8 @@ public class WorldLoader
         int dependentGroupName_Idx = 2;
         int start_idx_memberIds = 3;
         //System.out.println(CLASS_NAME + methodName + Arrays.toString(lineData));
-        stageMonitor.groupToLogicMap.put(lineData[groupName_Idx], lineData[groupLogic_Idx]);
-        stageMonitor.groupIdToInfluencedGroupIdMap.put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
+        stageMonitor.getGroupToLogicMap().put(lineData[groupName_Idx], lineData[groupLogic_Idx]);
+        stageMonitor.getGroupIdToInfluencedGroupIdMap().put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
 
         //map for all contained group members in which groups they are: actor -> groups
         ActorGroupData actorGroupData;
