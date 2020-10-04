@@ -1,6 +1,6 @@
 package Core;
 
-import Core.ActorSystem.StageMonitor;
+import Core.ActorSystem.ActorMonitor;
 import Core.ActorSystem.GlobalActorsManager;
 import Core.Enums.Direction;
 import Core.WorldView.WorldView;
@@ -46,7 +46,7 @@ public class WorldLoader
     Map<String, ActorData> actorDataMap = new HashMap<>();
     Map<String, Actor> globalActorsMap = new HashMap<>();
     Map<String, SpawnData> spawnPointsMap = new HashMap<>();
-    StageMonitor stageMonitor = new StageMonitor();
+    ActorMonitor actorMonitor = new ActorMonitor();
     Map<String, ActorGroupData> actorGroupDataMap = new HashMap<>();
     String readMode;
     int maxVerticalTile = 0;
@@ -269,16 +269,14 @@ public class WorldLoader
         int dependentGroupName_Idx = 2;
         int start_idx_memberIds = 3;
         //System.out.println(CLASS_NAME + methodName + Arrays.toString(lineData));
-        stageMonitor.getGroupToLogicMap().put(lineData[groupName_Idx], lineData[groupLogic_Idx]);
-        stageMonitor.getGroupIdToInfluencedGroupIdMap().put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
+        actorMonitor.getGroupToLogicMap().put(lineData[groupName_Idx], lineData[groupLogic_Idx]);
+        actorMonitor.getGroupIdToInfluencedGroupIdMap().put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
 
         //map for all contained group members in which groups they are: actor -> groups
         ActorGroupData actorGroupData;
-        for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++)
-        {
+        for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++) {
             String actorId = lineData[membersIdx];
-            if (!actorGroupDataMap.containsKey(actorId))
-            {
+            if (!actorGroupDataMap.containsKey(actorId)) {
                 actorGroupDataMap.put(actorId, new ActorGroupData());
             }
             actorGroupData = actorGroupDataMap.get(actorId);
@@ -435,7 +433,7 @@ public class WorldLoader
         List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
         if(spriteDataList == null)
             throw new RuntimeException("General status \"" + actor.compoundStatus + "\" not found in: " + actor.spriteDataMap.keySet());
-        actor.stageMonitor = stageMonitor;
+        actor.actorMonitor = actorMonitor;
 
         //check for actorgroup Data
         ActorGroupData actorGroupData = actorGroupDataMap.get(actorId);
@@ -443,7 +441,7 @@ public class WorldLoader
         {
             actor.memberActorGroups.addAll(actorGroupData.memberOfGroups);
             for (String groupName : actor.memberActorGroups)
-                stageMonitor.addActorToActorSystem(groupName, actor);
+                actorMonitor.addActorToActorSystem(groupName, actor);
         }
 
         //Create initial Sprites of Actor
@@ -658,9 +656,9 @@ public class WorldLoader
         return spawnPointsMap;
     }
 
-    public StageMonitor getStageMonitor()
+    public ActorMonitor getStageMonitor()
     {
-        return stageMonitor;
+        return actorMonitor;
     }
 
     public Map<String, ActorGroupData> getActorGroupDataMap()

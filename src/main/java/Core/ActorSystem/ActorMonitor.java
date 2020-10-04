@@ -10,17 +10,16 @@ import java.util.Map;
 
 import static Core.ActorSystem.SystemStatus.*;
 
-public class StageMonitor
+public class ActorMonitor
 {
-    private final static String CLASSNAME = "StageMonitor/";
+    private final static String CLASSNAME = "ActorMonitor/";
     Map<String, String> groupToLogicMap = new HashMap<>();
     Map<String, String> groupIdToInfluencedGroupIdMap = new HashMap<>();
     Map<String, ActorGroup> groupIdToActorGroupMap = new HashMap<>();
 
     public Actor getActorById(String actorId)
     {
-        for(Map.Entry<String, ActorGroup> entry : groupIdToActorGroupMap.entrySet())
-        {
+        for (Map.Entry<String, ActorGroup> entry : groupIdToActorGroupMap.entrySet()) {
             if(entry.getValue().containsActor(actorId))
             return entry.getValue().getActor(actorId);
         }

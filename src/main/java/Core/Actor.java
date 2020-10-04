@@ -1,7 +1,7 @@
 package Core;
 
 
-import Core.ActorSystem.StageMonitor;
+import Core.ActorSystem.ActorMonitor;
 import Core.Enums.*;
 import Core.Menus.Inventory.Inventory;
 import Core.Menus.Inventory.InventoryController;
@@ -73,7 +73,7 @@ public class Actor
     String dialogueStatusID = "none";
     private String collectable_type;
     String textbox_analysis_group_name = "none";
-    StageMonitor stageMonitor;
+    ActorMonitor actorMonitor;
     List<String> memberActorGroups = new ArrayList<>();
     Inventory inventory;
     public Set<ActorTag> tags = new HashSet<>();
@@ -563,11 +563,11 @@ public class Actor
             //Status is set directly
             generalStatus = targetStatusField.toLowerCase();
 
-        String influencedOfGroup = stageMonitor.isDependentOnGroup(memberActorGroups);
+        String influencedOfGroup = actorMonitor.isDependentOnGroup(memberActorGroups);
         if (influencedOfGroup != null)
         {
             //Check if status is valid dependent on influencing system
-            generalStatus = stageMonitor.checkIfStatusIsValid(generalStatus, influencedOfGroup);
+            generalStatus = actorMonitor.checkIfStatusIsValid(generalStatus, influencedOfGroup);
         }
 
         if (debug)
@@ -750,13 +750,13 @@ public class Actor
                 try
                 {
                     analyzedGroupName = textbox_analysis_group_name;//set in actor file
-                    analyzedGroup = stageMonitor.getGroupIdToActorGroupMap().get(analyzedGroupName).getSystemMembers();
+                    analyzedGroup = actorMonitor.getGroupIdToActorGroupMap().get(analyzedGroupName).getSystemMembers();
                     WorldView.getTextbox().groupAnalysis(analyzedGroup, this);
                 }
                 catch (NullPointerException e)
                 {
                     StringBuilder stringBuilder = new StringBuilder();
-                    if (stageMonitor == null)
+                    if (actorMonitor == null)
                         stringBuilder.append("\nStageMonitor is null");
                     if (analyzedGroupName == null)
                         stringBuilder.append("\nAnalyzed group is null: " + memberActorGroups.get(0));
@@ -807,9 +807,8 @@ public class Actor
         }
 
         //If is part of a group
-        if (stageMonitor != null)
-        {
-            stageMonitor.sendSignalFrom(memberActorGroups);
+        if (actorMonitor != null) {
+            actorMonitor.sendSignalFrom(memberActorGroups);
         }
     }
 
@@ -989,9 +988,9 @@ public class Actor
         return textbox_analysis_group_name;
     }
 
-    public StageMonitor getStageMonitor()
+    public ActorMonitor getStageMonitor()
     {
-        return stageMonitor;
+        return actorMonitor;
     }
 
     public List<String> getMemberActorGroups()
@@ -1039,9 +1038,9 @@ public class Actor
         return target2;
     }
 
-    public void setStageMonitor(StageMonitor stageMonitor)
+    public void setStageMonitor(ActorMonitor actorMonitor)
     {
-        this.stageMonitor = stageMonitor;
+        this.actorMonitor = actorMonitor;
     }
 
     public String getActorId()

@@ -12,7 +12,7 @@ public class GlobalActorsManager
 {
     private static final String CLASSNAME = "GlobalActorsManager/";
     private static final Set<String> keywords = new HashSet<>();
-    static StageMonitor globalStageMonitor = new StageMonitor();
+    static ActorMonitor globalActorMonitor = new ActorMonitor();
     static Set<String> loadedSystems = new HashSet<>();
 
     public static void loadGlobalSystem(String path)
@@ -62,7 +62,7 @@ public class GlobalActorsManager
                     actor.addSprite(actorSprite);
                 }
 
-                actor.setStageMonitor(globalStageMonitor);
+                actor.setStageMonitor(globalActorMonitor);
                 actor.setActorId(lineData[0]);
                 actorsIdsMap.put(lineData[0], actor);
             }
@@ -72,14 +72,13 @@ public class GlobalActorsManager
                 int dependentGroupName_Idx = 2;
                 int start_idx_memberIds = 3;
                 //System.out.println(CLASS_NAME + methodName + Arrays.toString(lineData));
-                globalStageMonitor.getGroupToLogicMap().put(lineData[groupName_Idx], lineData[groupLogic_Idx]);
-                globalStageMonitor.getGroupIdToInfluencedGroupIdMap().put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
+                globalActorMonitor.getGroupToLogicMap().put(lineData[groupName_Idx], lineData[groupLogic_Idx]);
+                globalActorMonitor.getGroupIdToInfluencedGroupIdMap().put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
                 //add actors to groups
-                for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++)
-                {
+                for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++) {
                     String actorId = lineData[membersIdx];
                     Actor actor = actorsIdsMap.get(actorId);
-                    globalStageMonitor.addActorToActorSystem(lineData[groupName_Idx], actor);
+                    globalActorMonitor.addActorToActorSystem(lineData[groupName_Idx], actor);
                     actor.getMemberActorGroups().add(lineData[groupName_Idx]);
                 }
             }
@@ -90,7 +89,7 @@ public class GlobalActorsManager
     {
         String methodName = "getGlobalActors() ";
         Map<String, Actor> globalActors = new HashMap<>();
-        actorIds.forEach(id -> globalActors.put(id, globalStageMonitor.getActorById(id)));
+        actorIds.forEach(id -> globalActors.put(id, globalActorMonitor.getActorById(id)));
         return globalActors;
     }
 

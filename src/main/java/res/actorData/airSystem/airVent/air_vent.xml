@@ -68,7 +68,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
     <dialogue id="cleanDec-cleaned" type="normal" spritestatus="on">
-        <line>The air can stream again.</line>
+        <line>The vent is clean now.</line>
     </dialogue>
 </root>
 

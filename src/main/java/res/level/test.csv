@@ -67,7 +67,6 @@ bench_				;bench;											furniture/bench;																			true;				1;						
 #Bath
 #code     ;name        ;spritename                     ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
 wc____;						wc;									/bath/toilet;																					true;				1;								0;			0;											0;				0;				0;										0;											0 ;											0;												0;										0							;none
-shower;			shower;					/bath/shower;																					false;				2;								0;			0;											0;				0;				0;										0;											0;												0;												0;										0							;none
 sink__;			sink;							/bath/sink;																							false;				1;								0;			0;											0;				0;				0;										0;											0;												0;												0;										0							;none
 
 #Machines
@@ -111,9 +110,9 @@ passivlayer:
 001 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 002 ;______ ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;______
 003 ;______ ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;______
-004 ;______ ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;______
-005 ;______ ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;______
-006 ;______ ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;______
+004 ;______ ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;______ ;______ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;______
+005 ;______ ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;______ ;______ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;______
+006 ;______ ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;______ ;______ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;______
 007 ;______ ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;______ ;______ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;______
 008 ;______ ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;______ ;______ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;______
 009 ;______ ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;carpe1 ;carpe0 ;______ ;______ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;slab__ ;______
@@ -153,7 +152,7 @@ layer:
 001 ;wTL___ ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;wTR___
 002 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;scubb_ ;______ ;______ ;______ ;sink__ ;______ ;______ ;______
 003 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;wc____ ;back_w
-004 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;l_____ ;bck_nw;	______ ;shower ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
+004 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;l_____ ;bck_nw;	______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 005 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;ottomR ;ottomC ;back_w
 006 ;back_e ;______ ;tabBot ;______ ;______ ;______ ;______ ;______ ;couch_;	back_w ;back_e ;______;	______ ;______ ;______ ;______ ;______ ;ottomC ;desk__ ;______ ;back_w
 007 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w ;wBL___ ;back_n ;______ ;______ ;______ ;______ ;______ ;______ ;ottomR ;ottomC ;back_w

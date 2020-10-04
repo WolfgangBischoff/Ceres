@@ -1,6 +1,6 @@
 package Core;
 
-import Core.ActorSystem.StageMonitor;
+import Core.ActorSystem.ActorMonitor;
 import Core.ActorSystem.GlobalActorsManager;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -29,7 +29,7 @@ public class GameVariables
     static private int day = 0;
     static private Clock clock;
     static private List<GlobalActorsManager> globalActorsManagerList = new ArrayList<>();
-    static private StageMonitor globalSystemsMonitor = new StageMonitor();
+    static private ActorMonitor globalSystemsMonitor = new ActorMonitor();
 
     //Game State persistent over days
     static Sprite player;
