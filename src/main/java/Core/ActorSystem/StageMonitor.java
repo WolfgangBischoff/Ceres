@@ -1,4 +1,4 @@
-package Core.ActorMonitor;
+package Core.ActorSystem;
 
 import Core.Actor;
 import Core.ActorSystem.ActorGroup;
@@ -7,6 +7,8 @@ import Core.WorldView.WorldView;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static Core.ActorSystem.SystemStatus.*;
 
 public class StageMonitor
 {
@@ -60,7 +62,7 @@ public class StageMonitor
     public void sendSignalFrom(String notifyingGroup)
     {
         String methodName = "sendSignalFrom(String)";
-        boolean debug = true;
+        boolean debug = false;
         String targetGroupID = groupIdToInfluencedGroupIdMap.get(notifyingGroup);
         String logicCode = groupToLogicMap.get(notifyingGroup);
 
@@ -74,11 +76,11 @@ public class StageMonitor
                 apply_baseSystemLogic(notifyingGroup, targetGroupID);
                 break;
             case "allOn_default/locked":
-                allOn_setSensorStatus(notifyingGroup, targetGroupID, "default", "locked");
+                allOn_setSensorStatus(notifyingGroup, targetGroupID, UNLOCKED, LOCKED);
                 break;
             case "always_sensorDefault_spriteOn":
-                always_sensorStatus(notifyingGroup, targetGroupID, "default");
-                always_spriteStatus(notifyingGroup, targetGroupID, "on");
+                always_sensorStatus(notifyingGroup, targetGroupID, ON);
+                always_spriteStatus(notifyingGroup, targetGroupID, ON);
                 break;
             case "levelchange":
                 changeLevel(notifyingGroup, targetGroupID);
@@ -97,7 +99,7 @@ public class StageMonitor
         ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
         ActorGroup signaled = groupIdToActorGroupMap.get(targetGroupID);
 
-        signaled.setMemberToGeneralStatus("transition");
+        signaled.setMemberToGeneralStatus(SystemStatus.TRANSITION);
     }
 
     private void changeLevel(String filename_level, String spawnId)
@@ -108,7 +110,7 @@ public class StageMonitor
         WorldView.getSingleton().loadStage(filename_level, spawnId);
     }
 
-    private void always_sensorStatus(String notifyingGroup, String targetGroupID, String sensorStatus)
+    private void always_sensorStatus(String notifyingGroup, String targetGroupID, SystemStatus sensorStatus)
     {
         String methodName = "always_sensorStatus(String, String, String) ";
         boolean debug = false;
@@ -121,7 +123,7 @@ public class StageMonitor
         signaled.setMemberToSensorStatus(sensorStatus);
     }
 
-    private void always_spriteStatus(String notifyingGroup, String targetGroupID, String spriteStatus)
+    private void always_spriteStatus(String notifyingGroup, String targetGroupID, SystemStatus spriteStatus)
     {
         String methodName = "always_sensorStatus(String, String, String) ";
         boolean debug = false;
@@ -132,7 +134,7 @@ public class StageMonitor
         signaled.setMemberToGeneralStatus(spriteStatus);
     }
 
-    private void allOn_setSensorStatus(String notifyingGroup, String targetGroupID, String trueStatus, String falseStatus)
+    private void allOn_setSensorStatus(String notifyingGroup, String targetGroupID, SystemStatus trueStatus, SystemStatus falseStatus)
     {
         String methodName = "allOn_setSensorStatus(String, String, String, String) ";
         boolean debug = false;

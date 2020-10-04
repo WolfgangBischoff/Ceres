@@ -1,7 +1,7 @@
 package Core;
 
 
-import Core.ActorMonitor.StageMonitor;
+import Core.ActorSystem.StageMonitor;
 import Core.Enums.*;
 import Core.Menus.Inventory.Inventory;
 import Core.Menus.Inventory.InventoryController;
@@ -557,7 +557,7 @@ public class Actor
         boolean debug = false;
 
         //Do lookup (status is toggled from definition of actorfile)
-        if (targetStatusField.equals(Config.KEYWORD_transition))
+        if (targetStatusField.toLowerCase().equals(Config.KEYWORD_transition))
             transitionGeneralStatus();
         else
             //Status is set directly
@@ -709,7 +709,7 @@ public class Actor
         boolean debug = false;
 
         if (sensorStatusMap.get(sensorStatusString) == null)
-            throw new RuntimeException("Sensor Status not defined: " + sensorStatusString + " at actor " + actorFileName);
+            throw new RuntimeException("Sensor Status not defined: " + sensorStatusString + " at actor " + actorFileName + " known status: " + sensorStatusMap);
 
         if (debug)
             System.out.println(CLASSNAME + methodName + "set sensor from " + sensorStatus.statusName + " to " + sensorStatusString);

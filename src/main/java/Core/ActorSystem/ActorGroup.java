@@ -43,21 +43,21 @@ public class ActorGroup
         this.id = id;
     }
 
-    public void setMemberToGeneralStatus(String newStatus)
+    public void setMemberToGeneralStatus(SystemStatus newStatus)
     {
         String methodName = "setMemberToGeneralStatus(String) ";
         for (Actor target : systemMembers)
         {
-            target.onMonitorSignal(newStatus);
+            target.onMonitorSignal(newStatus.toString());
         }
     }
 
-    public void setMemberToSensorStatus(String sensorStatus)
+    public void setMemberToSensorStatus(SystemStatus sensorStatus)
     {
         String methodName = "setMemberToSensorStatus(String) ";
         for (Actor target : systemMembers)
         {
-            target.setSensorStatus(sensorStatus);
+            target.setSensorStatus(sensorStatus.toString());
         }
     }
 

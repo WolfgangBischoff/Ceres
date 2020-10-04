@@ -1,6 +1,6 @@
 package Core;
 
-import Core.ActorMonitor.StageMonitor;
+import Core.ActorSystem.StageMonitor;
 import Core.ActorSystem.GlobalActorsManager;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

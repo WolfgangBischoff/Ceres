@@ -108,8 +108,8 @@ ACTORS:
 player					;player																																		;Revolutionary												;default												;default																;north
 tender					;character/tenderer/tenderer													;Theo the tenderer								;day0															;default																;south
 exit__					;doors/vertical/autoBulkheadVertical					;exit to docking bay						;on																	;levelchange												;west
-autoDo					;doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;default																;west
-door_H					;doors/horizontal/automatedDoor										;bulkhead																	;on																	;default																;south
+autoDo					;doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;UNLOCKED															;west
+door_H					;doors/horizontal/automatedDoor										;bulkhead																	;on																	;UNLOCKED																;south
 
 #spaceway
 trigge					;floor/trigger																											;Trigger																		;20x64_off										;readyToFire_20									;undefined

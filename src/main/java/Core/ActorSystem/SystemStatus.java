@@ -2,7 +2,7 @@ package Core.ActorSystem;
 
 public enum SystemStatus
 {
-    ON, OFF;
+    ON, OFF, LOCKED, UNLOCKED, TRANSITION;
 
     public static SystemStatus getOff(String value)
     {
@@ -10,6 +10,9 @@ public enum SystemStatus
         {
             case "on": return ON;
             case "off": return OFF;
+            case "transition": return TRANSITION;
+            case "locked": return LOCKED;
+            case "unlocked": return UNLOCKED;
             default:throw new RuntimeException("SystemStatus unknown: " + value);
         }
     }
