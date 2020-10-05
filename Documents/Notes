@@ -39,7 +39,6 @@
 ------------------------------------------
 GUI
     - sprite status bars
-    - symbol for extra/introversion coin
 - Ship:
     FrontWindow, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker, algae tank transparency
 - Docking Bay:
