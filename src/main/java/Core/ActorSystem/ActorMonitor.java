@@ -100,7 +100,7 @@ public class ActorMonitor
         String methodName = "setGameVariable() ";
         ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
         GameVariables.getBooleanWorldVariables().put(notifyingGroup, notifier.areAllMembersStatusOn());
-        System.out.println(CLASSNAME + methodName + GameVariables.getBooleanWorldVariables().get(notifyingGroup));
+        //System.out.println(CLASSNAME + methodName + GameVariables.getBooleanWorldVariables().get(notifyingGroup));
     }
 
     private void transitionOnChange(String notifyingGroup, String targetGroupID)

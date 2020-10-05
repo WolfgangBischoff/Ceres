@@ -51,6 +51,10 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
             <nextDialogue>tenderer-game</nextDialogue>
         </option>
         <option>
+            <line>Air System Maintenance</line>
+            <nextDialogue>air_system_check</nextDialogue>
+        </option>
+        <option>
             <line>Never mind.</line>
         </option>
     </dialogue>
@@ -81,6 +85,13 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
 
+    <dialogue id="air_system_check" type="boolean" variablename="isTransporterAirSystemOn" true="air_system_on" false="air_system_off"/>
+    <dialogue id="air_system_on" type="getMoney" amount="50">
+        <line>You fixed the air system! Here is you reward!</line>
+    </dialogue>
+    <dialogue id="air_system_off" type="normal">
+        <line>The air system is still down..</line>
+    </dialogue>
 
 
 </root>

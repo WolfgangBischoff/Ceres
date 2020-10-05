@@ -36,6 +36,7 @@ public class GlobalActorsManager
         String methodName = "parse() ";
         String readStatus = null;
         Map<String, Actor> actorsIdsMap = new HashMap<>();
+        List<String> createdActorGroupsId = new ArrayList<>();
         for (String[] lineData : file) {
             if (keywords.contains(lineData[0].toLowerCase()))
             {
@@ -71,7 +72,7 @@ public class GlobalActorsManager
                 int groupLogic_Idx = 1;
                 int dependentGroupName_Idx = 2;
                 int start_idx_memberIds = 3;
-                //System.out.println(CLASS_NAME + methodName + Arrays.toString(lineData));
+                createdActorGroupsId.add(lineData[groupName_Idx]);
                 globalActorMonitor.getGroupToLogicMap().put(lineData[groupName_Idx], lineData[groupLogic_Idx]);
                 globalActorMonitor.getGroupIdToInfluencedGroupIdMap().put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
 
@@ -91,8 +92,11 @@ public class GlobalActorsManager
                     throw new NullPointerException("Cannot find " + actorId + " in " + actorsIdsMap);
                 }
 
+                //globalActorMonitor.sendSignalFrom(lineData[groupName_Idx]);
             }
         }
+        for(String groupId : createdActorGroupsId)
+            globalActorMonitor.sendSignalFrom(groupId);//init new groups to init world variables
     }
 
     public static Map<String, Actor> getGlobalActors(List<String> actorIds)

@@ -7,10 +7,21 @@ import java.util.List;
 
 public class ActorGroup
 {
-    private static final String CLASSNAME = "ActorSystem ";
+    private static final String CLASSNAME = "ActorSystem/";
     String id;
     private List<Actor> systemMembers = new ArrayList<>();
 
+    public Boolean applyLogic(String logic)
+    {
+        String methodName = "applyLogic() ";
+        switch (logic)
+        {
+            case "areAllMembersStatusOn":
+                return areAllMembersStatusOn();
+            default:
+                throw new RuntimeException("logic unknown: " + logic);
+        }
+    }
 
     public void addActor(Actor actor)
     {

@@ -5,8 +5,6 @@
 - Mechanics
     - Game Over if health == 0
     - Add set item mechanic
-    - Quest aka tenderer checks if condition full filled
-        - air system status checked by tenderer to get money
 - Vending Machine
     - Vendor to buy items by debit card
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation

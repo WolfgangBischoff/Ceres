@@ -320,7 +320,6 @@ public class DiscussionGame
                 WorldView.getTextbox().setNextDialogueFromDiscussionResult(false);
 
             WorldView.getTextbox().nextMessage(currentNanoTime);
-            //WorldView.setIsDiscussionGameActive(false);
             WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
         }
     }

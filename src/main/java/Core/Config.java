@@ -115,6 +115,10 @@ public class Config
     public static final String dayChange_TYPE_ATTRIBUTE = "dayChange";
     public static final String TEXTBOX_ATTRIBUTE_GET_MONEY = "getMoney";
     public static final String TEXTBOX_ATTRIBUTE_AMOUNT = "amount";
+    public static final String TEXTBOX_ATTRIBUTE_BOOLEAN = "boolean";
+    public static final String TEXTBOX_ATTRIBUTE_VARIABLE_NAME = "variablename";
+    public static final String TEXTBOX_ATTRIBUTE_TRUE = "true";
+    public static final String TEXTBOX_ATTRIBUTE_FALSE = "false";
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";
