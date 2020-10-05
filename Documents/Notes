@@ -6,6 +6,7 @@
     - Game Over if health == 0
     - Add set item mechanic
     - Interaction by click should use sprite hitbox
+    - ausweich mechanic, seitenbewegung um weniger stuck zu sein
 - Vending Machine
     - Vendor to buy items by debit card
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
@@ -39,6 +40,7 @@
 GUI
     - sprite status bars
     - add right capsule wall
+    - standing animation
 - Ship:
     FrontWindow, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker, algae tank transparency
 - Docking Bay:
