@@ -12,6 +12,6 @@ hydrOK					;airSystem/hydraulic/hydraulic											;Air hub																		;O
 
 #Air System
 ACTORGROUPS:
-#airSystemMonitor	;none 																										;none 													;airCon ;airVeR; airVeL
-airSystemBase				;isBaseSystem 																		;airSystemEnd 					;hydrOK
-airSystemEnd					;none 																										;none 													;airVeR ;airCr1;airCr2;ventCo;airLif
+isTransporterAirSystemOn	;setWorldVariableTrueIfSystemOn	;none 													;ventCo;airVeR;airCr1;airCr2;airLif;hydrOK
+airSystemBase												;isBaseSystem 																		;airSystemEnd 					;hydrOK
+airSystemEnd													;none 																										;none 													;airVeR ;airCr1;airCr2;ventCo;airLif

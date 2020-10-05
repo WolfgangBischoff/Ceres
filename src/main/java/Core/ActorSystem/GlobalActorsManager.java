@@ -74,13 +74,23 @@ public class GlobalActorsManager
                 //System.out.println(CLASS_NAME + methodName + Arrays.toString(lineData));
                 globalActorMonitor.getGroupToLogicMap().put(lineData[groupName_Idx], lineData[groupLogic_Idx]);
                 globalActorMonitor.getGroupIdToInfluencedGroupIdMap().put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
+
                 //add actors to groups
-                for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++) {
-                    String actorId = lineData[membersIdx];
-                    Actor actor = actorsIdsMap.get(actorId);
-                    globalActorMonitor.addActorToActorSystem(lineData[groupName_Idx], actor);
-                    actor.getMemberActorGroups().add(lineData[groupName_Idx]);
+                String actorId = null;
+                try{
+                    for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++)
+                    {
+                        actorId = lineData[membersIdx];
+                        Actor actor = actorsIdsMap.get(actorId);
+                        globalActorMonitor.addActorToActorSystem(lineData[groupName_Idx], actor);
+                        actor.getMemberActorGroups().add(lineData[groupName_Idx]);
+                    }
                 }
+                catch (NullPointerException e)
+                {
+                    throw new NullPointerException("Cannot find " + actorId + " in " + actorsIdsMap);
+                }
+
             }
         }
     }

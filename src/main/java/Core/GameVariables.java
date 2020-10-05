@@ -18,7 +18,7 @@ import static Core.Config.MAX_HUNGER;
 
 public class GameVariables
 {
-    private static String CLASSNAME = "GameVariables ";
+    private static String CLASSNAME = "GameVariables/";
     private static GameVariables singleton;
     static private IntegerProperty playerMoney = new SimpleIntegerProperty(INIT_MONEY);
     static IntegerProperty playerMaM_duringDay = new SimpleIntegerProperty();
@@ -30,6 +30,7 @@ public class GameVariables
     static private Clock clock;
     static private List<GlobalActorsManager> globalActorsManagerList = new ArrayList<>();
     static private ActorMonitor globalSystemsMonitor = new ActorMonitor();
+    static private Map<String, Boolean> booleanWorldVariables = new HashMap<>();
 
     //Game State persistent over days
     static Sprite player;
@@ -42,7 +43,6 @@ public class GameVariables
     {
         clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
         lastTimeHungerFromTime = clock.time.getValue();
-        //globalActorsManagerList = GlobalActorsManager.init();
     }
 
     public static void setPlayer(Sprite player)
@@ -237,5 +237,10 @@ public class GameVariables
     {
         if (health <= MAX_HEALTH)
             GameVariables.health = health;
+    }
+
+    public static Map<String, Boolean> getBooleanWorldVariables()
+    {
+        return booleanWorldVariables;
     }
 }

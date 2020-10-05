@@ -1,7 +1,7 @@
 package Core.ActorSystem;
 
 import Core.Actor;
-import Core.ActorSystem.ActorGroup;
+import Core.GameVariables;
 import Core.WorldView.WorldView;
 
 import java.util.HashMap;
@@ -87,9 +87,20 @@ public class ActorMonitor
             case "transitionOnChange":
                 transitionOnChange(notifyingGroup, targetGroupID);
                 break;
+            case "setWorldVariableTrueIfSystemOn":
+                setWorldVariableTrueIfSystemOn(notifyingGroup);
+                break;
             default:
                 throw new RuntimeException(CLASSNAME + methodName + "logicCode not found: " + logicCode);
         }
+    }
+
+    private void setWorldVariableTrueIfSystemOn(String notifyingGroup)
+    {
+        String methodName = "setGameVariable() ";
+        ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
+        GameVariables.getBooleanWorldVariables().put(notifyingGroup, notifier.areAllMembersStatusOn());
+        System.out.println(CLASSNAME + methodName + GameVariables.getBooleanWorldVariables().get(notifyingGroup));
     }
 
     private void transitionOnChange(String notifyingGroup, String targetGroupID)
@@ -97,7 +108,6 @@ public class ActorMonitor
         String methodName = "triggerOnChange() ";
         ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
         ActorGroup signaled = groupIdToActorGroupMap.get(targetGroupID);
-
         signaled.setMemberToGeneralStatus(SystemStatus.TRANSITION);
     }
 
