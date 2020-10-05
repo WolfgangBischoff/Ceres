@@ -14,4 +14,4 @@ personality	;ENTREPRENEUR										;10												;FROM_EARTH;105	;POOR; 110
 
 #status to image
 #status 			;name   				;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
-day0-south	;tenderer			;../actorData/character/tenderer/front								;true				;1												;000	;000										;000	;000	;000								;000									;000											;064	 									;064									;064										;none						;000						;000						;day0							;false
+day0-south	;tenderer			;../actorData/character/tenderer/front								;true				;1												;000	;000										;000	;000	;000								;000									;010											;094	 									;044									;025										;none						;000						;000						;day0							;false

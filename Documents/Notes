@@ -5,6 +5,7 @@
 - Mechanics
     - Game Over if health == 0
     - Add set item mechanic
+    - Interaction by click should use sprite hitbox
 - Vending Machine
     - Vendor to buy items by debit card
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
@@ -12,15 +13,15 @@
     - add definition in file
     - meteorit moving
 - Textbox
-    - DialogueFile part of sprite status, part of sprite?
     - more items with description, ggf more light weight textbox, function like coffee
+        - DialogueFile part of sprite status, part of sprite? Or dependent on sprite name?
+    - Dialogue depentdent on date and variables
     - change Door status if discussion won
     - add item with textbox
 - Level build
     - crew deck (competitor, doctor, security, rescue pods, storage, fix enviroment)
     - freight deck
         - implement bump on trigger
-        - add right capsule wall
 - Inventory
     - left sided, item desrcp, money card
     - other inventory, DragDrop
@@ -37,6 +38,7 @@
 ------------------------------------------
 GUI
     - sprite status bars
+    - add right capsule wall
 - Ship:
     FrontWindow, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker, algae tank transparency
 - Docking Bay:
