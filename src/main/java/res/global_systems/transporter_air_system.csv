@@ -4,7 +4,9 @@
 ACTORS:
 airVeR					;airSystem/airVent/airVent															;Right ventilation								;off																;default							;undefined
 ventCo					;airSystem/airVent/airVent															;Control ventilation						;off																;default							;undefined
-airVeL					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;default							;undefined
+airCr2					;airSystem/airVent/airVent															;Left ventilation									;off																;default							;undefined
+airCr1					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;default							;undefined
+airLif					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;default							;undefined
 hydrOK					;airSystem/hydraulic/hydraulic											;Air hub																		;OFF																;default							;undefined
 
 
@@ -12,4 +14,4 @@ hydrOK					;airSystem/hydraulic/hydraulic											;Air hub																		;O
 ACTORGROUPS:
 #airSystemMonitor	;none 																										;none 													;airCon ;airVeR; airVeL
 airSystemBase				;isBaseSystem 																		;airSystemEnd 					;hydrOK
-airSystemEnd					;none 																										;none 													;airVeR ;airVeL;ventCo
+airSystemEnd					;none 																										;none 													;airVeR ;airCr1;airCr2;ventCo;airLif

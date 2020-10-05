@@ -42,7 +42,6 @@ GUI
     - symbol for extra/introversion coin
 - Ship:
     FrontWindow, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker, algae tank transparency
-    hydrau aka airHubSmall add broken sprite
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: Stock Market Display, schrank upper right
