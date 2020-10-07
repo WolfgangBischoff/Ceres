@@ -76,6 +76,7 @@ public class Textbox
         String methodName = "readDialogue() ";
         actorOfDialogue = actorParam;
         dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getDialogueFileName() + ".xml");
+        dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getDialogueFileName() + ".xml");
         readDialogue = readDialogue(actorOfDialogue.getDialogueStatusID());
         drawTextbox();
 

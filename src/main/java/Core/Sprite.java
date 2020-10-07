@@ -50,6 +50,9 @@ public class Sprite
     private String lightningSpriteName;
     private int layer = -1;
 
+    private String dialogueFileName = null;
+    private String initDialogueId = "none";
+
 
     public Sprite(String imagename)
     {
@@ -122,8 +125,10 @@ public class Sprite
         ca.setBlocker(tile.blocking);
         ca.setLightningSpriteName(tile.lightningSprite);
 
-        ca.setLightningSpriteName(tile.lightningSprite);
         ca.setAnimationEnds(tile.animationEnds);
+
+        ca.setDialogueFileName(tile.dialogieFile);
+        ca.setInitDialogueId(tile.dialogueID);
 
         //If Hitbox differs
         if (tile.hitboxOffsetX != 0 || tile.hitboxOffsetY != 0 || tile.hitboxWidth != 0 || tile.hitboxHeight != 0)
@@ -686,5 +691,25 @@ public class Sprite
     public void setActor(Actor actor)
     {
         this.actor = actor;
+    }
+
+    public String getDialogueFileName()
+    {
+        return dialogueFileName;
+    }
+
+    public void setDialogueFileName(String dialogueFileName)
+    {
+        this.dialogueFileName = dialogueFileName;
+    }
+
+    public String getInitDialogueId()
+    {
+        return initDialogueId;
+    }
+
+    public void setInitDialogueId(String initDialogueId)
+    {
+        this.initDialogueId = initDialogueId;
     }
 }

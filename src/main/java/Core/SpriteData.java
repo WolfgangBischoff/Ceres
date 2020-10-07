@@ -3,6 +3,7 @@ package Core;
 
 public class SpriteData
 {
+    //Sprites
     final static int tileCodeIdx = 0;
     final static int nameIdx = 1;
     final static int spriteNameIdx = 2;
@@ -19,22 +20,29 @@ public class SpriteData
     final static int hitboxWidthIdx = 13;
     final static int hitboxHeightIdx = 14;
     final static int lightningSpriteNameIdx = 15;
-
-    final static int animationDurationIdx = 16;
-    final static int velocityIdx = 17;
+    final static int dialogueIDIdx = 16;
     final static int dialogueFileIdx = 17; //TODO
-    final static int dialogueIDIdx = 18;
-    final static int animationEndsIdx = 19;
+    final static int unused0 = 18;
+    final static int unused1 = 19;
+    final static int unused2 = 20;
+    final static int unused3 = 21;
+    final static int unused4 = 22;
+    //Just Actor
+    final static int animationDurationIdx = 23;
+    final static int velocityIdx = 24;
+    final static int animationEndsIdx = 25;
 
-
-
-    public String name, spriteName, lightningSprite, dialogueID;
+    public String name, spriteName, lightningSprite, dialogueID, dialogueId, dialogieFile;
     public Boolean blocking, animationEnds = false;
-    public Integer totalFrames, cols, rows, frameWidth, frameHeight, heightLayer, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, velocity;//, animationDuration;
+    public Integer totalFrames, cols, rows, frameWidth, frameHeight, heightLayer, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, velocity;
     public Double animationDuration, fps;
 
 
-    public SpriteData(String name, String spriteName, Boolean blocking, Double fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer heightLayer, Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight, String lightningSprite)
+    public SpriteData(String name, String spriteName, Boolean blocking, Double fps,
+                      Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer heightLayer,
+                      Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight, String lightningSprite
+                    ,String dialogueID, String dialogieFile
+    )
     {
         this.name = name;
         this.spriteName = spriteName;
@@ -51,6 +59,8 @@ public class SpriteData
         this.hitboxWidth = hitboxWidth;
         this.hitboxHeight = hitboxHeight;
         this.lightningSprite = lightningSprite;
+        this.dialogieFile = dialogieFile;
+        this.dialogueID = dialogueID;
     }
 
     public static SpriteData tileDefinition(String[] lineData) throws IndexOutOfBoundsException
@@ -70,8 +80,7 @@ public class SpriteData
             Integer hitboxWidth = Integer.parseInt(lineData[hitboxWidthIdx]);
             Integer hitboxHeight = Integer.parseInt(lineData[hitboxHeightIdx]);
             String lightningSprite = lineData[lightningSpriteNameIdx];
-
-            return new SpriteData(lineData[nameIdx], lineData[spriteNameIdx], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, lightningSprite);
+            return new SpriteData(lineData[nameIdx], lineData[spriteNameIdx], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, lightningSprite, lineData[dialogueIDIdx], lineData[dialogueFileIdx]);
         }
         catch (IndexOutOfBoundsException e)
         {

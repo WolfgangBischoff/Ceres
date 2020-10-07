@@ -14,14 +14,14 @@ tiledefinition:
 #layer: 0 => behind ;1 => middle ;2 => in front
 #Floor
 #code     ;name        ;spritename                  ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
-plaiM1    ;metal							;floor/plainM1_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+plaiM1    ;metal							;floor/plainM1_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 #Walls
 #code     ;name        ;spritename                     							;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
-mtxFS0				;mtxWall					;walls/mtx/mtx_0 																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+mtxFS0				;mtxWall					;walls/mtx/mtx_0 																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 #Wall Decoration
-dockBa				;dockingBay		;walls/signs/wall_sign																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+dockBa				;dockingBay		;walls/signs/wall_sign																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status	;direction

@@ -11,5 +11,5 @@ sensorStatus	;sleep																					;textbox																		;none  	 					
 dialogueFile; actorData/furniture/bed/bed
 
 #status to image
-#status 			;name   				;spritename  																																																						;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
-bischoff			;spriteName	;../actorData/furniture/bed/bedmodule_bischoff																					;true				;1 											;0   ;0            ;0    ;0    ;000        ;000         ;000           ;128           ;192         ;064										;none				;000						;000						;sleep						;false
+#status 			;name   				;spritename  																																																						;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID;dialogueFile															;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds
+bischoff			;spriteName	;../actorData/furniture/bed/bedmodule_bischoff																					;true				;1 											;0   ;0            ;0    ;0  ;000        ;000         ;000           ;128           ;192         ;064										;none						;sleep					;actorData/furniture/bed/bed;unused;unused;unused;unused;unused;000						;000							;false

@@ -4,9 +4,9 @@
 #tags; ActorTag ...
 
 
-#sensorStatus;sensorStatusName	;onInteractionSpriteTT ;interactionToSprite ;onInteractionSensorTT ;interactionToSensor ;onInRangeSpriteTT	;inRangeToSprite	;onRangeSensorTT ;inRangeToSensor ;onIntersectionSpriteTT	;intersectionToSprite ;onIntersectionSensorTT ;intersectionToSensor ;onUpdateToSpriteTT			;updateToSprite	;onUpdateSensorTT ;updateToSensor ;onMonitorSpriteTT ;onMonitorSensorTT ;onTextBoxSpriteTT  ;onTextBoxSensorTT
+#sensorStatus	;sensorStatusName	;onInteractionSpriteTT ;interactionToSprite ;onInteractionSensorTT ;interactionToSensor ;onInRangeSpriteTT	;inRangeToSprite	;onRangeSensorTT ;inRangeToSensor ;onIntersectionSpriteTT	;intersectionToSprite ;onIntersectionSensorTT ;intersectionToSensor ;onUpdateToSpriteTT			;updateToSprite	;onUpdateSensorTT ;updateToSensor ;onMonitorSpriteTT ;onMonitorSensorTT ;onTextBoxSpriteTT  ;onTextBoxSensorTT
 #sensorStatus	;roof													;none     													;none    												;none 																	;none																;none														;none												;none 											;none												;persistent													;invisible												;none 																		;none																	;persistent											;visible								;none													;none											;none														;none														;none															;none
-sensorStatus	;waitForMonitor				;none     													;none    												;none 									;none																;none														;none												;none 									;none												;none																			;none																	;none 									;none																	;none																	;none											;none													;none											;persistent								;none														;none															;none
+sensorStatus		;waitForMonitor			;none     													;none    												;none 																	;none																;none														;none												;none 									;none												;none																			;none																	;none 									;none																	;none																	;none											;none													;none											;persistent								;none														;none															;none
 
 #InteractionArea; Distance; Width; OffsetX; OffsetY
 #interactionArea; 						164;			128;				 114;			  064
@@ -17,6 +17,6 @@ transition; visible; invisible
 transition; invisible; visible
 
 #status to image
-#status 											;name 					  				;spritename  																																							;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
-visible												;roof												;walls/freightcapsule/roof																										;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;0								;0								;none							;false
-invisible										;roof												;walls/freightcapsule/roof_inv																						;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;0								;0								;none							;false
+#status 											;name 					  				;spritename  																					 		;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID;dialogueFile;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds
+visible												;roof												;walls/freightcapsule/roof								 		;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false
+invisible										;roof												;walls/freightcapsule/roof_inv				 		;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false

@@ -13,5 +13,5 @@ sensorStatus	;default																			;textbox																		;none  	 					
 personality	;ENTREPRENEUR										;10												;FROM_EARTH;105	;POOR; 110
 
 #status to image
-#status 			;name   				;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
-day0-south	;tenderer			;../actorData/character/tenderer/front								;true				;1												;000	;000										;000	;000	;000								;000									;010											;094	 									;044									;025										;none						;000						;000						;day0							;false
+#status 			;name   				;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID ;dialogueID																											;unused; unused; unused; unused; unused;duration ;velocity  ;AnimationEnds
+day0-south	;tenderer			;../actorData/character/tenderer/front								;true				;1												;000	;000										;000	;000	;000								;000									;010											;094	 									;044									;025										;none						;day0						 ;actorData/character/tenderer/tenderer;unused; unused; unused; unused; unused;000						;000							;false

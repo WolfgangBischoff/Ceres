@@ -10,5 +10,5 @@ collectible_data; money; 0
 suspicious_value; 3
 
 #status to image
-#status 			;name   				;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
-gsc100					;money						;../actorData/collectibles/money/gsc_small				;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false
+#status 			;name   				;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID ;dialogueFile;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds
+gsc100					;money						;../actorData/collectibles/money/gsc_small				;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;default			 ;dialogueFile;unused;unused;unused;unused;unused;000						;000							;false

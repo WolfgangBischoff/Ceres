@@ -69,7 +69,7 @@ public class Actor
     SensorStatus sensorStatus;
 
     List<ActorCondition> conditions = new ArrayList<>();
-    String dialogueFileName = null;
+    //String dialogueFileName = null;
     String dialogueStatusID = "none";
     private String collectable_type;
     String textbox_analysis_group_name = "none";
@@ -170,7 +170,7 @@ public class Actor
                 interactionAreaOffsetY = offsetY;
                 break;
             case KEYWORD_dialogueFile:
-                dialogueFileName = linedata[1];
+                //dialogueFileName = linedata[1];
                 break;
             case KEYWORD_text_box_analysis_group:
                 textbox_analysis_group_name = linedata[1];
@@ -966,12 +966,12 @@ public class Actor
         return compoundStatus;
     }
 
-    public String getDialogueFileName()
-    {
-        if (dialogueFileName == null)
-            throw new NullPointerException("No dialogue file defined for: " + actorFileName);
-        return dialogueFileName;
-    }
+//    public String getDialogueFileName()
+//    {
+//        //if (dialogueFileName == null)
+//            throw new NullPointerException("No dialogue file defined for: " + actorFileName);
+//        //return dialogueFileName;
+//    }
 
     public String getDialogueStatusID()
     {
@@ -1116,11 +1116,6 @@ public class Actor
     public void setConditions(List<ActorCondition> conditions)
     {
         this.conditions = conditions;
-    }
-
-    public void setDialogueFileName(String dialogueFileName)
-    {
-        this.dialogueFileName = dialogueFileName;
     }
 
     public void setDialogueStatusID(String dialogueStatusID)

@@ -12,6 +12,6 @@ transition; off; on
 dialogueFile; actorData/airSystem/hub/airControl
 
 #status to image
-#status			;name		 		;spritename																																										;blocker		;heightLayer	;fps	;totalFrames	;cols	;rows;frameWidth	;frameHeight	;hitboxOffsetX; hitboxOffsetY;hitBoxWidth;hitBoxHeight;lightning						;duration		;velocity;dialogueID ;AnimationEnds
-ON								;airHub			;../actorData/airSystem/hub/airSupport_256_256_Anim2 ;true					;0 										;6   ;2           ;2    ;0   ;256        ;256         ;0         	  ;0             ;0          ;0											;greenlight256		;0									;0							;on							;false
-OFF							;airHub			;../actorData/airSystem/hub/airSupport_256_256_off			;true					;0 										;0   ;0           ;0    ;0   ;000        ;000         ;0        	   ;0             ;0          ;0											;redlight							;0									;0							;off							;false
+#status			;name		 		;spritename																																										;blocker		;heightLayer	;fps	;totalFrames	;cols	;rows;frameWidth	;frameHeight	;hitboxOffsetX; hitboxOffsetY;hitBoxWidth;hitBoxHeight;lightning						;dialogueID ;dialogueId																								;unused; unused; unused; unused; unused ;duration		;velocity;AnimationEnds
+ON								;airHub			;../actorData/airSystem/hub/airSupport_256_256_Anim2 ;true					;0 										;6   ;2           ;2    ;0   ;256        ;256         ;0         	  ;0             ;0          ;0											;greenlight256		;on								 ;actorData/airSystem/hub/airControl; unused; unused; unused; unused; unused ;0									;0							;false
+OFF							;airHub			;../actorData/airSystem/hub/airSupport_256_256_off			;true					;0 										;0   ;0           ;0    ;0   ;000        ;000         ;0        	   ;0             ;0          ;0											;redlight							;off							 ;actorData/airSystem/hub/airControl; unused; unused; unused; unused; unused ;0									;0							;false
