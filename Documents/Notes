@@ -22,6 +22,9 @@
     - crew deck (competitor, doctor, security, rescue pods, storage, fix enviroment)
     - freight deck
         - implement bump on trigger
+        - tenderer introduces Quest, then checks fullfillment (both on global variable)
+        - once system is online, you cannot switch of hub, ggf coin game
+        - door opens after tenderer assigns quest
 - Inventory
     - left sided, item desrcp, money card
     - other inventory, DragDrop
