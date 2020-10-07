@@ -73,16 +73,26 @@ public class Textbox
 
     public void startConversation(Actor actorParam)
     {
-        String methodName = "readDialogue() ";
+        String methodName = "startConversation() ";
         actorOfDialogue = actorParam;
-        //dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getDialogueFileName() + ".xml");
         dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getSpriteList().get(0).getDialogueFileName() + ".xml");
-        //readDialogue = readDialogue(actorOfDialogue.getDialogueStatusID());
         readDialogue = readDialogue(actorOfDialogue.getSpriteList().get(0).getInitDialogueId());
         drawTextbox();
 
         if (actorOfDialogue.getPersonalityContainer() != null)
             actorOfDialogue.getPersonalityContainer().incrementNumberOfInteraction();
+    }
+
+    public void startConversation(String dialogueFile, String dialogueId)
+    {
+        String methodName = "startConversation(String, String) ";
+        actorOfDialogue = null;
+        dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + dialogueFile + ".xml");
+        readDialogue = readDialogue(dialogueId);
+        drawTextbox();
+
+//        if (actorOfDialogue.getPersonalityContainer() != null)
+//            actorOfDialogue.getPersonalityContainer().incrementNumberOfInteraction();
     }
 
     //For Discussion if File is already read, Discussions send next Dialogue
@@ -260,7 +270,7 @@ public class Textbox
         }
         else mousePosRelativeToTextboxOverlay = null;
 
-        if (actorOfDialogue.getPersonalityContainer() != null && talkIcon.contains(mousePosRelativeToTextboxOverlay))
+        if (actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null && talkIcon.contains(mousePosRelativeToTextboxOverlay))
         {
             isInfoButtonHovered = true;
         }
@@ -444,7 +454,7 @@ public class Textbox
 
 
         //Character Info Button
-        if (actorOfDialogue.getPersonalityContainer() != null)
+        if (actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null)
         {
             textboxGc.drawImage(characterButton, talkIcon.getMinX(), talkIcon.getMinY());
         }

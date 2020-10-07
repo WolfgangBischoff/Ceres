@@ -1,0 +1,59 @@
+
+
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision/discussion
+spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
+
+    <dialogue id="welcome" type="normal" spritestatus="transition">
+        <line>Shown message</line>
+        <line>Shown message 2</line>
+        <nextDialogue>nextDialogueID</nextDialogue>
+    </dialogue>
+
+    <dialogue id="info" type="decision" spritestatus="transition">
+        <option>
+            <line>Optiontext1</line>
+            <nextDialogue>option1ID</nextDialogue>
+        </option>
+
+        <option>
+            <line>Optiontext1, Nothing happens</line>
+        </option>
+    </dialogue>
+
+     <dialogue id="DECISION-DISCUSSION" type="discussion" game="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
+
+
+"   &quot;
+'   &apos;
+<   &lt;
+>   &gt;
+&   &amp;
+<-->
+
+<root name = "actorName">
+    <dialogue id="none" type="normal">
+        <line>Lorem Ipsum none</line>
+    </dialogue>
+
+    <dialogue id="default" type="normal">
+        <line>Lorem Ipsum default</line>
+    </dialogue>
+
+    <dialogue id="centralControl" type="normal">
+        <line>This is the central control terminal. I wonder if the tenderer uses it or if its remote controlled.</line>
+    </dialogue>
+
+    <dialogue id="coffeVendor" type="normal">
+        <line>Looks like the brew coffee beans from earth. Hard to imagine.</line>
+    </dialogue>
+
+
+
+</root>
+
+

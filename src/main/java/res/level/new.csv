@@ -13,11 +13,11 @@ default		;20		;20			;south
 tiledefinition:
 #layer: 0 => behind ;1 => middle ;2 => in front
 #Floor
-#code     ;name        ;spritename                  ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
+#code     ;name        ;spritename                  ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning;dialogueId ;dialogueFile ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 plaiM1    ;metal							;floor/plainM1_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 #Walls
-#code     ;name        ;spritename                     							;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
+#code     ;name        ;spritename                     							;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning;dialogueId ;dialogueFile ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 mtxFS0				;mtxWall					;walls/mtx/mtx_0 																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 #Wall Decoration

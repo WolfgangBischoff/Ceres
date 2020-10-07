@@ -2,6 +2,8 @@ package Core;
 
 import Core.Enums.TriggerType;
 import Core.WorldView.WorldView;
+import Core.WorldView.WorldViewController;
+import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,16 +15,10 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import static Core.Config.*;
-import static Core.Config.CSV_POSTFIX;
-import static Core.Config.DEBUG_ACTORS;
-import static Core.Config.DEBUG_BLOCKER;
-import static Core.Config.DEBUG_NO_WALL;
-import static Core.Config.IMAGE_DIRECTORY_PATH;
-import static Core.Config.PNG_POSTFIX;
 
 public class Sprite
 {
-    public static final String CLASS_NAME = "Sprite/";
+    public static final String CLASSNAME = "Sprite/";
     Image baseimage;
     double basewidth; //width of whole sprite, in therms of animation multiple frames
     double baseheight;
@@ -176,14 +172,23 @@ public class Sprite
 
             //Interact within interaction area
             if (interact
-                    && otherSprite.actor != null
                     && otherSprite.getBoundary().intersects(interactionArea)
-                    && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)//Remove, its now in WorldView
+                    && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
             {
 
-                otherSprite.actor.onInteraction(this, currentNanoTime); //Passive reacts
-                actor.setLastInteraction(currentNanoTime);
-                interact = false; //Interacts with first found sprite;
+                if (otherSprite.actor != null)
+                {
+                    otherSprite.actor.onInteraction(this, currentNanoTime);
+                    actor.setLastInteraction(currentNanoTime);
+                    interact = false;
+                }
+                else if (!(otherSprite.dialogueFileName.equals("dialogueFile") || otherSprite.dialogueFileName.equals("none")))
+                {
+                    WorldView.getTextbox().startConversation(otherSprite.dialogueFileName, otherSprite.initDialogueId);
+                    WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
+                    actor.setLastInteraction(currentNanoTime);
+                    interact = false;
+                }
             }
 
             //In range
@@ -229,7 +234,7 @@ public class Sprite
         boolean debug = false;
 
         if (debug)
-            System.out.println(CLASS_NAME + methodName + name + " clicked: " + actor.actorInGameName + " " + actor.sensorStatus);
+            System.out.println(CLASSNAME + methodName + name + " clicked: " + actor.actorInGameName + " " + actor.sensorStatus);
 
         //Sprite is clicked by player and in Range
         Sprite player = WorldView.getPlayer();
@@ -239,7 +244,7 @@ public class Sprite
                 && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
         {
             if (debug)
-                System.out.println(CLASS_NAME + methodName + player.getName() + " interact with " + getName() + " by mouseclick.");
+                System.out.println(CLASSNAME + methodName + player.getName() + " interact with " + getName() + " by mouseclick.");
             actor.onInteraction(player, currentNanoTime); //Passive reacts
             player.actor.setLastInteraction(currentNanoTime);
         }
@@ -363,7 +368,7 @@ public class Sprite
         }
         catch (IllegalArgumentException e)
         {
-            System.out.println(CLASS_NAME + methodName + path.toString() + " not found");
+            System.out.println(CLASSNAME + methodName + path.toString() + " not found");
             i = new Image(IMAGE_DIRECTORY_PATH + "notfound_64_64" + ".png");
         }
 
@@ -468,9 +473,9 @@ public class Sprite
         return actor;
     }
 
-    public static String getClassName()
+    public static String getClassname()
     {
-        return CLASS_NAME;
+        return CLASSNAME;
     }
 
     public Image getBaseimage()

@@ -14,8 +14,7 @@
     - add definition in file
     - meteorit moving
 - Textbox
-    - more items with description, ggf more light weight textbox, function like coffee
-        - DialogueFile part of sprite status, part of sprite? Or dependent on sprite name?
+    - add sprite textbox by click, not just by interaction
     - Dialogue depentdent on date and variables
     - change Door status if discussion won
     - add item with textbox

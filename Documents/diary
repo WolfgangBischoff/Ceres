@@ -37,3 +37,5 @@
 05 10 20    - hydrau aka airHubSmall add broken sprite; - cerex logo C now red
             - new symbol for extra/introversion coin
             - tenderer checks if air system condition full filled; world variable
+08 10 20    - DialogueFile part of sprite status, lightweight textbox
+            - control, coffee, projector with description
