@@ -75,9 +75,10 @@ public class Textbox
     {
         String methodName = "readDialogue() ";
         actorOfDialogue = actorParam;
-        dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getDialogueFileName() + ".xml");
-        dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getDialogueFileName() + ".xml");
-        readDialogue = readDialogue(actorOfDialogue.getDialogueStatusID());
+        //dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getDialogueFileName() + ".xml");
+        dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getSpriteList().get(0).getDialogueFileName() + ".xml");
+        //readDialogue = readDialogue(actorOfDialogue.getDialogueStatusID());
+        readDialogue = readDialogue(actorOfDialogue.getSpriteList().get(0).getInitDialogueId());
         drawTextbox();
 
         if (actorOfDialogue.getPersonalityContainer() != null)
@@ -204,7 +205,7 @@ public class Textbox
         }
 
         if (!dialogueFound)
-            throw new NullPointerException("Dialogue not found: " + actorOfDialogue.getDialogueFileName() + ": " + dialogueIdentifier);
+            throw new NullPointerException("Dialogue not found: " + actorOfDialogue.getSpriteList().get(0).getDialogueFileName() + ": " + dialogueIdentifier);
 
         return readDialogue;
     }
@@ -310,8 +311,9 @@ public class Textbox
         startConversation(speakingActor);
         for (Actor actor : actorsList)
         {
-            Element analysisDialogueFileObserved = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actor.getDialogueFileName() + ".xml");
-            Dialogue analysisMessageObserved = readDialogue("analysis-" + actor.getDialogueStatusID(), analysisDialogueFileObserved);
+            Element analysisDialogueFileObserved = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actor.getSpriteList().get(0).getDialogueFileName() + ".xml");
+            //Dialogue analysisMessageObserved = readDialogue("analysis-" + actor.getDialogueStatusID(), analysisDialogueFileObserved);
+            Dialogue analysisMessageObserved = readDialogue("analysis-" + actor.getSpriteList().get(0).getInitDialogueId(), analysisDialogueFileObserved);
             readDialogue.messages.add(actor.getActorInGameName() + analysisMessageObserved.messages.get(0));
         }
     }

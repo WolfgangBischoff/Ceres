@@ -70,7 +70,7 @@ public class Actor
 
     List<ActorCondition> conditions = new ArrayList<>();
     //String dialogueFileName = null;
-    String dialogueStatusID = "none";
+    //String dialogueStatusID = "none";
     private String collectable_type;
     String textbox_analysis_group_name = "none";
     ActorMonitor actorMonitor;
@@ -546,7 +546,7 @@ public class Actor
             toChange.setLightningSpriteName(ts.lightningSprite);
             toChange.setAnimationEnds(ts.animationEnds);
             changeLayer(toChange, ts.heightLayer);
-            dialogueStatusID = ts.dialogueID;
+            //dialogueStatusID = ts.dialogueID;
         }
 
     }
@@ -763,7 +763,7 @@ public class Actor
                     if (analyzedGroup == null)
                         stringBuilder.append("\nDependent group does not exist or is empty: " + analyzedGroupName);
 
-                    throw new NullPointerException(stringBuilder.toString());
+                    throw new NullPointerException(e.getMessage() + stringBuilder.toString());
                 }
 
             }
@@ -973,10 +973,10 @@ public class Actor
 //        //return dialogueFileName;
 //    }
 
-    public String getDialogueStatusID()
-    {
-        return dialogueStatusID;
-    }
+//    public String getDialogueStatusID()
+//    {
+//        return dialogueStatusID;
+//    }
 
     public String getCollectable_type()
     {
@@ -1117,11 +1117,11 @@ public class Actor
     {
         this.conditions = conditions;
     }
-
-    public void setDialogueStatusID(String dialogueStatusID)
-    {
-        this.dialogueStatusID = dialogueStatusID;
-    }
+//
+//    public void setDialogueStatusID(String dialogueStatusID)
+//    {
+//        this.dialogueStatusID = dialogueStatusID;
+//    }
 
     public void setCollectable_type(String collectable_type)
     {

@@ -453,7 +453,7 @@ public class WorldLoader
             actorSprite.actor = actor;
             actorSprite.setAnimationEnds(spriteData.animationEnds);
             actor.setSpeed(spriteData.velocity);//Set as often as Sprites exist?
-            actor.dialogueStatusID = spriteData.dialogueID;
+            //actor.dialogueStatusID = spriteData.dialogueID;
             actor.addSprite(actorSprite);
         }
         return actor;

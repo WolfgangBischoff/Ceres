@@ -59,7 +59,7 @@ public class GlobalActorsManager
                     actorSprite.setActor(actor);
                     actorSprite.setAnimationEnds(spriteData.animationEnds);
                     actor.setSpeed(spriteData.velocity);//Set as often as Sprites exist?
-                    actor.setDialogueStatusID(spriteData.dialogueID);
+                    //actor.setDialogueStatusID(spriteData.dialogueID);
                     actor.addSprite(actorSprite);
                 }
 
