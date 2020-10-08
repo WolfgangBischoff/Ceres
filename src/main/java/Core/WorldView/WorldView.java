@@ -59,7 +59,7 @@ import static Core.WorldView.WorldViewStatus.WORLD;
 
 public class WorldView
 {
-    private static final String CLASSNAME = "WorldView ";
+    private static final String CLASSNAME = "WorldView/";
     private static WorldView singleton;
     Pane root;
     Canvas worldCanvas;

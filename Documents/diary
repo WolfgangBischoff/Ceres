@@ -39,3 +39,4 @@
             - tenderer checks if air system condition full filled; world variable
 08 10 20    - DialogueFile part of sprite status, lightweight textbox
             - control, coffee, projector with description
+            - standing animation

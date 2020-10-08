@@ -38,10 +38,10 @@ public class Config
     public static Point2D DAY_SUMMARY_POSITION = new Point2D(CAMERA_WIDTH / 2f - DAY_SUMMARY_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - DAY_SUMMARY_HEIGHT / 2.0); //Centereda
 
     public static final int MAM_BAR_WIDTH = 300;
-    public static final int MAM_BAR_HEIGHT = 50;
+    public static final int MAM_BAR_HEIGHT = 64;
     public static final Point2D MAM_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 30); //Right Upper Edge
-    public static final Point2D MONEY_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 80);
-    public static final Point2D HUNGER_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 130);
+    public static final Point2D MONEY_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 100);
+    public static final Point2D HUNGER_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 170);
     public static final Point2D BOARD_TIME_POSITION = new Point2D(20, 30);
     public static final int BOARD_TIME_WIDTH = 90;
     public static final int BOARD_TIME_HEIGHT = 40;

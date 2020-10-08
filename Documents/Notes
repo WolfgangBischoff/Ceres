@@ -3,6 +3,7 @@
 ----- Code -------------------------------
 ------------------------------------------
 - Mechanics
+    - possible bug with interaction, collect food in capsule dont work with E
     - Game Over if health == 0
     - Add set item mechanic
     - Interaction by click should use sprite hitbox
@@ -41,8 +42,8 @@
 ------------------------------------------
 GUI
     - sprite status bars
+        - add another picture, imporve
     - add right capsule wall
-    - standing animation
 - Ship:
     FrontWindow, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker, algae tank transparency
 - Docking Bay:

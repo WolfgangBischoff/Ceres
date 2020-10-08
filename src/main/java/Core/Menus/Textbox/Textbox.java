@@ -29,7 +29,7 @@ import static Core.Config.*;
 
 public class Textbox
 {
-    private static final String CLASSNAME = "Textbox ";
+    private static final String CLASSNAME = "Textbox/";
     private static double WIDTH = TEXTBOX_WIDTH;
     private static double HEIGHT = TEXTBOX_HEIGHT;
     private static Point2D SCREEN_POSITION = TEXT_BOX_POSITION;
