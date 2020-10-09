@@ -475,7 +475,12 @@ public class WorldView
         List<Sprite> mouseHoveredSprites = new ArrayList<>();
         for (Sprite active : activeSpritesLayer)//NOTE Send to Actor one time, not every Sprite, maybe with map that check already triggered actors
             if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera)
-                    && active.getActor().getSensorStatus().getOnInteraction_TriggerSprite() != TriggerType.NOTHING)//Just add sprites of actors you can interact by onInteraction
+                    && (
+                            active.getActor().getSensorStatus().getOnInteraction_TriggerSprite() != TriggerType.NOTHING
+                 //   || !(active.getDialogueFileName().equals("dialogueFile") || active.getDialogueFileName().equals("none"))
+            )
+
+            )//Just add sprites of actors you can interact by onInteraction
                 mouseHoveredSprites.add(active);
 
         switch (WorldViewController.getWorldViewStatus())
