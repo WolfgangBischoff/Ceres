@@ -69,8 +69,6 @@ public class Actor
     SensorStatus sensorStatus;
 
     List<ActorCondition> conditions = new ArrayList<>();
-    //String dialogueFileName = null;
-    //String dialogueStatusID = "none";
     private String collectable_type;
     String textbox_analysis_group_name = "none";
     ActorMonitor actorMonitor;
