@@ -1,4 +1,4 @@
-package Core.Menus;
+package Core.Menus.StatusBarOverlay;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -14,7 +14,7 @@ import static Core.Config.IMAGE_DIRECTORY_PATH;
 
 public class StatusBarOverlay
 {
-    private static final String CLASSNAME = "StatusBarOverlay ";
+    private static final String CLASSNAME = "StatusBarOverlay/";
     private final int WIDTH;
     private final int HEIGHT;
     private final Image frameImage;
@@ -27,10 +27,12 @@ public class StatusBarOverlay
     int barOffset = 90;//from picture
     int current;
     IntegerProperty baseValue;
+    Color marking;
 
-    public StatusBarOverlay(int WIDTH, int HEIGHT, IntegerProperty integerProperty, int maxValue)
+    //public StatusBarOverlay(int WIDTH, int HEIGHT, IntegerProperty integerProperty, int maxValue)
+    public StatusBarOverlay(StatusBarConfig config)
     {
-        this.baseValue = integerProperty;
+        this.baseValue = config.integerProperty;
         current = baseValue.getValue();
         baseValue.addListener(new ChangeListener<Number>()
         {
@@ -40,46 +42,53 @@ public class StatusBarOverlay
                 current = (int)newValue;
             }
         });
-        this.WIDTH = WIDTH;
-        this.HEIGHT = HEIGHT;
-        this.maxValue = maxValue;
+        this.WIDTH = config.WIDTH;
+        this.HEIGHT = config.HEIGHT;
+        this.maxValue = config.maxValue;
         canvas = new Canvas(WIDTH, HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
-        frameImage = new Image(IMAGE_DIRECTORY_PATH + "interface/bars/MaM_bar_400x64.png");
+        frameImage = new Image(IMAGE_DIRECTORY_PATH + config.imagePath);
+        marking = config.fillColor;
     }
 
     private void draw() throws NullPointerException
     {
+        boolean debug = false;
         String methodName = "draw() ";
         graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
-        Color background = Color.rgb(60, 90, 85);
+        //Color background = Color.rgb(60, 90, 85);
+        Color background = Color.rgb(20, 30, 30);
         double hue = background.getHue();
         double sat = background.getSaturation();
         double brig = background.getBrightness();
-        Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
+        //Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-        Color red = Color.hsb(0, 0.33, 0.90);
-        Color green = Color.hsb(140, 0.33, 0.90);
+        //Color red = Color.hsb(0, 0.33, 0.90);
+        //Color green = Color.hsb(140, 0.33, 0.90);
 
         //Background
         graphicsContext.setGlobalAlpha(0.8);
         graphicsContext.setFill(background);
-        int backgroundOffsetX = 16, backgroundOffsetY = 0;
+        int backgroundOffsetX = 16, backgroundOffsetY = 15;
         graphicsContext.fillRect(barOffset, backgroundOffsetY, WIDTH - backgroundOffsetX, HEIGHT - backgroundOffsetY * 2);
 
         //Fill bar
         float fillPercentage= current / (float) maxValue * maxWidthBar;
         graphicsContext.setFill(marking);
         graphicsContext.fillRect(barOffset, backgroundOffsetY, fillPercentage, HEIGHT - backgroundOffsetY * 2);
-        String msg = "Current: " + current + " max: " + maxValue +  " Percent: " + current / (float) maxValue;
-        graphicsContext.setFill(font);
-        graphicsContext.fillText(msg,  barOffset, 20 + graphicsContext.getFont().getSize());
+
 
         graphicsContext.setGlobalAlpha(1);
         graphicsContext.drawImage(frameImage,0,0);
 
-        graphicsContext.setStroke(Color.RED);
-        //graphicsContext.strokeRect(0,0,WIDTH,HEIGHT);
+        if(debug)
+        {
+            graphicsContext.setStroke(Color.RED);
+            graphicsContext.strokeRect(0,0,WIDTH,HEIGHT);
+            String msg = "Current: " + current + " max: " + maxValue + " Percent: " + current / (float) maxValue;
+            graphicsContext.setFill(font);
+            graphicsContext.fillText(msg, barOffset, 20 + graphicsContext.getFont().getSize());
+        }
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);

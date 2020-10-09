@@ -9,11 +9,10 @@ import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Personality.PersonalityScreenController;
-import Core.Menus.StatusBarOverlay;
+import Core.Menus.StatusBarOverlay.StatusBarConfig;
+import Core.Menus.StatusBarOverlay.StatusBarOverlay;
 import Core.Menus.Textbox.Textbox;
 import Core.Menus.VariableStatusOverlay;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -27,7 +26,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -91,7 +89,9 @@ public class WorldView
     static Point2D daySummaryScreenPosition = DAY_SUMMARY_POSITION;
 
     //Management Attention Meter Overlay
-    static StatusBarOverlay mamOverlay = new StatusBarOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.getPlayerMaM_duringDayProperty(), 100);
+    static StatusBarOverlay mamOverlay = new StatusBarOverlay(
+            new StatusBarConfig("interface/bars/MaM_bar_400x64.png", null, Color.hsb(0, 0.33, 0.90),
+            MAM_BAR_WIDTH, MAM_BAR_HEIGHT, 100, GameVariables.getPlayerMaM_duringDayProperty()));
     static Point2D mamOverlayPosition = MAM_BAR_POSITION;
 
     //Money Overlay
@@ -99,7 +99,8 @@ public class WorldView
     static Point2D moneyOverlayPosition = MONEY_POSITION;
 
     //Hunger Overlay
-    static StatusBarOverlay hungerOverlay = new StatusBarOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.playerHungerProperty(), MAX_HUNGER);
+    static StatusBarOverlay hungerOverlay = new StatusBarOverlay(new StatusBarConfig("interface/bars/food_bar_400x64.png", null, Color.hsb(140, 0.33, 0.90),
+            MAM_BAR_WIDTH, MAM_BAR_HEIGHT, MAX_HUNGER, GameVariables.playerHungerProperty()));
     static Point2D hungerOverlayPosition = HUNGER_BAR_POSITION;
 
     //Hunger Overlay
