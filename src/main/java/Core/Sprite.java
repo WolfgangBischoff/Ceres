@@ -187,9 +187,7 @@ public class Sprite
                 }
                 else if (!(otherSprite.dialogueFileName.equals("dialogueFile") || otherSprite.dialogueFileName.equals("none")))
                 {
-                    WorldView.getTextbox().startConversation(otherSprite.dialogueFileName, otherSprite.initDialogueId);
-                    WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
-                    actor.setLastInteraction(currentNanoTime);
+                    WorldView.startConversation(otherSprite.dialogueFileName, otherSprite.initDialogueId, currentNanoTime);
                     interact = false;
                 }
             }
@@ -233,23 +231,32 @@ public class Sprite
 
     public void onClick(Long currentNanoTime)
     {
-        String methodName = "onClick(Long)";
+        String methodName = "onClick(Long) ";
         boolean debug = false;
 
         if (debug)
-            System.out.println(CLASSNAME + methodName + name + " clicked: " + actor.actorInGameName + " " + actor.sensorStatus);
+            System.out.println(CLASSNAME + methodName + name + " clicked: " + actor.actorInGameName);
 
         //Sprite is clicked by player and in Range
         Sprite player = WorldView.getPlayer();
         player.calcInteractionRectangle();
         double elapsedTimeSinceLastInteraction = (currentNanoTime - player.actor.getLastInteraction()) / 1000000000.0;
         if (getBoundary().intersects(player.interactionArea)
-                && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
-        {
+                && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS
+
+        ) {
             if (debug)
                 System.out.println(CLASSNAME + methodName + player.getName() + " interact with " + getName() + " by mouseclick.");
-            actor.onInteraction(player, currentNanoTime); //Passive reacts
-            player.actor.setLastInteraction(currentNanoTime);
+            if (actor != null &&
+                    (actor.sensorStatus.onInteraction_TriggerSprite != NOTHING || actor.sensorStatus.onInteraction_TriggerSensor != NOTHING)) {
+                actor.onInteraction(player, currentNanoTime); //Passive reacts
+                player.actor.setLastInteraction(currentNanoTime);
+            }
+            else if (!(getDialogueFileName().equals("dialogueFile") || getDialogueFileName().equals("none"))) {
+                WorldView.startConversation(dialogueFileName, initDialogueId, currentNanoTime);
+                player.actor.setLastInteraction(currentNanoTime);
+            }
+
         }
 
     }
@@ -346,7 +353,7 @@ public class Sprite
     public String toString()
     {
         return name + " Position: [" + positionX + "," + positionY + "]"
-                + " Animated: " + animated + super.toString()
+                // + " Animated: " + animated + super.toString()
                 ;
     }
 

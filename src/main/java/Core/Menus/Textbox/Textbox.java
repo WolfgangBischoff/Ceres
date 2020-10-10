@@ -90,9 +90,6 @@ public class Textbox
         dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + dialogueFile + ".xml");
         readDialogue = readDialogue(dialogueId);
         drawTextbox();
-
-//        if (actorOfDialogue.getPersonalityContainer() != null)
-//            actorOfDialogue.getPersonalityContainer().incrementNumberOfInteraction();
     }
 
     //For Discussion if File is already read, Discussions send next Dialogue
