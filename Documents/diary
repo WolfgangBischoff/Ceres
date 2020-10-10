@@ -42,3 +42,4 @@
             - standing animation
 09 10 20    - added status bar imgages
 10 10 20    - Textbox should be opened on Click even if the sprite has no actor but just a defined textbox file
+            - Interaction by click should use sprite images

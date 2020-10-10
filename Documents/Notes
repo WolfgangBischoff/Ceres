@@ -1,12 +1,11 @@
-
 ------------------------------------------
 ----- Code -------------------------------
 ------------------------------------------
 - Mechanics
     - Game Over if health == 0
     - Add set item mechanic
-    - Interaction by click should use sprite hitbox
     - ausweich mechanic, seitenbewegung um weniger stuck zu sein
+    - check higher resolution and zoom, fix not centered overlay
 - Vending Machine
     - Vendor to buy items by debit card
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
@@ -18,7 +17,7 @@
     - change Door status if discussion won
     - add item with textbox
 - Level build
-    - crew deck (competitor, doctor, security, rescue pods, storage, fix enviroment)
+    - crew deck (competitor, doctor, security, rescue pods, storage, fix environment)
     - freight deck
         - implement bump on trigger
         - tenderer introduces Quest, then checks fullfillment (both on global variable)
