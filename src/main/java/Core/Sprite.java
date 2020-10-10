@@ -263,8 +263,12 @@ public class Sprite
 
     public boolean intersectsRelativeToWorldView(Point2D point)
     {
-        Rectangle2D positionRelativeToWorldView = new Rectangle2D(positionX + hitBoxOffsetX - WorldView.getCamX(), positionY + hitBoxOffsetY - WorldView.getCamY(), hitBoxWidth, hitBoxHeight);
-        return positionRelativeToWorldView.contains(point);
+        String methodName = "intersectsRelativeToWorldView() ";
+        //Uses Hitbox not sprite image
+        //Rectangle2D intersectionHitbox = new Rectangle2D(positionX + hitBoxOffsetX - WorldView.getCamX(), positionY + hitBoxOffsetY - WorldView.getCamY(), hitBoxWidth, hitBoxHeight);
+
+        Rectangle2D intersectionHitbox = new Rectangle2D(positionX - WorldView.getCamX(), positionY - WorldView.getCamY(), frameWidth, frameHeight);
+        return intersectionHitbox.contains(point);
     }
 
     public boolean intersects(Sprite s)

@@ -32,7 +32,7 @@ public class SpriteData
     final static int velocityIdx = 24;
     final static int animationEndsIdx = 25;
 
-    public String name, spriteName, lightningSprite, dialogueID, dialogueId, dialogieFile;
+    public String name, spriteName, lightningSprite, dialogueID, dialogieFile;
     public Boolean blocking, animationEnds = false;
     public Integer totalFrames, cols, rows, frameWidth, frameHeight, heightLayer, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, velocity;
     public Double animationDuration, fps;
@@ -41,7 +41,7 @@ public class SpriteData
     public SpriteData(String name, String spriteName, Boolean blocking, Double fps,
                       Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer heightLayer,
                       Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight, String lightningSprite
-                    ,String dialogueID, String dialogieFile
+            , String dialogueID, String dialogieFile
     )
     {
         this.name = name;

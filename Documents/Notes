@@ -14,7 +14,6 @@
     - add definition in file
     - meteorit moving
 - Textbox
-    - Textbox shoult be opened on Click even if the sprite has no actor but just a defined textbox file
     - Dialogue depentdent on date and variables
     - change Door status if discussion won
     - add item with textbox

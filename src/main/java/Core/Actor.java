@@ -520,31 +520,29 @@ public class Actor
         String methodName = "changeSprites() ";
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
-        if (targetSpriteData == null)
-        {
+        if (targetSpriteData == null) {
             StringBuilder stringBuilder = new StringBuilder();
             for (Map.Entry<String, List<SpriteData>> entry : spriteDataMap.entrySet())
                 stringBuilder.append("\t").append(entry.getKey()).append("\n");
             throw new RuntimeException(compoundStatus + " not found in \n" + stringBuilder.toString());
         }
-        else
-        {
+        else {
             //System.out.println(CLASSNAME + methodName + targetSpriteData);
         }
-        if (spriteList.isEmpty())//Before Actor is initiallized
+        if (spriteList.isEmpty())//Before Actor is initialized
             return;
 
         //For all Sprites of the actor onUpdate to new Status
-        for (int i = 0; i < spriteList.size(); i++)
-        {
+        for (int i = 0; i < spriteList.size(); i++) {
             SpriteData ts = targetSpriteData.get(i);
             Sprite toChange = spriteList.get(i);
             toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
             toChange.setBlocker(ts.blocking);
             toChange.setLightningSpriteName(ts.lightningSprite);
             toChange.setAnimationEnds(ts.animationEnds);
+            toChange.setDialogueFileName(ts.dialogieFile);
+            toChange.setInitDialogueId(ts.dialogueID);
             changeLayer(toChange, ts.heightLayer);
-            //dialogueStatusID = ts.dialogueID;
         }
 
     }
@@ -787,7 +785,7 @@ public class Actor
     public void updateCompoundStatus()
     {
         String methodName = "updateCompoundStatus() ";
-        boolean debug = true;
+        boolean debug = false;
         String oldCompoundStatus = compoundStatus;
         String newStatusString = generalStatus;
 
@@ -799,8 +797,9 @@ public class Actor
             newStatusString = newStatusString + "-" + "moving";
         compoundStatus = newStatusString;
 
-        if (!(oldCompoundStatus.equals(compoundStatus)))
-        {
+        if (!(oldCompoundStatus.equals(compoundStatus))) {
+            if (debug && getActorInGameName().equals("Desinfection"))
+                System.out.println(CLASSNAME + methodName + getActorInGameName() + " updated status from " + oldCompoundStatus + " to " + compoundStatus);
             changeSprites();
         }
 
