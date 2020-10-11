@@ -1,0 +1,67 @@
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision/discussion
+spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
+
+    <dialogue id="welcome" type="normal" spritestatus="transition">
+        <line>Shown message</line>
+        <line>Shown message 2</line>
+        <nextDialogue>nextDialogueID</nextDialogue>
+    </dialogue>
+
+    <dialogue id="info" type="decision" spritestatus="transition">
+        <option>
+            <line>Optiontext1</line>
+            <nextDialogue>option1ID</nextDialogue>
+        </option>
+
+        <option>
+            <line>Optiontext1, Nothing happens</line>
+        </option>
+    </dialogue>
+
+     <dialogue id="DECISION-DISCUSSION" type="discussion" game="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
+
+
+"   &quot;
+'   &apos;
+<   &lt;
+>   &gt;
+&   &amp;
+<-->
+
+<root name="actorName">
+    <dialogue id="INIT_online" type="normal">
+        <line>The system is online</line>
+    </dialogue>
+
+    <dialogue id="INIT_offline" type="normal" nextDialogue="REPAIR_OPTION">
+        <line>The system is offline ...</line>
+    </dialogue>
+
+    <dialogue id="REPAIR_OPTION" type="decision">
+        <option nextDialogue="ERROR_LOG">[Check error log]</option>
+        <option>[Initialize soft restart]</option>
+        <option>[Leave]</option>
+    </dialogue>
+
+    <dialogue id="ERROR_LOG" nextDialogue="REPAIR_OPTION">
+        <line>Error 0451: 0x435A4 core dumped</line>
+    </dialogue>
+
+    <dialogue id="DECISION-DISCUSSION" type="discussion" game="lifesupport" success="GAME-SUCCESS"
+              defeat="GAME-DEFEAT"/>
+
+    <dialogue id="GAME-SUCCESS" type="normal">
+        <line>[Success]</line>
+    </dialogue>
+    <dialogue id="GAME-DEFEAT" type="normal">
+        <line>[Defeat]</line>
+    </dialogue>
+
+</root>
+
+

@@ -135,10 +135,23 @@ public class Textbox
                         for (int j = 0; j < optionChildNodes.getLength(); j++)
                         {
                             Node node = optionChildNodes.item(j);
-                            if (node.getNodeName().equals(NEXT_DIALOGUE_TAG))
+                            //Old version with extra next dialogue line
+                            if (node.getNodeName().equals(NEXT_DIALOGUE_TAG)) {
                                 nextDialogue = node.getTextContent();
-                            else if (node.getNodeName().equals(LINE_TAG))
+                                continue;
+                            }
+                            else if (node.getNodeName().equals(LINE_TAG)) {
                                 visibleLine = node.getTextContent();
+                                continue;
+                            }
+
+                            //new version with next dialogue as attribute
+                            // if(optionNode.getNodeName().equals(OPTION_TAG))
+                            // {
+                            //     if(((Element)optionNode).hasAttribute(NEXT_DIALOGUE_TAG))
+                            //         nextDialogue = ((Element)optionNode).getAttribute(NEXT_DIALOGUE_TAG);
+                            //     visibleLine = optionNode.getTextContent();
+                            // }
                         }
                         readDialogue.addOption(visibleLine, nextDialogue);
                     }
@@ -190,13 +203,14 @@ public class Textbox
 
                 //Check for further dialogues
                 NodeList nextDialogueIdList = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
-                if (nextDialogueIdList.getLength() > 0)
-                {
+                if (nextDialogueIdList.getLength() > 0) {
                     nextDialogueID = nextDialogueIdList.item(0).getTextContent();
                     readDialogue.nextDialogue = nextDialogueIdList.item(0).getTextContent();
                 }
-                else
-                {
+                else if (currentDialogue.hasAttribute(NEXT_DIALOGUE_TAG)) {
+                    nextDialogueID = currentDialogue.getAttribute(NEXT_DIALOGUE_TAG);
+                }
+                else {
                     nextDialogueID = null;
                     readDialogue.nextDialogue = null;
                 }

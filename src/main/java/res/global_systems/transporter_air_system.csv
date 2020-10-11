@@ -7,7 +7,7 @@ ventCo					;airSystem/airVent/airVent															;Control ventilation						;o
 airCr2					;airSystem/airVent/airVent															;Left ventilation									;off																;default							;undefined
 airCr1					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;default							;undefined
 airLif					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;default							;undefined
-hydrOK					;airSystem/hydraulic/hydraulic											;Air hub																		;OFF																;default							;undefined
+hydrOK					;airSystem/airTerminal/control											;Air hub																		;OFF																;fixed									;undefined
 
 
 #Air System

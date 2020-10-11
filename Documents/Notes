@@ -13,6 +13,7 @@
     - add definition in file
     - meteorit moving
 - Textbox
+    - change nextDialogue as attribute not single line. Option remove line, use option value
     - Dialogue depentdent on date and variables
     - change Door status if discussion won
     - add item with textbox
@@ -21,7 +22,7 @@
     - freight deck
         - implement bump on trigger
         - tenderer introduces Quest, then checks fullfillment (both on global variable)
-        - once system is online, you cannot switch of hub, ggf coin game
+        - once system is online, you cannot switch of hub, ggf coin game; find manual before
         - door opens after tenderer assigns quest
 - Inventory
     - left sided, item desrcp, money card
