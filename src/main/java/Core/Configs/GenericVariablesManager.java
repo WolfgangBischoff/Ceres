@@ -11,6 +11,7 @@ public class GenericVariablesManager
     {
         Map<String, Boolean> ret = new HashMap<>();
         stringWorldVariables.put("transporter_air_system_quest_started", "false");
+        stringWorldVariables.put("IS_LIFE_SUPP_OPEN", "false");
        // return ret;
     }
 

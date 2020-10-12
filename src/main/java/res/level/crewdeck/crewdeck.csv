@@ -77,7 +77,8 @@ techni					;character/technician/technician									;technician															;i
 
 elevSc					;doors/updown/elevator/elevator										;main elevator												;toFreightDeck						;default																;undefined
 autoDo					;doors/vertical/autoBulkheadVertical					;bulkhead vertical								;on																	;UNLOCKED															;west
-doorHo					;doors/horizontal/automatedDoor										;bulkhead	horizontal						;on																	;UNLOCKED															;south
+#doorHo					;doors/horizontal/automatedDoor										;bulkhead	horizontal						;on																	;UNLOCKED															;south
+doorHo					;doors/horizontal/automatedDoor										;bulkhead	horizontal						;on																	;VARIABLE_UNLOCKED						;south
 cleanB					;robot/cleaningBot/cleaningBot											;technician															;default												;default																;west
 steamS					;bath/steam_shower/steam_shower										;shower																			;off																;default																;undefined
 bed_Bi					;furniture/bed/bed																							;Your Bed																	;bischoff											;sleep																		;undefined

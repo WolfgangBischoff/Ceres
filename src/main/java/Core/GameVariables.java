@@ -238,7 +238,7 @@ public class GameVariables
             GameVariables.health = health;
     }
 
-    public static GenericVariablesManager getBooleanWorldVariables()
+    public static GenericVariablesManager getGenericVariableManager()
     {
         return booleanWorldVariables;
     }

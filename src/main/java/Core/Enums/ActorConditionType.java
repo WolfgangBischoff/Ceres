@@ -2,7 +2,7 @@ package Core.Enums;
 
 public enum ActorConditionType
 {
-    HAS_ITEM, HAS_MONEY, GLOBAL_VARIABLE, HAS_TAG;
+    HAS_ITEM, HAS_MONEY, VARIABLE, HAS_TAG;
 
     public static ActorConditionType getConditionFromValue(String value)
     {
@@ -10,7 +10,7 @@ public enum ActorConditionType
         {
             case "hasitem": return HAS_ITEM;
             //case "hasmoney": return HAS_MONEY;
-            //case "globalvariable": return GLOBAL_VARIABLE;
+            case "variable": return VARIABLE;
             default: throw new RuntimeException("ActorConditionType not defined: " + value);
         }
     }

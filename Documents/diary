@@ -45,3 +45,4 @@
             - Interaction by click should use sprite images
 12 10 20    - once system is online, you cannot switch of hub; nextDialogue in XML now attribute
             - tenderer introduces Quest, then checks fullfillment (both on global variable)
+            - door opens after tenderer assigns quest

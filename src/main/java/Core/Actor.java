@@ -38,6 +38,7 @@ import static Core.Configs.Config.KEYWORD_transition;
 import static Core.Configs.Config.PNG_POSTFIX;
 import static Core.Configs.Config.TIME_BETWEEN_INTERACTIONS;
 import static Core.Enums.ActorTag.*;
+import static Core.Enums.TriggerType.CONDITION;
 
 public class Actor
 {
@@ -352,14 +353,17 @@ public class Actor
                 evaluateTriggerType(sensorStatus.onUpdate_TriggerSprite, sensorStatus.onUpdateToStatusSprite, null);
 
             //SensorStatus
-            if (sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !sensorStatus.onUpdate_StatusSensor.equals(sensorStatus.statusName))
+            if(sensorStatus.getOnUpdate_TriggerSensor() == CONDITION)
+                updateStatusFromConditions(this);
+            else if (sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !sensorStatus.onUpdate_StatusSensor.equals(sensorStatus.statusName))
                 setSensorStatus(sensorStatus.onUpdate_StatusSensor);
+
         }
     }
 
-    private void updateStatusFromConditions(Sprite activeSprite)
+    private void updateStatusFromConditions(Actor activeActor)
     {
-        String methodName = "updateStatusFromConditions()";
+        String methodName = "updateStatusFromConditions() ";
         boolean debug = false;
         for (ActorCondition condition : conditions)
         {
@@ -370,7 +374,7 @@ public class Actor
                             (sensorStatus.statusName.equals(condition.sensorStatusCondition) || condition.sensorStatusCondition.equals("*"))
             )
             {
-                if (condition.evaluate(activeSprite.actor, this))
+                if (condition.evaluate(activeActor, this))
                 //condition met
                 {
                     if (!condition.trueSpriteStatus.equals("*"))
@@ -387,7 +391,7 @@ public class Actor
                 else
                 //condition not met
                 {
-                    if (!condition.falseSensorStatus.equals("*"))
+                    if (!condition.falseSpriteStatus.equals("*"))
                     {
                         generalStatus = condition.falseSpriteStatus;
                         updateCompoundStatus();
@@ -410,7 +414,7 @@ public class Actor
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
             //System.out.println(CLASSNAME + methodName + getActorInGameName());
-            updateStatusFromConditions(activeSprite);
+            updateStatusFromConditions(activeSprite.actor);
             //react
             evaluateTriggerType(sensorStatus.onInteraction_TriggerSprite, sensorStatus.onInteractionToStatusSprite, activeSprite.actor);
             setLastInteraction(currentNanoTime);
@@ -582,7 +586,6 @@ public class Actor
             case NOTHING:
                 System.out.println(CLASSNAME + methodName + actorInGameName + " triggered without trigger type");
                 return;
-            //Status Changes
             case PERSISTENT:
                 evaluateTargetStatus(targetStatusField);
                 break;
@@ -616,6 +619,8 @@ public class Actor
             case INVENTORY_EXCHANGE:
                 WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY_EXCHANGE);
                 InventoryController.setExchangeInventoryActor(this);
+                break;
+            case CONDITION:
                 break;
         }
     }

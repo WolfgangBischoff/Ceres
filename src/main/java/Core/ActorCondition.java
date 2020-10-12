@@ -1,5 +1,6 @@
 package Core;
 
+import Core.Configs.GenericVariablesManager;
 import Core.Enums.ActorConditionType;
 import Core.Enums.CollectableType;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class ActorCondition
 {
-    private static final String CLASSNAME = "ActorCondition-";
+    private static final String CLASSNAME = "ActorCondition/";
     String spriteStatusCondition, sensorStatusCondition, trueSpriteStatus, trueSensorStatus, falseSpriteStatus, falseSensorStatus;
     List<String> params = new ArrayList<>();
     ActorConditionType actorConditionType;
@@ -30,6 +31,8 @@ public class ActorCondition
         {
             case HAS_ITEM:
                 return hasItem(activeActor);
+            case  VARIABLE:
+                return variable();
             default:
                 throw new RuntimeException("ActorConditionType not defined: " + actorConditionType);
         }
@@ -45,14 +48,17 @@ public class ActorCondition
         {
             Collectible toCheck = new Collectible(params.get(i), CollectableType.getType(params.get(i + 1)), "checkitem hasItem()", 0);
             if (actor.inventory.contains(toCheck))
-            {
-                if (debug)
-                    System.out.println(CLASSNAME + methodName + toCheck + " found in " + actor.inventory);
                 return true;
-            }
-            else if (debug)
-                System.out.println(CLASSNAME + methodName + toCheck + " not found in " + actor.inventory);
         }
         return false;
+    }
+
+    private boolean variable()
+    {
+        String methodName = "value() ";
+        boolean debug = true;
+        String variableName = params.get(0);
+        //System.out.println(CLASSNAME + methodName + Boolean.parseBoolean(GameVariables.getGenericVariableManager().getValue(variableName)));
+        return Boolean.parseBoolean(GameVariables.getGenericVariableManager().getValue(variableName));
     }
 }

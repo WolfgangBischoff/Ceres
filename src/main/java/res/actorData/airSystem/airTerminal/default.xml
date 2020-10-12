@@ -49,11 +49,13 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
     <dialogue id="ERROR_LOG" nextDialogue="REPAIR_OPTION">
-        <line>Error 0451: 0x435A4 core dumped</line>
+        <line>Error 0451: Increased pressure due to pipe system blockage. Initiated emergency shutdown protocol.</line>
     </dialogue>
 
     <dialogue id="SOFT_RESTART" spritestatus="ON">
-        <line>System reboot successful!</line>
+        <line>System reboot initiated ...</line>
+        <line>Restoring air pressure ... </line>
+        <line>System reboot ... Done</line>
     </dialogue>
 
 

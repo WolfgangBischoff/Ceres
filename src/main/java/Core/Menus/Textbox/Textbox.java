@@ -197,7 +197,7 @@ public class Textbox
                 else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_BOOLEAN))
                 {
                    // Boolean var = GameVariables.getBooleanWorldVariables().get(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
-                    String var = GameVariables.getBooleanWorldVariables().getValue(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
+                    String var = GameVariables.getGenericVariableManager().getValue(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
                     if (var == null)
                         System.out.println(CLASSNAME + methodName + "variable not set: " + currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
                     nextDialogueID = Boolean.parseBoolean(var) ? currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_TRUE) : currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_FALSE);
@@ -221,7 +221,7 @@ public class Textbox
                         String varname = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME);
                         String val = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_SET);
                         //GameVariables.getBooleanWorldVariables().put(varname, val);
-                        GameVariables.getBooleanWorldVariables().setValue(varname, val);
+                        GameVariables.getGenericVariableManager().setValue(varname, val);
                     }
                 }
 
@@ -263,7 +263,7 @@ public class Textbox
         String methodName = "checkVariableCondition() ";
         String eval = "true";
         if (type.equals(TEXTBOX_ATTRIBUTE_BOOLEAN))
-            eval = GameVariables.getBooleanWorldVariables().getValue(varName);
+            eval = GameVariables.getGenericVariableManager().getValue(varName);
         if (eval == null)
             System.out.println(CLASSNAME + methodName + "variable not set: " + varName);
         return eval;
