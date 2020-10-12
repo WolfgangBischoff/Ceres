@@ -48,9 +48,8 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Fresh air streams into your face</line>
     </dialogue>
 
-    <dialogue id="init-off" type="normal">
+    <dialogue id="init-off" type="normal" nextDialogue="off-cleanDec">
         <line>Looks dirty and congested</line>
-        <nextDialogue>off-cleanDec</nextDialogue>
     </dialogue>
 
     <dialogue id="init-baseSystemOffline" type="normal">
@@ -58,13 +57,8 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
     <dialogue id="off-cleanDec" type="decision">
-        <option>
-            <line>[Clean the ventilation]</line>
-            <nextDialogue>cleanDec-cleaned</nextDialogue>
-        </option>
-        <option>
-            <line>[Go away]</line>
-        </option>
+        <option nextDialogue="cleanDec-cleaned">[Clean the ventilation]</option>
+        <option>[Go away]</option>
     </dialogue>
 
     <dialogue id="cleanDec-cleaned" type="normal" spritestatus="on">

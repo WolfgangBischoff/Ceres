@@ -135,7 +135,7 @@ public class Textbox
                         for (int j = 0; j < optionChildNodes.getLength(); j++)
                         {
                             Node node = optionChildNodes.item(j);
-                            //Old version with extra next dialogue line
+                            //Old version with extra next dialogue line, can be deleted once xml are corrected
                             if (node.getNodeName().equals(NEXT_DIALOGUE_TAG)) {
                                 nextDialogue = node.getTextContent();
                                 continue;
@@ -146,12 +146,12 @@ public class Textbox
                             }
 
                             //new version with next dialogue as attribute
-                            // if(optionNode.getNodeName().equals(OPTION_TAG))
-                            // {
-                            //     if(((Element)optionNode).hasAttribute(NEXT_DIALOGUE_TAG))
-                            //         nextDialogue = ((Element)optionNode).getAttribute(NEXT_DIALOGUE_TAG);
-                            //     visibleLine = optionNode.getTextContent();
-                            // }
+                             if(optionNode.getNodeName().equals(OPTION_TAG))
+                             {
+                                 if(((Element)optionNode).hasAttribute(NEXT_DIALOGUE_TAG))
+                                     nextDialogue = ((Element)optionNode).getAttribute(NEXT_DIALOGUE_TAG);
+                                 visibleLine = optionNode.getTextContent();
+                             }
                         }
                         readDialogue.addOption(visibleLine, nextDialogue);
                     }

@@ -27,20 +27,13 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 <-->
 
 <root name="bed">
-    <dialogue id="sleep" type="normal">
+    <dialogue id="sleep" type="normal" nextDialogue="sleep-decision">
         <line>Do you want to spend the remaining day in your capsule?</line>
-        <nextDialogue>sleep-decision</nextDialogue>
     </dialogue>
 
     <dialogue id="sleep-decision" type="decision">
-        <option>
-            <line>Rest till next day</line>
-            <nextDialogue>decision-technical</nextDialogue>
-        </option>
-
-        <option>
-            <line>[back]</line>
-        </option>
+        <option nextDialogue="decision-technical">Rest till next day</option>
+        <option>[back]</option>
     </dialogue>
 
     <dialogue id="decision-technical" type="dayChange">

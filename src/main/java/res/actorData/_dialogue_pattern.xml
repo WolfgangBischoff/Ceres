@@ -27,7 +27,6 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
      <dialogue id="DECISION-DISCUSSION" type="discussion" game="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
 
-
 "   &quot;
 '   &apos;
 <   &lt;

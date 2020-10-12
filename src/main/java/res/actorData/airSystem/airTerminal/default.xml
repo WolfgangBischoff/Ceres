@@ -44,7 +44,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
     <dialogue id="REPAIR_OPTION" type="decision">
         <option nextDialogue="ERROR_LOG">[Check error log]</option>
-        <option>[Initialize soft restart]</option>
+        <option nextDialogue="SOFT_RESTART">[Initialize soft restart]</option>
         <option>[Leave]</option>
     </dialogue>
 
@@ -52,6 +52,12 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Error 0451: 0x435A4 core dumped</line>
     </dialogue>
 
+    <dialogue id="SOFT_RESTART" spritestatus="ON">
+        <line>System reboot successful!</line>
+    </dialogue>
+
+
+    <!-->
     <dialogue id="DECISION-DISCUSSION" type="discussion" game="lifesupport" success="GAME-SUCCESS"
               defeat="GAME-DEFEAT"/>
 
@@ -61,7 +67,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     <dialogue id="GAME-DEFEAT" type="normal">
         <line>[Defeat]</line>
     </dialogue>
-
+    <-->
 </root>
 
 

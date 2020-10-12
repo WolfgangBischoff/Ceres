@@ -35,39 +35,25 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 <-->
 
 <root name="tenderer">
-    <dialogue id="day0" type="normal">
+    <dialogue id="day0" type="normal" nextDialogue="job-decision">
        <line>Hi, I am the tenderer</line>
        <line>I have a job for you, if you are interested...</line>
-        <nextDialogue>job-decision</nextDialogue>
     </dialogue>
 
     <dialogue id="job-decision" type="decision">
-        <option>
-            <line>&gt;What should I do?&lt;</line>
-            <nextDialogue>game-explanation</nextDialogue>
-        </option>
-        <option>
-            <line>[Do the job]</line>
-            <nextDialogue>tenderer-game</nextDialogue>
-        </option>
-        <option>
-            <line>Air System Maintenance</line>
-            <nextDialogue>air_system_check</nextDialogue>
-        </option>
-        <option>
-            <line>Never mind.</line>
-        </option>
+        <option nextDialogue="game-explanation">&gt;What should I do?&lt;</option>
+        <option nextDialogue="tenderer-game">[Do the job]</option>
+        <option nextDialogue="air_system_check">Air System Maintenance</option>
+        <option>Never mind.</option>
     </dialogue>
 
     <dialogue id="tenderer-game" type="discussion" game="lifesupport" success="game-success" defeat="game-defeat"/>
 
-    <dialogue id="game-success" type = "normal">
+    <dialogue id="game-success" type = "normal" nextDialogue="getMoney">
         <line>CereX thanks for you cooperation.</line>
-        <nextDialogue>getMoney</nextDialogue>
     </dialogue>
-    <dialogue id="game-defeat" type = "normal">
+    <dialogue id="game-defeat" type = "normal" nextDialogue="good-bye">
         <line>Maybe you should take a CereX Trainee Course.</line>
-        <nextDialogue>good-bye</nextDialogue>
     </dialogue>
 
     <dialogue id="getMoney" type="getMoney" amount="50">
@@ -78,12 +64,10 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Have a nice day.</line>
     </dialogue>
 
-    <dialogue id="game-explanation" type="normal">
+    <dialogue id="game-explanation" type="normal" nextDialogue="job-decision">
         <line>Lets discuss the value of your work. Once the discussion begins, you have to click on the right coins, which fit to me.</line>
         <line>But as long you dont know me well, you basically have to guess. Once we get in touch more often you get more hints. Check out INFO</line>
-        <nextDialogue>job-decision</nextDialogue>
     </dialogue>
-
 
     <dialogue id="air_system_check" type="boolean" variablename="isTransporterAirSystemOn" true="air_system_on" false="air_system_off"/>
     <dialogue id="air_system_on" type="getMoney" amount="50">
@@ -92,7 +76,6 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     <dialogue id="air_system_off" type="normal">
         <line>The air system is still down..</line>
     </dialogue>
-
 
 </root>
 
