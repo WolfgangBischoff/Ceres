@@ -1,5 +1,6 @@
 package Core;
 
+import Core.Configs.Config;
 import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;

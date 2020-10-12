@@ -1,7 +1,6 @@
 package Core;
 
-import Core.ActorSystem.ActorMonitor;
-import Core.ActorSystem.GlobalActorsManager;
+import Core.Configs.GenericVariablesManager;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -10,11 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Core.Config.INIT_HEALTH;
-import static Core.Config.INIT_HUNGER;
-import static Core.Config.INIT_MONEY;
-import static Core.Config.MAX_HEALTH;
-import static Core.Config.MAX_HUNGER;
+import static Core.Configs.Config.INIT_HEALTH;
+import static Core.Configs.Config.INIT_HUNGER;
+import static Core.Configs.Config.INIT_MONEY;
+import static Core.Configs.Config.MAX_HEALTH;
+import static Core.Configs.Config.MAX_HUNGER;
 
 public class GameVariables
 {
@@ -28,9 +27,8 @@ public class GameVariables
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
     static private int day = 0;
     static private Clock clock;
-    static private List<GlobalActorsManager> globalActorsManagerList = new ArrayList<>();
-    static private ActorMonitor globalSystemsMonitor = new ActorMonitor();
-    static private Map<String, Boolean> booleanWorldVariables = new HashMap<>();
+    //static private Map<String, Boolean> booleanWorldVariables = new HashMap<>();
+    static private GenericVariablesManager booleanWorldVariables = new GenericVariablesManager();
 
     //Game State persistent over days
     static Sprite player;
@@ -43,6 +41,7 @@ public class GameVariables
     {
         clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
         lastTimeHungerFromTime = clock.time.getValue();
+        //booleanWorldVariables.putAll(GenericVariablesManager.initBoolean());
     }
 
     public static void setPlayer(Sprite player)
@@ -239,7 +238,7 @@ public class GameVariables
             GameVariables.health = health;
     }
 
-    public static Map<String, Boolean> getBooleanWorldVariables()
+    public static GenericVariablesManager getBooleanWorldVariables()
     {
         return booleanWorldVariables;
     }

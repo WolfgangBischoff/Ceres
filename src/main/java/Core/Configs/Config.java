@@ -1,4 +1,4 @@
-package Core;
+package Core.Configs;
 
 import javafx.geometry.Point2D;
 
@@ -97,7 +97,6 @@ public class Config
     //DialogueFile Keywords
     public static final String DIALOGUE_TAG = "dialogue";
     public static final String ID_TAG = "id";
-    public static final String TYPE_TAG = "type";
     public static final String ACTOR_STATUS_TAG = "spritestatus";
     public static final String SENSOR_STATUS_TAG = "sensorstatus";
     public static final String decision_TYPE_ATTRIBUTE = "decision";
@@ -105,6 +104,7 @@ public class Config
     public static final String NEXT_DIALOGUE_TAG = "nextDialogue";
     public static final String OPTION_TAG = "option";
 
+    public static final String TEXTBOX_ATTRIBUTE_TYPE = "type";
     public static final String discussion_TYPE_ATTRIBUTE = "discussion";
     public static final String game_ATTRIBUTE = "game";
     public static final String success_ATTRIBUTE = "success";
@@ -114,8 +114,10 @@ public class Config
     public static final String spawnID_ATTRIBUTE = "spawnID";
     public static final String dayChange_TYPE_ATTRIBUTE = "dayChange";
     public static final String TEXTBOX_ATTRIBUTE_GET_MONEY = "getMoney";
-    public static final String TEXTBOX_ATTRIBUTE_AMOUNT = "amount";
+    public static final String TEXTBOX_ATTRIBUTE_VALUE = "value";
     public static final String TEXTBOX_ATTRIBUTE_BOOLEAN = "boolean";
+    public static final String TEXTBOX_ATTRIBUTE_VISIBLE_IF = "visibleIf";
+    public static final String TEXTBOX_ATTRIBUTE_SET = "set";
     public static final String TEXTBOX_ATTRIBUTE_VARIABLE_NAME = "variablename";
     public static final String TEXTBOX_ATTRIBUTE_TRUE = "true";
     public static final String TEXTBOX_ATTRIBUTE_FALSE = "false";

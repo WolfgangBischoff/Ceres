@@ -20,12 +20,11 @@ import javafx.scene.text.TextAlignment;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Core.Config.*;
-import static Core.Config.DAY_SUMMARY_HEIGHT;
-import static Core.Config.DAY_SUMMARY_POSITION;
-import static Core.Config.DAY_SUMMARY_WIDTH;
-import static Core.Config.IMAGE_DIRECTORY_PATH;
-import static Core.Config.TIME_BETWEEN_DIALOGUE;
+import static Core.Configs.Config.DAY_SUMMARY_HEIGHT;
+import static Core.Configs.Config.DAY_SUMMARY_POSITION;
+import static Core.Configs.Config.DAY_SUMMARY_WIDTH;
+import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
+import static Core.Configs.Config.TIME_BETWEEN_DIALOGUE;
 
 public class DaySummaryScreenController
 {

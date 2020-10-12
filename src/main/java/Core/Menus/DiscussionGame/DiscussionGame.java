@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Core.Config.*;
+import static Core.Configs.Config.*;
 import static Core.Menus.Personality.PersonalityTrait.*;
 
 public class DiscussionGame

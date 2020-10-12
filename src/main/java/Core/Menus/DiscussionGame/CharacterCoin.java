@@ -1,6 +1,5 @@
 package Core.Menus.DiscussionGame;
 
-import Core.Menus.Personality.MyersBriggsPersonality;
 import Core.Menus.Personality.PersonalityTrait;
 import Core.Utilities;
 import javafx.geometry.Point2D;
@@ -11,13 +10,13 @@ import org.w3c.dom.Element;
 import java.util.HashMap;
 import java.util.Map;
 
-import static Core.Config.*;
-import static Core.Config.COIN_BEHAVIOR_CIRCLE;
-import static Core.Config.COIN_BEHAVIOR_JUMP;
-import static Core.Config.COIN_BEHAVIOR_MOVING;
-import static Core.Config.COIN_BEHAVIOR_SPIRAL;
-import static Core.Config.COIN_TAG_ANGLE;
-import static Core.Config.COIN_TAG_INITSPEED;
+import static Core.Configs.Config.*;
+import static Core.Configs.Config.COIN_BEHAVIOR_CIRCLE;
+import static Core.Configs.Config.COIN_BEHAVIOR_JUMP;
+import static Core.Configs.Config.COIN_BEHAVIOR_MOVING;
+import static Core.Configs.Config.COIN_BEHAVIOR_SPIRAL;
+import static Core.Configs.Config.COIN_TAG_ANGLE;
+import static Core.Configs.Config.COIN_TAG_INITSPEED;
 
 public class CharacterCoin
 {

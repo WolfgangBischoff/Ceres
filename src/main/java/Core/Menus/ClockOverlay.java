@@ -1,7 +1,7 @@
 package Core.Menus;
 
 import Core.Clock;
-import Core.Config;
+import Core.Configs.Config;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.SnapshotParameters;

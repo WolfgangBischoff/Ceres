@@ -1,12 +1,13 @@
 package Core.ActorSystem;
 
 import Core.*;
+import Core.Configs.Config;
 import Core.Enums.Direction;
 
 import java.util.*;
 
-import static Core.Config.KEYWORD_ACTORS;
-import static Core.Config.KEYWORD_GROUPS;
+import static Core.Configs.Config.KEYWORD_ACTORS;
+import static Core.Configs.Config.KEYWORD_GROUPS;
 
 public class GlobalActorsManager
 {

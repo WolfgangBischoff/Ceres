@@ -7,8 +7,8 @@ import Core.WorldView.WorldView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Core.Config.MAM_DAILY_DECREASE;
-import static Core.Config.MAM_THRESHOLD_INTERROGATION;
+import static Core.Configs.Config.MAM_DAILY_DECREASE;
+import static Core.Configs.Config.MAM_THRESHOLD_INTERROGATION;
 
 public class DaySummary
 {

@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
-import static Core.Config.IMAGE_DIRECTORY_PATH;
+import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
 
 public class StatusBarOverlay
 {

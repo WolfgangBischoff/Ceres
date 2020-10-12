@@ -21,18 +21,17 @@ import javafx.scene.text.TextAlignment;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Core.Config.*;
-import static Core.Config.DISCUSSION_HEIGHT;
-import static Core.Config.DISCUSSION_WIDTH;
-import static Core.Config.PERSONALITY_HEIGHT;
-import static Core.Config.PERSONALITY_POSITION;
-import static Core.Config.PERSONALITY_WIDTH;
-import static Core.Config.THRESHOLD_DECISION;
-import static Core.Config.THRESHOLD_FOCUS;
-import static Core.Config.THRESHOLD_LIFESTYLE;
-import static Core.Config.THRESHOLD_MOTIVATION;
-import static Core.Config.THRESHOLD_PERSONALITY;
-import static Core.Config.TIME_BETWEEN_DIALOGUE;
+import static Core.Configs.Config.DISCUSSION_HEIGHT;
+import static Core.Configs.Config.DISCUSSION_WIDTH;
+import static Core.Configs.Config.PERSONALITY_HEIGHT;
+import static Core.Configs.Config.PERSONALITY_POSITION;
+import static Core.Configs.Config.PERSONALITY_WIDTH;
+import static Core.Configs.Config.THRESHOLD_DECISION;
+import static Core.Configs.Config.THRESHOLD_FOCUS;
+import static Core.Configs.Config.THRESHOLD_LIFESTYLE;
+import static Core.Configs.Config.THRESHOLD_MOTIVATION;
+import static Core.Configs.Config.THRESHOLD_PERSONALITY;
+import static Core.Configs.Config.TIME_BETWEEN_DIALOGUE;
 
 public class PersonalityScreenController
 {

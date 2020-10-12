@@ -2,6 +2,7 @@ package Core;
 
 
 import Core.ActorSystem.ActorMonitor;
+import Core.Configs.Config;
 import Core.Enums.*;
 import Core.Menus.Inventory.Inventory;
 import Core.Menus.Inventory.InventoryController;
@@ -20,22 +21,22 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static Core.Config.ACTOR_DIRECTORY_PATH;
-import static Core.Config.CONTAINS_COLLECTIBLE_KEYWORD;
-import static Core.Config.CSV_POSTFIX;
-import static Core.Config.IMAGE_DIRECTORY_PATH;
-import static Core.Config.KEYWORD_actor_tags;
-import static Core.Config.KEYWORD_collectable_type;
-import static Core.Config.KEYWORD_condition;
-import static Core.Config.KEYWORD_dialogueFile;
-import static Core.Config.KEYWORD_interactionArea;
-import static Core.Config.KEYWORD_personality;
-import static Core.Config.KEYWORD_sensorStatus;
-import static Core.Config.KEYWORD_suspicious_value;
-import static Core.Config.KEYWORD_text_box_analysis_group;
-import static Core.Config.KEYWORD_transition;
-import static Core.Config.PNG_POSTFIX;
-import static Core.Config.TIME_BETWEEN_INTERACTIONS;
+import static Core.Configs.Config.ACTOR_DIRECTORY_PATH;
+import static Core.Configs.Config.CONTAINS_COLLECTIBLE_KEYWORD;
+import static Core.Configs.Config.CSV_POSTFIX;
+import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
+import static Core.Configs.Config.KEYWORD_actor_tags;
+import static Core.Configs.Config.KEYWORD_collectable_type;
+import static Core.Configs.Config.KEYWORD_condition;
+import static Core.Configs.Config.KEYWORD_dialogueFile;
+import static Core.Configs.Config.KEYWORD_interactionArea;
+import static Core.Configs.Config.KEYWORD_personality;
+import static Core.Configs.Config.KEYWORD_sensorStatus;
+import static Core.Configs.Config.KEYWORD_suspicious_value;
+import static Core.Configs.Config.KEYWORD_text_box_analysis_group;
+import static Core.Configs.Config.KEYWORD_transition;
+import static Core.Configs.Config.PNG_POSTFIX;
+import static Core.Configs.Config.TIME_BETWEEN_INTERACTIONS;
 import static Core.Enums.ActorTag.*;
 
 public class Actor

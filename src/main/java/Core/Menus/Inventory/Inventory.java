@@ -2,14 +2,10 @@ package Core.Menus.Inventory;
 
 import Core.Actor;
 import Core.Collectible;
-import Core.Enums.CollectableType;
-import javafx.scene.image.Image;
 
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static Core.Config.IMAGE_DIRECTORY_PATH;
 
 public class Inventory
 {

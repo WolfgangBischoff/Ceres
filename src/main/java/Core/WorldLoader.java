@@ -2,6 +2,7 @@ package Core;
 
 import Core.ActorSystem.ActorMonitor;
 import Core.ActorSystem.GlobalActorsManager;
+import Core.Configs.Config;
 import Core.Enums.Direction;
 import Core.WorldView.WorldView;
 import javafx.geometry.Rectangle2D;
@@ -9,21 +10,21 @@ import javafx.scene.paint.Color;
 
 import java.util.*;
 
-import static Core.Config.*;
-import static Core.Config.CSV_POSTFIX;
-import static Core.Config.INCLUDE_CONDITION_day_greaterequal;
-import static Core.Config.INCLUDE_CONDITION_suspicion_lessequal;
-import static Core.Config.KEYWORD_ACTORS;
-import static Core.Config.KEYWORD_GROUPS;
-import static Core.Config.KEYWORD_INCLUDE;
-import static Core.Config.KEYWORD_NEW_LAYER;
-import static Core.Config.KEYWORD_PASSIV_LAYER;
-import static Core.Config.KEYWORD_POSITION;
-import static Core.Config.KEYWORD_SPAWNPOINTS;
-import static Core.Config.KEYWORD_TILEDEF;
-import static Core.Config.KEYWORD_WORLDSHADOW;
-import static Core.Config.MAPDEFINITION_NO_TILE;
-import static Core.Config.STAGE_FILE_PATH;
+import static Core.Configs.Config.*;
+import static Core.Configs.Config.CSV_POSTFIX;
+import static Core.Configs.Config.INCLUDE_CONDITION_day_greaterequal;
+import static Core.Configs.Config.INCLUDE_CONDITION_suspicion_lessequal;
+import static Core.Configs.Config.KEYWORD_ACTORS;
+import static Core.Configs.Config.KEYWORD_GROUPS;
+import static Core.Configs.Config.KEYWORD_INCLUDE;
+import static Core.Configs.Config.KEYWORD_NEW_LAYER;
+import static Core.Configs.Config.KEYWORD_PASSIV_LAYER;
+import static Core.Configs.Config.KEYWORD_POSITION;
+import static Core.Configs.Config.KEYWORD_SPAWNPOINTS;
+import static Core.Configs.Config.KEYWORD_TILEDEF;
+import static Core.Configs.Config.KEYWORD_WORLDSHADOW;
+import static Core.Configs.Config.MAPDEFINITION_NO_TILE;
+import static Core.Configs.Config.STAGE_FILE_PATH;
 
 public class WorldLoader
 {

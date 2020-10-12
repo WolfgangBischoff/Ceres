@@ -1,5 +1,6 @@
 package Core;
 
+import Core.Configs.Config;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.beans.property.IntegerProperty;
@@ -7,7 +8,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 import java.text.DecimalFormat;
 
-import static Core.Config.DAY_FORCED_ENDTIME;
+import static Core.Configs.Config.DAY_FORCED_ENDTIME;
 
 public class Clock
 {

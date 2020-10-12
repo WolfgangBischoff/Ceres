@@ -18,10 +18,9 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Core.Config.*;
-import static Core.Config.IMAGE_DIRECTORY_PATH;
-import static Core.Config.INVENTORY_HEIGHT;
-import static Core.Config.INVENTORY_WIDTH;
+import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
+import static Core.Configs.Config.INVENTORY_HEIGHT;
+import static Core.Configs.Config.INVENTORY_WIDTH;
 import static Core.WorldView.WorldViewStatus.INVENTORY_EXCHANGE;
 import static Core.WorldView.WorldViewStatus.INVENTORY_SHOP;
 

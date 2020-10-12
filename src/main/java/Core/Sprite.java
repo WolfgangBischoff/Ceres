@@ -1,9 +1,7 @@
 package Core;
 
-import Core.Enums.TriggerType;
+import Core.Configs.Config;
 import Core.WorldView.WorldView;
-import Core.WorldView.WorldViewController;
-import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,7 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static Core.Config.*;
+import static Core.Configs.Config.*;
 import static Core.Enums.TriggerType.NOTHING;
 
 public class Sprite

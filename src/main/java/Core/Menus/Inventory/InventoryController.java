@@ -1,22 +1,20 @@
 package Core.Menus.Inventory;
 
 import Core.Actor;
-import Core.Config;
+import Core.Configs.Config;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
-import static Core.Config.*;
-import static Core.Config.CAMERA_HEIGHT;
-import static Core.Config.CAMERA_WIDTH;
-import static Core.Config.EXCHANGE_INVENTORY_POSITION;
+import static Core.Configs.Config.CAMERA_HEIGHT;
+import static Core.Configs.Config.CAMERA_WIDTH;
+import static Core.Configs.Config.EXCHANGE_INVENTORY_POSITION;
 
 public class InventoryController
 {
