@@ -1,11 +1,14 @@
 ------------------------------------------
 ----- Code -------------------------------
 ------------------------------------------
+- Bug
+    - Docking Bay Door doesnt work
 - Mechanics
     - Game Over if health == 0
     - Add set item mechanic
     - ausweich mechanic, seitenbewegung um weniger stuck zu sein
     - check higher resolution and zoom, fix not centered overlay
+    - Return to World by Esc
 - Vending Machine
     - Vendor to buy items by debit card
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
@@ -13,9 +16,8 @@
     - add definition in file
     - meteorit moving
 - Textbox
-    - change nextDialogue as attribute not single line. Option remove line, use option value
-    - Dialogue depentdent on date and variables
-    - change Door status if discussion won
+    - Highlight text
+    - Dialogue depentdent on date
     - add item with textbox
 - Level build
     - crew deck (competitor, doctor, security, rescue pods, storage, fix environment)
