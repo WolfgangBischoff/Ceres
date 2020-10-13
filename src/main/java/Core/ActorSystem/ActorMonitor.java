@@ -99,9 +99,7 @@ public class ActorMonitor
     {
         String methodName = "setGameVariable() ";
         ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
-        //GameVariables.getBooleanWorldVariables().put(notifyingGroup, notifier.areAllMembersStatusOn());
         GameVariables.getGenericVariableManager().setValue(notifyingGroup, notifier.areAllMembersStatusOn().toString());
-        //System.out.println(CLASSNAME + methodName + GameVariables.getBooleanWorldVariables().get(notifyingGroup));
     }
 
     private void transitionOnChange(String notifyingGroup, String targetGroupID)
@@ -137,10 +135,8 @@ public class ActorMonitor
     {
         String methodName = "always_sensorStatus(String, String, String) ";
         boolean debug = false;
-
         ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
         ActorGroup signaled = groupIdToActorGroupMap.get(targetGroupID);
-
         signaled.setMemberToGeneralStatus(spriteStatus);
     }
 

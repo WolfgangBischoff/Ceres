@@ -47,3 +47,4 @@
             - tenderer introduces Quest, then checks fullfillment (both on global variable)
             - door opens after tenderer assigns quest
 12 10 20    - Fixed Docking Bay Door doesnt work
+            - air vent from freight deck are visible on crewdeck if base system becomes on and vent changes status

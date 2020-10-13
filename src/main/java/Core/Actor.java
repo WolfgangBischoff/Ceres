@@ -21,22 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static Core.Configs.Config.ACTOR_DIRECTORY_PATH;
-import static Core.Configs.Config.CONTAINS_COLLECTIBLE_KEYWORD;
-import static Core.Configs.Config.CSV_POSTFIX;
-import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
-import static Core.Configs.Config.KEYWORD_actor_tags;
-import static Core.Configs.Config.KEYWORD_collectable_type;
-import static Core.Configs.Config.KEYWORD_condition;
-import static Core.Configs.Config.KEYWORD_dialogueFile;
-import static Core.Configs.Config.KEYWORD_interactionArea;
-import static Core.Configs.Config.KEYWORD_personality;
-import static Core.Configs.Config.KEYWORD_sensorStatus;
-import static Core.Configs.Config.KEYWORD_suspicious_value;
-import static Core.Configs.Config.KEYWORD_text_box_analysis_group;
-import static Core.Configs.Config.KEYWORD_transition;
-import static Core.Configs.Config.PNG_POSTFIX;
-import static Core.Configs.Config.TIME_BETWEEN_INTERACTIONS;
+import static Core.Configs.Config.*;
 import static Core.Enums.ActorTag.*;
 import static Core.Enums.TriggerType.CONDITION;
 import static Core.Enums.TriggerType.TEXTBOX_CONDITION;
@@ -182,7 +167,7 @@ public class Actor
                 break;
             case CONTAINS_COLLECTIBLE_KEYWORD:
                 Actor collectibleActor = new Actor(linedata[1], linedata[2], linedata[3], "default", Direction.UNDEFINED);
-                Collectible collectible = new Collectible(linedata[2],CollectableType.getType(collectibleActor.collectable_type),collectibleActor.actorInGameName,(collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
+                Collectible collectible = new Collectible(linedata[2], CollectableType.getType(collectibleActor.collectable_type), collectibleActor.actorInGameName, (collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
                 collectible.image = new Image(IMAGE_DIRECTORY_PATH + collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).spriteName + PNG_POSTFIX);
                 inventory.addItem(collectible);
                 break;
@@ -354,7 +339,7 @@ public class Actor
                 evaluateTriggerType(sensorStatus.onUpdate_TriggerSprite, sensorStatus.onUpdateToStatusSprite, null);
 
             //SensorStatus
-            if(sensorStatus.getOnUpdate_TriggerSensor() == CONDITION)
+            if (sensorStatus.getOnUpdate_TriggerSensor() == CONDITION)
                 updateStatusFromConditions(this);
             else if (sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !sensorStatus.onUpdate_StatusSensor.equals(sensorStatus.statusName))
                 setSensorStatus(sensorStatus.onUpdate_StatusSensor);
@@ -415,7 +400,7 @@ public class Actor
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
             //System.out.println(CLASSNAME + methodName + getActorInGameName());
-            if(sensorStatus.getOnInteraction_TriggerSensor() == CONDITION
+            if (sensorStatus.getOnInteraction_TriggerSensor() == CONDITION
                     || sensorStatus.getOnInteraction_TriggerSprite() == CONDITION
                     || sensorStatus.getOnInteraction_TriggerSensor() == TEXTBOX_CONDITION
                     || sensorStatus.getOnInteraction_TriggerSprite() == TEXTBOX_CONDITION)
@@ -506,22 +491,25 @@ public class Actor
     private void changeLayer(Sprite sprite, int targetLayer)
     {
         String methodName = "changeLayer() ";
-        WorldView.getBottomLayer().remove(sprite);
-        WorldView.getMiddleLayer().remove(sprite);
-        WorldView.getTopLayer().remove(sprite);
-        sprite.setLayer(targetLayer);
 
-        switch (targetLayer)
+        boolean wasRemovedBttm = WorldView.getBottomLayer().remove(sprite);
+        boolean wasRemovedMiddle = WorldView.getMiddleLayer().remove(sprite);
+        boolean wasRemovedTop = WorldView.getTopLayer().remove(sprite);
+        if (wasRemovedBttm || wasRemovedMiddle || wasRemovedTop) //Monitor can change the layer of a sprite of another map (ventilation eg), but sprite should just be added if already part of this map
         {
-            case 0:
-                WorldView.getBottomLayer().add(sprite);
-                break;
-            case 1:
-                WorldView.getMiddleLayer().add(sprite);
-                break;
-            case 2:
-                WorldView.getTopLayer().add(sprite);
-                break;
+            sprite.setLayer(targetLayer);
+            switch (targetLayer)
+            {
+                case 0:
+                    WorldView.getBottomLayer().add(sprite);
+                    break;
+                case 1:
+                    WorldView.getMiddleLayer().add(sprite);
+                    break;
+                case 2:
+                    WorldView.getTopLayer().add(sprite);
+                    break;
+            }
         }
     }
 
@@ -530,20 +518,20 @@ public class Actor
         String methodName = "changeSprites() ";
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
-        if (targetSpriteData == null) {
+        if (targetSpriteData == null)
+        {
             StringBuilder stringBuilder = new StringBuilder();
             for (Map.Entry<String, List<SpriteData>> entry : spriteDataMap.entrySet())
                 stringBuilder.append("\t").append(entry.getKey()).append("\n");
             throw new RuntimeException(compoundStatus + " not found in \n" + stringBuilder.toString());
         }
-        else {
-            //System.out.println(CLASSNAME + methodName + targetSpriteData);
-        }
+
         if (spriteList.isEmpty())//Before Actor is initialized
             return;
 
         //For all Sprites of the actor onUpdate to new Status
-        for (int i = 0; i < spriteList.size(); i++) {
+        for (int i = 0; i < spriteList.size(); i++)
+        {
             SpriteData ts = targetSpriteData.get(i);
             Sprite toChange = spriteList.get(i);
             toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
@@ -630,7 +618,6 @@ public class Actor
                 break;
         }
     }
-
 
 
     //TODO from script or file
@@ -809,14 +796,16 @@ public class Actor
             newStatusString = newStatusString + "-" + "moving";
         compoundStatus = newStatusString;
 
-        if (!(oldCompoundStatus.equals(compoundStatus))) {
+        if (!(oldCompoundStatus.equals(compoundStatus)))
+        {
             if (debug && getActorInGameName().equals("Desinfection"))
                 System.out.println(CLASSNAME + methodName + getActorInGameName() + " updated status from " + oldCompoundStatus + " to " + compoundStatus);
             changeSprites();
         }
 
         //If is part of a group
-        if (actorMonitor != null) {
+        if (actorMonitor != null)
+        {
             actorMonitor.sendSignalFrom(memberActorGroups);
         }
     }

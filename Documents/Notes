@@ -2,10 +2,14 @@
 ----- Code -------------------------------
 ------------------------------------------
 - Bug
-
 - Mechanics
     - Game Over if health == 0
     - Add set item mechanic
+        1) sprite an Pos adden via Key
+        2) Sprite von Menu und maus adden
+        3) Zeit & Resourcenkosten
+        4) Position check
+        5) Different Sprites
     - ausweich mechanic, seitenbewegung um weniger stuck zu sein
     - check higher resolution and zoom, fix not centered overlay
     - Return to World by Esc
@@ -60,6 +64,7 @@ GUI
 ----- Ideas ------------------------------
 ------------------------------------------
 - Goal to get a robot begleiter
+- Tag/Nacht Rythmus mit Dunklem Overlay, Lights on at some time. Check STardewVally how to
 - Tenderer Quests:
     - clean smtg
     - fill in vendor
