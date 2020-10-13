@@ -39,6 +39,7 @@ import static Core.Configs.Config.PNG_POSTFIX;
 import static Core.Configs.Config.TIME_BETWEEN_INTERACTIONS;
 import static Core.Enums.ActorTag.*;
 import static Core.Enums.TriggerType.CONDITION;
+import static Core.Enums.TriggerType.TEXTBOX_CONDITION;
 
 public class Actor
 {
@@ -414,7 +415,11 @@ public class Actor
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
             //System.out.println(CLASSNAME + methodName + getActorInGameName());
-            updateStatusFromConditions(activeSprite.actor);
+            if(sensorStatus.getOnInteraction_TriggerSensor() == CONDITION
+                    || sensorStatus.getOnInteraction_TriggerSprite() == CONDITION
+                    || sensorStatus.getOnInteraction_TriggerSensor() == TEXTBOX_CONDITION
+                    || sensorStatus.getOnInteraction_TriggerSprite() == TEXTBOX_CONDITION)
+                updateStatusFromConditions(activeSprite.actor);
             //react
             evaluateTriggerType(sensorStatus.onInteraction_TriggerSprite, sensorStatus.onInteractionToStatusSprite, activeSprite.actor);
             setLastInteraction(currentNanoTime);
@@ -604,6 +609,7 @@ public class Actor
                 break;
             case TEXTBOX:
             case TEXTBOX_ANALYSIS:
+            case TEXTBOX_CONDITION:
                 activateTextbox();
                 break;
             case COLLECTABLE:

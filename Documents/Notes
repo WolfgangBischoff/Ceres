@@ -2,7 +2,7 @@
 ----- Code -------------------------------
 ------------------------------------------
 - Bug
-    - Docking Bay Door doesnt work
+
 - Mechanics
     - Game Over if health == 0
     - Add set item mechanic
