@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,6 +28,8 @@ import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 import static Core.Configs.Config.*;
 
@@ -56,6 +59,8 @@ public class Textbox
     Integer markedOption = 0;
     Actor actorOfDialogue;
     Point2D mousePosRelativeToTextboxOverlay = null;
+    Long lastTimeNewLetterRendered = 0L;
+    int maxLettersIdxRendered = 0;
 
     //TalkIcon
     int talkIconWidth = 280;
@@ -159,7 +164,7 @@ public class Textbox
                                     nextDialogue = optionNodeElement.getAttribute(NEXT_DIALOGUE_TAG);
                                 visibleLine = optionNode.getTextContent();
 
-                                if(optionNodeElement.hasAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF) &&
+                                if (optionNodeElement.hasAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF) &&
                                         !optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF)
                                                 .equals(checkVariableCondition(optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_TYPE), optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME))))
                                     isOptionVisible = false;
@@ -196,7 +201,7 @@ public class Textbox
                 }
                 else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_BOOLEAN))
                 {
-                   // Boolean var = GameVariables.getBooleanWorldVariables().get(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
+                    // Boolean var = GameVariables.getBooleanWorldVariables().get(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
                     String var = GameVariables.getGenericVariableManager().getValue(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
                     if (var == null)
                         System.out.println(CLASSNAME + methodName + "variable not set: " + currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
@@ -387,6 +392,8 @@ public class Textbox
         String methodName = "nextMessage(Long) ";
         Actor playerActor = WorldView.getPlayer().getActor();
 
+        maxLettersIdxRendered = 0;
+
         if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE))
         {
             nextDialogueID = readDialogue.options.get(markedOption).nextDialogue;
@@ -429,6 +436,7 @@ public class Textbox
         double brig = background.getBrightness();
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
+        Font font_estrog = Font.loadFont(getClass().getResource(FONT_DIRECTORY_PATH + "estrog__.ttf").toExternalForm(), 30);
 
         textboxGc.clearRect(0, 0, WIDTH, HEIGHT);
 
@@ -444,7 +452,7 @@ public class Textbox
         textboxGc.setGlobalAlpha(0.9);
         textboxGc.fillRect(backgroundOffsetX, backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetYDecorationTop - backgroundOffsetYTalkIcon - backgroundOffsetYDecorationBtm);
 
-        textboxGc.setFont(Font.loadFont(getClass().getResource(FONT_DIRECTORY_PATH + "estrog__.ttf").toExternalForm(), 30));
+        textboxGc.setFont(font_estrog);
         textboxGc.setTextAlign(TextAlignment.LEFT);
         textboxGc.setTextBaseline(VPos.TOP);
 
@@ -490,14 +498,54 @@ public class Textbox
             lineSplitMessage = wrapText(nextMessage);
         }
 
-        //Draw lines
+
         for (int lineIdx = 0; lineIdx < lineSplitMessage.size(); lineIdx++)
         {
-            textboxGc.fillText(
-                    lineSplitMessage.get(lineIdx),
-                    Math.round(xOffsetTextLine),
-                    Math.round(yOffsetTextLine) + FONT_Y_OFFSET_ESTROG__SIZE30
-            );
+            String regex = "%%00";
+            String line = lineSplitMessage.get(lineIdx);
+            Queue<Integer> charSpecialMarkingFound = new LinkedBlockingDeque<Integer>();
+            //List<Integer> charSpecialMarkingFound = new ArrayList<>();
+            charSpecialMarkingFound.add(line.indexOf(regex));
+            line = line.replaceFirst(regex, "");
+            charSpecialMarkingFound.add(line.indexOf(regex));
+            line = line.replaceFirst(regex, "");
+            //System.out.println(CLASSNAME + methodName + "found special between: "+ charSpecialMarkingFound.toString());
+
+            double elapsedTimeSinceLastInteraction = (GameWindow.getCurrentNanoRenderTimeGameWindow() - lastTimeNewLetterRendered) / 1000000000.0;
+            if (elapsedTimeSinceLastInteraction > 0.005)
+            {
+                maxLettersIdxRendered = Math.min(++maxLettersIdxRendered, line.length());
+                lastTimeNewLetterRendered = GameWindow.getCurrentNanoRenderTimeGameWindow();
+            }
+
+            int lettersRendered = Math.min(maxLettersIdxRendered, line.length());
+            String visibleLine = line.substring(0, lettersRendered);
+
+            for (Integer i = 0; i < visibleLine.length(); i++)
+            {//TODO general
+                if (i == charSpecialMarkingFound.peek())
+                {
+                    //System.out.println(CLASSNAME + methodName + charSpecialMarkingFound);
+                    if (charSpecialMarkingFound.size() % 2 == 0)
+                        textboxGc.setFill(Color.RED);
+                    else
+                        textboxGc.setFill(font);
+                    charSpecialMarkingFound.remove();
+                }
+
+                char c = visibleLine.charAt(i);
+                textboxGc.fillText(String.valueOf(c),
+                        Math.round(xOffsetTextLine) + textWidth(font_estrog, line.substring(0, i)),
+                        Math.round(yOffsetTextLine) + FONT_Y_OFFSET_ESTROG__SIZE30);
+            }
+            //System.out.println(CLASSNAME + methodName + textWidth(font_estrog, visibleLine));
+
+//            textboxGc.fillText(
+//                //    lineSplitMessage.get(lineIdx),
+//                    visibleLine,
+//                    Math.round(xOffsetTextLine),
+//                    Math.round(yOffsetTextLine) + FONT_Y_OFFSET_ESTROG__SIZE30
+//            );
             yOffsetTextLine += textboxGc.getFont().getSize();
         }
 
@@ -511,6 +559,24 @@ public class Textbox
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
         textboxImage = textboxCanvas.snapshot(transparency, null);
+    }
+
+    private static double findFontSizeThatCanFit(Font font, String s, int maxWidth)
+    {
+        double fontSize = font.getSize();
+        double width = textWidth(font, s);
+        if (width > maxWidth)
+        {
+            return fontSize * maxWidth / width;
+        }
+        return fontSize;
+    }
+
+    private static double textWidth(Font font, String s)
+    {
+        Text text = new Text(s);
+        text.setFont(font);
+        return text.getBoundsInLocal().getWidth();
     }
 
     public void setNextDialogueFromDiscussionResult(boolean hasWon)
@@ -554,6 +620,7 @@ public class Textbox
 
     public WritableImage showMessage()
     {
+        drawTextbox();
         return textboxImage;
     }
 

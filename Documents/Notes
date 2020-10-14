@@ -2,6 +2,7 @@
 ----- Code -------------------------------
 ------------------------------------------
 - Bug
+    - Finish Highlight text
 - Mechanics
     - Game Over if health == 0
     - Add set item mechanic
@@ -18,7 +19,6 @@
     - add definition in file
     - meteorit moving
 - Textbox
-    - Highlight text
     - Dialogue depentdent on date
     - add item with textbox
 - Level build
