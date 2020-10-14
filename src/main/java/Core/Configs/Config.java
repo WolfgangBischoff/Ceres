@@ -49,6 +49,7 @@ public class Config
     //Keyboard
     public static final String KEYBOARD_INVENTORY = "TAB";
     public static final String KEYBOARD_INTERACT = "E";
+    public static final String KEYBOARD_ESCAPE = "ESCAPE";
 
     //Gameplay
     public static final float TIME_BETWEEN_INTERACTIONS = 0.5f;

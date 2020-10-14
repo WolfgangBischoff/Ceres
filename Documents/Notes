@@ -11,7 +11,6 @@
         4) Position check
         5) Different Sprites
     - check higher resolution and zoom, fix not centered overlay
-    - Return to World by Esc
 - Vending Machine
     - Vendor to buy items by debit card
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation

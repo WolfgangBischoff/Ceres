@@ -18,7 +18,7 @@ import static Core.Configs.Config.EXCHANGE_INVENTORY_POSITION;
 
 public class InventoryController
 {
-    private static String CLASSNAME = "InventoryController ";
+    private static String CLASSNAME = "InventoryController/";
     Canvas canvas;
     GraphicsContext graphicsContext;
     static InventoryOverlay playerInventoryOverlay;

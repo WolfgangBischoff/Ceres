@@ -355,8 +355,8 @@ public class WorldView
             case INVENTORY:
             case INVENTORY_EXCHANGE:
             case INVENTORY_SHOP:
-                if (input.contains(KEYBOARD_INVENTORY) || input.contains(KEYBOARD_INTERACT))
-                    toggleInventory(currentNanoTime);//At the moment just toogled by keyboard
+                if (input.contains(KEYBOARD_INVENTORY) || input.contains(KEYBOARD_INTERACT)|| input.contains(KEYBOARD_ESCAPE))
+                    toggleInventory(currentNanoTime);
                 break;
             case DISCUSSION_GAME://No keyboard input so far
                 break;

@@ -284,7 +284,7 @@ public class Textbox
             WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
             return;
         }
-        else if (input.contains("ESCAPE"))
+        else if (input.contains(KEYBOARD_ESCAPE))
         {
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
         }
