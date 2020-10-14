@@ -495,9 +495,9 @@ public class Actor
         boolean wasRemovedBttm = WorldView.getBottomLayer().remove(sprite);
         boolean wasRemovedMiddle = WorldView.getMiddleLayer().remove(sprite);
         boolean wasRemovedTop = WorldView.getTopLayer().remove(sprite);
-        if (wasRemovedBttm || wasRemovedMiddle || wasRemovedTop) //Monitor can change the layer of a sprite of another map (ventilation eg), but sprite should just be added if already part of this map
+        //if (wasRemovedBttm || wasRemovedMiddle || wasRemovedTop) //Monitor can change the layer of a sprite of another map (ventilation eg), but sprite should just be added if already part of this map
         {
-            sprite.setLayer(targetLayer);
+            //sprite.setLayer(targetLayer);
             switch (targetLayer)
             {
                 case 0:
@@ -540,7 +540,9 @@ public class Actor
             toChange.setAnimationEnds(ts.animationEnds);
             toChange.setDialogueFileName(ts.dialogieFile);
             toChange.setInitDialogueId(ts.dialogueID);
-            changeLayer(toChange, ts.heightLayer);
+            toChange.setLayer(ts.heightLayer);
+            if (WorldView.getBottomLayer().contains(toChange) || WorldView.getMiddleLayer().contains(toChange) || WorldView.getTopLayer().contains(toChange))
+                changeLayer(toChange, ts.heightLayer);//Change layer if sprite in current stage, not on other map (global system)
         }
 
     }
