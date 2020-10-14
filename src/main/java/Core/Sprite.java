@@ -1,12 +1,14 @@
 package Core;
 
 import Core.Configs.Config;
+import Core.Enums.Direction;
 import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -144,6 +146,7 @@ public class Sprite
         double velocityX = actor.getVelocityX();
         double velocityY = actor.getVelocityY();
         Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
+        Pair<Double, Double> dodgeVelocities = new Pair<>(0d, 0d);
 
         String initGeneralStatusFrame = "";
         if (actor != null)
@@ -162,6 +165,11 @@ public class Sprite
                     || !worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time)
             )
             {
+                if (this == WorldView.getPlayer())
+                {
+                    var delta = calculateCollisionType(plannedPosition, this.actor.getDirection(), otherSprite.getBoundary());
+                    dodgeVelocities = new Pair<>(delta.getKey() + dodgeVelocities.getKey(), delta.getValue() + dodgeVelocities.getValue());
+                }
                 blockedByOtherSprite = true;
             }
 
@@ -177,7 +185,7 @@ public class Sprite
 
                 if (otherSprite.actor != null &&
                         (otherSprite.actor.sensorStatus.onInteraction_TriggerSprite != NOTHING
-                                ||otherSprite.actor.sensorStatus.onInteraction_TriggerSensor != NOTHING))
+                                || otherSprite.actor.sensorStatus.onInteraction_TriggerSensor != NOTHING))
                 {
                     otherSprite.actor.onInteraction(this, currentNanoTime);
                     actor.setLastInteraction(currentNanoTime);
@@ -220,11 +228,70 @@ public class Sprite
             positionX += velocityX * time;
             positionY += velocityY * time;
         }
+        else
+        {
+            positionX += dodgeVelocities.getKey() * time;
+            positionY += dodgeVelocities.getValue() * time;
+        }
 
         interact = false;
         blockedByOtherSprite = false;
         lastUpdated = currentNanoTime;
 
+    }
+
+    private Pair<Double, Double> calculateCollisionType(Rectangle2D moving, Direction direction, Rectangle2D standing)
+    {
+        String methodName = "calculateCollisionType() ";
+        double playerLeftEdge = 0;
+        double playerRightEdge = 0;
+        double otherSpriteLeftEdge = 0;
+        double otherSpriteRightEdge = 0;
+        double velocityDodge = DODGE_VELOCITY;
+
+        if (direction == Direction.NORTH || direction == Direction.SOUTH)
+        {
+            playerLeftEdge = moving.getMinX();
+            playerRightEdge = moving.getMaxX();
+            otherSpriteLeftEdge = standing.getMinX();
+            otherSpriteRightEdge = standing.getMaxX();
+        }
+        else if (direction == Direction.WEST || direction == Direction.EAST)
+        {
+            playerLeftEdge = moving.getMaxY();
+            playerRightEdge = moving.getMinY();
+            otherSpriteLeftEdge = standing.getMaxY();
+            otherSpriteRightEdge = standing.getMinY();
+        }
+        if (playerLeftEdge < otherSpriteLeftEdge && playerRightEdge < otherSpriteRightEdge)
+        {
+            if (direction == Direction.NORTH || direction == Direction.SOUTH)
+                return new Pair<>(-velocityDodge, 0d);
+            else//(direction == Direction.WEST || direction == Direction.EAST)
+                return new Pair<>(0d, -velocityDodge);
+        }
+        else if (playerLeftEdge > otherSpriteLeftEdge && playerRightEdge > otherSpriteRightEdge)
+        {
+            if (direction == Direction.NORTH || direction == Direction.SOUTH)
+                return new Pair<>(velocityDodge, 0d);
+            else//(direction == Direction.WEST || direction == Direction.EAST)
+                return new Pair<>(0d, velocityDodge);
+
+        }
+        //Case Player hitbox totally covered
+        else if (playerLeftEdge >= otherSpriteLeftEdge && playerRightEdge <= otherSpriteRightEdge)
+        {
+            //System.out.println(CLASSNAME + methodName + this.name + " totally covered" + " playerLeft:" + playerLeftEdge + " playerRight:" + playerRightEdge + " otherLeft:" + otherSpriteLeftEdge + " otherRight:" + otherSpriteRightEdge);
+        }
+            //Case Other Sprite totally covered
+        else if (playerLeftEdge <= otherSpriteLeftEdge && playerRightEdge >= otherSpriteRightEdge)
+        {
+            //System.out.println(CLASSNAME + methodName + this.name + " obastacale small" + " playerLeft:" + playerLeftEdge + " playerRight:" + playerRightEdge + " otherLeft:" + otherSpriteLeftEdge + " otherRight:" + otherSpriteRightEdge);
+        }
+        else
+            System.out.println(CLASSNAME + methodName + "uncated" + " playerLeft:" + playerLeftEdge + " playerRight:" + playerRightEdge + " otherLeft:" + otherSpriteLeftEdge + " otherRight:" + otherSpriteRightEdge);
+
+        return new Pair<>(0d, 0d);
     }
 
     public void onClick(Long currentNanoTime)
@@ -242,15 +309,18 @@ public class Sprite
         if (getBoundary().intersects(player.interactionArea)
                 && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS
 
-        ) {
+        )
+        {
             if (debug)
                 System.out.println(CLASSNAME + methodName + player.getName() + " interact with " + getName() + " by mouseclick.");
             if (actor != null &&
-                    (actor.sensorStatus.onInteraction_TriggerSprite != NOTHING || actor.sensorStatus.onInteraction_TriggerSensor != NOTHING)) {
+                    (actor.sensorStatus.onInteraction_TriggerSprite != NOTHING || actor.sensorStatus.onInteraction_TriggerSensor != NOTHING))
+            {
                 actor.onInteraction(player, currentNanoTime); //Passive reacts
                 player.actor.setLastInteraction(currentNanoTime);
             }
-            else if (!(getDialogueFileName().equals("dialogueFile") || getDialogueFileName().equals("none"))) {
+            else if (!(getDialogueFileName().equals("dialogueFile") || getDialogueFileName().equals("none")))
+            {
                 WorldView.startConversation(dialogueFileName, initDialogueId, currentNanoTime);
                 player.actor.setLastInteraction(currentNanoTime);
             }

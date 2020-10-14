@@ -6,7 +6,7 @@ public class Config
 {
     //General
     public static final Boolean DEBUG_ACTORS = false;
-    public static final Boolean DEBUG_BLOCKER = false;
+    public static final Boolean DEBUG_BLOCKER = true;
     public static final Boolean DEBUG_NO_WALL = false;
     public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
     public static final String FIRST_LEVEL = "transporter/transporter";
@@ -53,6 +53,7 @@ public class Config
     //Gameplay
     public static final float TIME_BETWEEN_INTERACTIONS = 0.5f;
     public static final float TIME_BETWEEN_DIALOGUE = 0.2f;
+    public static final float DODGE_VELOCITY = 50f;
     public static final float RUMBLE_GRADE = 8;
     public static final float RUMBLE_GRADE_DECREASE = 0.1f;
     public static final float RUMBLE_MAX_DURATION = 1.3f;
