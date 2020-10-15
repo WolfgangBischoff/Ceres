@@ -10,7 +10,6 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 import static Core.Configs.Config.COLOR_GREEN;
 import static Core.Configs.Config.COLOR_RED;
-import static javafx.scene.paint.Color.*;
 
 public class FontManager
 {
@@ -37,12 +36,11 @@ public class FontManager
     public Color getFontAtLetter(int idx)
     {
         if (fondData.peek() != null
-                && idx >= fondData.peek().getValue().getKey()//begin
-                && idx<fondData.peek().getValue().getValue())//end
+                && idx >= fondData.peek().getValue().getKey()//begin Color
+                && idx<fondData.peek().getValue().getValue())//end Color
         {
             //System.out.println(CLASSNAME + methodName + charSpecialMarkingFound);
             Color color = regex.get(fondData.peek().getKey());
-
             if(idx+1 >= fondData.peek().getValue().getValue())
                 fondData.remove();
             return color;
@@ -54,30 +52,28 @@ public class FontManager
     public String removeFontMarkings(String line)
     {
         for (String s: regex.keySet())
-        {
             line = line.replace(s,"");
-        }
         line = line.replace("%%", "");
         return line;
     }
 
     private Queue<Pair<String, Pair<Integer, Integer>>> findFontMarkings(String line)
     {
-        Queue<Pair<String, Pair<Integer, Integer>>> formattingPositionQueue = new LinkedBlockingDeque<Pair<String, Pair<Integer, Integer>>>();
-        int idxRegexBegin = 0;
-        int idxRegexEnd = 0;
+        Queue<Pair<String, Pair<Integer, Integer>>> colorCodeToIdxQueue = new LinkedBlockingDeque<Pair<String, Pair<Integer, Integer>>>();
+        int idxStartTag;
+        int idxEndTag;
         do
         {
-            idxRegexBegin = line.indexOf("%%");
-            if (idxRegexBegin >= 0)
+            idxStartTag = line.indexOf("%%");
+            if (idxStartTag >= 0)
             {
-                String regexFormat = line.substring(idxRegexBegin, idxRegexBegin + 4);
-                line = line.replaceFirst(regexFormat, "");
-                idxRegexEnd = line.indexOf("%%");
+                String regexColorCode = line.substring(idxStartTag, idxStartTag + 4);
+                line = line.replaceFirst(regexColorCode, "");
+                idxEndTag = line.indexOf("%%");
                 line = line.replaceFirst("%%", "");
-                formattingPositionQueue.add(new Pair<String, Pair<Integer, Integer>>(regexFormat, new Pair<>(idxRegexBegin, idxRegexEnd)));
+                colorCodeToIdxQueue.add(new Pair<String, Pair<Integer, Integer>>(regexColorCode, new Pair<>(idxStartTag, idxEndTag)));
             }
-        } while (idxRegexBegin >= 0);
-        return formattingPositionQueue;
+        } while (idxStartTag >= 0);
+        return colorCodeToIdxQueue;
     }
 }

@@ -375,7 +375,6 @@ public class Textbox
         for (Actor actor : actorsList)
         {
             Element analysisDialogueFileObserved = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actor.getSpriteList().get(0).getDialogueFileName() + ".xml");
-            //Dialogue analysisMessageObserved = readDialogue("analysis-" + actor.getDialogueStatusID(), analysisDialogueFileObserved);
             Dialogue analysisMessageObserved = readDialogue("analysis-" + actor.getSpriteList().get(0).getInitDialogueId(), analysisDialogueFileObserved);
             readDialogue.messages.add(actor.getActorInGameName() + analysisMessageObserved.messages.get(0));
         }
@@ -486,49 +485,17 @@ public class Textbox
         else if (readDialogue.type.equals(dayChange_TYPE_ATTRIBUTE))
         {
         }
-        //else if(readDialogue.type.equals(TEXTBOX_ATTRIBUTE_BOOLEAN))
-//        {
-//            //lineSplitMessage = wrapText("technical");
-//            //nextMessage(GameWindow.getCurrentNanoRenderTimeGameWindow());
-//        }
         else
         {
             String nextMessage = readDialogue.messages.get(messageIdx);
             lineSplitMessage = wrapText(nextMessage);
         }
 
-
         for (int lineIdx = 0; lineIdx < lineSplitMessage.size(); lineIdx++)
         {
-//            Set<String> regex = new HashSet<>();
-//            String regex_default = "%%DE";
-//            String regex_red = "%%RD";
-//            String regex_green = "%%GR";
-//            regex.add(regex_default);
-//            regex.add(regex_red);
-
             String line = lineSplitMessage.get(lineIdx);
-
             FontManager fontManager = new FontManager(line);
             line = fontManager.removeFontMarkings(line);
-//            Queue<Pair<String, Pair<Integer, Integer>>> charSpecialMarkingFound = new LinkedBlockingDeque<Pair<String, Pair<Integer, Integer>>>();
-//            int idxFormatRegex = 0;
-//            int idxRegexEnd = 0;
-//            do
-//            {
-//                idxFormatRegex = line.indexOf("%%");
-//                if (idxFormatRegex >= 0)
-//                {
-//                    String beginRegex = line.substring(idxFormatRegex, idxFormatRegex + 4);
-//                    line = line.replaceFirst(beginRegex, "");
-//                    idxRegexEnd = line.indexOf("%%");
-//                    line = line.replaceFirst("%%", "");
-//                    charSpecialMarkingFound.add(new Pair<String, Pair<Integer, Integer>>(beginRegex, new Pair<>(idxFormatRegex, idxRegexEnd)));
-//                }
-//            } while (idxFormatRegex >= 0);
-
-            //System.out.println(CLASSNAME + methodName + charSpecialMarkingFound);
-
             double elapsedTimeSinceLastInteraction = (GameWindow.getCurrentNanoRenderTimeGameWindow() - lastTimeNewLetterRendered) / 1000000000.0;
             if (elapsedTimeSinceLastInteraction > 0.005)
             {
@@ -542,37 +509,11 @@ public class Textbox
             for (Integer i = 0; i < visibleLine.length(); i++)
             {
                 textboxGc.setFill(fontManager.getFontAtLetter(i));
-//                if (charSpecialMarkingFound.peek() != null
-//                        && i >= charSpecialMarkingFound.peek().getValue().getKey()//begin
-//                        && i<charSpecialMarkingFound.peek().getValue().getValue())//end
-//                {
-//                    //System.out.println(CLASSNAME + methodName + charSpecialMarkingFound);
-//                    if (charSpecialMarkingFound.peek().getKey().equals(regex_red))
-//                        textboxGc.setFill(Color.RED);
-//                    else if(charSpecialMarkingFound.peek().getKey().equals(regex_green))
-//                        textboxGc.setFill(Color.GREEN);
-//                    else if(charSpecialMarkingFound.peek().getKey().equals(regex_default))
-//                        textboxGc.setFill(font);
-//
-//                    if(i+1 >= charSpecialMarkingFound.peek().getValue().getValue())
-//                        charSpecialMarkingFound.remove();
-//                }
-//                else
-//                    textboxGc.setFill(font);
-
                 char c = visibleLine.charAt(i);
                 textboxGc.fillText(String.valueOf(c),
                         Math.round(xOffsetTextLine) + textWidth(font_estrog, line.substring(0, i)),
                         Math.round(yOffsetTextLine) + FONT_Y_OFFSET_ESTROG__SIZE30);
             }
-            //System.out.println(CLASSNAME + methodName + textWidth(font_estrog, visibleLine));
-
-//            textboxGc.fillText(
-//                //    lineSplitMessage.get(lineIdx),
-//                    visibleLine,
-//                    Math.round(xOffsetTextLine),
-//                    Math.round(yOffsetTextLine) + FONT_Y_OFFSET_ESTROG__SIZE30
-//            );
             yOffsetTextLine += textboxGc.getFont().getSize();
         }
 
