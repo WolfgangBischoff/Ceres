@@ -1,27 +1,34 @@
 package Core.Menus;
 
+import Core.Configs.Config;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+
+import static Core.Configs.Config.*;
 
 public class VariableStatusOverlay
 {
-    private static final String CLASSNAME = "VariableStatusOverlay ";
+    private static final String CLASSNAME = "VariableStatusOverlay/";
     private final int WIDTH;
     private final int HEIGHT;
     Canvas canvas;
     GraphicsContext graphicsContext;
     WritableImage writableImage;
+    Image field;
 
     int current;
     IntegerProperty baseValue;
 
-    public VariableStatusOverlay(int WIDTH, int HEIGHT, IntegerProperty integerProperty)
+    public VariableStatusOverlay(int WIDTH, int HEIGHT, IntegerProperty integerProperty, String imagepath)
     {
         this.baseValue = integerProperty;
         baseValue.addListener(new ChangeListener<Number>()
@@ -37,32 +44,27 @@ public class VariableStatusOverlay
         this.HEIGHT = HEIGHT;
         canvas = new Canvas(WIDTH, HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
+        field = new Image(IMAGE_DIRECTORY_PATH + imagepath);
     }
 
     private void draw() throws NullPointerException
     {
         String methodName = "draw() ";
         graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
-        Color background = Color.rgb(60, 90, 85);
+        Color background = COLOR_BACKGROUND_BLUE;
         double hue = background.getHue();
         double sat = background.getSaturation();
         double brig = background.getBrightness();
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-        Color red = Color.hsb(0, 0.33, 0.90);
-        Color green = Color.hsb(140, 0.33, 0.90);
 
-        //Background
-        graphicsContext.setGlobalAlpha(0.8);
-        graphicsContext.setFill(background);
-        int backgroundOffsetX = 16, backgroundOffsetY = 10;
-        graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX, HEIGHT - backgroundOffsetY * 2);
-
-        //Fill bar
+        int backgroundOffsetX = 55, backgroundOffsetY = 32;
+        graphicsContext.drawImage(field, 0,0);
         graphicsContext.setFill(marking);
-        String msg = "Current: " + current;
         graphicsContext.setFill(font);
-        graphicsContext.fillText(msg,  backgroundOffsetX, backgroundOffsetY + graphicsContext.getFont().getSize());
+        graphicsContext.setTextBaseline(VPos.CENTER);
+        graphicsContext.setFont(Font.loadFont(getClass().getResource("../../../../../build/resources/main/font/estrog__.ttf").toExternalForm(), 30));
+        graphicsContext.fillText(""+current,  backgroundOffsetX, backgroundOffsetY);
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);

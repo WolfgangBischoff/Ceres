@@ -92,7 +92,7 @@ public class WorldView
     static Point2D mamOverlayPosition = MAM_BAR_POSITION;
 
     //Money Overlay
-    static VariableStatusOverlay moneyOverlay = new VariableStatusOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.playerMoneyProperty());
+    static VariableStatusOverlay moneyOverlay = new VariableStatusOverlay(MONEY_FIELD_WIDTH, MONEY_FIELD_HEIGHT, GameVariables.playerMoneyProperty(), "interface/bars/money_field_150x64.png");
     static Point2D moneyOverlayPosition = MONEY_POSITION;
 
     //Hunger Overlay

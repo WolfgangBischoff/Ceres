@@ -2,6 +2,7 @@ package Core.Configs;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class Config
 {
@@ -41,6 +42,8 @@ public class Config
 
     public static final int MAM_BAR_WIDTH = 300;
     public static final int MAM_BAR_HEIGHT = 64;
+    public static final int MONEY_FIELD_WIDTH = 150;
+    public static final int MONEY_FIELD_HEIGHT = 64;
     public static final Point2D MAM_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 30); //Right Upper Edge
     public static final Point2D HUNGER_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 100);
     public static final Point2D MONEY_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 170);
@@ -157,6 +160,7 @@ public class Config
     public static final int MAM_THRESHOLD_INTERROGATION = 6;
 
     //Colors
+    //public static final Font FONT_ESTROG = Font.loadFont(getClass().getResource(FONT_DIRECTORY_PATH + "estrog__.ttf").toExternalForm(), 30);
     public static final Color COLOR_GREEN = Color.hsb(140, 0.33, 0.90); //Good
     public static final Color COLOR_RED = Color.hsb(0, 0.33, 0.90); //Bad
     public static final Color COLOR_BACKGROUND_BLUE = Color.rgb(60, 90, 85); //Normal
