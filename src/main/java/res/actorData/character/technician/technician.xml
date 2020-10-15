@@ -61,35 +61,5 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>[You could not convince him, maybe you should talk more to get more familiar]</line>
     </dialogue>
 
-
-
-
-
-
-    <dialogue id="intro" type = "normal" nextDialogue="intro-questions">
-        <line>Hi, hope you are ok. We will reach Ceres in around three days. Thank God, I am slowly running out of money. :O</line>
-        <line>Anyway, you have to go to the tenderer in the command center to get some money for the vendor, otherwise you have to starve..</line>
-        <line>If the stars stand well, he will give you a good price.. and if not.. you know..</line>
-        <line>.. one freight capsule is full of food supplies for Ceres, but if they note something is missing they will increase security.</line>
-        <line>Take care man, we have weird times..</line>
-    </dialogue>
-
-    <dialogue id="intro-questions" type="decision" >
-        <option nextDialogue="command-center-info">&gt;Where is the command center?&lt;</option>
-        <option nextDialogue="vendor-info">&gt;Where is the vendor?&lt;</option>
-        <option>[Go away]</option>
-    </dialogue>
-
-    <dialogue id="command-center-info" type = "normal" nextDialogue="intro-questions">
-        <line>Its on the upper freight deck, just take the elevator up and follow the hallway.</line>
-    </dialogue>
-
-    <dialogue id="vendor-info" type = "normal" nextDialogue="intro-questions">
-        <line>Its on the lower crew-deck, next to the elevator.</line>
-    </dialogue>
-
-
-
-
 </root>
 

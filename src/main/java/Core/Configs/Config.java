@@ -156,8 +156,10 @@ public class Config
     public static final int MAM_THRESHOLD_INTERROGATION = 6;
 
     //Colors
-    public static final Color COLOR_GREEN = Color.hsb(140, 0.33, 0.90);
-    public static final Color COLOR_RED = Color.hsb(0, 0.33, 0.90);
-    public static final Color COLOR_BACKGROUND_BLUE = Color.rgb(60, 90, 85);
+    public static final Color COLOR_GREEN = Color.hsb(140, 0.33, 0.90); //Good
+    public static final Color COLOR_RED = Color.hsb(0, 0.33, 0.90); //Bad
+    public static final Color COLOR_BACKGROUND_BLUE = Color.rgb(60, 90, 85); //Normal
+    public static final Color COLOR_VIOLET = Color.rgb(85, 65, 85);//Main Quest
+    public static final Color COLOR_GOLD = Color.rgb(80, 85, 35);//Secret
 
 }

@@ -8,8 +8,7 @@ import javafx.util.Pair;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingDeque;
 
-import static Core.Configs.Config.COLOR_GREEN;
-import static Core.Configs.Config.COLOR_RED;
+import static Core.Configs.Config.*;
 
 public class FontManager
 {
@@ -17,6 +16,8 @@ public class FontManager
     static String regex_default = "%%DE";
     static String regex_red = "%%RD";
     static String regex_green = "%%GR";
+    static String regex_violet = "%%VT";
+    static String regex_gold = "%%GD";
     Queue<Pair<String, Pair<Integer, Integer>>> fondData;
 
     public FontManager(String line)
@@ -31,6 +32,8 @@ public class FontManager
         regex.put(regex_default, font);
         regex.put(regex_red, COLOR_RED);
         regex.put(regex_green, COLOR_GREEN);
+        regex.put(regex_violet, COLOR_VIOLET);
+        regex.put(regex_gold, COLOR_GOLD);
     }
 
     public Color getFontAtLetter(int idx)
