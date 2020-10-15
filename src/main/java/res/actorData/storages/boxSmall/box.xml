@@ -36,7 +36,7 @@ actorstatus - changes otherPersonActor to status defined in otherPersonActor fil
     </dialogue>
 
     <dialogue id="init-locked" type="normal">
-        <line>The box is %%00locked%%00. Look out for a red key</line>
+        <line>The %%GRgreen%% box is %%RDlocked%%. Look out for the %%RDred%% key of the tenderer.</line>
     </dialogue>
 
     <dialogue id="init-get" type="normal">

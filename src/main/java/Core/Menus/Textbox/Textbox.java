@@ -22,13 +22,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.util.Pair;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import static Core.Configs.Config.*;
@@ -501,20 +500,38 @@ public class Textbox
 
         for (int lineIdx = 0; lineIdx < lineSplitMessage.size(); lineIdx++)
         {
-            String regex = "%%00";
+            Set<String> regex = new HashSet<>();
+            String regex_default = "%%DE";
+            String regex_red = "%%RD";
+            String regex_green = "%%GR";
+            regex.add(regex_default);
+            regex.add(regex_red);
+
             String line = lineSplitMessage.get(lineIdx);
-            Queue<Integer> charSpecialMarkingFound = new LinkedBlockingDeque<Integer>();
-            //List<Integer> charSpecialMarkingFound = new ArrayList<>();
-            charSpecialMarkingFound.add(line.indexOf(regex));
-            line = line.replaceFirst(regex, "");
-            charSpecialMarkingFound.add(line.indexOf(regex));
-            line = line.replaceFirst(regex, "");
-            //System.out.println(CLASSNAME + methodName + "found special between: "+ charSpecialMarkingFound.toString());
+
+            //Queue<Pair<String, Pair<Integer, Integer>>> charSpecialMarkingFound = findFontMarkings(line);
+            Queue<Pair<String, Pair<Integer, Integer>>> charSpecialMarkingFound = new LinkedBlockingDeque<Pair<String, Pair<Integer, Integer>>>();
+            int idxFormatRegex = 0;
+            int idxRegexEnd = 0;
+            do
+            {
+                idxFormatRegex = line.indexOf("%%");
+                if (idxFormatRegex >= 0)
+                {
+                    String beginRegex = line.substring(idxFormatRegex, idxFormatRegex + 4);
+                    line = line.replaceFirst(beginRegex, "");
+                    idxRegexEnd = line.indexOf("%%");
+                    line = line.replaceFirst("%%", "");
+                    charSpecialMarkingFound.add(new Pair<String, Pair<Integer, Integer>>(beginRegex, new Pair<>(idxFormatRegex, idxRegexEnd)));
+                }
+            } while (idxFormatRegex >= 0);
+
+            //System.out.println(CLASSNAME + methodName + charSpecialMarkingFound);
 
             double elapsedTimeSinceLastInteraction = (GameWindow.getCurrentNanoRenderTimeGameWindow() - lastTimeNewLetterRendered) / 1000000000.0;
             if (elapsedTimeSinceLastInteraction > 0.005)
             {
-                maxLettersIdxRendered = Math.min(++maxLettersIdxRendered, line.length());
+                maxLettersIdxRendered++;
                 lastTimeNewLetterRendered = GameWindow.getCurrentNanoRenderTimeGameWindow();
             }
 
@@ -522,16 +539,24 @@ public class Textbox
             String visibleLine = line.substring(0, lettersRendered);
 
             for (Integer i = 0; i < visibleLine.length(); i++)
-            {//TODO general
-                if (i == charSpecialMarkingFound.peek())
+            {
+                if (charSpecialMarkingFound.peek() != null
+                        && i >= charSpecialMarkingFound.peek().getValue().getKey()//begin
+                        && i<charSpecialMarkingFound.peek().getValue().getValue())//end
                 {
                     //System.out.println(CLASSNAME + methodName + charSpecialMarkingFound);
-                    if (charSpecialMarkingFound.size() % 2 == 0)
+                    if (charSpecialMarkingFound.peek().getKey().equals(regex_red))
                         textboxGc.setFill(Color.RED);
-                    else
+                    else if(charSpecialMarkingFound.peek().getKey().equals(regex_green))
+                        textboxGc.setFill(Color.GREEN);
+                    else if(charSpecialMarkingFound.peek().getKey().equals(regex_default))
                         textboxGc.setFill(font);
-                    charSpecialMarkingFound.remove();
+
+                    if(i+1 >= charSpecialMarkingFound.peek().getValue().getValue())
+                        charSpecialMarkingFound.remove();
                 }
+                else
+                    textboxGc.setFill(font);
 
                 char c = visibleLine.charAt(i);
                 textboxGc.fillText(String.valueOf(c),
@@ -561,16 +586,6 @@ public class Textbox
         textboxImage = textboxCanvas.snapshot(transparency, null);
     }
 
-    private static double findFontSizeThatCanFit(Font font, String s, int maxWidth)
-    {
-        double fontSize = font.getSize();
-        double width = textWidth(font, s);
-        if (width > maxWidth)
-        {
-            return fontSize * maxWidth / width;
-        }
-        return fontSize;
-    }
 
     private static double textWidth(Font font, String s)
     {
