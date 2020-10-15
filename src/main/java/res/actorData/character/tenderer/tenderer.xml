@@ -46,7 +46,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <option nextDialogue="air_system_check"
                 type="boolean" variablename="transporter_air_system_quest_started" visibleIf="true">&gt;Whats the air system status now?&lt;</option>
         <option nextDialogue="QUEST_AIR_SYSTEM_DESC"
-                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="false">&gt;Tell me about the issues with the life support&lt;</option>
+                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="false">&gt;Tell me about the issues with the %%GRlife support%%&lt;</option>
         <option>Never mind.</option>
     </dialogue>
 

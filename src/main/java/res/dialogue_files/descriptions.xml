@@ -52,6 +52,14 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Looks like the brew coffee beans from earth. Hard to imagine.</line>
     </dialogue>
 
+    <dialogue id="door_locked" type="normal">
+        <line>The door is %%RDlocked%% ...</line>
+    </dialogue>
+
+    <dialogue id="works_full_function" type="normal">
+        <line>All systems are full operational.</line>
+    </dialogue>
+
 
 
 </root>

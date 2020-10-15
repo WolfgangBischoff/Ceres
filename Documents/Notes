@@ -41,7 +41,6 @@
 ----- Sprites ----------------------------
 ------------------------------------------
 GUI
-    - add right capsule wall
     - add money status img and clock
 - Ship:
     FrontWindow, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker, algae tank transparency
