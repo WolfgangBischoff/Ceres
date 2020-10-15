@@ -52,7 +52,7 @@ public class FontManager
             return regex.get(regex_default);
     }
 
-    public String removeFontMarkings(String line)
+    public static String removeFontMarkings(String line)
     {
         for (String s: regex.keySet())
             line = line.replace(s,"");

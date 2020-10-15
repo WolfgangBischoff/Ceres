@@ -19,6 +19,7 @@ public class Config
     public static final int TEXTBOX_WIDTH = 800;
     public static final int TEXTBOX_HEIGHT = 400;
     public static final Point2D TEXT_BOX_POSITION = new Point2D(CAMERA_WIDTH / 2f - TEXTBOX_WIDTH / 2, CAMERA_HEIGHT - TEXTBOX_HEIGHT - 32);
+    public static final int TEXTBOX_MAX_LINE_LETTERS = 45;
     public static final int FONT_Y_OFFSET_ESTROG__SIZE30 = 10;
 
     public static final int PERSONALITY_WIDTH = 900;
@@ -159,7 +160,7 @@ public class Config
     public static final Color COLOR_GREEN = Color.hsb(140, 0.33, 0.90); //Good
     public static final Color COLOR_RED = Color.hsb(0, 0.33, 0.90); //Bad
     public static final Color COLOR_BACKGROUND_BLUE = Color.rgb(60, 90, 85); //Normal
-    public static final Color COLOR_VIOLET = Color.rgb(85, 65, 85);//Main Quest
-    public static final Color COLOR_GOLD = Color.rgb(80, 85, 35);//Secret
+    public static final Color COLOR_VIOLET = Color.rgb(185, 165, 185);//Main Quest
+    public static final Color COLOR_GOLD = Color.rgb(180, 155, 110);//Secret
 
 }

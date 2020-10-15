@@ -49,7 +49,7 @@ public class Textbox
     Color background = Color.rgb(60, 90, 85);
     final int firstLineOffsetY = backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon + 20;
     final int xOffsetTextLine = 40;
-    final int maxDigitsInLine = 38;
+    //final int maxDigitsInLine = 38;
     String nextDialogueID = null;
     List<String> lineSplitMessage;
     Integer markedOption = 0;
@@ -553,13 +553,16 @@ public class Textbox
         StringBuilder lineBuilder = new StringBuilder();
         for (int wordIdx = 0; wordIdx < words.length; wordIdx++)
         {
-            if (numberDigits + words[wordIdx].length() > maxDigitsInLine)
+
+            //if (numberDigits + words[wordIdx].replace("%%","").length() > TEXTBOX_MAX_LINE_LETTERS)
+            int numberDigitsWithoutFontRegex = FontManager.removeFontMarkings(words[wordIdx]).length();
+            if (numberDigits + numberDigitsWithoutFontRegex > TEXTBOX_MAX_LINE_LETTERS)
             {
                 wrapped.add(lineBuilder.toString());
                 lineBuilder = new StringBuilder();
                 numberDigits = 0;
             }
-            numberDigits += words[wordIdx].length();
+            numberDigits += numberDigitsWithoutFontRegex + 1;
             lineBuilder.append(words[wordIdx]).append(" ");
         }
         wrapped.add(lineBuilder.toString());
