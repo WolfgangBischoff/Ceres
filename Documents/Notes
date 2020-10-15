@@ -22,7 +22,7 @@
     - Dialogue depentdent on date
     - add item with textbox
 - Level build
-    - crew deck (competitor, doctor, security, rescue pods, storage, fix environment)
+    - crew deck (security, rescue pods, storage, fix environment)
     - freight deck
         - air hub, ggf coin game; find manual before
         - Day 2 Quest
@@ -45,7 +45,7 @@
 ----- Sprites ----------------------------
 ------------------------------------------
 GUI
-    - add money status img and clock
+    - add clock img
 - Ship:
     Ceres behind window, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker, algae tank transparency
 - Docking Bay:
@@ -63,6 +63,7 @@ GUI
 ------------------------------------------
 ----- Ideas ------------------------------
 ------------------------------------------
+- Entertainer zum kennenlernen und propagandistish nutzen
 - Goal to get a robot begleiter
 - Tag/Nacht Rythmus mit Dunklem Overlay, Lights on at some time. Check STardewVally how to
 - Tenderer Quests:

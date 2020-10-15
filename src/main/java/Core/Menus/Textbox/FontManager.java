@@ -14,10 +14,6 @@ public class FontManager
 {
     static Map<String, Color> regex = new HashMap<>();
     static String regex_default = "%%DE";
-    static String regex_red = "%%RD";
-    static String regex_green = "%%GR";
-    static String regex_violet = "%%VT";
-    static String regex_gold = "%%GD";
     Queue<Pair<String, Pair<Integer, Integer>>> fondData;
 
     public FontManager(String line)
@@ -30,10 +26,10 @@ public class FontManager
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
         regex.put(regex_default, font);
-        regex.put(regex_red, COLOR_RED);
-        regex.put(regex_green, COLOR_GREEN);
-        regex.put(regex_violet, COLOR_VIOLET);
-        regex.put(regex_gold, COLOR_GOLD);
+        regex.put(REGEX_RED, COLOR_RED);
+        regex.put(REGEX_GREEN, COLOR_GREEN);
+        regex.put(REGEX_VIOLET, COLOR_VIOLET);
+        regex.put(REGEX_GOLD, COLOR_GOLD);
     }
 
     public Color getFontAtLetter(int idx)

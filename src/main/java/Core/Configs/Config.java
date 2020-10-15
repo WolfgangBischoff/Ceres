@@ -160,11 +160,14 @@ public class Config
     public static final int MAM_THRESHOLD_INTERROGATION = 6;
 
     //Colors
-    //public static final Font FONT_ESTROG = Font.loadFont(getClass().getResource(FONT_DIRECTORY_PATH + "estrog__.ttf").toExternalForm(), 30);
-    public static final Color COLOR_GREEN = Color.hsb(140, 0.33, 0.90); //Good
-    public static final Color COLOR_RED = Color.hsb(0, 0.33, 0.90); //Bad
     public static final Color COLOR_BACKGROUND_BLUE = Color.rgb(60, 90, 85); //Normal
+    public static final String REGEX_GREEN = "%%GR";
+    public static final Color COLOR_GREEN = Color.hsb(140, 0.33, 0.90); //Good
+    public static final String REGEX_RED = "%%RD";
+    public static final Color COLOR_RED = Color.hsb(0, 0.33, 0.90); //Bad
+    public static final String REGEX_VIOLET = "%%VT";
     public static final Color COLOR_VIOLET = Color.rgb(185, 165, 185);//Main Quest
+    public static final String REGEX_GOLD = "%%GD";
     public static final Color COLOR_GOLD = Color.rgb(180, 155, 110);//Secret
 
 }

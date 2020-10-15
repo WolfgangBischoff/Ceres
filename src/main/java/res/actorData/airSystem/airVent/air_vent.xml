@@ -45,15 +45,15 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
     <dialogue id="init-on" type="normal">
-        <line>Fresh air streams into your face</line>
+        <line>%%GRFresh air%% streams into your face</line>
     </dialogue>
 
     <dialogue id="init-off" type="normal" nextDialogue="off-cleanDec">
-        <line>Looks dirty and congested</line>
+        <line>Looks %%RDdirty%% and congested</line>
     </dialogue>
 
     <dialogue id="init-baseSystemOffline" type="normal">
-        <line>Looks good, but no air streams</line>
+        <line>Looks good, but %%RDno air%% streams</line>
     </dialogue>
 
     <dialogue id="off-cleanDec" type="decision">

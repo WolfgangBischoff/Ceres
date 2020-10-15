@@ -36,7 +36,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
 <root name="tenderer">
     <dialogue id="day0" type="normal" nextDialogue="job-decision">
-       <line>Hi, I am the tenderer</line>
+       <line>Hi, I am the trader</line>
        <line>I have a job for you, if you are interested...</line>
     </dialogue>
 
@@ -44,17 +44,17 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <option nextDialogue="game-explanation">&gt;What should I do?&lt;</option>
         <option nextDialogue="tenderer-game">[Do the job]</option>
         <option nextDialogue="air_system_check"
-                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="true">&gt;Whats the air system status now?&lt;</option>
+                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="true">&gt;Whats the %%GDair system status%% now?&lt;</option>
         <option nextDialogue="QUEST_AIR_SYSTEM_DESC"
-                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="false">&gt;Tell me about the issues with the %%GRlife support%%&lt;</option>
+                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="false">&gt;Issues with the %%GRlife support%%&lt;</option>
         <option>Never mind.</option>
     </dialogue>
 
     <dialogue id="QUEST_AIR_SYSTEM_DESC" type="normal" variablename="transporter_air_system_quest_started" set="true" nextDialogue="OPEN_LIFE_SUPPORT">
-        <line>The oxygen level decreases due to a malfunction of the ventilation systems. Do something useful and fix it.</line>
+        <line>The oxygen level decreases due to a malfunction of the %%RDventilation system%%. Do something useful and fix it.</line>
     </dialogue>
     <dialogue id="OPEN_LIFE_SUPPORT" type="normal" variablename="IS_LIFE_SUPP_OPEN" set="true" nextDialogue="job-decision">
-        <line>I will grant you access to the life support system chamber on the crew deck. Don`t blew it up.</line>
+        <line>I will grant you %%GRaccess%% to the %%GRlife support%% system chamber on the crew deck. Don`t blew it up.</line>
     </dialogue>
 
     <dialogue id="tenderer-game" type="discussion" game="lifesupport" success="game-success" defeat="game-defeat"/>
@@ -81,11 +81,11 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
     <dialogue id="air_system_check" type="boolean" variablename="isTransporterAirSystemOn" true="air_system_on" false="air_system_off"/>
     <dialogue id="air_system_on" type="getMoney" value="80" variablename="transporter_air_system_quest_started" set="done" nextDialogue="job-decision">
-        <line>You fixed the air system! Here is you reward!</line>
+        <line>You fixed the air system! Here is you %%GRmoney%%!</line>
     </dialogue>
     <dialogue id="air_system_off" type="normal" nextDialogue="job-decision">
-        <line>The air system is still down... did you already check the air control console on the crew deck?</line>
-        <line>For me it looks like that some of the vents are blocked, you should check them too.</line>
+        <line>The air system is %%RDstill down%% ... did you already check the %%VTair control console%% on the crew deck?</line>
+        <line>For me it looks like that some of the %%VTvents%% are blocked, you should check them too.</line>
     </dialogue>
 
 </root>
