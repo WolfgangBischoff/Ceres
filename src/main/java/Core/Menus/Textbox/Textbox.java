@@ -553,8 +553,6 @@ public class Textbox
         StringBuilder lineBuilder = new StringBuilder();
         for (int wordIdx = 0; wordIdx < words.length; wordIdx++)
         {
-
-            //if (numberDigits + words[wordIdx].replace("%%","").length() > TEXTBOX_MAX_LINE_LETTERS)
             int numberDigitsWithoutFontRegex = FontManager.removeFontMarkings(words[wordIdx]).length();
             if (numberDigits + numberDigitsWithoutFontRegex > TEXTBOX_MAX_LINE_LETTERS)
             {
@@ -566,7 +564,6 @@ public class Textbox
             lineBuilder.append(words[wordIdx]).append(" ");
         }
         wrapped.add(lineBuilder.toString());
-
         return wrapped;
     }
 
