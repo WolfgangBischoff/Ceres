@@ -536,6 +536,8 @@ public class WorldView
 
         //Bump
         if (bumpActive) {
+            if(timeStartBump == null)
+                timeStartBump = GameWindow.getCurrentNanoRenderTimeGameWindow();
             double elapsedTimeSinceBump = (GameWindow.getSingleton().getRenderTime() - timeStartBump) / 1000000000.0;
             double offsetCamX = 0, offsetCamY = 0;
             if (durationBump < elapsedTimeSinceBump) {
@@ -911,5 +913,10 @@ public class WorldView
     public boolean isBumpActive()
     {
         return bumpActive;
+    }
+
+    public void setBumpActive(boolean bumpActive)
+    {
+        this.bumpActive = bumpActive;
     }
 }

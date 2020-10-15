@@ -128,6 +128,7 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_VARIABLE_NAME = "variablename";
     public static final String TEXTBOX_ATTRIBUTE_TRUE = "true";
     public static final String TEXTBOX_ATTRIBUTE_FALSE = "false";
+    public static final String TEXTBOX_BUMP = "bump";
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";

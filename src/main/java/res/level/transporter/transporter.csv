@@ -60,7 +60,7 @@ TRf__0				;transportFloor			;floor/greyFloor																							 												
 TRr__0				;transporterRoof		;walls/transporterhull/roof_0								   																											;false				;0												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 windL0				;window											;walls/window/quadratic128											   																											;true					;0												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-windL1				;window											;walls/window/rectangle196x128							   																											;true					;0												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+#windL1				;window											;walls/window/rectangle196x128							   																											;true					;0												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 #freight capsule
 FCdocT				;dock													;walls/freightcapsule/dock_top								  																											;true					;2												;0			;0												;0				;0				;0										;0											;000									 	;064									 	;064									;130										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
@@ -109,7 +109,8 @@ player					;player																																		;Revolutionary												;d
 tender					;character/tenderer/tenderer													;Theo the tenderer								;day0															;default																;south
 exit__					;doors/vertical/autoBulkheadVertical					;exit to docking bay						;on																	;levelchange												;west
 autoDo					;doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;UNLOCKED															;west
-door_H					;doors/horizontal/automatedDoor										;bulkhead																	;on																	;UNLOCKED																;south
+door_H					;doors/horizontal/automatedDoor										;bulkhead																	;on																	;UNLOCKED															;south
+windL1					;quest/main/frontwindow/actor												;front window													;default												;default																;undefined
 
 #spaceway
 trigge					;floor/trigger																											;Trigger																		;20x64_off										;readyToFire_20									;undefined

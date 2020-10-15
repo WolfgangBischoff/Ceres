@@ -19,6 +19,7 @@
     - add definition in file
     - meteorit moving
 - Textbox
+    - Show Name of Person/Sprite eg. Julian Soulles : Trader
     - Dialogue depentdent on date
     - add item with textbox
 - Level build
@@ -27,7 +28,6 @@
         - air hub, ggf coin game; find manual before
         - Day 2 Quest
             - meet with collegue at window, watch Ceres
-            - window onInteraction: impact
             - tenderer sends you to machine room for space suit, activation trigger new stage with other sprite
             - check capsule and leave, find items
 - Inventory
@@ -47,7 +47,7 @@
 GUI
     - add clock img
 - Ship:
-    Ceres behind window, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker, algae tank transparency
+    Ceres behind window, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker, algae tank transparency, mirror in bath
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: Stock Market Display, schrank upper right
@@ -148,18 +148,18 @@ Regular Day:
     Repair Air System
     Repair personal bot
     Grow Plant for life support
-Meteorit Day:
+Meteorit Day: notTIME
     After impact you get a space suit to check capsule
-    Cannot repair hull breach, loosing air, tenderer needs time to check the logs
     There is a crate with eyes that dissapear onRange
+    Cannot repair hull breach, loosing air, tenderer tells you to release the capsule, not insured - Roger
+    Before leaving the capsule Stranger, blind passenger surprises you and asks for help. Tells about people/his family; you check it and tell trader to need more time for release
+    You want to tell the tenderer, but the stranger convinces you he already knows. Check his console to be sure. We will meet at night
 Meteorit Night:
-    Stranger, blind passenger surprises you and asks for help. Tells about people; you tell him the capsule will maybe be released
-    Dependent on skills/previous decision you can safe the people in the strangers crate (air masks and heat energy, food)
+    I am baffled about this..
+    Put them into rescue pods and send them to ceres with supplys (air masks and heat energy, food)
 Arrival at Ceres:
-    Tenderer tells you that goods not insured, dead bonds. Should be released.
-    You protest because you know of the people..
-    .. you get fired for knowing it
-
+    "Good morning and welcome on Ceres"
+    Trader waits for you: I am pretty sure you have something to do with this mess. The pod is missing and freight is gone. I cannot beweisen but you are fired. Leave this ship!
 
 QUEST 2:
 You sleep in a container, you have nothing, start an existance by quests and steal, you are a immigrant

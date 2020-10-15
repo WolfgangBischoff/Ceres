@@ -164,7 +164,6 @@ public class Textbox
                                     isOptionVisible = false;
                                 else
                                     isOptionVisible = true;
-
                             }
                         }
                         if (isOptionVisible)
@@ -221,6 +220,10 @@ public class Textbox
                         String val = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_SET);
                         //GameVariables.getBooleanWorldVariables().put(varname, val);
                         GameVariables.getGenericVariableManager().setValue(varname, val);
+                    }
+                    if(currentDialogue.hasAttribute(TEXTBOX_BUMP))
+                    {
+                        WorldView.getSingleton().setBumpActive(true);
                     }
                 }
 

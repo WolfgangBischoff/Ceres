@@ -53,3 +53,4 @@
 15 10 20    - Highlight text & Text "write"
             - add right capsule wall
             - added medic, added money field
+            - window onInteraction: bump
