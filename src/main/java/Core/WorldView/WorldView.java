@@ -87,7 +87,7 @@ public class WorldView
 
     //Management Attention Meter Overlay
     static StatusBarOverlay mamOverlay = new StatusBarOverlay(
-            new StatusBarConfig("interface/bars/MaM_bar_400x64.png", null, Color.hsb(0, 0.33, 0.90),
+            new StatusBarConfig("interface/bars/MaM_bar_400x64.png", null, COLOR_RED,
                     MAM_BAR_WIDTH, MAM_BAR_HEIGHT, 100, GameVariables.getPlayerMaM_duringDayProperty()));
     static Point2D mamOverlayPosition = MAM_BAR_POSITION;
 
@@ -96,7 +96,7 @@ public class WorldView
     static Point2D moneyOverlayPosition = MONEY_POSITION;
 
     //Hunger Overlay
-    static StatusBarOverlay hungerOverlay = new StatusBarOverlay(new StatusBarConfig("interface/bars/food_bar_400x64.png", null, Color.hsb(140, 0.33, 0.90),
+    static StatusBarOverlay hungerOverlay = new StatusBarOverlay(new StatusBarConfig("interface/bars/food_bar_400x64.png", null, COLOR_GREEN,
             MAM_BAR_WIDTH, MAM_BAR_HEIGHT, MAX_HUNGER, GameVariables.playerHungerProperty()));
     static Point2D hungerOverlayPosition = HUNGER_BAR_POSITION;
 

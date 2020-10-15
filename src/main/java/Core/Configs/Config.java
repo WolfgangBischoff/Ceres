@@ -1,6 +1,7 @@
 package Core.Configs;
 
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 
 public class Config
 {
@@ -153,5 +154,10 @@ public class Config
     //Management-Attention-Meter MAM
     public static final int MAM_DAILY_DECREASE = 2;
     public static final int MAM_THRESHOLD_INTERROGATION = 6;
+
+    //Colors
+    public static final Color COLOR_GREEN = Color.hsb(140, 0.33, 0.90);
+    public static final Color COLOR_RED = Color.hsb(0, 0.33, 0.90);
+    public static final Color COLOR_BACKGROUND_BLUE = Color.rgb(60, 90, 85);
 
 }
