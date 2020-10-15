@@ -609,8 +609,7 @@ public class WorldView
             case WORLD:
                 break;
             case TEXTBOX:
-                WritableImage textBoxImg = textbox.showMessage();
-                gc.drawImage(textBoxImg, textBoxPosition.getX(), textBoxPosition.getY());
+                gc.drawImage(textbox.render(), textBoxPosition.getX(), textBoxPosition.getY());
                 break;
             case INVENTORY:
             case INVENTORY_EXCHANGE:

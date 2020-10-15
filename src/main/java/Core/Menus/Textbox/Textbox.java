@@ -22,13 +22,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.util.Pair;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.*;
-import java.util.concurrent.LinkedBlockingDeque;
 
 import static Core.Configs.Config.*;
 
@@ -41,7 +39,6 @@ public class Textbox
     private static Rectangle2D SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
     Canvas textboxCanvas = new Canvas(WIDTH, HEIGHT);
     GraphicsContext textboxGc = textboxCanvas.getGraphicsContext2D();
-    WritableImage textboxImage;
     Dialogue readDialogue;
     Element dialogueFileRoot;
     int messageIdx = 0;
@@ -84,7 +81,6 @@ public class Textbox
         actorOfDialogue = actorParam;
         dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getSpriteList().get(0).getDialogueFileName() + ".xml");
         readDialogue = readDialogue(actorOfDialogue.getSpriteList().get(0).getInitDialogueId());
-        drawTextbox();
 
         if (actorOfDialogue.getPersonalityContainer() != null)
             actorOfDialogue.getPersonalityContainer().incrementNumberOfInteraction();
@@ -96,7 +92,6 @@ public class Textbox
         actorOfDialogue = null;
         dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + dialogueFile + ".xml");
         readDialogue = readDialogue(dialogueId);
-        drawTextbox();
     }
 
     //For Discussion if File is already read, Discussions send next Dialogue
@@ -307,7 +302,6 @@ public class Textbox
         {
             markedOption = newMarkedOption;
             WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
-            drawTextbox();
         }
     }
 
@@ -344,7 +338,6 @@ public class Textbox
                     if (markedOption != checkedLineIdx)
                     {
                         markedOption = checkedLineIdx;
-                        drawTextbox();
                     }
                     break;
                 }
@@ -401,13 +394,11 @@ public class Textbox
         if (hasNextMessage())//More messages in this dialogue
         {
             messageIdx++;
-            drawTextbox();
         }
         else if (nextDialogueID != null)//No more messages but nextDialogue defined
         {
             messageIdx = 0;
             readDialogue = readDialogue(nextDialogueID, dialogueFileRoot);
-            drawTextbox();
         }
         else //End Textbox
         {
@@ -425,7 +416,7 @@ public class Textbox
 
     }
 
-    private void drawTextbox() throws NullPointerException
+    public WritableImage render() throws NullPointerException
     {
         String methodName = "drawTextbox() ";
         boolean debug = false;
@@ -526,7 +517,7 @@ public class Textbox
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
-        textboxImage = textboxCanvas.snapshot(transparency, null);
+        return textboxCanvas.snapshot(transparency, null);
     }
 
 
@@ -576,11 +567,7 @@ public class Textbox
         return wrapped;
     }
 
-    public WritableImage showMessage()
-    {
-        drawTextbox();
-        return textboxImage;
-    }
+
 
     public static double getTEXT_BOX_WIDTH()
     {
