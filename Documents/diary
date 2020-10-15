@@ -40,7 +40,7 @@
 08 10 20    - DialogueFile part of sprite status, lightweight textbox
             - control, coffee, projector with description
             - standing animation
-09 10 20    - added status bar imgages
+09 10 20    - added status bar images
 10 10 20    - Textbox should be opened on Click even if the sprite has no actor but just a defined textbox file
             - Interaction by click should use sprite images
 12 10 20    - once system is online, you cannot switch of hub; nextDialogue in XML now attribute
