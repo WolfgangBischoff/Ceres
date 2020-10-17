@@ -47,7 +47,7 @@
 GUI
     - add clock img
 - Ship:
-    Ceres behind window, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker, algae tank transparency, mirror in bath
+    Ceres behind window, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: Stock Market Display, schrank upper right
