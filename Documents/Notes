@@ -5,16 +5,23 @@
 
 - Mechanics
     - Game Over if health == 0
+    - Grow Plant for life support
+        - Setzling züchten aus Kaim durch Menü
+        - Wissen über Licht, Wärme, Wasser, Nährstoffe, Boden benötigt => Inventar
+        - Setzen der Pflanze in passenden Topf
+        - Mutieren und Kreuzen von Pflanzen, cookie Clicker
     - Add set item mechanic
         1) sprite an Pos adden via Key
         2) Sprite von Menu und maus adden
         3) Zeit & Resourcenkosten
         4) Position check
         5) Different Sprites
+    - Coin Game
+        - add cursor with borader hitbox
+        - objects that kill you, cost lifes like in undertals
+        - Buff to double reward of coins
+        - areas that double reward
     - check higher resolution and zoom, fix not centered overlay
-- Vending Machine
-    - Vendor to buy items by debit card
-    - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
 - Cleaning Bot Moving
     - add definition in file
     - meteorit moving
@@ -26,6 +33,8 @@
     - crew deck (security, rescue pods, storage, fix environment)
     - freight deck
         - air hub, ggf coin game; find manual before
+        - Repair personal bot
+            - Actor System with Fitting Software, Model, Batterie finden, ... ;if all are correct robot repaired
         - Day 2 Quest
             - meet with collegue at window, watch Ceres
             - tenderer sends you to machine room for space suit, activation trigger new stage with other sprite
@@ -49,38 +58,31 @@ GUI
 - Ship:
     Ceres behind window, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker
 - Docking Bay:
-    Elevator, schriftzug "Elevator", minimal table, Lautsprecher
-- Control Center: Stock Market Display, schrank upper right
-- Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine
-- Person https://forums.rpgmakerweb.com/index.php?threads/spriting-pixel-art-tutorials.33/
-- Couchtisch, Kleiderschrank, Diffuser, Chair
-- Bett, Bau
-- LocalEnergy: Main generator, solar panels, Transformator, EnergyHub, Cabel
-- General: Hüllen beschädigt, Non critical System damaged, Hammer and Sickle modern
-- HeatSystem
-- Storage: Lagerschrank, Säulen, Tank, Big Crate
+    Elevator, schriftzug "Elevator", minimal table
+- Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels, floor cabel
+- Hammer and Sickle modern, Säulen, Tank
 
 ------------------------------------------
 ----- Ideas ------------------------------
 ------------------------------------------
-- Entertainer zum kennenlernen und propagandistish nutzen
-- Goal to get a robot begleiter
-- Tag/Nacht Rythmus mit Dunklem Overlay, Lights on at some time. Check STardewVally how to
-- Tenderer Quests:
-    - clean smtg
-    - fill in vendor
-    - repair something at place
-- Grind mechanic
-    Daily needs:
-        Sleep -> based on time like in StardewVallay, but with night encounter. Better bed increases skills, also Kuschis
+Goals and Quest:
+    - Entertainer zum kennenlernen und propagandistish nutzen
+    - get a robot begleiter
+    - Go to work as freelancer (there are always quests, you decide if you are a good worker)
+          Setting: Mineral Mining, Plant Growing, Alloy Melting, Cook Serve Delicious
+          Je mehr Jobs erledigt desto mehr steigt zugang; dann können firmen zerstört werden
+Mechanics:
+    - Tag/Nacht Rythmus mit Dunklem Overlay, Lights on at some time. Check STardewVally how to
+    - Daily needs:
+        Sleep -> based on time like in StardewVallay,
+            board time and ceres time are different, ceres night/day changes world
+            Better bed increases skills, also Kuschis; container => lend capsule => then room/hideout
         Food -> Eat during game (if not eaten for days, dies)
         Air -> needed for space suit
         Medicine -> needed if ill
         Entertainment -> maybe useless but nice value
-    Achievements like personal capsule/room with own furniture help, can also be public like community center with benefits
-        => Tutorial just food, then live in container, then lend capsule, then room. (maybe also secret hideouts)
-    Go to work as freelancer (there are always quests, you decide if you are a good worker)
-    Setting: Mineral Mining, Plant Growing, Alloy Melting, Cook Serve Delicious
+    - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
+
     With high attention meter place have surveilance
     - get money from Companies for doing Quest (money changes if workers are unionized, work is more rentable if much union)
     - steal
@@ -91,26 +93,9 @@ GUI
     Public Work (Revolutionary meter, needed for main questline or acsess to areas due to people that feel more safe with helping you)
     - Spray, Flugzettel
     - Gain trust through dailies like provide food/water/communication between people
-- Management Attention meter shows how strong security is. (if security is high you are also suspicious)
-    - increases if machine broken, item stolen, propaganda
-        if high: closed doors, guards, interogation and punishment, game end, less items
-    - decreases
-        over time
-        by actions like deleting logs or bestechen
-        higher decrease/lower increase if station under stress, chaos mode
-        quest of company succeeded (you can be slow to get paid every day)
-    - neutral
-        scavenging dump, unknown items
 
-- Revolutionary Spirit meter shows how strong people want change, increases with lower living standard, pamphlets against companies, or if they trust you.
 - Increasable Skills like Sabotage (Harm Machines), Craft (Tools/Weapons/Propaganda), Rethorik
 - Gewerkschaft is corrupted, helps worker but ignores slaves; but unionization helps for more money from quest work
-- Social Game also technical
-    - influence on time/speed
-    - tricolon as copy visible coins
-    - areas that double reward
-- Character Flaws
-    - not confident if can make
 - Verbindung, Social layers
     -> Drugs, Spirituality
     -> Gay
