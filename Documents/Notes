@@ -5,17 +5,17 @@
 
 - Mechanics
     - Game Over if health == 0
-    - Grow Plant for life support
-        - Setzling züchten aus Kaim durch Menü
-        - Wissen über Licht, Wärme, Wasser, Nährstoffe, Boden benötigt => Inventar
-        - Setzen der Pflanze in passenden Topf
-        - Mutieren und Kreuzen von Pflanzen, cookie Clicker
     - Add set item mechanic
         1) sprite an Pos adden via Key
         2) Sprite von Menu und maus adden
         3) Zeit & Resourcenkosten
         4) Position check
         5) Different Sprites
+    - Grow Plant for life support
+            - Aus Kaim wird Pflanze gesetzt, Erde rar
+            - Pflanze wächst jeden Tag, erntbar, stirbt, vermehrt sich
+            - Habitat: Station, WaterTank, Ceres, Hot
+            - Mutieren und Kreuzen von Pflanzen, cookie Clicker
     - Coin Game
         - add cursor with borader hitbox
         - objects that kill you, cost lifes like in undertals
@@ -66,6 +66,13 @@ GUI
 ----- Ideas ------------------------------
 ------------------------------------------
 Goals and Quest:
+    - Main Quest
+        - Three/n companies with flaws, infiltrate and organize Protest
+        - Everything is worse after
+        - Prepare Revolution by become independent, destroy and communify companies
+        - CereX remains, tries to cut energy, water and heat
+        - During fighting the slaves on the Colony ship are found.
+        - End battle
     - Entertainer zum kennenlernen und propagandistish nutzen
     - get a robot begleiter
     - Go to work as freelancer (there are always quests, you decide if you are a good worker)
@@ -179,25 +186,40 @@ Spiritual Mission:
 Lore (Info not related to PLot, History, descriptions)
     Third Class
         => Earth damaged, people want to live in space and station, Ceres is base for asteriod belt mining
-        - Private Company build Station, Earth law doesnt apply, Earth Gov am Gängelband
-        => Subscriptions to benefits
+            - Private Company build Station, Earth law doesnt apply, Earth Gov am Gängelband
+        => Subscriptions to benefits like housing, food and air
         => Dwarf planet Ceres, Water colony with science; can travel to asteriods; Vanguard of Humankind in private ownership (CereX company)
         => Board time / Ceres Time (9h 4min per day) connection affects world (year 4,605 years)
-        - Asteriod belt essential for earth, need resources
 
     Ceres
-        - Ceres Base gets energy and water from old colony ship, which works automated; resource refinement is here and union
-        - The Colony Ship has no air life systems, but in secret workers life there under bad conditions, need air masks all day
-        - In secret dept slaves are but to Colony Ship
+        - Ceres Base gets energy and water from old colony ship, which works automated;
+        - The Colony Ship has no air life systems, but in secret workers life there under bad conditions,
+                - need air masks all day, union knows about
+                - workers are dept slaves from cryo capsules
         - The trade hub contains a space elevator and in secret luxury apartements
         - There are water and mineral resource fields near cryo vulcanos
         - Resources very limited, nearly autarc; cheap drones with oxygen fuel can sent back resources, but oxygen is rare;
             goods from earth must be sent to space, expensive, from ceres weight is not a problem
 
         - CereX owns base and maintains station with Colony Ship
-        - Adia is a small coffee company owned by Smile (Amazon)
-        - Watercompany
+            - Endgegner, kontrolliert andere Fraktionen, cut off base resources
         - Mineralcompany
+            - schlechte, gefährliche Arbeitsbedingungen
+            - Protest führt zu Entlassung und maschinsierung
+            - Revolution zu besseren arbeitsbedingungen und produkten für die menschen
+        - Food/Water Supplies Company
+            - bad products, people get ill; experiments on humans
+            - Protest führt zu teuren, etwas besseren Produkten
+            - Revolution führt zu guten, transpartenten Produkten
+        - Trade Company "Smile"
+            - destroys Ceres Ecosystem, erhöht Preise künstlich
+            - Protest leads to schlechterer Service
+            - Revolution leads to distributed goods
+            - Adia is a small coffee company owned by Smile (Amazon)
+        - Medics Company
+            - Heilt niemand, will weiter Kunden haben; teuer
+            - Protest: Some products are cheaper, but more people are waiting
+            - Revolution: Gesundheitssystem heilt und ist nicht mehr überlastet, jeder wird behandelt
 
 ------------------------------------------
 ----- COLLECTIBLES -----------------------
