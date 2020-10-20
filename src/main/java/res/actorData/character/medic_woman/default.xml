@@ -51,6 +51,10 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Its on the lower crew-deck, next to the elevator.</line>
     </dialogue>
 
+    <dialogue id="WINDOW_INTRO" type = "normal">
+        <line>Look outside</line>
+    </dialogue>
+
 
 
 

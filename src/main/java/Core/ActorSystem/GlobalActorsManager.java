@@ -13,6 +13,7 @@ public class GlobalActorsManager
 {
     private static final String CLASSNAME = "GlobalActorsManager/";
     private static final Set<String> keywords = new HashSet<>();
+    static Map<String, Actor> actorsIdsMap = new HashMap<>();
     static ActorMonitor globalActorMonitor = new ActorMonitor();
     static Set<String> loadedSystems = new HashSet<>();
 
@@ -36,7 +37,7 @@ public class GlobalActorsManager
     {
         String methodName = "parse() ";
         String readStatus = null;
-        Map<String, Actor> actorsIdsMap = new HashMap<>();
+        //Map<String, Actor> actorsIdsMap = new HashMap<>();
         List<String> createdActorGroupsId = new ArrayList<>();
         for (String[] lineData : file) {
             if (keywords.contains(lineData[0].toLowerCase()))
@@ -104,7 +105,20 @@ public class GlobalActorsManager
     {
         String methodName = "getGlobalActors() ";
         Map<String, Actor> globalActors = new HashMap<>();
-        actorIds.forEach(id -> globalActors.put(id, globalActorMonitor.getActorById(id)));
+
+        //actorIds.forEach(id -> globalActors.put(id, globalActorMonitor.getActorById(id)));
+        actorIds.forEach(id ->
+        {
+            String[] splitActorId = id.split(",");//ggf there is a target status
+            if(splitActorId.length>=2)
+            {
+                actorsIdsMap.get(splitActorId[0]).setGeneralStatus(splitActorId[1]);
+                actorsIdsMap.get(splitActorId[0]).updateCompoundStatus();
+            }
+            //globalActors.put(id, actorsIdsMap.get(id));
+            globalActors.put(splitActorId[0], actorsIdsMap.get(splitActorId[0]));
+        });
+
         return globalActors;
     }
 

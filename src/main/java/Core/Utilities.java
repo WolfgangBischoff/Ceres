@@ -1,6 +1,7 @@
 package Core;
 
 import javafx.scene.image.Image;
+import javafx.util.Pair;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -15,10 +16,13 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Utilities
 {
+    private static String CLASSNAME = "Utilities/";
+
     public static Double roundTwoDigits(Double input)
     {
         DecimalFormatSymbols point = new DecimalFormatSymbols();
@@ -99,6 +103,24 @@ public class Utilities
     public static Image readImage(String path)
     {
         return new Image(path);
+    }
+
+    public static List<Pair<String, String>> readParameterPairs(String[] arr)
+    {
+        String methodName = "readParameterPairs() ";
+        List<Pair<String, String>> ret = new ArrayList<>();
+        try{
+            for(int i=0; i<arr.length;)
+            {
+                ret.add(new Pair<String, String>(arr[i], arr[i+1]));
+                i += 2;
+            }
+        }
+        catch (IndexOutOfBoundsException e)
+        {
+            System.out.println(CLASSNAME + methodName + "Must have a equal number of elements: " + Arrays.toString(arr));
+        }
+        return ret;
     }
 
 }

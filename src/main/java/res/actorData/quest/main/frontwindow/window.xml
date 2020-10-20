@@ -44,6 +44,10 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>%%RDSomething hit the ship!%%</line>
     </dialogue>
 
+    <dialogue id="INIT_SPACE" type="normal">
+        <line>Void, everywhere just void..</line>
+    </dialogue>
+
 </root>
 
 

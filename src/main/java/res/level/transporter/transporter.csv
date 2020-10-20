@@ -110,7 +110,7 @@ tender					;character/tenderer/tenderer													;Theo the tenderer								;d
 exit__					;doors/vertical/autoBulkheadVertical					;exit to docking bay						;on																	;levelchange												;west
 autoDo					;doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;UNLOCKED															;west
 door_H					;doors/horizontal/automatedDoor										;bulkhead																	;on																	;UNLOCKED															;south
-windL1					;quest/main/frontwindow/actor												;front window													;default												;default																;undefined
+windL1					;quest/main/frontwindow/actor												;front window													;spaceView										;default																;undefined
 
 #spaceway
 trigge					;floor/trigger																											;Trigger																		;20x64_off										;readyToFire_20									;undefined
@@ -450,3 +450,4 @@ layer:
 #include	;path													;condition 												;params
 include:
 transporter/suspicion_low		;suspicion_lessequal 		;5
+transporter/afterAirQuest 	;onDaystart_if									;transporter_air_system_quest_started; done

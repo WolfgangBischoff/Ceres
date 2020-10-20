@@ -56,3 +56,4 @@
             - window onInteraction: bump
 17 10 20    - added algae tank transparency, mirror in bath
 19 10 20    - added eyes box
+21 10 20    - added global actors; placed on map according to variables

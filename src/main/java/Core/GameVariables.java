@@ -27,7 +27,6 @@ public class GameVariables
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
     static private int day = 0;
     static private Clock clock;
-    //static private Map<String, Boolean> booleanWorldVariables = new HashMap<>();
     static private GenericVariablesManager booleanWorldVariables = new GenericVariablesManager();
 
     //Game State persistent over days
@@ -41,7 +40,6 @@ public class GameVariables
     {
         clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
         lastTimeHungerFromTime = clock.time.getValue();
-        //booleanWorldVariables.putAll(GenericVariablesManager.initBoolean());
     }
 
     public static void setPlayer(Sprite player)

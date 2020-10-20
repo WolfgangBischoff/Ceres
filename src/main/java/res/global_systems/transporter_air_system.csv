@@ -3,8 +3,8 @@
 #air System
 ACTORS:
 airVeR					;airSystem/airVent/airVent															;Right ventilation								;off																;default							;undefined
-ventCo					;airSystem/airVent/airVent															;Control ventilation						;off																;default							;undefined
-airCr2					;airSystem/airVent/airVent															;Left ventilation									;off																;default							;undefined
+ventCo					;airSystem/airVent/airVent															;Control ventilation						;baseSystemOffline																;default							;undefined
+airCr2					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline																;default							;undefined
 airCr1					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;default							;undefined
 airLif					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;default							;undefined
 hydrOK					;airSystem/airTerminal/control											;Air hub																		;OFF																;fixed									;undefined

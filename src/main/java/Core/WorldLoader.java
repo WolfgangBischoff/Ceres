@@ -7,24 +7,11 @@ import Core.Enums.Direction;
 import Core.WorldView.WorldView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 
 import java.util.*;
 
 import static Core.Configs.Config.*;
-import static Core.Configs.Config.CSV_POSTFIX;
-import static Core.Configs.Config.INCLUDE_CONDITION_day_greaterequal;
-import static Core.Configs.Config.INCLUDE_CONDITION_suspicion_lessequal;
-import static Core.Configs.Config.KEYWORD_ACTORS;
-import static Core.Configs.Config.KEYWORD_GROUPS;
-import static Core.Configs.Config.KEYWORD_INCLUDE;
-import static Core.Configs.Config.KEYWORD_NEW_LAYER;
-import static Core.Configs.Config.KEYWORD_PASSIV_LAYER;
-import static Core.Configs.Config.KEYWORD_POSITION;
-import static Core.Configs.Config.KEYWORD_SPAWNPOINTS;
-import static Core.Configs.Config.KEYWORD_TILEDEF;
-import static Core.Configs.Config.KEYWORD_WORLDSHADOW;
-import static Core.Configs.Config.MAPDEFINITION_NO_TILE;
-import static Core.Configs.Config.STAGE_FILE_PATH;
 
 public class WorldLoader
 {
@@ -115,7 +102,7 @@ public class WorldLoader
         borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64, (maxVerticalTile) * 64);
 
         if (loadedTileIdsSet.size() > 0)
-            System.out.println(CLASSNAME + methodName + " found unused tile or actor definitions "+ loadedTileIdsSet + " while loading: " + levelName);
+            System.out.println(CLASSNAME + methodName + " found unused tile or actor definitions " + loadedTileIdsSet + " while loading: " + levelName);
         loadedTileIdsSet.clear();
 
     }
@@ -166,8 +153,8 @@ public class WorldLoader
                     readPosition(lineData);
                     break;
                 case KEYWORD_GLOBAL_SYSTEM_ACTOR:
-                   getGlobalSystemActor(lineData);
-                   break;
+                    getGlobalSystemActor(lineData);
+                    break;
                 default:
                     throw new RuntimeException(CLASSNAME + methodName + "readMode unknown: " + readMode);
             }
@@ -179,7 +166,7 @@ public class WorldLoader
     {
         String methodName = "getGlobalSystemActor() ";
         GlobalActorsManager.loadGlobalSystem(linedata[0]);
-        List<String> actorIds = Arrays.asList(linedata).subList(1,linedata.length);
+        List<String> actorIds = Arrays.asList(linedata).subList(1, linedata.length);
         globalActorsMap.putAll(GlobalActorsManager.getGlobalActors(actorIds));
         loadedTileIdsSet.addAll(actorIds);
         //System.out.println(CLASSNAME + methodName+  globalActorsMap);
@@ -235,6 +222,28 @@ public class WorldLoader
                     break;
                 else
                     return;
+            case INCLUDE_CONDITION_IF:
+                List<Pair<String, String>> params = Utilities.readParameterPairs(Arrays.copyOfRange(lineData, includeConditionParamsStartIdx, lineData.length));
+                boolean allVariabelsTrue = true;
+                for (Pair<String, String> pair : params)
+                    if (!GameVariables.getGenericVariableManager().getValue(pair.getKey()).equals(pair.getValue()))
+                        allVariabelsTrue = false;
+                if (allVariabelsTrue)
+                    break;
+                else
+                    return;
+
+            case INCLUDE_CONDITION_IF_NOT:
+                List<Pair<String, String>> paramsnot = Utilities.readParameterPairs(Arrays.copyOfRange(lineData, includeConditionParamsStartIdx, lineData.length));
+                boolean allVariabelsTrue2 = true;
+                for (Pair<String, String> pair : paramsnot)
+                    if (GameVariables.getGenericVariableManager().getValue(pair.getKey()).equals(pair.getValue()))
+                        allVariabelsTrue2 = false;
+                if (allVariabelsTrue2)
+                    break;
+                else
+                    return;
+
             default:
                 throw new RuntimeException(CLASSNAME + methodName + " Include Condition unknown: " + condition);
 
@@ -275,9 +284,11 @@ public class WorldLoader
 
         //map for all contained group members in which groups they are: actor -> groups
         ActorGroupData actorGroupData;
-        for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++) {
+        for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++)
+        {
             String actorId = lineData[membersIdx];
-            if (!actorGroupDataMap.containsKey(actorId)) {
+            if (!actorGroupDataMap.containsKey(actorId))
+            {
                 actorGroupDataMap.put(actorId, new ActorGroupData());
             }
             actorGroupData = actorGroupDataMap.get(actorId);
@@ -385,10 +396,11 @@ public class WorldLoader
                     addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
             }
             //Is Actor of global System
-            else if(globalActorsMap.containsKey(lineData[currentHorizontalTile]))
+            else if (globalActorsMap.containsKey(lineData[currentHorizontalTile]))
             {
                 Actor actor = globalActorsMap.get(lineData[currentHorizontalTile]);
-                actor.getSpriteList().forEach(sprite -> {
+                actor.getSpriteList().forEach(sprite ->
+                {
                     sprite.setPosition(currentHorizontalTile * 64, currentVerticalTile * 64);
                 });
 
@@ -432,7 +444,7 @@ public class WorldLoader
         actor.setActorId(actorId);
         actor.updateCompoundStatus();
         List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
-        if(spriteDataList == null)
+        if (spriteDataList == null)
             throw new RuntimeException("General status \"" + actor.compoundStatus + "\" not found in: " + actor.spriteDataMap.keySet());
         actor.actorMonitor = actorMonitor;
 
