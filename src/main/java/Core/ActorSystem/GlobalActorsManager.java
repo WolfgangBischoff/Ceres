@@ -107,6 +107,8 @@ public class GlobalActorsManager
             if(splitActorId.length>=2)
             {
                 actorsIdsMap.get(actorID).setGeneralStatus(splitActorId[1]);
+                if(splitActorId.length>=3)
+                    actorsIdsMap.get(actorID).setDirection(Direction.getDirectionFromValue(splitActorId[2]));
                 actorsIdsMap.get(actorID).updateCompoundStatus();
             }
             globalActors.put(actorID, actorsIdsMap.get(actorID));
