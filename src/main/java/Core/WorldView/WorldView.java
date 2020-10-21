@@ -30,26 +30,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static Core.Configs.Config.*;
-import static Core.Configs.Config.BOARD_TIME_HEIGHT;
-import static Core.Configs.Config.BOARD_TIME_POSITION;
-import static Core.Configs.Config.BOARD_TIME_WIDTH;
-import static Core.Configs.Config.CAMERA_HEIGHT;
-import static Core.Configs.Config.CAMERA_WIDTH;
-import static Core.Configs.Config.DAY_SUMMARY_POSITION;
-import static Core.Configs.Config.DEBUG_MOUSE_ANALYSIS;
-import static Core.Configs.Config.DISCUSSION_POSITION;
-import static Core.Configs.Config.HUNGER_BAR_POSITION;
-import static Core.Configs.Config.KEYBOARD_INTERACT;
-import static Core.Configs.Config.KEYBOARD_INVENTORY;
-import static Core.Configs.Config.MAM_BAR_HEIGHT;
-import static Core.Configs.Config.MAM_BAR_POSITION;
-import static Core.Configs.Config.MAM_BAR_WIDTH;
-import static Core.Configs.Config.MAX_HUNGER;
-import static Core.Configs.Config.MONEY_POSITION;
-import static Core.Configs.Config.PERSONALITY_POSITION;
-import static Core.Configs.Config.RUMBLE_GRADE;
-import static Core.Configs.Config.RUMBLE_GRADE_DECREASE;
-import static Core.Configs.Config.RUMBLE_MAX_DURATION;
 import static Core.WorldView.WorldViewStatus.WORLD;
 
 public class WorldView
@@ -135,7 +115,6 @@ public class WorldView
         StackPane stackPane = new StackPane();
         stackPane.setAlignment(Pos.CENTER);
         root = stackPane;
-
         worldCanvas = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gc = worldCanvas.getGraphicsContext2D();
@@ -145,7 +124,6 @@ public class WorldView
         textbox = new Textbox();
         WorldViewController.setWorldViewStatus(WORLD);
         GameVariables.init();
-
         boardTimeOverlay = new ClockOverlay(BOARD_TIME_WIDTH, BOARD_TIME_HEIGHT, GameVariables.getClock());
     }
 
@@ -234,11 +212,14 @@ public class WorldView
                 .collect(Collectors.toList());
 
         //add persistent actors from state
-        for (Sprite activeSprite : levelState.getActiveSpritesLayer()) {
-            if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT)) {
+        for (Sprite activeSprite : levelState.getActiveSpritesLayer())
+        {
+            if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT))
+            {
                 System.out.println(CLASSNAME + methodName + activeSprite.getActor().getActorInGameName());
                 tmp_activeSpritesLayer.add(activeSprite);
-                switch (activeSprite.getLayer()) {
+                switch (activeSprite.getLayer())
+                {
                     case 0:
                         tmp_bottomLayer.add(activeSprite);
                         break;
@@ -330,7 +311,8 @@ public class WorldView
         //Test Menu Hotkeys
         if (input.contains("T") && elapsedTimeSinceLastInteraction > 1)
             loadStage("test", "default");
-        if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1) {
+        if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
+        {
             if (timeStartBump == null)//To set just once
                 timeStartBump = currentNanoTime;
             bumpActive = true;
@@ -339,7 +321,8 @@ public class WorldView
         //Process Input
         if (WorldViewController.getWorldViewStatus() != WORLD && player.getActor().isMoving())
             player.getActor().setVelocity(0, 0);
-        switch (WorldViewController.getWorldViewStatus()) {
+        switch (WorldViewController.getWorldViewStatus())
+        {
             case WORLD:
                 processInputAsMovement(input, currentNanoTime);
                 break;
@@ -355,7 +338,7 @@ public class WorldView
             case INVENTORY:
             case INVENTORY_EXCHANGE:
             case INVENTORY_SHOP:
-                if (input.contains(KEYBOARD_INVENTORY) || input.contains(KEYBOARD_INTERACT)|| input.contains(KEYBOARD_ESCAPE))
+                if (input.contains(KEYBOARD_INVENTORY) || input.contains(KEYBOARD_INTERACT) || input.contains(KEYBOARD_ESCAPE))
                     toggleInventory(currentNanoTime);
                 break;
             case DISCUSSION_GAME://No keyboard input so far
@@ -372,7 +355,8 @@ public class WorldView
             active.update(currentNanoTime);
 
         //Remove Sprites
-        for (Sprite sprite : toRemove) {
+        for (Sprite sprite : toRemove)
+        {
             WorldView.bottomLayer.remove(sprite);
             WorldView.middleLayer.remove(sprite);
             WorldView.topLayer.remove(sprite);
@@ -391,7 +375,8 @@ public class WorldView
     private void toggleInventory(Long currentNanoTime)
     {
         double elapsedTimeSinceLastInteraction = (currentNanoTime - player.getActor().getLastInteraction()) / 1000000000.0;
-        if (elapsedTimeSinceLastInteraction > 1) {
+        if (elapsedTimeSinceLastInteraction > 1)
+        {
             WorldViewController.toggleInventory();
             player.getActor().setLastInteraction(currentNanoTime);
         }
@@ -406,27 +391,36 @@ public class WorldView
         Actor playerActor = player.getActor();
         double elapsedTimeSinceLastInteraction = (currentNanoTime - playerActor.getLastInteraction()) / 1000000000.0;
 
-        //Interpret Input from GameWindow
-        if (input.contains("LEFT") || input.contains("A")) {
+        if (input.contains("LEFT") || input.contains("A"))
+        {
             addedVelocityX += -playerActor.getSpeed();
             moveButtonPressed = true;
             newDirection = Direction.WEST;
         }
-        if (input.contains("RIGHT") || input.contains("D")) {
+        if (input.contains("RIGHT") || input.contains("D"))
+        {
             addedVelocityX += playerActor.getSpeed();
             moveButtonPressed = true;
             newDirection = Direction.EAST;
         }
-        if (input.contains("UP") || input.contains("W")) {
+        if (input.contains("UP") || input.contains("W"))
+        {
             addedVelocityY += -playerActor.getSpeed();
             moveButtonPressed = true;
             newDirection = Direction.NORTH;
         }
-        if (input.contains("DOWN") || input.contains("S")) {
+        if (input.contains("DOWN") || input.contains("S"))
+        {
             addedVelocityY += playerActor.getSpeed();
             moveButtonPressed = true;
             newDirection = Direction.SOUTH;
         }
+        if (input.contains(KEYBOARD_SPRINT))
+        {
+            addedVelocityX *= 2;
+            addedVelocityY *= 2;
+        }
+
 
         if (moveButtonPressed)
             player.getActor().setVelocity(addedVelocityX, addedVelocityY);
@@ -436,11 +430,13 @@ public class WorldView
         if (newDirection != null && playerActor.getDirection() != newDirection)
             playerActor.setDirection(newDirection);
 
-        if (input.contains(KEYBOARD_INTERACT) && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS) {
+        if (input.contains(KEYBOARD_INTERACT) && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
+        {
             player.setInteract(true);
         }
 
-        if (input.contains(KEYBOARD_INVENTORY)) {
+        if (input.contains(KEYBOARD_INVENTORY))
+        {
             toggleInventory(currentNanoTime);
         }
 
@@ -472,7 +468,8 @@ public class WorldView
         //            && (active.getActor().getSensorStatus().getOnInteraction_TriggerSprite() != TriggerType.NOTHING))
         //        mouseHoveredSprites.add(active);
 
-        switch (WorldViewController.getWorldViewStatus()) {
+        switch (WorldViewController.getWorldViewStatus())
+        {
             case WORLD:
                 for (Sprite clicked : mouseHoveredSprites)
                     if (isMouseClicked)
@@ -501,7 +498,8 @@ public class WorldView
         }
 
         for (Sprite active : activeSpritesLayer)
-            if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera) && DEBUG_MOUSE_ANALYSIS && active.getActor() != null && isMouseClicked) {
+            if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera) && DEBUG_MOUSE_ANALYSIS && active.getActor() != null && isMouseClicked)
+            {
                 Actor actor = active.getActor();
                 System.out.println(actor.getActorInGameName() + ": " + actor.getSensorStatus().getStatusName() + " Sprite: " + actor.getGeneralStatus());
             }
@@ -535,17 +533,20 @@ public class WorldView
 
 
         //Bump
-        if (bumpActive) {
-            if(timeStartBump == null)
+        if (bumpActive)
+        {
+            if (timeStartBump == null)
                 timeStartBump = GameWindow.getCurrentNanoRenderTimeGameWindow();
             double elapsedTimeSinceBump = (GameWindow.getSingleton().getRenderTime() - timeStartBump) / 1000000000.0;
             double offsetCamX = 0, offsetCamY = 0;
-            if (durationBump < elapsedTimeSinceBump) {
+            if (durationBump < elapsedTimeSinceBump)
+            {
                 bumpActive = false;
                 rumbleGrade = RUMBLE_GRADE;//Reset
                 timeStartBump = null;//To manual retrigger
             }
-            else {
+            else
+            {
                 offsetCamX += Math.sin(bumpX) * rumbleGrade;
                 offsetCamY += Math.cos(bumpY) * (rumbleGrade + 3);
                 bumpX++;
@@ -568,34 +569,40 @@ public class WorldView
         gc.translate(-camX, -camY);
 
         //Passiv Layer
-        for (Sprite sprite : passiveSpritesLayer) {
+        for (Sprite sprite : passiveSpritesLayer)
+        {
             sprite.render(gc, currentNanoTime);
         }
 
         //Bottom heightLayer
         //bottomLayer.sort(new SpriteComparator());//To prevent wrong render sequence when sprites change layer or are added
-        for (Sprite sprite : bottomLayer) {
+        for (Sprite sprite : bottomLayer)
+        {
             sprite.render(gc, currentNanoTime);
         }
         //Middle Layer
         middleLayer.sort(new SpriteComparator());//To prevent wrong render sequence when sprites change layer or are added
-        for (Sprite sprite : middleLayer) {
+        for (Sprite sprite : middleLayer)
+        {
             sprite.render(gc, currentNanoTime);
         }
 
         //Top Layer
         topLayer.sort(new SpriteComparator());//To prevent wrong render sequence when sprites change layer or are added
-        for (Sprite sprite : topLayer) {
+        for (Sprite sprite : topLayer)
+        {
             sprite.render(gc, currentNanoTime);
         }
 
         //LightMap
-        if (shadowColor != null) {
+        if (shadowColor != null)
+        {
             renderLightEffect();
         }
 
         //Debugdata
-        if (Config.DEBUG_BLOCKER) {
+        if (Config.DEBUG_BLOCKER)
+        {
             gc.setStroke(Color.RED);
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.getBasewidth(), borders.getHeight() + player.getBaseheight());
         }
@@ -606,7 +613,8 @@ public class WorldView
 
         //Overlays
         renderHUD();
-        switch (WorldViewController.getWorldViewStatus()) {
+        switch (WorldViewController.getWorldViewStatus())
+        {
 
             case WORLD:
                 break;
@@ -653,15 +661,20 @@ public class WorldView
     {
         ShadowMaskGc.setFill(shadowColor);
         ShadowMaskGc.fillRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGHT);
-        for (Sprite sprite : passiveCollisionRelevantSpritesLayer) {
+        for (Sprite sprite : passiveCollisionRelevantSpritesLayer)
+        {
             if (sprite.getLightningSpriteName().toLowerCase().equals("none"))
                 continue;
 
             String lightSpriteName = sprite.getLightningSpriteName();
-            if (!lightsImageMap.containsKey(sprite.getLightningSpriteName())) {
-                try {
+            if (!lightsImageMap.containsKey(sprite.getLightningSpriteName()))
+            {
+                try
+                {
                     lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
-                } catch (IllegalArgumentException e) {
+                }
+                catch (IllegalArgumentException e)
+                {
                     System.out.println("Invalid URL: " + "/res/img/lightglows/" + lightSpriteName + ".png" + " of sprite " + sprite.getName());
                     continue;
                 }

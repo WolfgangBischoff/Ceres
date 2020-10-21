@@ -9,7 +9,7 @@ public class Config
     //General
     public static final Boolean DEBUG_ACTORS = false;
     public static final Boolean DEBUG_BLOCKER = false;
-    public static final Boolean DEBUG_NO_WALL = true;
+    public static final Boolean DEBUG_NO_WALL = false;
     public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
     public static final String FIRST_LEVEL = "transporter/transporter";
     public static final double GAME_WINDOW_WIDTH = 1440;
@@ -55,6 +55,7 @@ public class Config
     public static final String KEYBOARD_INVENTORY = "TAB";
     public static final String KEYBOARD_INTERACT = "E";
     public static final String KEYBOARD_ESCAPE = "ESCAPE";
+    public static final String KEYBOARD_SPRINT = "SHIFT";
 
     //Gameplay
     public static final float TIME_BETWEEN_INTERACTIONS = 0.5f;

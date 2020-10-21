@@ -4,7 +4,6 @@
 - Bug
 
 - Mechanics
-    - add sprint button
     - add attentionmark over sprites
     - Game Over if health == 0
     - Add set item mechanic
