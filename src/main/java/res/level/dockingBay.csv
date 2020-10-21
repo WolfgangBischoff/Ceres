@@ -89,12 +89,12 @@ actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status	;direction
 player					;player																																		;Revolutionary												;default												;default							;north
 infoWe					;computer/infoTerminal/info														;info terminal												;off																;default							;undefined
-auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;on																	;UNLOCKED							;south
+auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;on																	;UNLOCKED						;south
 glasDo					;doors/horizontal/glass/glassLock								;horizontal glasdoor						;on																	;UNLOCKED						;south
 doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;LOCKED								;west
 doorLe					;doors/horizontal/automatedDoor										;level bulkhead											;on																	;levelchange			;south
 diff__					;furniture/diffuser/diffuser													;big diffuser													;rose															;default							;undefined
-crate_					;storages/boxSmall/green																	;green box																;default												;default							;undefined
+crate_					;storages/boxSmall/prop																		;green box																;default												;default							;undefined
 lever_					;machine/lever																											;lever																				;off																;default							;undefined
 ufo___					;robot/ufo																															;ufo																						;default												;default							;undefined
 

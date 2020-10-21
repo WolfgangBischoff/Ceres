@@ -1,0 +1,21 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+#collectable_type; food, quest
+#suspicious_value; 5
+
+dialogueFile; actorData/storages/boxSmall/box
+tags; persistent
+
+#sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+sensorStatus	;default																			;textbox_condition								;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;persistent										;none
+sensorStatus	;inventory																	;inventory_exchange							;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;persistent										;none
+
+#status 			;name   				;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning 						;dialogueID ;dialogueFile																			;unused;unused;unused;unused;unused	;duration ;velocity ;AnimationEnds
+locked					;greenBox			;../actorData/storages/boxSmall/greenBox_64_64											;true				;1												;000	;000										;000	;000	;000								;000									;005											;010	 									;054									;050										;bluelight_128			;init-locked;actorData/storages/boxSmall/box;unused;unused;unused;unused;unused	;000						;000						;false
+unlocked 		;greenBox			;../actorData/storages/boxSmall/greenBox_64_64											;true				;1												;000	;000										;000	;000	;000								;000									;005											;010	 									;054									;050										;bluelight_128			;init-get			;actorData/storages/boxSmall/box;unused;unused;unused;unused;unused	;000						;000						;false
+
+#condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
+condition	;locked										;*															;hasItem ;unlocked										;inventory									;locked													;*						 												;green ;key ;red; key
+
