@@ -51,8 +51,49 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Its on the lower crew-deck, next to the elevator.</line>
     </dialogue>
 
-    <dialogue id="WINDOW_INTRO" type = "normal">
-        <line>Look outside</line>
+    <dialogue id="WINDOW_INTRO" type = "normal" nextDialogue="OPTION_GOALS">
+        <line>Look outside, our future is near.</line>
+        <line>You can already see %%VTCeres%%.. we are light-years away from home. Can you imagine?</line>
+        <line>I was always curious about your motivations.. %%GRwhy are you here?%%</line>
+    </dialogue>
+
+    <dialogue id="OPTION_GOALS" type="decision" >
+        <option nextDialogue="WANT_MONEY">&gt;.. need %%GRmoney%%.&lt;</option>
+        <option nextDialogue="WANT_LEAVE_HOME">&gt;.. wanted to %%GRleave everything behind%%&lt;</option>
+        <option nextDialogue="WANT_PROGRESS">&gt;.. be part of %%GRhuman progress%%&lt;</option>
+        <option nextDialogue="WANT_ADVENTURE">&gt;.. keen on %%GRadventures%%&lt;</option>
+    </dialogue>
+
+    <dialogue id="WANT_MONEY" type="normal" nextDialogue="MEDIC_MOTIVATION">
+        <line>Ahh, I understand.. many people come here for the money. %%VTCereX%% pays their technician well.</line>
+    </dialogue>
+    <dialogue id="WANT_LEAVE_HOME" type="normal" nextDialogue="MEDIC_MOTIVATION">
+        <line>Thats the best place for that sake, on %%VTCereX%% nobody knows you.</line>
+    </dialogue>
+    <dialogue id="WANT_PROGRESS" type="normal" nextDialogue="MEDIC_MOTIVATION">
+        <line>How philosophic haha. Your are right, what %%VTCereX%% build up here changes the world.</line>
+    </dialogue>
+    <dialogue id="WANT_ADVENTURE" type="normal" nextDialogue="MEDIC_MOTIVATION">
+        <line>You will find it for sure, there is much to discover. %%VTCereX%% paid billions to dig up the marvels of this place.</line>
+    </dialogue>
+
+    <dialogue id="MEDIC_MOTIVATION" type="normal" nextDialogue="BUMP">
+        <line>For my part tough.. I am a doctor, I want to %%GRhelp people%%. On earth its feels difficult to make a difference, but here I can change things.</line>
+    </dialogue>
+
+    <dialogue id="BUMP" type="normal" bump=""  nextDialogue="GOTO_TRADER">
+        <line>%%RDSomething hit the ship!%%</line>
+        <spritechange sprite_id="medic_" status="meteorit"/>
+        <spritechange sprite_id="tender" status="meteorit"/>
+        <spritechange sprite_id="contro" status="impact"/>
+    </dialogue>
+
+    <dialogue id="GOTO_TRADER" type="normal" variablename="METEROIT_HIT" set="true">
+        <line>Hurry! Go to the %%RDtrader%%, we have to act quickly!</line>
+    </dialogue>
+
+    <dialogue id="METEORIT" type="normal">
+        <line>Hurry! Go to the %%RDtrader%%!</line>
     </dialogue>
 
 

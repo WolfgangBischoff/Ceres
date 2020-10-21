@@ -58,3 +58,5 @@
 19 10 20    - added eyes box
 21 10 20    - added global actors; placed on map according to variables
             - add sprint button on SHIFT
+            - talk to collegue at window, impact; control changes status; trader text
+            - added sprite status change by textbox

@@ -243,6 +243,22 @@ public class Textbox
                     nextDialogueID = null;
                     readDialogue.nextDialogue = null;
                 }
+
+                //Check for changes for other sprites
+                NodeList spriteChanges = currentDialogue.getElementsByTagName(SPRITECHANGE_TAG);
+                if(spriteChanges != null)
+                {
+                    Element changeDirective;
+                    for(int j=0; j<spriteChanges.getLength(); j++)
+                    {
+                        changeDirective = (Element)spriteChanges.item(j);
+                        String id = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_SPRITE_ID);
+                        String newStatus = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_NEW_STATUS);
+                        Actor actor = WorldView.getSingleton().getSpriteByName(id);
+                        actor.setGeneralStatus(newStatus);
+                        actor.updateCompoundStatus();
+                    }
+                }
                 break;
             }
         }

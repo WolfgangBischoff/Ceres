@@ -4,6 +4,7 @@
 - Bug
 
 - Mechanics
+    - change night dynamically
     - add attentionmark over sprites
     - Game Over if health == 0
     - Add set item mechanic
@@ -37,8 +38,6 @@
         - Repair personal bot
             - Actor System with Fitting Software, Model, Batterie finden, ... ;if all are correct robot repaired
         - Day 2 Quest
-            - talk to collegue at window, after talk, talk to window
-            - control changes status
             - tenderer sends you to machine room for space suit, activation trigger new stage with other sprite
             - check capsule and leave, find items
 - Inventory

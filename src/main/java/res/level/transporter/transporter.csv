@@ -82,7 +82,7 @@ cross_				;pipe													;../actorData/machine/stasis_capsule/battery/crossin
 damage				;pipe													;../actorData/machine/stasis_capsule/battery/dmg_64_192_anim4						;false				;1												;4			;4												;4				;1				;064								;192									;000									 	;000									 	;000									;000										;none 															;none																	;none																																															;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 #Control Room
-contro				;central control		;../actorData/computer/control/central																													;true					;1												;0			;0												;0				;0				;0										;0											;064									 	;128									 	;320									;064										;none 															;centralControl							;/dialogue_files/descriptions																							;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+#contro				;central control		;../actorData/computer/control/central																													;true					;1												;0			;0												;0				;0				;0										;0											;064									 	;128									 	;320									;064										;none 															;centralControl							;/dialogue_files/descriptions																							;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 contrL				;terminal									;../actorData/computer/control/small_left																										;true					;1												;0			;0												;0				;0				;0										;0											;000									 	;032									 	;064									;096										;none 															;none																	;none																																															;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 contrR				;terminal									;../actorData/computer/control/small_right																									;true					;1												;0			;0												;0				;0				;0										;0											;000									 	;032									 	;064									;096										;none 															;none																	;none																																															;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 projec				;projector								;../actorData/computer/projector/projector_a4																						;true					;1												;4			;5												;4				;1				;128							 ;256									;032									 	;192									 	;064									;064										;bluelight_256 						;default														;/actorData/computer/projector/infoTerminal									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
@@ -106,11 +106,15 @@ antenR				;antenna										;machines/antenna_radio																													
 ACTORS:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status										;direction
 player					;player																																		;Revolutionary												;default												;default																;north
-tender					;character/tenderer/tenderer													;Theo the tenderer								;day0															;default																;south
 exit__					;doors/vertical/autoBulkheadVertical					;exit to docking bay						;on																	;levelchange												;west
 autoDo					;doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;UNLOCKED															;west
 door_H					;doors/horizontal/automatedDoor										;bulkhead																	;on																	;UNLOCKED															;south
 windL1					;quest/main/frontwindow/actor												;front window													;spaceView										;default																;undefined
+
+#control center
+tender					;character/tenderer/tenderer													;Theo the tenderer								;day0															;default																;south
+contro					;computer/control/control																;control terminal									;default												;default																;undefined
+
 
 #spaceway
 trigge					;floor/trigger																											;Trigger																		;20x64_off										;readyToFire_20									;undefined
@@ -146,11 +150,6 @@ asiaBe					;collectibles/food/food																		;Asia Star Bento										;a
 techni					;character/technician/technician									;technician															;default													;default																;south
 
 elevSc					;doors/updown/elevator/elevator										;main elevator												;toCrewDeck										;default																;undefined
-
-#air System
-#airVeR					;airSystem/airVent/airVent															;Right ventilation								;off																;default							;undefined
-#airVeL					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;default							;undefined
-#hydrOK					;airSystem/hydraulic/hydraulic											;Air hub																		;OFF																;default							;undefined
 
 position:
 redKey	;2140; 455; on the control terminal

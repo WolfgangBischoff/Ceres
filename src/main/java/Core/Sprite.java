@@ -46,7 +46,6 @@ public class Sprite
     private double hitBoxOffsetX = 0, hitBoxOffsetY = 0, hitBoxWidth, hitBoxHeight;
     private String lightningSpriteName;
     private int layer = -1;
-
     private String dialogueFileName = null;
     private String initDialogueId = "none";
 

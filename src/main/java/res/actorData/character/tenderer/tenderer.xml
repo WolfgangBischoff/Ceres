@@ -88,5 +88,9 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>For me it looks like that some of the %%VTvents%% are blocked, you should check them too.</line>
     </dialogue>
 
+    <dialogue id="METEORIT" type="normal">
+        <line>A %%RDmeteorit%% hit us!</line>
+    </dialogue>
+
 </root>
 

@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static Core.Configs.Config.*;
 
@@ -168,7 +169,8 @@ public class WorldLoader
         GlobalActorsManager.loadGlobalSystem(linedata[0]);
         List<String> actorIds = Arrays.asList(linedata).subList(1, linedata.length);
         globalActorsMap.putAll(GlobalActorsManager.getGlobalActors(actorIds));
-        loadedTileIdsSet.addAll(actorIds);
+        //loadedTileIdsSet.addAll(actorIds);
+        loadedTileIdsSet.addAll(actorIds.stream().map(string -> string.split(",")[0]).collect(Collectors.toList()));//remove additional status data. eg: medic_,windo
         //System.out.println(CLASSNAME + methodName+  globalActorsMap);
     }
 

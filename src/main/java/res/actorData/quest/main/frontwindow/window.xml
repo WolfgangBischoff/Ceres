@@ -35,19 +35,9 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 <-->
 
 <root name = "actorName">
-    <dialogue id="INIT_BUMP" type="normal">
-        <line>You can see %%VTCeres%%, the vanguard of humankind. Here we write history.</line>
-        <nextDialogue>BUMP</nextDialogue>
-    </dialogue>
-
-    <dialogue id="BUMP" type="normal" bump="">
-        <line>%%RDSomething hit the ship!%%</line>
-    </dialogue>
-
     <dialogue id="INIT_SPACE" type="normal">
         <line>Void, everywhere just void..</line>
     </dialogue>
-
 </root>
 
 

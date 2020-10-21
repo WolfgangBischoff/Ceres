@@ -691,6 +691,16 @@ public class WorldView
         gc.setGlobalBlendMode(BlendMode.SRC_OVER);
     }
 
+    public Actor getSpriteByName(String id)
+    {
+        String methodName = "getSpriteByName() ";
+        for (Sprite sprite : activeSpritesLayer)
+            if (sprite.getActor().getActorId().equals(id))
+                return sprite.getActor();
+        System.out.println(CLASSNAME + methodName + "No Actor found with ID: " + id);
+        return null;
+    }
+
     public Pane getRoot()
     {
         return root;
