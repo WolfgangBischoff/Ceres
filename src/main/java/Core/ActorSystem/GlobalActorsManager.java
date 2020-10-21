@@ -28,7 +28,6 @@ public class GlobalActorsManager
             var lines = Utilities.readAllLineFromTxt(Config.RESOURCES_FILE_PATH + "global_systems/" + path + Config.CSV_POSTFIX);
             parse(lines);
             loadedSystems.add(path);
-            //System.out.println(CLASSNAME + methodName + "loaded "+ globalStageMonitor);
         }
 
     }
@@ -37,7 +36,6 @@ public class GlobalActorsManager
     {
         String methodName = "parse() ";
         String readStatus = null;
-        //Map<String, Actor> actorsIdsMap = new HashMap<>();
         List<String> createdActorGroupsId = new ArrayList<>();
         for (String[] lineData : file) {
             if (keywords.contains(lineData[0].toLowerCase()))
@@ -61,7 +59,6 @@ public class GlobalActorsManager
                     actorSprite.setActor(actor);
                     actorSprite.setAnimationEnds(spriteData.animationEnds);
                     actor.setSpeed(spriteData.velocity);//Set as often as Sprites exist?
-                    //actor.setDialogueStatusID(spriteData.dialogueID);
                     actor.addSprite(actorSprite);
                 }
 
@@ -93,8 +90,6 @@ public class GlobalActorsManager
                 {
                     throw new NullPointerException("Cannot find " + actorId + " in " + actorsIdsMap);
                 }
-
-                //globalActorMonitor.sendSignalFrom(lineData[groupName_Idx]);
             }
         }
         for(String groupId : createdActorGroupsId)
@@ -105,18 +100,16 @@ public class GlobalActorsManager
     {
         String methodName = "getGlobalActors() ";
         Map<String, Actor> globalActors = new HashMap<>();
-
-        //actorIds.forEach(id -> globalActors.put(id, globalActorMonitor.getActorById(id)));
         actorIds.forEach(id ->
         {
             String[] splitActorId = id.split(",");//ggf there is a target status
+            String actorID = splitActorId[0];
             if(splitActorId.length>=2)
             {
-                actorsIdsMap.get(splitActorId[0]).setGeneralStatus(splitActorId[1]);
-                actorsIdsMap.get(splitActorId[0]).updateCompoundStatus();
+                actorsIdsMap.get(actorID).setGeneralStatus(splitActorId[1]);
+                actorsIdsMap.get(actorID).updateCompoundStatus();
             }
-            //globalActors.put(id, actorsIdsMap.get(id));
-            globalActors.put(splitActorId[0], actorsIdsMap.get(splitActorId[0]));
+            globalActors.put(actorID, actorsIdsMap.get(actorID));
         });
 
         return globalActors;
