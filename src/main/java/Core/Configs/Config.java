@@ -42,14 +42,15 @@ public class Config
 
     public static final int MAM_BAR_WIDTH = 300;
     public static final int MAM_BAR_HEIGHT = 64;
+    public static final Point2D MAM_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 30); //Right Upper Edge
     public static final int MONEY_FIELD_WIDTH = 150;
     public static final int MONEY_FIELD_HEIGHT = 64;
-    public static final Point2D MAM_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 30); //Right Upper Edge
-    public static final Point2D HUNGER_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 100);
     public static final Point2D MONEY_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 170);
-    public static final Point2D BOARD_TIME_POSITION = new Point2D(20, 30);
-    public static final int BOARD_TIME_WIDTH = 90;
-    public static final int BOARD_TIME_HEIGHT = 40;
+    public static final int BOARD_TIME_WIDTH = 150;
+    public static final int BOARD_TIME_HEIGHT = 64;
+    //public static final Point2D BOARD_TIME_POSITION = new Point2D(20, 30);
+    public static final Point2D BOARD_TIME_POSITION = new Point2D(CAMERA_WIDTH - BOARD_TIME_WIDTH -50, 170);
+    public static final Point2D HUNGER_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 100);
 
     //Keyboard
     public static final String KEYBOARD_INVENTORY = "TAB";

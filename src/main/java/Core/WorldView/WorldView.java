@@ -4,7 +4,7 @@ import Core.*;
 import Core.Configs.Config;
 import Core.Enums.ActorTag;
 import Core.Enums.Direction;
-import Core.Menus.ClockOverlay;
+import Core.Menus.StatusBarOverlay.ClockOverlay;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.Inventory.InventoryController;
@@ -80,7 +80,7 @@ public class WorldView
             MAM_BAR_WIDTH, MAM_BAR_HEIGHT, MAX_HUNGER, GameVariables.playerHungerProperty()));
     static Point2D hungerOverlayPosition = HUNGER_BAR_POSITION;
 
-    //Hunger Overlay
+    //Clock Overlay
     static ClockOverlay boardTimeOverlay;
     static Point2D boardTimeOverlayPosition = BOARD_TIME_POSITION;
 
@@ -124,7 +124,8 @@ public class WorldView
         textbox = new Textbox();
         WorldViewController.setWorldViewStatus(WORLD);
         GameVariables.init();
-        boardTimeOverlay = new ClockOverlay(BOARD_TIME_WIDTH, BOARD_TIME_HEIGHT, GameVariables.getClock());
+        boardTimeOverlay = new ClockOverlay(new StatusBarConfig("interface/bars/clock.png", null, null,
+                BOARD_TIME_WIDTH, BOARD_TIME_HEIGHT, 0, null), GameVariables.getClock());
     }
 
     public void saveStage()

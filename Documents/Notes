@@ -55,8 +55,6 @@
 ------------------------------------------
 ----- Sprites ----------------------------
 ------------------------------------------
-GUI
-    - add clock img
 - Ship:
     moving asteroid as actor, rescue pods, ladder from control to rescue pods
 - Docking Bay:
