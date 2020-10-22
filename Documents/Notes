@@ -58,7 +58,7 @@
 GUI
     - add clock img
 - Ship:
-    Ceres behind window, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker
+    moving asteroid as actor, rescue pods, ladder from control to rescue pods
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels, floor cabel

@@ -313,9 +313,6 @@ public class WorldView
             loadStage("test", "default");
         if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
         {
-//            if (timeStartBump == null)//To set just once
-//                timeStartBump = currentNanoTime;
-//            bumpActive = true;
             activateBump();
         }
 

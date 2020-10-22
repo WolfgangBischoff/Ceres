@@ -218,12 +218,10 @@ public class Textbox
                     {
                         String varname = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME);
                         String val = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_SET);
-                        //GameVariables.getBooleanWorldVariables().put(varname, val);
                         GameVariables.getGenericVariableManager().setValue(varname, val);
                     }
                     if(currentDialogue.hasAttribute(TEXTBOX_BUMP))
                     {
-                        //WorldView.getSingleton().setBumpActive(true);
                         WorldView.getSingleton().activateBump();
                     }
                 }
