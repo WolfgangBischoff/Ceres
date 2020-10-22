@@ -313,9 +313,10 @@ public class WorldView
             loadStage("test", "default");
         if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
         {
-            if (timeStartBump == null)//To set just once
-                timeStartBump = currentNanoTime;
-            bumpActive = true;
+//            if (timeStartBump == null)//To set just once
+//                timeStartBump = currentNanoTime;
+//            bumpActive = true;
+            activateBump();
         }
 
         //Process Input
@@ -575,20 +576,20 @@ public class WorldView
         }
 
         //Bottom heightLayer
-        //bottomLayer.sort(new SpriteComparator());//To prevent wrong render sequence when sprites change layer or are added
+        bottomLayer.sort(new SpriteComparator());
         for (Sprite sprite : bottomLayer)
         {
             sprite.render(gc, currentNanoTime);
         }
         //Middle Layer
-        middleLayer.sort(new SpriteComparator());//To prevent wrong render sequence when sprites change layer or are added
+        middleLayer.sort(new SpriteComparator());
         for (Sprite sprite : middleLayer)
         {
             sprite.render(gc, currentNanoTime);
         }
 
         //Top Layer
-        topLayer.sort(new SpriteComparator());//To prevent wrong render sequence when sprites change layer or are added
+        topLayer.sort(new SpriteComparator());
         for (Sprite sprite : topLayer)
         {
             sprite.render(gc, currentNanoTime);
@@ -643,6 +644,13 @@ public class WorldView
 
         }
 
+    }
+
+    public void activateBump()
+    {
+        this.bumpActive = true;
+        timeStartBump = null;
+        rumbleGrade = RUMBLE_GRADE;
     }
 
     private void renderHUD()

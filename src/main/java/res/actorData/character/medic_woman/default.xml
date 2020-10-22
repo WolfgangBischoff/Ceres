@@ -88,7 +88,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <spritechange sprite_id="contro" status="impact"/>
     </dialogue>
 
-    <dialogue id="GOTO_TRADER" type="normal" variablename="METEROIT_HIT" set="true">
+    <dialogue id="GOTO_TRADER" type="normal" variablename="METEROIT_HIT" set="true" bump="" >
         <line>Hurry! Go to the %%RDtrader%%, we have to act quickly!</line>
     </dialogue>
 

@@ -223,7 +223,8 @@ public class Textbox
                     }
                     if(currentDialogue.hasAttribute(TEXTBOX_BUMP))
                     {
-                        WorldView.getSingleton().setBumpActive(true);
+                        //WorldView.getSingleton().setBumpActive(true);
+                        WorldView.getSingleton().activateBump();
                     }
                 }
 
