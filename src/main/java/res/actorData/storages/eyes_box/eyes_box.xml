@@ -35,26 +35,9 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 <-->
 
 <root name = "actorName">
-    <dialogue id="none" type="normal" nextDialogue="INIT_DECISION">
-        <line>Lorem Ipsum</line>
-        <line>Dolorem</line>
+    <dialogue id="INIT" type="normal">
+        <line>Hmmm.. there is nothing.</line>
     </dialogue>
-
-    <dialogue id="INIT_DECISION" type="decision" spritestatus="transition">
-        <option>Back</option>
-        <option nextDialogue="DECISION_DISCUSSION">Discussion</option>
-    </dialogue>
-
-    <dialogue id="DECISION_DISCUSSION" type="discussion" game="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
-
-    <dialogue id="GAME-SUCCESS" type = "normal">
-        <line>[Success]</line>
-    </dialogue>
-    <dialogue id="GAME-DEFEAT" type = "normal">
-        <line>[Defeat]</line>
-    </dialogue>
-
-    <dialogue id="air_system_check" type="boolean" variablename="isTransporterAirSystemOn" true="air_system_on" false="air_system_off"/>
 
 </root>
 
