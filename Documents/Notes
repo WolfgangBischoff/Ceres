@@ -3,7 +3,8 @@
 ------------------------------------------
 - Bug
 
-- Mechanics
+- Features
+    - Person turns if talking
     - change night dynamically
     - add attentionmark over sprites
     - Game Over if health == 0
@@ -31,8 +32,8 @@
     - Show Name of Person/Sprite eg. Julian Soulles : Trader
     - Dialogue depentdent on date
     - add item with textbox
-- Level build
-    - crew deck (security, rescue pods, storage, fix environment)
+- Content
+    - crew deck (security, rescue pods, storage, textbox to beds)
     - freight deck
         - air hub, ggf coin game; find manual before
         - Repair personal bot
