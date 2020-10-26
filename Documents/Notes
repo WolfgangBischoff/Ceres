@@ -1,5 +1,5 @@
 ------------------------------------------
------ Code -------------------------------
+----- Backlog ----------------------------
 ------------------------------------------
 - Bug
 
@@ -20,6 +20,8 @@
             - Habitat: Station, WaterTank, Ceres, Hot
             - Mutieren und Kreuzen von Pflanzen, cookie Clicker
     - Coin Game
+        - better explanation from trader
+        - show info button with pause game
         - add cursor with borader hitbox
         - objects that kill you, cost lifes like in undertals
         - Buff to double reward of coins
@@ -28,25 +30,36 @@
 - Cleaning Bot Moving
     - add definition in file
     - meteorit moving
-- Textbox
-    - Show Name of Person/Sprite eg. Julian Soulles : Trader
-    - Dialogue depentdent on date
-    - add item with textbox
+    - Textbox
+        - Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
+        - Dialogue depentdent on date
+        - add item with textbox
+     - Inventory
+            - Close button
+            - item desrcp
+            - other inventory, DragDrop
+            - buy menu: desc, buy bttn
+            - add item in box
+
 - Content
-    - crew deck (security, rescue pods, storage, textbox to beds)
-    - freight deck
-        - air hub, ggf coin game; find manual before
-        - Repair personal bot
-            - Actor System with Fitting Software, Model, Batterie finden, ... ;if all are correct robot repaired
-        - Day 2 Quest
+    - more sprite interactions
+        Crewdeck table
+        small controls
+    - change lift textbox sequence
+    - Side Quest
+        Traveller(informant) and busy technician(knows about capsule) tell you that keycard..
+        Get Keycard from security capsule
+        If got quest from technician, can open alcohol box, get just one bottle
+        decide whom to give bottle
+    - Main Quest
+        - Air System Quest
+            Doctor is in control room from beginning, message to visit doctor
+            air hub, ggf coin game; find manual before
+            trader send you to bed
+        - Impact Quest
+            msg from doctor
             - tenderer sends you to machine room for space suit, activation trigger new stage with other sprite
             - check capsule and leave, find items
-- Inventory
-    - Close button
-    - item desrcp
-    - other inventory, DragDrop
-    - buy menu: desc, buy bttn
-    - add item in box
 - Console
 - change __xx__ to ______; latter should be overwritable for passive layer => default is nothing.
 - add Logger.log(debug, CLASSNAME, methodName, msg)
@@ -57,9 +70,15 @@
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    moving asteroid as actor, rescue pods, ladder from control to rescue pods
+    moving asteroid as actor
+    rescue pods
+    ladder from control to rescue pods,
+    floor sign Crewdeck, Controldeck
+    change Eyes Box more obvious
+    freight: drinks, stammzellen
+    crew deck (security, rescue pods, storage, textbox to beds, maybe arrianne reference)
 - Docking Bay:
-    Elevator, schriftzug "Elevator", minimal table
+    Elevator, minimal table
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels, floor cabel
 - Hammer and Sickle modern, Säulen, Tank
 
@@ -79,6 +98,8 @@ Goals and Quest:
     - Go to work as freelancer (there are always quests, you decide if you are a good worker)
           Setting: Mineral Mining, Plant Growing, Alloy Melting, Cook Serve Delicious
           Je mehr Jobs erledigt desto mehr steigt zugang; dann können firmen zerstört werden
+    - Repair personal bot
+        Actor System with Fitting Software, Model, Batterie finden, ... ;if all are correct robot repaired
 Mechanics:
     - Tag/Nacht Rythmus mit Dunklem Overlay, Lights on at some time. Check STardewVally how to
     - Daily needs:
