@@ -1,6 +1,7 @@
 package Core;
 
 import javafx.scene.image.Image;
+import javafx.scene.shape.Circle;
 import javafx.util.Pair;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -22,6 +23,13 @@ import java.util.List;
 public class Utilities
 {
     private static String CLASSNAME = "Utilities/";
+
+    public static boolean doCircleOverlap(Circle a, Circle b)
+    {
+        //Use distance formula to check if a circle overlaps with another circle.
+        double distance = Math.sqrt(Math.pow(a.getCenterX() - b.getCenterX(), 2) + (Math.pow(a.getCenterY() - b.getCenterY(), 2)));
+        return distance <= (a.getRadius() + b.getRadius());
+    }
 
     public static Double roundTwoDigits(Double input)
     {

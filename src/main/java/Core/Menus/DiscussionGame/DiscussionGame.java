@@ -30,11 +30,11 @@ import java.util.Map;
 
 import static Core.Configs.Config.*;
 import static Core.Menus.Personality.PersonalityTrait.*;
+import static Core.Utilities.doCircleOverlap;
 
 public class DiscussionGame
 {
-    //moving symbols like pokemon, you must know which to click before disappeared, traits more powerful
-    private static final String CLASSNAME = "DiscussionGame ";
+    private static final String CLASSNAME = "DiscussionGame/";
     private static final int HEIGHT = DISCUSSION_HEIGHT;
     private static final int WIDTH = DISCUSSION_WIDTH;
     private static final Point2D SCREEN_POSITION = DISCUSSION_POSITION;
@@ -57,6 +57,7 @@ public class DiscussionGame
     private int focusResult;
     private int decisionResult;
     private int lifestyleResult;
+    private static Circle mouseClickSpace = new Circle(WIDTH / 2, HEIGHT / 2, 15);
 
     public DiscussionGame(String gameIdentifier, Actor actorOfDiscussion)
     {
@@ -77,8 +78,6 @@ public class DiscussionGame
     private void loadDiscussion()
     {
         String methodName = "loadDiscussion() ";
-        //read from File
-        //xmlRoot = Utilities.readXMLFile("src/res/discussions/" + gameFileName + ".xml");
         xmlRoot = Utilities.readXMLFile(COINGAME_DIRECTORY_PATH + gameFileName + ".xml");
         NodeList coins = xmlRoot.getElementsByTagName("coin");
         for (int i = 0; i < coins.getLength(); i++) //iterate coins of file
@@ -239,16 +238,16 @@ public class DiscussionGame
         update(currentNanoTime);
         //Draw list of shapes
         graphicsContext.setFill(marking);
-        for (int i = 0; i < visibleCoinsList.size(); i++)
-        {
+        for (int i = 0; i < visibleCoinsList.size(); i++) {
             CharacterCoin coin = visibleCoinsList.get(i);
             Circle circle = coin.collisionCircle;
             shapeList.add(circle);
             graphicsContext.drawImage(coin.image, circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius());
         }
 
-        if (isFinished)
-        {
+        graphicsContext.fillOval(mouseClickSpace.getCenterX() - mouseClickSpace.getRadius(), mouseClickSpace.getCenterY() - mouseClickSpace.getRadius(), mouseClickSpace.getRadius() * 2, mouseClickSpace.getRadius() * 2);
+
+        if (isFinished) {
             graphicsContext.setFont(new Font(30));
             graphicsContext.setFill(font);
             graphicsContext.setTextAlign(TextAlignment.CENTER);
@@ -277,21 +276,19 @@ public class DiscussionGame
         List<CharacterCoin> hoveredElements = new ArrayList<>();
 
         //Calculate Mouse Position relative to Discussion
-        if (posRelativeToWorldview.contains(mousePosition))
+        if (posRelativeToWorldview.contains(mousePosition)) {
             mousePosRelativeToDiscussionOverlay = new Point2D(mousePosition.getX() - overlayPosition.getX(), mousePosition.getY() - overlayPosition.getY());
-        else
-        {
-            mousePosRelativeToDiscussionOverlay = null;
-            return;
+            mouseClickSpace.setCenterX(mousePosRelativeToDiscussionOverlay.getX());
+            mouseClickSpace.setCenterY(mousePosRelativeToDiscussionOverlay.getY());
         }
 
         //Check for hovered elements
-        for (Integer i = 0; i < visibleCoinsList.size(); i++)
-        {
-            Circle circle = visibleCoinsList.get(i).collisionCircle;
-            if (circle.contains(mousePosRelativeToDiscussionOverlay))
-                hoveredElements.add(visibleCoinsList.get(i));
-        }
+        if (isMouseClicked)
+            for (Integer i = 0; i < visibleCoinsList.size(); i++) {
+                Circle circle = visibleCoinsList.get(i).collisionCircle;
+                if (doCircleOverlap(circle, mouseClickSpace))
+                    hoveredElements.add(visibleCoinsList.get(i));
+            }
 
         if (GameWindow.getSingleton().isMouseMoved() && !hoveredElements.isEmpty())//Set highlight if mouse moved
         {
@@ -304,7 +301,6 @@ public class DiscussionGame
             for (int i = 0; i < hoveredElements.size(); i++)
             {
                 Circle circle = hoveredElements.get(i).collisionCircle;
-                //System.out.println(CLASSNAME + methodName + "clicked on: " + circle);
                 countClickedCoin(hoveredElements.get(i));
                 shapeList.remove(circle);
                 removedCoinsList.add(hoveredElements.get(i));
