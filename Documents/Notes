@@ -47,10 +47,10 @@
         small controls
     - change lift textbox sequence
     - Side Quest
-        Traveller(informant) and busy technician(knows about capsule) tell you that keycard..
+        Busy technician(knows about capsule) tell you that keycard..
         Get Keycard from security capsule
-        If got quest from technician, can open alcohol box, get just one bottle
-        decide whom to give bottle
+        If got quest from technician, can open hand held console box
+        decide if you keep it or give him the device
     - Main Quest
         - Air System Quest
             Doctor is in control room from beginning, message to visit doctor
@@ -70,13 +70,12 @@
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    moving asteroid as actor
     rescue pods
-    ladder from control to rescue pods,
-    floor sign Crewdeck, Controldeck
+    ladder from control to rescue pods
     change Eyes Box more obvious
     freight: drinks, stammzellen
     crew deck (security, rescue pods, storage, textbox to beds, maybe arrianne reference)
+    moving asteroid as actor
 - Docking Bay:
     Elevator, minimal table
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels, floor cabel
