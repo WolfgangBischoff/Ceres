@@ -2,6 +2,7 @@ package Core.Menus.Inventory;
 
 import Core.Actor;
 import Core.Collectible;
+import Core.Configs.Config;
 import Core.GameVariables;
 import Core.GameWindow;
 import Core.WorldView.WorldView;
@@ -17,13 +18,11 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
-import static Core.Configs.Config.INVENTORY_HEIGHT;
-import static Core.Configs.Config.INVENTORY_WIDTH;
+import static Core.Configs.Config.*;
 
 public class ShopOverlay
 {
-    private static final String CLASSNAME = "InventoryOverlay ";
+    private static final String CLASSNAME = "InventoryOverlay/";
     private Canvas menuCanvas;
     private GraphicsContext menuGc;
     private WritableImage menuImage;
@@ -54,15 +53,13 @@ public class ShopOverlay
     {
         String methodName = "draw() ";
         menuGc.clearRect(0, 0, WIDTH, HEIGHT);
-        Color background = Color.rgb(60, 90, 85);
+        Color background = COLOR_BACKGROUND_BLUE;
         double hue = background.getHue();
         double sat = background.getSaturation();
         double brig = background.getBrightness();
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-        Color red = Color.hsb(0, 0.33, 0.90);
-        Color darkRed = Color.hsb(0, 0.23, 0.70);
-        Color green = Color.hsb(140, 0.33, 0.90);
+        Color red = COLOR_RED;
         interfaceElements_Rectangles.clear();
         interfaceElements_list.clear();
 

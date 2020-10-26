@@ -166,9 +166,10 @@ public class Actor
                 getNumeric_generic_attributes().put("base_value", Double.parseDouble(linedata[2]));
                 break;
             case CONTAINS_COLLECTIBLE_KEYWORD:
-                Actor collectibleActor = new Actor(linedata[1], linedata[2], linedata[3], "default", Direction.UNDEFINED);
-                Collectible collectible = new Collectible(linedata[2], CollectableType.getType(collectibleActor.collectable_type), collectibleActor.actorInGameName, (collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
-                collectible.image = new Image(IMAGE_DIRECTORY_PATH + collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).spriteName + PNG_POSTFIX);
+                //Actor collectibleActor = new Actor(linedata[1], linedata[2], linedata[3], "default", Direction.UNDEFINED);
+                //Collectible collectible = new Collectible(linedata[2], CollectableType.getType(collectibleActor.collectable_type), collectibleActor.actorInGameName, (collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
+                //collectible.image = new Image(IMAGE_DIRECTORY_PATH + collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).spriteName + PNG_POSTFIX);
+                Collectible collectible = Collectible.createCollectible(linedata[1], linedata[2], linedata[3]);
                 inventory.addItem(collectible);
                 break;
             case KEYWORD_sensorStatus:

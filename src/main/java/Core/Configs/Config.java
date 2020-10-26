@@ -119,6 +119,9 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_SPRITE_ID = "sprite_id";
     public static final String TEXTBOX_ATTRIBUTE_NEW_STATUS = "status";
     public static final String TEXTBOX_ATTRIBUTE_TYPE = "type";
+    public static final String TEXTBOX_ATTRIBUTE_ITEM_ACTOR = "item_actor";
+    public static final String TEXTBOX_ATTRIBUTE_ITEM_NAME = "item_name";
+    public static final String TEXTBOX_ATTRIBUTE_ITEM_STATUS = "item_status";
     public static final String discussion_TYPE_ATTRIBUTE = "discussion";
     public static final String game_ATTRIBUTE = "game";
     public static final String success_ATTRIBUTE = "success";
@@ -135,7 +138,7 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_VARIABLE_NAME = "variablename";
     public static final String TEXTBOX_ATTRIBUTE_TRUE = "true";
     public static final String TEXTBOX_ATTRIBUTE_FALSE = "false";
-    public static final String TEXTBOX_BUMP = "bump";
+    public static final String TEXTBOX_ATTRIBUTE_BUMP = "bump";
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";

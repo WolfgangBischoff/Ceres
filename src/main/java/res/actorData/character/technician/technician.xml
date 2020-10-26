@@ -31,19 +31,24 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     <dialogue id="init-door" type="decision">
         <option nextDialogue="door-info">Whats behind this door?</option>
         <option nextDialogue="door-discussion">Can you open the door?</option>
+        <option nextDialogue="GET_ALGAE">Give me some algae!</option>
         <option>[Leave]</option>
     </dialogue>
 
-    <dialogue id="door-info" type = "normal" nextDialogue="init-door">
+    <dialogue id="GET_ALGAE" type="normal" item_actor="collectibles/food/food" item_name="Algae Stew"
+              item_status="algaeStew">
+        <line>Here is your algae stew!</line>
+    </dialogue>
+
+    <dialogue id="door-info" type="normal" nextDialogue="init-door">
         <line>Its the life support systems, but nobody has access without a good reason.</line>
     </dialogue>
 
-
-    <dialogue id="door-discussion" type = "normal" nextDialogue="discussion-game">
+    <dialogue id="door-discussion" type="normal" nextDialogue="discussion-game">
         <line>If you don't have a good reason stop bothering me.</line>
     </dialogue>
 
-    <dialogue id="discussion-game" type="decision" >
+    <dialogue id="discussion-game" type="decision">
         <option nextDialogue="game-test">[Tell him, that you need access]</option>
         <option nextDialogue="game-test2">[Test II]</option>
         <option nextDialogue="game-test3">[Test III]</option>

@@ -15,17 +15,14 @@
     - change night dynamically
 - Cleaning Bot Moving
     - add definition in file
-    - meteorit moving
     - Textbox
         - Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
-        - Dialogue depentdent on date
-        - add item with textbox
-     - Inventory
-            - Close button
-            - item desrcp
-            - other inventory, DragDrop
-            - buy menu: desc, buy bttn
-            - add item in box
+    - Inventory
+           - Close button
+           - item desrcp
+           - other inventory, DragDrop
+           - buy menu: desc, buy bttn
+           - add item in box
     - Game Over if health == 0
 - Add set item mechanic
         1) sprite an Pos adden via Key
@@ -68,7 +65,7 @@
     ladder from control to rescue pods
     change Eyes Box more obvious
     freight: drinks, stammzellen
-    crew deck (security, rescue pods, storage, textbox to beds, maybe arrianne reference)
+    crew deck (security, rescue pods, storage, maybe arrianne reference)
     moving asteroid as actor
 - Docking Bay:
     Elevator, minimal table

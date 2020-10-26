@@ -1,12 +1,9 @@
 package Core.Menus.Textbox;
 
-import Core.Actor;
-import Core.GameVariables;
-import Core.GameWindow;
+import Core.*;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.Personality.PersonalityScreenController;
-import Core.Utilities;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -214,15 +211,20 @@ public class Textbox
                         int amount = Integer.parseInt(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VALUE));
                         GameVariables.addPlayerMoney(amount);
                     }
-                    if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_SET))
-                    {
+                    if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_SET)) {
                         String varname = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME);
                         String val = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_SET);
                         GameVariables.getGenericVariableManager().setValue(varname, val);
                     }
-                    if(currentDialogue.hasAttribute(TEXTBOX_BUMP))
-                    {
+                    if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_BUMP)) {
                         WorldView.getSingleton().activateBump();
+                    }
+                    if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_ITEM_ACTOR)) {
+                        Collectible collectible = Collectible.createCollectible(
+                                currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_ACTOR)
+                                , currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_NAME)
+                                , currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_STATUS));
+                        WorldView.getPlayer().getActor().getInventory().addItem(collectible);
                     }
                 }
 

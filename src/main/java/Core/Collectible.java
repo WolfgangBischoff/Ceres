@@ -1,7 +1,11 @@
 package Core;
 
 import Core.Enums.CollectableType;
+import Core.Enums.Direction;
 import javafx.scene.image.Image;
+
+import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
+import static Core.Configs.Config.PNG_POSTFIX;
 
 public class Collectible
 {
@@ -17,6 +21,14 @@ public class Collectible
         this.type = type;
         this.ingameName = nameGame;
         this.baseValue = baseValue;
+    }
+
+    public static Collectible createCollectible(String actorfilepath, String ingameName, String spriteStatus)
+    {
+        Actor collectibleActor = new Actor(actorfilepath, ingameName, spriteStatus, "default", Direction.UNDEFINED);
+        Collectible collectible = new Collectible(ingameName, CollectableType.getType(collectibleActor.getCollectable_type()), collectibleActor.actorInGameName, (collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
+        collectible.image = new Image(IMAGE_DIRECTORY_PATH + collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).spriteName + PNG_POSTFIX);
+        return collectible;
     }
 
     @Override
