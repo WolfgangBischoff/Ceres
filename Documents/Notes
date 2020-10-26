@@ -5,28 +5,15 @@
 
 - Features
     - Person turns if talking
-    - change night dynamically
-    - add attentionmark over sprites
-    - Game Over if health == 0
-    - Add set item mechanic
-        1) sprite an Pos adden via Key
-        2) Sprite von Menu und maus adden
-        3) Zeit & Resourcenkosten
-        4) Position check
-        5) Different Sprites
-    - Grow Plant for life support
-            - Aus Kaim wird Pflanze gesetzt, Erde rar
-            - Pflanze wächst jeden Tag, erntbar, stirbt, vermehrt sich
-            - Habitat: Station, WaterTank, Ceres, Hot
-            - Mutieren und Kreuzen von Pflanzen, cookie Clicker
     - Coin Game
         - better explanation from trader
-        - show info button with pause game
         - add cursor with borader hitbox
         - objects that kill you, cost lifes like in undertals
         - Buff to double reward of coins
         - areas that double reward
     - check higher resolution and zoom, fix not centered overlay
+    - add attentionmark over sprites
+    - change night dynamically
 - Cleaning Bot Moving
     - add definition in file
     - meteorit moving
@@ -40,12 +27,20 @@
             - other inventory, DragDrop
             - buy menu: desc, buy bttn
             - add item in box
+    - Game Over if health == 0
+- Add set item mechanic
+        1) sprite an Pos adden via Key
+        2) Sprite von Menu und maus adden
+        3) Zeit & Resourcenkosten
+        4) Position check
+        5) Different Sprites
+- Grow Plant for life support
+     - Aus Kaim wird Pflanze gesetzt, Erde rar
+     - Pflanze wächst jeden Tag, erntbar, stirbt, vermehrt sich
+     - Habitat: Station, WaterTank, Ceres, Hot
+     - Mutieren und Kreuzen von Pflanzen, cookie Clicker
 
 - Content
-    - more sprite interactions
-        Crewdeck table
-        small controls
-    - change lift textbox sequence
     - Side Quest
         Busy technician(knows about capsule) tell you that keycard..
         Get Keycard from security capsule

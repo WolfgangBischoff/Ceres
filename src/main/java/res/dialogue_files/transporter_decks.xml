@@ -1,11 +1,9 @@
-
-
 <!--/>
 File Identified by Actor Definition
 First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
 
 id - identifier for lookup of textbox
-type - normal/decision
+type - normal/decision/discussion
 spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
 
     <dialogue id="welcome" type="normal" spritestatus="transition">
@@ -26,28 +24,36 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
      <dialogue id="DECISION-DISCUSSION" type="discussion" game="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
+
+
+"   &quot;
+'   &apos;
+<   &lt;
+>   &gt;
+&   &amp;
 <-->
 
-<root name="elevator">
+<root name="actorName">
     <dialogue id="none" type="normal">
-        <line>Lorem Ipsum</line>
-        <line>Dolorem</line>
+        <line>Lorem Ipsum none</line>
     </dialogue>
 
-
-    <dialogue id="INIT-toFreightDeck" type="decision">
-        <option nextDialogue="DECISION-toFreightDeck">[Freight Deck]</option>
-        <option>[Back]</option>
+    <dialogue id="default" type="normal">
+        <line>Lorem Ipsum default</line>
     </dialogue>
 
-    <dialogue id="INIT-toCrewDeck" type="decision">
-        <option nextDialogue="DECISION-toCrewDeck">[Crew Deck]</option>
-        <option>[Back]</option>
+    <dialogue id="DESK_ROOM" type="normal">
+        <line>The remains of a long night of drinking.</line>
     </dialogue>
 
-    <dialogue id="DECISION-toCrewDeck" type="levelchange" level="crewdeck/crewdeck" spawnID="elevator"/>
+    <dialogue id="DATA" type="normal">
+        <line>A lot of data and buttons.</line>
+    </dialogue>
 
-    <dialogue id="DECISION-toFreightDeck" type="levelchange" level="transporter/transporter" spawnID="elevator"/>
+    <dialogue id="LOCKED" type="normal">
+        <line>Its locked.</line>
+    </dialogue>
+
 </root>
 
 
