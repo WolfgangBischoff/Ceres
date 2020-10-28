@@ -6,6 +6,7 @@
 - Features
     - Person turns if talking
     - Coin Game
+        - check why slow down dont work with circles
         - better explanation from trader
         - objects that kill you, cost lifes like in undertals
         - Buff to double reward of coins

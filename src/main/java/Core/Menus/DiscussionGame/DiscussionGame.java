@@ -3,7 +3,6 @@ package Core.Menus.DiscussionGame;
 import Core.Actor;
 import Core.GameWindow;
 import Core.Menus.Personality.PersonalityContainer;
-import Core.Menus.Personality.PersonalityTrait;
 import Core.Utilities;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
@@ -23,10 +22,7 @@ import javafx.scene.text.TextAlignment;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static Core.Configs.Config.*;
 import static Core.Menus.Personality.PersonalityTrait.*;
@@ -49,7 +45,8 @@ public class DiscussionGame
     Element xmlRoot;
     Long gameStartTime;
     boolean isFinished = false;
-    Map<PersonalityTrait, Integer> clickedCoins = new HashMap<>();
+    //Map<PersonalityTrait, Integer> clickedCoins = new HashMap<>();
+    Map<CoinType, Integer> clickedCoins = new HashMap<>();
     String gameFileName;
     Actor actorOfDiscussion;
     private int totalResult;
@@ -58,6 +55,7 @@ public class DiscussionGame
     private int decisionResult;
     private int lifestyleResult;
     private static Circle mouseClickSpace = new Circle(WIDTH / 2, HEIGHT / 2, 15);
+    private static Set<CharacterCoinBuff> activeBuffs = new HashSet<>();
 
     public DiscussionGame(String gameIdentifier, Actor actorOfDiscussion)
     {
@@ -80,6 +78,7 @@ public class DiscussionGame
         String methodName = "loadDiscussion() ";
         xmlRoot = Utilities.readXMLFile(COINGAME_DIRECTORY_PATH + gameFileName + ".xml");
         NodeList coins = xmlRoot.getElementsByTagName("coin");
+        activeBuffs.clear();
         for (int i = 0; i < coins.getLength(); i++) //iterate coins of file
         {
             Element currentCoin = ((Element) coins.item(i));
@@ -96,93 +95,36 @@ public class DiscussionGame
         visibleCoinsList.clear();
         for (CharacterCoin coin : coinsList)
         {
-            if (coin.time_s <= elapsedTime && !removedCoinsList.contains(coin))
+            if (coin.time_spawn <= elapsedTime && !removedCoinsList.contains(coin))
             {
                 visibleCoinsList.add(coin);
             }
         }
+
 
         //For all Coins
         for (int i = 0; i < visibleCoinsList.size(); i++)
         {
             CharacterCoin coin = visibleCoinsList.get(i);
             Circle circle = coin.collisionCircle;
-            double elapsedTimeSinceSpawn = ((currentNanoTime - gameStartTime) / 1000000000.0) - coin.time_s;
-
-            if (coin.movementType.equals(COIN_BEHAVIOR_MOVING))
-            {
-                //tan(a) = Gegenkathete / Ankathete
-                //sin(a) = Gegenkathete / Hypotenuse
-                //cos(a) = Ankathete    / Hypotenuse
-                //0     => right
-                //45    => btm right
-
-                double hypotenuse = coin.initSpeed;
-                double angle = coin.angle;
-                double angle_rad = Math.toRadians(angle);
-                double x = Math.cos(angle_rad) * hypotenuse;
-                double y = Math.sin(angle_rad) * hypotenuse;
-
-                circle.setCenterX(circle.getCenterX() + x);
-                circle.setCenterY(circle.getCenterY() + y);
-            }
-
-            else if (coin.movementType.equals(COIN_BEHAVIOR_JUMP))
-            {
-                double slowFactor = -5;
-                coin.speed = slowFactor * elapsedTimeSinceSpawn + coin.initSpeed;
-                circle.setCenterY(circle.getCenterY() - coin.speed);
-                //System.out.println(CLASSNAME + methodName + coin.speed);
-            }
-
-            else if (coin.movementType.equals(COIN_BEHAVIOR_SPIRAL))
-            {
-                double angle = coin.genericVariables.get("startangle");
-                double radius = coin.genericVariables.get("radius");
-                double centrumX = coin.genericVariables.get("centrumx");
-                double centrumY = coin.genericVariables.get("centrumy");
-                double isclockwise = coin.genericVariables.get("isclockwise");
-
-                if (isclockwise == 1)
-                    angle += coin.initSpeed;
-                else
-                    angle -= coin.initSpeed;
-                coin.genericVariables.put("startangle", angle);
-                double angle_rad = Math.toRadians(angle);
-                double x = Math.cos(angle_rad) * radius * elapsedTimeSinceSpawn / 2;
-                double y = Math.sin(angle_rad) * radius * elapsedTimeSinceSpawn / 2;
-                circle.setCenterX(centrumX + x);
-                circle.setCenterY(centrumY + y);
-            }
-
-            else if (coin.movementType.equals(COIN_BEHAVIOR_CIRCLE))
-            {
-                double angle = coin.genericVariables.get("startangle");
-                double radius = coin.genericVariables.get("radius");
-                double centrumX = coin.genericVariables.get("centrumx");
-                double centrumY = coin.genericVariables.get("centrumy");
-                double isclockwise = coin.genericVariables.get("isclockwise");
-
-                if (isclockwise == 1)
-                    angle += coin.initSpeed;
-                else
-                    angle -= coin.initSpeed;
-                coin.genericVariables.put("startangle", angle);
-                double angle_rad = Math.toRadians(angle);
-                double x = Math.cos(angle_rad) * radius;
-                double y = Math.sin(angle_rad) * radius;
-                circle.setCenterX(centrumX + x);
-                circle.setCenterY(centrumY + y);
-            }
+            double elapsedTimeSinceSpawn = ((currentNanoTime - gameStartTime) / 1000000000.0) - coin.time_spawn;
+            coin.move(currentNanoTime - gameStartTime);
 
             //Check if is visible
             if (!new Rectangle2D(0, 0, canvas.getWidth(), canvas.getHeight()).
                     intersects(circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius(), circle.getCenterX() + circle.getRadius(), circle.getCenterY() + circle.getRadius())
-                    || elapsedTimeSinceSpawn > COIN_MAX_TIME
+                    || elapsedTimeSinceSpawn > coin.time_max
             )
             {
                 removedCoinsList.add(coin);
             }
+        }
+
+        for (CharacterCoinBuff buff : activeBuffs)
+        {
+            double elapsedTimeBuff = (currentNanoTime - buff.activeSince) / 1000000000.0;
+            if (buff.duration <= elapsedTimeBuff)
+                activeBuffs.remove(buff);
         }
 
         if (removedCoinsList.size() == coinsList.size())
@@ -238,7 +180,8 @@ public class DiscussionGame
         update(currentNanoTime);
         //Draw list of shapes
         graphicsContext.setFill(marking);
-        for (int i = 0; i < visibleCoinsList.size(); i++) {
+        for (int i = 0; i < visibleCoinsList.size(); i++)
+        {
             CharacterCoin coin = visibleCoinsList.get(i);
             Circle circle = coin.collisionCircle;
             shapeList.add(circle);
@@ -247,7 +190,8 @@ public class DiscussionGame
 
         graphicsContext.fillOval(mouseClickSpace.getCenterX() - mouseClickSpace.getRadius(), mouseClickSpace.getCenterY() - mouseClickSpace.getRadius(), mouseClickSpace.getRadius() * 2, mouseClickSpace.getRadius() * 2);
 
-        if (isFinished) {
+        if (isFinished)
+        {
             graphicsContext.setFont(new Font(30));
             graphicsContext.setFill(font);
             graphicsContext.setTextAlign(TextAlignment.CENTER);
@@ -276,7 +220,8 @@ public class DiscussionGame
         List<CharacterCoin> hoveredElements = new ArrayList<>();
 
         //Calculate Mouse Position relative to Discussion
-        if (posRelativeToWorldview.contains(mousePosition)) {
+        if (posRelativeToWorldview.contains(mousePosition))
+        {
             mousePosRelativeToDiscussionOverlay = new Point2D(mousePosition.getX() - overlayPosition.getX(), mousePosition.getY() - overlayPosition.getY());
             mouseClickSpace.setCenterX(mousePosRelativeToDiscussionOverlay.getX());
             mouseClickSpace.setCenterY(mousePosRelativeToDiscussionOverlay.getY());
@@ -284,7 +229,8 @@ public class DiscussionGame
 
         //Check for hovered elements
         if (isMouseClicked)
-            for (Integer i = 0; i < visibleCoinsList.size(); i++) {
+            for (Integer i = 0; i < visibleCoinsList.size(); i++)
+            {
                 Circle circle = visibleCoinsList.get(i).collisionCircle;
                 if (doCircleOverlap(circle, mouseClickSpace))
                     hoveredElements.add(visibleCoinsList.get(i));
@@ -301,10 +247,9 @@ public class DiscussionGame
             for (int i = 0; i < hoveredElements.size(); i++)
             {
                 Circle circle = hoveredElements.get(i).collisionCircle;
-                countClickedCoin(hoveredElements.get(i));
+                countClickedCoinTypes(hoveredElements.get(i), currentNanoTime);
                 shapeList.remove(circle);
                 removedCoinsList.add(hoveredElements.get(i));
-
             }
         }
         else if (isMouseClicked && isFinished)
@@ -320,11 +265,17 @@ public class DiscussionGame
         }
     }
 
-    private void countClickedCoin(CharacterCoin coin)
+    private void countClickedCoinTypes(CharacterCoin coin, Long currentNanoTime)
     {
-        if (!clickedCoins.containsKey(coin.characteristic))
-            clickedCoins.put(coin.characteristic, 0);
-        clickedCoins.put(coin.characteristic, (clickedCoins.get(coin.characteristic) + 1));
+        if (!clickedCoins.containsKey(coin.type))
+            clickedCoins.put(coin.type, 0);
+        clickedCoins.put(coin.type, (clickedCoins.get(coin.type) + 1));
+
+        if (coin.type instanceof CharacterCoinBuff)
+        {
+            ((CharacterCoinBuff) coin.type).activeSince = currentNanoTime;
+            activeBuffs.add((CharacterCoinBuff) coin.type);
+        }
     }
 
     public WritableImage getWritableImage(Long currentNanoTime)
@@ -333,4 +284,8 @@ public class DiscussionGame
         return writableImage;
     }
 
+    public static Set<CharacterCoinBuff> getActiveBuffs()
+    {
+        return activeBuffs;
+    }
 }

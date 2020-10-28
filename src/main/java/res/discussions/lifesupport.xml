@@ -10,6 +10,14 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
     <-->
 
     <coin
+            characteristic="buff_slowed"
+            x="500"
+            y="500"
+            time="0"
+            maxTime="3"
+    />
+
+    <coin
             characteristic="sensing"
             x="400"
             y="300"
@@ -93,6 +101,15 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
    Wave 3
    cascade
    <-->
+
+    <coin
+            characteristic="buff_slowed"
+            x="200"
+            y="200"
+            time="3"
+            maxTime="3"
+    />
+
     <coin
             characteristic="sensing"
             x="100"
@@ -171,6 +188,15 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
     <!--/>
    Wave 7
    <-->
+
+    <coin
+            characteristic="buff_slowed"
+            x="700"
+            y="400"
+            time="7"
+            maxTime="5"
+    />
+
     <coin
             characteristic="sensing"
             x="100"

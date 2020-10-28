@@ -163,7 +163,8 @@ public class Config
     public static final String COIN_BEHAVIOR_CIRCLE = "circle";
     public static final String COIN_TAG_ANGLE = "angle";
     public static final String COIN_TAG_INITSPEED = "initspeed";
-    public static final int COIN_MAX_TIME = 15;
+    public static final String COIN_ATTRIBUTE_MAX_TIME = "maxTime";
+    public static final int COIN_DEFAULT_MAX_TIME = 15;
     public static final int DISCUSSION_THRESHOLD_WIN = 6;
 
     //Management-Attention-Meter MAM
