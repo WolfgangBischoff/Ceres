@@ -79,6 +79,13 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
     Wave 5
     <-->
     <coin
+            characteristic="buff_double_reward"
+            x="600"
+            y="300"
+            time="3"
+    />
+
+    <coin
             characteristic="introversion"
             x="400"
             y="300"

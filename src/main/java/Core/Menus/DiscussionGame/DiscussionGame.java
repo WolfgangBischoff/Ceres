@@ -22,9 +22,13 @@ import javafx.scene.text.TextAlignment;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static Core.Configs.Config.*;
+import static Core.Menus.DiscussionGame.CharacterCoinBuff.BUFF_DOUBLE_REWARD;
 import static Core.Menus.Personality.PersonalityTrait.*;
 import static Core.Utilities.doCircleOverlap;
 
@@ -45,7 +49,6 @@ public class DiscussionGame
     Element xmlRoot;
     Long gameStartTime;
     boolean isFinished = false;
-    //Map<PersonalityTrait, Integer> clickedCoins = new HashMap<>();
     Map<CoinType, Integer> clickedCoins = new HashMap<>();
     String gameFileName;
     Actor actorOfDiscussion;
@@ -54,8 +57,10 @@ public class DiscussionGame
     private int focusResult;
     private int decisionResult;
     private int lifestyleResult;
-    private static Circle mouseClickSpace = new Circle(WIDTH / 2, HEIGHT / 2, 15);
-    private static Set<CharacterCoinBuff> activeBuffs = new HashSet<>();
+    private static Circle mouseClickSpace = new Circle(WIDTH / 2f, HEIGHT / 2f, 15);
+    private static Map<String, CharacterCoinBuff> activeBuffs = new HashMap<>();
+    private int winThreshold = DISCUSSION_DEFAULT_THRESHOLD_WIN;
+    private int maxPossiblePoints = 0;
 
     public DiscussionGame(String gameIdentifier, Actor actorOfDiscussion)
     {
@@ -84,9 +89,11 @@ public class DiscussionGame
             Element currentCoin = ((Element) coins.item(i));
             CharacterCoin characterCoin = new CharacterCoin(currentCoin);
             coinsList.add(characterCoin);
+            if (actorOfDiscussion.getPersonalityContainer().isPersonalityMatch(characterCoin.type))
+                maxPossiblePoints++;
         }
+        winThreshold = maxPossiblePoints / 2;
     }
-
 
     public void update(Long currentNanoTime)
     {
@@ -100,7 +107,6 @@ public class DiscussionGame
                 visibleCoinsList.add(coin);
             }
         }
-
 
         //For all Coins
         for (int i = 0; i < visibleCoinsList.size(); i++)
@@ -120,12 +126,18 @@ public class DiscussionGame
             }
         }
 
-        for (CharacterCoinBuff buff : activeBuffs)
+        List<String> removeList = new ArrayList<>();
+        for (Map.Entry<String, CharacterCoinBuff> buff : activeBuffs.entrySet())
         {
-            double elapsedTimeBuff = (currentNanoTime - buff.activeSince) / 1000000000.0;
-            if (buff.duration <= elapsedTimeBuff)
-                activeBuffs.remove(buff);
+            double elapsedTimeBuff = (currentNanoTime - buff.getValue().activeSince) / 1000000000.0;
+            if (buff.getValue().duration <= elapsedTimeBuff)
+                removeList.add(buff.getKey()); //activeBuffs.remove(buff.getKey());
         }
+        removeList.forEach(key ->
+        {
+            activeBuffs.remove(key);
+            System.out.println(CLASSNAME + methodName + "removed " + key);
+        });
 
         if (removedCoinsList.size() == coinsList.size())
         {
@@ -198,10 +210,11 @@ public class DiscussionGame
             graphicsContext.setTextBaseline(VPos.CENTER);
 
 
-            String text = "You got motivation" + motivationResult + " focus: " + focusResult + " decision: " + decisionResult + " lifestyle: " + lifestyleResult + " Total: " + totalResult;
+            String text = "You got motivation" + motivationResult + " focus: " + focusResult + " decision: " + decisionResult + " lifestyle: " + lifestyleResult + " Total: " + totalResult
+                    + "\n MaxPossiblePoints: " + maxPossiblePoints + " WinThreshold: " + winThreshold;
             graphicsContext.fillText(text, WIDTH / 2.0, HEIGHT / 2.0);
             //graphicsContext.fillText("Finished!", DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 10);
-            if (totalResult > DISCUSSION_THRESHOLD_WIN)
+            if (totalResult > winThreshold)
                 graphicsContext.fillText("Convinced!", WIDTH / 2.0, HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 40);
             else
                 graphicsContext.fillText("Try again!", WIDTH / 2.0, HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 40);
@@ -255,7 +268,7 @@ public class DiscussionGame
         else if (isMouseClicked && isFinished)
         {
             //If won discussion
-            if (totalResult > DISCUSSION_THRESHOLD_WIN)
+            if (totalResult > winThreshold)
                 WorldView.getTextbox().setNextDialogueFromDiscussionResult(true);
             else
                 WorldView.getTextbox().setNextDialogueFromDiscussionResult(false);
@@ -267,15 +280,25 @@ public class DiscussionGame
 
     private void countClickedCoinTypes(CharacterCoin coin, Long currentNanoTime)
     {
-        if (!clickedCoins.containsKey(coin.type))
-            clickedCoins.put(coin.type, 0);
-        clickedCoins.put(coin.type, (clickedCoins.get(coin.type) + 1));
-
+        String methodName = "countClickedCoinTypes() ";
+        boolean debug = false;
         if (coin.type instanceof CharacterCoinBuff)
         {
             ((CharacterCoinBuff) coin.type).activeSince = currentNanoTime;
-            activeBuffs.add((CharacterCoinBuff) coin.type);
+            activeBuffs.put(coin.type.toString(), (CharacterCoinBuff) coin.type);
+            if (debug) System.out.println(CLASSNAME + methodName + "added buff: " + coin.type.toString());
         }
+
+        int buffCoinMultiplicand;
+        if (DiscussionGame.getActiveBuffs().containsKey(BUFF_DOUBLE_REWARD.toString()))
+            buffCoinMultiplicand = 2;
+        else
+            buffCoinMultiplicand = 1;
+
+        if (!clickedCoins.containsKey(coin.type))
+            clickedCoins.put(coin.type, 0);
+        if (debug) System.out.println(CLASSNAME + methodName + buffCoinMultiplicand + " " + activeBuffs.toString());
+        clickedCoins.put(coin.type, (clickedCoins.get(coin.type) + buffCoinMultiplicand));
     }
 
     public WritableImage getWritableImage(Long currentNanoTime)
@@ -284,7 +307,7 @@ public class DiscussionGame
         return writableImage;
     }
 
-    public static Set<CharacterCoinBuff> getActiveBuffs()
+    public static Map<String, CharacterCoinBuff> getActiveBuffs()
     {
         return activeBuffs;
     }

@@ -1,7 +1,5 @@
 package Core.Menus.DiscussionGame;
 
-import Core.Menus.Personality.PersonalityTrait;
-
 import static Core.Menus.DiscussionGame.CharacterCoinBuff.*;
 import static Core.Menus.Personality.PersonalityTrait.*;
 
@@ -29,9 +27,9 @@ public interface CoinType
                 return PERCEIVING;
 
             case "buff_slowed":
-                return SLOWED;
-            case "buff_doubleReward":
-                return DOUBLE_REWARD;
+                return BUFF_SLOWED;
+            case "buff_double_reward":
+                return BUFF_DOUBLE_REWARD;
             default:
                 throw new RuntimeException("CoinType unknown: " + type);
         }

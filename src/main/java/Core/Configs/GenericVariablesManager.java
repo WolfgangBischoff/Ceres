@@ -10,7 +10,6 @@ public class GenericVariablesManager
 
     public GenericVariablesManager()
     {
-        Map<String, Boolean> ret = new HashMap<>();
         stringWorldVariables.put("transporter_air_system_quest_started", "false");
         stringWorldVariables.put("IS_LIFE_SUPP_OPEN", "false");
         stringWorldVariables.put("METEROIT_HIT", "false");
@@ -24,7 +23,7 @@ public class GenericVariablesManager
     public void setValue(String varName, String newValue)
     {
         String methodName = "setValue() ";
-        System.out.println(CLASSNAME + methodName + "Set " + varName + " from " + stringWorldVariables.get(varName) + " to " + newValue);
+        //System.out.println(CLASSNAME + methodName + "Set " + varName + " from " + stringWorldVariables.get(varName) + " to " + newValue);
         stringWorldVariables.put(varName,newValue);
     }
 

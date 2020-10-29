@@ -6,11 +6,8 @@
 - Features
     - Person turns if talking
     - Coin Game
-        - check why slow down dont work with circles
         - better explanation from trader
-        - objects that kill you, cost lifes like in undertals
-        - Buff to double reward of coins
-        - areas that double reward
+        - calculated win threshold
     - check higher resolution and zoom, fix not centered overlay
     - add attentionmark over sprites
     - change night dynamically

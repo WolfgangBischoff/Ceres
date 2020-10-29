@@ -1,5 +1,7 @@
 package Core.Menus.Personality;
 
+import Core.Menus.DiscussionGame.CoinType;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,7 +9,7 @@ import static Core.Menus.Personality.PersonalityTrait.*;
 
 public class PersonalityContainer
 {
-    private static final String CLASSNAME = "PersonalityContainer ";
+    private static final String CLASSNAME = "PersonalityContainer/";
     public MyersBriggsPersonality myersBriggsPersonality;
     private Integer cooperation = 0;
     private Integer numberOfInteractions = 0;
@@ -23,9 +25,17 @@ public class PersonalityContainer
                 '}';
     }
 
+    public boolean isPersonalityMatch(CoinType trait)
+    {
+        if (trait instanceof PersonalityTrait)
+            return myersBriggsPersonality.hasTrait((PersonalityTrait) trait);
+        else
+            return false;
+    }
+
     public PersonalityTrait getMotivation()
     {
-        if(myersBriggsPersonality.motivation == EXTROVERSION)
+        if (myersBriggsPersonality.motivation == EXTROVERSION)
             return EXTROVERSION;
         else
             return INTROVERSION;
@@ -33,7 +43,7 @@ public class PersonalityContainer
 
     public PersonalityTrait getFocus()
     {
-        if(myersBriggsPersonality.focus == PersonalityTrait.SENSING)
+        if (myersBriggsPersonality.focus == PersonalityTrait.SENSING)
             return SENSING;
         else
             return INTUITION;
@@ -41,7 +51,7 @@ public class PersonalityContainer
 
     public PersonalityTrait getDecision()
     {
-        if(myersBriggsPersonality.decision == PersonalityTrait.THINKING)
+        if (myersBriggsPersonality.decision == PersonalityTrait.THINKING)
             return THINKING;
         else
             return FEELING;
@@ -49,7 +59,7 @@ public class PersonalityContainer
 
     public PersonalityTrait getLifestyle()
     {
-        if(myersBriggsPersonality.lifestyle == PersonalityTrait.JUDGING)
+        if (myersBriggsPersonality.lifestyle == PersonalityTrait.JUDGING)
             return JUDGING;
         else
             return PERCEIVING;

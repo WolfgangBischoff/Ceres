@@ -32,6 +32,19 @@ public enum MyersBriggsPersonality
     PersonalityTrait decision; //  logic/emotion - Thinking/Feeling
     PersonalityTrait lifestyle; // conservative/progressive - Judging/Perceiving
 
+    public boolean hasTrait(PersonalityTrait trait)
+    {
+        if(trait == EXTROVERSION || trait == INTROVERSION)
+            return motivation == trait;
+        if(trait == SENSING || trait == INTUITION)
+            return focus == trait;
+        if(trait == THINKING || trait == FEELING)
+            return decision == trait;
+        if(trait == JUDGING || trait == PERCEIVING)
+            return lifestyle == trait;
+        return false;
+    }
+
     MyersBriggsPersonality(PersonalityTrait motivation, PersonalityTrait focus, PersonalityTrait decision, PersonalityTrait lifestyle)
     {
         this.motivation = motivation;

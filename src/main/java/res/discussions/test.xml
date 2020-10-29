@@ -28,5 +28,16 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             maxTime="6"
     />
 
+    <coin
+            characteristic="sensing"
+            x="200"
+            y="100"
+            initspeed="2"
+            movementType="moving"
+            time="0"
+            maxTime="6"
+            angle="-45"
+    />
+
 
 </root>
