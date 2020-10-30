@@ -3,7 +3,7 @@
 INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIVING;
         <-->
 
-<root>
+<root percentageOfPointsToWin="1">
 
     <!--/>
     Wave 0

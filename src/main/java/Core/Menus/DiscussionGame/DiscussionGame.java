@@ -61,6 +61,7 @@ public class DiscussionGame
     private static Map<String, CharacterCoinBuff> activeBuffs = new HashMap<>();
     private int winThreshold = DISCUSSION_DEFAULT_THRESHOLD_WIN;
     private int maxPossiblePoints = 0;
+    private float percentageOfPointsToWin = 0.5f;
 
     public DiscussionGame(String gameIdentifier, Actor actorOfDiscussion)
     {
@@ -83,7 +84,6 @@ public class DiscussionGame
         String methodName = "loadDiscussion() ";
         xmlRoot = Utilities.readXMLFile(COINGAME_DIRECTORY_PATH + gameFileName + ".xml");
         NodeList coins = xmlRoot.getElementsByTagName("coin");
-        activeBuffs.clear();
         for (int i = 0; i < coins.getLength(); i++) //iterate coins of file
         {
             Element currentCoin = ((Element) coins.item(i));
@@ -92,7 +92,10 @@ public class DiscussionGame
             if (actorOfDiscussion.getPersonalityContainer().isPersonalityMatch(characterCoin.type))
                 maxPossiblePoints++;
         }
-        winThreshold = maxPossiblePoints / 2;
+        if(xmlRoot.hasAttribute(DISCUSSION_ATTRIBUTE_PERCENTAGE_OF_POINTS_TO_WIN))
+            percentageOfPointsToWin = Float.parseFloat(xmlRoot.getAttribute(DISCUSSION_ATTRIBUTE_PERCENTAGE_OF_POINTS_TO_WIN));
+        winThreshold = (int)(maxPossiblePoints * percentageOfPointsToWin);
+        activeBuffs.clear();
     }
 
     public void update(Long currentNanoTime)
@@ -131,12 +134,11 @@ public class DiscussionGame
         {
             double elapsedTimeBuff = (currentNanoTime - buff.getValue().activeSince) / 1000000000.0;
             if (buff.getValue().duration <= elapsedTimeBuff)
-                removeList.add(buff.getKey()); //activeBuffs.remove(buff.getKey());
+                removeList.add(buff.getKey());
         }
         removeList.forEach(key ->
         {
             activeBuffs.remove(key);
-            System.out.println(CLASSNAME + methodName + "removed " + key);
         });
 
         if (removedCoinsList.size() == coinsList.size())
@@ -214,7 +216,7 @@ public class DiscussionGame
                     + "\n MaxPossiblePoints: " + maxPossiblePoints + " WinThreshold: " + winThreshold;
             graphicsContext.fillText(text, WIDTH / 2.0, HEIGHT / 2.0);
             //graphicsContext.fillText("Finished!", DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 10);
-            if (totalResult > winThreshold)
+            if (totalResult >= winThreshold)
                 graphicsContext.fillText("Convinced!", WIDTH / 2.0, HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 40);
             else
                 graphicsContext.fillText("Try again!", WIDTH / 2.0, HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 40);
@@ -268,7 +270,7 @@ public class DiscussionGame
         else if (isMouseClicked && isFinished)
         {
             //If won discussion
-            if (totalResult > winThreshold)
+            if (totalResult >= winThreshold)
                 WorldView.getTextbox().setNextDialogueFromDiscussionResult(true);
             else
                 WorldView.getTextbox().setNextDialogueFromDiscussionResult(false);

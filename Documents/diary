@@ -70,4 +70,4 @@
             - add item with textbox
 28 10 20    - first buff for Coin Game
 29 10 20    - reworked Coin movement
-            - added buff_double_reward
+            - added buff_double_reward, win threshold calculation

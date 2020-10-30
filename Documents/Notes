@@ -7,7 +7,10 @@
     - Person turns if talking
     - Coin Game
         - better explanation from trader
-        - calculated win threshold
+        - decoration, background
+        - add machine traits and game
+        - possible coordinates should be more clear
+        - new buff: create moving coins
     - check higher resolution and zoom, fix not centered overlay
     - add attentionmark over sprites
     - change night dynamically
@@ -110,7 +113,7 @@ Mechanics:
     Public Work (Revolutionary meter, needed for main questline or acsess to areas due to people that feel more safe with helping you)
     - Spray, Flugzettel
     - Gain trust through dailies like provide food/water/communication between people
-
+- CoinGame: buff areas; killing line/shots; unbesiegbarkeit buff
 - Increasable Skills like Sabotage (Harm Machines), Craft (Tools/Weapons/Propaganda), Rethorik
 - Gewerkschaft is corrupted, helps worker but ignores slaves; but unionization helps for more money from quest work
 - Verbindung, Social layers
