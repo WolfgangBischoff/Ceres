@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/java/res/actorData/airSystem/airTerminal/control.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/java/res/actorData/character/medic_woman/medic_woman.csv">
           <value>
             <Attribute>

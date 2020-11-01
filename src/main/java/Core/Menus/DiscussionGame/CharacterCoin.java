@@ -39,7 +39,6 @@ public class CharacterCoin
         }
         movementType = xmlNode.getAttribute("movementType").toLowerCase();
         time_spawn = Integer.parseInt(xmlNode.getAttribute("time"));
-        //image = findImage(type.toString());
         image = findImage(type.getName());
         int startX = Integer.parseInt(xmlNode.getAttribute("x"));
         int startY = Integer.parseInt(xmlNode.getAttribute("y"));
@@ -90,6 +89,13 @@ public class CharacterCoin
                 return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/judging.png");
             case "perceiving":
                 return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/perceiving.png");
+
+            case "local computation":
+                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_compute_local.png");
+            case "cloud computation":
+                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_compute_cloud.png");
+            case "virtualized computation":
+                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_compute_container.png");
 
             case "buff_slowed":
                 return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/buff_slowed.png");

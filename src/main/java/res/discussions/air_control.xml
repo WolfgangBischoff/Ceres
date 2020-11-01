@@ -1,0 +1,36 @@
+<!-->
+//self  	;social		;detail	  ;holistic	;logic	;emotion;conservative progressive ;
+INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIVING;
+        <-->
+
+<root percentageOfPointsToWin="1">
+
+    <!--/>
+    Wave 0
+    <-->
+
+    <coin
+            characteristic="compute_local"
+            x="400"
+            y="300"
+            time="0"
+            maxTime="6"
+    />
+    <coin
+            characteristic="compute_cloud"
+            x="300"
+            y="300"
+            time="0"
+            maxTime="6"
+    />
+
+    <coin
+            characteristic="compute_virtual"
+            x="500"
+            y="300"
+            time="0"
+            maxTime="6"
+    />
+
+
+</root>

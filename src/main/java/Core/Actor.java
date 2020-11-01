@@ -179,9 +179,6 @@ public class Actor
             case KEYWORD_condition:
                 conditions.add(readCondition(linedata));
                 break;
-            //case KEYWORD_personality:
-            //    personalityContainer = readPersonalityV1(linedata);
-            //    break;
             case ACTOR_PERSONALITY_V2:
                 personalityContainer = readPersonalityV2(linedata);
                 break;
@@ -198,9 +195,9 @@ public class Actor
     private PersonalityContainer readPersonalityV2(String[] linedata)
     {
         String methodName = "readPersonalityV2() ";
-        boolean debug = true;
-        //if (debug)
-        //    System.out.println(CLASSNAME + methodName + Arrays.toString(linedata));
+        boolean debug = false;
+        if (debug)
+            System.out.println(CLASSNAME + methodName + Arrays.toString(linedata));
 
         PersonalityContainer readContainer = new PersonalityContainer();
         int initCooperationValue = Integer.parseInt(linedata[1]);
@@ -221,32 +218,6 @@ public class Actor
         return readContainer;
     }
 
-    private PersonalityContainer readPersonalityV1(String[] linedata)
-    {
-        String methodName = "readPersonality() ";
-        boolean debug = false;
-
-        if (debug)
-            System.out.println(CLASSNAME + methodName + Arrays.toString(linedata));
-
-        int personalityIdx = 1;
-        int initCooperationValueIdx = 2;
-        int trait_threshold_paramsIdx = 3;
-        PersonalityContainer readContainer = new PersonalityContainer();
-        MyersBriggsPersonality myersBriggsPersonality = MyersBriggsPersonality.getPersonality(linedata[personalityIdx]);
-        int initCooperationValue = Integer.parseInt(linedata[initCooperationValueIdx]);
-        readContainer.myersBriggsPersonality = myersBriggsPersonality;
-        readContainer.increaseCooperation(initCooperationValue);
-        //readContainer.cooperation = initCooperationValue;
-        for (int i = trait_threshold_paramsIdx; i < linedata.length; i += 2) {
-            Integer threshold = Integer.parseInt(linedata[i + 1]);
-            readContainer.traitsThresholds.put(linedata[i], threshold);
-        }
-
-        if (debug)
-            System.out.println(CLASSNAME + methodName + readContainer);
-        return readContainer;
-    }
 
     private ActorCondition readCondition(String[] linedata)
     {

@@ -1,6 +1,7 @@
 package Core.Menus.DiscussionGame;
 
 import static Core.Menus.DiscussionGame.CharacterCoinBuff.*;
+import static Core.Menus.Personality.MachineTrait.*;
 import static Core.Menus.Personality.PersonalityTrait.*;
 
 public interface CoinType
@@ -34,6 +35,13 @@ public interface CoinType
                 return JUDGING;
             case "perceiving":
                 return PERCEIVING;
+
+            case "compute_local":
+                return COMPUTE_LOCAL;
+            case "compute_cloud":
+                return COMPUTE_CLOUD;
+            case "compute_virtual":
+                return COMPUTE_VIRTUAL;
 
             case "buff_slowed":
                 return BUFF_SLOWED;

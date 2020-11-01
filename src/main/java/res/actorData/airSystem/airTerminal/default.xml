@@ -52,24 +52,17 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Error 0451: Increased pressure due to pipe system blockage. Initiated emergency shutdown protocol.</line>
     </dialogue>
 
-    <dialogue id="SOFT_RESTART" spritestatus="ON">
+    <dialogue id="SOFT_RESTART" type="discussion" game="air_control" success="SOFT_RESTART_SUCCESS"
+              defeat="SOFT_RESTART_FAIL"/>
+    <dialogue id="SOFT_RESTART_SUCCESS" spritestatus="ON">
         <line>System reboot initiated ...</line>
-        <line>Restoring air pressure ... </line>
+        <line>Restoring air pressure ...</line>
         <line>System reboot ... Done</line>
     </dialogue>
-
-
-    <!-->
-    <dialogue id="DECISION-DISCUSSION" type="discussion" game="lifesupport" success="GAME-SUCCESS"
-              defeat="GAME-DEFEAT"/>
-
-    <dialogue id="GAME-SUCCESS" type="normal">
-        <line>[Success]</line>
+    <dialogue id="SOFT_RESTART_FAIL" spritestatus="OFF">
+        <line>System reboot failed ...</line>
     </dialogue>
-    <dialogue id="GAME-DEFEAT" type="normal">
-        <line>[Defeat]</line>
-    </dialogue>
-    <-->
+
 </root>
 
 

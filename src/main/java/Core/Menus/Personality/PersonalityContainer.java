@@ -13,10 +13,9 @@ import static Core.Menus.Personality.PersonalityTrait.*;
 public class PersonalityContainer
 {
     private static final String CLASSNAME = "PersonalityContainer/";
-    public MyersBriggsPersonality myersBriggsPersonality;
+    //public MyersBriggsPersonality myersBriggsPersonality;
     private Integer cooperation = 0;
     private Integer numberOfInteractions = 0;
-    public Map<String, Integer> traitsThresholds = new HashMap<>();
 
     private List<CoinType> traitsV2 = new ArrayList<>();
 
@@ -54,10 +53,6 @@ public class PersonalityContainer
         return cooperation;
     }
 
-    public Map<String, Integer> getTraitsThresholds()
-    {
-        return traitsThresholds;
-    }
 
     public List<CoinType> getTraitsV2()
     {

@@ -27,11 +27,6 @@ import static Core.Configs.Config.DISCUSSION_WIDTH;
 import static Core.Configs.Config.PERSONALITY_HEIGHT;
 import static Core.Configs.Config.PERSONALITY_POSITION;
 import static Core.Configs.Config.PERSONALITY_WIDTH;
-import static Core.Configs.Config.THRESHOLD_DECISION;
-import static Core.Configs.Config.THRESHOLD_FOCUS;
-import static Core.Configs.Config.THRESHOLD_LIFESTYLE;
-import static Core.Configs.Config.THRESHOLD_MOTIVATION;
-import static Core.Configs.Config.THRESHOLD_PERSONALITY;
 import static Core.Configs.Config.TIME_BETWEEN_DIALOGUE;
 
 public class PersonalityScreenController
@@ -42,7 +37,7 @@ With increasing cooperation value you find trais of the person, some traits are 
   Boost cooperation value with presents or actions
    */
 
-    private static final String CLASSNAME = "PersonalityScreenController ";
+    private static final String CLASSNAME = "PersonalityScreenController/";
     private static final String BACK_BUTTON_ID = "back";
     private static final int WIDTH = PERSONALITY_WIDTH;
     private static final int HEIGHT = PERSONALITY_HEIGHT;
@@ -66,8 +61,7 @@ With increasing cooperation value you find trais of the person, some traits are 
     Rectangle2D rhetoric_Button = new Rectangle2D(rhetoric_x, rhetoric_y, rhetoric_width, rhetoric_height);
 
     //Other Person Traits
-    private List<String> personalityList = new ArrayList<>();
-    private List<CoinType> personalityListV2 = new ArrayList<>();
+    private List<CoinType> personalityList = new ArrayList<>();
     int initTraitsOffsetX = 350;
     int initTraitsOffsetY = 100;
     int traitsYGap = 15;
@@ -96,31 +90,8 @@ With increasing cooperation value you find trais of the person, some traits are 
         personalityContainer.getTraitsV2().forEach(trait -> {
             //TODO knowledge based add
             if (personalityContainer.getCooperation() >= trait.getCooperationVisibilityThreshold())
-                personalityListV2.add(trait);
+                personalityList.add(trait);
         });
-
-        /*
-        personalityList.clear();
-        if (personalityContainer.getCooperation() >= THRESHOLD_PERSONALITY)
-            personalityList.add(personalityContainer.myersBriggsPersonality.toString());
-        else
-            personalityList.add("Unknown");
-        if (personalityContainer.getCooperation() >= THRESHOLD_MOTIVATION)
-            personalityList.add(personalityContainer.getMotivation().toString());
-        else
-            personalityList.add("Unknown");
-        if (personalityContainer.getCooperation() >= THRESHOLD_DECISION)
-            personalityList.add(personalityContainer.getDecision().toString());
-        else
-            personalityList.add("Unknown");
-        if (personalityContainer.getCooperation() >= THRESHOLD_FOCUS)
-            personalityList.add(personalityContainer.getFocus().toString());
-        else
-            personalityList.add("Unknown");
-        if (personalityContainer.getCooperation() >= THRESHOLD_LIFESTYLE)
-            personalityList.add(personalityContainer.getLifestyle().toString());
-        else
-            personalityList.add("Unknown");*/
     }
 
     private void draw() throws NullPointerException
@@ -152,29 +123,14 @@ With increasing cooperation value you find trais of the person, some traits are 
         if (highlightedElement == interfaceElements_list.indexOf(BACK_BUTTON_ID))
             graphicsContext.fillRect(rhetoric_Button.getMinX(), rhetoric_Button.getMinY(), rhetoric_Button.getWidth(), rhetoric_Button.getHeight());
         graphicsContext.setFill(font);
-        graphicsContext.fillText("Back", rhetoric_Button.getMinX() + 20, rhetoric_Button.getMinY() + rhetoric_Button.getHeight()/2);
+        graphicsContext.fillText("Back", rhetoric_Button.getMinX() + 20, rhetoric_Button.getMinY() + rhetoric_Button.getHeight() / 2);
 
         //Other Person Known Traits
         int traitsOffsetX = initTraitsOffsetX;
         int traitsOffsetY = initTraitsOffsetY;
         graphicsContext.setFont(traitsFont);
-        /*for (int lineIdx = 0; lineIdx < personalityList.size(); lineIdx++)
-        {
-            String characteristic = personalityList.get(lineIdx);
-            Image coinImage = CharacterCoin.findImage(characteristic);
-            graphicsContext.setFill(font);
-            graphicsContext.fillText(
-                    characteristic,
-                    Math.round(traitsOffsetX + coinImage.getWidth() + 20),
-                    Math.round(traitsOffsetY + coinImage.getHeight() / 2)
-            );
-            graphicsContext.drawImage(coinImage, traitsOffsetX, traitsOffsetY);
-            traitsOffsetY += coinImage.getHeight() + traitsYGap;
-        }
-
-         */
-        for (int lineIdx = 0; lineIdx < personalityListV2.size(); lineIdx++) {
-            CoinType coinType = personalityListV2.get(lineIdx);
+        for (int lineIdx = 0; lineIdx < personalityList.size(); lineIdx++) {
+            CoinType coinType = personalityList.get(lineIdx);
             Image coinImage = CharacterCoin.findImage(coinType.getName());
             graphicsContext.setFill(font);
             graphicsContext.fillText(

@@ -2,6 +2,7 @@ package Core.Menus.DiscussionGame;
 
 import Core.Actor;
 import Core.GameWindow;
+import Core.Menus.Personality.MachineTrait;
 import Core.Menus.Personality.PersonalityContainer;
 import Core.Utilities;
 import Core.WorldView.WorldView;
@@ -29,6 +30,7 @@ import java.util.Map;
 
 import static Core.Configs.Config.*;
 import static Core.Menus.DiscussionGame.CharacterCoinBuff.BUFF_DOUBLE_REWARD;
+import static Core.Menus.Personality.MachineTrait.*;
 import static Core.Menus.Personality.PersonalityTrait.*;
 import static Core.Utilities.doCircleOverlap;
 
@@ -57,6 +59,7 @@ public class DiscussionGame
     private int focusResult;
     private int decisionResult;
     private int lifestyleResult;
+    private int machineCompute;
     private static Circle mouseClickSpace = new Circle(WIDTH / 2f, HEIGHT / 2f, 15);
     private static Map<String, CharacterCoinBuff> activeBuffs = new HashMap<>();
     private int winThreshold = DISCUSSION_DEFAULT_THRESHOLD_WIN;
@@ -153,6 +156,9 @@ public class DiscussionGame
             Integer feeling = clickedCoins.get(FEELING) == null ? 0 : clickedCoins.get(FEELING);
             Integer judging = clickedCoins.get(JUDGING) == null ? 0 : clickedCoins.get(JUDGING);
             Integer perceiving = clickedCoins.get(PERCEIVING) == null ? 0 : clickedCoins.get(PERCEIVING);
+            Integer machineComputeLocal = clickedCoins.get(COMPUTE_LOCAL) == null ? 0 : clickedCoins.get(COMPUTE_LOCAL);
+            Integer machineComputeCloud = clickedCoins.get(COMPUTE_CLOUD) == null ? 0 : clickedCoins.get(COMPUTE_CLOUD);
+            Integer machineComputeVirtual = clickedCoins.get(COMPUTE_VIRTUAL) == null ? 0 : clickedCoins.get(COMPUTE_VIRTUAL);
 
             //Sum coins against traits
             motivationResult = 0;
@@ -167,8 +173,12 @@ public class DiscussionGame
             lifestyleResult = 0;
             lifestyleResult += personality.getTraitsV2().contains(PERCEIVING) ? perceiving : -perceiving;
             lifestyleResult += personality.getTraitsV2().contains(JUDGING) ? judging : -judging;
+            machineCompute = 0;
+            machineCompute += personality.getTraitsV2().contains(COMPUTE_LOCAL) ? machineComputeLocal : -machineComputeLocal;
+            machineCompute += personality.getTraitsV2().contains(COMPUTE_CLOUD) ? machineComputeCloud : -machineComputeCloud;
+            machineCompute += personality.getTraitsV2().contains(COMPUTE_VIRTUAL) ? machineComputeVirtual : -machineComputeVirtual;
 
-            totalResult = motivationResult + focusResult + decisionResult + lifestyleResult;
+            totalResult = motivationResult + focusResult + decisionResult + lifestyleResult + machineCompute;
             isFinished = true;
         }
     }
