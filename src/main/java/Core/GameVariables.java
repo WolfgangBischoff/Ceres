@@ -1,13 +1,11 @@
 package Core;
 
 import Core.Configs.GenericVariablesManager;
+import Core.Enums.Knowledge;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static Core.Configs.Config.INIT_HEALTH;
 import static Core.Configs.Config.INIT_HUNGER;
@@ -22,6 +20,7 @@ public class GameVariables
     static private IntegerProperty playerMoney = new SimpleIntegerProperty(INIT_MONEY);
     static IntegerProperty playerMaM_duringDay = new SimpleIntegerProperty();
     static IntegerProperty playerHunger = new SimpleIntegerProperty(INIT_HUNGER);
+    static private Set<Knowledge> playerKnowledge = new HashSet<>();
     static Integer lastTimeHungerFromTime;
     static Integer health = INIT_HEALTH;
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
@@ -239,5 +238,15 @@ public class GameVariables
     public static GenericVariablesManager getGenericVariableManager()
     {
         return booleanWorldVariables;
+    }
+
+    public static Set<Knowledge> getPlayerKnowledge()
+    {
+        return playerKnowledge;
+    }
+
+    public static void setPlayerKnowledge(Set<Knowledge> playerKnowledge)
+    {
+        GameVariables.playerKnowledge = playerKnowledge;
     }
 }

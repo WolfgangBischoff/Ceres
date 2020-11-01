@@ -1,6 +1,7 @@
 package Core.Menus.Textbox;
 
 import Core.*;
+import Core.Enums.Knowledge;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.Personality.PersonalityScreenController;
@@ -177,20 +178,17 @@ public class Textbox
                     readDialogue.addOption(defeat_ATTRIBUTE, defeatNextMsg);
                     WorldView.setDiscussionGame(new DiscussionGame(discussionGameName, actorOfDialogue));
                 }
-                else if (dialogueType.equals(levelchange_TYPE_ATTRIBUTE))
-                {
-                    String levelname = currentDialogue.getAttribute(level_ATTRIBUTE);
-                    String spawnId = currentDialogue.getAttribute(spawnID_ATTRIBUTE);
+                else if (dialogueType.equals(levelchange_TYPE_ATTRIBUTE)) {
+                    String levelname = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL);
+                    String spawnId = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID);
                     WorldView.getSingleton().saveStage();
                     WorldView.getSingleton().loadStage(levelname, spawnId);
                 }
-                else if (dialogueType.equals(dayChange_TYPE_ATTRIBUTE))
-                {
+                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_DAY_CHANGE)) {
                     WorldViewController.setWorldViewStatus(WorldViewStatus.DAY_SUMMARY);
                     DaySummaryScreenController.newDay();
                 }
-                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_BOOLEAN))
-                {
+                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_BOOLEAN)) {
                     // Boolean var = GameVariables.getBooleanWorldVariables().get(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
                     String var = GameVariables.getGenericVariableManager().getValue(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
                     if (var == null)
@@ -225,6 +223,11 @@ public class Textbox
                                 , currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_NAME)
                                 , currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_STATUS));
                         WorldView.getPlayer().getActor().getInventory().addItem(collectible);
+                    }
+                    if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE)) {
+                        Knowledge knowledge = Knowledge.of(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE));
+                        GameVariables.getPlayerKnowledge().add(knowledge);
+                        System.out.println(CLASSNAME + methodName + GameVariables.getPlayerKnowledge());
                     }
                 }
 
@@ -488,16 +491,13 @@ public class Textbox
             WorldViewController.setWorldViewStatus(WorldViewStatus.DISCUSSION_GAME);
             lineSplitMessage = wrapText("Discussion ongoing");
         }
-        else if (readDialogue.type.equals(levelchange_TYPE_ATTRIBUTE))
-        {
+        else if (readDialogue.type.equals(levelchange_TYPE_ATTRIBUTE)) {
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
             lineSplitMessage = wrapText("technical");
         }
-        else if (readDialogue.type.equals(dayChange_TYPE_ATTRIBUTE))
-        {
+        else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_DAY_CHANGE)) {
         }
-        else
-        {
+        else {
             String nextMessage = readDialogue.messages.get(messageIdx);
             lineSplitMessage = wrapText(nextMessage);
         }

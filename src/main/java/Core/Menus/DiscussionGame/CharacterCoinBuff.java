@@ -1,5 +1,7 @@
 package Core.Menus.DiscussionGame;
 
+import Core.Enums.Knowledge;
+
 public enum CharacterCoinBuff implements CoinType
 {
     BUFF_SLOWED("buff_slowed"), BUFF_DOUBLE_REWARD("buff_double_reward");//, PROTECTED, NO_CLICK, HARD_CLICK; //multiple clicks per coin?!
@@ -26,13 +28,13 @@ public enum CharacterCoinBuff implements CoinType
     }
 
     @Override
-    public String getKnowledgeVisibility()
+    public Knowledge getKnowledgeVisibility()
     {
         return null;
     }
 
     @Override
-    public void setKnowledgeVisibility(String visibilityKnowledge)
+    public void setKnowledgeVisibility(Knowledge visibilityKnowledge)
     {
 
     }

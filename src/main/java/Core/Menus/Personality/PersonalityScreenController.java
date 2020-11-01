@@ -1,6 +1,7 @@
 package Core.Menus.Personality;
 
 import Core.Actor;
+import Core.GameVariables;
 import Core.GameWindow;
 import Core.Menus.DiscussionGame.CharacterCoin;
 import Core.Menus.DiscussionGame.CoinType;
@@ -87,9 +88,11 @@ With increasing cooperation value you find trais of the person, some traits are 
 
     private void updateVisiblePersonality()
     {
-        personalityContainer.getTraitsV2().forEach(trait -> {
-            //TODO knowledge based add
-            if (personalityContainer.getCooperation() >= trait.getCooperationVisibilityThreshold())
+        personalityContainer.getTraits().forEach(trait -> {
+            if (personalityContainer.getCooperation() >= trait.getCooperationVisibilityThreshold()
+                    && trait.getCooperationVisibilityThreshold() >= 0
+                    || GameVariables.getPlayerKnowledge().contains(trait.getKnowledgeVisibility())
+            )
                 personalityList.add(trait);
         });
     }

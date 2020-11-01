@@ -50,12 +50,10 @@ public class CharacterCoin
             time_max = Integer.parseInt(xmlNode.getAttribute(COIN_ATTRIBUTE_MAX_TIME));
 
 
-        if (movementType.equals(COIN_BEHAVIOR_MOVING))
-        {
+        if (movementType.equals(COIN_BEHAVIOR_MOVING)) {
             angle = Integer.parseInt(xmlNode.getAttribute(COIN_TAG_ANGLE));
         }
-        else if (movementType.equals(COIN_BEHAVIOR_CIRCLE) || movementType.equals(COIN_BEHAVIOR_SPIRAL))
-        {
+        else if (movementType.equals(COIN_BEHAVIOR_CIRCLE) || movementType.equals(COIN_BEHAVIOR_SPIRAL)) {
             Double centrumX = Double.parseDouble(xmlNode.getAttribute("centrumx"));
             Double centrumY = Double.parseDouble(xmlNode.getAttribute("centrumy"));
             Double startangle = Double.parseDouble(xmlNode.getAttribute("startangle"));
@@ -71,8 +69,7 @@ public class CharacterCoin
 
     public static Image findImage(String characteristicOrTrait)
     {
-        switch (characteristicOrTrait.toLowerCase())
-        {
+        switch (characteristicOrTrait.toLowerCase()) {
             case "introversion":
                 return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/introvert.png");
             case "extroversion":
@@ -96,6 +93,13 @@ public class CharacterCoin
                 return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_compute_cloud.png");
             case "virtualized computation":
                 return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_compute_container.png");
+            case "debugger":
+                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_management_debug.png");
+            case "logging":
+                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_management_logging.png");
+            case "monitoring":
+                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_management_monitoring.png");
+
 
             case "buff_slowed":
                 return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/buff_slowed.png");
@@ -134,10 +138,8 @@ public class CharacterCoin
         else
             buffSpeedFactor = 1;
 
-        switch (movementType)
-        {
-            case COIN_BEHAVIOR_MOVING:
-            {
+        switch (movementType) {
+            case COIN_BEHAVIOR_MOVING: {
                 //tan(a) = Gegenkathete / Ankathete
                 //sin(a) = Gegenkathete / Hypotenuse
                 //cos(a) = Ankathete    / Hypotenuse
@@ -159,8 +161,7 @@ public class CharacterCoin
                 deltaY = -speed * buffSpeedFactor;
                 break;
             case COIN_BEHAVIOR_CIRCLE:
-            case COIN_BEHAVIOR_SPIRAL:
-            {
+            case COIN_BEHAVIOR_SPIRAL: {
                 double angle = genericVariables.get("startangle");
                 double radius = genericVariables.get("radius");
                 double centrumX = genericVariables.get("centrumx");

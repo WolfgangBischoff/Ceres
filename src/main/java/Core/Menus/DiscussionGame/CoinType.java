@@ -1,5 +1,7 @@
 package Core.Menus.DiscussionGame;
 
+import Core.Enums.Knowledge;
+
 import static Core.Menus.DiscussionGame.CharacterCoinBuff.*;
 import static Core.Menus.Personality.MachineTrait.*;
 import static Core.Menus.Personality.PersonalityTrait.*;
@@ -10,42 +12,48 @@ public interface CoinType
 
     void setCooperationVisibilityThreshold(int threshold);
 
-    String getKnowledgeVisibility();
+    Knowledge getKnowledgeVisibility();
 
-    void setKnowledgeVisibility(String knowledge);
+    void setKnowledgeVisibility(Knowledge knowledge);
 
     String getName();
 
     static CoinType of(String type)
     {
-        switch (type.toLowerCase()) {
-            case "introversion":
+        switch (type.toUpperCase()) {
+            case "INTROVERSION":
                 return INTROVERSION;
-            case "extroversion":
+            case "EXTROVERSION":
                 return EXTROVERSION;
-            case "sensing":
+            case "SENSING":
                 return SENSING;
-            case "intuition":
+            case "INTUITION":
                 return INTUITION;
-            case "thinking":
+            case "THINKING":
                 return THINKING;
-            case "feeling":
+            case "FEELING":
                 return FEELING;
-            case "judging":
+            case "JUDGING":
                 return JUDGING;
-            case "perceiving":
+            case "PERCEIVING":
                 return PERCEIVING;
 
-            case "compute_local":
+            case "COMPUTE_LOCAL":
                 return COMPUTE_LOCAL;
-            case "compute_cloud":
+            case "COMPUTE_CLOUD":
                 return COMPUTE_CLOUD;
-            case "compute_virtual":
+            case "COMPUTE_VIRTUAL":
                 return COMPUTE_VIRTUAL;
+            case "MANAGEMENT_DEBUG":
+                return MANAGEMENT_DEBUG;
+            case "MANAGEMENT_LOGGING":
+                return MANAGEMENT_LOGGING;
+            case "MANAGEMENT_MONITORING":
+                return MANAGEMENT_MONITORING;
 
-            case "buff_slowed":
+            case "BUFF_SLOWED":
                 return BUFF_SLOWED;
-            case "buff_double_reward":
+            case "BUFF_DOUBLE_REWARD":
                 return BUFF_DOUBLE_REWARD;
             default:
                 throw new RuntimeException("CoinType unknown: " + type);

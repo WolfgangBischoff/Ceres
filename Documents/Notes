@@ -8,9 +8,11 @@
     - Coin Game
         - better explanation from trader
         - decoration, background
-        - add machine traits and game
         - possible coordinates should be more clear
         - new buff: create moving coins
+        - add air system manual, tipp from collegue, open machine
+        - show unknown traits
+        - add info box if new trait is visible
     - check higher resolution and zoom, fix not centered overlay
     - add attentionmark over sprites
     - change night dynamically

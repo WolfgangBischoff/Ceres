@@ -54,7 +54,7 @@ public class PersonalityContainer
     }
 
 
-    public List<CoinType> getTraitsV2()
+    public List<CoinType> getTraits()
     {
         return traitsV2;
     }

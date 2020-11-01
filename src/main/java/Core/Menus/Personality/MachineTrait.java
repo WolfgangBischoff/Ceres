@@ -1,13 +1,15 @@
 package Core.Menus.Personality;
 
+import Core.Enums.Knowledge;
 import Core.Menus.DiscussionGame.CoinType;
 
 public enum MachineTrait implements CoinType
 {
-    COMPUTE_LOCAL("Local Computation"), COMPUTE_CLOUD("Cloud Computation"), COMPUTE_VIRTUAL("Virtualized Computation");
+    COMPUTE_LOCAL("Local Computation"), COMPUTE_CLOUD("Cloud Computation"), COMPUTE_VIRTUAL("Virtualized Computation"),
+    MANAGEMENT_DEBUG("Debugger"), MANAGEMENT_LOGGING("Logging"), MANAGEMENT_MONITORING("Monitoring");
 
     int visibilityThreshold = 0;
-    String visibilityKnowledge = "none";
+    Knowledge visibilityKnowledge = null;
     String name;
 
     MachineTrait(String name)
@@ -28,13 +30,13 @@ public enum MachineTrait implements CoinType
     }
 
     @Override
-    public String getKnowledgeVisibility()
+    public Knowledge getKnowledgeVisibility()
     {
         return visibilityKnowledge;
     }
 
     @Override
-    public void setKnowledgeVisibility(String visibilityKnowledge)
+    public void setKnowledgeVisibility(Knowledge visibilityKnowledge)
     {
         this.visibilityKnowledge = visibilityKnowledge;
     }

@@ -7,7 +7,6 @@ import Core.Enums.*;
 import Core.Menus.DiscussionGame.CoinType;
 import Core.Menus.Inventory.Inventory;
 import Core.Menus.Inventory.InventoryController;
-import Core.Menus.Personality.MyersBriggsPersonality;
 import Core.Menus.Personality.PersonalityContainer;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
@@ -180,7 +179,7 @@ public class Actor
                 conditions.add(readCondition(linedata));
                 break;
             case ACTOR_PERSONALITY_V2:
-                personalityContainer = readPersonalityV2(linedata);
+                personalityContainer = readPersonality(linedata);
                 break;
             case KEYWORD_suspicious_value:
                 numeric_generic_attributes.put(linedata[0], Double.parseDouble(linedata[1]));
@@ -192,9 +191,9 @@ public class Actor
         return true;
     }
 
-    private PersonalityContainer readPersonalityV2(String[] linedata)
+    private PersonalityContainer readPersonality(String[] linedata)
     {
-        String methodName = "readPersonalityV2() ";
+        String methodName = "readPersonality() ";
         boolean debug = false;
         if (debug)
             System.out.println(CLASSNAME + methodName + Arrays.toString(linedata));
@@ -206,11 +205,13 @@ public class Actor
         for (int i = firstTraitIdx; i < linedata.length; i++) {
             String[] traitData = linedata[i].split(",");
             CoinType coinType = CoinType.of(traitData[0]);
-            Integer cooperationThreshold = Integer.parseInt(traitData[1]);
+            Integer cooperationThreshold = -1;
+            if (Utilities.tryParseInt(traitData[1]))
+                cooperationThreshold = Integer.parseInt(traitData[1]);
             String knowledge = traitData[2];
             coinType.setCooperationVisibilityThreshold(cooperationThreshold);
-            coinType.setKnowledgeVisibility(knowledge);
-            readContainer.getTraitsV2().add(coinType);
+            coinType.setKnowledgeVisibility(Knowledge.of(knowledge));
+            readContainer.getTraits().add(coinType);
         }
 
         if (debug)

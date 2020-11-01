@@ -32,5 +32,28 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             maxTime="6"
     />
 
+    <coin
+            characteristic="MANAGEMENT_DEBUG"
+            x="400"
+            y="400"
+            time="0"
+            maxTime="6"
+    />
+    <coin
+            characteristic="MANAGEMENT_LOGGING"
+            x="300"
+            y="400"
+            time="0"
+            maxTime="6"
+    />
+
+    <coin
+            characteristic="MANAGEMENT_MONITORING"
+            x="500"
+            y="400"
+            time="0"
+            maxTime="6"
+    />
+
 
 </root>

@@ -48,7 +48,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <option>[Leave]</option>
     </dialogue>
 
-    <dialogue id="ERROR_LOG" nextDialogue="REPAIR_OPTION">
+    <dialogue id="ERROR_LOG" nextDialogue="REPAIR_OPTION" knowledge="AIR_SYSTEM_CONTROL_COMPUTE_TRAIT">
         <line>Error 0451: Increased pressure due to pipe system blockage. Initiated emergency shutdown protocol.</line>
     </dialogue>
 

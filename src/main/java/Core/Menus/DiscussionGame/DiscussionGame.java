@@ -2,7 +2,6 @@ package Core.Menus.DiscussionGame;
 
 import Core.Actor;
 import Core.GameWindow;
-import Core.Menus.Personality.MachineTrait;
 import Core.Menus.Personality.PersonalityContainer;
 import Core.Utilities;
 import Core.WorldView.WorldView;
@@ -59,7 +58,7 @@ public class DiscussionGame
     private int focusResult;
     private int decisionResult;
     private int lifestyleResult;
-    private int machineCompute;
+    private int machineCompute, machineManagement;
     private static Circle mouseClickSpace = new Circle(WIDTH / 2f, HEIGHT / 2f, 15);
     private static Map<String, CharacterCoinBuff> activeBuffs = new HashMap<>();
     private int winThreshold = DISCUSSION_DEFAULT_THRESHOLD_WIN;
@@ -159,26 +158,33 @@ public class DiscussionGame
             Integer machineComputeLocal = clickedCoins.get(COMPUTE_LOCAL) == null ? 0 : clickedCoins.get(COMPUTE_LOCAL);
             Integer machineComputeCloud = clickedCoins.get(COMPUTE_CLOUD) == null ? 0 : clickedCoins.get(COMPUTE_CLOUD);
             Integer machineComputeVirtual = clickedCoins.get(COMPUTE_VIRTUAL) == null ? 0 : clickedCoins.get(COMPUTE_VIRTUAL);
+            Integer machineManagementDebug = clickedCoins.get(MANAGEMENT_DEBUG) == null ? 0 : clickedCoins.get(MANAGEMENT_DEBUG);
+            Integer machineManagementLogging = clickedCoins.get(MANAGEMENT_LOGGING) == null ? 0 : clickedCoins.get(MANAGEMENT_LOGGING);
+            Integer machineManagementMonitoring = clickedCoins.get(MANAGEMENT_MONITORING) == null ? 0 : clickedCoins.get(MANAGEMENT_MONITORING);
 
             //Sum coins against traits
             motivationResult = 0;
-            motivationResult += personality.getTraitsV2().contains(EXTROVERSION) ? extroversion : -extroversion;
-            motivationResult += personality.getTraitsV2().contains(INTROVERSION) ? introversion : -introversion;
+            motivationResult += personality.getTraits().contains(EXTROVERSION) ? extroversion : -extroversion;
+            motivationResult += personality.getTraits().contains(INTROVERSION) ? introversion : -introversion;
             focusResult = 0;
-            focusResult += personality.getTraitsV2().contains(SENSING) ? sensing : -sensing;
-            focusResult += personality.getTraitsV2().contains(INTUITION) ? intuition : -intuition;
+            focusResult += personality.getTraits().contains(SENSING) ? sensing : -sensing;
+            focusResult += personality.getTraits().contains(INTUITION) ? intuition : -intuition;
             decisionResult = 0;
-            decisionResult += personality.getTraitsV2().contains(THINKING) ? thinking : -thinking;
-            decisionResult += personality.getTraitsV2().contains(FEELING) ? feeling : -feeling;
+            decisionResult += personality.getTraits().contains(THINKING) ? thinking : -thinking;
+            decisionResult += personality.getTraits().contains(FEELING) ? feeling : -feeling;
             lifestyleResult = 0;
-            lifestyleResult += personality.getTraitsV2().contains(PERCEIVING) ? perceiving : -perceiving;
-            lifestyleResult += personality.getTraitsV2().contains(JUDGING) ? judging : -judging;
+            lifestyleResult += personality.getTraits().contains(PERCEIVING) ? perceiving : -perceiving;
+            lifestyleResult += personality.getTraits().contains(JUDGING) ? judging : -judging;
             machineCompute = 0;
-            machineCompute += personality.getTraitsV2().contains(COMPUTE_LOCAL) ? machineComputeLocal : -machineComputeLocal;
-            machineCompute += personality.getTraitsV2().contains(COMPUTE_CLOUD) ? machineComputeCloud : -machineComputeCloud;
-            machineCompute += personality.getTraitsV2().contains(COMPUTE_VIRTUAL) ? machineComputeVirtual : -machineComputeVirtual;
+            machineCompute += personality.getTraits().contains(COMPUTE_LOCAL) ? machineComputeLocal : -machineComputeLocal;
+            machineCompute += personality.getTraits().contains(COMPUTE_CLOUD) ? machineComputeCloud : -machineComputeCloud;
+            machineCompute += personality.getTraits().contains(COMPUTE_VIRTUAL) ? machineComputeVirtual : -machineComputeVirtual;
+            machineManagement = 0;
+            machineManagement += personality.getTraits().contains(MANAGEMENT_DEBUG) ? machineManagementDebug : -machineManagementDebug;
+            machineManagement += personality.getTraits().contains(MANAGEMENT_LOGGING) ? machineManagementLogging : -machineManagementLogging;
+            machineManagement += personality.getTraits().contains(MANAGEMENT_MONITORING) ? machineManagementMonitoring : -machineManagementMonitoring;
 
-            totalResult = motivationResult + focusResult + decisionResult + lifestyleResult + machineCompute;
+            totalResult = motivationResult + focusResult + decisionResult + lifestyleResult + machineCompute + machineManagement;
             isFinished = true;
         }
     }

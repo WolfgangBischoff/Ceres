@@ -128,9 +128,9 @@ public class Config
     public static final String success_ATTRIBUTE = "success";
     public static final String defeat_ATTRIBUTE = "defeat";
     public static final String levelchange_TYPE_ATTRIBUTE = "levelchange";
-    public static final String level_ATTRIBUTE = "level";
-    public static final String spawnID_ATTRIBUTE = "spawnID";
-    public static final String dayChange_TYPE_ATTRIBUTE = "dayChange";
+    public static final String TEXTBOX_ATTRIBUTE_LEVEL = "level";
+    public static final String TEXTBOX_ATTRIBUTE_SPAWN_ID = "spawnID";
+    public static final String TEXTBOX_ATTRIBUTE_DAY_CHANGE = "dayChange";
     public static final String TEXTBOX_ATTRIBUTE_GET_MONEY = "getMoney";
     public static final String TEXTBOX_ATTRIBUTE_VALUE = "value";
     public static final String TEXTBOX_ATTRIBUTE_BOOLEAN = "boolean";
@@ -140,6 +140,7 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_TRUE = "true";
     public static final String TEXTBOX_ATTRIBUTE_FALSE = "false";
     public static final String TEXTBOX_ATTRIBUTE_BUMP = "bump";
+    public static final String TEXTBOX_ATTRIBUTE_KNOWLEDGE = "knowledge";
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";

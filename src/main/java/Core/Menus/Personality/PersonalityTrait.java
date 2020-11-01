@@ -1,5 +1,6 @@
 package Core.Menus.Personality;
 
+import Core.Enums.Knowledge;
 import Core.Menus.DiscussionGame.CoinType;
 
 public enum PersonalityTrait implements CoinType
@@ -9,7 +10,7 @@ public enum PersonalityTrait implements CoinType
     INTROVERSION("Introversion"), EXTROVERSION("Extroversion"), SENSING("Sensing"), INTUITION("Intuition"), THINKING("Thinking"), FEELING("Feeling"), JUDGING("Judging"), PERCEIVING("Perceiving");
 
     int visibilityThreshold = 0;
-    String visibilityKnowledge = "none";
+    Knowledge visibilityKnowledge = null;
     String name;
 
     PersonalityTrait(String name)
@@ -30,13 +31,13 @@ public enum PersonalityTrait implements CoinType
     }
 
     @Override
-    public String getKnowledgeVisibility()
+    public Knowledge getKnowledgeVisibility()
     {
         return visibilityKnowledge;
     }
 
     @Override
-    public void setKnowledgeVisibility(String visibilityKnowledge)
+    public void setKnowledgeVisibility(Knowledge visibilityKnowledge)
     {
         this.visibilityKnowledge = visibilityKnowledge;
     }

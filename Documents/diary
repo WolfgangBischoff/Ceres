@@ -72,3 +72,4 @@
 29 10 20    - reworked Coin movement
             - added buff_double_reward, win threshold calculation
 01 11 20    - reworked personality traits
+            - added machine traits and game
