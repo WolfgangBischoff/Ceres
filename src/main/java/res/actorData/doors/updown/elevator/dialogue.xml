@@ -36,7 +36,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
 
     <dialogue id="INIT-toFreightDeck" type="decision">
-        <option nextDialogue="DECISION-toFreightDeck">[Freight Deck]</option>
+        <option nextDialogue="DECISION-toFreightDeck">[Control Deck]</option>
         <option>[Back]</option>
     </dialogue>
 
