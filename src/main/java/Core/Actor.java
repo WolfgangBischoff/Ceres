@@ -4,6 +4,7 @@ package Core;
 import Core.ActorSystem.ActorMonitor;
 import Core.Configs.Config;
 import Core.Enums.*;
+import Core.Menus.DiscussionGame.CoinType;
 import Core.Menus.Inventory.Inventory;
 import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Personality.MyersBriggsPersonality;
@@ -13,7 +14,6 @@ import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 import java.nio.file.Files;
@@ -89,8 +89,9 @@ public class Actor
             actorDefinitionKeywords.add(KEYWORD_sensorStatus);
             actorDefinitionKeywords.add(KEYWORD_actor_tags);
             actorDefinitionKeywords.add(KEYWORD_condition);
-            actorDefinitionKeywords.add(KEYWORD_personality);
+            //actorDefinitionKeywords.add(KEYWORD_personality);
             actorDefinitionKeywords.add(KEYWORD_suspicious_value);
+            actorDefinitionKeywords.add(ACTOR_PERSONALITY_V2);
         }
 
 
@@ -166,9 +167,6 @@ public class Actor
                 getNumeric_generic_attributes().put("base_value", Double.parseDouble(linedata[2]));
                 break;
             case CONTAINS_COLLECTIBLE_KEYWORD:
-                //Actor collectibleActor = new Actor(linedata[1], linedata[2], linedata[3], "default", Direction.UNDEFINED);
-                //Collectible collectible = new Collectible(linedata[2], CollectableType.getType(collectibleActor.collectable_type), collectibleActor.actorInGameName, (collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
-                //collectible.image = new Image(IMAGE_DIRECTORY_PATH + collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).spriteName + PNG_POSTFIX);
                 Collectible collectible = Collectible.createCollectible(linedata[1], linedata[2], linedata[3]);
                 inventory.addItem(collectible);
                 break;
@@ -181,8 +179,11 @@ public class Actor
             case KEYWORD_condition:
                 conditions.add(readCondition(linedata));
                 break;
-            case KEYWORD_personality:
-                personalityContainer = readPersonality(linedata);
+            //case KEYWORD_personality:
+            //    personalityContainer = readPersonalityV1(linedata);
+            //    break;
+            case ACTOR_PERSONALITY_V2:
+                personalityContainer = readPersonalityV2(linedata);
                 break;
             case KEYWORD_suspicious_value:
                 numeric_generic_attributes.put(linedata[0], Double.parseDouble(linedata[1]));
@@ -194,7 +195,33 @@ public class Actor
         return true;
     }
 
-    private PersonalityContainer readPersonality(String[] linedata)
+    private PersonalityContainer readPersonalityV2(String[] linedata)
+    {
+        String methodName = "readPersonalityV2() ";
+        boolean debug = true;
+        //if (debug)
+        //    System.out.println(CLASSNAME + methodName + Arrays.toString(linedata));
+
+        PersonalityContainer readContainer = new PersonalityContainer();
+        int initCooperationValue = Integer.parseInt(linedata[1]);
+        readContainer.increaseCooperation(initCooperationValue);
+        int firstTraitIdx = 2;
+        for (int i = firstTraitIdx; i < linedata.length; i++) {
+            String[] traitData = linedata[i].split(",");
+            CoinType coinType = CoinType.of(traitData[0]);
+            Integer cooperationThreshold = Integer.parseInt(traitData[1]);
+            String knowledge = traitData[2];
+            coinType.setCooperationVisibilityThreshold(cooperationThreshold);
+            coinType.setKnowledgeVisibility(knowledge);
+            readContainer.getTraitsV2().add(coinType);
+        }
+
+        if (debug)
+            System.out.println(CLASSNAME + methodName + readContainer);
+        return readContainer;
+    }
+
+    private PersonalityContainer readPersonalityV1(String[] linedata)
     {
         String methodName = "readPersonality() ";
         boolean debug = false;
@@ -211,8 +238,7 @@ public class Actor
         readContainer.myersBriggsPersonality = myersBriggsPersonality;
         readContainer.increaseCooperation(initCooperationValue);
         //readContainer.cooperation = initCooperationValue;
-        for (int i = trait_threshold_paramsIdx; i < linedata.length; i += 2)
-        {
+        for (int i = trait_threshold_paramsIdx; i < linedata.length; i += 2) {
             Integer threshold = Integer.parseInt(linedata[i + 1]);
             readContainer.traitsThresholds.put(linedata[i], threshold);
         }

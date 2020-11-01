@@ -156,17 +156,17 @@ public class DiscussionGame
 
             //Sum coins against traits
             motivationResult = 0;
-            motivationResult += personality.getMotivation() == EXTROVERSION ? extroversion : -extroversion;
-            motivationResult += personality.getMotivation() == INTROVERSION ? introversion : -introversion;
+            motivationResult += personality.getTraitsV2().contains(EXTROVERSION) ? extroversion : -extroversion;
+            motivationResult += personality.getTraitsV2().contains(INTROVERSION) ? introversion : -introversion;
             focusResult = 0;
-            focusResult += personality.getFocus() == SENSING ? sensing : -sensing;
-            focusResult += personality.getFocus() == INTUITION ? intuition : -intuition;
+            focusResult += personality.getTraitsV2().contains(SENSING) ? sensing : -sensing;
+            focusResult += personality.getTraitsV2().contains(INTUITION) ? intuition : -intuition;
             decisionResult = 0;
-            decisionResult += personality.getDecision() == THINKING ? thinking : -thinking;
-            decisionResult += personality.getDecision() == FEELING ? feeling : -feeling;
+            decisionResult += personality.getTraitsV2().contains(THINKING) ? thinking : -thinking;
+            decisionResult += personality.getTraitsV2().contains(FEELING) ? feeling : -feeling;
             lifestyleResult = 0;
-            lifestyleResult += personality.getLifestyle() == PERCEIVING ? perceiving : -perceiving;
-            lifestyleResult += personality.getLifestyle() == JUDGING ? judging : -judging;
+            lifestyleResult += personality.getTraitsV2().contains(PERCEIVING) ? perceiving : -perceiving;
+            lifestyleResult += personality.getTraitsV2().contains(JUDGING) ? judging : -judging;
 
             totalResult = motivationResult + focusResult + decisionResult + lifestyleResult;
             isFinished = true;
@@ -210,12 +210,9 @@ public class DiscussionGame
             graphicsContext.setFill(font);
             graphicsContext.setTextAlign(TextAlignment.CENTER);
             graphicsContext.setTextBaseline(VPos.CENTER);
-
-
-            String text = "You got motivation" + motivationResult + " focus: " + focusResult + " decision: " + decisionResult + " lifestyle: " + lifestyleResult + " Total: " + totalResult
+            String text = "You got motivation: " + motivationResult + " focus: " + focusResult + " \ndecision: " + decisionResult + " lifestyle: " + lifestyleResult + " \nTotal: " + totalResult
                     + "\n MaxPossiblePoints: " + maxPossiblePoints + " WinThreshold: " + winThreshold;
             graphicsContext.fillText(text, WIDTH / 2.0, HEIGHT / 2.0);
-            //graphicsContext.fillText("Finished!", DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 10);
             if (totalResult >= winThreshold)
                 graphicsContext.fillText("Convinced!", WIDTH / 2.0, HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 40);
             else

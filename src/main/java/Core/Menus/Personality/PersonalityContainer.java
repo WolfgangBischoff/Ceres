@@ -1,8 +1,11 @@
 package Core.Menus.Personality;
 
+import Core.Menus.DiscussionGame.CharacterCoin;
 import Core.Menus.DiscussionGame.CoinType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static Core.Menus.Personality.PersonalityTrait.*;
@@ -15,54 +18,17 @@ public class PersonalityContainer
     private Integer numberOfInteractions = 0;
     public Map<String, Integer> traitsThresholds = new HashMap<>();
 
+    private List<CoinType> traitsV2 = new ArrayList<>();
+
     @Override
     public String toString()
     {
-        return "PersonalityContainer{" +
-                "myersBriggsPersonality=" + myersBriggsPersonality +
-                ", cooperation=" + cooperation +
-                ", traitsThresholds=" + traitsThresholds +
-                '}';
+        return "PersonalityContainer: " + traitsV2.toString();
     }
 
     public boolean isPersonalityMatch(CoinType trait)
     {
-        if (trait instanceof PersonalityTrait)
-            return myersBriggsPersonality.hasTrait((PersonalityTrait) trait);
-        else
-            return false;
-    }
-
-    public PersonalityTrait getMotivation()
-    {
-        if (myersBriggsPersonality.motivation == EXTROVERSION)
-            return EXTROVERSION;
-        else
-            return INTROVERSION;
-    }
-
-    public PersonalityTrait getFocus()
-    {
-        if (myersBriggsPersonality.focus == PersonalityTrait.SENSING)
-            return SENSING;
-        else
-            return INTUITION;
-    }
-
-    public PersonalityTrait getDecision()
-    {
-        if (myersBriggsPersonality.decision == PersonalityTrait.THINKING)
-            return THINKING;
-        else
-            return FEELING;
-    }
-
-    public PersonalityTrait getLifestyle()
-    {
-        if (myersBriggsPersonality.lifestyle == PersonalityTrait.JUDGING)
-            return JUDGING;
-        else
-            return PERCEIVING;
+        return traitsV2.contains(trait);
     }
 
     public void increaseCooperation(Integer addition)
@@ -91,5 +57,15 @@ public class PersonalityContainer
     public Map<String, Integer> getTraitsThresholds()
     {
         return traitsThresholds;
+    }
+
+    public List<CoinType> getTraitsV2()
+    {
+        return traitsV2;
+    }
+
+    public void setTraitsV2(List<CoinType> traitsV2)
+    {
+        this.traitsV2 = traitsV2;
     }
 }

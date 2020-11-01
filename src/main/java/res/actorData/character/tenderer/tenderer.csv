@@ -3,16 +3,16 @@
 #transition; fromStatus; toStatus
 #condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
 
-dialogueFile; actorData/character/tenderer/tenderer
-tags; persistent
+dialogueFile   ;actorData/character/tenderer/tenderer
+tags           ;persistent
 
 #sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
-sensorStatus	;default																			;textbox																		;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+sensorStatus	  ;default																			           ;textbox																		                    ;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													                   ;none																;none 															;none																;none
 
-#personality;myersBriggsPersonality;initCooperation;trait;traitsThresholds;...
-personality	;ENTREPRENEUR										;10												;FROM_EARTH;105	;POOR; 110
+#personality;initCooperation;trait1, trait1-cooperationThreshold,trai1-knowledgeTag; trait2 ...
+personality    ;03                                   ;INTROVERSION,3,none                          ;SENSING,6,none          ;THINKING,9,none         ;PERCEIVING,12,none
 
 #status to image
 #status 			;name   								;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID ;dialogueID																											;unused; unused; unused; unused; unused;duration ;velocity  ;AnimationEnds
-day0-south	;tenderer							;../actorData/character/tenderer/front								;true				;1												;000	;000										;000	;000	;000								;000									;010											;094	 									;044									;025										;none						;day0						 ;actorData/character/tenderer/tenderer;unused; unused; unused; unused; unused;000						;000							;false
-meteorit-south	;tenderer			;../actorData/character/tenderer/front								;true				;1												;000	;000										;000	;000	;000								;000									;010											;094	 									;044									;025										;none						;METEORIT		 ;actorData/character/tenderer/tenderer;unused; unused; unused; unused; unused;000						;000							;false
+day0-south	    ;tenderer							                      ;../actorData/character/tenderer/front								;true				                ;1												           ;000	                   ;000										       ;000	                ;000	                 ;000								        ;000									             ;010											            ;094	 									           ;044									            ;025										      ;none						        ;day0						         ;actorData/character/tenderer/tenderer;unused              ;unused              ;unused              ;unused;unused;000						;000							;false
+meteorit-south	;tenderer			                          ;../actorData/character/tenderer/front								;true				                ;1												           ;000	                   ;000										       ;000	                ;000	                 ;000								        ;000									             ;010											            ;094	 									           ;044									            ;025										      ;none						        ;METEORIT		         ;actorData/character/tenderer/tenderer;unused              ;unused              ;unused              ;unused;unused;000						;000							;false

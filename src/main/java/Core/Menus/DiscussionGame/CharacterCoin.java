@@ -33,14 +33,14 @@ public class CharacterCoin
     public CharacterCoin(Element xmlNode)
     {
         type = CoinType.of(xmlNode.getAttribute("characteristic"));
-        if (xmlNode.hasAttribute(COIN_TAG_INITSPEED))
-        {
+        if (xmlNode.hasAttribute(COIN_TAG_INITSPEED)) {
             initSpeed = Integer.parseInt(xmlNode.getAttribute(COIN_TAG_INITSPEED));
             speed = initSpeed;
         }
         movementType = xmlNode.getAttribute("movementType").toLowerCase();
         time_spawn = Integer.parseInt(xmlNode.getAttribute("time"));
-        image = findImage(type.toString());
+        //image = findImage(type.toString());
+        image = findImage(type.getName());
         int startX = Integer.parseInt(xmlNode.getAttribute("x"));
         int startY = Integer.parseInt(xmlNode.getAttribute("y"));
         collisionRadius = this.image.getWidth() / 2;

@@ -3,6 +3,7 @@ package Core.Menus.Personality;
 import Core.Actor;
 import Core.GameWindow;
 import Core.Menus.DiscussionGame.CharacterCoin;
+import Core.Menus.DiscussionGame.CoinType;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -66,6 +67,7 @@ With increasing cooperation value you find trais of the person, some traits are 
 
     //Other Person Traits
     private List<String> personalityList = new ArrayList<>();
+    private List<CoinType> personalityListV2 = new ArrayList<>();
     int initTraitsOffsetX = 350;
     int initTraitsOffsetY = 100;
     int traitsYGap = 15;
@@ -91,6 +93,13 @@ With increasing cooperation value you find trais of the person, some traits are 
 
     private void updateVisiblePersonality()
     {
+        personalityContainer.getTraitsV2().forEach(trait -> {
+            //TODO knowledge based add
+            if (personalityContainer.getCooperation() >= trait.getCooperationVisibilityThreshold())
+                personalityListV2.add(trait);
+        });
+
+        /*
         personalityList.clear();
         if (personalityContainer.getCooperation() >= THRESHOLD_PERSONALITY)
             personalityList.add(personalityContainer.myersBriggsPersonality.toString());
@@ -111,7 +120,7 @@ With increasing cooperation value you find trais of the person, some traits are 
         if (personalityContainer.getCooperation() >= THRESHOLD_LIFESTYLE)
             personalityList.add(personalityContainer.getLifestyle().toString());
         else
-            personalityList.add("Unknown");
+            personalityList.add("Unknown");*/
     }
 
     private void draw() throws NullPointerException
@@ -149,13 +158,27 @@ With increasing cooperation value you find trais of the person, some traits are 
         int traitsOffsetX = initTraitsOffsetX;
         int traitsOffsetY = initTraitsOffsetY;
         graphicsContext.setFont(traitsFont);
-        for (int lineIdx = 0; lineIdx < personalityList.size(); lineIdx++)
+        /*for (int lineIdx = 0; lineIdx < personalityList.size(); lineIdx++)
         {
             String characteristic = personalityList.get(lineIdx);
             Image coinImage = CharacterCoin.findImage(characteristic);
             graphicsContext.setFill(font);
             graphicsContext.fillText(
                     characteristic,
+                    Math.round(traitsOffsetX + coinImage.getWidth() + 20),
+                    Math.round(traitsOffsetY + coinImage.getHeight() / 2)
+            );
+            graphicsContext.drawImage(coinImage, traitsOffsetX, traitsOffsetY);
+            traitsOffsetY += coinImage.getHeight() + traitsYGap;
+        }
+
+         */
+        for (int lineIdx = 0; lineIdx < personalityListV2.size(); lineIdx++) {
+            CoinType coinType = personalityListV2.get(lineIdx);
+            Image coinImage = CharacterCoin.findImage(coinType.getName());
+            graphicsContext.setFill(font);
+            graphicsContext.fillText(
+                    coinType.getName(),
                     Math.round(traitsOffsetX + coinImage.getWidth() + 20),
                     Math.round(traitsOffsetY + coinImage.getHeight() / 2)
             );

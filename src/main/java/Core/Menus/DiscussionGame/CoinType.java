@@ -5,10 +5,19 @@ import static Core.Menus.Personality.PersonalityTrait.*;
 
 public interface CoinType
 {
+    int getCooperationVisibilityThreshold();
+
+    void setCooperationVisibilityThreshold(int threshold);
+
+    String getKnowledgeVisibility();
+
+    void setKnowledgeVisibility(String knowledge);
+
+    String getName();
+
     static CoinType of(String type)
     {
-        switch (type.toLowerCase())
-        {
+        switch (type.toLowerCase()) {
             case "introversion":
                 return INTROVERSION;
             case "extroversion":
