@@ -3,7 +3,8 @@ package Core.Menus.Textbox;
 import Core.*;
 import Core.Enums.Knowledge;
 import Core.Menus.DaySummary.DaySummaryScreenController;
-import Core.Menus.DiscussionGame.DiscussionGame;
+import Core.Menus.DiscussionGame.CoinArea;
+import Core.Menus.DiscussionGame.CoinGame;
 import Core.Menus.Personality.PersonalityScreenController;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
@@ -36,7 +37,7 @@ public class Textbox
     private static Point2D SCREEN_POSITION = TEXT_BOX_POSITION;
     private static Rectangle2D SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
     Canvas textboxCanvas = new Canvas(WIDTH, HEIGHT);
-    GraphicsContext textboxGc = textboxCanvas.getGraphicsContext2D();
+    GraphicsContext gc = textboxCanvas.getGraphicsContext2D();
     Dialogue readDialogue;
     Element dialogueFileRoot;
     int messageIdx = 0;
@@ -176,7 +177,7 @@ public class Textbox
                     String defeatNextMsg = currentDialogue.getAttribute(defeat_ATTRIBUTE);
                     readDialogue.addOption(success_ATTRIBUTE, successNextMsg);
                     readDialogue.addOption(defeat_ATTRIBUTE, defeatNextMsg);
-                    WorldView.setDiscussionGame(new DiscussionGame(discussionGameName, actorOfDialogue));
+                    WorldView.setDiscussionGame(new CoinGame(discussionGameName, actorOfDialogue));
                 }
                 else if (dialogueType.equals(levelchange_TYPE_ATTRIBUTE)) {
                     String levelname = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL);
@@ -349,17 +350,13 @@ public class Textbox
 
         //Check if hovered on Option
         int offsetYTmp = firstLineOffsetY;
-        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE) && GameWindow.getSingleton().isMouseMoved())
-        {
-            for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++)
-            {
-                Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY() + offsetYTmp, WIDTH, textboxGc.getFont().getSize());
-                offsetYTmp += textboxGc.getFont().getSize();
+        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE) && GameWindow.getSingleton().isMouseMoved()) {
+            for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++) {
+                Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY() + offsetYTmp, WIDTH, gc.getFont().getSize());
+                offsetYTmp += gc.getFont().getSize();
                 //Hovers over Option
-                if (positionOptionRelativeToWorldView.contains(mousePosition))
-                {
-                    if (markedOption != checkedLineIdx)
-                    {
+                if (positionOptionRelativeToWorldView.contains(mousePosition)) {
+                    if (markedOption != checkedLineIdx) {
                         markedOption = checkedLineIdx;
                     }
                     break;
@@ -450,44 +447,40 @@ public class Textbox
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
         Font font_estrog = Font.loadFont(getClass().getResource(FONT_DIRECTORY_PATH + "estrog__.ttf").toExternalForm(), 30);
 
-        textboxGc.clearRect(0, 0, WIDTH, HEIGHT);
+        gc.clearRect(0, 0, WIDTH, HEIGHT);
 
         //testBackground
-        if (debug)
-        {
-            textboxGc.setFill(Color.RED);
-            textboxGc.fillRect(0, 0, WIDTH, HEIGHT);
+        if (debug) {
+            gc.setFill(Color.RED);
+            gc.fillRect(0, 0, WIDTH, HEIGHT);
         }
 
         //Background
-        textboxGc.setFill(background);
-        textboxGc.setGlobalAlpha(0.9);
-        textboxGc.fillRect(backgroundOffsetX, backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetYDecorationTop - backgroundOffsetYTalkIcon - backgroundOffsetYDecorationBtm);
+        gc.setFill(background);
+        gc.setGlobalAlpha(0.9);
+        gc.fillRect(backgroundOffsetX, backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetYDecorationTop - backgroundOffsetYTalkIcon - backgroundOffsetYDecorationBtm);
 
-        textboxGc.setFont(font_estrog);
-        textboxGc.setTextAlign(TextAlignment.LEFT);
-        textboxGc.setTextBaseline(VPos.TOP);
+        gc.setFont(font_estrog);
+        gc.setTextAlign(TextAlignment.LEFT);
+        gc.setTextBaseline(VPos.TOP);
 
-        if (markedOption != null && readDialogue.type.equals(decision_TYPE_ATTRIBUTE))
-        {
-            textboxGc.setFill(marking);
-            textboxGc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * textboxGc.getFont().getSize() + 5, WIDTH - 100, textboxGc.getFont().getSize());
+        if (markedOption != null && readDialogue.type.equals(decision_TYPE_ATTRIBUTE)) {
+            gc.setFill(marking);
+            gc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * gc.getFont().getSize() + 5, WIDTH - 100, gc.getFont().getSize());
         }
 
         //Decoration of textfield
-        textboxGc.setGlobalAlpha(1);
-        textboxGc.drawImage(cornerTopLeft, 0, backgroundOffsetYTalkIcon);
-        textboxGc.drawImage(cornerBtmRight, WIDTH - cornerBtmRight.getWidth(), HEIGHT - cornerBtmRight.getHeight());
+        gc.setGlobalAlpha(1);
+        gc.drawImage(cornerTopLeft, 0, backgroundOffsetYTalkIcon);
+        gc.drawImage(cornerBtmRight, WIDTH - cornerBtmRight.getWidth(), HEIGHT - cornerBtmRight.getHeight());
 
         int yOffsetTextLine = firstLineOffsetY;
-        textboxGc.setFill(font);
+        gc.setFill(font);
         //Format Text
-        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE))
-        {
+        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE)) {
             lineSplitMessage = readDialogue.getOptionMessages();
         }
-        else if (readDialogue.type.equals(discussion_TYPE_ATTRIBUTE))
-        {
+        else if (readDialogue.type.equals(discussion_TYPE_ATTRIBUTE)) {
             WorldViewController.setWorldViewStatus(WorldViewStatus.DISCUSSION_GAME);
             lineSplitMessage = wrapText("Discussion ongoing");
         }
@@ -519,20 +512,20 @@ public class Textbox
 
             for (Integer i = 0; i < visibleLine.length(); i++)
             {
-                textboxGc.setFill(fontManager.getFontAtLetter(i));
+                gc.setFill(fontManager.getFontAtLetter(i));
                 char c = visibleLine.charAt(i);
-                textboxGc.fillText(String.valueOf(c),
+                gc.fillText(String.valueOf(c),
                         Math.round(xOffsetTextLine) + textWidth(font_estrog, line.substring(0, i)),
                         Math.round(yOffsetTextLine) + FONT_Y_OFFSET_ESTROG__SIZE30);
             }
-            yOffsetTextLine += textboxGc.getFont().getSize();
+            yOffsetTextLine += gc.getFont().getSize();
         }
 
 
         //Character Info Button
         if (actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null)
         {
-            textboxGc.drawImage(characterButton, talkIcon.getMinX(), talkIcon.getMinY());
+            gc.drawImage(characterButton, talkIcon.getMinX(), talkIcon.getMinY());
         }
 
         SnapshotParameters transparency = new SnapshotParameters();

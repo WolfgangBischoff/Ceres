@@ -18,9 +18,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
-import static Core.Configs.Config.INVENTORY_HEIGHT;
-import static Core.Configs.Config.INVENTORY_WIDTH;
+import static Core.Configs.Config.*;
 import static Core.WorldView.WorldViewStatus.INVENTORY_EXCHANGE;
 import static Core.WorldView.WorldViewStatus.INVENTORY_SHOP;
 
@@ -28,7 +26,7 @@ public class InventoryOverlay
 {
     private static final String CLASSNAME = "InventoryOverlay ";
     private Canvas menuCanvas;
-    private GraphicsContext menuGc;
+    private GraphicsContext gc;
     private WritableImage menuImage;
     private Actor actor;
     private List<String> interfaceElements_list = new ArrayList<>();
@@ -45,7 +43,7 @@ public class InventoryOverlay
     public InventoryOverlay(Actor actor, Point2D SCREEN_POSITION)
     {
         menuCanvas = new Canvas(WIDTH, HEIGHT);
-        menuGc = menuCanvas.getGraphicsContext2D();
+        gc = menuCanvas.getGraphicsContext2D();
         this.actor = actor;
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
@@ -56,27 +54,26 @@ public class InventoryOverlay
     private void draw() throws NullPointerException
     {
         String methodName = "draw() ";
-        menuGc.clearRect(0, 0, WIDTH, HEIGHT);
-        Color background = Color.rgb(60, 90, 85);
+        gc.clearRect(0, 0, WIDTH, HEIGHT);
+        Color background = COLOR_BACKGROUND_BLUE;
         double hue = background.getHue();
         double sat = background.getSaturation();
         double brig = background.getBrightness();
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-        Color red = Color.hsb(0, 0.33, 0.90);
+        Color red = COLOR_RED;
         Color darkRed = Color.hsb(0, 0.23, 0.70);
-        Color green = Color.hsb(140, 0.33, 0.90);
         interfaceElements_Rectangles.clear();
         interfaceElements_list.clear();
 
         //Background
-        menuGc.setGlobalAlpha(0.8);
-        menuGc.setFill(background);
+        gc.setGlobalAlpha(0.8);
+        gc.setFill(background);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
-        menuGc.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
+        gc.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
 
         //Item Slots
-        menuGc.setGlobalAlpha(1);
+        gc.setGlobalAlpha(1);
         int itemTileWidth = 64;
         int numberColumns = 5;
         int numberRows = 6;
@@ -88,39 +85,36 @@ public class InventoryOverlay
         for (int y = 0; y < numberRows; y++)
         {
             int slotY = y * (itemTileWidth + spaceBetweenTiles) + initialOffsetY;
-            for (int i = 0; i < numberColumns; i++)
-            {
+            for (int i = 0; i < numberColumns; i++) {
                 //Rectangle
                 int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
-                menuGc.setFill(font);
-                menuGc.fillRect(slotX, slotY, itemTileWidth, itemTileWidth);
-                menuGc.setFill(marking);
+                gc.setFill(font);
+                gc.fillRect(slotX, slotY, itemTileWidth, itemTileWidth);
+                gc.setFill(marking);
                 Rectangle2D rectangle2D = new Rectangle2D(slotX + 2, slotY + 2, itemTileWidth - 4, itemTileWidth - 4);
                 interfaceElements_Rectangles.add(rectangle2D);
                 interfaceElements_list.add(Integer.valueOf(slotNumber).toString());
 
                 //Highlighting
                 if (highlightedElement == slotNumber)
-                    menuGc.setFill(font);
+                    gc.setFill(font);
                 else
-                    menuGc.setFill(marking);
-                menuGc.fillRect(rectangle2D.getMinX(), rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
+                    gc.setFill(marking);
+                gc.fillRect(rectangle2D.getMinX(), rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
                 slotNumber++;
 
                 //Item slot images
                 Collectible current = null;
                 if (itemSlotNumber < actor.getInventory().itemsList.size())
                     current = actor.getInventory().itemsList.get(itemSlotNumber);
-                if (current != null)
-                {
-                    menuGc.drawImage(current.getImage(), slotX, slotY);
+                if (current != null) {
+                    gc.drawImage(current.getImage(), slotX, slotY);
                     //Stolen sign
-                    if (GameVariables.getStolenCollectibles().contains(current))
-                    {
-                        menuGc.setFill(darkRed);
-                        menuGc.fillOval(slotX + 44, slotY + 44, 16, 16);
-                        menuGc.setFill(red);
-                        menuGc.fillOval(slotX + 46, slotY + 46, 12, 12);
+                    if (GameVariables.getStolenCollectibles().contains(current)) {
+                        gc.setFill(darkRed);
+                        gc.fillOval(slotX + 44, slotY + 44, 16, 16);
+                        gc.setFill(red);
+                        gc.fillOval(slotX + 46, slotY + 46, 12, 12);
                     }
                 }
                 itemSlotNumber++;
@@ -130,13 +124,13 @@ public class InventoryOverlay
         //Text
         int offsetYFirstLine = 60;
         int dateLength = 200;
-        menuGc.setFill(font);
-        menuGc.fillText("Inventory of " + actor.getActorInGameName(), initialOffsetX, offsetYFirstLine);
-        menuGc.fillText("Day: " + GameVariables.getDay(), WIDTH - dateLength, offsetYFirstLine);
+        gc.setFill(font);
+        gc.fillText("Inventory of " + actor.getActorInGameName(), initialOffsetX, offsetYFirstLine);
+        gc.fillText("Day: " + GameVariables.getDay(), WIDTH - dateLength, offsetYFirstLine);
 
         //Decoration
-        menuGc.drawImage(cornerTopLeft, 0, 0);
-        menuGc.drawImage(cornerBtmRight, WIDTH - cornerBtmRight.getWidth(), HEIGHT - cornerBtmRight.getHeight());
+        gc.drawImage(cornerTopLeft, 0, 0);
+        gc.drawImage(cornerBtmRight, WIDTH - cornerBtmRight.getWidth(), HEIGHT - cornerBtmRight.getHeight());
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
@@ -244,9 +238,9 @@ public class InventoryOverlay
         this.menuCanvas = menuCanvas;
     }
 
-    public void setMenuGc(GraphicsContext menuGc)
+    public void setGc(GraphicsContext gc)
     {
-        this.menuGc = menuGc;
+        this.gc = gc;
     }
 
     public void setMenuImage(WritableImage menuImage)

@@ -13,6 +13,7 @@ import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -33,15 +34,16 @@ import static Core.Menus.Personality.MachineTrait.*;
 import static Core.Menus.Personality.PersonalityTrait.*;
 import static Core.Utilities.doCircleOverlap;
 
-public class DiscussionGame
+public class CoinArea
 {
     private static final String CLASSNAME = "DiscussionGame/";
-    private static final int HEIGHT = DISCUSSION_HEIGHT;
-    private static final int WIDTH = DISCUSSION_WIDTH;
-    private static final Point2D SCREEN_POSITION = DISCUSSION_POSITION;
+    private static final int HEIGHT = COIN_AREA_HEIGHT;
+    private static final int WIDTH = COIN_AREA_WIDTH;
+    private static final Point2D SCREEN_POSITION = new Point2D(DISCUSSION_POSITION.getX() + COIN_AREA_WIDTH_OFFSET, DISCUSSION_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET);
     private Canvas canvas;
-    private GraphicsContext graphicsContext;
+    private GraphicsContext gc;
     private WritableImage writableImage;
+    Image cornerTopLeft, cornerBtmRight;
     Point2D mousePosRelativeToDiscussionOverlay;
     List<Shape> shapeList = new ArrayList<>();
     List<CharacterCoin> coinsList = new ArrayList<>();
@@ -60,22 +62,24 @@ public class DiscussionGame
     private int lifestyleResult;
     private int machineCompute, machineManagement;
     private static Circle mouseClickSpace = new Circle(WIDTH / 2f, HEIGHT / 2f, 15);
-    private static Map<String, CharacterCoinBuff> activeBuffs = new HashMap<>();
+    private Map<String, CharacterCoinBuff> activeBuffs = new HashMap<>();
     private int winThreshold = DISCUSSION_DEFAULT_THRESHOLD_WIN;
     private int maxPossiblePoints = 0;
     private float percentageOfPointsToWin = 0.5f;
 
-    public DiscussionGame(String gameIdentifier, Actor actorOfDiscussion)
+    public CoinArea(String gameIdentifier, Actor actorOfDiscussion)
     {
         gameFileName = gameIdentifier;
         this.actorOfDiscussion = actorOfDiscussion;
+        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
+        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         init();
     }
 
     private void init()
     {
         canvas = new Canvas(WIDTH, HEIGHT);
-        graphicsContext = canvas.getGraphicsContext2D();
+        gc = canvas.getGraphicsContext2D();
         loadDiscussion();
         gameStartTime = GameWindow.getSingleton().getRenderTime();
         actorOfDiscussion.getPersonalityContainer().increaseCooperation(2);
@@ -189,55 +193,58 @@ public class DiscussionGame
         }
     }
 
-    private void draw(Long currentNanoTime) throws NullPointerException
+    public WritableImage render(Long currentNanoTime) throws NullPointerException
     {
         String methodName = "draw() ";
-        graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
-        Color background = Color.rgb(60, 90, 85);
+        gc.clearRect(0, 0, WIDTH, HEIGHT);
+        Color background = COLOR_BACKGROUND_BLUE;
         double hue = background.getHue();
         double sat = background.getSaturation();
         double brig = background.getBrightness();
-        Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
-        Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
+        Color marking = COLOR_MARKING;
+        Color font = COLOR_FONT;
 
         //Background
-        graphicsContext.setGlobalAlpha(0.8);
-        graphicsContext.setFill(background);
-        int backgroundOffsetX = 0, backgroundOffsetY = 0;
-        graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
-        graphicsContext.setGlobalAlpha(1);
+        gc.setGlobalAlpha(0.8);
+        gc.setFill(background);
+        gc.fillRect(0, 0, WIDTH, HEIGHT);
+
+        gc.setStroke(font);
+        int xInterval = 50, yInterval = 50;
+        for (int x = 0; x <= WIDTH; x += xInterval)
+            gc.strokeLine(x, 0, x, HEIGHT);
+        for (int y = 0; y <= HEIGHT; y += yInterval)
+            gc.strokeLine(0, y, WIDTH, y);
 
         update(currentNanoTime);
-        //Draw list of shapes
-        graphicsContext.setFill(marking);
-        for (int i = 0; i < visibleCoinsList.size(); i++)
-        {
+        gc.setGlobalAlpha(1);
+        gc.setFill(marking);
+        for (int i = 0; i < visibleCoinsList.size(); i++) {
             CharacterCoin coin = visibleCoinsList.get(i);
             Circle circle = coin.collisionCircle;
             shapeList.add(circle);
-            graphicsContext.drawImage(coin.image, circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius());
+            gc.drawImage(coin.image, circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius());
         }
 
-        graphicsContext.fillOval(mouseClickSpace.getCenterX() - mouseClickSpace.getRadius(), mouseClickSpace.getCenterY() - mouseClickSpace.getRadius(), mouseClickSpace.getRadius() * 2, mouseClickSpace.getRadius() * 2);
+        gc.fillOval(mouseClickSpace.getCenterX() - mouseClickSpace.getRadius(), mouseClickSpace.getCenterY() - mouseClickSpace.getRadius(), mouseClickSpace.getRadius() * 2, mouseClickSpace.getRadius() * 2);
 
-        if (isFinished)
-        {
-            graphicsContext.setFont(new Font(30));
-            graphicsContext.setFill(font);
-            graphicsContext.setTextAlign(TextAlignment.CENTER);
-            graphicsContext.setTextBaseline(VPos.CENTER);
+        if (isFinished) {
+            gc.setFont(new Font(30));
+            gc.setFill(font);
+            gc.setTextAlign(TextAlignment.CENTER);
+            gc.setTextBaseline(VPos.CENTER);
             String text = "You got motivation: " + motivationResult + " focus: " + focusResult + " \ndecision: " + decisionResult + " lifestyle: " + lifestyleResult + " \nTotal: " + totalResult
                     + "\n MaxPossiblePoints: " + maxPossiblePoints + " WinThreshold: " + winThreshold;
-            graphicsContext.fillText(text, WIDTH / 2.0, HEIGHT / 2.0);
+            gc.fillText(text, WIDTH / 2.0, HEIGHT / 2.0);
             if (totalResult >= winThreshold)
-                graphicsContext.fillText("Convinced!", WIDTH / 2.0, HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 40);
+                gc.fillText("Convinced!", WIDTH / 2.0, HEIGHT / 2.0 + gc.getFont().getSize() + 40);
             else
-                graphicsContext.fillText("Try again!", WIDTH / 2.0, HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 40);
+                gc.fillText("Try again!", WIDTH / 2.0, HEIGHT / 2.0 + gc.getFont().getSize() + 40);
         }
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
-        writableImage = canvas.snapshot(transparency, null);
+        return canvas.snapshot(transparency, null);
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
@@ -305,7 +312,7 @@ public class DiscussionGame
         }
 
         int buffCoinMultiplicand;
-        if (DiscussionGame.getActiveBuffs().containsKey(BUFF_DOUBLE_REWARD.toString()))
+        if (getActiveBuffs().containsKey(BUFF_DOUBLE_REWARD.toString()))
             buffCoinMultiplicand = 2;
         else
             buffCoinMultiplicand = 1;
@@ -318,11 +325,11 @@ public class DiscussionGame
 
     public WritableImage getWritableImage(Long currentNanoTime)
     {
-        draw(currentNanoTime);
+        render(currentNanoTime);
         return writableImage;
     }
 
-    public static Map<String, CharacterCoinBuff> getActiveBuffs()
+    public Map<String, CharacterCoinBuff> getActiveBuffs()
     {
         return activeBuffs;
     }

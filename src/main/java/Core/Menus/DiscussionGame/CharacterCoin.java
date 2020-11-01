@@ -101,9 +101,9 @@ public class CharacterCoin
                 return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_management_monitoring.png");
 
 
-            case "buff_slowed":
+            case "slowed":
                 return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/buff_slowed.png");
-            case "buff_double_reward":
+            case "double reward":
                 return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/buff_double_reward.png");
 
             default:
@@ -133,7 +133,7 @@ public class CharacterCoin
             lastTimeUpdated = elapsedCoinGameTime;
         double elapsedTimeSinceLastUpdate = ((elapsedCoinGameTime - lastTimeUpdated) / 1000000000.0);
         double deltaX = 0, deltaY = 0;
-        if (DiscussionGame.getActiveBuffs().containsKey(BUFF_SLOWED.toString()))
+        if (CoinGame.getCoinArea().getActiveBuffs().containsKey(BUFF_SLOWED.toString()))
             buffSpeedFactor = 0.5;
         else
             buffSpeedFactor = 1;

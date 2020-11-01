@@ -4,7 +4,7 @@ import Core.Enums.Knowledge;
 
 public enum CharacterCoinBuff implements CoinType
 {
-    BUFF_SLOWED("buff_slowed"), BUFF_DOUBLE_REWARD("buff_double_reward");//, PROTECTED, NO_CLICK, HARD_CLICK; //multiple clicks per coin?!
+    BUFF_SLOWED("Slowed"), BUFF_DOUBLE_REWARD("Double Reward");//, PROTECTED, NO_CLICK, HARD_CLICK; //multiple clicks per coin?!
 
     int duration = 5;
     Long activeSince = null;

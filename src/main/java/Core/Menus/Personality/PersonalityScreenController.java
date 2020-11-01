@@ -23,8 +23,8 @@ import javafx.scene.text.TextAlignment;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Core.Configs.Config.DISCUSSION_HEIGHT;
-import static Core.Configs.Config.DISCUSSION_WIDTH;
+import static Core.Configs.Config.COIN_AREA_HEIGHT;
+import static Core.Configs.Config.COINGAME_WIDTH;
 import static Core.Configs.Config.PERSONALITY_HEIGHT;
 import static Core.Configs.Config.PERSONALITY_POSITION;
 import static Core.Configs.Config.PERSONALITY_WIDTH;
@@ -70,7 +70,7 @@ With increasing cooperation value you find trais of the person, some traits are 
 
     public PersonalityScreenController(Actor otherPersonActor)
     {
-        canvas = new Canvas(DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
+        canvas = new Canvas(COINGAME_WIDTH, COIN_AREA_HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
         this.otherPersonActor = otherPersonActor;
         highlightedElement = 0;
@@ -83,18 +83,21 @@ With increasing cooperation value you find trais of the person, some traits are 
         if (otherPersonActor.getPersonalityContainer() == null)
             throw new RuntimeException("Personality not defined in actorfile: " + otherPersonActor.getActorFileName());
         personalityContainer = otherPersonActor.getPersonalityContainer();
-        updateVisiblePersonality();
+        personalityList = updateVisiblePersonality();
     }
 
-    private void updateVisiblePersonality()
+    public List<CoinType> updateVisiblePersonality()
     {
+        List<CoinType> visibleTraits = new ArrayList<>();
         personalityContainer.getTraits().forEach(trait -> {
             if (personalityContainer.getCooperation() >= trait.getCooperationVisibilityThreshold()
                     && trait.getCooperationVisibilityThreshold() >= 0
                     || GameVariables.getPlayerKnowledge().contains(trait.getKnowledgeVisibility())
             )
-                personalityList.add(trait);
+                //personalityList.add(trait);
+                visibleTraits.add(trait);
         });
+        return visibleTraits;
     }
 
     private void draw() throws NullPointerException
@@ -229,7 +232,7 @@ With increasing cooperation value you find trais of the person, some traits are 
             WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
         }
 
-        updateVisiblePersonality();
+        personalityList = updateVisiblePersonality();
         WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
     }
 

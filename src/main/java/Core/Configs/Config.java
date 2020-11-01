@@ -2,7 +2,6 @@ package Core.Configs;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 public class Config
 {
@@ -32,9 +31,13 @@ public class Config
     public static Point2D INVENTORY_POSITION = new Point2D(64, CAMERA_HEIGHT / 2.0 - INVENTORY_HEIGHT / 2.0);
     public static Point2D EXCHANGE_INVENTORY_POSITION = new Point2D(64 + INVENTORY_WIDTH, CAMERA_HEIGHT / 2.0 - INVENTORY_HEIGHT / 2.0);
 
-    public static final int DISCUSSION_WIDTH = 900;
-    public static final int DISCUSSION_HEIGHT = 600;
-    public static Point2D DISCUSSION_POSITION = new Point2D(CAMERA_WIDTH / 2f - DISCUSSION_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - DISCUSSION_HEIGHT / 2.0);
+    public static final int COIN_AREA_WIDTH = 800;
+    public static final int COIN_AREA_HEIGHT = 650;
+    public static final int COIN_AREA_WIDTH_OFFSET = 40;
+    public static final int COIN_AREA_HEIGHT_OFFSET = 30;
+    public static final int COINGAME_WIDTH = COIN_AREA_WIDTH + 250;
+    public static final int COINGAME_HEIGHT = COIN_AREA_HEIGHT + COIN_AREA_HEIGHT_OFFSET * 2;
+    public static Point2D DISCUSSION_POSITION = new Point2D(CAMERA_WIDTH / 2f - COINGAME_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - COINGAME_HEIGHT / 2.0);
 
     public static final int DAY_SUMMARY_WIDTH = 900;
     public static final int DAY_SUMMARY_HEIGHT = 600;
@@ -154,11 +157,6 @@ public class Config
     public static final String FONT_DIRECTORY_PATH = "../../../../../../build/resources/main/font/";
 
     //Discussion-Game
-    public static final int THRESHOLD_MOTIVATION = 3;
-    public static final int THRESHOLD_DECISION = 6;
-    public static final int THRESHOLD_FOCUS = 9;
-    public static final int THRESHOLD_LIFESTYLE = 12;
-    public static final int THRESHOLD_PERSONALITY = 12;
     public static final String COIN_BEHAVIOR_MOVING = "moving";
     public static final String COIN_BEHAVIOR_JUMP = "jump";
     public static final String COIN_BEHAVIOR_SPIRAL = "spiral";
@@ -176,6 +174,9 @@ public class Config
 
     //Colors
     public static final Color COLOR_BACKGROUND_BLUE = Color.rgb(60, 90, 85); //Normal
+    public static final Color COLOR_BACKGROUND_GREY = Color.rgb(20, 25, 30); //Normal
+    public static final Color COLOR_MARKING = Color.rgb(80, 120, 120); //Normal
+    public static final Color COLOR_FONT = Color.rgb(100, 160, 160); //Normal
     public static final String REGEX_GREEN = "%%GR";
     public static final Color COLOR_GREEN = Color.hsb(140, 0.33, 0.90); //Good
     public static final String REGEX_RED = "%%RD";

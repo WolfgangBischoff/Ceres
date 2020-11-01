@@ -73,3 +73,5 @@
             - added buff_double_reward, win threshold calculation
 01 11 20    - reworked personality traits
             - added machine traits and game
+            - decoration, background
+            - add buffs; number unknown traits

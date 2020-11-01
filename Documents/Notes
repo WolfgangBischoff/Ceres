@@ -7,11 +7,9 @@
     - Person turns if talking
     - Coin Game
         - better explanation from trader
-        - decoration, background
-        - possible coordinates should be more clear
-        - new buff: create moving coins
+        - player finish message
         - add air system manual, tipp from collegue, open machine
-        - show unknown traits
+        - background defined in definition
         - add info box if new trait is visible
     - check higher resolution and zoom, fix not centered overlay
     - add attentionmark over sprites

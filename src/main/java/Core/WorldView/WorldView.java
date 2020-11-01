@@ -4,9 +4,10 @@ import Core.*;
 import Core.Configs.Config;
 import Core.Enums.ActorTag;
 import Core.Enums.Direction;
+import Core.Menus.DiscussionGame.CoinGame;
 import Core.Menus.StatusBarOverlay.ClockOverlay;
 import Core.Menus.DaySummary.DaySummaryScreenController;
-import Core.Menus.DiscussionGame.DiscussionGame;
+import Core.Menus.DiscussionGame.CoinArea;
 import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Personality.PersonalityScreenController;
 import Core.Menus.StatusBarOverlay.StatusBarConfig;
@@ -58,7 +59,7 @@ public class WorldView
     static Point2D personalityScreenPosition = PERSONALITY_POSITION;
 
     //Discussion Game Overlay
-    static DiscussionGame discussionGame;
+    static CoinGame coinGame;
     static Point2D discussionGamePosition = DISCUSSION_POSITION;
 
     //DaySummary Overlay
@@ -475,7 +476,7 @@ public class WorldView
                         clicked.onClick(currentNanoTime);//Wraps onInteraction
                 break;
             case DISCUSSION_GAME:
-                discussionGame.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+                coinGame.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
                 break;
             case DAY_SUMMARY:
                 daySummaryScreenController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
@@ -631,8 +632,8 @@ public class WorldView
                 gc.drawImage(personalityScreenOverlay, personalityScreenPosition.getX(), personalityScreenPosition.getY());
                 break;
             case DISCUSSION_GAME:
-                WritableImage discussionGameImage = discussionGame.getWritableImage(currentNanoTime);
-                gc.drawImage(discussionGameImage, discussionGamePosition.getX(), discussionGamePosition.getY());
+                //WritableImage discussionGameImage = coinArea.getWritableImage(currentNanoTime);
+                gc.drawImage(coinGame.render(currentNanoTime), discussionGamePosition.getX(), discussionGamePosition.getY());
                 break;
             case DAY_SUMMARY:
                 WritableImage daySummaryImage = daySummaryScreenController.getWritableImage();
@@ -764,9 +765,9 @@ public class WorldView
         WorldView.personalityScreenController = personalityScreenController;
     }
 
-    public static void setDiscussionGame(DiscussionGame discussionGame)
+    public static void setDiscussionGame(CoinGame coinArea)
     {
-        WorldView.discussionGame = discussionGame;
+        WorldView.coinGame = coinArea;
     }
 
     public static Textbox getTextbox()
@@ -827,9 +828,9 @@ public class WorldView
     }
 
 
-    public static DiscussionGame getDiscussionGame()
+    public static CoinGame getDiscussionGame()
     {
-        return discussionGame;
+        return coinGame;
     }
 
     public static Point2D getDiscussionGamePosition()
