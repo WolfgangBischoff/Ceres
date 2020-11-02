@@ -60,7 +60,7 @@ public class CoinArea
     private int focusResult;
     private int decisionResult;
     private int lifestyleResult;
-    private int machineCompute, machineManagement;
+    private int machineCompute, machineManagement, machineInterface, machineNetwork;
     private static Circle mouseClickSpace = new Circle(WIDTH / 2f, HEIGHT / 2f, 15);
     private Map<String, CharacterCoinBuff> activeBuffs = new HashMap<>();
     private int winThreshold = DISCUSSION_DEFAULT_THRESHOLD_WIN;
@@ -165,6 +165,12 @@ public class CoinArea
             Integer machineManagementDebug = clickedCoins.get(MANAGEMENT_DEBUG) == null ? 0 : clickedCoins.get(MANAGEMENT_DEBUG);
             Integer machineManagementLogging = clickedCoins.get(MANAGEMENT_LOGGING) == null ? 0 : clickedCoins.get(MANAGEMENT_LOGGING);
             Integer machineManagementMonitoring = clickedCoins.get(MANAGEMENT_MONITORING) == null ? 0 : clickedCoins.get(MANAGEMENT_MONITORING);
+            Integer machineInterfaceDirect = clickedCoins.get(INTERFACE_DIRECT) == null ? 0 : clickedCoins.get(INTERFACE_DIRECT);
+            Integer machineInterfaceAnalog = clickedCoins.get(INTERFACE_ANALOG) == null ? 0 : clickedCoins.get(INTERFACE_ANALOG);
+            Integer machineInterfaceConnection = clickedCoins.get(INTERFACE_CONNECTION) == null ? 0 : clickedCoins.get(INTERFACE_CONNECTION);
+            Integer machineNetworkClient = clickedCoins.get(NETWORK_CLIENT) == null ? 0 : clickedCoins.get(NETWORK_CLIENT);
+            Integer machineNetworkServer = clickedCoins.get(NETWORK_SERVER) == null ? 0 : clickedCoins.get(NETWORK_SERVER);
+            Integer machineNetworkUnconnected = clickedCoins.get(NETWORK_UNCONNECTED) == null ? 0 : clickedCoins.get(NETWORK_UNCONNECTED);
 
             //Sum coins against traits
             motivationResult = 0;
@@ -187,8 +193,16 @@ public class CoinArea
             machineManagement += personality.getTraits().contains(MANAGEMENT_DEBUG) ? machineManagementDebug : -machineManagementDebug;
             machineManagement += personality.getTraits().contains(MANAGEMENT_LOGGING) ? machineManagementLogging : -machineManagementLogging;
             machineManagement += personality.getTraits().contains(MANAGEMENT_MONITORING) ? machineManagementMonitoring : -machineManagementMonitoring;
+            machineInterface = 0;
+            machineInterface += personality.getTraits().contains(INTERFACE_CONNECTION) ? machineInterfaceConnection : -machineInterfaceConnection;
+            machineInterface += personality.getTraits().contains(INTERFACE_ANALOG) ? machineInterfaceAnalog : -machineInterfaceAnalog;
+            machineInterface += personality.getTraits().contains(INTERFACE_DIRECT) ? machineInterfaceDirect : -machineInterfaceDirect;
+            machineNetwork = 0;
+            machineNetwork += personality.getTraits().contains(NETWORK_CLIENT) ? machineNetworkClient : -machineNetworkClient;
+            machineNetwork += personality.getTraits().contains(NETWORK_SERVER) ? machineNetworkServer : -machineNetworkServer;
+            machineNetwork += personality.getTraits().contains(NETWORK_UNCONNECTED) ? machineNetworkUnconnected : -machineNetworkUnconnected;
 
-            totalResult = motivationResult + focusResult + decisionResult + lifestyleResult + machineCompute + machineManagement;
+            totalResult = motivationResult + focusResult + decisionResult + lifestyleResult + machineCompute + machineManagement + machineInterface + machineNetwork;
             isFinished = true;
         }
     }

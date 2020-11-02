@@ -99,6 +99,18 @@ public class CharacterCoin
                 return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_management_logging.png");
             case "monitoring":
                 return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_management_monitoring.png");
+            case "direct":
+                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_interface_direct.png");
+            case "analog":
+                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_interface_analog.png");
+            case "connection":
+                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_interface_connection.png");
+            case "unconnected":
+                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_network_unconnected.png");
+            case "server":
+                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_network_server.png");
+            case "client":
+                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_network_client.png");
 
 
             case "slowed":

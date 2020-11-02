@@ -50,6 +50,18 @@ public interface CoinType
                 return MANAGEMENT_LOGGING;
             case "MANAGEMENT_MONITORING":
                 return MANAGEMENT_MONITORING;
+            case "INTERFACE_DIRECT":
+                return INTERFACE_DIRECT;
+            case "INTERFACE_ANALOG":
+                return INTERFACE_ANALOG;
+            case "INTERFACE_CONNECTION":
+                return INTERFACE_CONNECTION;
+            case "NETWORK_UNCONNECTED":
+                return NETWORK_UNCONNECTED;
+            case "NETWORK_SERVER":
+                return NETWORK_SERVER;
+            case "NETWORK_CLIENT":
+                return NETWORK_CLIENT;
 
             case "BUFF_SLOWED":
                 return BUFF_SLOWED;

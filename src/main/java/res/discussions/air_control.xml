@@ -46,11 +46,55 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             time="0"
             maxTime="6"
     />
-
     <coin
             characteristic="MANAGEMENT_MONITORING"
             x="500"
             y="400"
+            time="0"
+            maxTime="6"
+    />
+
+    <coin
+            characteristic="INTERFACE_DIRECT"
+            x="400"
+            y="200"
+            time="0"
+            maxTime="6"
+    />
+    <coin
+            characteristic="INTERFACE_ANALOG"
+            x="300"
+            y="200"
+            time="0"
+            maxTime="6"
+    />
+    <coin
+            characteristic="INTERFACE_CONNECTION"
+            x="500"
+            y="200"
+            time="0"
+            maxTime="6"
+    />
+
+
+    <coin
+            characteristic="NETWORK_UNCONNECTED"
+            x="400"
+            y="100"
+            time="0"
+            maxTime="6"
+    />
+    <coin
+            characteristic="NETWORK_SERVER"
+            x="300"
+            y="100"
+            time="0"
+            maxTime="6"
+    />
+    <coin
+            characteristic="NETWORK_CLIENT"
+            x="500"
+            y="100"
             time="0"
             maxTime="6"
     />

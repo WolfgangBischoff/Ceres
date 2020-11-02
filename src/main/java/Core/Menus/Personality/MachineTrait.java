@@ -6,7 +6,9 @@ import Core.Menus.DiscussionGame.CoinType;
 public enum MachineTrait implements CoinType
 {
     COMPUTE_LOCAL("Local Computation"), COMPUTE_CLOUD("Cloud Computation"), COMPUTE_VIRTUAL("Virtualized Computation"),
-    MANAGEMENT_DEBUG("Debugger"), MANAGEMENT_LOGGING("Logging"), MANAGEMENT_MONITORING("Monitoring");
+    MANAGEMENT_DEBUG("Debugger"), MANAGEMENT_LOGGING("Logging"), MANAGEMENT_MONITORING("Monitoring"),
+    INTERFACE_DIRECT("Direct"), INTERFACE_ANALOG("Analog"), INTERFACE_CONNECTION("Connection"),
+    NETWORK_UNCONNECTED("Unconnected"), NETWORK_SERVER("Server"), NETWORK_CLIENT("Client");
 
     int visibilityThreshold = 0;
     Knowledge visibilityKnowledge = null;

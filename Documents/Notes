@@ -6,6 +6,7 @@
 - Features
     - Person turns if talking
     - Coin Game
+        - show game time
         - player finish message
         - add air system manual, tipp from collegue, open machine
         - background defined in definition
