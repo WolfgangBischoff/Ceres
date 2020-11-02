@@ -54,6 +54,22 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Its locked.</line>
     </dialogue>
 
+    <dialogue id="bed_husar" type="normal">
+        <line>Very clean and well scented.</line>
+    </dialogue>
+
+    <dialogue id="machinery" type="normal">
+        <line>A lot of machinery, everything looks operational.</line>
+    </dialogue>
+
+    <dialogue id="algae_tank" type="normal">
+        <line>A tank full of green algae. This must be part of the ship's air treatment system.</line>
+    </dialogue>
+
+    <dialogue id="wc_cabin" type="normal">
+        <line>Smelly and sometimes disgusting... ..the most Earth-like place on the ship.</line>
+    </dialogue>
+
 </root>
 
 
