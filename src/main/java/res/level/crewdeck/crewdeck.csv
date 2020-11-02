@@ -73,12 +73,12 @@ bench_				                      ;bench												                       ;furnit
 towel_				                      ;towel												                       ;bath/bathtowel																																																				;true					          ;1												          ;0			     ;0												;0				 ;0				 ;000								;000									;000											;064											 ;064									;064										;none 						         ;none							;none																																	;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 actors:
-#code 					;actorFileName																											;IngameName															;sprite-status						;sensor-status										;direction
+#code 																										;actorFileName																											;IngameName																																																								;sprite-status						;sensor-status										;direction
 player					                     ;player																																		;Revolutionary												                                         ;default												;default																;north
 elevSc					                     ;doors/updown/elevator/elevator										;main elevator												                                         ;toFreightDeck						;default																;undefined
 autoDo					                     ;doors/vertical/autoBulkheadVertical					;bulkhead vertical								                                         ;on																	;UNLOCKED															;west
 doorHo					                     ;doors/horizontal/automatedDoor										;bulkhead	horizontal						                                         ;on																	;VARIABLE_UNLOCKED						;south
-cleanB					                     ;robot/cleaningBot/cleaningBot											;technician															                                         ;default												;default																;west
+cleanB					                     ;robot/cleaningBot/cleaningBot											;Cleaning Bot													                                         ;default												;default																;west
 steamS					                     ;bath/steam_shower/steam_shower										;shower																			                                         ;off																;default																;undefined
 bed_Bi					                     ;furniture/bed/bed																							;Your Bed																	                                         ;bischoff											;sleep																		;undefined
 
@@ -90,7 +90,6 @@ asiaBe ;1820 ;1070; one the table
 
 global_system_actor:
 transporter_air_system;hydrOK;airCr1;airCr2;airLif
-#character;medic_
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
@@ -236,7 +235,7 @@ layer:
 031 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;autoDo ;______ ;______ ;______ ;______ ;bed_Bi ;______ ;______ ;bed_Wi ;______ ;______ ;______ ;______;
 032 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 033 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
-034                             ;______                                  ;______                                                             ;______             ;______                 ;______   ;______       ;______;______;______     ;______      ;______        ;______         ;______      ;______       ;______              ;______     ;______       ;______ ;______ ;______ ;______ ;______ ;______;______;______;______;______;______;crewDe;______;______;elevSc;______;______;______;smileV;______;______;______;______;
+034 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______	;______ ;______	;______	;______ ;______ ;crewDe ;______ ;______ ;elevSc ;______ ;______ ;______ ;smileV;______;______;______;______;
 035 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 036 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 037 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
@@ -260,4 +259,5 @@ include:
 crewdeck/suspicion_low										;suspicion_lessequal 		;2
 crewdeck/suspicion_medium							;suspicion_lessequal 		;6
 crewdeck/day2																			;day_greaterequal						;2
-crewdeck/beforeAirQuest 				 			;onDaystart_ifNot						;transporter_air_system_quest_started; done
+crewdeck/afterAirQuest 									;onDaystart_if									;transporter_air_system_quest_started; done
+crewdeck/beforeAirQuest 								;onDaystart_ifNot						;transporter_air_system_quest_started; done

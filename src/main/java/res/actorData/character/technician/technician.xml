@@ -28,6 +28,12 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 <-->
 
 <root name="technician">
+
+    <dialogue id="INTRO_TO_MEDIC" type="normal">
+        <line>Good Morning! The medic wants to talk to you, she wait in the %VTControl Room%%!</line>
+    </dialogue>
+
+
     <dialogue id="init-door" type="decision">
         <option nextDialogue="door-info">Whats behind this door?</option>
         <option nextDialogue="door-discussion">Can you open the door?</option>

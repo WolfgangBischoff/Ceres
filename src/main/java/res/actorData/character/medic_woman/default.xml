@@ -30,10 +30,9 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 <root name="medic">
 
     <dialogue id="intro" type = "normal" nextDialogue="intro-questions">
-        <line>Hi, are you ok? We will reach %%GDCeres%% in few days. Thank God, I am slowly running out of money. :O</line>
-        <line>Anyway, you have to %%GDgo to the trader%% in the command center to get some money for food..</line>
-        <line>If the stars stand well, he will give you a good price.. and if not.. you know..</line>
-        <line>.. one %%VTfreight capsule is full of food%% supplies for Ceres, but if they note something is missing they will increase security.</line>
+        <line>Good morning sleepyhead! Well, hopefully you won't oversleep our arrival on %%GDCeres%% ;-)</line>
+        <line>Anyway, you have to %%GDgo to the trader%%, he has a task for you.</line>
+        <line>If the stars stand well, he will give you a good price for your work.. everyday the same crap.</line>
         <line>Take care man, we have weird times..</line>
     </dialogue>
 
