@@ -75,8 +75,8 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
     <dialogue id="game-explanation" type="normal" nextDialogue="job-decision">
-        <line>Lets discuss the value of your work. Once the discussion begins, you have to click on the right coins, which fit to me.</line>
-        <line>But as long you dont know me well, you basically have to guess. Once we get in touch more often you get more hints. Check out INFO</line>
+        <line>Once the discussion begins, you have to %%GRclick on the right coins%%, which fit to me.</line>
+        <line>Check out %%GRINFO on the upper left side%% to know which coins are correct. Once we get in touch more often you get more hints.</line>
     </dialogue>
 
     <dialogue id="air_system_check" type="boolean" variablename="isTransporterAirSystemOn" true="air_system_on" false="air_system_off"/>

@@ -48,7 +48,6 @@ public class Textbox
     Color background = Color.rgb(60, 90, 85);
     final int firstLineOffsetY = backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon + 20;
     final int xOffsetTextLine = 40;
-    //final int maxDigitsInLine = 38;
     String nextDialogueID = null;
     List<String> lineSplitMessage;
     Integer markedOption = 0;
@@ -119,9 +118,7 @@ public class Textbox
                 readDialogue.setSpriteStatus(currentDialogue.getAttribute(ACTOR_STATUS_TAG));
                 readDialogue.setSensorStatus(currentDialogue.getAttribute(SENSOR_STATUS_TAG));
 
-                //check for type normal and decision
                 readDialogue.type = dialogueType;
-                //Decision
                 if (dialogueType.equals(decision_TYPE_ATTRIBUTE))
                 {
                     //For all options
@@ -190,7 +187,6 @@ public class Textbox
                     DaySummaryScreenController.newDay();
                 }
                 else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_BOOLEAN)) {
-                    // Boolean var = GameVariables.getBooleanWorldVariables().get(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
                     String var = GameVariables.getGenericVariableManager().getValue(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
                     if (var == null)
                         System.out.println(CLASSNAME + methodName + "variable not set: " + currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
@@ -228,7 +224,6 @@ public class Textbox
                     if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE)) {
                         Knowledge knowledge = Knowledge.of(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE));
                         GameVariables.getPlayerKnowledge().add(knowledge);
-                        System.out.println(CLASSNAME + methodName + GameVariables.getPlayerKnowledge());
                     }
                 }
 
