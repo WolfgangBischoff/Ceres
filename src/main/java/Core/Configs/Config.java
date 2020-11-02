@@ -101,11 +101,10 @@ public class Config
     public static final String KEYWORD_interactionArea = "interactionArea";
     public static final String KEYWORD_dialogueFile = "dialogueFile";
     public static final String KEYWORD_text_box_analysis_group = "textbox_analysis_group";
-    public static final String KEYWORD_collectable_type = "collectible_data";//"collectable_type";
+    public static final String KEYWORD_collectable_type = "collectible_data";
     public static final String CONTAINS_COLLECTIBLE_KEYWORD = "contains_collectible";
     public static final String KEYWORD_actor_tags = "tags";
     public static final String KEYWORD_condition = "condition";
-    //public static final String KEYWORD_personality = "personality";
     public static final String ACTOR_PERSONALITY_V2 = "personality";
     public static final String KEYWORD_suspicious_value = "suspicious_value";
 

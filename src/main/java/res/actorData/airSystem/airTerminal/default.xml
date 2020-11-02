@@ -44,7 +44,8 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
     <dialogue id="REPAIR_OPTION" type="decision">
         <option nextDialogue="ERROR_LOG">[Check error log]</option>
-        <option nextDialogue="SOFT_RESTART">[%%VTInitialize soft restart%%]</option>
+        <option nextDialogue="SOFT_RESTART" type="boolean" variablename="AIR_SYSTEM_REBOOT_PART1_WON" visibleIf="false">[%%VTReboot Operation System%%]</option>
+        <option nextDialogue="START_ENGINE" type="boolean" variablename="AIR_SYSTEM_REBOOT_PART1_WON" visibleIf="true">[%%VTStart Ventilation Engine%%]</option>
         <option>[Leave]</option>
     </dialogue>
 
@@ -54,13 +55,25 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
     <dialogue id="SOFT_RESTART" type="discussion" game="air_control" success="SOFT_RESTART_SUCCESS"
               defeat="SOFT_RESTART_FAIL"/>
-    <dialogue id="SOFT_RESTART_SUCCESS" spritestatus="ON">
+    <dialogue id="SOFT_RESTART_SUCCESS" variablename="AIR_SYSTEM_REBOOT_PART1_WON" set="true" nextDialogue="REPAIR_OPTION">
         <line>System reboot initiated ...</line>
-        <line>Restoring air pressure ...</line>
+        <line>System reboot ... Done</line>
+        <line>..but the %%RDventilation engine%% is still down..</line>
+    </dialogue>
+    <dialogue id="SOFT_RESTART_FAIL" spritestatus="OFF" nextDialogue="REPAIR_OPTION">
+        <line>System reboot failed ...</line>
+    </dialogue>
+
+
+    <dialogue id="START_ENGINE" type="discussion" game="air_control_2" success="START_ENGINE_SUCCESS"
+              defeat="SOFT_RESTART_FAIL"/>
+    <dialogue id="START_ENGINE_SUCCESS" spritestatus="ON">
+        <line>Starting ventilation engine ...</line>
+        <line>Engine %%GRfully operational%% ...</line>
         <line>System reboot ... Done</line>
     </dialogue>
-    <dialogue id="SOFT_RESTART_FAIL" spritestatus="OFF">
-        <line>System reboot failed ...</line>
+    <dialogue id="START_ENGINE_FAIL" spritestatus="OFF" nextDialogue="REPAIR_OPTION">
+        <line>Engine could not start ...</line>
     </dialogue>
 
 </root>

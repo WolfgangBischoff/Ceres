@@ -1,0 +1,460 @@
+<!-->
+//self  	;social		;detail	  ;holistic	;logic	;emotion;conservative progressive ;
+INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIVING;
+        <-->
+
+<root percentageOfPointsToWin="0.8">
+
+    <!--/>
+    Wave 0
+    <-->
+
+    <coin
+            characteristic="NETWORK_CLIENT"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "70"
+            startangle = "0"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="NETWORK_CLIENT"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "130"
+            startangle = "0"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="NETWORK_CLIENT"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "190"
+            startangle = "0"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="NETWORK_CLIENT"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "250"
+            startangle = "0"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+
+    <coin
+            characteristic="NETWORK_SERVER"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "70"
+            startangle = "120"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="NETWORK_SERVER"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "130"
+            startangle = "120"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="NETWORK_SERVER"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "190"
+            startangle = "120"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="NETWORK_SERVER"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "250"
+            startangle = "120"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+
+    <coin
+            characteristic="NETWORK_UNCONNECTED"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "70"
+            startangle = "240"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="NETWORK_UNCONNECTED"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "130"
+            startangle = "240"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="NETWORK_UNCONNECTED"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "190"
+            startangle = "240"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="NETWORK_UNCONNECTED"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "250"
+            startangle = "240"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+
+
+    <coin
+            characteristic="INTERFACE_DIRECT"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "70"
+            startangle = "60"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="INTERFACE_DIRECT"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "130"
+            startangle = "60"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="INTERFACE_DIRECT"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "190"
+            startangle = "60"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="INTERFACE_DIRECT"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "250"
+            startangle = "60"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+
+    <coin
+            characteristic="INTERFACE_ANALOG"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "70"
+            startangle = "180"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="INTERFACE_ANALOG"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "130"
+            startangle = "180"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="INTERFACE_ANALOG"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "190"
+            startangle = "180"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="INTERFACE_ANALOG"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "250"
+            startangle = "180"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+
+
+    <coin
+            characteristic="INTERFACE_CONNECTION"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "70"
+            startangle = "300"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="INTERFACE_CONNECTION"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "130"
+            startangle = "300"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="INTERFACE_CONNECTION"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "190"
+            startangle = "300"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+    <coin
+            characteristic="INTERFACE_CONNECTION"
+            x="400"
+            y="325"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "325"
+            radius = "250"
+            startangle = "300"
+            time="0"
+            isclockwise = "1"
+            maxTime="20"
+    />
+
+<!-->
+Wave 2-5
+<-->
+    <coin
+            characteristic="buff_slowed"
+            x="400"
+            y="325"
+            time="2"
+            maxTime="3"
+    />
+
+    <coin
+            characteristic="buff_slowed"
+            x="400"
+            y="325"
+            time="10"
+            maxTime="3"
+    />
+
+    <coin
+            characteristic="buff_double_reward"
+            x="350"
+            y="100"
+            initspeed="8"
+            movementType="moving"
+            time="1"
+            maxTime="4"
+            angle="0"
+    />
+    <coin
+            characteristic="buff_double_reward"
+            x="350"
+            y="150"
+            initspeed="8"
+            movementType="moving"
+            time="2"
+            maxTime="4"
+            angle="0"
+    />
+    <coin
+            characteristic="buff_double_reward"
+            x="350"
+            y="50"
+            initspeed="8"
+            movementType="moving"
+            time="3"
+            maxTime="4"
+            angle="0"
+    />
+    <coin
+            characteristic="buff_double_reward"
+            x="350"
+            y="80"
+            initspeed="8"
+            movementType="moving"
+            time="4"
+            maxTime="4"
+            angle="0"
+    />
+
+
+
+
+    <coin
+            characteristic="buff_double_reward"
+            x="350"
+            y="100"
+            initspeed="8"
+            movementType="moving"
+            time="6"
+            maxTime="4"
+            angle="0"
+    />
+    <coin
+            characteristic="buff_double_reward"
+            x="350"
+            y="170"
+            initspeed="8"
+            movementType="moving"
+            time="7"
+            maxTime="4"
+            angle="0"
+    />
+    <coin
+            characteristic="buff_double_reward"
+            x="350"
+            y="50"
+            initspeed="8"
+            movementType="moving"
+            time="8"
+            maxTime="4"
+            angle="0"
+    />
+    <coin
+            characteristic="buff_double_reward"
+            x="350"
+            y="80"
+            initspeed="8"
+            movementType="moving"
+            time="9"
+            maxTime="4"
+            angle="0"
+    />
+
+</root>
