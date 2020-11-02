@@ -182,9 +182,6 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             time="6"
     />
 
-
-
-
     <!--/>
    Wave 7
    <-->
@@ -204,6 +201,7 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             initspeed="8"
             movementType="JUMP"
             time="7"
+            maxTime="4"
     />
 
     <coin
@@ -213,6 +211,7 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             initspeed="8"
             movementType="JUMP"
             time="8"
+            maxTime="4"
     />
 
     <coin
@@ -222,6 +221,7 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             initspeed="8"
             movementType="JUMP"
             time="9"
+            maxTime="4"
     />
 
     <coin
@@ -231,6 +231,7 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             initspeed="8"
             movementType="JUMP"
             time="10"
+            maxTime="4"
     />
 
     <coin
@@ -240,6 +241,7 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             initspeed="8"
             movementType="JUMP"
             time="11"
+            maxTime="4"
     />
 
     <coin
@@ -249,6 +251,7 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             initspeed="8"
             movementType="JUMP"
             time="12"
+            maxTime="4"
     />
 
     <coin
@@ -258,6 +261,7 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             initspeed="8"
             movementType="JUMP"
             time="13"
+            maxTime="4"
     />
 
     <coin
@@ -267,6 +271,7 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             initspeed="8"
             movementType="JUMP"
             time="14"
+            maxTime="4"
     />
 
 

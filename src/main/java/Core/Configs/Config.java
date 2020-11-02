@@ -165,7 +165,7 @@ public class Config
     public static final String COIN_TAG_INITSPEED = "initspeed";
     public static final String COIN_ATTRIBUTE_MAX_TIME = "maxTime";
     public static final String DISCUSSION_ATTRIBUTE_PERCENTAGE_OF_POINTS_TO_WIN = "percentageOfPointsToWin";
-    public static final int COIN_DEFAULT_MAX_TIME = 15;
+    public static final int COIN_DEFAULT_MAX_TIME = 10;
     public static final int DISCUSSION_DEFAULT_THRESHOLD_WIN = 6;
 
     //Management-Attention-Meter MAM

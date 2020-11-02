@@ -66,6 +66,7 @@ public class CoinArea
     private int winThreshold = DISCUSSION_DEFAULT_THRESHOLD_WIN;
     private int maxPossiblePoints = 0;
     private float percentageOfPointsToWin = 0.5f;
+    private int maxGameTime = 0;
 
     public CoinArea(String gameIdentifier, Actor actorOfDiscussion)
     {
@@ -97,6 +98,7 @@ public class CoinArea
             coinsList.add(characterCoin);
             if (actorOfDiscussion.getPersonalityContainer().isPersonalityMatch(characterCoin.type))
                 maxPossiblePoints++;
+            maxGameTime = Math.max(characterCoin.time_spawn + characterCoin.time_max, maxGameTime);
         }
         if(xmlRoot.hasAttribute(DISCUSSION_ATTRIBUTE_PERCENTAGE_OF_POINTS_TO_WIN))
             percentageOfPointsToWin = Float.parseFloat(xmlRoot.getAttribute(DISCUSSION_ATTRIBUTE_PERCENTAGE_OF_POINTS_TO_WIN));
@@ -346,5 +348,15 @@ public class CoinArea
     public Map<String, CharacterCoinBuff> getActiveBuffs()
     {
         return activeBuffs;
+    }
+
+    public int getMaxGameTime()
+    {
+        return maxGameTime;
+    }
+
+    public void setMaxGameTime(int maxGameTime)
+    {
+        this.maxGameTime = maxGameTime;
     }
 }

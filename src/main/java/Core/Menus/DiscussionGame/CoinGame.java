@@ -2,6 +2,7 @@ package Core.Menus.DiscussionGame;
 
 import Core.Actor;
 import Core.GameVariables;
+import Core.Utilities;
 import javafx.geometry.Point2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -73,6 +74,12 @@ public class CoinGame
         int numberInvisibleTraits = coinArea.actorOfDiscussion.getPersonalityContainer().getTraits().size() - visibleTraits.size();
         gc.fillText("Invisible Traits: " + numberInvisibleTraits, COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + 10,
                 COIN_AREA_HEIGHT_OFFSET + 150);
+
+        double residualTime = coinArea.getMaxGameTime() - (currentNanoTime - coinArea.gameStartTime) / 1000000000.0;
+        if(residualTime < 0)
+            residualTime = 0;
+        gc.fillText("Remaining Time: " + Utilities.roundTwoDigits(residualTime), COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + 10,
+                COIN_AREA_HEIGHT_OFFSET + 200);
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
