@@ -4,10 +4,10 @@
 - Bug
 
 - Features
+    - Change TextboxId instead of status
     - Person turns if talking
     - Coin Game
         - player finish message
-        - add air system manual, tipp from collegue, open machine
         - background defined in definition
         - add info box if new trait is visible
     - check higher resolution and zoom, fix not centered overlay
@@ -45,9 +45,7 @@
         Give him for money
     - Main Quest
         - Air System Quest
-            Medic is in control room from beginning; tells you about your job, sends you to trader
-            trader assign quest
-            air hub, ggf coin game; find manual before
+            air hub =>  find manual at technician
             trader send you to bed
         - Impact Quest
             msg from doctor

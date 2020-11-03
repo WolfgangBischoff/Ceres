@@ -67,6 +67,7 @@ public class CoinArea
     private int maxPossiblePoints = 0;
     private float percentageOfPointsToWin = 0.5f;
     private int maxGameTime = 0;
+    private Image backgroundImage;
 
     public CoinArea(String gameIdentifier, Actor actorOfDiscussion)
     {
@@ -74,6 +75,7 @@ public class CoinArea
         this.actorOfDiscussion = actorOfDiscussion;
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+        backgroundImage = new Image(IMAGE_DIRECTORY_PATH + "../discussions/img/background/nerve.png");
         init();
     }
 
@@ -100,9 +102,9 @@ public class CoinArea
                 maxPossiblePoints++;
             maxGameTime = Math.max(characterCoin.time_spawn + characterCoin.time_max, maxGameTime);
         }
-        if(xmlRoot.hasAttribute(DISCUSSION_ATTRIBUTE_PERCENTAGE_OF_POINTS_TO_WIN))
+        if (xmlRoot.hasAttribute(DISCUSSION_ATTRIBUTE_PERCENTAGE_OF_POINTS_TO_WIN))
             percentageOfPointsToWin = Float.parseFloat(xmlRoot.getAttribute(DISCUSSION_ATTRIBUTE_PERCENTAGE_OF_POINTS_TO_WIN));
-        winThreshold = (int)(maxPossiblePoints * percentageOfPointsToWin);
+        winThreshold = (int) (maxPossiblePoints * percentageOfPointsToWin);
         activeBuffs.clear();
     }
 
@@ -221,6 +223,8 @@ public class CoinArea
         Color font = COLOR_FONT;
 
         //Background
+        gc.setGlobalAlpha(0.65);
+        gc.drawImage(backgroundImage, (WIDTH - backgroundImage.getWidth()) / 2, (HEIGHT - backgroundImage.getHeight()) / 2);
         gc.setGlobalAlpha(0.8);
         gc.setFill(background);
         gc.fillRect(0, 0, WIDTH, HEIGHT);
@@ -235,7 +239,8 @@ public class CoinArea
         update(currentNanoTime);
         gc.setGlobalAlpha(1);
         gc.setFill(marking);
-        for (int i = 0; i < visibleCoinsList.size(); i++) {
+        for (int i = 0; i < visibleCoinsList.size(); i++)
+        {
             CharacterCoin coin = visibleCoinsList.get(i);
             Circle circle = coin.collisionCircle;
             shapeList.add(circle);
@@ -244,7 +249,8 @@ public class CoinArea
 
         gc.fillOval(mouseClickSpace.getCenterX() - mouseClickSpace.getRadius(), mouseClickSpace.getCenterY() - mouseClickSpace.getRadius(), mouseClickSpace.getRadius() * 2, mouseClickSpace.getRadius() * 2);
 
-        if (isFinished) {
+        if (isFinished)
+        {
             gc.setFont(new Font(30));
             gc.setFill(font);
             gc.setTextAlign(TextAlignment.CENTER);

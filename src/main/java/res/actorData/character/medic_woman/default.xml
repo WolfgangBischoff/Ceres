@@ -29,25 +29,11 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
 <root name="medic">
 
-    <dialogue id="intro" type = "normal" nextDialogue="intro-questions">
+    <dialogue id="intro" type = "normal">
         <line>Good morning sleepyhead! Well, hopefully you won't oversleep our arrival on %%GDCeres%% ;-)</line>
         <line>Anyway, you have to %%GDgo to the trader%%, he has a task for you.</line>
         <line>If the stars stand well, he will give you a good price for your work.. everyday the same crap.</line>
         <line>Take care man, we have weird times..</line>
-    </dialogue>
-
-    <dialogue id="intro-questions" type="decision" >
-        <option nextDialogue="command-center-info">&gt;Where is the command center?&lt;</option>
-        <option nextDialogue="vendor-info">&gt;Where is the trader?&lt;</option>
-        <option>[Go away]</option>
-    </dialogue>
-
-    <dialogue id="command-center-info" type = "normal" nextDialogue="intro-questions">
-        <line>Its on the upper freight deck, just take the elevator up and follow the hallway.</line>
-    </dialogue>
-
-    <dialogue id="vendor-info" type = "normal" nextDialogue="intro-questions">
-        <line>Its on the lower crew-deck, next to the elevator.</line>
     </dialogue>
 
     <dialogue id="WINDOW_INTRO" type = "normal" nextDialogue="OPTION_GOALS">
