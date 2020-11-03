@@ -12,7 +12,7 @@ import static Core.Configs.Config.DAY_FORCED_ENDTIME;
 
 public class Clock
 {
-    private static String CLASSNAME = "Clock ";
+    private static String CLASSNAME = "Clock/";
     IntegerProperty time = new SimpleIntegerProperty(Config.DAY_STARTTIME);
 
     Long lastTimeIncremented;
@@ -54,7 +54,7 @@ public class Clock
         return new GameTime(fiveMinutes, hours);
     }
 
-    class GameTime{
+    static class GameTime{
         int minutes;
         Integer hour;
 

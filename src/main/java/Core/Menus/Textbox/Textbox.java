@@ -154,12 +154,9 @@ public class Textbox
                                     nextDialogue = optionNodeElement.getAttribute(NEXT_DIALOGUE_TAG);
                                 visibleLine = optionNode.getTextContent();
 
-                                if (optionNodeElement.hasAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF) &&
-                                        !optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF)
-                                                .equals(checkVariableCondition(optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_TYPE), optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME))))
-                                    isOptionVisible = false;
-                                else
-                                    isOptionVisible = true;
+                                isOptionVisible = !optionNodeElement.hasAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF) ||
+                                        optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF)
+                                                .equals(checkVariableCondition(optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_TYPE), optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME)));
                             }
                         }
                         if (isOptionVisible)
@@ -336,12 +333,7 @@ public class Textbox
         }
         else mousePosRelativeToTextboxOverlay = null;
 
-        if (actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null && talkIcon.contains(mousePosRelativeToTextboxOverlay))
-        {
-            isInfoButtonHovered = true;
-        }
-        else
-            isInfoButtonHovered = false;
+        isInfoButtonHovered = actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null && talkIcon.contains(mousePosRelativeToTextboxOverlay);
 
         //Check if hovered on Option
         int offsetYTmp = firstLineOffsetY;
@@ -494,7 +486,7 @@ public class Textbox
         {
             String line = lineSplitMessage.get(lineIdx);
             FontManager fontManager = new FontManager(line);
-            line = fontManager.removeFontMarkings(line);
+            line = FontManager.removeFontMarkings(line);
             double elapsedTimeSinceLastInteraction = (GameWindow.getCurrentNanoRenderTimeGameWindow() - lastTimeNewLetterRendered) / 1000000000.0;
             if (elapsedTimeSinceLastInteraction > 0.005)
             {

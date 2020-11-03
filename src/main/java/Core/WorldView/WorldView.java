@@ -660,8 +660,7 @@ public class WorldView
         gc.drawImage(moneyWritableImage, moneyOverlayPosition.getX(), moneyOverlayPosition.getY());
         WritableImage hungerOverlayImage = hungerOverlay.getWritableImage();
         gc.drawImage(hungerOverlayImage, hungerOverlayPosition.getX(), hungerOverlayPosition.getY());
-        WritableImage boardTimeOverlayImage = boardTimeOverlay.getWritableImage();
-        gc.drawImage(boardTimeOverlayImage, boardTimeOverlayPosition.getX(), boardTimeOverlayPosition.getY());
+        gc.drawImage(boardTimeOverlay.render(), boardTimeOverlayPosition.getX(), boardTimeOverlayPosition.getY());
     }
 
     private void renderLightEffect()

@@ -65,7 +65,6 @@ public class GameVariables
             System.out.println(CLASSNAME + methodName + "MAM: " + playerMaM_duringDay + " + " + deltaMAM + " = " + (playerMaM_duringDay.getValue() + deltaMAM));
 
         setPlayerMaM_duringDay(playerMaM_duringDay.getValue() + deltaMAM);
-        ;
     }
 
     public static void addStolenCollectible(Collectible collectible)

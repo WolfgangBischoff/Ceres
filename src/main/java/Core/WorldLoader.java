@@ -306,9 +306,9 @@ public class WorldLoader
 
     }
 
-    class ActorGroupData
+    static class ActorGroupData
     {
-        List<String> memberOfGroups = new ArrayList();
+        ArrayList memberOfGroups = new ArrayList();
     }
 
     private void readWorldShadow(String[] lineData)

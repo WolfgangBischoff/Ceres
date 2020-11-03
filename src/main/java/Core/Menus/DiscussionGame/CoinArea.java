@@ -42,7 +42,6 @@ public class CoinArea
     private static final Point2D SCREEN_POSITION = new Point2D(DISCUSSION_POSITION.getX() + COIN_AREA_WIDTH_OFFSET, DISCUSSION_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET);
     private Canvas canvas;
     private GraphicsContext gc;
-    private WritableImage writableImage;
     Image cornerTopLeft, cornerBtmRight;
     Point2D mousePosRelativeToDiscussionOverlay;
     List<Shape> shapeList = new ArrayList<>();
@@ -215,18 +214,13 @@ public class CoinArea
     {
         String methodName = "draw() ";
         gc.clearRect(0, 0, WIDTH, HEIGHT);
-        Color background = COLOR_BACKGROUND_BLUE;
-        double hue = background.getHue();
-        double sat = background.getSaturation();
-        double brig = background.getBrightness();
-        Color marking = COLOR_MARKING;
         Color font = COLOR_FONT;
 
         //Background
         gc.setGlobalAlpha(0.65);
         gc.drawImage(backgroundImage, (WIDTH - backgroundImage.getWidth()) / 2, (HEIGHT - backgroundImage.getHeight()) / 2);
         gc.setGlobalAlpha(0.8);
-        gc.setFill(background);
+        gc.setFill(COLOR_BACKGROUND_BLUE);
         gc.fillRect(0, 0, WIDTH, HEIGHT);
 
         gc.setStroke(font);
@@ -238,7 +232,7 @@ public class CoinArea
 
         update(currentNanoTime);
         gc.setGlobalAlpha(1);
-        gc.setFill(marking);
+        gc.setFill(COLOR_MARKING);
         for (int i = 0; i < visibleCoinsList.size(); i++)
         {
             CharacterCoin coin = visibleCoinsList.get(i);
@@ -286,7 +280,7 @@ public class CoinArea
 
         //Check for hovered elements
         if (isMouseClicked)
-            for (Integer i = 0; i < visibleCoinsList.size(); i++)
+            for (int i = 0; i < visibleCoinsList.size(); i++)
             {
                 Circle circle = visibleCoinsList.get(i).collisionCircle;
                 if (doCircleOverlap(circle, mouseClickSpace))
@@ -343,12 +337,6 @@ public class CoinArea
             clickedCoins.put(coin.type, 0);
         if (debug) System.out.println(CLASSNAME + methodName + buffCoinMultiplicand + " " + activeBuffs.toString());
         clickedCoins.put(coin.type, (clickedCoins.get(coin.type) + buffCoinMultiplicand));
-    }
-
-    public WritableImage getWritableImage(Long currentNanoTime)
-    {
-        render(currentNanoTime);
-        return writableImage;
     }
 
     public Map<String, CharacterCoinBuff> getActiveBuffs()

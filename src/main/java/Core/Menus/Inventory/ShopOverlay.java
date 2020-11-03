@@ -54,12 +54,8 @@ public class ShopOverlay
         String methodName = "draw() ";
         menuGc.clearRect(0, 0, WIDTH, HEIGHT);
         Color background = COLOR_BACKGROUND_BLUE;
-        double hue = background.getHue();
-        double sat = background.getSaturation();
-        double brig = background.getBrightness();
-        Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
-        Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-        Color red = COLOR_RED;
+        Color marking = COLOR_MARKING;
+        Color font = COLOR_FONT;
         interfaceElements_Rectangles.clear();
         interfaceElements_list.clear();
 
@@ -109,7 +105,7 @@ public class ShopOverlay
                 if (current != null)
                 {
                     menuGc.drawImage(current.getImage(), slotX, slotY);
-                    menuGc.setFill(red);
+                    menuGc.setFill(COLOR_RED);
                     menuGc.fillText(current.getIngameName() + " Price: " + current.getBaseValue(), slotX + 60, slotY + 32);
                 }
                 itemSlotNumber++;

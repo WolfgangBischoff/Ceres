@@ -56,12 +56,8 @@ public class InventoryOverlay
         String methodName = "draw() ";
         gc.clearRect(0, 0, WIDTH, HEIGHT);
         Color background = COLOR_BACKGROUND_BLUE;
-        double hue = background.getHue();
-        double sat = background.getSaturation();
-        double brig = background.getBrightness();
-        Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
-        Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-        Color red = COLOR_RED;
+        Color marking = COLOR_MARKING;
+        Color font = COLOR_FONT;
         Color darkRed = Color.hsb(0, 0.23, 0.70);
         interfaceElements_Rectangles.clear();
         interfaceElements_list.clear();
@@ -113,7 +109,7 @@ public class InventoryOverlay
                     if (GameVariables.getStolenCollectibles().contains(current)) {
                         gc.setFill(darkRed);
                         gc.fillOval(slotX + 44, slotY + 44, 16, 16);
-                        gc.setFill(red);
+                        gc.setFill(COLOR_RED);
                         gc.fillOval(slotX + 46, slotY + 46, 12, 12);
                     }
                 }
