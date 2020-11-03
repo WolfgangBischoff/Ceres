@@ -37,20 +37,12 @@
      - Mutieren und Kreuzen von Pflanzen, cookie Clicker
 
 - Content
-    - More Sprite Descriptions
-    - Side Quest
-        Traveller of Genetics company: Can I trust you? Have a job! tell you that keycard..
-        Get Keycard from security capsule
-        Find Human Embryos frozen
-        Give him for money
     - Main Quest
-        - Air System Quest
+            sister -> family info
             air hub =>  find manual at technician
             trader send you to bed
-        - Impact Quest
-            msg from doctor
-            - tenderer sends you to machine room for space suit, activation trigger new stage with other sprite
-            - check capsule and leave, find items
+            tenderer sends you to machine room for space suit, activation trigger new stage with other sprite
+            check capsule and activate intercom => stranger => leave
 - Console
 - change __xx__ to ______; latter should be overwritable for passive layer => default is nothing.
 - add Logger.log(debug, CLASSNAME, methodName, msg)
@@ -89,6 +81,12 @@ Goals and Quest:
           Je mehr Jobs erledigt desto mehr steigt zugang; dann können firmen zerstört werden
     - Repair personal bot
         Actor System with Fitting Software, Model, Batterie finden, ... ;if all are correct robot repaired
+
+    - Side Quest
+          Traveller of Genetics company: Can I trust you? Have a job! tell you that keycard..
+          Get Keycard from security capsule
+          Find Human Embryos frozen
+          Give him for money
 Mechanics:
     - Tag/Nacht Rythmus mit Dunklem Overlay, Lights on at some time. Check STardewVally how to
     - Daily needs:
@@ -142,28 +140,23 @@ Mechanics:
 QUEST 1:
 
 Staff: 2 technicians, doctor, traveller, tenderer, 2 guards, blind passenger
-Start in WC, after exiting, your roomate approaches you:
-    This took long haha, at least the toilet is free for now.
-    Do you have some food, I didnt get work today (medincinist)? => no, unfortunately not
-    Go to the tenderer, maybe there is something for technicians, You need something
-    I am broke, but we should arrive Ceres soon..
-Regular Day:
-    Repair Air System
-    Repair personal bot
-    Grow Plant for life support
+In the morning after toilet you technician collegue tells you to go to you sister the medic. He also hates Mondays
+Sister: Mum and Dad sent the usual weird words, talk about low rente but we should stay cool. I am running out of money, didnt expected that the biosystem works that well. Goto trader
+Trader: Repair Air System, then go to bed. (maybe side quest)
 Meteorit Day: notTIME
-    Meet friend at the window, to watch Ceres
+    Msg of sister: meet at window
     After impact you get a space suit to check capsule
     There is a crate with eyes that dissapear onRange
-    Cannot repair hull breach, loosing air, tenderer tells you to release the capsule, not insured - Roger
+    Cannot repair hull breach, loosing air, tenderer tells you to release the capsule, not insured - Roger => talk to intercom and confirm task, you leave now the capsule
     Before leaving the capsule Stranger, blind passenger surprises you and asks for help. Tells about people/his family; you check it and tell trader to need more time for release
-    You want to tell the tenderer, but the stranger convinces you he already knows. Check his console to be sure. We will meet at night
+    You want to tell the tenderer, but the stranger convinces you he already knows. Optional: Check his personal capsule to be sure. We will meet at night
 Meteorit Night:
-    I am baffled about this..
-    Put them into rescue pods and send them to ceres with supplys (air masks and heat energy, food)
-Arrival at Ceres:
+    Meeting with sister and stranger. (Sister: let them fly but dont come with them D:)
+    Sister changes bio signature to be invisible: Look for me, I will wait!
+    Go into rescue pods and fly to ceres
+Arrival at Ceres Freight bay:
     "Good morning and welcome on Ceres"
-    Trader waits for you: I am pretty sure you have something to do with this mess. The pod is missing and freight is gone. I cannot beweisen but you are fired. Leave this ship!
+
 
 QUEST 2:
 You sleep in a container, you have nothing, start an existance by quests and steal, you are a immigrant
