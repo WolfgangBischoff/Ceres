@@ -1,4 +1,4 @@
-package Core.Menus.DiscussionGame;
+package Core.Menus.CoinGame;
 
 import Core.Actor;
 import Core.GameVariables;
@@ -10,7 +10,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 import java.util.List;

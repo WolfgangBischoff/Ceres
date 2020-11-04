@@ -1,14 +1,9 @@
 package Core.Menus.Personality;
 
-import Core.Menus.DiscussionGame.CharacterCoin;
-import Core.Menus.DiscussionGame.CoinType;
+import Core.Menus.CoinGame.CoinType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static Core.Menus.Personality.PersonalityTrait.*;
 
 public class PersonalityContainer
 {

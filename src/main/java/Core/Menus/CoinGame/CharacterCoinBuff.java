@@ -1,4 +1,4 @@
-package Core.Menus.DiscussionGame;
+package Core.Menus.CoinGame;
 
 import Core.Enums.Knowledge;
 

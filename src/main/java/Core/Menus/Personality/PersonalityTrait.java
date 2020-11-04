@@ -1,7 +1,7 @@
 package Core.Menus.Personality;
 
 import Core.Enums.Knowledge;
-import Core.Menus.DiscussionGame.CoinType;
+import Core.Menus.CoinGame.CoinType;
 
 public enum PersonalityTrait implements CoinType
 {

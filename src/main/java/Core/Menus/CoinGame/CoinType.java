@@ -1,8 +1,8 @@
-package Core.Menus.DiscussionGame;
+package Core.Menus.CoinGame;
 
 import Core.Enums.Knowledge;
 
-import static Core.Menus.DiscussionGame.CharacterCoinBuff.*;
+import static Core.Menus.CoinGame.CharacterCoinBuff.*;
 import static Core.Menus.Personality.MachineTrait.*;
 import static Core.Menus.Personality.PersonalityTrait.*;
 

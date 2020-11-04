@@ -1,4 +1,4 @@
-package Core.Menus.DiscussionGame;
+package Core.Menus.CoinGame;
 
 import Core.Actor;
 import Core.GameWindow;
@@ -29,10 +29,11 @@ import java.util.List;
 import java.util.Map;
 
 import static Core.Configs.Config.*;
-import static Core.Menus.DiscussionGame.CharacterCoinBuff.BUFF_DOUBLE_REWARD;
+import static Core.Menus.CoinGame.CharacterCoinBuff.BUFF_DOUBLE_REWARD;
 import static Core.Menus.Personality.MachineTrait.*;
 import static Core.Menus.Personality.PersonalityTrait.*;
 import static Core.Utilities.doCircleOverlap;
+import static javafx.scene.paint.Color.BLACK;
 
 public class CoinArea
 {
@@ -217,10 +218,10 @@ public class CoinArea
         Color font = COLOR_FONT;
 
         //Background
-        gc.setGlobalAlpha(0.65);
+        gc.setGlobalAlpha(0.45);
         gc.drawImage(backgroundImage, (WIDTH - backgroundImage.getWidth()) / 2, (HEIGHT - backgroundImage.getHeight()) / 2);
-        gc.setGlobalAlpha(0.8);
-        gc.setFill(COLOR_BACKGROUND_BLUE);
+        gc.setGlobalAlpha(0.7);
+        gc.setFill(BLACK);
         gc.fillRect(0, 0, WIDTH, HEIGHT);
 
         gc.setStroke(font);

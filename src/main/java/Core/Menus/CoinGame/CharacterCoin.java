@@ -1,4 +1,4 @@
-package Core.Menus.DiscussionGame;
+package Core.Menus.CoinGame;
 
 import Core.Utilities;
 import javafx.geometry.Point2D;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static Core.Configs.Config.*;
-import static Core.Menus.DiscussionGame.CharacterCoinBuff.BUFF_SLOWED;
+import static Core.Menus.CoinGame.CharacterCoinBuff.BUFF_SLOWED;
 
 public class CharacterCoin
 {

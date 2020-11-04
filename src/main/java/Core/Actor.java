@@ -4,7 +4,7 @@ package Core;
 import Core.ActorSystem.ActorMonitor;
 import Core.Configs.Config;
 import Core.Enums.*;
-import Core.Menus.DiscussionGame.CoinType;
+import Core.Menus.CoinGame.CoinType;
 import Core.Menus.Inventory.Inventory;
 import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Personality.PersonalityContainer;
