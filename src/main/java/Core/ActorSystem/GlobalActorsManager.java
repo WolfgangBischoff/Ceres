@@ -96,22 +96,40 @@ public class GlobalActorsManager
             globalActorMonitor.sendSignalFrom(groupId);//init new groups to init world variables
     }
 
-    public static Map<String, Actor> getGlobalActors(List<String> actorIds)
+    public static Map<String, Actor> getGlobalActors(List<String> actorData)
     {
         String methodName = "getGlobalActors() ";
         Map<String, Actor> globalActors = new HashMap<>();
-        actorIds.forEach(id ->
+        int idIdx = 0, spriteStatusIdx = 1, directionIdx = 2, sensorStatusIdx = 3, dialogueFileIdx = 4, dialogueIdIdx = 5;
+        actorData.forEach(id ->
         {
-            String[] splitActorId = id.split(",");//ggf there is a target status
-            String actorID = splitActorId[0];
-            if(splitActorId.length>=2)
+            String[] detailData = id.split(",");
+            String actorId = "not set";
+            for (int i = 0; i < detailData.length; i++)//check optional data to change actor
             {
-                actorsIdsMap.get(actorID).setGeneralStatus(splitActorId[1]);
-                if(splitActorId.length>=3)
-                    actorsIdsMap.get(actorID).setDirection(Direction.getDirectionFromValue(splitActorId[2]));
-                actorsIdsMap.get(actorID).updateCompoundStatus();
+                if (!detailData[i].isEmpty())
+                    switch (i) {
+                        case 0:
+                            actorId = detailData[idIdx];
+                            break;
+                        case 1:
+                            actorsIdsMap.get(actorId).setGeneralStatus(detailData[spriteStatusIdx]);
+                            break;
+                        case 2:
+                            actorsIdsMap.get(actorId).setDirection(Direction.getDirectionFromValue(detailData[directionIdx]));
+                            break;
+                        case 3:
+                            actorsIdsMap.get(actorId).setSensorStatus(detailData[sensorStatusIdx]);
+                            break;
+                        case 4:
+                            actorsIdsMap.get(actorId).setDialogueFile(detailData[dialogueFileIdx]);
+                            break;
+                        case 5:
+                            actorsIdsMap.get(actorId).setDialogueId(detailData[dialogueIdIdx]);
+                            break;
+                    }
             }
-            globalActors.put(actorID, actorsIdsMap.get(actorID));
+            globalActors.put(actorId, actorsIdsMap.get(actorId));
         });
 
         return globalActors;

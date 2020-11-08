@@ -88,7 +88,6 @@ public class Actor
             actorDefinitionKeywords.add(KEYWORD_sensorStatus);
             actorDefinitionKeywords.add(KEYWORD_actor_tags);
             actorDefinitionKeywords.add(KEYWORD_condition);
-            //actorDefinitionKeywords.add(KEYWORD_personality);
             actorDefinitionKeywords.add(KEYWORD_suspicious_value);
             actorDefinitionKeywords.add(ACTOR_PERSONALITY_V2);
         }
@@ -219,6 +218,15 @@ public class Actor
         return readContainer;
     }
 
+    public void setDialogueFile(String dialogueFile)
+    {
+        spriteList.forEach(sprite -> sprite.setDialogueFileName(dialogueFile));
+    }
+
+    public void setDialogueId(String dialogueId)
+    {
+        spriteList.forEach(sprite -> sprite.setInitDialogueId(dialogueId));
+    }
 
     private ActorCondition readCondition(String[] linedata)
     {
