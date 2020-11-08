@@ -29,8 +29,12 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
 <root name="technician">
 
-    <dialogue id="INTRO_TO_MEDIC" type="normal">
+    <dialogue id="INTRO_TO_MEDIC" type="normal" dialogueId="INTRO_TO_MEDIC_REPEAT">
         <line>Good Morning! The medic wants to talk to you, she waits in the %%VTControl Room%%!</line>
+    </dialogue>
+
+    <dialogue id="INTRO_TO_MEDIC_REPEAT" type="normal">
+        <line>She waits in the %%VTControl Room%%! Go to her, dont let her wait</line>
     </dialogue>
 
 

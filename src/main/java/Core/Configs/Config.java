@@ -124,11 +124,11 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_ITEM_ACTOR = "item_actor";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_NAME = "item_name";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_STATUS = "item_status";
-    public static final String discussion_TYPE_ATTRIBUTE = "discussion";
-    public static final String game_ATTRIBUTE = "game";
-    public static final String success_ATTRIBUTE = "success";
-    public static final String defeat_ATTRIBUTE = "defeat";
-    public static final String levelchange_TYPE_ATTRIBUTE = "levelchange";
+    public static final String TEXTBOX_ATTRIBUTE_DISCUSSION = "discussion";
+    public static final String TEXTBOX_ATTRIBUTE_GAME = "game";
+    public static final String TEXTBOX_ATTRIBUTE_SUCCESS = "success";
+    public static final String TEXTBOX_ATTRIBUTE_DEFEAT = "defeat";
+    public static final String TEXTBOX_ATTRIBUTE_LEVELCHANGE = "levelchange";
     public static final String TEXTBOX_ATTRIBUTE_LEVEL = "level";
     public static final String TEXTBOX_ATTRIBUTE_SPAWN_ID = "spawnID";
     public static final String TEXTBOX_ATTRIBUTE_DAY_CHANGE = "dayChange";
@@ -142,6 +142,8 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_FALSE = "false";
     public static final String TEXTBOX_ATTRIBUTE_BUMP = "bump";
     public static final String TEXTBOX_ATTRIBUTE_KNOWLEDGE = "knowledge";
+    public static final String TEXTBOX_ATTRIBUTE_DIALOGUE_FILE = "dialogueFile";
+    public static final String TEXTBOX_ATTRIBUTE_DIALOGUE_ID = "dialogueId";
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";

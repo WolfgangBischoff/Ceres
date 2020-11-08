@@ -163,16 +163,15 @@ public class Textbox
                     }
                 }
                 //Discussion Type
-                else if (dialogueType.equals(discussion_TYPE_ATTRIBUTE))
-                {
-                    String discussionGameName = currentDialogue.getAttribute(game_ATTRIBUTE);
-                    String successNextMsg = currentDialogue.getAttribute(success_ATTRIBUTE);
-                    String defeatNextMsg = currentDialogue.getAttribute(defeat_ATTRIBUTE);
-                    readDialogue.addOption(success_ATTRIBUTE, successNextMsg);
-                    readDialogue.addOption(defeat_ATTRIBUTE, defeatNextMsg);
+                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_DISCUSSION)) {
+                    String discussionGameName = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_GAME);
+                    String successNextMsg = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_SUCCESS);
+                    String defeatNextMsg = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_DEFEAT);
+                    readDialogue.addOption(TEXTBOX_ATTRIBUTE_SUCCESS, successNextMsg);
+                    readDialogue.addOption(TEXTBOX_ATTRIBUTE_DEFEAT, defeatNextMsg);
                     WorldView.setDiscussionGame(new CoinGame(discussionGameName, actorOfDialogue));
                 }
-                else if (dialogueType.equals(levelchange_TYPE_ATTRIBUTE)) {
+                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_LEVELCHANGE)) {
                     String levelname = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL);
                     String spawnId = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID);
                     WorldView.getSingleton().saveStage();
@@ -220,6 +219,12 @@ public class Textbox
                     if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE)) {
                         Knowledge knowledge = Knowledge.of(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE));
                         GameVariables.getPlayerKnowledge().add(knowledge);
+                    }
+                    if (currentDialogue.hasAttribute((TEXTBOX_ATTRIBUTE_DIALOGUE_FILE))) {
+                        actorOfDialogue.setDialogueFile(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_FILE));
+                    }
+                    if (currentDialogue.hasAttribute((TEXTBOX_ATTRIBUTE_DIALOGUE_ID))) {
+                        actorOfDialogue.setDialogueId(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_ID));
                     }
                 }
 
@@ -466,11 +471,11 @@ public class Textbox
         if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE)) {
             lineSplitMessage = readDialogue.getOptionMessages();
         }
-        else if (readDialogue.type.equals(discussion_TYPE_ATTRIBUTE)) {
+        else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_DISCUSSION)) {
             WorldViewController.setWorldViewStatus(WorldViewStatus.DISCUSSION_GAME);
             lineSplitMessage = wrapText("Discussion ongoing");
         }
-        else if (readDialogue.type.equals(levelchange_TYPE_ATTRIBUTE)) {
+        else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_LEVELCHANGE)) {
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
             lineSplitMessage = wrapText("technical");
         }
@@ -530,9 +535,9 @@ public class Textbox
     public void setNextDialogueFromDiscussionResult(boolean hasWon)
     {
         if (hasWon)
-            nextDialogueID = readDialogue.getOption(success_ATTRIBUTE).nextDialogue;
+            nextDialogueID = readDialogue.getOption(TEXTBOX_ATTRIBUTE_SUCCESS).nextDialogue;
         else
-            nextDialogueID = readDialogue.getOption(defeat_ATTRIBUTE).nextDialogue;
+            nextDialogueID = readDialogue.getOption(TEXTBOX_ATTRIBUTE_DEFEAT).nextDialogue;
     }
 
     private void changeActorStatus(String toGeneralStatus)
