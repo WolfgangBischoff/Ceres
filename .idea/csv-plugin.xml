@@ -52,6 +52,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/java/res/level/crewdeck/afterAirQuest.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/java/res/level/crewdeck/beforeAirQuest.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/java/res/level/crewdeck/crewdeck.csv">
           <value>
             <Attribute>

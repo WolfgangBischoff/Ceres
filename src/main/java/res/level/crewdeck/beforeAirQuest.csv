@@ -1,6 +1,6 @@
 
 global_system_actor:
-character;	techni                                                                                                                                                                                                                                                                                                                   ,default,south,,actorData/character/technician/technician,INTRO_TO_MEDIC
+character           ;techni,default,south,,actorData/character/technician/technician,INTRO_TO_MEDIC
 
 
 
