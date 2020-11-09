@@ -84,3 +84,5 @@
 08 11 20    - added actor changes on global actor get
             - added dialogueFile and dialogueId change via Textbox
 09 11 20    - sister -> family info; air hub =>  find manual at technician; trader send you to bed
+            - pipe in the floor sprite added
+            - Coin Game: Player Finish message changed

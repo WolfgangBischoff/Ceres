@@ -214,6 +214,7 @@ public class CoinArea
     public WritableImage render(Long currentNanoTime) throws NullPointerException
     {
         String methodName = "draw() ";
+        boolean debug = false;
         gc.clearRect(0, 0, WIDTH, HEIGHT);
         Color font = COLOR_FONT;
 
@@ -250,13 +251,28 @@ public class CoinArea
             gc.setFill(font);
             gc.setTextAlign(TextAlignment.CENTER);
             gc.setTextBaseline(VPos.CENTER);
-            String text = "You got motivation: " + motivationResult + " focus: " + focusResult + " \ndecision: " + decisionResult + " lifestyle: " + lifestyleResult + " \nTotal: " + totalResult
-                    + "\n MaxPossiblePoints: " + maxPossiblePoints + " WinThreshold: " + winThreshold;
-            gc.fillText(text, WIDTH / 2.0, HEIGHT / 2.0);
+
+            float achievedPercentageOfMinWinThreshold = (float)totalResult / winThreshold;
+            String hintMsg = "";
+            if(achievedPercentageOfMinWinThreshold >= 0.7)
+                hintMsg = "You were close to success..";
+            else if(achievedPercentageOfMinWinThreshold >= 0.5)
+                hintMsg = "You were not close to success..";
+            else if(achievedPercentageOfMinWinThreshold >= 0.0)
+                hintMsg = "You were far away from success..";
+
             if (totalResult >= winThreshold)
-                gc.fillText("Convinced!", WIDTH / 2.0, HEIGHT / 2.0 + gc.getFont().getSize() + 40);
+                gc.fillText("Success!", WIDTH / 2.0, HEIGHT / 2.0 + gc.getFont().getSize());
             else
-                gc.fillText("Try again!", WIDTH / 2.0, HEIGHT / 2.0 + gc.getFont().getSize() + 40);
+                gc.fillText(hintMsg, WIDTH / 2.0, HEIGHT / 2.0 + gc.getFont().getSize());
+
+            if(debug)
+            {
+                String text = "You got motivation: " + motivationResult + " focus: " + focusResult + " \ndecision: " + decisionResult + " lifestyle: " + lifestyleResult + " \nTotal: " + totalResult
+                        + "\n MaxPossiblePoints: " + maxPossiblePoints + " WinThreshold: " + winThreshold;
+                gc.fillText(text, WIDTH / 2.0, HEIGHT / 2.0);
+            }
+
         }
 
         SnapshotParameters transparency = new SnapshotParameters();
