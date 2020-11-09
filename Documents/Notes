@@ -6,7 +6,8 @@
 - Features
     - Person turns if talking
     - Coin Game
-        - player finish messagen
+        - player finish message
+        - finish earlier button that removes all coins
         - add info box if new trait is visible
     - check higher resolution and zoom, fix not centered overlay
     - add attentionmark over sprites
