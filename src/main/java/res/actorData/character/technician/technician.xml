@@ -1,46 +1,28 @@
 
 
-
-<!--/>
-File Identified by Actor Definition
-First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
-
-id - identifier for lookup of textbox
-type - normal/decision
-spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
-
-    <dialogue id="welcome" type="normal" spritestatus="transition">
-        <line>Shown message</line>
-        <line>Shown message 2</line>
-        <nextDialogue>nextDialogueID</nextDialogue>
-    </dialogue>
-
-    <dialogue id="info" type="decision" spritestatus="transition">
-        <option>
-            <line>Optiontext1</line>
-            <nextDialogue>option1ID</nextDialogue>
-        </option>
-
-        <option>
-            <line>Optiontext1, Nothing happens</line>
-        </option>
-    </dialogue>
-<-->
-
 <root name="technician">
 
     <dialogue id="INTRO_TO_MEDIC" type="normal" dialogueId="INTRO_TO_MEDIC_REPEAT">
         <line>Good Morning! The medic wants to talk to you, she waits in the %%VTControl Room%%!</line>
     </dialogue>
 
-    <dialogue id="INTRO_TO_MEDIC_REPEAT" type="normal">
-        <line>She waits in the %%VTControl Room%%! Go to her, dont let her wait</line>
+    <dialogue id="INTRO_TO_MEDIC_REPEAT" type="decision">
+        <option nextDialogue="TASK">What should I do?</option>
+        <option nextDialogue="AIR_SYSTEM_NETWORK_SERVER_TRAIT" type="boolean" variablename="transporter_air_system_quest_started" visibleIf="true">Can you help me with the %%VTair hub%%?</option>
+        <option>[Leave]</option>
+    </dialogue>
+
+    <dialogue id="TASK" type="normal">
+        <line>Your sister waits for you in the %%VTControl Room%%! Go to her, dont let her wait.</line>
+    </dialogue>
+
+    <dialogue id="AIR_SYSTEM_NETWORK_SERVER_TRAIT" type="normal" knowledge="AIR_SYSTEM_NETWORK_SERVER_TRAIT">
+        <line>As far I know you have to use server access protocols. Check the the machine %%RDINFO%% to fix it. </line>
     </dialogue>
 
 
     <dialogue id="init-door" type="decision">
-        <option nextDialogue="door-info">Whats behind this door?</option>
-        <option nextDialogue="door-discussion">Can you open the door?</option>
+        <option nextDialogue="DISCUSSION_GAME">Practice Coin Game</option>
         <option nextDialogue="GET_ALGAE">Give me some algae!</option>
         <option>[Leave]</option>
     </dialogue>
@@ -50,18 +32,10 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Here is your algae stew!</line>
     </dialogue>
 
-    <dialogue id="door-info" type="normal" nextDialogue="init-door">
-        <line>Its the life support systems, but nobody has access without a good reason.</line>
-    </dialogue>
-
-    <dialogue id="door-discussion" type="normal" nextDialogue="discussion-game">
-        <line>If you don't have a good reason stop bothering me.</line>
-    </dialogue>
-
-    <dialogue id="discussion-game" type="decision">
-        <option nextDialogue="game-test">[Tell him, that you need access]</option>
-        <option nextDialogue="game-test2">[Test II]</option>
-        <option nextDialogue="game-test3">[Test III]</option>
+    <dialogue id="DISCUSSION_GAME" type="decision">
+        <option nextDialogue="game-test">[Waves Game]</option>
+        <option nextDialogue="game-test2">[Spiral &amp; Circle]</option>
+        <option nextDialogue="game-test3">[Staying Coins]</option>
         <option nextDialogue="init-door">[Go away]</option>
     </dialogue>
 

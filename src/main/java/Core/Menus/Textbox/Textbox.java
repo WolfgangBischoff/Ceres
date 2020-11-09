@@ -133,7 +133,7 @@ public class Textbox
                         for (int j = 0; j < optionChildNodes.getLength(); j++)
                         {
                             Node node = optionChildNodes.item(j);
-                            //Old version with extra next dialogue line, can be deleted once xml are corrected
+                            /*//Old version with extra next dialogue line, can be deleted once xml are corrected
                             if (node.getNodeName().equals(NEXT_DIALOGUE_TAG))
                             {
                                 nextDialogue = node.getTextContent();
@@ -143,7 +143,7 @@ public class Textbox
                             {
                                 visibleLine = node.getTextContent();
                                 continue;
-                            }
+                            }*/
 
                             //new version with next dialogue as attribute
                             if (optionNode.getNodeName().equals(OPTION_TAG))
@@ -181,7 +181,7 @@ public class Textbox
                     WorldViewController.setWorldViewStatus(WorldViewStatus.DAY_SUMMARY);
                     DaySummaryScreenController.newDay();
                 }
-                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_BOOLEAN)) {
+                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_VALUE_BOOLEAN)) {
                     String var = GameVariables.getGenericVariableManager().getValue(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
                     if (var == null)
                         System.out.println(CLASSNAME + methodName + "variable not set: " + currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
@@ -281,8 +281,8 @@ public class Textbox
     {
         String methodName = "checkVariableCondition() ";
         String eval = "true";
-        if (type.equals(TEXTBOX_ATTRIBUTE_BOOLEAN))
-            eval = GameVariables.getGenericVariableManager().getValue(varName);
+       // if (type.equals(TEXTBOX_ATTRIBUTE_BOOLEAN))
+           eval = GameVariables.getGenericVariableManager().getValue(varName);
         if (eval == null)
             System.out.println(CLASSNAME + methodName + "variable not set: " + varName);
         return eval;

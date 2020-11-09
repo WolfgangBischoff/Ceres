@@ -134,7 +134,6 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_DAY_CHANGE = "dayChange";
     public static final String TEXTBOX_ATTRIBUTE_GET_MONEY = "getMoney";
     public static final String TEXTBOX_ATTRIBUTE_VALUE = "value";
-    public static final String TEXTBOX_ATTRIBUTE_BOOLEAN = "boolean";
     public static final String TEXTBOX_ATTRIBUTE_VISIBLE_IF = "visibleIf";
     public static final String TEXTBOX_ATTRIBUTE_SET = "set";
     public static final String TEXTBOX_ATTRIBUTE_VARIABLE_NAME = "variablename";
@@ -144,6 +143,7 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_KNOWLEDGE = "knowledge";
     public static final String TEXTBOX_ATTRIBUTE_DIALOGUE_FILE = "dialogueFile";
     public static final String TEXTBOX_ATTRIBUTE_DIALOGUE_ID = "dialogueId";
+    public static final String TEXTBOX_ATTRIBUTE_VALUE_BOOLEAN = "boolean";
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";
