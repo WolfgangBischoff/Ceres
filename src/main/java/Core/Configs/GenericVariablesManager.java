@@ -10,6 +10,7 @@ public class GenericVariablesManager
 
     public GenericVariablesManager()
     {
+        stringWorldVariables.put("TRANSPORTER_AIR_SYSTEM_QUEST_TALKED_TO_SISTER", "false");
         stringWorldVariables.put("transporter_air_system_quest_started", "false");
         stringWorldVariables.put("IS_LIFE_SUPP_OPEN", "false");
         stringWorldVariables.put("AIR_SYSTEM_REBOOT_PART1_WON", "false");

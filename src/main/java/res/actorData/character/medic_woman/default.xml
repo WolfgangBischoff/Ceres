@@ -29,7 +29,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
 <root name="medic">
 
-    <dialogue id="intro" type = "normal">
+    <dialogue id="intro" type = "normal" variablename="TRANSPORTER_AIR_SYSTEM_QUEST_TALKED_TO_SISTER" set="true">
         <line>Good morning sleepyhead! Well, hopefully you won't oversleep our arrival on %%GDCeres%% ;-)</line>
         <line>Anyway, you have to %%GDgo to the trader%%, he has a task for you.</line>
         <line>If the stars stand well, he will give you a good price for your work.. everyday the same crap.</line>

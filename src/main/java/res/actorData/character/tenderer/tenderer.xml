@@ -35,12 +35,17 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 <-->
 
 <root name="tenderer">
-    <dialogue id="day0" type="normal" nextDialogue="job-decision">
-       <line>Hi, I am the trader</line>
-       <line>I have a job for you, if you are interested...</line>
+    <dialogue id="day0" type="boolean" variablename="TRANSPORTER_AIR_SYSTEM_QUEST_TALKED_TO_SISTER" true="INTRO"
+              false="GOTO_SISTER"/>
+
+    <dialogue id="INTRO" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
+        <line>I have a job for you, if you are interested...</line>
+    </dialogue>
+    <dialogue id="GOTO_SISTER" type="normal">
+       <line>Your %%VTsister%% wants to talk to you, go to her first!</line>
     </dialogue>
 
-    <dialogue id="job-decision" type="decision">
+    <dialogue id="GET_AIR_SYSTEM_QUEST" type="decision">
         <option nextDialogue="game-explanation">&gt;What should I do?&lt;</option>
         <option nextDialogue="tenderer-game">[Do the job]</option>
         <option nextDialogue="air_system_check"
@@ -53,7 +58,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     <dialogue id="QUEST_AIR_SYSTEM_DESC" type="normal" variablename="transporter_air_system_quest_started" set="true" nextDialogue="OPEN_LIFE_SUPPORT">
         <line>The oxygen level decreases due to a malfunction of the %%RDventilation system%%. Do something useful and fix it.</line>
     </dialogue>
-    <dialogue id="OPEN_LIFE_SUPPORT" type="normal" variablename="IS_LIFE_SUPP_OPEN" set="true" nextDialogue="job-decision">
+    <dialogue id="OPEN_LIFE_SUPPORT" type="normal" variablename="IS_LIFE_SUPP_OPEN" set="true" nextDialogue="GET_AIR_SYSTEM_QUEST">
         <line>I will grant you %%GRaccess%% to the %%GRlife support%% system chamber on the crew deck. Don`t blew it up.</line>
     </dialogue>
 
@@ -74,16 +79,16 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Have a nice day.</line>
     </dialogue>
 
-    <dialogue id="game-explanation" type="normal" nextDialogue="job-decision">
+    <dialogue id="game-explanation" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
         <line>Once the discussion begins, you have to %%GRclick on the right coins%%, which fit to me.</line>
         <line>Check out %%GRINFO on the upper left side%% to know which coins are correct. Once we get in touch more often you get more hints.</line>
     </dialogue>
 
     <dialogue id="air_system_check" type="boolean" variablename="isTransporterAirSystemOn" true="air_system_on" false="air_system_off"/>
-    <dialogue id="air_system_on" type="getMoney" value="80" variablename="transporter_air_system_quest_started" set="done" nextDialogue="job-decision">
+    <dialogue id="air_system_on" type="getMoney" value="80" variablename="transporter_air_system_quest_started" set="done" nextDialogue="GET_AIR_SYSTEM_QUEST">
         <line>You fixed the air system! Here is you %%GRmoney%%!</line>
     </dialogue>
-    <dialogue id="air_system_off" type="normal" nextDialogue="job-decision">
+    <dialogue id="air_system_off" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
         <line>The air system is %%RDstill down%% ... did you already check the %%VTair control console%% on the crew deck?</line>
         <line>For me it looks like that some of the %%VTvents%% are blocked, you should check them too.</line>
     </dialogue>

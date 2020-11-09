@@ -75,6 +75,7 @@ public class Textbox
     public void startConversation(Actor actorParam)
     {
         String methodName = "startConversation() ";
+        init();
         actorOfDialogue = actorParam;
         dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getSpriteList().get(0).getDialogueFileName() + ".xml");
         readDialogue = readDialogue(actorOfDialogue.getSpriteList().get(0).getInitDialogueId());
@@ -86,9 +87,15 @@ public class Textbox
     public void startConversation(String dialogueFile, String dialogueId)
     {
         String methodName = "startConversation(String, String) ";
+        init();
         actorOfDialogue = null;
         dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + dialogueFile + ".xml");
         readDialogue = readDialogue(dialogueId);
+    }
+
+    private void init()
+    {
+        messageIdx = 0;
     }
 
     //For Discussion if File is already read, Discussions send next Dialogue
@@ -408,13 +415,13 @@ public class Textbox
         }
         else if (nextDialogueID != null)//No more messages but nextDialogue defined
         {
-            messageIdx = 0;
+            //messageIdx = 0;
             readDialogue = readDialogue(nextDialogueID, dialogueFileRoot);
         }
         else //End Textbox
         {
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
-            messageIdx = 0;
+            //messageIdx = 0;
         }
         playerActor.setLastInteraction(currentNanoTime);
 
