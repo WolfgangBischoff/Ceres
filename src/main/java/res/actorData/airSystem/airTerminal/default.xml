@@ -50,7 +50,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
     <dialogue id="ERROR_LOG" nextDialogue="REPAIR_OPTION" knowledge="AIR_SYSTEM_CONTROL_COMPUTE_TRAIT">
-        <line>Error 0451: Increased pressure due to pipe system blockage. Initiated emergency shutdown protocol.</line>
+        <line>Error 0451: Central Processing Unit overheat. Initiated emergency shutdown protocol.</line>
     </dialogue>
 
     <dialogue id="SOFT_RESTART" type="discussion" game="air_control" success="SOFT_RESTART_SUCCESS"

@@ -29,11 +29,16 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
 <root name="medic">
 
-    <dialogue id="intro" type = "normal" variablename="TRANSPORTER_AIR_SYSTEM_QUEST_TALKED_TO_SISTER" set="true">
+    <dialogue id="intro" type = "normal" variablename="TRANSPORTER_AIR_SYSTEM_QUEST_TALKED_TO_SISTER" set="true" dialogueId="GOTO_TRADER">
         <line>Good morning sleepyhead! Well, hopefully you won't oversleep our arrival on %%GDCeres%% ;-)</line>
-        <line>Anyway, you have to %%GDgo to the trader%%, he has a task for you.</line>
-        <line>If the stars stand well, he will give you a good price for your work.. everyday the same crap.</line>
-        <line>Take care man, we have weird times..</line>
+        <line>Mum and dad sent me a message. %%RDDad lost his job%% again so they had to stop their visits to the theater.</line>
+        <line>At least now he doesn't have to lift as hard as in that shitty job. But they have to be even more economical than usual now, but we shouldn't worry.</line>
+        <line>Anyway, you have to %%GDgo to the trader%%, we need some money too.</line>
+    </dialogue>
+
+    <dialogue id="GOTO_TRADER" type = "normal" >
+        <line>I am bit worried about mum and dad, they can`t live without money..</line>
+        <line>Anyway, you have to %%GDgo to the trader%%, we need some money too.</line>
     </dialogue>
 
     <dialogue id="WINDOW_INTRO" type = "normal" nextDialogue="OPTION_GOALS">
@@ -66,9 +71,8 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>For my part tough.. I am a doctor, I want to %%GRhelp people%%. On earth its feels difficult to make a difference, but here I can change things.</line>
     </dialogue>
 
-    <dialogue id="BUMP" type="normal" bump=""  nextDialogue="GOTO_TRADER">
+    <dialogue id="BUMP" type="normal" bump=""  nextDialogue="GOTO_TRADER" dialogueId="METEORIT">
         <line>%%RDSomething hit the ship!%%</line>
-        <spritechange sprite_id="medic_" status="meteorit"/>
         <spritechange sprite_id="tender" status="meteorit"/>
         <spritechange sprite_id="contro" status="impact"/>
     </dialogue>

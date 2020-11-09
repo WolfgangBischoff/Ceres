@@ -1,89 +1,45 @@
 
 
 
-<!--/>
-File Identified by Actor Definition
-First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
-
-id - identifier for lookup of textbox
-type - normal/decision
-spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
-
-    <dialogue id="welcome" type="normal" spritestatus="transition">
-        <line>Shown message</line>
-        <line>Shown message 2</line>
-        <nextDialogue>nextDialogueID</nextDialogue>
-    </dialogue>
-
-    <dialogue id="info" type="decision" spritestatus="transition">
-        <option>
-            <line>Optiontext1</line>
-            <nextDialogue>option1ID</nextDialogue>
-        </option>
-
-        <option>
-            <line>Optiontext1, Nothing happens</line>
-        </option>
-    </dialogue>
-
-"   &quot;
-'   &apos;
-<   &lt;
->   &gt;
-&   &amp;
-
-<-->
 
 <root name="tenderer">
-    <dialogue id="day0" type="boolean" variablename="TRANSPORTER_AIR_SYSTEM_QUEST_TALKED_TO_SISTER" true="INTRO"
+    <dialogue id="day0" type="boolean" variablename="TRANSPORTER_AIR_SYSTEM_QUEST_TALKED_TO_SISTER" true="GET_AIR_SYSTEM_QUEST"
               false="GOTO_SISTER"/>
 
-    <dialogue id="INTRO" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
-        <line>I have a job for you, if you are interested...</line>
-    </dialogue>
     <dialogue id="GOTO_SISTER" type="normal">
        <line>Your %%VTsister%% wants to talk to you, go to her first!</line>
     </dialogue>
 
     <dialogue id="GET_AIR_SYSTEM_QUEST" type="decision">
-        <option nextDialogue="game-explanation">&gt;What should I do?&lt;</option>
-        <option nextDialogue="tenderer-game">[Do the job]</option>
+        <option nextDialogue="COIN_GAME_EXPLANATION" variablename="transporter_air_system_quest_started" visibleIf="true">&gt;How should I fix the air system?&lt;</option>
         <option nextDialogue="air_system_check"
-                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="true">&gt;Whats the %%GDair system status%% now?&lt;</option>
+                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="true">&gt;Whats do you  %%GDair system status%% now?&lt;</option>
         <option nextDialogue="QUEST_AIR_SYSTEM_DESC"
-                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="false">&gt;Issues with the %%GRlife support%%&lt;</option>
+                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="false">&gt;Do you have work to do?&lt;</option>
+        <option nextDialogue="GOTO_BED"
+                variablename="transporter_air_system_quest_started" visibleIf="done">&gt;Do you more work?&lt;</option>
         <option>Never mind.</option>
     </dialogue>
 
+    <dialogue id="GOTO_BED" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
+        <line>No, there is nothing else to do today, but you can look around if you find something.</line>
+        <line>Once you are finished you should go to your %%VTprivate capsule%% to rest. A well recovered worker is a good worker!</line>
+    </dialogue>
+
+    <dialogue id="COIN_GAME_EXPLANATION" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
+        <line>Find the air system console on the %%VTcrew deck%% and get it online.</line>
+        <line>Once you found the console, check out %%GRINFO on the upper right side%% to learn about the characteristics of the machine.</line>
+        <line>Then start the boot protocols and %%GRclick on the coins%%, which fit to the system.</line>
+        <line>You can learn more characteristics by practice or if you %%GRask the technician%%.</line>
+    </dialogue>
+    
     <dialogue id="QUEST_AIR_SYSTEM_DESC" type="normal" variablename="transporter_air_system_quest_started" set="true" nextDialogue="OPEN_LIFE_SUPPORT">
         <line>The oxygen level decreases due to a malfunction of the %%RDventilation system%%. Do something useful and fix it.</line>
     </dialogue>
     <dialogue id="OPEN_LIFE_SUPPORT" type="normal" variablename="IS_LIFE_SUPP_OPEN" set="true" nextDialogue="GET_AIR_SYSTEM_QUEST">
         <line>I will grant you %%GRaccess%% to the %%GRlife support%% system chamber on the crew deck. Don`t blew it up.</line>
     </dialogue>
-
-    <dialogue id="tenderer-game" type="discussion" game="lifesupport" success="game-success" defeat="game-defeat"/>
-
-    <dialogue id="game-success" type = "normal" nextDialogue="getMoney">
-        <line>CereX thanks for you cooperation.</line>
-    </dialogue>
-    <dialogue id="game-defeat" type = "normal" nextDialogue="good-bye">
-        <line>Maybe you should take a CereX Trainee Course.</line>
-    </dialogue>
-
-    <dialogue id="getMoney" type="getMoney" value="50">
-        <line>Here you have your salary.</line>
-    </dialogue>
-
-    <dialogue id="good-bye" type="normal">
-        <line>Have a nice day.</line>
-    </dialogue>
-
-    <dialogue id="game-explanation" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
-        <line>Once the discussion begins, you have to %%GRclick on the right coins%%, which fit to me.</line>
-        <line>Check out %%GRINFO on the upper left side%% to know which coins are correct. Once we get in touch more often you get more hints.</line>
-    </dialogue>
-
+    
     <dialogue id="air_system_check" type="boolean" variablename="isTransporterAirSystemOn" true="air_system_on" false="air_system_off"/>
     <dialogue id="air_system_on" type="getMoney" value="80" variablename="transporter_air_system_quest_started" set="done" nextDialogue="GET_AIR_SYSTEM_QUEST">
         <line>You fixed the air system! Here is you %%GRmoney%%!</line>

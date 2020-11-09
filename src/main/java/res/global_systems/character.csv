@@ -2,5 +2,5 @@
 
 ACTORS:
 #code 					;actorFileName																											;IngameName															;sprite-status						;sensor-status										;direction
-medic_					;character/medic_woman/medic_woman							;medic																				;intro														;default																;south
+medic_					;character/medic_woman/medic_woman							;medic																				;default												;default																;south
 techni					;character/technician/technician									;technician															;default												;default																;south

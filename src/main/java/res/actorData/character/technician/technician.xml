@@ -3,7 +3,7 @@
 <root name="technician">
 
     <dialogue id="INTRO_TO_MEDIC" type="normal" dialogueId="INTRO_TO_MEDIC_REPEAT">
-        <line>Good Morning! The medic wants to talk to you, she waits in the %%VTControl Room%%!</line>
+        <line>Good Morning! Your sister wants to talk to you, she waits in the %%VTControl Room%%!</line>
     </dialogue>
 
     <dialogue id="INTRO_TO_MEDIC_REPEAT" type="decision">

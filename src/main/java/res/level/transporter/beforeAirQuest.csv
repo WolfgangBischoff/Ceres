@@ -1,7 +1,7 @@
 
 
 global_system_actor:
-character;	medic_
+character;	medic_,default,north,,,intro
 
 
 layer:

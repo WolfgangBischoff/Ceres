@@ -146,11 +146,8 @@ bxCart					;storages/greenBoxLarge/largeBox									;green Box																;c
 flatBx					;storages/box_flat/box_flat														;green flat Box											;default													;default																;none
 redKey					;collectibles/key/keycard																;Red Keycard														;red																	;default																;none
 key_bl					;collectibles/key/keycard																;Red Keycard  				 							;blue																;default																;undefined
-#tyxo__					;collectibles/quest/quest																;Tyxo										 										;tyxo																;default																;undefined
 algaeS					;collectibles/food/food																		;Algae Stew				 										;algaeStew											;default																;undefined
 asiaBe					;collectibles/food/food																		;Asia Star Bento										;asiastar												;default																;undefined
-
-#techni					;character/technician/technician									;technician															;default													;default																;south
 
 elevSc					;doors/updown/elevator/elevator										;main elevator												;toCrewDeck										;default																;undefined
 
@@ -178,14 +175,8 @@ FC_roof_4														;none																											;none														;FCr__
 trigger_FC_6											;transitionOnChange													;FC_roof_6									;FCtr_5
 FC_roof_6														;none																											;none														;FCr__5
 
-#Air System
-#airSystemMonitor	;none 																										;none 													;airCon ;airVeR; airVeL
-#airSystemBase				;isBaseSystem 																		;airSystemEnd 					;hydrOK
-#airSystemEnd					;none 																										;none 													;airVeR ;airVeL
-
 global_system_actor:
 transporter_air_system;airVeR;ventCo
-#character;techni
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision

@@ -415,7 +415,7 @@ public class Textbox
         }
         else if (nextDialogueID != null)//No more messages but nextDialogue defined
         {
-            //messageIdx = 0;
+            messageIdx = 0;
             readDialogue = readDialogue(nextDialogueID, dialogueFileRoot);
         }
         else //End Textbox
