@@ -6,7 +6,6 @@
 - Features
     - Person turns if talking
     - Coin Game
-        - finish earlier button that removes all coins
         - add info box if new trait is visible
         - show cooperation value in INFO
     - check higher resolution and zoom, fix not centered overlay

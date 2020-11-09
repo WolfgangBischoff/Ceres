@@ -37,7 +37,7 @@ public class Config
     public static final int COIN_AREA_HEIGHT_OFFSET = 30;
     public static final int COINGAME_WIDTH = COIN_AREA_WIDTH + 250;
     public static final int COINGAME_HEIGHT = COIN_AREA_HEIGHT + COIN_AREA_HEIGHT_OFFSET * 2;
-    public static Point2D DISCUSSION_POSITION = new Point2D(CAMERA_WIDTH / 2f - COINGAME_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - COINGAME_HEIGHT / 2.0);
+    public static Point2D COINGAME_POSITION = new Point2D(CAMERA_WIDTH / 2f - COINGAME_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - COINGAME_HEIGHT / 2.0);
 
     public static final int DAY_SUMMARY_WIDTH = 900;
     public static final int DAY_SUMMARY_HEIGHT = 600;

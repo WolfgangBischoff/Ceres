@@ -40,7 +40,8 @@ public class CoinArea
     private static final String CLASSNAME = "DiscussionGame/";
     private static final int HEIGHT = COIN_AREA_HEIGHT;
     private static final int WIDTH = COIN_AREA_WIDTH;
-    private static final Point2D SCREEN_POSITION = new Point2D(DISCUSSION_POSITION.getX() + COIN_AREA_WIDTH_OFFSET, DISCUSSION_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET);
+    private static final Point2D SCREEN_POSITION = new Point2D(COINGAME_POSITION.getX() + COIN_AREA_WIDTH_OFFSET, COINGAME_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET);
+    private static Rectangle2D SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
     private Canvas canvas;
     private GraphicsContext gc;
     Image cornerTopLeft, cornerBtmRight;
@@ -252,13 +253,13 @@ public class CoinArea
             gc.setTextAlign(TextAlignment.CENTER);
             gc.setTextBaseline(VPos.CENTER);
 
-            float achievedPercentageOfMinWinThreshold = (float)totalResult / winThreshold;
+            float achievedPercentageOfMinWinThreshold = (float) totalResult / winThreshold;
             String hintMsg = "";
-            if(achievedPercentageOfMinWinThreshold >= 0.7)
+            if (achievedPercentageOfMinWinThreshold >= 0.7)
                 hintMsg = "You were close to success..";
-            else if(achievedPercentageOfMinWinThreshold >= 0.5)
+            else if (achievedPercentageOfMinWinThreshold >= 0.5)
                 hintMsg = "You were not close to success..";
-            else if(achievedPercentageOfMinWinThreshold >= 0.0)
+            else if (achievedPercentageOfMinWinThreshold >= 0.0)
                 hintMsg = "You were far away from success..";
 
             if (totalResult >= winThreshold)
@@ -266,7 +267,7 @@ public class CoinArea
             else
                 gc.fillText(hintMsg, WIDTH / 2.0, HEIGHT / 2.0 + gc.getFont().getSize());
 
-            if(debug)
+            if (debug)
             {
                 String text = "You got motivation: " + motivationResult + " focus: " + focusResult + " \ndecision: " + decisionResult + " lifestyle: " + lifestyleResult + " \nTotal: " + totalResult
                         + "\n MaxPossiblePoints: " + maxPossiblePoints + " WinThreshold: " + winThreshold;
@@ -364,6 +365,11 @@ public class CoinArea
     public int getMaxGameTime()
     {
         return maxGameTime;
+    }
+
+    public static Rectangle2D getScreenArea()
+    {
+        return SCREEN_AREA;
     }
 
     public void setMaxGameTime(int maxGameTime)

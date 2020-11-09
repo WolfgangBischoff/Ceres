@@ -19,7 +19,7 @@ import static Core.Enums.TriggerType.NOTHING;
 
 public class Sprite
 {
-    public static final String CLASSNAME = "Sprite/";
+    private static final String CLASSNAME = "Sprite/";
     Image baseimage;
     double basewidth; //width of whole sprite, in therms of animation multiple frames
     double baseheight;

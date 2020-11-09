@@ -194,9 +194,8 @@ With increasing cooperation value you find trais of the person, some traits are 
     {
         String methodName = "processMouse(Point2D, boolean) ";
         Point2D overlayPosition = SCREEN_POSITION;
-        Rectangle2D posRelativeToWorldview = new Rectangle2D(overlayPosition.getX(), overlayPosition.getY(), WIDTH, HEIGHT);
-
         //Calculate Mouse Position relative to Overlay
+        Rectangle2D posRelativeToWorldview = new Rectangle2D(overlayPosition.getX(), overlayPosition.getY(), WIDTH, HEIGHT);
         if (posRelativeToWorldview.contains(mousePosition))
             mousePosRelativeToDiscussionOverlay = new Point2D(mousePosition.getX() - overlayPosition.getX(), mousePosition.getY() - overlayPosition.getY());
         else mousePosRelativeToDiscussionOverlay = null;

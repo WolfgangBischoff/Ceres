@@ -59,7 +59,7 @@ public class WorldView
 
     //Discussion Game Overlay
     static CoinGame coinGame;
-    static Point2D discussionGamePosition = DISCUSSION_POSITION;
+    static Point2D discussionGamePosition = COINGAME_POSITION;
 
     //DaySummary Overlay
     static DaySummaryScreenController daySummaryScreenController = new DaySummaryScreenController();

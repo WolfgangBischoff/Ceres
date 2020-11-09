@@ -4,12 +4,14 @@ import Core.Actor;
 import Core.GameVariables;
 import Core.Utilities;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +21,21 @@ import static Core.Configs.Config.*;
 
 public class CoinGame
 {
+    private static String CLASSNAME = "CoinGame/";
     static CoinArea coinArea;
     private Canvas canvas;
     private GraphicsContext gc;
-    private Image cornerTopLeft, cornerBtmRight;
+    private Image cornerTopLeft, cornerBtmRight, finishedButton;
     private Integer WIDTH = COINGAME_WIDTH, HEIGHT = COINGAME_HEIGHT;
+    private static final Point2D SCREEN_POSITION = COINGAME_POSITION;
+    private Circle exitButton = new Circle(COIN_AREA_WIDTH + 135, 400, 75);
 
     public CoinGame(String gameIdentifier, Actor actorOfDiscussion)
     {
         coinArea = new CoinArea(gameIdentifier, actorOfDiscussion);
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+        finishedButton = new Image(IMAGE_DIRECTORY_PATH + "interface/coinGame/finished.png");
         canvas = new Canvas(WIDTH, HEIGHT);
         gc = canvas.getGraphicsContext2D();
     }
@@ -54,7 +60,8 @@ public class CoinGame
         if (coinArea.getActiveBuffs().isEmpty())
             gc.fillText("None", COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + 10,
                     COIN_AREA_HEIGHT_OFFSET + 60);
-        for (Map.Entry<String, CharacterCoinBuff> entry : coinArea.getActiveBuffs().entrySet()) {
+        for (Map.Entry<String, CharacterCoinBuff> entry : coinArea.getActiveBuffs().entrySet())
+        {
             String key = entry.getKey();
             CharacterCoinBuff value = entry.getValue();
             gc.fillText(value.getName(), COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + 10,
@@ -63,7 +70,8 @@ public class CoinGame
         }
 
         List<CoinType> visibleTraits = new ArrayList<>();
-        coinArea.actorOfDiscussion.getPersonalityContainer().getTraits().forEach(trait -> {
+        coinArea.actorOfDiscussion.getPersonalityContainer().getTraits().forEach(trait ->
+        {
             if (coinArea.actorOfDiscussion.getPersonalityContainer().getCooperation() >= trait.getCooperationVisibilityThreshold()
                     && trait.getCooperationVisibilityThreshold() >= 0
                     || GameVariables.getPlayerKnowledge().contains(trait.getKnowledgeVisibility())
@@ -75,10 +83,13 @@ public class CoinGame
                 COIN_AREA_HEIGHT_OFFSET + 150);
 
         double residualTime = coinArea.getMaxGameTime() - (currentNanoTime - coinArea.gameStartTime) / 1000000000.0;
-        if(residualTime < 0)
+        if (residualTime < 0)
             residualTime = 0;
         gc.fillText("Remaining Time: " + Utilities.roundTwoDigits(residualTime), COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + 10,
                 COIN_AREA_HEIGHT_OFFSET + 200);
+
+        gc.setFill(Color.RED);
+        gc.drawImage(finishedButton,exitButton.getCenterX() - exitButton.getRadius(), exitButton.getCenterY() - exitButton.getRadius());
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
@@ -87,7 +98,29 @@ public class CoinGame
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
-        coinArea.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+        String methodName = "processMouse() ";
+        Point2D overlayPosition = SCREEN_POSITION;
+        Rectangle2D posRelativeToWorldview = new Rectangle2D(overlayPosition.getX(), overlayPosition.getY(), WIDTH, HEIGHT);
+        Point2D mousePosRelativeToOverlay;
+        if (posRelativeToWorldview.contains(mousePosition))
+            mousePosRelativeToOverlay = new Point2D(mousePosition.getX() - overlayPosition.getX(), mousePosition.getY() - overlayPosition.getY());
+        else mousePosRelativeToOverlay = null;
+
+        if (CoinArea.getScreenArea().contains(mousePosition))
+        {
+            coinArea.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+        }
+        else if (isMouseClicked && mousePosRelativeToOverlay != null && exitButton.contains(mousePosRelativeToOverlay))
+        {
+                getCoinArea().coinsList.forEach(
+                        coin ->
+                        {
+                            if (!getCoinArea().removedCoinsList.contains(coin))
+                                getCoinArea().removedCoinsList.add(coin);
+                        });
+                getCoinArea().visibleCoinsList.clear();
+                getCoinArea().setMaxGameTime(-1);
+        }
     }
 
     public static CoinArea getCoinArea()
