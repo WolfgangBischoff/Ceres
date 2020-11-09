@@ -85,4 +85,4 @@
             - added dialogueFile and dialogueId change via Textbox
 09 11 20    - sister -> family info; air hub =>  find manual at technician; trader send you to bed
             - pipe in the floor sprite added
-            - Coin Game: Player Finish message changed; finish earlier button that removes all coins
+            - Coin Game: Player Finish message changed; finish earlier button that removes all coins; show cooperation value, name, and number traits in INFO

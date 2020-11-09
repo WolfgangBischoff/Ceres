@@ -23,45 +23,30 @@ import javafx.scene.text.TextAlignment;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Core.Configs.Config.COIN_AREA_HEIGHT;
-import static Core.Configs.Config.COINGAME_WIDTH;
-import static Core.Configs.Config.PERSONALITY_HEIGHT;
-import static Core.Configs.Config.PERSONALITY_POSITION;
-import static Core.Configs.Config.PERSONALITY_WIDTH;
-import static Core.Configs.Config.TIME_BETWEEN_DIALOGUE;
+import static Core.Configs.Config.*;
 
 public class PersonalityScreenController
 {
-    /*
-With increasing cooperation value you find trais of the person, some traits are difficult to get, or just achievable by external world. Add Topics
-  The "Traits" menu show special actions like "Join party", Sabatoage, Give info, open way
-  Boost cooperation value with presents or actions
-   */
-
     private static final String CLASSNAME = "PersonalityScreenController/";
     private static final String BACK_BUTTON_ID = "back";
     private static final int WIDTH = PERSONALITY_WIDTH;
     private static final int HEIGHT = PERSONALITY_HEIGHT;
     private static final Point2D SCREEN_POSITION = PERSONALITY_POSITION;
     private Canvas canvas;
-    private GraphicsContext graphicsContext;
+    private GraphicsContext gc;
     private WritableImage writableImage;
     Point2D mousePosRelativeToDiscussionOverlay;
     private Integer highlightedElement;
     private List<String> interfaceElements_list = new ArrayList<>();
-
     private Actor otherPersonActor;
     private PersonalityContainer personalityContainer;
-    Actor player;
-
-    //Rhetoric Button
-    int rhetoric_x = 50;
-    int rhetoric_y = 100;
-    int rhetoric_width = 150;
-    int rhetoric_height = 60;
-    Rectangle2D rhetoric_Button = new Rectangle2D(rhetoric_x, rhetoric_y, rhetoric_width, rhetoric_height);
-
-    //Other Person Traits
+    int rhetoricButtonWidth = 280, rhetoricButtonHeight = 100;
+    Rectangle2D rhetoricButton = new Rectangle2D(WIDTH - rhetoricButtonWidth - 50, HEIGHT - rhetoricButtonHeight - 50, rhetoricButtonWidth, rhetoricButtonHeight);
+    Image cornerBtmRight, cornerTopLeft;
+    int backgroundOffsetX = 16;
+    int backgroundOffsetYDecorationTop = 10;
+    int backgroundOffsetYTalkIcon = 50;
+    int backgroundOffsetYDecorationBtm = 10;
     private List<CoinType> personalityList = new ArrayList<>();
     int initTraitsOffsetX = 350;
     int initTraitsOffsetY = 100;
@@ -71,10 +56,11 @@ With increasing cooperation value you find trais of the person, some traits are 
     public PersonalityScreenController(Actor otherPersonActor)
     {
         canvas = new Canvas(COINGAME_WIDTH, COIN_AREA_HEIGHT);
-        graphicsContext = canvas.getGraphicsContext2D();
+        gc = canvas.getGraphicsContext2D();
         this.otherPersonActor = otherPersonActor;
         highlightedElement = 0;
-        player = WorldView.getPlayer().getActor();
+        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
+        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         init();
     }
 
@@ -89,12 +75,12 @@ With increasing cooperation value you find trais of the person, some traits are 
     public List<CoinType> updateVisiblePersonality()
     {
         List<CoinType> visibleTraits = new ArrayList<>();
-        personalityContainer.getTraits().forEach(trait -> {
+        personalityContainer.getTraits().forEach(trait ->
+        {
             if (personalityContainer.getCooperation() >= trait.getCooperationVisibilityThreshold()
                     && trait.getCooperationVisibilityThreshold() >= 0
                     || GameVariables.getPlayerKnowledge().contains(trait.getKnowledgeVisibility())
             )
-                //personalityList.add(trait);
                 visibleTraits.add(trait);
         });
         return visibleTraits;
@@ -103,51 +89,50 @@ With increasing cooperation value you find trais of the person, some traits are 
     private void draw() throws NullPointerException
     {
         String methodName = "draw() ";
-        player = WorldView.getPlayer().getActor(); //Just needed as long the player resets with stage load (so we have always new Player)
-        graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
-        Color background = Color.rgb(60, 90, 85);
-        double hue = background.getHue();
-        double sat = background.getSaturation();
-        double brig = background.getBrightness();
-        Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
-        Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
+        gc.clearRect(0, 0, WIDTH, HEIGHT);
         interfaceElements_list.clear(); //Filled with each draw() Maybe better if filled just if elements change
-
-        graphicsContext.setTextAlign(TextAlignment.LEFT);
-        graphicsContext.setTextBaseline(VPos.CENTER);
+        gc.setTextAlign(TextAlignment.LEFT);
+        gc.setTextBaseline(VPos.CENTER);
 
         //Background
-        graphicsContext.setGlobalAlpha(0.8);
-        graphicsContext.setFill(background);
-        int backgroundOffsetX = 16, backgroundOffsetY = 10;
-        graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
-        graphicsContext.setGlobalAlpha(1);
+        gc.setGlobalAlpha(0.9);
+        gc.setFill(COLOR_BACKGROUND_BLUE);
+        gc.fillRect(backgroundOffsetX, backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetYDecorationTop - backgroundOffsetYTalkIcon - backgroundOffsetYDecorationBtm);
 
-        //Back button
-        graphicsContext.setFill(marking);
-        interfaceElements_list.add(BACK_BUTTON_ID);
-        if (highlightedElement == interfaceElements_list.indexOf(BACK_BUTTON_ID))
-            graphicsContext.fillRect(rhetoric_Button.getMinX(), rhetoric_Button.getMinY(), rhetoric_Button.getWidth(), rhetoric_Button.getHeight());
-        graphicsContext.setFill(font);
-        graphicsContext.fillText("Back", rhetoric_Button.getMinX() + 20, rhetoric_Button.getMinY() + rhetoric_Button.getHeight() / 2);
+        gc.setGlobalAlpha(1);
+        gc.setFont(traitsFont);
+        gc.setFill(COLOR_FONT);
+        int firstColumnOffset = 80;
+        gc.fillText(otherPersonActor.getActorInGameName(), firstColumnOffset, 150);
+        gc.fillText("Cooperation: " + otherPersonActor.getPersonalityContainer().getCooperation(), firstColumnOffset, 230);
+        gc.fillText("Known Traits: " + otherPersonActor.getPersonalityContainer().getVisibleCoins().size() + " / " + otherPersonActor.getPersonalityContainer().getTraits().size(), firstColumnOffset, 260);
 
-        //Other Person Known Traits
         int traitsOffsetX = initTraitsOffsetX;
         int traitsOffsetY = initTraitsOffsetY;
-        graphicsContext.setFont(traitsFont);
-        for (int lineIdx = 0; lineIdx < personalityList.size(); lineIdx++) {
+        for (int lineIdx = 0; lineIdx < personalityList.size(); lineIdx++)
+        {
             CoinType coinType = personalityList.get(lineIdx);
             Image coinImage = CharacterCoin.findImage(coinType.getName());
-            graphicsContext.setFill(font);
-            graphicsContext.fillText(
+            gc.setFill(COLOR_FONT);
+            gc.fillText(
                     coinType.getName(),
                     Math.round(traitsOffsetX + coinImage.getWidth() + 20),
                     Math.round(traitsOffsetY + coinImage.getHeight() / 2)
             );
-            graphicsContext.drawImage(coinImage, traitsOffsetX, traitsOffsetY);
+            gc.drawImage(coinImage, traitsOffsetX, traitsOffsetY);
             traitsOffsetY += coinImage.getHeight() + traitsYGap;
         }
 
+        //Back button
+        gc.setFill(COLOR_MARKING);
+        interfaceElements_list.add(BACK_BUTTON_ID);
+        if (highlightedElement == interfaceElements_list.indexOf(BACK_BUTTON_ID))
+            gc.fillRect(rhetoricButton.getMinX(), rhetoricButton.getMinY(), rhetoricButton.getWidth(), rhetoricButton.getHeight());
+        gc.setFill(COLOR_FONT);
+        gc.fillText("Back", rhetoricButton.getMinX() + 20, rhetoricButton.getMinY() + rhetoricButton.getHeight() / 2);
+
+        gc.drawImage(cornerTopLeft, 0, backgroundOffsetYTalkIcon);
+        gc.drawImage(cornerBtmRight, WIDTH - cornerBtmRight.getWidth(), HEIGHT - cornerBtmRight.getHeight());
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
@@ -202,7 +187,7 @@ With increasing cooperation value you find trais of the person, some traits are 
 
         Integer hoveredElement = null;
         //Check if hovered over Rhetoric Button
-        if (rhetoric_Button.contains(mousePosRelativeToDiscussionOverlay))
+        if (rhetoricButton.contains(mousePosRelativeToDiscussionOverlay))
             hoveredElement = interfaceElements_list.indexOf(BACK_BUTTON_ID);
 
         if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved

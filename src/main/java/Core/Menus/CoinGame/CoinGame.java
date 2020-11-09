@@ -69,15 +69,16 @@ public class CoinGame
             numberBuffs++;
         }
 
-        List<CoinType> visibleTraits = new ArrayList<>();
-        coinArea.actorOfDiscussion.getPersonalityContainer().getTraits().forEach(trait ->
-        {
-            if (coinArea.actorOfDiscussion.getPersonalityContainer().getCooperation() >= trait.getCooperationVisibilityThreshold()
-                    && trait.getCooperationVisibilityThreshold() >= 0
-                    || GameVariables.getPlayerKnowledge().contains(trait.getKnowledgeVisibility())
-            )
-                visibleTraits.add(trait);
-        });
+//        List<CoinType> visibleTraits = new ArrayList<>();
+//        coinArea.actorOfDiscussion.getPersonalityContainer().getTraits().forEach(trait ->
+//        {
+//            if (coinArea.actorOfDiscussion.getPersonalityContainer().getCooperation() >= trait.getCooperationVisibilityThreshold()
+//                    && trait.getCooperationVisibilityThreshold() >= 0
+//                    || GameVariables.getPlayerKnowledge().contains(trait.getKnowledgeVisibility())
+//            )
+//                visibleTraits.add(trait);
+//        });
+        List<CoinType> visibleTraits = coinArea.actorOfDiscussion.getPersonalityContainer().getVisibleCoins();
         int numberInvisibleTraits = coinArea.actorOfDiscussion.getPersonalityContainer().getTraits().size() - visibleTraits.size();
         gc.fillText("Invisible Traits: " + numberInvisibleTraits, COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + 10,
                 COIN_AREA_HEIGHT_OFFSET + 150);

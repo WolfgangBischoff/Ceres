@@ -7,7 +7,6 @@
     - Person turns if talking
     - Coin Game
         - add info box if new trait is visible
-        - show cooperation value in INFO
     - check higher resolution and zoom, fix not centered overlay
     - add attentionmark over sprites
     - change night dynamically

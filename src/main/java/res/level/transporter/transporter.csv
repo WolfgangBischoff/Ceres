@@ -114,7 +114,7 @@ door_H					;doors/horizontal/automatedDoor										;bulkhead																	;o
 windL1					;quest/main/frontwindow/actor												;front window													;spaceView										;default																;undefined
 
 #control center
-tender					;character/tenderer/tenderer													;Theo the tenderer								;day0															;default																;south
+tender					;character/tenderer/tenderer													;Julius Soulles											;day0															;default																;south
 contro					;computer/control/control																;control terminal									;default												;default																;undefined
 
 

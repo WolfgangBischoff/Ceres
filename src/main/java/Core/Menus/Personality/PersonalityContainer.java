@@ -1,5 +1,6 @@
 package Core.Menus.Personality;
 
+import Core.GameVariables;
 import Core.Menus.CoinGame.CoinType;
 
 import java.util.ArrayList;
@@ -8,7 +9,6 @@ import java.util.List;
 public class PersonalityContainer
 {
     private static final String CLASSNAME = "PersonalityContainer/";
-    //public MyersBriggsPersonality myersBriggsPersonality;
     private Integer cooperation = 0;
     private Integer numberOfInteractions = 0;
 
@@ -58,4 +58,19 @@ public class PersonalityContainer
     {
         this.traitsV2 = traitsV2;
     }
+
+    public List<CoinType> getVisibleCoins()
+    {
+        List<CoinType> visibleTraits = new ArrayList<>();
+        traitsV2.forEach(trait ->
+        {
+            if (cooperation >= trait.getCooperationVisibilityThreshold()
+                    && trait.getCooperationVisibilityThreshold() >= 0
+                    || GameVariables.getPlayerKnowledge().contains(trait.getKnowledgeVisibility())
+            )
+                visibleTraits.add(trait);
+        });
+        return visibleTraits;
+    }
+
 }
