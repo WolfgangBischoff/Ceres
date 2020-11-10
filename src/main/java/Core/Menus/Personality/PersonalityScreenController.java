@@ -41,8 +41,8 @@ public class PersonalityScreenController
     private Actor otherPersonActor;
     private PersonalityContainer personalityContainer;
     int rhetoricButtonWidth = 280, rhetoricButtonHeight = 100;
-    Rectangle2D rhetoricButton = new Rectangle2D(WIDTH - rhetoricButtonWidth - 50, HEIGHT - rhetoricButtonHeight - 50, rhetoricButtonWidth, rhetoricButtonHeight);
-    Image cornerBtmRight, cornerTopLeft;
+    Rectangle2D exitButton = new Rectangle2D(WIDTH - rhetoricButtonWidth - 50, HEIGHT - rhetoricButtonHeight - 50, rhetoricButtonWidth, rhetoricButtonHeight);
+    Image cornerBtmRight, cornerTopLeft, exitButtonImage;
     int backgroundOffsetX = 16;
     int backgroundOffsetYDecorationTop = 10;
     int backgroundOffsetYTalkIcon = 50;
@@ -61,6 +61,7 @@ public class PersonalityScreenController
         highlightedElement = 0;
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+        exitButtonImage = new Image(IMAGE_DIRECTORY_PATH + "interface/characteristicsInfo/info_exit.png");
         init();
     }
 
@@ -123,13 +124,10 @@ public class PersonalityScreenController
             traitsOffsetY += coinImage.getHeight() + traitsYGap;
         }
 
-        //Back button
-        gc.setFill(COLOR_MARKING);
+        //Exit button
         interfaceElements_list.add(BACK_BUTTON_ID);
-        if (highlightedElement == interfaceElements_list.indexOf(BACK_BUTTON_ID))
-            gc.fillRect(rhetoricButton.getMinX(), rhetoricButton.getMinY(), rhetoricButton.getWidth(), rhetoricButton.getHeight());
-        gc.setFill(COLOR_FONT);
-        gc.fillText("Back", rhetoricButton.getMinX() + 20, rhetoricButton.getMinY() + rhetoricButton.getHeight() / 2);
+        if (highlightedElement == interfaceElements_list.indexOf(BACK_BUTTON_ID))//Useful if multiple markable buttons exist
+            gc.drawImage(exitButtonImage,exitButton.getMinX(), exitButton.getMinY());
 
         gc.drawImage(cornerTopLeft, 0, backgroundOffsetYTalkIcon);
         gc.drawImage(cornerBtmRight, WIDTH - cornerBtmRight.getWidth(), HEIGHT - cornerBtmRight.getHeight());
@@ -187,7 +185,7 @@ public class PersonalityScreenController
 
         Integer hoveredElement = null;
         //Check if hovered over Rhetoric Button
-        if (rhetoricButton.contains(mousePosRelativeToDiscussionOverlay))
+        if (exitButton.contains(mousePosRelativeToDiscussionOverlay))
             hoveredElement = interfaceElements_list.indexOf(BACK_BUTTON_ID);
 
         if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved
