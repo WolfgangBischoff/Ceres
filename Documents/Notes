@@ -37,7 +37,7 @@
 - Content
     - Main Quest
             tenderer sends you to machine room for space suit, activation trigger new stage with other sprite
-            check capsule and activate intercom => stranger => leave
+            night-light capsule: check hull break => cannot be repaired, at intercom: we have to release it => Roger; stranger appear right side of box with mask => stop, you cannot do that
 - Console
 - change __xx__ to ______; latter should be overwritable for passive layer => default is nothing.
 - add Logger.log(debug, CLASSNAME, methodName, msg)
@@ -48,9 +48,10 @@
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
+    space suit repair sprite south moving
     rescue pods
     ladder from control to rescue pods
-    freight: drinks, stammzellen
+    freight: cryoc
     crew deck (security, rescue pods, storage, maybe arrianne reference)
     moving asteroid as actor
 - Docking Bay:
@@ -61,6 +62,8 @@
 ------------------------------------------
 ----- Ideas ------------------------------
 ------------------------------------------
+Contents:
+- Biocomputer
 Goals and Quest:
     - Main Quest
         - Three/n companies with flaws, infiltrate and organize Protest
