@@ -34,7 +34,7 @@
 - Content
     - Main Quest
             tenderer sends you to machine room for space suit, activation trigger new stage with other sprite
-            night-light capsule: check hull break => cannot be repaired, at intercom: we have to release it => Roger; stranger appear right side of box with mask => stop, you cannot do that
+            night-light capsule: check hull break => cannot be repaired, at intercom: tenderer checks insurance, then leave
 - Console
 - change __xx__ to ______; latter should be overwritable for passive layer => default is nothing.
 - add Logger.log(debug, CLASSNAME, methodName, msg)
@@ -142,10 +142,19 @@ Meteorit Day: notTIME
     Msg of sister: meet at window
     After impact you get a space suit to check capsule
     There is a crate with eyes that dissapear onRange
-    Cannot repair hull breach, loosing air, tenderer tells you to release the capsule, not insured - Roger => talk to intercom and confirm task, you leave now the capsule
-    Before leaving the capsule Stranger, blind passenger surprises you and asks for help. Tells about people/his family; you check it and tell trader to need more time for release
-    You want to tell the tenderer, but the stranger convinces you he already knows. Optional: Check his personal capsule to be sure. We will meet at night
+    Cannot repair hull breach, loosing air, life systems failing => trader tells you we are insured, just leave it as it is => restart main energy
 Meteorit Night:
+    Stranger suprises you in front of capsule:
+        => He and his family freezes to death, you have to help
+        => Whats going on here?
+        => Tells you about family.
+        => I have to tell the trader
+        => He already knows, just check the freight log yourself
+        after Confirmation:
+        => Escape with shuttle with help of my code
+        => You have to come with us, they will imprison you (refer to answer to sister)
+        => Prepare Shuttle we will wait here & You can stick a message to you sisters capsule (decision what to write)
+        Level end at shuttle
     Meeting with sister and stranger. (Sister: let them fly but dont come with them D:)
     Sister changes bio signature to be invisible: Look for me, I will wait!
     Go into rescue pods and fly to ceres

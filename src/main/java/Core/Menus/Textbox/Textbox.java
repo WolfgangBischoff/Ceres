@@ -2,6 +2,7 @@ package Core.Menus.Textbox;
 
 import Core.*;
 import Core.Enums.Knowledge;
+import Core.Menus.AchievmentLog.NewMessageOverlay;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.CoinGame.CoinGame;
 import Core.Menus.Personality.PersonalityScreenController;
@@ -137,22 +138,8 @@ public class Textbox
                         String nextDialogue = null;
                         String visibleLine = null;
                         //Check all elements for relevant data
+                        //new version with next dialogue as attribute
                         for (int j = 0; j < optionChildNodes.getLength(); j++)
-                        {
-                            Node node = optionChildNodes.item(j);
-                            /*//Old version with extra next dialogue line, can be deleted once xml are corrected
-                            if (node.getNodeName().equals(NEXT_DIALOGUE_TAG))
-                            {
-                                nextDialogue = node.getTextContent();
-                                continue;
-                            }
-                            else if (node.getNodeName().equals(LINE_TAG))
-                            {
-                                visibleLine = node.getTextContent();
-                                continue;
-                            }*/
-
-                            //new version with next dialogue as attribute
                             if (optionNode.getNodeName().equals(OPTION_TAG))
                             {
                                 Element optionNodeElement = (Element) optionNode;
@@ -164,7 +151,6 @@ public class Textbox
                                         optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF)
                                                 .equals(checkVariableCondition(optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_TYPE), optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME)));
                             }
-                        }
                         if (isOptionVisible)
                             readDialogue.addOption(visibleLine, nextDialogue);
                     }
@@ -223,6 +209,7 @@ public class Textbox
                                 , currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_NAME)
                                 , currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_STATUS));
                         WorldView.getPlayer().getActor().getInventory().addItem(collectible);
+                        NewMessageOverlay.showMsg("New " + collectible.getIngameName() + "!");
                     }
                     if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE)) {
                         GameVariables.addPlayerKnowledge(Knowledge.of(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE)));
