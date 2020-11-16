@@ -208,6 +208,10 @@ public class CoinArea
             machineNetwork += personality.getTraits().contains(NETWORK_UNCONNECTED) ? machineNetworkUnconnected : -machineNetworkUnconnected;
 
             totalResult = motivationResult + focusResult + decisionResult + lifestyleResult + machineCompute + machineManagement + machineInterface + machineNetwork;
+            if (totalResult >= winThreshold)
+                WorldView.getTextbox().setNextDialogueFromDiscussionResult(true);
+            else
+                WorldView.getTextbox().setNextDialogueFromDiscussionResult(false);
             isFinished = true;
         }
     }
@@ -321,17 +325,17 @@ public class CoinArea
                 removedCoinsList.add(hoveredElements.get(i));
             }
         }
-        else if (isMouseClicked && isFinished)
-        {
-            //If won discussion
-            if (totalResult >= winThreshold)
-                WorldView.getTextbox().setNextDialogueFromDiscussionResult(true);
-            else
-                WorldView.getTextbox().setNextDialogueFromDiscussionResult(false);
-
-            WorldView.getTextbox().nextMessage(currentNanoTime);
-            WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
-        }
+//        else if (isMouseClicked && isFinished)
+//        {
+//            //If won discussion
+//            if (totalResult >= winThreshold)
+//                WorldView.getTextbox().setNextDialogueFromDiscussionResult(true);
+//            else
+//                WorldView.getTextbox().setNextDialogueFromDiscussionResult(false);
+//
+//            WorldView.getTextbox().nextMessage(currentNanoTime);
+//            WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
+//        }
     }
 
     private void countClickedCoinTypes(CharacterCoin coin, Long currentNanoTime)

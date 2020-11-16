@@ -5,8 +5,6 @@
 
 - Features
     - Person turns if talking
-    - Coin Game
-        - exit game after finished by clicking into coin area AND coin game
     - check higher resolution and zoom, fix not centered overlay
     - add attentionmark over sprites
     - change night dynamically

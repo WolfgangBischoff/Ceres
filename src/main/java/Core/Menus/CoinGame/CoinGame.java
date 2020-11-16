@@ -3,6 +3,9 @@ package Core.Menus.CoinGame;
 import Core.Actor;
 import Core.GameVariables;
 import Core.Utilities;
+import Core.WorldView.WorldView;
+import Core.WorldView.WorldViewController;
+import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
@@ -98,7 +101,14 @@ public class CoinGame
             mousePosRelativeToOverlay = new Point2D(mousePosition.getX() - overlayPosition.getX(), mousePosition.getY() - overlayPosition.getY());
         else mousePosRelativeToOverlay = null;
 
-        if (CoinArea.getScreenArea().contains(mousePosition))
+        if (isMouseClicked && coinArea.isFinished &&
+                (mousePosRelativeToOverlay != null && exitButton.contains(mousePosRelativeToOverlay)
+                        || CoinArea.getScreenArea().contains(mousePosition)))
+        {
+            WorldView.getTextbox().nextMessage(currentNanoTime);
+            WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
+        }
+        else if (CoinArea.getScreenArea().contains(mousePosition))
         {
             coinArea.processMouse(mousePosition, isMouseClicked, currentNanoTime);
         }
@@ -112,7 +122,11 @@ public class CoinGame
                         });
                 getCoinArea().visibleCoinsList.clear();
                 getCoinArea().setMaxGameTime(-1);
+
+
+
         }
+
     }
 
     public static CoinArea getCoinArea()
