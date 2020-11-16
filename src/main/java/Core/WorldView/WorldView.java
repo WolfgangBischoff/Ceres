@@ -321,10 +321,6 @@ public class WorldView
         {
             activateBump();
         }
-        if (input.contains("U") && elapsedTimeSinceLastInteraction > 1)
-        {
-            newMessageOverlay.showMsg("This is a message!");
-        }
 
         //Process Input
         if (WorldViewController.getWorldViewStatus() != WORLD && player.getActor().isMoving())

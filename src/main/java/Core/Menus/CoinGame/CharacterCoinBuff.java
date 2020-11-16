@@ -1,5 +1,6 @@
 package Core.Menus.CoinGame;
 
+import Core.Actor;
 import Core.Enums.Knowledge;
 
 public enum CharacterCoinBuff implements CoinType
@@ -47,9 +48,14 @@ public enum CharacterCoinBuff implements CoinType
     }
 
     @Override
-    public void setVisibility(boolean val)
+    public boolean setVisibility(boolean val)
     {
-        visible = val;
+        if (!visible && val)
+        {
+            visible = val;
+            return true;
+        }
+        else return false;
     }
 
     @Override

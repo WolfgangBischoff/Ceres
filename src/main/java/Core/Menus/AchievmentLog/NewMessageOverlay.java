@@ -51,7 +51,7 @@ public class NewMessageOverlay
         gc.fillRect(0,0, WIDTH, HEIGHT);
         gc.setGlobalAlpha(1);
         gc.setFill(COLOR_RED);
-        gc.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+        gc.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         gc.fillText(message,WIDTH/2,HEIGHT/2);
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);

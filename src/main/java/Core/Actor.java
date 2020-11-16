@@ -197,7 +197,7 @@ public class Actor
         if (debug)
             System.out.println(CLASSNAME + methodName + Arrays.toString(linedata));
 
-        PersonalityContainer readContainer = new PersonalityContainer();
+        PersonalityContainer readContainer = new PersonalityContainer(this);
         int initCooperationValue = Integer.parseInt(linedata[1]);
         readContainer.increaseCooperation(initCooperationValue);
         int firstTraitIdx = 2;

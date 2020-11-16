@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 
 public enum Knowledge
 {
-    AIR_SYSTEM_CONTROL_COMPUTE_TRAIT("Local Computation"), AIR_SYSTEM_NETWORK_SERVER_TRAIT("Server Protocols");
+    AIR_SYSTEM_CONTROL_COMPUTE_TRAIT("Air System Terminal has Local Computation"), AIR_SYSTEM_NETWORK_SERVER_TRAIT("Air System Terminal has Server Protocols");
 
     private String name;
 

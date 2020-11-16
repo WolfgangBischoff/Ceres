@@ -1,6 +1,8 @@
 package Core.Menus.Personality;
 
+import Core.Actor;
 import Core.GameVariables;
+import Core.Menus.AchievmentLog.NewMessageOverlay;
 import Core.Menus.CoinGame.CoinType;
 
 import java.util.ArrayList;
@@ -11,8 +13,14 @@ public class PersonalityContainer
     private static final String CLASSNAME = "PersonalityContainer/";
     private Integer cooperation = 0;
     private Integer numberOfInteractions = 0;
+    private Actor ownerActor;
 
     private List<CoinType> traits = new ArrayList<>();
+
+    public PersonalityContainer(Actor owner)
+    {
+        this.ownerActor = owner;
+    }
 
     @Override
     public String toString()
@@ -31,13 +39,10 @@ public class PersonalityContainer
         this.cooperation += addition;
         traits.forEach(trait ->
         {
-            if (cooperation >= trait.getCooperationVisibilityThreshold()
-                    && trait.getCooperationVisibilityThreshold() >= 0
-                   // || GameVariables.getPlayerKnowledge().contains(trait.getKnowledgeVisibility()            )
-            )
-                trait.setVisibility(true);
+            if (cooperation >= trait.getCooperationVisibilityThreshold() && trait.getCooperationVisibilityThreshold() >= 0)
+                if(trait.setVisibility(true))
+                    NewMessageOverlay.showMsg(ownerActor.getActorInGameName() + " has trait " + trait.getName());
         });
-        //System.out.println(CLASSNAME + methodName + "added " + addition + " to " + cooperation);
     }
 
     public void incrementNumberOfInteraction()

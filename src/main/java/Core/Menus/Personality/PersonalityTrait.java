@@ -1,5 +1,6 @@
 package Core.Menus.Personality;
 
+import Core.Actor;
 import Core.Enums.Knowledge;
 import Core.Menus.AchievmentLog.NewMessageOverlay;
 import Core.Menus.CoinGame.CoinType;
@@ -51,11 +52,14 @@ public enum PersonalityTrait implements CoinType
     }
 
     @Override
-    public void setVisibility(boolean val)
+    public boolean setVisibility(boolean val)
     {
         if (!visible && val)
-            NewMessageOverlay.showMsg("Learned " + name);
-        visible = val;
+        {
+            visible = val;
+            return true;
+        }
+        else return false;
     }
 
     @Override

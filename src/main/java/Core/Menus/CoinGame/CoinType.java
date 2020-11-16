@@ -1,5 +1,6 @@
 package Core.Menus.CoinGame;
 
+import Core.Actor;
 import Core.Enums.Knowledge;
 
 import static Core.Menus.CoinGame.CharacterCoinBuff.*;
@@ -18,7 +19,7 @@ public interface CoinType
 
     boolean getVisibility();
 
-    void setVisibility(boolean val);
+    boolean setVisibility(boolean val);
 
     String getName();
 
