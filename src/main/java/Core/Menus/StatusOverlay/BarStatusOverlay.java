@@ -1,4 +1,4 @@
-package Core.Menus.StatusBarOverlay;
+package Core.Menus.StatusOverlay;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 
 import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
 
-public class StatusBarOverlay
+public class BarStatusOverlay
 {
     private static final String CLASSNAME = "StatusBarOverlay/";
     private final int WIDTH;
@@ -30,7 +30,7 @@ public class StatusBarOverlay
     Color marking;
 
     //public StatusBarOverlay(int WIDTH, int HEIGHT, IntegerProperty integerProperty, int maxValue)
-    public StatusBarOverlay(StatusBarConfig config)
+    public BarStatusOverlay(BarStatusConfig config)
     {
         this.baseValue = config.integerProperty;
         current = baseValue.getValue();

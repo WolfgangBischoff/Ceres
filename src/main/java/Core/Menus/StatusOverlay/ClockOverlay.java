@@ -1,4 +1,4 @@
-package Core.Menus.StatusBarOverlay;
+package Core.Menus.StatusOverlay;
 
 import Core.Clock;
 import Core.Configs.Config;
@@ -28,7 +28,7 @@ public class ClockOverlay
     Image frameImage;
 
 
-    public ClockOverlay(StatusBarConfig config, Clock clock)
+    public ClockOverlay(BarStatusConfig config, Clock clock)
     {
         this.clock = clock;
         clock.timeProperty().addListener(new ChangeListener<Number>()

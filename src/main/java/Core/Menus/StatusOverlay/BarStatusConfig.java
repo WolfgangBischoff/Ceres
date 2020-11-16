@@ -1,9 +1,9 @@
-package Core.Menus.StatusBarOverlay;
+package Core.Menus.StatusOverlay;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.paint.Color;
 
-public class StatusBarConfig
+public class BarStatusConfig
 {
     String imagePath;
     Color backgroundColor;
@@ -11,7 +11,7 @@ public class StatusBarConfig
     int WIDTH, HEIGHT, maxValue;
     IntegerProperty integerProperty;
 
-    public StatusBarConfig(String imagePath, Color backgroundColor, Color fillColor, int WIDTH, int HEIGHT, int maxValue, IntegerProperty integerProperty)
+    public BarStatusConfig(String imagePath, Color backgroundColor, Color fillColor, int WIDTH, int HEIGHT, int maxValue, IntegerProperty integerProperty)
     {
         this.imagePath = imagePath;
         this.backgroundColor = backgroundColor;

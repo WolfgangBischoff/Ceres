@@ -5,14 +5,14 @@ import Core.Configs.Config;
 import Core.Enums.ActorTag;
 import Core.Enums.Direction;
 import Core.Menus.CoinGame.CoinGame;
-import Core.Menus.StatusBarOverlay.ClockOverlay;
+import Core.Menus.StatusOverlay.ClockOverlay;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Personality.PersonalityScreenController;
-import Core.Menus.StatusBarOverlay.StatusBarConfig;
-import Core.Menus.StatusBarOverlay.StatusBarOverlay;
+import Core.Menus.StatusOverlay.BarStatusConfig;
+import Core.Menus.StatusOverlay.BarStatusOverlay;
 import Core.Menus.Textbox.Textbox;
-import Core.Menus.VariableStatusOverlay;
+import Core.Menus.StatusOverlay.VariableStatusOverlay;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -66,8 +66,8 @@ public class WorldView
     static Point2D daySummaryScreenPosition = DAY_SUMMARY_POSITION;
 
     //Management Attention Meter Overlay
-    static StatusBarOverlay mamOverlay = new StatusBarOverlay(
-            new StatusBarConfig("interface/bars/MaM_bar_400x64.png", null, COLOR_RED,
+    static BarStatusOverlay mamOverlay = new BarStatusOverlay(
+            new BarStatusConfig("interface/bars/MaM_bar_400x64.png", null, COLOR_RED,
                     MAM_BAR_WIDTH, MAM_BAR_HEIGHT, 100, GameVariables.getPlayerMaM_duringDayProperty()));
     static Point2D mamOverlayPosition = MAM_BAR_POSITION;
 
@@ -76,7 +76,7 @@ public class WorldView
     static Point2D moneyOverlayPosition = MONEY_POSITION;
 
     //Hunger Overlay
-    static StatusBarOverlay hungerOverlay = new StatusBarOverlay(new StatusBarConfig("interface/bars/food_bar_400x64.png", null, COLOR_GREEN,
+    static BarStatusOverlay hungerOverlay = new BarStatusOverlay(new BarStatusConfig("interface/bars/food_bar_400x64.png", null, COLOR_GREEN,
             MAM_BAR_WIDTH, MAM_BAR_HEIGHT, MAX_HUNGER, GameVariables.playerHungerProperty()));
     static Point2D hungerOverlayPosition = HUNGER_BAR_POSITION;
 
@@ -124,7 +124,7 @@ public class WorldView
         textbox = new Textbox();
         WorldViewController.setWorldViewStatus(WORLD);
         GameVariables.init();
-        boardTimeOverlay = new ClockOverlay(new StatusBarConfig("interface/bars/clock.png", null, null,
+        boardTimeOverlay = new ClockOverlay(new BarStatusConfig("interface/bars/clock.png", null, null,
                 BOARD_TIME_WIDTH, BOARD_TIME_HEIGHT, 0, null), GameVariables.getClock());
     }
 
@@ -848,7 +848,7 @@ public class WorldView
     }
 
 
-    public static StatusBarOverlay getMamOverlay()
+    public static BarStatusOverlay getMamOverlay()
     {
         return mamOverlay;
     }

@@ -1,4 +1,4 @@
-package Core.Menus;
+package Core.Menus.StatusOverlay;
 
 import Core.Configs.Config;
 import javafx.beans.property.IntegerProperty;
@@ -63,7 +63,7 @@ public class VariableStatusOverlay
         graphicsContext.setFill(marking);
         graphicsContext.setFill(font);
         graphicsContext.setTextBaseline(VPos.CENTER);
-        graphicsContext.setFont(Font.loadFont(getClass().getResource("../../../../../build/resources/main/font/estrog__.ttf").toExternalForm(), 30));
+        graphicsContext.setFont(Font.loadFont(getClass().getResource("../../../../../../build/resources/main/font/estrog__.ttf").toExternalForm(), 30));
         graphicsContext.fillText(""+current,  backgroundOffsetX, backgroundOffsetY);
 
         SnapshotParameters transparency = new SnapshotParameters();
