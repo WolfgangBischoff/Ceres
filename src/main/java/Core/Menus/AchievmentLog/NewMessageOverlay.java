@@ -29,7 +29,7 @@ public class NewMessageOverlay
     {
         message = msg;
         visible = true;
-        PauseTransition delay = new PauseTransition(Duration.millis(4000));
+        PauseTransition delay = new PauseTransition(Duration.millis(TIME_MS_MESSAGE_VISIBLE));
         delay.setOnFinished(t ->
         {
             visible = false;

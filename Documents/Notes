@@ -5,13 +5,13 @@
 
 - Features
     - Person turns if talking
-    - check higher resolution and zoom, fix not centered overlay
+    - Cooperation value just increases two time a day
+    - "Rumors"/Random dialogue
     - add attentionmark over sprites
     - change night dynamically
-- Cleaning Bot Moving
-    - add definition in file
-    - Textbox
-        - Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
+    - check higher resolution and zoom, fix not centered overlay
+    - Cleaning Bot Moving definition in file
+    - Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
     - Inventory
            - Close button
            - item desrcp
