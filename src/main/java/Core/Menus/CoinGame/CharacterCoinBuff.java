@@ -9,6 +9,7 @@ public enum CharacterCoinBuff implements CoinType
     int duration = 5;
     Long activeSince = null;
     String name;
+    boolean visible;
 
     CharacterCoinBuff(String name)
     {
@@ -37,6 +38,18 @@ public enum CharacterCoinBuff implements CoinType
     public void setKnowledgeVisibility(Knowledge visibilityKnowledge)
     {
 
+    }
+
+    @Override
+    public boolean getVisibility()
+    {
+        return visible;
+    }
+
+    @Override
+    public void setVisibility(boolean val)
+    {
+        visible = val;
     }
 
     @Override

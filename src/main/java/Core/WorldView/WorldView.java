@@ -4,6 +4,7 @@ import Core.*;
 import Core.Configs.Config;
 import Core.Enums.ActorTag;
 import Core.Enums.Direction;
+import Core.Menus.AchievmentLog.NewMessageOverlay;
 import Core.Menus.CoinGame.CoinGame;
 import Core.Menus.StatusOverlay.ClockOverlay;
 import Core.Menus.DaySummary.DaySummaryScreenController;
@@ -83,6 +84,10 @@ public class WorldView
     //Clock Overlay
     static ClockOverlay boardTimeOverlay;
     static Point2D boardTimeOverlayPosition = BOARD_TIME_POSITION;
+
+    //Message Overlay
+    static NewMessageOverlay newMessageOverlay = new NewMessageOverlay();
+    static Point2D newMessagePosition = MESSAGE_OVERLAY_POSITION;
 
     //Sprites
     String levelName;
@@ -316,6 +321,10 @@ public class WorldView
         {
             activateBump();
         }
+        if (input.contains("U") && elapsedTimeSinceLastInteraction > 1)
+        {
+            newMessageOverlay.showMsg("This is a message!");
+        }
 
         //Process Input
         if (WorldViewController.getWorldViewStatus() != WORLD && player.getActor().isMoving())
@@ -462,11 +471,6 @@ public class WorldView
             if (blocker.intersectsRelativeToWorldView(mousePositionRelativeToCamera))
                 mouseHoveredSprites.add(blocker);
 
-        //for (Sprite active : activeSpritesLayer)//NOTE Send to Actor one time, not every Sprite, maybe with map that check already triggered actors
-        //    if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera)
-        //            && (active.getActor().getSensorStatus().getOnInteraction_TriggerSprite() != TriggerType.NOTHING))
-        //        mouseHoveredSprites.add(active);
-
         switch (WorldViewController.getWorldViewStatus())
         {
             case WORLD:
@@ -611,7 +615,7 @@ public class WorldView
         gc.translate(camX, camY);
 
         //Overlays
-        renderHUD();
+        renderHUD(currentNanoTime);
         switch (WorldViewController.getWorldViewStatus())
         {
 
@@ -651,7 +655,7 @@ public class WorldView
         rumbleGrade = RUMBLE_GRADE;
     }
 
-    private void renderHUD()
+    private void renderHUD(Long currentNanoTime)
     {
         WritableImage writableImage = mamOverlay.getWritableImage();
         gc.drawImage(writableImage, mamOverlayPosition.getX(), mamOverlayPosition.getY());
@@ -660,6 +664,9 @@ public class WorldView
         WritableImage hungerOverlayImage = hungerOverlay.getWritableImage();
         gc.drawImage(hungerOverlayImage, hungerOverlayPosition.getX(), hungerOverlayPosition.getY());
         gc.drawImage(boardTimeOverlay.render(), boardTimeOverlayPosition.getX(), boardTimeOverlayPosition.getY());
+
+        if(newMessageOverlay.isVisible())
+            gc.drawImage(newMessageOverlay.render(currentNanoTime), newMessagePosition.getX(), newMessagePosition.getY());
     }
 
     private void renderLightEffect()

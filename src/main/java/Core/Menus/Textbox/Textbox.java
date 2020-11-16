@@ -211,7 +211,8 @@ public class Textbox
                     if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_SET)) {
                         String varname = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME);
                         String val = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_SET);
-                        GameVariables.getGenericVariableManager().setValue(varname, val);
+                        //GameVariables.getGenericVariableManager().setValue(varname, val);
+                        GameVariables.setGenericVariable(varname, val);
                     }
                     if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_BUMP)) {
                         WorldView.getSingleton().activateBump();
@@ -224,8 +225,8 @@ public class Textbox
                         WorldView.getPlayer().getActor().getInventory().addItem(collectible);
                     }
                     if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE)) {
-                        Knowledge knowledge = Knowledge.of(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE));
-                        GameVariables.getPlayerKnowledge().add(knowledge);
+                        GameVariables.addPlayerKnowledge(Knowledge.of(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE)));
+                        //GameVariables.getPlayerKnowledge().add(knowledge);
                     }
                     if (currentDialogue.hasAttribute((TEXTBOX_ATTRIBUTE_DIALOGUE_FILE))) {
                         actorOfDialogue.setDialogueFile(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_FILE));

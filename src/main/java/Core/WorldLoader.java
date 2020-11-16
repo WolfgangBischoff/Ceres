@@ -45,10 +45,10 @@ public class WorldLoader
 
     public WorldLoader()
     {
-        maxVerticalTile = 0;
-        currentVerticalTile = 0;
-        currentHorizontalTile = 0;
-        maxHorizontalTile = 0;
+        //maxVerticalTile = 0;
+        //currentVerticalTile = 0;
+        //currentHorizontalTile = 0;
+        //maxHorizontalTile = 0;
         if (keywords.isEmpty())
         {
             keywords.add(KEYWORD_NEW_LAYER);

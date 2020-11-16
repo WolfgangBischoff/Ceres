@@ -16,6 +16,10 @@ public interface CoinType
 
     void setKnowledgeVisibility(Knowledge knowledge);
 
+    boolean getVisibility();
+
+    void setVisibility(boolean val);
+
     String getName();
 
     static CoinType of(String type)

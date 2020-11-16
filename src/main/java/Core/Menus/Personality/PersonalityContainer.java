@@ -12,23 +12,31 @@ public class PersonalityContainer
     private Integer cooperation = 0;
     private Integer numberOfInteractions = 0;
 
-    private List<CoinType> traitsV2 = new ArrayList<>();
+    private List<CoinType> traits = new ArrayList<>();
 
     @Override
     public String toString()
     {
-        return "PersonalityContainer: " + traitsV2.toString();
+        return "PersonalityContainer: " + traits.toString();
     }
 
     public boolean isPersonalityMatch(CoinType trait)
     {
-        return traitsV2.contains(trait);
+        return traits.contains(trait);
     }
 
     public void increaseCooperation(Integer addition)
     {
         String methodName = "increaseCooperation() ";
         this.cooperation += addition;
+        traits.forEach(trait ->
+        {
+            if (cooperation >= trait.getCooperationVisibilityThreshold()
+                    && trait.getCooperationVisibilityThreshold() >= 0
+                   // || GameVariables.getPlayerKnowledge().contains(trait.getKnowledgeVisibility()            )
+            )
+                trait.setVisibility(true);
+        });
         //System.out.println(CLASSNAME + methodName + "added " + addition + " to " + cooperation);
     }
 
@@ -38,36 +46,30 @@ public class PersonalityContainer
         increaseCooperation(1);
     }
 
-    public Integer getNumberOfInteractions()
-    {
-        return numberOfInteractions;
-    }
-
     public Integer getCooperation()
     {
         return cooperation;
     }
 
-
     public List<CoinType> getTraits()
     {
-        return traitsV2;
-    }
-
-    public void setTraitsV2(List<CoinType> traitsV2)
-    {
-        this.traitsV2 = traitsV2;
+        return traits;
     }
 
     public List<CoinType> getVisibleCoins()
     {
         List<CoinType> visibleTraits = new ArrayList<>();
-        traitsV2.forEach(trait ->
+//        traits.forEach(trait ->
+//        {
+//            if (cooperation >= trait.getCooperationVisibilityThreshold()
+//                    && trait.getCooperationVisibilityThreshold() >= 0
+//                    || GameVariables.getPlayerKnowledge().contains(trait.getKnowledgeVisibility())
+//            )
+//                visibleTraits.add(trait);
+//        });
+        traits.forEach(trait ->
         {
-            if (cooperation >= trait.getCooperationVisibilityThreshold()
-                    && trait.getCooperationVisibilityThreshold() >= 0
-                    || GameVariables.getPlayerKnowledge().contains(trait.getKnowledgeVisibility())
-            )
+            if (trait.getVisibility())
                 visibleTraits.add(trait);
         });
         return visibleTraits;

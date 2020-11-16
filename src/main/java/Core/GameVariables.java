@@ -2,16 +2,13 @@ package Core;
 
 import Core.Configs.GenericVariablesManager;
 import Core.Enums.Knowledge;
+import Core.Menus.AchievmentLog.NewMessageOverlay;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.*;
 
-import static Core.Configs.Config.INIT_HEALTH;
-import static Core.Configs.Config.INIT_HUNGER;
-import static Core.Configs.Config.INIT_MONEY;
-import static Core.Configs.Config.MAX_HEALTH;
-import static Core.Configs.Config.MAX_HUNGER;
+import static Core.Configs.Config.*;
 
 public class GameVariables
 {
@@ -239,13 +236,22 @@ public class GameVariables
         return booleanWorldVariables;
     }
 
+    public static void setGenericVariable(String varName, String newValue)
+    {
+        booleanWorldVariables.setValue(varName, newValue);
+        //NewMessageOverlay.showMsg(varName + "set to " + newValue);
+    }
+
     public static Set<Knowledge> getPlayerKnowledge()
     {
         return playerKnowledge;
     }
 
-    public static void setPlayerKnowledge(Set<Knowledge> playerKnowledge)
+    public static void addPlayerKnowledge(Knowledge knowledge)
     {
-        GameVariables.playerKnowledge = playerKnowledge;
+        if (!playerKnowledge.contains(knowledge))
+            NewMessageOverlay.showMsg("Learned " + knowledge.getName());
+        playerKnowledge.add(knowledge);
     }
+
 }

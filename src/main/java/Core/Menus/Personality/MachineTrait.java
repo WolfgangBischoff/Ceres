@@ -1,6 +1,7 @@
 package Core.Menus.Personality;
 
 import Core.Enums.Knowledge;
+import Core.Menus.AchievmentLog.NewMessageOverlay;
 import Core.Menus.CoinGame.CoinType;
 
 public enum MachineTrait implements CoinType
@@ -11,6 +12,7 @@ public enum MachineTrait implements CoinType
     NETWORK_UNCONNECTED("Unconnected"), NETWORK_SERVER("Server"), NETWORK_CLIENT("Client");
 
     int visibilityThreshold = 0;
+    boolean visible;
     Knowledge visibilityKnowledge = null;
     String name;
 
@@ -41,6 +43,20 @@ public enum MachineTrait implements CoinType
     public void setKnowledgeVisibility(Knowledge visibilityKnowledge)
     {
         this.visibilityKnowledge = visibilityKnowledge;
+    }
+
+    @Override
+    public boolean getVisibility()
+    {
+        return visible;
+    }
+
+    @Override
+    public void setVisibility(boolean val)
+    {
+        if (!visible && val)
+            NewMessageOverlay.showMsg("Learned " + name);
+        visible = val;
     }
 
     @Override

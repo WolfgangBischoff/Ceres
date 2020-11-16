@@ -1,6 +1,7 @@
 package Core.Menus.Personality;
 
 import Core.Enums.Knowledge;
+import Core.Menus.AchievmentLog.NewMessageOverlay;
 import Core.Menus.CoinGame.CoinType;
 
 public enum PersonalityTrait implements CoinType
@@ -10,6 +11,7 @@ public enum PersonalityTrait implements CoinType
     INTROVERSION("Introversion"), EXTROVERSION("Extroversion"), SENSING("Sensing"), INTUITION("Intuition"), THINKING("Thinking"), FEELING("Feeling"), JUDGING("Judging"), PERCEIVING("Perceiving");
 
     int visibilityThreshold = 0;
+    boolean visible;
     Knowledge visibilityKnowledge = null;
     String name;
 
@@ -40,6 +42,20 @@ public enum PersonalityTrait implements CoinType
     public void setKnowledgeVisibility(Knowledge visibilityKnowledge)
     {
         this.visibilityKnowledge = visibilityKnowledge;
+    }
+
+    @Override
+    public boolean getVisibility()
+    {
+        return visible;
+    }
+
+    @Override
+    public void setVisibility(boolean val)
+    {
+        if (!visible && val)
+            NewMessageOverlay.showMsg("Learned " + name);
+        visible = val;
     }
 
     @Override

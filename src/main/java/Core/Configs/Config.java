@@ -26,6 +26,10 @@ public class Config
     public static final int PERSONALITY_HEIGHT = 600;
     public static final Point2D PERSONALITY_POSITION = new Point2D(CAMERA_WIDTH / 2f - PERSONALITY_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - PERSONALITY_HEIGHT / 2.0); //Centered
 
+    public static final int MESSAGE_OVERLAY_WIDTH = 500;
+    public static final int MESSAGE_OVERLAY_HEIGHT = 80;
+    public static final Point2D MESSAGE_OVERLAY_POSITION = new Point2D(CAMERA_WIDTH / 2f - MESSAGE_OVERLAY_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - MESSAGE_OVERLAY_HEIGHT / 2.0); //Centered
+
     public static final int INVENTORY_WIDTH = 550;
     public static final int INVENTORY_HEIGHT = 600;
     public static Point2D INVENTORY_POSITION = new Point2D(64, CAMERA_HEIGHT / 2.0 - INVENTORY_HEIGHT / 2.0);
