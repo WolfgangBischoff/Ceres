@@ -318,9 +318,16 @@ public class WorldView
         if (input.contains("T") && elapsedTimeSinceLastInteraction > 1)
             loadStage("test", "default");
         if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
-        {
             activateBump();
+        if (input.contains("U") && elapsedTimeSinceLastInteraction > 1)
+        {
+            if(shadowColor == null)
+                shadowColor = COLOR_NIGHT;
+            else
+                shadowColor = null;
+            lastTimeMenuWasOpened = currentNanoTime;
         }
+
 
         //Process Input
         if (WorldViewController.getWorldViewStatus() != WORLD && player.getActor().isMoving())
@@ -677,13 +684,15 @@ public class WorldView
             String lightSpriteName = sprite.getLightningSpriteName();
             if (!lightsImageMap.containsKey(sprite.getLightningSpriteName()))
             {
+                String path = "/"+IMAGE_DIRECTORY_PATH + "lightglows/" + lightSpriteName + ".png";
                 try
                 {
-                    lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
+                    //lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
+                    lightsImageMap.put(lightSpriteName, Utilities.readImage(path));
                 }
                 catch (IllegalArgumentException e)
                 {
-                    System.out.println("Invalid URL: " + "/res/img/lightglows/" + lightSpriteName + ".png" + " of sprite " + sprite.getName());
+                    System.out.println(path + " of sprite " + sprite.getName());
                     continue;
                 }
             }

@@ -189,6 +189,7 @@ public class Config
     public static final String REGEX_VIOLET = "%%VT";
     public static final Color COLOR_VIOLET = Color.rgb(185, 165, 185);//Main Quest
     public static final String REGEX_GOLD = "%%GD";
-    public static final Color COLOR_GOLD = Color.rgb(180, 155, 110);//Secret
+    public static final Color COLOR_GOLD = Color.rgb(180, 155, 110);//For secrets
+    public static final Color COLOR_NIGHT = Color.rgb(0, 30, 30);
 
 }
