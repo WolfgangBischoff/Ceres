@@ -2,8 +2,8 @@
 
 #Red Green Blue ;the higher the brighter ;>none< leads to no shadow
 shadow:
-#0;30;30
-none
+0;30;30
+#none
 
 spawnpoints:
 #ID						;PosX;PosY	;Direction
@@ -30,7 +30,7 @@ meHole				                 ;hole													                       ;transporter
 
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status										;direction
-player					;player																																		;Revolutionary												;default												;default																;north
+player					;player																																		;Revolutionary												;spacesuit										;default																;west
 eyesBx					;storages/eyes_box/eyes_box														;strange Box														;INIT_COUGH									;INIT_COUGH													;south
 largeB					;storages/greenBoxLarge/largeBox									;green Box																;default												;default																;none
 largeC					;storages/greenBoxLarge/largeBox									;green Box																;cut																;default																;none

@@ -3,8 +3,8 @@ package Core.Menus.Textbox;
 import Core.*;
 import Core.Enums.Knowledge;
 import Core.Menus.AchievmentLog.NewMessageOverlay;
-import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.CoinGame.CoinGame;
+import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.Personality.PersonalityScreenController;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
@@ -25,7 +25,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static Core.Configs.Config.*;
 
@@ -136,27 +137,28 @@ public class Textbox
                         Node optionNode = optionData.item(optionsIdx);
                         NodeList optionChildNodes = optionNode.getChildNodes();
                         String nextDialogue = null;
-                        String visibleLine = null;
+                        String optionText = null;
+
                         //Check all elements for relevant data
-                        //new version with next dialogue as attribute
                         for (int j = 0; j < optionChildNodes.getLength(); j++)
                             if (optionNode.getNodeName().equals(OPTION_TAG))
                             {
                                 Element optionNodeElement = (Element) optionNode;
                                 if (optionNodeElement.hasAttribute(NEXT_DIALOGUE_TAG))
                                     nextDialogue = optionNodeElement.getAttribute(NEXT_DIALOGUE_TAG);
-                                visibleLine = optionNode.getTextContent();
+                                optionText = optionNode.getTextContent();
 
                                 isOptionVisible = !optionNodeElement.hasAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF) ||
                                         optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF)
-                                                .equals(checkVariableCondition(optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_TYPE), optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME)));
+                                                .equals(getVariableCondition(optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_TYPE), optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME)));
                             }
                         if (isOptionVisible)
-                            readDialogue.addOption(visibleLine, nextDialogue);
+                            readDialogue.addOption(optionText, nextDialogue);
                     }
                 }
                 //Discussion Type
-                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_DISCUSSION)) {
+                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_DISCUSSION))
+                {
                     String discussionGameName = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_GAME);
                     String successNextMsg = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_SUCCESS);
                     String defeatNextMsg = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_DEFEAT);
@@ -164,17 +166,20 @@ public class Textbox
                     readDialogue.addOption(TEXTBOX_ATTRIBUTE_DEFEAT, defeatNextMsg);
                     WorldView.setDiscussionGame(new CoinGame(discussionGameName, actorOfDialogue));
                 }
-                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_LEVELCHANGE)) {
+                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_LEVELCHANGE))
+                {
                     String levelname = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL);
                     String spawnId = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID);
                     WorldView.getSingleton().saveStage();
                     WorldView.getSingleton().loadStage(levelname, spawnId);
                 }
-                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_DAY_CHANGE)) {
+                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_DAY_CHANGE))
+                {
                     WorldViewController.setWorldViewStatus(WorldViewStatus.DAY_SUMMARY);
                     DaySummaryScreenController.newDay();
                 }
-                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_VALUE_BOOLEAN)) {
+                else if (dialogueType.equals(TEXTBOX_ATTRIBUTE_VALUE_BOOLEAN))
+                {
                     String var = GameVariables.getGenericVariableManager().getValue(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
                     if (var == null)
                         System.out.println(CLASSNAME + methodName + "variable not set: " + currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
@@ -194,16 +199,19 @@ public class Textbox
                         int amount = Integer.parseInt(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VALUE));
                         GameVariables.addPlayerMoney(amount);
                     }
-                    if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_SET)) {
+                    if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_SET))
+                    {
                         String varname = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME);
                         String val = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_SET);
                         //GameVariables.getGenericVariableManager().setValue(varname, val);
                         GameVariables.setGenericVariable(varname, val);
                     }
-                    if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_BUMP)) {
+                    if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_BUMP))
+                    {
                         WorldView.getSingleton().activateBump();
                     }
-                    if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_ITEM_ACTOR)) {
+                    if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_ITEM_ACTOR))
+                    {
                         Collectible collectible = Collectible.createCollectible(
                                 currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_ACTOR)
                                 , currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_NAME)
@@ -211,14 +219,17 @@ public class Textbox
                         WorldView.getPlayer().getActor().getInventory().addItem(collectible);
                         NewMessageOverlay.showMsg("New " + collectible.getIngameName() + "!");
                     }
-                    if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE)) {
+                    if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE))
+                    {
                         GameVariables.addPlayerKnowledge(Knowledge.of(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE)));
                         //GameVariables.getPlayerKnowledge().add(knowledge);
                     }
-                    if (currentDialogue.hasAttribute((TEXTBOX_ATTRIBUTE_DIALOGUE_FILE))) {
+                    if (currentDialogue.hasAttribute((TEXTBOX_ATTRIBUTE_DIALOGUE_FILE)))
+                    {
                         actorOfDialogue.setDialogueFile(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_FILE));
                     }
-                    if (currentDialogue.hasAttribute((TEXTBOX_ATTRIBUTE_DIALOGUE_ID))) {
+                    if (currentDialogue.hasAttribute((TEXTBOX_ATTRIBUTE_DIALOGUE_ID)))
+                    {
                         actorOfDialogue.setDialogueId(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_ID));
                     }
                 }
@@ -242,12 +253,12 @@ public class Textbox
 
                 //Check for changes for other sprites
                 NodeList spriteChanges = currentDialogue.getElementsByTagName(SPRITECHANGE_TAG);
-                if(spriteChanges != null)
+                if (spriteChanges != null)
                 {
                     Element changeDirective;
-                    for(int j=0; j<spriteChanges.getLength(); j++)
+                    for (int j = 0; j < spriteChanges.getLength(); j++)
                     {
-                        changeDirective = (Element)spriteChanges.item(j);
+                        changeDirective = (Element) spriteChanges.item(j);
                         String id = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_SPRITE_ID);
                         String newStatus = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_NEW_STATUS);
                         Actor actor = WorldView.getSingleton().getSpriteByName(id);
@@ -272,14 +283,23 @@ public class Textbox
         return readDialogue;
     }
 
-    private String checkVariableCondition(String type, String varName)
+    private String getVariableCondition(String type, String varName)
     {
         String methodName = "checkVariableCondition() ";
-        String eval = "true";
-       // if (type.equals(TEXTBOX_ATTRIBUTE_BOOLEAN))
-           eval = GameVariables.getGenericVariableManager().getValue(varName);
-        if (eval == null)
-            System.out.println(CLASSNAME + methodName + "variable not set: " + varName);
+        String eval = null;
+        if (type.equals("boolean"))
+        {
+            eval = GameVariables.getGenericVariableManager().getValue(varName);
+            if (eval == null)
+                System.out.println(CLASSNAME + methodName + "variable not set: " + varName);
+            return eval;
+        }
+        else if(type.equals("player"))
+        {
+            if(varName.equals("spritestatus"))
+                return WorldView.getPlayer().getActor().getGeneralStatus();
+        }
+
         return eval;
     }
 
@@ -336,13 +356,17 @@ public class Textbox
 
         //Check if hovered on Option
         int offsetYTmp = firstLineOffsetY;
-        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE) && GameWindow.getSingleton().isMouseMoved()) {
-            for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++) {
+        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE) && GameWindow.getSingleton().isMouseMoved())
+        {
+            for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++)
+            {
                 Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY() + offsetYTmp, WIDTH, gc.getFont().getSize());
                 offsetYTmp += gc.getFont().getSize();
                 //Hovers over Option
-                if (positionOptionRelativeToWorldView.contains(mousePosition)) {
-                    if (markedOption != checkedLineIdx) {
+                if (positionOptionRelativeToWorldView.contains(mousePosition))
+                {
+                    if (markedOption != checkedLineIdx)
+                    {
                         markedOption = checkedLineIdx;
                     }
                     break;
@@ -436,7 +460,8 @@ public class Textbox
         gc.clearRect(0, 0, WIDTH, HEIGHT);
 
         //testBackground
-        if (debug) {
+        if (debug)
+        {
             gc.setFill(Color.RED);
             gc.fillRect(0, 0, WIDTH, HEIGHT);
         }
@@ -450,7 +475,8 @@ public class Textbox
         gc.setTextAlign(TextAlignment.LEFT);
         gc.setTextBaseline(VPos.TOP);
 
-        if (markedOption != null && readDialogue.type.equals(decision_TYPE_ATTRIBUTE)) {
+        if (markedOption != null && readDialogue.type.equals(decision_TYPE_ATTRIBUTE))
+        {
             gc.setFill(marking);
             gc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * gc.getFont().getSize() + 5, WIDTH - 100, gc.getFont().getSize());
         }
@@ -463,20 +489,25 @@ public class Textbox
         int yOffsetTextLine = firstLineOffsetY;
         gc.setFill(font);
         //Format Text
-        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE)) {
+        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE))
+        {
             lineSplitMessage = readDialogue.getOptionMessages();
         }
-        else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_DISCUSSION)) {
+        else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_DISCUSSION))
+        {
             WorldViewController.setWorldViewStatus(WorldViewStatus.DISCUSSION_GAME);
             lineSplitMessage = wrapText("Discussion ongoing");
         }
-        else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_LEVELCHANGE)) {
+        else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_LEVELCHANGE))
+        {
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
             lineSplitMessage = wrapText("technical");
         }
-        else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_DAY_CHANGE)) {
+        else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_DAY_CHANGE))
+        {
         }
-        else {
+        else
+        {
             String nextMessage = readDialogue.messages.get(messageIdx);
             lineSplitMessage = wrapText(nextMessage);
         }
@@ -565,7 +596,6 @@ public class Textbox
         wrapped.add(lineBuilder.toString());
         return wrapped;
     }
-
 
 
     public static double getTEXT_BOX_WIDTH()
