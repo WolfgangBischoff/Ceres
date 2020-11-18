@@ -41,11 +41,16 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
     <dialogue id="INTRO_CAPSULE" type="decision">
+        <option nextDialogue="GOTO_CAPSULE" type="player" variablename="spritestatus" visibleIf="spacesuit">[Enter the Capsule]</option>
         <option>Back</option>
-        <option nextDialogue="GOTO_CAPSULE"
-                type="player" variablename="spritestatus" visibleIf="spacesuit">[Enter the Capsule]</option>
     </dialogue>
     <dialogue id="GOTO_CAPSULE" type="levelchange" level="transporter/capsule/base" spawnID="default"/>
+
+    <dialogue id="INTRO_CAPSULE_EXIT" type="decision">
+        <option nextDialogue="EXIT_CAPSULE">[Exit freight capsule]</option>
+        <option>Back</option>
+    </dialogue>
+    <dialogue id="EXIT_CAPSULE" type="levelchange" level="transporter/transporter" spawnID="meteor_capsule"/>
 
 </root>
 

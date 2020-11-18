@@ -6,10 +6,11 @@ shadow:
 none
 
 spawnpoints:
-#ID						;PosX;PosY	;Direction
-exit					;07		;28			;east
-default		;25		;23			;north
-elevator	;31		;34			;south
+#ID												;PosX;PosY	;Direction
+exit											;07		;28			;east
+default								;25		;23			;north
+elevator							;31		;34			;south
+meteor_capsule	;24		;19			;east
 
 tiledefinition:
 #File name convention: inner if wall around player + direction ;outer if player can go around wall + direction of corner

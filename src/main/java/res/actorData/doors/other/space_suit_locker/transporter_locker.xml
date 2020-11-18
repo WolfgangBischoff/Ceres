@@ -40,12 +40,17 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
     <dialogue id="INIT_toCapsule" type="decision">
-        <option nextDialogue="CHANGE_SPRITE">[Put on space suit]</option>
+        <option nextDialogue="CHANGE_TO_SPACESUIT" type="player" variablename="spritestatus" visibleIf="default">[Put on space suit]</option>
+        <option nextDialogue="CHANGE_TO_DEFAULT"   type="player" variablename="spritestatus" visibleIf="spacesuit">[Put on overall]</option>
         <option>[Not now]</option>
     </dialogue>
-    <dialogue id="CHANGE_SPRITE" type="normal">
-        <line>.. fits perfectly</line>
+    <dialogue id="CHANGE_TO_SPACESUIT" type="normal">
+        <line>.. internal air system online</line>
         <spritechange sprite_id="player" status="spacesuit"/>
+    </dialogue>
+    <dialogue id="CHANGE_TO_DEFAULT" type="normal">
+        <line>.. fits perfectly</line>
+        <spritechange sprite_id="player" status="default"/>
     </dialogue>
 
 
