@@ -4,7 +4,7 @@
 - Bug
 
 - Features
-    - Person turns if talking
+    - Person turns if talking, maybe with Tag "turns_on_interaction"
     - Cooperation value just increases two time a day
     - "Rumors"/Random dialogue
     - add attentionmark over sprites
