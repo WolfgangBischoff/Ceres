@@ -34,10 +34,13 @@
 
 - Content
     - Main Quest
-            textbox bulkhead more informative
-            tenderer sends you to machine room for space suit
-            textbox hole: life systems failed, freezing immininent; check insurance; restore main energy
-            night-light capsule: check hull break => cannot be repaired, at intercom: tenderer checks insurance, then leave
+        impact outside capsule sprite
+        space suit sprite
+        diable lift
+        restart power at generator to fix light
+        talk to Kay and Julius
+
+
 - Console
 - change __xx__ to ______; latter should be overwritable for passive layer => default is nothing.
 - add Logger.log(debug, CLASSNAME, methodName, msg)

@@ -89,5 +89,6 @@
 12 11 20    - space suit moving south & north
 16 11 20    - added info box if new trait/knowledge is visible; new item
             - exit game after finished by clicking into coin area AND coin game
-19 11 20    - added capsule level, sprites
+19 11 20    - added capsule level, sprites, dialogues
             - player status dependent textbox
+            - night on textbox

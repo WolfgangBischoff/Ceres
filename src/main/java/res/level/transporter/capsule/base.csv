@@ -25,7 +25,7 @@ batt__				                 ;battery										                       ;../actorDat
 pipe_l				                 ;pipe													                       ;../actorData/machine/stasis_capsule/battery/corner_left											;false				              ;0												          ;0			     ;0												;0				 ;0				 ;0										;0											;000									 	;000									 	;000									;000										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
 pipe_r				                 ;pipe													                       ;../actorData/machine/stasis_capsule/battery/corner_right										;false				              ;0												          ;0			     ;0												;0				 ;0				 ;0										;0											;000									 	;000									 	;000									;000										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
 cross_				                 ;pipe													                       ;../actorData/machine/stasis_capsule/battery/crossing														;false				              ;0												          ;0			     ;0												;0				 ;0				 ;0										;0											;000									 	;000									 	;000									;000										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
-meHole				                 ;hole													                       ;transporter/meteor_hole																																											;true					              ;0												          ;0			     ;0												;0				 ;0				 ;0										;0											;000									 	;000									 	;000									;000										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
+#meHole				                 ;hole													                       ;transporter/meteor_hole																																											;true					              ;0												          ;0			     ;0												;0				 ;0				 ;0										;0											;000									 	;000									 	;000									;000										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
 
 
 actors:
@@ -39,6 +39,7 @@ flatBx					;storages/box_flat/box_flat														;green flat Box											;d
 FCtr_0					;floor/trigger																											;Trigger																		;12x5_yellow								;readyToFire_12x5							;undefined
 FCr__0					;../img/walls/freightcapsule/roof								;roofFC																			;visible												;waitForMonitor									;none
 capsuD					;doors/vertical/autoBulkheadVertical					;Capsule Bulkhead									;capsuleExit								;textbox																;undefined
+meHole					;quest/main/meteorhole/meteor_hole							;Meteor Hole														;default												;default																;undefined
 
 ACTORGROUPS:
 #roof

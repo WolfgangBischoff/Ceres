@@ -35,23 +35,29 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 <-->
 
 <root name = "actorName">
-    <dialogue id="none" type="normal" nextDialogue="INIT_DECISION">
-        <line>Lorem Ipsum</line>
-        <line>Dolorem</line>
+    <dialogue id="INTRO" type="decision">
+        <option nextDialogue="HIT">&gt;Something big hit and pierced us...&lt;</option>
     </dialogue>
 
-    <dialogue id="INTRO_CAPSULE" type="decision">
-        <option nextDialogue="GOTO_CAPSULE" type="player" variablename="spritestatus" visibleIf="spacesuit">[Enter the Capsule]</option>
-        <option type="player" variablename="spritestatus" visibleIf="default">You need a %%VTspace suit%% to enter the area.</option>
+    <dialogue id="INTRO_AGAIN" type="normal">
+        <line nextDialogue="HIT">This is a huge hole, there is no way to fix it outside a of space port.</line>
+        <line nextDialogue="HIT">Its %%RDgetting colder%% every minute...</line>
     </dialogue>
-    <dialogue id="GOTO_CAPSULE" type="levelchange" level="transporter/capsule/base" spawnID="default"/>
 
-    <dialogue id="INTRO_CAPSULE_EXIT" type="decision">
-        <option nextDialogue="EXIT_CAPSULE">[Exit freight capsule]</option>
-        <option>Back</option>
+    <dialogue id="HIT" type="normal" nextDialogue="FREEZE">
+        <line>*kkrzz* Here is Julius..can you fix it?</line>
     </dialogue>
-    <dialogue id="EXIT_CAPSULE" type="levelchange" level="transporter/transporter" spawnID="meteor_capsule"/>
 
+    <dialogue id="FREEZE" type="decision">
+        <option nextDialogue="INSURANCE">&gt;Its too large.. the area will %%RDfreeze soon%%...&lt;</option>
+    </dialogue>
+
+    <dialogue id="INSURANCE" type="normal" dialogueId="INTRO_AGAIN">
+    <line>*kkrzz* Wait a moment, let check the freight logs..</line>
+    <line>*kkrzz* ...</line>
+    <line>*kkrzz* Found it. Seem that %%GRwe are insured%%, so just let it as it is.</line>
+    <line>*kkrzz* Go back into the %%VTengine room and restart the main power%%. Over and out.</line>
+    </dialogue>
 </root>
 
 

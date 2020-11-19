@@ -88,8 +88,8 @@ cerex_				                 ;logo													                       ;../actorDat
 chart_				                 ;chart												                       ;machines/computer/chart																																											;false				              ;1												          ;0			     ;0												;0				 ;0				 ;000							 ;000									;000									 	;065									 	;128									;010										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
 
 #Machine Room
-reacto				                 ;reactor										                       ;../actorData/machine/reactor/reactor_320_448_6																				;true					              ;1												          ;6			     ;6												;6				 ;1				 ;320							 ;448									;000									 	;096									 	;320									;352										;none 															;works_full_function		;/dialogue_files/descriptions																							 ;unused0;unused1;unused2;unused3;unused4
-thrust				                 ;ion thruster					                       ;../actorData/machine/reactor/ion_thruster_576_256_4															;true					              ;2												          ;005	     ;004										;004		 ;001		 ;576							 ;256									;000									 	;000									 	;000									;000										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
+reacto				                 ;reactor										                       ;../actorData/machine/reactor/reactor_320_448_6																				;true					              ;1												          ;6			     ;6												;6				 ;1				 ;320							 ;448									;000									 	;096									 	;320									;352										;bluelight_256 						;works_full_function		;/dialogue_files/descriptions																							 ;unused0;unused1;unused2;unused3;unused4
+thrust				                 ;ion thruster					                       ;../actorData/machine/reactor/ion_thruster_576_256_4															;true					              ;2												          ;005	     ;004										;004		 ;001		 ;576							 ;256									;000									 	;000									 	;000									;000										;bluelight_256							;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
 masch1				                 ;maschine									                       ;machines/props_machine_0																																										;true					              ;1												          ;000	     ;000										;000		 ;000		 ;000							 ;000									;000									 	;032									 	;128									;096										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
 opFlor				                 ;open floor							                       ;machines/prop_maintenance_open_floor																														;true					              ;1												          ;000	     ;000										;000		 ;000		 ;000							 ;000									;000									 	;000									 	;000									;000										;none 															;machinery												;/dialogue_files/transporter_decks																		 ;unused0;unused1;unused2;unused3;unused4
 
@@ -110,7 +110,7 @@ ACTORS:
 player					;player																																		;Revolutionary												;default												;default																;north
 exit__					;doors/vertical/autoBulkheadVertical					;exit to docking bay						;on																	;levelchange												;west
 autoDo					;doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;UNLOCKED															;west
-capsuD					;doors/vertical/autoBulkheadVertical					;Capsule Bulkhead									;capsuleEntry							;textbox																;undefined
+capsuD					;doors/vertical/autoBulkheadVertical					;Capsule Bulkhead									;on							;textbox																;undefined
 door_H					;doors/horizontal/automatedDoor										;bulkhead																	;on																	;UNLOCKED															;south
 windL1					;quest/main/frontwindow/actor												;front window													;spaceView										;default																;undefined
 
@@ -138,8 +138,8 @@ FCtr_5					;floor/trigger																											;Trigger																		;1
 FCr__5					;../img/walls/freightcapsule/roof								;roofFC																			;visible													;waitForMonitor									;none
 
 #machine room
-spLock					;doors/other/space_suit_locker/locker				;Space Suit Locker								;capsule 													;default																;none
-#spLock					;doors/other/space_suit_locker/locker				;Space Suit Locker								;locked 														;default																;none
+#spLock					;doors/other/space_suit_locker/locker				;Space Suit Locker								;capsule 													;default																;none
+spLock					;doors/other/space_suit_locker/locker				;Space Suit Locker								;locked 														;default																;none
 
 #collectibles
 box___					;storages/boxSmall/green_persistent						;green Box																;locked 													;default																;none
@@ -163,7 +163,6 @@ ACTORGROUPS:
 #level change
 #System-Name														;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
 dockingBay																;levelchange																				;northDoor									;exit__
-#transporter/capsule/base		;levelchange																				;default											;capsuD
 
 #spaceway
 triggerRoof											 ;transitionOnChange													;SW_roof											;trigge

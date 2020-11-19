@@ -71,13 +71,13 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>For my part tough.. I am a doctor, I want to %%GRhelp people%%. On earth its feels difficult to make a difference, but here I can change things.</line>
     </dialogue>
 
-    <dialogue id="BUMP" type="normal" bump=""  nextDialogue="GOTO_TRADER" dialogueId="METEORIT">
+    <dialogue id="BUMP" type="normal" bump=""  nextDialogue="METEOR_GOTO_TRADER" dialogueId="METEORIT" worldlight="night">
         <line>%%RDSomething hit the ship!%%</line>
         <spritechange sprite_id="tender" status="meteorit"/>
         <spritechange sprite_id="contro" status="impact"/>
     </dialogue>
 
-    <dialogue id="GOTO_TRADER" type="normal" variablename="METEROIT_HIT" set="true" bump="" >
+    <dialogue id="METEOR_GOTO_TRADER" type="normal" variablename="METEROIT_HIT" set="true" bump="" >
         <line>Hurry! Go to the %%RDtrader%%, we have to act quickly!</line>
     </dialogue>
 

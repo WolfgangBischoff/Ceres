@@ -203,7 +203,6 @@ public class Textbox
                     {
                         String varname = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME);
                         String val = currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_SET);
-                        //GameVariables.getGenericVariableManager().setValue(varname, val);
                         GameVariables.setGenericVariable(varname, val);
                     }
                     if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_BUMP))
@@ -222,7 +221,6 @@ public class Textbox
                     if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE))
                     {
                         GameVariables.addPlayerKnowledge(Knowledge.of(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE)));
-                        //GameVariables.getPlayerKnowledge().add(knowledge);
                     }
                     if (currentDialogue.hasAttribute((TEXTBOX_ATTRIBUTE_DIALOGUE_FILE)))
                     {
@@ -232,6 +230,14 @@ public class Textbox
                     {
                         actorOfDialogue.setDialogueId(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_ID));
                     }
+                    if (currentDialogue.hasAttribute((TEXTBOX_ATTRIBUTE_SET_WORLD_LIGHT)))
+                    {
+                        if (currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_SET_WORLD_LIGHT).equals("night"))
+                            WorldView.getSingleton().setShadowColor(COLOR_NIGHT);
+                        else
+                            WorldView.getSingleton().setShadowColor(null);
+                    }
+
                 }
 
                 //Check for further dialogues
@@ -294,9 +300,9 @@ public class Textbox
                 System.out.println(CLASSNAME + methodName + "variable not set: " + varName);
             return eval;
         }
-        else if(type.equals("player"))
+        else if (type.equals("player"))
         {
-            if(varName.equals("spritestatus"))
+            if (varName.equals("spritestatus"))
                 return WorldView.getPlayer().getActor().getGeneralStatus();
         }
 

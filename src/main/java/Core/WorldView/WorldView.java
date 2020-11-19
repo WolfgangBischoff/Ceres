@@ -959,4 +959,9 @@ public class WorldView
     {
         this.bumpActive = bumpActive;
     }
+
+    public void setShadowColor(Color shadowColor)
+    {
+        this.shadowColor = shadowColor;
+    }
 }

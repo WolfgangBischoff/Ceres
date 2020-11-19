@@ -6,10 +6,10 @@ import javafx.scene.paint.Color;
 public class Config
 {
     //General
-    public static final Boolean DEBUG_ACTORS = true;
+    public static final Boolean DEBUG_ACTORS = false;
     public static final Boolean DEBUG_BLOCKER = false;
     public static final Boolean DEBUG_NO_WALL = false;
-    public static final Boolean DEBUG_MOUSE_ANALYSIS = true;
+    public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
     public static final String FIRST_LEVEL = "transporter/transporter";
     public static final double GAME_WINDOW_WIDTH = 1440;
     public static final double GAME_WINDOW_HEIGHT = 900;
@@ -149,6 +149,7 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_DIALOGUE_FILE = "dialogueFile";
     public static final String TEXTBOX_ATTRIBUTE_DIALOGUE_ID = "dialogueId";
     public static final String TEXTBOX_ATTRIBUTE_VALUE_BOOLEAN = "boolean";
+    public static final String TEXTBOX_ATTRIBUTE_SET_WORLD_LIGHT = "worldlight";
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";
