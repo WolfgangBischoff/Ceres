@@ -45,6 +45,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/java/res/actorData/player.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/java/res/actorData/system_vendor/smile/smile.csv">
           <value>
             <Attribute>
