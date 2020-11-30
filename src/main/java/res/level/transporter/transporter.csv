@@ -88,7 +88,7 @@ cerex_				                 ;logo													                       ;../actorDat
 chart_				                 ;chart												                       ;machines/computer/chart																																											;false				              ;1												          ;0			     ;0												;0				 ;0				 ;000							 ;000									;000									 	;065									 	;128									;010										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
 
 #Machine Room
-reacto				                 ;reactor										                       ;../actorData/machine/reactor/reactor_320_448_6																				;true					              ;1												          ;6			     ;6												;6				 ;1				 ;320							 ;448									;000									 	;096									 	;320									;352										;bluelight_256 						;works_full_function		;/dialogue_files/descriptions																							 ;unused0;unused1;unused2;unused3;unused4
+#reacto				                 ;reactor										                       ;../actorData/machine/reactor/reactor_320_448_6																				;true					              ;1												          ;6			     ;6												;6				 ;1				 ;320							 ;448									;000									 	;096									 	;320									;352										;bluelight_256 						;works_full_function		;/dialogue_files/descriptions																							 ;unused0;unused1;unused2;unused3;unused4
 thrust				                 ;ion thruster					                       ;../actorData/machine/reactor/ion_thruster_576_256_4															;true					              ;2												          ;005	     ;004										;004		 ;001		 ;576							 ;256									;000									 	;000									 	;000									;000										;bluelight_256							;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
 masch1				                 ;maschine									                       ;machines/props_machine_0																																										;true					              ;1												          ;000	     ;000										;000		 ;000		 ;000							 ;000									;000									 	;032									 	;128									;096										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
 opFlor				                 ;open floor							                       ;machines/prop_maintenance_open_floor																														;true					              ;1												          ;000	     ;000										;000		 ;000		 ;000							 ;000									;000									 	;000									 	;000									;000										;none 															;machinery												;/dialogue_files/transporter_decks																		 ;unused0;unused1;unused2;unused3;unused4
@@ -128,33 +128,34 @@ roofw_					;../img/walls/spaceway/roof														;roof																					;f
 #freightcapsule
 FCtr_0					;floor/trigger																											;Trigger																		;12x5_yellow									;readyToFire_12x5							;undefined
 FCr__0					;../img/walls/freightcapsule/roof								;roofFC																			;visible													;waitForMonitor									;none
-FCtr_1					                ;floor/trigger																											;Trigger																		                                         ;12x5_yellow									   ;readyToFire_12x5							;undefined
-FCr__1					                ;../img/walls/freightcapsule/roof								;roofFC																			                                         ;visible													   ;waitForMonitor									;none
-FCtr_3					                ;floor/trigger																											;Trigger																		                                         ;12x5_yellow									   ;readyToFire_12x5							;undefined
-FCr__3					                ;../img/walls/freightcapsule/roof								;roofFC																			                                         ;visible													   ;waitForMonitor									;none
-FCtr_4					                ;floor/trigger																											;Trigger																		                                         ;12x5_yellow									   ;readyToFire_12x5							;undefined
-FCr__4					                ;../img/walls/freightcapsule/roof								;roofFC																			                                         ;visible													   ;waitForMonitor									;none
-FCtr_5					                ;floor/trigger																											;Trigger																		                                         ;12x5_yellow									   ;readyToFire_12x5							;undefined
-FCr__5					                ;../img/walls/freightcapsule/roof								;roofFC																			                                         ;visible													   ;waitForMonitor									;none
+FCtr_1					                ;floor/trigger																											;Trigger																		     ;12x5_yellow									   ;readyToFire_12x5							;undefined
+FCr__1					                ;../img/walls/freightcapsule/roof								;roofFC																			     ;visible													   ;waitForMonitor									;none
+FCtr_3					                ;floor/trigger																											;Trigger																		     ;12x5_yellow									   ;readyToFire_12x5							;undefined
+FCr__3					                ;../img/walls/freightcapsule/roof								;roofFC																			     ;visible													   ;waitForMonitor									;none
+FCtr_4					                ;floor/trigger																											;Trigger																		     ;12x5_yellow									   ;readyToFire_12x5							;undefined
+FCr__4					                ;../img/walls/freightcapsule/roof								;roofFC																			     ;visible													   ;waitForMonitor									;none
+FCtr_5					                ;floor/trigger																											;Trigger																		     ;12x5_yellow									   ;readyToFire_12x5							;undefined
+FCr__5					                ;../img/walls/freightcapsule/roof								;roofFC																			     ;visible													   ;waitForMonitor									;none
 
 #machine room
 spLock					                ;doors/other/space_suit_locker/locker				;Space Suit Locker								                                         ;capsule 													  ;default																;none
 #spLock					;doors/other/space_suit_locker/locker				;Space Suit Locker								;locked 														;default																;none
+reacto																					;transporter/reactor/reactor													;Reactor																							;on																	;textbox																					;undefined
 
 #collectibles
-box___					                ;storages/boxSmall/green_persistent						;green Box																                                         ;locked 													   ;default																;none
-smalBx					                ;storages/boxSmall/prop																		;green Box																                                         ;default													   ;default																;none
-eyesBx					                ;storages/eyes_box/eyes_box														;strange Box														                                         ;eyes   													   ;hide																			;south
-largeB					                ;storages/greenBoxLarge/largeBox									;green Box																                                         ;default													   ;default																;none
-largeC					                ;storages/greenBoxLarge/largeBox									;green Box																                                         ;cut																	   ;default																;none
-bxCart					                ;storages/greenBoxLarge/largeBox									;green Box																                                         ;crates														   ;default																;none
-flatBx					                ;storages/box_flat/box_flat														;green flat Box											                                         ;default													   ;default																;none
-redKey					                ;collectibles/key/keycard																;Red Keycard														                                         ;red																	   ;default																;none
-key_bl					;collectibles/key/keycard																;Red Keycard  				 							;blue																;default																;undefined
-algaeS					;collectibles/food/food																		;Algae Stew				 										;algaeStew											;default																;undefined
-asiaBe					;collectibles/food/food																		;Asia Star Bento										;asiastar												;default																;undefined
+box___					                ;storages/boxSmall/green_persistent						;green Box																       ;locked 													   ;default																;none
+smalBx					                ;storages/boxSmall/prop																		;green Box																       ;default													   ;default																;none
+eyesBx					                ;storages/eyes_box/eyes_box														;strange Box														       ;eyes   													   ;hide																			;south
+largeB					                ;storages/greenBoxLarge/largeBox									;green Box																       ;default													   ;default																;none
+largeC					                ;storages/greenBoxLarge/largeBox									;green Box																       ;cut																	   ;default																;none
+bxCart					                ;storages/greenBoxLarge/largeBox									;green Box																       ;crates														   ;default																;none
+flatBx					                ;storages/box_flat/box_flat														;green flat Box											       ;default													   ;default																;none
+redKey					                ;collectibles/key/keycard																;Red Keycard														       ;red																	   ;default																;none
+key_bl					;collectibles/key/keycard																;Red Keycard  				 							;blue																		;default																;undefined
+algaeS					;collectibles/food/food																		;Algae Stew				 										;algaeStew													;default																;undefined
+asiaBe					;collectibles/food/food																		;Asia Star Bento										;asiastar														;default																;undefined
 
-elevSc					;doors/updown/elevator/elevator										;main elevator												;toCrewDeck										;default																;undefined
+elevSc					;doors/updown/elevator/elevator										;main elevator												;toCrewDeck												;default																;undefined
 
 position:
 redKey	;2140; 455; on the control terminal

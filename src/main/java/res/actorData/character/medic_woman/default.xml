@@ -75,6 +75,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>%%RDSomething hit the ship!%%</line>
         <spritechange sprite_id="tender" status="meteorit"/>
         <spritechange sprite_id="contro" status="impact"/>
+        <spritechange sprite_id="reacto" status="off"/>
     </dialogue>
 
     <dialogue id="METEOR_GOTO_TRADER" type="normal" variablename="METEROIT_HIT" set="true" bump="" >

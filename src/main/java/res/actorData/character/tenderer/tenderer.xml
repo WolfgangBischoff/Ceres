@@ -22,8 +22,8 @@
     </dialogue>
 
     <dialogue id="GOTO_BED" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
-        <line>No, there is nothing else to do today, but you can look around if you find something.</line>
-        <line>Once you are finished you should go to your %%VTprivate capsule%% to rest. A well recovered worker is a good worker!</line>
+        <line>No, there is nothing to do at the moment, but you can look around if you find something to do.</line>
+        <line>You can go to your %%VTprivate capsule%% to rest. Remember, a well recovered worker is a good worker!</line>
     </dialogue>
 
     <dialogue id="COIN_GAME_EXPLANATION" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
@@ -50,7 +50,7 @@
         <line>You can %%GRask Luca%% for help with the air hub, he is on the crewdeck.</line>
     </dialogue>
 
-    <dialogue id="METEORIT" type="normal" nextDialogue="METEORIT_AGAIN" dialogueId="METEORIT_AGAIN">
+    <dialogue id="METEORIT" type="normal" nextDialogue="METEORIT_AGAIN" dialogueId="AFTER_METEORIT_DECISIONS">
         <line>A %%RDmeteorit%% hit us!</line>
         <spritechange sprite_id="capsuD" status="capsuleEntry"/>
         <spritechange sprite_id="spLock" status="capsule"/>
@@ -58,8 +58,18 @@
 
     <dialogue id="METEORIT_AGAIN" type="normal">
         <line>Look at the %%VTscreen%%! The first freight capsule was hit on the port side.</line>
-        <line>The life-support systems there have failed.. ..we have to %%VTcheck whats going on%% there.</line>
-        <line>You'll need a %%VTspacesuit%%. Go to the %%VTengine room%% and put one on.</line>
+        <line>The life-support systems there are failing.. ..we have to %%VTcheck whats going on%% there.</line>
+        <line>You'll need a %%VTspacesuit%%. Go to the %%VTengine room%% and look for the locker.</line>
+    </dialogue>
+
+    <dialogue id="AFTER_METEORIT_DECISIONS" type="decision">
+        <option nextDialogue="METEORIT_AGAIN" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED" visibleIf="false">&gt;What happened?&lt;</option>
+        <option nextDialogue="RESTORE_POWER" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED" visibleIf="true">&gt;How should I restore power?&lt;</option>
+        <option>Never mind.</option>
+    </dialogue>
+
+    <dialogue id="RESTORE_POWER" type="normal" nextDialogue="AFTER_METEORIT_DECISIONS">
+        <line>Go to the %%VTreactor in the machine room%% there you can restore the main power.</line>
     </dialogue>
 
 </root>

@@ -4,6 +4,9 @@
 - Bug
 
 - Features
+    - Console
+        change variables
+        mode where all options are visible
     - remove old capsule
     - Person turns if talking, maybe with Tag "turns_on_interaction"
     - Cooperation value just increases two time a day
@@ -34,24 +37,21 @@
 
 - Content
     - Main Quest
-        impact outside capsule sprite
-        space suit sprite
-        diable lift
-        restart power at generator to fix light
-        talk to Kay and Julius
+        disable lift
+        sprites for reactor
+        finish quest via trader, kay, technican dialogue.
 
 
-- Console
 - change __xx__ to ______; latter should be overwritable for passive layer => default is nothing.
 - add Logger.log(debug, CLASSNAME, methodName, msg)
 
-
+- Sprites
+    space suit sprite west/east
 
 ------------------------------------------
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    space suit repair sprite south moving
     rescue pods
     ladder from control to rescue pods
     freight: cryoc

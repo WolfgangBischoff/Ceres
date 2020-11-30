@@ -92,3 +92,4 @@
 19 11 20    - added capsule level, sprites, dialogues
             - player status dependent textbox
             - night on textbox
+30 11 20    - restart power at generator to fix light
