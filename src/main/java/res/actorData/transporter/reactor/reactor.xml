@@ -48,7 +48,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <option>[Go away]</option>
     </dialogue>
 
-    <dialogue id="POWER_RESTORED" type="normal" spritestatus="on" worldlight="day" dialogueId="on">
+    <dialogue id="POWER_RESTORED" type="normal" spritestatus="on" worldlight="day" dialogueId="on" variablename="METEROIT_DAMAGE_ANALYZED" set="restored">
         <line>Engine restarts</line>
     </dialogue>
 

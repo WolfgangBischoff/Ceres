@@ -41,7 +41,7 @@
     </dialogue>
     
     <dialogue id="air_system_check" type="boolean" variablename="isTransporterAirSystemOn" true="air_system_on" false="air_system_off"/>
-    <dialogue id="air_system_on" type="getMoney" value="80" variablename="transporter_air_system_quest_started" set="done" nextDialogue="GET_AIR_SYSTEM_QUEST">
+    <dialogue id="air_system_on" type="getMoney" value="40" variablename="transporter_air_system_quest_started" set="done" nextDialogue="GET_AIR_SYSTEM_QUEST">
         <line>You fixed the air system! Here is you %%GRmoney%%!</line>
     </dialogue>
     <dialogue id="air_system_off" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
@@ -50,7 +50,7 @@
         <line>You can %%GRask Luca%% for help with the air hub, he is on the crewdeck.</line>
     </dialogue>
 
-    <dialogue id="METEORIT" type="normal" nextDialogue="METEORIT_AGAIN" dialogueId="AFTER_METEORIT_DECISIONS">
+    <dialogue id="METEORIT" type="normal" nextDialogue="METEORIT_AGAIN" dialogueId="AFTER_METROIT_DECISIONS">
         <line>A %%RDmeteorit%% hit us!</line>
         <spritechange sprite_id="capsuD" status="capsuleEntry"/>
         <spritechange sprite_id="spLock" status="capsule"/>
@@ -62,14 +62,22 @@
         <line>You'll need a %%VTspacesuit%%. Go to the %%VTengine room%% and look for the locker.</line>
     </dialogue>
 
-    <dialogue id="AFTER_METEORIT_DECISIONS" type="decision">
+    <dialogue id="AFTER_METROIT_DECISIONS" type="decision">
         <option nextDialogue="METEORIT_AGAIN" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED" visibleIf="false">&gt;What happened?&lt;</option>
         <option nextDialogue="RESTORE_POWER" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED" visibleIf="true">&gt;How should I restore power?&lt;</option>
+        <option nextDialogue="RESTORE_POWER_REWARD_1" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED" visibleIf="restored">&gt;I restored the power&lt;</option>
         <option>Never mind.</option>
     </dialogue>
 
-    <dialogue id="RESTORE_POWER" type="normal" nextDialogue="AFTER_METEORIT_DECISIONS">
+    <dialogue id="RESTORE_POWER" type="normal" nextDialogue="AFTER_METROIT_DECISIONS">
         <line>Go to the %%VTreactor in the machine room%% there you can restore the main power.</line>
+    </dialogue>   
+    
+    <dialogue id="RESTORE_POWER_REWARD_1" type="normal" nextDialogue="RESTORE_POWER_REWARD_2" variablename="METEROIT_DAMAGE_ANALYZED" set="done">
+        <line>Indeed. Now we can continue our journey on time.</line>
+    </dialogue>
+    <dialogue id="RESTORE_POWER_REWARD_2" nextDialogue="AFTER_METROIT_DECISIONS" type="getMoney" value="70">
+        <line>The insurance will pay for the damage. We can be glad that %%GDCereX%% thinks of everything!</line>
     </dialogue>
 
 </root>

@@ -198,6 +198,7 @@ public class Textbox
                     {
                         int amount = Integer.parseInt(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_VALUE));
                         GameVariables.addPlayerMoney(amount);
+                        NewMessageOverlay.showMsg("received " + amount + " GSC!");
                     }
                     if (currentDialogue.hasAttribute(TEXTBOX_ATTRIBUTE_SET))
                     {
@@ -298,7 +299,7 @@ public class Textbox
             eval = GameVariables.getGenericVariableManager().getValue(varName);
             if (eval == null)
                 System.out.println(CLASSNAME + methodName + "variable not set: " + varName);
-            return eval;
+            //return eval;
         }
         else if (type.equals("player"))
         {
