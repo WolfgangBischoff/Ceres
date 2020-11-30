@@ -86,7 +86,10 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Hurry! Go to the %%RDtrader%%!</line>
     </dialogue>
 
-
+    <dialogue id="AFTER_ENERGY_RESTORED" type="normal">
+        <line>I am glad the meteor just hit some freight. It could be worse..</line>
+        <line>%%GRJulius is too proud%% to admit it, but everybody is happy that you were able to restore the energy. You should %%VTrest a little now%%.</line>
+    </dialogue>
 
 
 </root>

@@ -78,6 +78,7 @@
     </dialogue>
     <dialogue id="RESTORE_POWER_REWARD_2" nextDialogue="AFTER_METROIT_DECISIONS" type="getMoney" value="70">
         <line>The insurance will pay for the damage. We can be glad that %%GDCereX%% thinks of everything!</line>
+        <spritechange sprite_id="medic_" dialogueId="AFTER_ENERGY_RESTORED"/>
     </dialogue>
 
 </root>

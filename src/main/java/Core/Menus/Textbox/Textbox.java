@@ -268,8 +268,12 @@ public class Textbox
                         changeDirective = (Element) spriteChanges.item(j);
                         String id = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_SPRITE_ID);
                         String newStatus = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_NEW_STATUS);
+                        String newDialogueId = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_ID);
                         Actor actor = WorldView.getSingleton().getSpriteByName(id);
-                        actor.setGeneralStatus(newStatus);
+                        if(!newStatus.isEmpty())
+                            actor.setGeneralStatus(newStatus);
+                        if(!newDialogueId.isEmpty())
+                            actor.setDialogueId(newDialogueId);
                         actor.updateCompoundStatus();
                     }
                 }
