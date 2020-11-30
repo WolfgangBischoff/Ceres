@@ -13,6 +13,7 @@
     - "Rumors"/Random dialogue
     - add attentionmark over sprites
     - change night dynamically
+    - decide on capsule how long to sleep & use for interuption too
     - check higher resolution and zoom, fix not centered overlay
     - Cleaning Bot Moving definition in file
     - Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
