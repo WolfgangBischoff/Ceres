@@ -13,4 +13,4 @@ sensorStatus	;default																			;textbox																		;none  	 					
 
 #status to image
 #status 			;name   						;spritename  																																				;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID;dialogueFile																																						;unused		;unused		;unused		;unused		;unused	;duration ;velocity  ;AnimationEnds
-default    ;meteor impact;actorData/quest/main/meteorhole/meteor_hole		   ;true	   ;0					       ;0	  ;0												;0		 ;0		 ;0										;0											;000									 	;000									 	;000									;000										;none 					;INTRO					;/actorData/quest/main/meteorhole/meteor_hole					 ;unused0	;unused1	;unused2	;unused3	;unused4;000						;000							;false
+default    ;meteor impact;actorData/quest/main/meteorhole/meteor_hole		   ;true	   ;0					       ;0	  ;0												;0		 ;0		 ;0										;0											;000									 	;000									 	;000									;000										;none 					;INTRO					;actorData/quest/main/meteorhole/meteor_hole					 ;unused0	;unused1	;unused2	;unused3	;unused4;000						;000							;false

@@ -6,7 +6,7 @@ import Core.Enums.TriggerType;
 
 public class SensorStatus
 {
-    private static final String CLASSNAME = "SensorStatus";
+    private static final String CLASSNAME = "SensorStatus/";
     String statusName;
     //For Sprite Changes
     TriggerType onInteraction_TriggerSprite = TriggerType.NOTHING;
@@ -64,98 +64,13 @@ public class SensorStatus
         return onInteraction_TriggerSprite;
     }
 
-    public TriggerType getOnInRange_TriggerSprite()
-    {
-        return onInRange_TriggerSprite;
-    }
-
-    public TriggerType getOnUpdate_TriggerSprite()
-    {
-        return onUpdate_TriggerSprite;
-    }
-
-    public TriggerType getOnIntersection_TriggerSprite()
-    {
-        return onIntersection_TriggerSprite;
-    }
-
-    public TriggerType getOnMonitorSignal_TriggerSprite()
-    {
-        return onMonitorSignal_TriggerSprite;
-    }
-
-    public TriggerType getOnTextBoxSignal_SpriteTrigger()
-    {
-        return onTextBoxSignal_SpriteTrigger;
-    }
-
-    public String getOnInteractionToStatusSprite()
-    {
-        return onInteractionToStatusSprite;
-    }
-
-    public String getOnUpdateToStatusSprite()
-    {
-        return onUpdateToStatusSprite;
-    }
-
-    public String getOnInRangeToStatusSprite()
-    {
-        return onInRangeToStatusSprite;
-    }
-
-    public String getOnIntersectionToStatusSprite()
-    {
-        return onIntersectionToStatusSprite;
-    }
-
     public TriggerType getOnInteraction_TriggerSensor()
     {
         return onInteraction_TriggerSensor;
     }
 
-    public TriggerType getOnInRange_TriggerSensor()
-    {
-        return onInRange_TriggerSensor;
-    }
-
     public TriggerType getOnUpdate_TriggerSensor()
     {
         return onUpdate_TriggerSensor;
-    }
-
-    public TriggerType getOnIntersection_TriggerSensor()
-    {
-        return onIntersection_TriggerSensor;
-    }
-
-    public TriggerType getOnMonitor_TriggerSensor()
-    {
-        return onMonitor_TriggerSensor;
-    }
-
-    public TriggerType getOnTextBox_TriggerSensor()
-    {
-        return onTextBox_TriggerSensor;
-    }
-
-    public String getOnInteraction_StatusSensor()
-    {
-        return onInteraction_StatusSensor;
-    }
-
-    public String getOnUpdate_StatusSensor()
-    {
-        return onUpdate_StatusSensor;
-    }
-
-    public String getOnInRangeToStatusSensorStatus()
-    {
-        return onInRangeToStatusSensorStatus;
-    }
-
-    public String getOnIntersection_StatusSensor()
-    {
-        return onIntersection_StatusSensor;
     }
 }

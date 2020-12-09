@@ -120,26 +120,14 @@ public class GameVariables
         return playerMaM_duringDay;
     }
 
-
     public static Map<String, LevelState> getLevelData()
     {
         return levelData;
     }
 
-    public static void setLevelData(Map<String, LevelState> levelData)
-    {
-        GameVariables.levelData = levelData;
-    }
-
     public static List<Collectible> getStolenCollectibles()
     {
         return stolenCollectibles;
-    }
-
-
-    public static void setPlayerMaM_dayStart(int playerMaM_dayStart)
-    {
-        GameVariables.playerMaM_dayStart = playerMaM_dayStart;
     }
 
     public static void setPlayerMaM_duringDay(int playerMaM_duringDay)
@@ -158,29 +146,9 @@ public class GameVariables
         return singleton;
     }
 
-    public static IntegerProperty playerMaM_duringDayProperty()
-    {
-        return playerMaM_duringDay;
-    }
-
     public static Sprite getPlayer()
     {
         return player;
-    }
-
-    public static void setSingleton(GameVariables singleton)
-    {
-        GameVariables.singleton = singleton;
-    }
-
-    public static void setDay(int day)
-    {
-        GameVariables.day = day;
-    }
-
-    public static void setStolenCollectibles(List<Collectible> stolenCollectibles)
-    {
-        GameVariables.stolenCollectibles = stolenCollectibles;
     }
 
     public static void addPlayerMoney(int delta)
@@ -215,11 +183,6 @@ public class GameVariables
         return playerHunger;
     }
 
-    public static Integer getLastTimeHungerFromTime()
-    {
-        return lastTimeHungerFromTime;
-    }
-
     public static Integer getHealth()
     {
         return health;
@@ -239,7 +202,6 @@ public class GameVariables
     public static void setGenericVariable(String varName, String newValue)
     {
         booleanWorldVariables.setValue(varName, newValue);
-        //NewMessageOverlay.showMsg(varName + "set to " + newValue);
     }
 
     public static Set<Knowledge> getPlayerKnowledge()

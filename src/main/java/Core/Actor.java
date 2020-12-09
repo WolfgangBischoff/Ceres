@@ -15,7 +15,6 @@ import javafx.animation.PauseTransition;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -96,34 +95,38 @@ public class Actor
         //if (Files.exists(path))
         //if (Utilities.class.getClassLoader().getResourceAsStream(ACTOR_DIRECTORY_PATH + actorFileName + CSV_POSTFIX) != null)
         //{
-if(actorFileName.contains("../img"))
+
+            if (actorFileName.contains("../img"))//TODO remove this, use absolute path everywhere
             actordata = Utilities.readAllLineFromTxt(actorFileName.replace("../", "") + CSV_POSTFIX);
-else
+        else
+            if (actorFileName.contains("img"))//TODO remove this, use absolute path everywhere
+        actordata = Utilities.readAllLineFromTxt(actorFileName + CSV_POSTFIX);
+        else
             actordata = Utilities.readAllLineFromTxt(ACTOR_DIRECTORY_PATH + actorFileName + CSV_POSTFIX);
 
-            for (String[] linedata : actordata)
-            {
-                if (checkForKeywords(linedata))
-                    continue;
+        for (String[] linedata : actordata)
+        {
+            if (checkForKeywords(linedata))
+                continue;
 
-                //Collect Actor Sprite Data
-                try
-                {
-                    SpriteData data = SpriteData.tileDefinition(linedata);
-                    data.animationDuration = Double.parseDouble(linedata[SpriteData.animationDurationIdx]);
-                    data.velocity = Integer.parseInt(linedata[SpriteData.velocityIdx]);
-                    data.dialogueID = linedata[SpriteData.dialogueIDIdx];
-                    data.animationEnds = Boolean.parseBoolean(linedata[SpriteData.animationEndsIdx]);
-                    String statusName = linedata[0].toLowerCase();
-                    if (!spriteDataMap.containsKey(statusName))
-                        spriteDataMap.put(statusName, new ArrayList<>());
-                    spriteDataMap.get(statusName).add(data);
-                }
-                catch (IndexOutOfBoundsException e)
-                {
-                    throw new IndexOutOfBoundsException(e.getMessage() + "\n in Actorfile: " + actorFileName);
-                }
+            //Collect Actor Sprite Data
+            try
+            {
+                SpriteData data = SpriteData.tileDefinition(linedata);
+                data.animationDuration = Double.parseDouble(linedata[SpriteData.animationDurationIdx]);
+                data.velocity = Integer.parseInt(linedata[SpriteData.velocityIdx]);
+                data.dialogueID = linedata[SpriteData.dialogueIDIdx];
+                data.animationEnds = Boolean.parseBoolean(linedata[SpriteData.animationEndsIdx]);
+                String statusName = linedata[0].toLowerCase();
+                if (!spriteDataMap.containsKey(statusName))
+                    spriteDataMap.put(statusName, new ArrayList<>());
+                spriteDataMap.get(statusName).add(data);
             }
+            catch (IndexOutOfBoundsException e)
+            {
+                throw new IndexOutOfBoundsException(e.getMessage() + "\n in Actorfile: " + actorFileName);
+            }
+        }
         //}
         //else throw new RuntimeException("Actordata not found: " + actorFileName);
 
@@ -206,7 +209,8 @@ else
         int initCooperationValue = Integer.parseInt(linedata[1]);
         readContainer.increaseCooperation(initCooperationValue);
         int firstTraitIdx = 2;
-        for (int i = firstTraitIdx; i < linedata.length; i++) {
+        for (int i = firstTraitIdx; i < linedata.length; i++)
+        {
             String[] traitData = linedata[i].split(",");
             CoinType coinType = CoinType.of(traitData[0]);
             Integer cooperationThreshold = -1;

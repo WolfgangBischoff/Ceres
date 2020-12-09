@@ -1,4 +1,24 @@
 
+09 12 20    - Created export with gradle
+            - performance improvement & refactor
+30 11 20    - restart power at generator to fix light
+            - money msg
+19 11 20    - added capsule level, sprites, dialogues
+            - player status dependent textbox
+            - night on textbox
+16 11 20    - added info box if new trait/knowledge is visible; new item
+            - exit game after finished by clicking into coin area AND coin game
+12 11 20    - space suit moving south & north
+09 11 20    - sister -> family info; air hub =>  find manual at technician; trader send you to bed
+            - pipe in the floor sprite added; exit button, finish button
+            - Coin Game: Player Finish message changed; finish earlier button that removes all coins; show cooperation value, name, and number traits in INFO
+08 11 20    - added actor changes on global actor get
+            - added dialogueFile and dialogueId change via Textbox
+04 11 20    - background coin game
+
+
+
+
 19 08 20    - reactor sprite animation
 23 08 20    - Item Exchange GUI and Persistence of chest
 26 08 20    - thrusters animated sprite
@@ -80,17 +100,3 @@
             - added interface, network trait
             - show residual coin game time
             - air system coin game in form of ventilation
-04 11 20    - background coin game
-08 11 20    - added actor changes on global actor get
-            - added dialogueFile and dialogueId change via Textbox
-09 11 20    - sister -> family info; air hub =>  find manual at technician; trader send you to bed
-            - pipe in the floor sprite added; exit button, finish button
-            - Coin Game: Player Finish message changed; finish earlier button that removes all coins; show cooperation value, name, and number traits in INFO
-12 11 20    - space suit moving south & north
-16 11 20    - added info box if new trait/knowledge is visible; new item
-            - exit game after finished by clicking into coin area AND coin game
-19 11 20    - added capsule level, sprites, dialogues
-            - player status dependent textbox
-            - night on textbox
-30 11 20    - restart power at generator to fix light
-            - money msg

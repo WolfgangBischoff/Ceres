@@ -691,15 +691,14 @@ public class WorldView
             String lightSpriteName = sprite.getLightningSpriteName();
             if (!lightsImageMap.containsKey(sprite.getLightningSpriteName()))
             {
-                String path = "/"+IMAGE_DIRECTORY_PATH + "lightglows/" + lightSpriteName + ".png";
+                //String path = "/"+IMAGE_DIRECTORY_PATH + "lightglows/" + lightSpriteName + ".png";
                 try
                 {
-                    //lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
-                    lightsImageMap.put(lightSpriteName, Utilities.readImage(path));
+                    lightsImageMap.put(lightSpriteName, Utilities.readImage(IMAGE_DIRECTORY_PATH+ "lightglows/" + lightSpriteName + ".png"));
                 }
                 catch (IllegalArgumentException e)
                 {
-                    System.out.println(path + " of sprite " + sprite.getName());
+                    //System.out.println(IMAGE_DIRECTORY_PATH+ "lightglows/" + lightSpriteName + ".png" + " of sprite " + sprite.getName());
                     continue;
                 }
             }

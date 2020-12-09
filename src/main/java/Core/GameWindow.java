@@ -5,7 +5,6 @@ import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 
 
@@ -19,7 +18,7 @@ public class GameWindow extends Stage
     private Scene gameScene;
     WorldView currentView;
     boolean mouseClicked = false;
-    Point2D mousePosition = new Point2D(0,0); //To avoid NullPointerException of mouse was not moved at first
+    Point2D mousePosition = new Point2D(0, 0); //To avoid NullPointerException of mouse was not moved at first
     boolean mouseMoved;
 
     private GameWindow()
@@ -41,20 +40,22 @@ public class GameWindow extends Stage
         gameScene = new Scene(controller.getRoot(), Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
         //input
         gameScene.setOnKeyPressed(
-                e -> {
+                e ->
+                {
                     String code = e.getCode().toString();
                     if (!input.contains(code))
                         input.add(code);
                 });
         gameScene.setOnKeyReleased(
-                e -> {
+                e ->
+                {
                     String code = e.getCode().toString();
                     input.remove(code);
                 });
-        gameScene.setOnMouseClicked(event -> {
-            mouseClicked = true;
-        });
-        gameScene.setOnMouseMoved(event -> {
+        gameScene.setOnMouseClicked(event ->
+                mouseClicked = true);
+        gameScene.setOnMouseMoved(event ->
+        {
             mouseMoved = true;
             mousePosition = new Point2D(event.getX(), event.getY());
         });
@@ -98,11 +99,6 @@ public class GameWindow extends Stage
         return input;
     }
 
-    public WorldView getCurrentView()
-    {
-        return currentView;
-    }
-
     public boolean isMouseClicked()
     {
         return mouseClicked;
@@ -133,53 +129,9 @@ public class GameWindow extends Stage
         return currentNanoRenderTimeGameWindow;
     }
 
-    public Stage getGameStage()
-    {
-        return gameStage;
-    }
-
-    public Scene getGameScene()
-    {
-        return gameScene;
-    }
-
-    public static void setInput(ArrayList<String> input)
-    {
-        GameWindow.input = input;
-    }
-
-    public static void setSingleton(GameWindow singleton)
-    {
-        GameWindow.singleton = singleton;
-    }
-
-    public static void setCurrentNanoRenderTimeGameWindow(long currentNanoRenderTimeGameWindow)
-    {
-        GameWindow.currentNanoRenderTimeGameWindow = currentNanoRenderTimeGameWindow;
-    }
-
-    public void setGameStage(Stage gameStage)
-    {
-        this.gameStage = gameStage;
-    }
-
-    public void setGameScene(Scene gameScene)
-    {
-        this.gameScene = gameScene;
-    }
-
-    public void setCurrentView(WorldView currentView)
-    {
-        this.currentView = currentView;
-    }
-
     public void setMouseClicked(boolean mouseClicked)
     {
         this.mouseClicked = mouseClicked;
     }
 
-    public void setMousePosition(Point2D mousePosition)
-    {
-        this.mousePosition = mousePosition;
-    }
 }

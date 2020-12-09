@@ -127,19 +127,19 @@ roofw_					;../img/walls/spaceway/roof														;roof																					;f
 #freightcapsule
 FCtr_0					;floor/trigger																											;Trigger																		;12x5_yellow									;readyToFire_12x5							;undefined
 FCr__0					;../img/walls/freightcapsule/roof								;roofFC																			;visible													;waitForMonitor									;none
-FCtr_1					                ;floor/trigger																											;Trigger																		     ;12x5_yellow									   ;readyToFire_12x5							;undefined
-FCr__1					                ;../img/walls/freightcapsule/roof								;roofFC																			     ;visible													   ;waitForMonitor									;none
-FCtr_3					                ;floor/trigger																											;Trigger																		     ;12x5_yellow									   ;readyToFire_12x5							;undefined
-FCr__3					                ;../img/walls/freightcapsule/roof								;roofFC																			     ;visible													   ;waitForMonitor									;none
-FCtr_4					                ;floor/trigger																											;Trigger																		     ;12x5_yellow									   ;readyToFire_12x5							;undefined
-FCr__4					                ;../img/walls/freightcapsule/roof								;roofFC																			     ;visible													   ;waitForMonitor									;none
-FCtr_5					                ;floor/trigger																											;Trigger																		     ;12x5_yellow									   ;readyToFire_12x5							;undefined
-FCr__5					                ;../img/walls/freightcapsule/roof								;roofFC																			     ;visible													   ;waitForMonitor									;none
+FCtr_1					;floor/trigger																											;Trigger																		;12x5_yellow									   ;readyToFire_12x5							;undefined
+FCr__1					;../img/walls/freightcapsule/roof								;roofFC																			;visible													   ;waitForMonitor									;none
+FCtr_3					;floor/trigger																											;Trigger																		;12x5_yellow									   ;readyToFire_12x5							;undefined
+FCr__3					;../img/walls/freightcapsule/roof								;roofFC																			;visible													   ;waitForMonitor									;none
+FCtr_4					;floor/trigger																											;Trigger																		;12x5_yellow									   ;readyToFire_12x5							;undefined
+FCr__4					;../img/walls/freightcapsule/roof								;roofFC																			;visible													   ;waitForMonitor									;none
+FCtr_5					;floor/trigger																											;Trigger																		;12x5_yellow									   ;readyToFire_12x5							;undefined
+FCr__5					;../img/walls/freightcapsule/roof								;roofFC																			;visible													   ;waitForMonitor									;none
 
 #machine room
-spLock					                ;doors/other/space_suit_locker/locker				;Space Suit Locker								                                         ;capsule 													  ;default																;none
-#spLock					;doors/other/space_suit_locker/locker				;Space Suit Locker								;locked 														;default																;none
-reacto																					;transporter/reactor/reactor													;Reactor																							;on																	;textbox																					;undefined
+spLock					;doors/other/space_suit_locker/locker				;Space Suit Locker							;capsule 													  ;default																;none
+#spLock				;doors/other/space_suit_locker/locker				;Space Suit Locker								;locked 														;default																;none
+reacto					;transporter/reactor/reactor													;Reactor																		;on																	;textbox																					;undefined
 
 #collectibles
 box___					                ;storages/boxSmall/green_persistent						;green Box																       ;locked 													   ;default																;none

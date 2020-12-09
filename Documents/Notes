@@ -2,8 +2,11 @@
 ----- Backlog ----------------------------
 ------------------------------------------
 - Bug
+    - remove old paths of actors TODO
 
 - Features
+    - Cleaning Bot Moving definition in file
+        sprite position dependent on variables, time => assign start postion and movement script
     - Console
         change variables
         mode where all options are visible
@@ -15,7 +18,6 @@
     - change night dynamically
     - decide on capsule how long to sleep & use for interuption too
     - check higher resolution and zoom, fix not centered overlay
-    - Cleaning Bot Moving definition in file
     - Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
     - Inventory
            - Close button
