@@ -1,5 +1,6 @@
 package Core;
 
+import Core.Utils.FXUtils;
 import Core.WorldView.WorldView;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -7,7 +8,6 @@ import javafx.stage.Stage;
 
 public class Main extends Application
 {
-
     public static void main(String[] args)
     {
         launch(args);
@@ -21,13 +21,13 @@ public class Main extends Application
         gameWindowController.createNextScene(WorldView.getSingleton());
         gameWindowController.showWindow();
 
-
         new AnimationTimer()
         {
             public void handle(long currentNanoTime)
             {
                 gameWindowController.update(currentNanoTime);
                 gameWindowController.render(currentNanoTime);
+                System.out.println("FPS: " + FXUtils.getAverageFPS());
             }
         }.start();
     }
