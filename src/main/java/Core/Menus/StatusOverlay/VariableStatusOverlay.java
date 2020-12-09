@@ -1,6 +1,7 @@
 package Core.Menus.StatusOverlay;
 
 import Core.Utilities;
+import Core.Utilities;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

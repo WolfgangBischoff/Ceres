@@ -62,8 +62,6 @@ public class ClockOverlay
         graphicsContext.setFill(COLOR_MARKING);
         String msg = "" + clock.getFormattedTime();
         graphicsContext.setFill(COLOR_FONT);
-        //graphicsContext.setFont(Font.loadFont(getClass().getResource("../../../../../../build/resources/main/font/estrog__.ttf").toExternalForm(), 30));
-        //graphicsContext.setFont(Utilities.readFont("font/estrog__.ttf"));
         graphicsContext.setTextAlign(TextAlignment.CENTER);
         graphicsContext.fillText(msg, WIDTH / 2f, HEIGHT / 2f + Config.FONT_Y_OFFSET_ESTROG__SIZE30);
 

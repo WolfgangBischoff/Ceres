@@ -23,7 +23,7 @@ public class Main extends Application
     Long renderTime = 0l;
 
     @Override
-    public void start(Stage primaryStage)
+    public void start(Stage primaryStage) throws IOException
     {
         GameWindow gameWindowController = GameWindow.getSingleton();
         gameWindowController.setTitle("Game Window");
