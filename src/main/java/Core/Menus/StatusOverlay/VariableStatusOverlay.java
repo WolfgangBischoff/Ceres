@@ -46,6 +46,7 @@ public class VariableStatusOverlay
         canvas = new Canvas(WIDTH, HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
         field = new Image(IMAGE_DIRECTORY_PATH + imagepath);
+        graphicsContext.setFont(Utilities.readFont("font/estrog__.ttf"));
     }
 
     private void draw() throws NullPointerException
@@ -64,7 +65,7 @@ public class VariableStatusOverlay
         graphicsContext.setFill(marking);
         graphicsContext.setFill(font);
         graphicsContext.setTextBaseline(VPos.CENTER);
-        graphicsContext.setFont(Utilities.readFont("font/estrog__.ttf"));
+        //graphicsContext.setFont(Utilities.readFont("font/estrog__.ttf"));
         graphicsContext.fillText(""+current,  backgroundOffsetX, backgroundOffsetY);
 
         SnapshotParameters transparency = new SnapshotParameters();

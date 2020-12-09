@@ -14,6 +14,7 @@ import Core.Menus.StatusOverlay.BarStatusConfig;
 import Core.Menus.StatusOverlay.BarStatusOverlay;
 import Core.Menus.Textbox.Textbox;
 import Core.Menus.StatusOverlay.VariableStatusOverlay;
+import Core.Utils.FXUtils;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -569,8 +570,8 @@ public class WorldView
 
     public void render(Long currentNanoTime)
     {
+        Long methodStartTime = System.nanoTime();
         String methodName = "render(Long) ";
-
         gc.clearRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gc.translate(-camX, -camY);
 
@@ -579,7 +580,6 @@ public class WorldView
         {
             sprite.render(gc, currentNanoTime);
         }
-
         //Bottom heightLayer
         bottomLayer.sort(new SpriteComparator());
         for (Sprite sprite : bottomLayer)
@@ -592,13 +592,13 @@ public class WorldView
         {
             sprite.render(gc, currentNanoTime);
         }
-
         //Top Layer
         topLayer.sort(new SpriteComparator());
         for (Sprite sprite : topLayer)
         {
             sprite.render(gc, currentNanoTime);
         }
+        //Long sortandRender = (System.nanoTime() - methodStartTime) / 1000;
 
         //LightMap
         if (shadowColor != null)
@@ -616,6 +616,7 @@ public class WorldView
         root.getChildren().clear();
         root.getChildren().add(worldCanvas);
         gc.translate(camX, camY);
+
 
         //Overlays
         renderHUD(currentNanoTime);
@@ -638,15 +639,12 @@ public class WorldView
                 gc.drawImage(personalityScreenOverlay, personalityScreenPosition.getX(), personalityScreenPosition.getY());
                 break;
             case DISCUSSION_GAME:
-                //WritableImage discussionGameImage = coinArea.getWritableImage(currentNanoTime);
                 gc.drawImage(coinGame.render(currentNanoTime), discussionGamePosition.getX(), discussionGamePosition.getY());
                 break;
             case DAY_SUMMARY:
                 WritableImage daySummaryImage = daySummaryScreenController.getWritableImage();
                 gc.drawImage(daySummaryImage, daySummaryScreenPosition.getX(), daySummaryScreenPosition.getY());
                 break;
-
-
         }
 
     }
@@ -660,14 +658,23 @@ public class WorldView
 
     private void renderHUD(Long currentNanoTime)
     {
+        Long methodStartTime = System.nanoTime();
         WritableImage writableImage = mamOverlay.getWritableImage();
         gc.drawImage(writableImage, mamOverlayPosition.getX(), mamOverlayPosition.getY());
+        Long mamAttention = (System.nanoTime() - methodStartTime) / 1000;
+
         WritableImage moneyWritableImage = moneyOverlay.getWritableImage();
         gc.drawImage(moneyWritableImage, moneyOverlayPosition.getX(), moneyOverlayPosition.getY());
+        Long money = (System.nanoTime() - methodStartTime) / 1000;
+
         WritableImage hungerOverlayImage = hungerOverlay.getWritableImage();
         gc.drawImage(hungerOverlayImage, hungerOverlayPosition.getX(), hungerOverlayPosition.getY());
-        gc.drawImage(boardTimeOverlay.render(), boardTimeOverlayPosition.getX(), boardTimeOverlayPosition.getY());
+        Long hunger = (System.nanoTime() - methodStartTime) / 1000;
 
+        gc.drawImage(boardTimeOverlay.render(), boardTimeOverlayPosition.getX(), boardTimeOverlayPosition.getY());
+        Long boardTime = (System.nanoTime() - methodStartTime) / 1000;
+
+        //System.out.println(CLASSNAME +" mam " +  mamAttention + " money " + money + " hunger " + hunger + " boardTime " + boardTime);
         if(newMessageOverlay.isVisible())
             gc.drawImage(newMessageOverlay.render(currentNanoTime), newMessagePosition.getX(), newMessagePosition.getY());
     }
