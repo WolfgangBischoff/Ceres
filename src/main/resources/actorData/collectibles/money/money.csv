@@ -1,0 +1,14 @@
+
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+
+#sensorStatus;sensorStatusName	;onInteractionSpriteTT ;interactionToSprite ;on---SensorTT ;interactionToSensor ;onInRangeSpriteTT	;inRangeToSprite	;on---SensorTT ;inRangeToSensor ;onIntersectionSpriteTT	;intersectionToSprite ;on---SensorTT ;intersectionToSensor ;onUpdateToSpriteTT			;updateToSprite	;onUpdateSensorTT ;updateToSensor ;onMonitorSpriteTT ;onMonitorSensorTT ;onTextBoxSpriteTT  ;onTextBoxSensorTT
+sensorStatus	;default										;collectable											;none  	 												;none 									;none																;none														;none												;none 									;none												;none																			;none																	;none 									;none																	;none																	;none											;none													;none											;none														;none														;none															;none
+
+collectible_data; money; 0
+
+suspicious_value; 3
+
+#status to image
+#status 			;name   				;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID ;dialogueFile;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds
+gsc100					;money						;actorData/collectibles/money/gsc_small				;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;default			 ;dialogueFile;unused;unused;unused;unused;unused;000						;000							;false

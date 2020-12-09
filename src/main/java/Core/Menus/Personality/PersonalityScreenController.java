@@ -5,6 +5,7 @@ import Core.GameVariables;
 import Core.GameWindow;
 import Core.Menus.CoinGame.CharacterCoin;
 import Core.Menus.CoinGame.CoinType;
+import Core.Utilities;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -59,9 +60,9 @@ public class PersonalityScreenController
         gc = canvas.getGraphicsContext2D();
         this.otherPersonActor = otherPersonActor;
         highlightedElement = 0;
-        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
-        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
-        exitButtonImage = new Image(IMAGE_DIRECTORY_PATH + "interface/characteristicsInfo/info_exit.png");
+        cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
+        cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+        exitButtonImage = Utilities.readImage(IMAGE_DIRECTORY_PATH + "interface/characteristicsInfo/info_exit.png");
         init();
     }
 

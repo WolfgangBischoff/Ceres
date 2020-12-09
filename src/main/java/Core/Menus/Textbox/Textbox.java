@@ -69,9 +69,12 @@ public class Textbox
 
     public Textbox()
     {
-        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
-        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
-        characterButton = new Image(IMAGE_DIRECTORY_PATH + "txtbox/characterMenuButtonTR.png");
+//        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
+//        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+//        characterButton = new Image(IMAGE_DIRECTORY_PATH + "txtbox/characterMenuButtonTR.png");
+        cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
+        cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+        characterButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/characterMenuButtonTR.png");
     }
 
     public void startConversation(Actor actorParam)
@@ -466,8 +469,8 @@ public class Textbox
         double brig = background.getBrightness();
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-        Font font_estrog = Font.loadFont(getClass().getResource(FONT_DIRECTORY_PATH + "estrog__.ttf").toExternalForm(), 30);
-
+        //Font font_estrog = Font.loadFont(getClass().getResource(FONT_DIRECTORY_PATH + "estrog__.ttf").toExternalForm(), 30);
+        Font font_estrog = Utilities.readFont(FONT_DIRECTORY_PATH + "estrog__.ttf");
         gc.clearRect(0, 0, WIDTH, HEIGHT);
 
         //testBackground

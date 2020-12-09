@@ -1,0 +1,15 @@
+
+#interactionArea
+#dialogueFile; path
+#transition; fromStatus; toStatus
+
+#sensorStatus;sensorStatusName	;onInteractionSpriteTT ;interactionToSprite ;on--SensorTT ;interactionToSensor ;onInRangeSpriteTT	;inRangeToSprite	;inRangeToSensor ;on--SensorTT ;onIntersectionSpriteTT	;intersectionToSprite ;on--SensorTT ;intersectionToSensor ;onUpdateToSpriteTT			;updateToSprite	;onUpdateSensorTT ;updateToSensor ;onMonitorSpriteTT ;onMonitorSensorTT ;onTextBoxSpriteTT  ;onTextBoxSensorTT
+sensorStatus	;default										;textbox															;none  	 												;none								 ;none																;none														;none												;none												;none ;none																			;none																	;none								 ;none																	;none																	;none											;none													;none											;persistent								;none														;persistent									;none
+
+dialogueFile; /actorData/airSystem/airVent/air_vent
+
+#status to image
+#status											;name		 		;spritename																																								;blocker		;heightLayer	;fps	;totalFrames	;cols	;rows;frameWidth	;frameHeight	;hitboxOffsetX; hitboxOffsetY;hitBoxWidth;hitBoxHeight;lightning;dialogueID 													;dialogueFile																										;unused; unused; unused; unused; unused	;duration		;velocity;AnimationEnds
+ON																;airVent		;../actorData/airSystem/airVent/vent_anim2_128_64		;false				;1 										;4   ;2           ;2    ;1   ;064        ;128         ;0         	  ;070             ;064        ;050							;none					;init-on																	;actorData/airSystem/airVent/air_vent	;unused; unused; unused; unused; unused	;0									;0							;false
+OFF															;airVent		;../actorData/airSystem/airVent/vent_dirt_64_128			;false				;1 										;0   ;0           ;0    ;0   ;000        ;000         ;0        	   ;070             ;064        ;050							;none					;init-off																;actorData/airSystem/airVent/air_vent	;unused; unused; unused; unused; unused	;0									;0							;false
+baseSystemOffline	;airVent		;../actorData/airSystem/airVent/vent_off_64_128				;false				;1 										;0   ;0           ;0    ;0   ;000        ;000         ;0        	   ;070             ;064        ;050							;none					;init-baseSystemOffline		;actorData/airSystem/airVent/air_vent	;unused; unused; unused; unused; unused	;0									;0							;false

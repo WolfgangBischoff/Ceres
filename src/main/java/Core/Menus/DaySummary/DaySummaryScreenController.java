@@ -3,6 +3,7 @@ package Core.Menus.DaySummary;
 import Core.Collectible;
 import Core.GameVariables;
 import Core.GameWindow;
+import Core.Utilities;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -17,6 +18,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,8 +66,11 @@ public class DaySummaryScreenController
         graphicsContext = canvas.getGraphicsContext2D();
         highlightedElement = 0;
         daySummary = new DaySummary();
-        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
-        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+        cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
+        cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+
+//        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
+//        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
     }
 
     public static void newDay()
