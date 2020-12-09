@@ -1,5 +1,6 @@
 package Core.Menus.StatusOverlay;
 
+import Core.Utilities;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -47,7 +48,7 @@ public class BarStatusOverlay
         this.maxValue = config.maxValue;
         canvas = new Canvas(WIDTH, HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
-        frameImage = new Image(IMAGE_DIRECTORY_PATH + config.imagePath);
+        frameImage = Utilities.readImage(IMAGE_DIRECTORY_PATH + config.imagePath);
         marking = config.fillColor;
     }
 

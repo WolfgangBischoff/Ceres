@@ -71,55 +71,55 @@ public class CharacterCoin
     {
         switch (characteristicOrTrait.toLowerCase()) {
             case "introversion":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/introvert.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/introvert.png");
             case "extroversion":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/extrovert.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/extrovert.png");
             case "intuition":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/intuition.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/intuition.png");
             case "sensing":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/sensing.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/sensing.png");
             case "thinking":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/thinking.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/thinking.png");
             case "feeling":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/feeling.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/feeling.png");
             case "judging":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/judging.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/judging.png");
             case "perceiving":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/perceiving.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/perceiving.png");
 
             case "local computation":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_compute_local.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/machine_compute_local.png");
             case "cloud computation":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_compute_cloud.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/machine_compute_cloud.png");
             case "virtualized computation":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_compute_container.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/machine_compute_container.png");
             case "debugger":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_management_debug.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/machine_management_debug.png");
             case "logging":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_management_logging.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/machine_management_logging.png");
             case "monitoring":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_management_monitoring.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/machine_management_monitoring.png");
             case "direct":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_interface_direct.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/machine_interface_direct.png");
             case "analog":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_interface_analog.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/machine_interface_analog.png");
             case "connection":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_interface_connection.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/machine_interface_connection.png");
             case "unconnected":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_network_unconnected.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/machine_network_unconnected.png");
             case "server":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_network_server.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/machine_network_server.png");
             case "client":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/machine_network_client.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/machine_network_client.png");
 
 
             case "slowed":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/buff_slowed.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/buff_slowed.png");
             case "double reward":
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/buff_double_reward.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/buff_double_reward.png");
 
             default:
-                return Utilities.readImage("../../../" + COINGAME_DIRECTORY_PATH + "img/unknown.png");
+                return Utilities.readImage(COINGAME_DIRECTORY_PATH + "img/unknown.png");
         }
     }
 

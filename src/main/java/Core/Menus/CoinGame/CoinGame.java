@@ -36,9 +36,9 @@ public class CoinGame
     public CoinGame(String gameIdentifier, Actor actorOfDiscussion)
     {
         coinArea = new CoinArea(gameIdentifier, actorOfDiscussion);
-        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
-        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
-        finishedButton = new Image(IMAGE_DIRECTORY_PATH + "interface/coinGame/finished.png");
+        cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
+        cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+        finishedButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "interface/coinGame/finished.png");
         canvas = new Canvas(WIDTH, HEIGHT);
         gc = canvas.getGraphicsContext2D();
     }

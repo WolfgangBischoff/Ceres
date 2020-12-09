@@ -443,14 +443,14 @@ public class Sprite
         try
         {
             //TODO remove this, in all files the path should be absolute
-            if (Utilities.class.getClassLoader().getResourceAsStream(IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX) == null)
+            if (Utilities.class.getClassLoader().getResourceAsStream(ACTOR_DIRECTORY_PATH + filename.replace("../actorData/", "") + PNG_POSTFIX) != null)
             {
-                //System.out.println(CLASSNAME + methodName + "TRY: " + ACTOR_DIRECTORY_PATH + filename + PNG_POSTFIX);
-                //System.out.println(CLASSNAME + methodName + "TRY read: " + Utilities.class.getClassLoader().getResourceAsStream(ACTOR_DIRECTORY_PATH + filename.replace("../actorData/", "") + PNG_POSTFIX));
                 i = Utilities.readImage(ACTOR_DIRECTORY_PATH + filename.replace("../actorData/", "") + PNG_POSTFIX);
             }
-            else
+            else if (Utilities.class.getClassLoader().getResourceAsStream(IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX) != null)
                 i = Utilities.readImage(IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX);
+            else
+                i = Utilities.readImage(filename + PNG_POSTFIX);
             //i = new Image(IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX);
         }
         catch (IllegalArgumentException e)

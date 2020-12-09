@@ -154,19 +154,12 @@ public class Config
     //Paths
     public static final String CSV_POSTFIX = ".csv";
     public static final String PNG_POSTFIX = ".png";
-    //public static final String RESOURCES_FILE_PATH = "build/resources/main/";
     public static final String RESOURCES_FILE_PATH = "";
-    //public static final String DIALOGUE_FILE_PATH = "build/resources/main/";
     public static final String DIALOGUE_FILE_PATH = "";
-    //public static final String ACTOR_DIRECTORY_PATH = "build/resources/main/actorData/";
     public static final String ACTOR_DIRECTORY_PATH = "actorData/";
-    //public static final String STAGE_FILE_PATH = "build/resources/main/level/";
     public static final String STAGE_FILE_PATH = "level/";
-    //public static final String IMAGE_DIRECTORY_PATH = "../../resources/main/img/";
     public static final String IMAGE_DIRECTORY_PATH = "img/";
-    //public static final String COINGAME_DIRECTORY_PATH = "build/resources/main/discussions/";
     public static final String COINGAME_DIRECTORY_PATH = "discussions/";
-    //public static final String FONT_DIRECTORY_PATH = "../../../../../../build/resources/main/font/";
     public static final String FONT_DIRECTORY_PATH = "font/";
 
     //Discussion-Game
