@@ -10,8 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import static Core.Configs.Config.*;
@@ -101,7 +99,7 @@ public class Sprite
 
     public static Sprite createSprite(SpriteData tile, double x, double y)
     {
-        String methodName = "createSprite()";
+        String methodName = "createSprite() ";
         Sprite ca;
         try
         {
@@ -282,7 +280,7 @@ public class Sprite
         {
             //System.out.println(CLASSNAME + methodName + this.name + " totally covered" + " playerLeft:" + playerLeftEdge + " playerRight:" + playerRightEdge + " otherLeft:" + otherSpriteLeftEdge + " otherRight:" + otherSpriteRightEdge);
         }
-            //Case Other Sprite totally covered
+        //Case Other Sprite totally covered
         else if (playerLeftEdge <= otherSpriteLeftEdge && playerRightEdge >= otherSpriteRightEdge)
         {
             //System.out.println(CLASSNAME + methodName + this.name + " obastacale small" + " playerLeft:" + playerLeftEdge + " playerRight:" + playerRightEdge + " otherLeft:" + otherSpriteLeftEdge + " otherRight:" + otherSpriteRightEdge);
@@ -442,15 +440,24 @@ public class Sprite
     {
         String methodName = "setImage(String) ";
         Image i;
-        Path path = Paths.get(IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX);
         try
         {
-            i = new Image(path.toString());
+            //TODO remove this, in all files the path should be absolute
+            if (Utilities.class.getClassLoader().getResourceAsStream(IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX) == null)
+            {
+                //System.out.println(CLASSNAME + methodName + "TRY: " + ACTOR_DIRECTORY_PATH + filename + PNG_POSTFIX);
+                //System.out.println(CLASSNAME + methodName + "TRY read: " + Utilities.class.getClassLoader().getResourceAsStream(ACTOR_DIRECTORY_PATH + filename.replace("../actorData/", "") + PNG_POSTFIX));
+                i = Utilities.readImage(ACTOR_DIRECTORY_PATH + filename.replace("../actorData/", "") + PNG_POSTFIX);
+            }
+            else
+                i = Utilities.readImage(IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX);
+            //i = new Image(IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX);
         }
         catch (IllegalArgumentException e)
         {
-            System.out.println(CLASSNAME + methodName + path.toString() + " not found");
-            i = new Image(IMAGE_DIRECTORY_PATH + "notfound_64_64" + ".png");
+            System.out.println(CLASSNAME + methodName + IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX + " not found");
+            i = Utilities.readImage(IMAGE_DIRECTORY_PATH + "notfound_64_64" + ".png");
+            //i = new Image(IMAGE_DIRECTORY_PATH + "notfound_64_64" + ".png");
         }
 
         baseimage = i;
