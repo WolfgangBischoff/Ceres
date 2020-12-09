@@ -69,12 +69,10 @@ public class Textbox
 
     public Textbox()
     {
-//        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
-//        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
-//        characterButton = new Image(IMAGE_DIRECTORY_PATH + "txtbox/characterMenuButtonTR.png");
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         characterButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/characterMenuButtonTR.png");
+        gc.setFont(Utilities.readFont(FONT_DIRECTORY_PATH + "estrog__.ttf"));
     }
 
     public void startConversation(Actor actorParam)
@@ -82,7 +80,7 @@ public class Textbox
         String methodName = "startConversation() ";
         init();
         actorOfDialogue = actorParam;
-        dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getSpriteList().get(0).getDialogueFileName() + ".xml");
+        dialogueFileRoot = Utilities.readXMLFile(actorOfDialogue.getSpriteList().get(0).getDialogueFileName() + ".xml");
         readDialogue = readDialogue(actorOfDialogue.getSpriteList().get(0).getInitDialogueId());
 
         if (actorOfDialogue.getPersonalityContainer() != null)
@@ -94,7 +92,7 @@ public class Textbox
         String methodName = "startConversation(String, String) ";
         init();
         actorOfDialogue = null;
-        dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + dialogueFile + ".xml");
+        dialogueFileRoot = Utilities.readXMLFile(dialogueFile + ".xml");
         readDialogue = readDialogue(dialogueId);
     }
 
@@ -273,9 +271,9 @@ public class Textbox
                         String newStatus = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_NEW_STATUS);
                         String newDialogueId = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_ID);
                         Actor actor = WorldView.getSingleton().getSpriteByName(id);
-                        if(!newStatus.isEmpty())
+                        if (!newStatus.isEmpty())
                             actor.setGeneralStatus(newStatus);
-                        if(!newDialogueId.isEmpty())
+                        if (!newDialogueId.isEmpty())
                             actor.setDialogueId(newDialogueId);
                         actor.updateCompoundStatus();
                     }
@@ -411,7 +409,7 @@ public class Textbox
         startConversation(speakingActor);
         for (Actor actor : actorsList)
         {
-            Element analysisDialogueFileObserved = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actor.getSpriteList().get(0).getDialogueFileName() + ".xml");
+            Element analysisDialogueFileObserved = Utilities.readXMLFile(actor.getSpriteList().get(0).getDialogueFileName() + ".xml");
             Dialogue analysisMessageObserved = readDialogue("analysis-" + actor.getSpriteList().get(0).getInitDialogueId(), analysisDialogueFileObserved);
             readDialogue.messages.add(actor.getActorInGameName() + analysisMessageObserved.messages.get(0));
         }
@@ -469,8 +467,6 @@ public class Textbox
         double brig = background.getBrightness();
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-        //Font font_estrog = Font.loadFont(getClass().getResource(FONT_DIRECTORY_PATH + "estrog__.ttf").toExternalForm(), 30);
-        Font font_estrog = Utilities.readFont(FONT_DIRECTORY_PATH + "estrog__.ttf");
         gc.clearRect(0, 0, WIDTH, HEIGHT);
 
         //testBackground
@@ -485,7 +481,7 @@ public class Textbox
         gc.setGlobalAlpha(0.9);
         gc.fillRect(backgroundOffsetX, backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetYDecorationTop - backgroundOffsetYTalkIcon - backgroundOffsetYDecorationBtm);
 
-        gc.setFont(font_estrog);
+
         gc.setTextAlign(TextAlignment.LEFT);
         gc.setTextBaseline(VPos.TOP);
 
@@ -546,12 +542,11 @@ public class Textbox
                 gc.setFill(fontManager.getFontAtLetter(i));
                 char c = visibleLine.charAt(i);
                 gc.fillText(String.valueOf(c),
-                        Math.round(xOffsetTextLine) + textWidth(font_estrog, line.substring(0, i)),
+                        Math.round(xOffsetTextLine) + textWidth(gc.getFont(), line.substring(0, i)),
                         Math.round(yOffsetTextLine) + FONT_Y_OFFSET_ESTROG__SIZE30);
             }
             yOffsetTextLine += gc.getFont().getSize();
         }
-
 
         //Character Info Button
         if (actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null)

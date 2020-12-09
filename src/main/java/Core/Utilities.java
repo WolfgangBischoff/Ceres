@@ -112,7 +112,10 @@ public class Utilities
         String methodName = "readImage() ";
         InputStream stream = Utilities.class.getClassLoader().getResourceAsStream(path);
         if(stream == null)
+        {
             System.out.println(CLASSNAME + methodName + path + " not found.");
+            return new Image(Utilities.class.getClassLoader().getResourceAsStream("img/notfound_64_64" + ".png"));
+        }
         return new Image(stream);
     }
 

@@ -422,13 +422,7 @@ public class Sprite
     public String toString()
     {
         return name + " Position: [" + positionX + "," + positionY + "]"
-                // + " Animated: " + animated + super.toString()
                 ;
-    }
-
-    public Boolean getIsBlocker()
-    {
-        return isBlocker;
     }
 
     public void setBlocker(Boolean blocker)
@@ -439,30 +433,9 @@ public class Sprite
     public void setImage(String filename)
     {
         String methodName = "setImage(String) ";
-        Image i;
-        try
-        {
-            //TODO remove this, in all files the path should be absolute
-            if (Utilities.class.getClassLoader().getResourceAsStream(ACTOR_DIRECTORY_PATH + filename.replace("../actorData/", "") + PNG_POSTFIX) != null)
-            {
-                i = Utilities.readImage(ACTOR_DIRECTORY_PATH + filename.replace("../actorData/", "") + PNG_POSTFIX);
-            }
-            else if (Utilities.class.getClassLoader().getResourceAsStream(IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX) != null)
-                i = Utilities.readImage(IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX);
-            else
-                i = Utilities.readImage(filename + PNG_POSTFIX);
-            //i = new Image(IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX);
-        }
-        catch (IllegalArgumentException e)
-        {
-            System.out.println(CLASSNAME + methodName + IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX + " not found");
-            i = Utilities.readImage(IMAGE_DIRECTORY_PATH + "notfound_64_64" + ".png");
-            //i = new Image(IMAGE_DIRECTORY_PATH + "notfound_64_64" + ".png");
-        }
-
-        baseimage = i;
-        basewidth = i.getWidth();
-        baseheight = i.getHeight();
+        baseimage = Utilities.readImage(filename + PNG_POSTFIX);
+        basewidth = baseimage.getWidth();
+        baseheight = baseimage.getHeight();
         currentCol = currentRow = 0;
     }
 

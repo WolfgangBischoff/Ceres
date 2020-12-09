@@ -8,4 +8,4 @@ sensorStatus	;default																			;none																					;none  	 					
 
 #status to image
 #status 			;name   				;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID;dialogueId;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds
-default				;greenBox			;../actorData/storages/box_flat/green																				;true				;1												;000	;000										;000	;000	;000								;000									;005											;064	 									;118									;100										;none						;default			;none						;unused;unused;unused;unused;unused;000						;000							;false
+default				;greenBox			;actorData/storages/box_flat/green								   												;true				;1												;000	;000										;000	;000	;000								;000									;005											;064	 									;118									;100										;none						;default			;none						;unused;unused;unused;unused;unused;000						;000							;false

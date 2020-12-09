@@ -1,7 +1,7 @@
 
 tiledefinition:
 #code     																						;name        																												;spritename                  																																				;blocker												;heightLayer												;fps					 ;totalFrames  ;cols 	;rows 	;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY 	;hitBoxWidth ;hitBoxHeight ;lightning 										;dialogueId ;dialogueFile 																								;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-floTol				                      ;open floor				                          ;floor/greyFloor_open_tools																																						;true		          	  ;1									             ;0		      ;0												;0			  ;0			  ;000								;000									;000											;000										  ;000									;000										;none 					          ;none							;none																																	;unused0	;unused1	;unused2	;unused3	;unused4
+floTol				                      ;open floor				                          ;img/floor/greyFloor_open_tools																																						;true		          	  ;1									             ;0		      ;0												;0			  ;0			  ;000								;000									;000											;000										  ;000									;000										;none 					          ;none							;none																																	;unused0	;unused1	;unused2	;unused3	;unused4
 
 global_system_actor:
 character           ;techni,default,south,,actorData/character/technician/technician,INTRO_TO_MEDIC

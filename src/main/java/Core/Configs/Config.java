@@ -154,8 +154,6 @@ public class Config
     //Paths
     public static final String CSV_POSTFIX = ".csv";
     public static final String PNG_POSTFIX = ".png";
-    public static final String RESOURCES_FILE_PATH = "";
-    public static final String DIALOGUE_FILE_PATH = "";
     public static final String ACTOR_DIRECTORY_PATH = "actorData/";
     public static final String STAGE_FILE_PATH = "level/";
     public static final String IMAGE_DIRECTORY_PATH = "img/";
@@ -179,10 +177,10 @@ public class Config
     public static final int MAM_THRESHOLD_INTERROGATION = 6;
 
     //Colors
-    public static final Color COLOR_BACKGROUND_BLUE = Color.rgb(60, 90, 85); //Normal
-    public static final Color COLOR_BACKGROUND_GREY = Color.rgb(20, 25, 30); //Normal
-    public static final Color COLOR_MARKING = Color.rgb(80, 120, 120); //Normal
-    public static final Color COLOR_FONT = Color.rgb(100, 160, 160); //Normal
+    public static final Color COLOR_BACKGROUND_BLUE = Color.rgb(60, 90, 85);
+    public static final Color COLOR_BACKGROUND_GREY = Color.rgb(20, 25, 30);
+    public static final Color COLOR_MARKING = Color.rgb(80, 120, 120);
+    public static final Color COLOR_FONT = Color.rgb(100, 160, 160);
     public static final String REGEX_GREEN = "%%GR";
     public static final Color COLOR_GREEN = Color.hsb(140, 0.33, 0.90); //Good
     public static final String REGEX_RED = "%%RD";

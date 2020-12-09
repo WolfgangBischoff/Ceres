@@ -40,9 +40,7 @@ public class Main extends Application
                 //Long startRender = currentNanoTime;
                 gameWindowController.render(currentNanoTime);
                 //renderTime = System.nanoTime() - startRender;
-                //System.out.println("Update: " + updateTime/1000000 + " Render : " + renderTime/1000000);
-
-                //System.out.println("FPS: " + FXUtils.getAverageFPS());
+                //System.out.println("Update: " + updateTime/1000000 + " Render : " + renderTime/1000000); //60 is good
             }
         }.start();
     }

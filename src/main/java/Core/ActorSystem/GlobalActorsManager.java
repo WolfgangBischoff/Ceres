@@ -25,7 +25,7 @@ public class GlobalActorsManager
 
         if(!loadedSystems.contains(path))
         {
-            var lines = Utilities.readAllLineFromTxt(Config.RESOURCES_FILE_PATH + "global_systems/" + path + Config.CSV_POSTFIX);
+            var lines = Utilities.readAllLineFromTxt("global_systems/" + path + Config.CSV_POSTFIX);
             parse(lines);
             loadedSystems.add(path);
         }
