@@ -1,6 +1,5 @@
 package Core.Menus.StatusOverlay;
 
-import Core.Configs.Config;
 import Core.Utilities;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -12,9 +11,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
-import static Core.Configs.Config.*;
+import static Core.Configs.Config.COLOR_BACKGROUND_BLUE;
+import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
 
 public class VariableStatusOverlay
 {
@@ -37,7 +36,7 @@ public class VariableStatusOverlay
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue)
             {
-                current = (int)newValue;
+                current = (int) newValue;
             }
         });
         current = baseValue.getValue();
@@ -61,12 +60,11 @@ public class VariableStatusOverlay
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
 
         int backgroundOffsetX = 55, backgroundOffsetY = 32;
-        graphicsContext.drawImage(field, 0,0);
+        graphicsContext.drawImage(field, 0, 0);
         graphicsContext.setFill(marking);
         graphicsContext.setFill(font);
         graphicsContext.setTextBaseline(VPos.CENTER);
-        //graphicsContext.setFont(Utilities.readFont("font/estrog__.ttf"));
-        graphicsContext.fillText(""+current,  backgroundOffsetX, backgroundOffsetY);
+        graphicsContext.fillText("" + current, backgroundOffsetX, backgroundOffsetY);
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
