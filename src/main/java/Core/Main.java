@@ -25,9 +25,6 @@ public class Main extends Application
         gameWindowController.setTitle("Game Window");
         gameWindowController.createNextScene(WorldView.getSingleton());
         gameWindowController.showWindow();
-        System.out.println("Base directory: " + new File(IMAGE_DIRECTORY_PATH).getCanonicalPath());
-        System.out.println("Base directory: " + new File(IMAGE_DIRECTORY_PATH).getPath());
-        System.out.println("Base directory: " + new File(IMAGE_DIRECTORY_PATH).getAbsolutePath());
 
         new AnimationTimer()
         {

@@ -53,15 +53,11 @@ public class Utilities
 
     public static List<String[]> readAllLineFromTxt(String path)
     {
-
-        //Reads all line
         String row;
-        int linecounter = 0;
+        //int linecounter = 0;
         List<String[]> data = new ArrayList<>();
         try
-        {//"//home/wolfgang/IdeaProjects/Ceres/build/resources/main/img/txtbox/textboxTL.png"
-            //BufferedReader csvReader = new BufferedReader(new FileReader(path));
-
+        {
             InputStreamReader isr = new InputStreamReader(Utilities.class.getClassLoader().getResourceAsStream(path));
             BufferedReader csvReader = new BufferedReader(isr);
             while ((row = csvReader.readLine()) != null)
@@ -69,14 +65,12 @@ public class Utilities
                 //Check for comments and blank lines
                 if (row.isEmpty() || row.startsWith("#"))
                     continue;
-
-                //String[] rawdata = row.split(",");
                 String[] rawdata = row.split(";");
                 String[] trimmed = new String[rawdata.length];
                 for (int i = 0; i < rawdata.length; i++)
                     trimmed[i] = rawdata[i].trim();
                 data.add(trimmed);
-                linecounter++;
+                //linecounter++;
             }
             csvReader.close();
         } catch (IOException e)
@@ -87,7 +81,7 @@ public class Utilities
     }
 
 
-    public static Element readXMLFile(String file_path)
+    public static Element readXMLFile(String path)
     {
         String methodName = "readXMLFile() ";
         //https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
@@ -98,28 +92,27 @@ public class Utilities
         try
         {
             builder = factory.newDocumentBuilder();
-            //File file = new File(file_path);
-            //Document doc = builder.parse(file);
-            if(Utilities.class.getClassLoader().getResourceAsStream(file_path) == null)
-                System.out.println(CLASSNAME + methodName + file_path + " not found.");
-            Document doc = builder.parse(Utilities.class.getClassLoader().getResourceAsStream(file_path));
-            //System.out.println(doc.getDocumentElement());
+            if(Utilities.class.getClassLoader().getResourceAsStream(path) == null)
+                System.out.println(CLASSNAME + methodName + path + " not found.");
+            Document doc = builder.parse(Utilities.class.getClassLoader().getResourceAsStream(path));
             return doc.getDocumentElement();
         } catch (ParserConfigurationException | SAXException e)
         {
             e.printStackTrace();
         } catch (IOException e)
         {
-            throw new IllegalArgumentException("File does not exist: " + file_path);
+            throw new IllegalArgumentException("File does not exist: " + path);
         }
 
-        throw new RuntimeException("Uncatched Exception for path: " + file_path);
+        throw new RuntimeException("Uncatched Exception for path: " + path);
     }
 
     public static Image readImage(String path)
     {
-        //return new Image(path);
+        String methodName = "readImage() ";
         InputStream stream = Utilities.class.getClassLoader().getResourceAsStream(path);
+        if(stream == null)
+            System.out.println(CLASSNAME + methodName + path + " not found.");
         return new Image(stream);
     }
 

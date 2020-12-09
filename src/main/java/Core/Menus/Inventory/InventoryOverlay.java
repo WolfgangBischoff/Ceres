@@ -1,10 +1,7 @@
 package Core.Menus.Inventory;
 
-import Core.Actor;
-import Core.Collectible;
+import Core.*;
 import Core.Enums.CollectableType;
-import Core.GameVariables;
-import Core.GameWindow;
 import Core.WorldView.WorldViewController;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -45,8 +42,8 @@ public class InventoryOverlay
         menuCanvas = new Canvas(WIDTH, HEIGHT);
         gc = menuCanvas.getGraphicsContext2D();
         this.actor = actor;
-        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
-        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+        cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
+        cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         this.SCREEN_POSITION = SCREEN_POSITION;
         SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
     }

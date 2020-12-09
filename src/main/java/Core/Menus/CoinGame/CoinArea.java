@@ -74,9 +74,9 @@ public class CoinArea
     {
         gameFileName = gameIdentifier;
         this.actorOfDiscussion = actorOfDiscussion;
-        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
-        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
-        backgroundImage = new Image(IMAGE_DIRECTORY_PATH + "../discussions/img/background/nerve.png");
+        cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
+        cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+        backgroundImage = Utilities.readImage("discussions/img/background/nerve.png");
         init();
     }
 
