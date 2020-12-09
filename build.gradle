@@ -24,9 +24,32 @@ javafx {
 
 sourceSets {
     main {
-        resources {srcDir("src/main/java/res")}
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources
+                {
+           srcDirs = ["src/main/resources"]
+        }
     }
+
 }
 
-mainClassName = 'Core.Main'
+
+
+mainClassName='Core.Launcher'
+jar {
+
+    manifest {
+        attributes 'Main-Class': 'Core.Launcher'
+    }
+    from {
+
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    from('src/main/resources') {
+        include  '**/*.xml'
+        include  '**/*.png'
+    }
+}
 

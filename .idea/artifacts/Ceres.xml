@@ -1,0 +1,29 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" build-on-make="true" name="Ceres">
+    <output-path>$PROJECT_DIR$/out/artifacts/Ceres</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="nativeBundle" value="exe" />
+        <option name="title" value="" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="Ceres.jar">
+        <element id="module-output" name="Ceres" />
+      </element>
+      <element id="module-output" name="Ceres_main" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-base:11.0.2" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-base:win:11.0.2" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-controls:11.0.2" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-controls:win:11.0.2" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-fxml:win:11.0.2" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-graphics:11.0.2" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-graphics:win:11.0.2" />
+    </root>
+  </artifact>
+</component>

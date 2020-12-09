@@ -6,6 +6,11 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
+
+import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
+
 public class Main extends Application
 {
     public static void main(String[] args)

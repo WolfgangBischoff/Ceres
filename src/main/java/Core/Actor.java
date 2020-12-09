@@ -93,9 +93,14 @@ public class Actor
         }
 
 
-        if (Files.exists(path))
-        {
+        //if (Files.exists(path))
+        //if (Utilities.class.getClassLoader().getResourceAsStream(ACTOR_DIRECTORY_PATH + actorFileName + CSV_POSTFIX) != null)
+        //{
+if(actorFileName.contains("../img"))
+            actordata = Utilities.readAllLineFromTxt(actorFileName.replace("../", "") + CSV_POSTFIX);
+else
             actordata = Utilities.readAllLineFromTxt(ACTOR_DIRECTORY_PATH + actorFileName + CSV_POSTFIX);
+
             for (String[] linedata : actordata)
             {
                 if (checkForKeywords(linedata))
@@ -119,8 +124,8 @@ public class Actor
                     throw new IndexOutOfBoundsException(e.getMessage() + "\n in Actorfile: " + actorFileName);
                 }
             }
-        }
-        else throw new RuntimeException("Actordata not found: " + actorFileName);
+        //}
+        //else throw new RuntimeException("Actordata not found: " + actorFileName);
 
         sensorStatus = sensorStatusMap.get(initSensorStatus);
 

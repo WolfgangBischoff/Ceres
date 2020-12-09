@@ -274,3 +274,4 @@ How to Revolution
 - Windows Recorder: Win + G
 - Ctrl + Alt + </>: Jump to code parts
 - Ctrl + (numblock)/: Comment line
+- jar xf .\Ceres-1.0-SNAPSHOT.jar => To unzip jars
