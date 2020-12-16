@@ -7,9 +7,6 @@
 - Features
     - Cleaning Bot Moving definition in file
         sprite position dependent on variables, time => assign start postion and movement script
-    - Console
-        change variables
-        mode where all options are visible
     - remove old capsule
     - Person turns if talking, maybe with Tag "turns_on_interaction"
     - Cooperation value just increases two time a day
@@ -207,6 +204,7 @@ Lore (Info not related to PLot, History, descriptions)
         => Subscriptions to benefits like housing, food and air
         => Dwarf planet Ceres, Water colony with science; can travel to asteriods; Vanguard of Humankind in private ownership (CereX company)
         => Board time / Ceres Time (9h 4min per day) connection affects world (year 4,605 years)
+        => Society changes, very liberal. Open Sex at Clubs, drugs, home-delivery standard, arguments
 
     Ceres
         - Ceres Base gets energy and water from old colony ship, which works automated;

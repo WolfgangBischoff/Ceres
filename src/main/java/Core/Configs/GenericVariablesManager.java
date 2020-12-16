@@ -30,4 +30,8 @@ public class GenericVariablesManager
         stringWorldVariables.put(varName,newValue);
     }
 
+    public static Map<String, String> getStringWorldVariables()
+    {
+        return stringWorldVariables;
+    }
 }

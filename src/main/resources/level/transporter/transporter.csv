@@ -137,8 +137,8 @@ FCtr_5					;floor/trigger																											;Trigger																		;1
 FCr__5					;../img/walls/freightcapsule/roof								;roofFC																			;visible													   ;waitForMonitor									;none
 
 #machine room
-spLock					;doors/other/space_suit_locker/locker				;Space Suit Locker							;capsule 													  ;default																;none
-#spLock				;doors/other/space_suit_locker/locker				;Space Suit Locker								;locked 														;default																;none
+#spLock					;doors/other/space_suit_locker/locker				;Space Suit Locker							;capsule 													  ;default																;none
+spLock				;doors/other/space_suit_locker/locker				;Space Suit Locker								;locked 														;default																;none
 reacto					;transporter/reactor/reactor													;Reactor																		;on																	;textbox																					;undefined
 
 #collectibles

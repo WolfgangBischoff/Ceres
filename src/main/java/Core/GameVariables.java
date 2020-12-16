@@ -204,6 +204,11 @@ public class GameVariables
         booleanWorldVariables.setValue(varName, newValue);
     }
 
+    public static Map<String, String> getGenericVariables()
+    {
+        return GenericVariablesManager.getStringWorldVariables();
+    }
+
     public static Set<Knowledge> getPlayerKnowledge()
     {
         return playerKnowledge;

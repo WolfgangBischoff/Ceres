@@ -1,4 +1,11 @@
 
+
+
+
+
+
+16 12 20    - textbox mode where all options are visible
+            - first Console change variables
 09 12 20    - Created export with gradle
             - performance improvement & refactor
 30 11 20    - restart power at generator to fix light
@@ -15,9 +22,28 @@
 08 11 20    - added actor changes on global actor get
             - added dialogueFile and dialogueId change via Textbox
 04 11 20    - background coin game
+02 11 20    - better coin game explanation from trader
+            - change Eyes Box more obvious, added carton box sprite
+            - added interface, network trait
+            - show residual coin game time
+            - air system coin game in form of ventilation
+01 11 20    - reworked personality traits
+            - added machine traits and game
+            - decoration, background
+            - add buffs; number unknown traits
+29 10 20    - reworked Coin movement
+            - added buff_double_reward, win threshold calculation
+28 10 20    - first buff for Coin Game
 
+26 10 20    - Test with Alex => Coin Game needs better explanation, maybe symbols ingame; more sprites with interaction; more content to freight capsules
+            - wall sign Crewdeck, Controldeck
+            - more sprite txt: Crewdeck table, small controls, beds
+            - add cursor with border hitbox
+            - add item with textbox
+22 10 20    - changed box sprite
+            - added Ceres behind window, speaker, clock img, first space suit, improved bump; changed textbox
 
-
+OLD
 
 19 08 20    - reactor sprite animation
 23 08 20    - Item Exchange GUI and Persistence of chest
@@ -80,23 +106,7 @@
             - add sprint button on SHIFT
             - talk to collegue at window, impact; control changes status; trader text
             - added sprite status change by textbox
-22 10 20    - changed box sprite
-            - added Ceres behind window, speaker, clock img, first space suit, improved bump; changed textbox
 
-26 10 20    - Test with Alex => Coin Game needs better explanation, maybe symbols ingame; more sprites with interaction; more content to freight capsules
-            - wall sign Crewdeck, Controldeck
-            - more sprite txt: Crewdeck table, small controls, beds
-            - add cursor with border hitbox
-            - add item with textbox
-28 10 20    - first buff for Coin Game
-29 10 20    - reworked Coin movement
-            - added buff_double_reward, win threshold calculation
-01 11 20    - reworked personality traits
-            - added machine traits and game
-            - decoration, background
-            - add buffs; number unknown traits
-02 11 20    - better coin game explanation from trader
-            - change Eyes Box more obvious, added carton box sprite
-            - added interface, network trait
-            - show residual coin game time
-            - air system coin game in form of ventilation
+
+
+
