@@ -3,7 +3,8 @@
 
 
 
-
+21 12 20    - added Script for movement "route" and "repeat"
+            - fixed no wall for non player sprites
 16 12 20    - textbox mode where all options are visible
             - first Console change variables
 09 12 20    - Created export with gradle
@@ -42,6 +43,11 @@
             - add item with textbox
 22 10 20    - changed box sprite
             - added Ceres behind window, speaker, clock img, first space suit, improved bump; changed textbox
+21 10 20    - added global actors; placed on map according to variables
+            - add sprint button on SHIFT
+            - talk to collegue at window, impact; control changes status; trader text
+            - added sprite status change by textbox
+
 
 OLD
 
@@ -102,10 +108,7 @@ OLD
             - window onInteraction: bump
 17 10 20    - added algae tank transparency, mirror in bath
 19 10 20    - added eyes box
-21 10 20    - added global actors; placed on map according to variables
-            - add sprint button on SHIFT
-            - talk to collegue at window, impact; control changes status; trader text
-            - added sprite status change by textbox
+
 
 
 

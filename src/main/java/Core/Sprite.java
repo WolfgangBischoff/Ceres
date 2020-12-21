@@ -15,6 +15,7 @@ import java.util.List;
 import static Core.Configs.Config.*;
 import static Core.Enums.TriggerType.NOTHING;
 import static Core.GameVariables.getPlayer;
+import static Core.GameVariables.player;
 
 public class Sprite
 {
@@ -221,7 +222,7 @@ public class Sprite
                 actor.onUpdate(currentNanoTime);
         }
 
-        if (!blockedByOtherSprite || DEBUG_NO_WALL)
+        if (!blockedByOtherSprite || (DEBUG_NO_WALL && this == WorldView.getPlayer()))
         {
             positionX += velocityX * time;
             positionY += velocityY * time;
