@@ -489,7 +489,7 @@ public class WorldLoader
         actorDataMap.put(lineData[actorCodeIdx], actorData);
 
         //Player start position is not based on tile schema
-        if (actorData.actorFileName.toLowerCase().equals("player"))
+        if (actorData.actorFileName.equals(ACTOR_DIRECTORY_PATH + "player"))
             createPlayer(actorData);
         else
             loadedTileIdsSet.add(lineData[actorCodeIdx]);//Player is not defined by layers

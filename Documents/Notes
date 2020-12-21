@@ -2,9 +2,7 @@
 ----- Backlog ----------------------------
 ------------------------------------------
 - Bug
-    - remove old paths of actors TODO
-    - DEBUG WALL also workd for cleanig bot
-
+    - player light is duplicated after quest
 - Features
     - Cleaning Bot Moving definition in file
         1) While Map load set actors according to time, date, variables, change daylight accoring to time

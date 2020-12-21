@@ -5,6 +5,7 @@
 
 21 12 20    - added Script for movement "route" and "repeat"
             - fixed no wall for non player sprites
+            - remove old paths of actors
 16 12 20    - textbox mode where all options are visible
             - first Console change variables
 09 12 20    - Created export with gradle

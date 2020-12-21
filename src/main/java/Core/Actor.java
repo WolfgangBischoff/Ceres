@@ -90,15 +90,7 @@ public class Actor
             actorDefinitionKeywords.add(PERSONALITY_ACTOR);
             actorDefinitionKeywords.add(SCRIPT_ACTOR);
         }
-
-        if (actorFileName.contains("../img"))//TODO remove this, use absolute path everywhere
-            actordata = Utilities.readAllLineFromTxt(actorFileName.replace("../", "") + CSV_POSTFIX);
-        else if (actorFileName.contains("img"))//TODO remove this, use absolute path everywhere
-            actordata = Utilities.readAllLineFromTxt(actorFileName + CSV_POSTFIX);
-        else
-            actordata = Utilities.readAllLineFromTxt(ACTOR_DIRECTORY_PATH + actorFileName + CSV_POSTFIX);
-        //TODO Also remove ACTOR_DIR and change actors ins img folder
-
+        actordata = Utilities.readAllLineFromTxt(actorFileName + CSV_POSTFIX);
         for (String[] linedata : actordata)
         {
             if (checkForKeywords(linedata))
@@ -619,7 +611,7 @@ public class Actor
     private void actAccordingToScript()
     {
 
-        String methodName = "move()";
+        String methodName = "actAccordingToScript()";
         script.update(this);
     }
 
@@ -832,7 +824,7 @@ public class Actor
 
     public void setLastInteraction(Long value)
     {
-        String methodName = "setLastInteraktion(Long)";
+        String methodName = "setLastInteraktion(Long) ";
         boolean debugmode = false;
         lastInteraction = value;
 
@@ -907,18 +899,6 @@ public class Actor
     {
         return compoundStatus;
     }
-
-//    public String getDialogueFileName()
-//    {
-//        //if (dialogueFileName == null)
-//            throw new NullPointerException("No dialogue file defined for: " + actorFileName);
-//        //return dialogueFileName;
-//    }
-
-//    public String getDialogueStatusID()
-//    {
-//        return dialogueStatusID;
-//    }
 
     public String getCollectable_type()
     {
@@ -1039,16 +1019,6 @@ public class Actor
     {
         this.sensorStatus = sensorStatus;
     }
-
-    public void setConditions(List<ActorCondition> conditions)
-    {
-        this.conditions = conditions;
-    }
-//
-//    public void setDialogueStatusID(String dialogueStatusID)
-//    {
-//        this.dialogueStatusID = dialogueStatusID;
-//    }
 
     public void setCollectable_type(String collectable_type)
     {

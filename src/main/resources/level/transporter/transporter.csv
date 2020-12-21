@@ -106,55 +106,55 @@ carton				;brown carton					;img/container/carton_brown_0																							
 
 ACTORS:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status										;direction
-player					;player																																		;Revolutionary												;default												;default																;north
-exit__					;doors/vertical/autoBulkheadVertical					;exit to docking bay						;on																	;levelchange												;west
-autoDo					;doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;UNLOCKED															;west
-capsuD					;doors/vertical/autoBulkheadVertical					;Capsule Bulkhead									;on							;textbox																;undefined
-door_H					;doors/horizontal/automatedDoor										;bulkhead																	;on																	;UNLOCKED															;south
-windL1					;quest/main/frontwindow/actor												;front window													;spaceView										;default																;undefined
+player					;actorData/player																																		;Revolutionary												;default												;default																;north
+exit__					;actorData/doors/vertical/autoBulkheadVertical					;exit to docking bay						;on																	;levelchange												;west
+autoDo					;actorData/doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;UNLOCKED															;west
+capsuD					;actorData/doors/vertical/autoBulkheadVertical					;Capsule Bulkhead									;on							;textbox																;undefined
+door_H					;actorData/doors/horizontal/automatedDoor										;bulkhead																	;on																	;UNLOCKED															;south
+windL1					;actorData/quest/main/frontwindow/actor												;front window													;spaceView										;default																;undefined
 
 #control center
-tender					;character/tenderer/tenderer													;Julius Soulles											;day0															;default																;south
-contro					;computer/control/control																;control terminal									;default												;default																;undefined
+tender					;actorData/character/tenderer/tenderer													;Julius Soulles											;day0															;default																;south
+contro					;actorData/computer/control/control																;control terminal									;default												;default																;undefined
 
 
 #spaceway
-trigge					;floor/trigger																											;Trigger																		;20x64_off										;readyToFire_20									;undefined
-roof__					;../img/walls/spaceway/roof														;roof																					;on																	;waitForMonitor									;west
-roof1_					;../img/walls/spaceway/roof														;roof																					;on2																;waitForMonitor									;west
-roofw_					;../img/walls/spaceway/roof														;roof																					;full_win 										;waitForMonitor									;west
+trigge					;actorData/floor/trigger																											;Trigger																		;20x64_off										;readyToFire_20									;undefined
+roof__					;img/walls/spaceway/roof														;roof																					;on																	;waitForMonitor									;west
+roof1_					;img/walls/spaceway/roof														;roof																					;on2																;waitForMonitor									;west
+roofw_					;img/walls/spaceway/roof														;roof																					;full_win 										;waitForMonitor									;west
 
 #freightcapsule
-FCtr_0					;floor/trigger																											;Trigger																		;12x5_yellow									;readyToFire_12x5							;undefined
-FCr__0					;../img/walls/freightcapsule/roof								;roofFC																			;visible													;waitForMonitor									;none
-FCtr_1					;floor/trigger																											;Trigger																		;12x5_yellow									   ;readyToFire_12x5							;undefined
-FCr__1					;../img/walls/freightcapsule/roof								;roofFC																			;visible													   ;waitForMonitor									;none
-FCtr_3					;floor/trigger																											;Trigger																		;12x5_yellow									   ;readyToFire_12x5							;undefined
-FCr__3					;../img/walls/freightcapsule/roof								;roofFC																			;visible													   ;waitForMonitor									;none
-FCtr_4					;floor/trigger																											;Trigger																		;12x5_yellow									   ;readyToFire_12x5							;undefined
-FCr__4					;../img/walls/freightcapsule/roof								;roofFC																			;visible													   ;waitForMonitor									;none
-FCtr_5					;floor/trigger																											;Trigger																		;12x5_yellow									   ;readyToFire_12x5							;undefined
-FCr__5					;../img/walls/freightcapsule/roof								;roofFC																			;visible													   ;waitForMonitor									;none
+FCtr_0					;actorData/floor/trigger																											;Trigger																		;12x5_yellow									;readyToFire_12x5							;undefined
+FCr__0					;img/walls/freightcapsule/roof								;roofFC																			;visible													;waitForMonitor									;none
+FCtr_1					;actorData/floor/trigger																											;Trigger																		;12x5_yellow									   ;readyToFire_12x5							;undefined
+FCr__1					;img/walls/freightcapsule/roof								;roofFC																			;visible													   ;waitForMonitor									;none
+FCtr_3					;actorData/floor/trigger																											;Trigger																		;12x5_yellow									   ;readyToFire_12x5							;undefined
+FCr__3					;img/walls/freightcapsule/roof								;roofFC																			;visible													   ;waitForMonitor									;none
+FCtr_4					;actorData/floor/trigger																											;Trigger																		;12x5_yellow									   ;readyToFire_12x5							;undefined
+FCr__4					;img/walls/freightcapsule/roof								;roofFC																			;visible													   ;waitForMonitor									;none
+FCtr_5					;actorData/floor/trigger																											;Trigger																		;12x5_yellow									   ;readyToFire_12x5							;undefined
+FCr__5					;img/walls/freightcapsule/roof								;roofFC																			;visible													   ;waitForMonitor									;none
 
 #machine room
-#spLock					;doors/other/space_suit_locker/locker				;Space Suit Locker							;capsule 													  ;default																;none
-spLock				;doors/other/space_suit_locker/locker				;Space Suit Locker								;locked 														;default																;none
-reacto					;transporter/reactor/reactor													;Reactor																		;on																	;textbox																					;undefined
+#spLock					;actorData/doors/other/space_suit_locker/locker				;Space Suit Locker							;capsule 													  ;default																;none
+spLock				;actorData/doors/other/space_suit_locker/locker				;Space Suit Locker								;locked 														;default																;none
+reacto					;actorData/transporter/reactor/reactor													;Reactor																		;on																	;textbox																					;undefined
 
 #collectibles
-box___					                ;storages/boxSmall/green_persistent						;green Box																       ;locked 													   ;default																;none
-smalBx					                ;storages/boxSmall/prop																		;green Box																       ;default													   ;default																;none
-eyesBx					                ;storages/eyes_box/eyes_box														;strange Box														       ;eyes   													   ;hide																			;south
-largeB					                ;storages/greenBoxLarge/largeBox									;green Box																       ;default													   ;default																;none
-largeC					                ;storages/greenBoxLarge/largeBox									;green Box																       ;cut																	   ;default																;none
-bxCart					                ;storages/greenBoxLarge/largeBox									;green Box																       ;crates														   ;default																;none
-flatBx					                ;storages/box_flat/box_flat														;green flat Box											       ;default													   ;default																;none
-redKey					                ;collectibles/key/keycard																;Red Keycard														       ;red																	   ;default																;none
-key_bl					;collectibles/key/keycard																;Red Keycard  				 							;blue																		;default																;undefined
-algaeS					;collectibles/food/food																		;Algae Stew				 										;algaeStew													;default																;undefined
-asiaBe					;collectibles/food/food																		;Asia Star Bento										;asiastar														;default																;undefined
+box___					                ;actorData/storages/boxSmall/green_persistent						;green Box																       ;locked 													   ;default																;none
+smalBx					                ;actorData/storages/boxSmall/prop																		;green Box																       ;default													   ;default																;none
+eyesBx					                ;actorData/storages/eyes_box/eyes_box														;strange Box														       ;eyes   													   ;hide																			;south
+largeB					                ;actorData/storages/greenBoxLarge/largeBox									;green Box																       ;default													   ;default																;none
+largeC					                ;actorData/storages/greenBoxLarge/largeBox									;green Box																       ;cut																	   ;default																;none
+bxCart					                ;actorData/storages/greenBoxLarge/largeBox									;green Box																       ;crates														   ;default																;none
+flatBx					                ;actorData/storages/box_flat/box_flat														;green flat Box											       ;default													   ;default																;none
+redKey					                ;actorData/collectibles/key/keycard																;Red Keycard														       ;red																	   ;default																;none
+key_bl					;actorData/collectibles/key/keycard																;Red Keycard  				 							;blue																		;default																;undefined
+algaeS					;actorData/collectibles/food/food																		;Algae Stew				 										;algaeStew													;default																;undefined
+asiaBe					;actorData/collectibles/food/food																		;Asia Star Bento										;asiastar														;default																;undefined
 
-elevSc					;doors/updown/elevator/elevator										;main elevator												;toCrewDeck												;default																;undefined
+elevSc					;actorData/doors/updown/elevator/elevator										;main elevator												;toCrewDeck												;default																;undefined
 
 position:
 redKey	;2140; 455; on the control terminal

@@ -13,5 +13,5 @@ sensorStatus	;inventory																	;inventory_shop											;none  	 					
 default				;smile vendor	;actorData/system_vendor/smile/vendor_128_160					   				;true				;1												;000	;000										;000	;000	;000								;000									;000											;100	 									;128									;60											;whitelight_256		;none						;dialogueFile;unused;unused;unused;unused;unused;000						;000							;false
 
 #contains_collectible ;actor file path								;IngameName							;SpriteStatus;AMOUNT
-contains_collectible 	;collectibles/food/food	;Algae Stew							;algaeStew			;15
-contains_collectible 	;collectibles/food/food	;Asia Star Bento		;asiaStar				;3
+contains_collectible 	;actorData/collectibles/food/food	;Algae Stew							;algaeStew			;15
+contains_collectible 	;actorData/collectibles/food/food	;Asia Star Bento		;asiaStar				;3

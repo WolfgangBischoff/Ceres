@@ -2,7 +2,7 @@
 
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status										;direction
-gsc100					;collectibles/money/money																;Crypts								 										;gsc100													;default																;undefined 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+gsc100					;actorData/collectibles/money/money																;Crypts								 										;gsc100													;default																;undefined 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 
 layer:

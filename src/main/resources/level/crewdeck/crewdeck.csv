@@ -1,4 +1,3 @@
-#Testlevel
 
 #Red Green Blue ;the higher the brighter ;>none< leads to no shadow
 shadow:
@@ -74,16 +73,16 @@ towel_				                      ;towel												                       ;img/ba
 
 actors:
 #code 																										;actorFileName																											;IngameName																																																								;sprite-status						;sensor-status										;direction
-player					                     ;player																																		;Revolutionary												                                         ;default												;default																;north
-elevSc					                     ;doors/updown/elevator/elevator										;main elevator												                                         ;toFreightDeck						;default																;undefined
-autoDo					                     ;doors/vertical/autoBulkheadVertical					;bulkhead vertical								                                         ;on																	;UNLOCKED															;west
-doorHo					                     ;doors/horizontal/automatedDoor										;bulkhead	horizontal						                                         ;on																	;VARIABLE_UNLOCKED						;south
-cleanB					                     ;robot/cleaningBot/cleaningBot											;Cleaning Bot													                                         ;default												;default																;west
-steamS					                     ;bath/steam_shower/steam_shower										;shower																			                                         ;off																;default																;undefined
-bed_Bi					                     ;furniture/bed/bed																							;Your Bed																	                                         ;bischoff											;sleep																		;undefined
+player					                     ;actorData/player																								;Revolutionary												                                         ;default												;default																;north
+elevSc					                     ;actorData/doors/updown/elevator/elevator										;main elevator												                                         ;toFreightDeck						;default																;undefined
+autoDo					                     ;actorData/doors/vertical/autoBulkheadVertical					;bulkhead vertical								                                         ;on																	;UNLOCKED															;west
+doorHo					                     ;actorData/doors/horizontal/automatedDoor										;bulkhead	horizontal						                                         ;on																	;VARIABLE_UNLOCKED						;south
+cleanB					                     ;actorData/robot/cleaningBot/cleaningBot											;Cleaning Bot													                                         ;default												;default																;west
+steamS					                     ;actorData/bath/steam_shower/steam_shower										;shower																			                                         ;off																;default																;undefined
+bed_Bi					                     ;actorData/furniture/bed/bed																							;Your Bed																	                                         ;bischoff											;sleep																		;undefined
 
-smileV					;system_vendor/smile/smile															;Smile vendor													;default												;inventory														;undefined
-asiaBe					;collectibles/food/food																		;Asia Star Bento										;asiastar											;default																;undefined
+smileV					;actorData/system_vendor/smile/smile															;Smile vendor													;default												;inventory														;undefined
+asiaBe					;actorData/collectibles/food/food																		;Asia Star Bento										;asiastar											;default																;undefined
 
 position:
 asiaBe ;1820 ;1070; one the table
