@@ -1,0 +1,11 @@
+<!-->Absolute/Relative?<!-->
+
+
+<root type="repeat">
+    <route>
+        <point x="26" y="37"/>
+        <point x="30" y="37"/>
+        <point x="26" y="37"/>
+    </route>
+
+</root>

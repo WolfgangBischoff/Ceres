@@ -5,7 +5,9 @@ import javafx.geometry.Point2D;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 enum ScriptType
 {
@@ -27,7 +29,8 @@ public class Script
 {
     String CLASSNAME = "Script/";
     ScriptType type;
-    List<Point2D> route = new ArrayList<>();
+    Queue<Point2D> route = new LinkedList<>();
+
 
 
     public Script(Element xmlFile)
@@ -56,7 +59,12 @@ public class Script
     private void repeat(Actor actor)
     {
         String methodName = "repeat() ";
-
+        if (route.isEmpty())
+            return;
+        Point2D target = route.peek();
+        boolean reachedTarget = move(actor, target);
+        if (reachedTarget)
+            route.add(route.remove());
     }
 
     private void route(Actor actor)
@@ -64,7 +72,7 @@ public class Script
         String methodName = "route() ";
         if (route.isEmpty())
             return;
-        Point2D target = route.get(0);
+        Point2D target = route.peek();
         boolean reachedTarget = move(actor, target);
         if (reachedTarget)
             route.remove(target);
