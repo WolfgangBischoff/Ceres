@@ -1,6 +1,5 @@
 
 #InteractionArea; Distance; Width; OffsetX; OffsetY
-dialogueFile; actorData/doors/updown/elevator/dialogue
 #transition; fromStatus; toStatus
 #condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
 

@@ -92,7 +92,7 @@ public class CoinArea
     private void loadDiscussion()
     {
         String methodName = "loadDiscussion() ";
-        xmlRoot = Utilities.readXMLFile(COINGAME_DIRECTORY_PATH + gameFileName + ".xml");
+        xmlRoot = Utilities.readXMLFile(COINGAME_DIRECTORY_PATH + gameFileName);
         NodeList coins = xmlRoot.getElementsByTagName("coin");
         for (int i = 0; i < coins.getLength(); i++) //iterate coins of file
         {

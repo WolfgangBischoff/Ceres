@@ -14,6 +14,7 @@ import java.util.List;
 
 import static Core.Configs.Config.*;
 import static Core.Enums.TriggerType.NOTHING;
+import static Core.GameVariables.getPlayer;
 
 public class Sprite
 {

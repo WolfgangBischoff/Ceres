@@ -78,7 +78,7 @@ public class Utilities
         }
         catch (IOException | NullPointerException e)
         {
-            System.out.println(CLASSNAME + methodName +  path + " not found.");
+            System.out.println(CLASSNAME + methodName + path + " not found.");
             e.printStackTrace();
         }
         return data;
@@ -88,14 +88,15 @@ public class Utilities
     public static Element readXMLFile(String path)
     {
         String methodName = "readXMLFile() ";
+        String xmlPath = path + ".xml";
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setIgnoringElementContentWhitespace(true);
         try
         {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            if (Utilities.class.getClassLoader().getResourceAsStream(path) == null)
-                System.out.println(CLASSNAME + methodName + path + " not found.");
-            Document doc = builder.parse(Objects.requireNonNull(Utilities.class.getClassLoader().getResourceAsStream(path)));
+            if (Utilities.class.getClassLoader().getResourceAsStream(xmlPath) == null)
+                throw new IOException(CLASSNAME + methodName + xmlPath + " not found.");
+            Document doc = builder.parse(Objects.requireNonNull(Utilities.class.getClassLoader().getResourceAsStream(xmlPath)));
             return doc.getDocumentElement();
         }
         catch (ParserConfigurationException | SAXException e)
@@ -104,10 +105,10 @@ public class Utilities
         }
         catch (IOException e)
         {
-            throw new IllegalArgumentException("File does not exist: " + path);
+            throw new IllegalArgumentException("File does not exist: " + xmlPath);
         }
 
-        throw new RuntimeException("Uncatched Exception for path: " + path);
+        throw new RuntimeException("Uncatched Exception for path: " + xmlPath);
     }
 
     public static Image readImage(String path)

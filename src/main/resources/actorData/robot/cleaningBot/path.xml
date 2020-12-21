@@ -1,14 +1,11 @@
-
 <!-->Absolute/Relative?<!-->
 
 
-<root>
-
-    <path id="clean">
-        <point x="50" y="50"/>
-        <point x="50" y="50"/>
-        <point x="50" y="50"/>
-        <point x="50" y="50"/>
-    </path>
+<root type="route">
+    <route>
+        <point x="26" y="37"/>
+        <point x="25" y="26"/>
+        <point x="25" y="30"/>
+    </route>
 
 </root>

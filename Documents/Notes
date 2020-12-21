@@ -3,10 +3,13 @@
 ------------------------------------------
 - Bug
     - remove old paths of actors TODO
+    - DEBUG WALL also workd for cleanig bot
 
 - Features
     - Cleaning Bot Moving definition in file
-        sprite position dependent on variables, time => assign start postion and movement script
+        1) While Map load set actors according to time, date, variables, change daylight accoring to time
+        2) Create Script/Movementplan for sprite
+        3) Set Actor script according to time
     - remove old capsule
     - Person turns if talking, maybe with Tag "turns_on_interaction"
     - Cooperation value just increases two time a day

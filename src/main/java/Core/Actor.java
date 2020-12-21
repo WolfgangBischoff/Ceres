@@ -12,7 +12,6 @@ import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.animation.PauseTransition;
-import javafx.geometry.Point2D;
 import javafx.util.Duration;
 
 import java.nio.file.Path;
@@ -63,6 +62,7 @@ public class Actor
     public Set<ActorTag> tags = new HashSet<>();
     PersonalityContainer personalityContainer;
     Map<String, Double> numeric_generic_attributes = new HashMap<>();
+    Script script;
 
     public Actor(String actorFileName, String actorInGameName, String initGeneralStatus, String initSensorStatus, Direction direction)
     {
@@ -80,29 +80,24 @@ public class Actor
         {
             actorDefinitionKeywords.add(KEYWORD_transition);
             actorDefinitionKeywords.add(KEYWORD_interactionArea);
-            actorDefinitionKeywords.add(KEYWORD_dialogueFile);
             actorDefinitionKeywords.add(KEYWORD_text_box_analysis_group);
-            actorDefinitionKeywords.add(KEYWORD_collectable_type);
-            actorDefinitionKeywords.add(CONTAINS_COLLECTIBLE_KEYWORD);
+            actorDefinitionKeywords.add(COLLECTIBLE_DATA_ACTOR);
+            actorDefinitionKeywords.add(CONTAINS_COLLECTIBLE_ACTOR);
             actorDefinitionKeywords.add(KEYWORD_sensorStatus);
-            actorDefinitionKeywords.add(KEYWORD_actor_tags);
-            actorDefinitionKeywords.add(KEYWORD_condition);
-            actorDefinitionKeywords.add(KEYWORD_suspicious_value);
-            actorDefinitionKeywords.add(ACTOR_PERSONALITY_V2);
+            actorDefinitionKeywords.add(TAGS_ACTOR);
+            actorDefinitionKeywords.add(CONDITION_ACTOR);
+            actorDefinitionKeywords.add(SUSPICIOUS_VALUE_ACTOR);
+            actorDefinitionKeywords.add(PERSONALITY_ACTOR);
+            actorDefinitionKeywords.add(SCRIPT_ACTOR);
         }
 
-
-        //if (Files.exists(path))
-        //if (Utilities.class.getClassLoader().getResourceAsStream(ACTOR_DIRECTORY_PATH + actorFileName + CSV_POSTFIX) != null)
-        //{
-
-            if (actorFileName.contains("../img"))//TODO remove this, use absolute path everywhere
+        if (actorFileName.contains("../img"))//TODO remove this, use absolute path everywhere
             actordata = Utilities.readAllLineFromTxt(actorFileName.replace("../", "") + CSV_POSTFIX);
-        else
-            if (actorFileName.contains("img"))//TODO remove this, use absolute path everywhere
-        actordata = Utilities.readAllLineFromTxt(actorFileName + CSV_POSTFIX);
+        else if (actorFileName.contains("img"))//TODO remove this, use absolute path everywhere
+            actordata = Utilities.readAllLineFromTxt(actorFileName + CSV_POSTFIX);
         else
             actordata = Utilities.readAllLineFromTxt(ACTOR_DIRECTORY_PATH + actorFileName + CSV_POSTFIX);
+        //TODO Also remove ACTOR_DIR and change actors ins img folder
 
         for (String[] linedata : actordata)
         {
@@ -127,8 +122,6 @@ public class Actor
                 throw new IndexOutOfBoundsException(e.getMessage() + "\n in Actorfile: " + actorFileName);
             }
         }
-        //}
-        //else throw new RuntimeException("Actordata not found: " + actorFileName);
 
         sensorStatus = sensorStatusMap.get(initSensorStatus);
 
@@ -162,34 +155,34 @@ public class Actor
                 interactionAreaOffsetX = offsetX;
                 interactionAreaOffsetY = offsetY;
                 break;
-            case KEYWORD_dialogueFile:
-                //dialogueFileName = linedata[1];
-                break;
             case KEYWORD_text_box_analysis_group:
                 textbox_analysis_group_name = linedata[1];
                 break;
-            case KEYWORD_collectable_type:
+            case COLLECTIBLE_DATA_ACTOR:
                 collectable_type = linedata[1];
                 getNumeric_generic_attributes().put("base_value", Double.parseDouble(linedata[2]));
                 break;
-            case CONTAINS_COLLECTIBLE_KEYWORD:
+            case CONTAINS_COLLECTIBLE_ACTOR:
                 Collectible collectible = Collectible.createCollectible(linedata[1], linedata[2], linedata[3]);
                 inventory.addItem(collectible);
                 break;
             case KEYWORD_sensorStatus:
                 sensorStatusMap.put(linedata[1], readSensorData(linedata));
                 break;
-            case KEYWORD_actor_tags:
+            case TAGS_ACTOR:
                 tags.addAll(readTagData(linedata));
                 break;
-            case KEYWORD_condition:
+            case CONDITION_ACTOR:
                 conditions.add(readCondition(linedata));
                 break;
-            case ACTOR_PERSONALITY_V2:
+            case PERSONALITY_ACTOR:
                 personalityContainer = readPersonality(linedata);
                 break;
-            case KEYWORD_suspicious_value:
+            case SUSPICIOUS_VALUE_ACTOR:
                 numeric_generic_attributes.put(linedata[0], Double.parseDouble(linedata[1]));
+                break;
+            case SCRIPT_ACTOR:
+                script = readScript(linedata);
                 break;
             default:
                 throw new RuntimeException("Keyword unknown: " + keyword);
@@ -198,13 +191,14 @@ public class Actor
         return true;
     }
 
+    private Script readScript(String[] linedata)
+    {
+        return new Script(Utilities.readXMLFile(linedata[1]));
+    }
+
     private PersonalityContainer readPersonality(String[] linedata)
     {
         String methodName = "readPersonality() ";
-        boolean debug = false;
-        if (debug)
-            System.out.println(CLASSNAME + methodName + Arrays.toString(linedata));
-
         PersonalityContainer readContainer = new PersonalityContainer(this);
         int initCooperationValue = Integer.parseInt(linedata[1]);
         readContainer.increaseCooperation(initCooperationValue);
@@ -221,9 +215,6 @@ public class Actor
             coinType.setKnowledgeVisibility(Knowledge.of(knowledge));
             readContainer.getTraits().add(coinType);
         }
-
-        if (debug)
-            System.out.println(CLASSNAME + methodName + readContainer);
         return readContainer;
     }
 
@@ -240,7 +231,6 @@ public class Actor
     private ActorCondition readCondition(String[] linedata)
     {
         String methodName = "readCondition() ";
-        boolean debug = false;
         //#condition; if sprite-status ;if sensor-status ;type ;true-sprite-status ;true-sensor-status ;false-sprite-status ;false-sensor-status	;params
         int spriteStatusConditionIdx = 1;
         int sensorStatusConditionIdx = 2;
@@ -259,9 +249,6 @@ public class Actor
         actorCondition.falseSpriteStatus = linedata[falseSpriteStatusIdx];
         actorCondition.falseSensorStatus = linedata[falseSensorStatusIdx];
         actorCondition.params.addAll(Arrays.asList(linedata).subList(paramsIdx, linedata.length));
-
-        if (debug)
-            System.out.println(CLASSNAME + methodName + actorCondition);
         return actorCondition;
     }
 
@@ -507,25 +494,17 @@ public class Actor
     private void changeLayer(Sprite sprite, int targetLayer)
     {
         String methodName = "changeLayer() ";
-
-        boolean wasRemovedBttm = WorldView.getBottomLayer().remove(sprite);
-        boolean wasRemovedMiddle = WorldView.getMiddleLayer().remove(sprite);
-        boolean wasRemovedTop = WorldView.getTopLayer().remove(sprite);
-        //if (wasRemovedBttm || wasRemovedMiddle || wasRemovedTop) //Monitor can change the layer of a sprite of another map (ventilation eg), but sprite should just be added if already part of this map
+        switch (targetLayer)
         {
-            //sprite.setLayer(targetLayer);
-            switch (targetLayer)
-            {
-                case 0:
-                    WorldView.getBottomLayer().add(sprite);
-                    break;
-                case 1:
-                    WorldView.getMiddleLayer().add(sprite);
-                    break;
-                case 2:
-                    WorldView.getTopLayer().add(sprite);
-                    break;
-            }
+            case 0:
+                WorldView.getBottomLayer().add(sprite);
+                break;
+            case 1:
+                WorldView.getMiddleLayer().add(sprite);
+                break;
+            case 2:
+                WorldView.getTopLayer().add(sprite);
+                break;
         }
     }
 
@@ -621,8 +600,8 @@ public class Actor
             case COLLECTABLE:
                 collect(activeSprite);
                 break;
-            case MOVE:
-                move();
+            case SCRIPT:
+                actAccordingToScript();
                 break;
             case INVENTORY_SHOP:
                 WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY_SHOP);
@@ -637,64 +616,11 @@ public class Actor
         }
     }
 
-
-    //TODO from script or file
-    List<Point2D> movenmentPointsList = new ArrayList<>();
-    Point2D target = new Point2D(2112 - 64 * 7 - 32, 2432);
-    Point2D target2 = new Point2D(2112 - 64 * 7, 2432 - 64 * 4);
-
-    {
-        movenmentPointsList.add(target);
-        movenmentPointsList.add(target2);
-        movenmentPointsList.add(target);
-        movenmentPointsList.add(new Point2D(2112, 2432 + 64));
-    }
-
-    private void move()
+    private void actAccordingToScript()
     {
 
         String methodName = "move()";
-
-        if (movenmentPointsList.isEmpty())
-            return;
-        Point2D target = movenmentPointsList.get(0);
-        Point2D currentPos = new Point2D(spriteList.get(0).positionX, spriteList.get(0).positionY);
-        double deltaX = target.getX() - currentPos.getX();
-        double deltaY = target.getY() - currentPos.getY();
-        double velocity = 80d;
-        double addedVelocityX = 0d;
-        double addedVelocityY = 0d;
-        double moveThreshold = 5d;
-        boolean xreached = false, yreached = false;
-
-        if (deltaX < -moveThreshold)
-        {
-            addedVelocityX = -velocity;
-            setDirection(Direction.WEST);
-        }
-        else if (deltaX > moveThreshold)
-        {
-            addedVelocityX = velocity;
-            setDirection(Direction.EAST);
-        }
-        else xreached = true;
-
-        if (deltaY < -moveThreshold)
-        {
-            addedVelocityY = -velocity;
-            setDirection(Direction.NORTH);
-        }
-        else if (deltaY > moveThreshold)
-        {
-            addedVelocityY = velocity;
-            setDirection(Direction.SOUTH);
-        }
-        else yreached = true;
-
-        setVelocity(addedVelocityX, addedVelocityY);
-        if (xreached && yreached)
-            movenmentPointsList.remove(target);
-        //System.out.println(CLASSNAME + methodName + spriteList.get(0).positionX / 64 + " " + spriteList.get(0).positionY / 64);
+        script.update(this);
     }
 
     private void collect(Actor collectingActor)
@@ -706,9 +632,9 @@ public class Actor
         collectingActor.inventory.addItem(collected);
 
         //check if Management-Attention-Meter is affected for Player
-        if (collectingActor.tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))
+        if (collectingActor.tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(SUSPICIOUS_VALUE_ACTOR))
         {
-            int suspicious_value = numeric_generic_attributes.get(KEYWORD_suspicious_value).intValue();
+            int suspicious_value = numeric_generic_attributes.get(SUSPICIOUS_VALUE_ACTOR).intValue();
             GameVariables.addPlayerMAM_duringDay(suspicious_value);
             GameVariables.addStolenCollectible(collected);
         }
@@ -1039,21 +965,6 @@ public class Actor
         return numeric_generic_attributes;
     }
 
-    public List<Point2D> getMovenmentPointsList()
-    {
-        return movenmentPointsList;
-    }
-
-    public Point2D getTarget()
-    {
-        return target;
-    }
-
-    public Point2D getTarget2()
-    {
-        return target2;
-    }
-
     public void setStageMonitor(ActorMonitor actorMonitor)
     {
         this.actorMonitor = actorMonitor;
@@ -1174,18 +1085,5 @@ public class Actor
         this.numeric_generic_attributes = numeric_generic_attributes;
     }
 
-    public void setMovenmentPointsList(List<Point2D> movenmentPointsList)
-    {
-        this.movenmentPointsList = movenmentPointsList;
-    }
 
-    public void setTarget(Point2D target)
-    {
-        this.target = target;
-    }
-
-    public void setTarget2(Point2D target2)
-    {
-        this.target2 = target2;
-    }
 }

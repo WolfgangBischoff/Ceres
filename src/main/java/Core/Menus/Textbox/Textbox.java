@@ -80,7 +80,7 @@ public class Textbox
         String methodName = "startConversation() ";
         init();
         actorOfDialogue = actorParam;
-        dialogueFileRoot = Utilities.readXMLFile(actorOfDialogue.getSpriteList().get(0).getDialogueFileName() + ".xml");
+        dialogueFileRoot = Utilities.readXMLFile(actorOfDialogue.getSpriteList().get(0).getDialogueFileName());
         readDialogue = readDialogue(actorOfDialogue.getSpriteList().get(0).getInitDialogueId());
 
         if (actorOfDialogue.getPersonalityContainer() != null)
@@ -92,7 +92,7 @@ public class Textbox
         String methodName = "startConversation(String, String) ";
         init();
         actorOfDialogue = null;
-        dialogueFileRoot = Utilities.readXMLFile(dialogueFile + ".xml");
+        dialogueFileRoot = Utilities.readXMLFile(dialogueFile);
         readDialogue = readDialogue(dialogueId);
     }
 

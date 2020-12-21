@@ -7,7 +7,7 @@ none
 
 spawnpoints:
 #ID						;PosX;PosY	;Direction
-default		;20		;20			;south
+default		;30		;25			;west
 elevator	;31		;34			;south
 bed						;29		;31			;west
 

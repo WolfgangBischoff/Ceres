@@ -8,11 +8,12 @@ public class Config
     //General
     public static final Boolean DEBUG_ACTORS = false;
     public static final Boolean DEBUG_BLOCKER = false;
-    public static final Boolean DEBUG_NO_WALL = false;
-    public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
+    public static final Boolean DEBUG_NO_WALL = true;
+    public static final Boolean DEBUG_MOUSE_ANALYSIS = true;
     public static final Boolean DEBUG_ALL_TEXTBOX_OPTIONS_VISIBLE = false;
-    public static final Boolean DEBUG_CONSOLE = true;
-    public static final String FIRST_LEVEL = "transporter/transporter";
+    public static final Boolean DEBUG_CONSOLE = false;
+    //public static final String FIRST_LEVEL = "transporter/transporter";
+    public static final String FIRST_LEVEL = "crewdeck/crewdeck";
     public static final double GAME_WINDOW_WIDTH = 1440;
     public static final double GAME_WINDOW_HEIGHT = 900;
     public static final int CAMERA_WIDTH = 1200;
@@ -105,14 +106,14 @@ public class Config
     public static final String KEYWORD_sensorStatus = "sensorStatus";
     public static final String KEYWORD_transition = "transition";
     public static final String KEYWORD_interactionArea = "interactionArea";
-    public static final String KEYWORD_dialogueFile = "dialogueFile";
     public static final String KEYWORD_text_box_analysis_group = "textbox_analysis_group";
-    public static final String KEYWORD_collectable_type = "collectible_data";
-    public static final String CONTAINS_COLLECTIBLE_KEYWORD = "contains_collectible";
-    public static final String KEYWORD_actor_tags = "tags";
-    public static final String KEYWORD_condition = "condition";
-    public static final String ACTOR_PERSONALITY_V2 = "personality";
-    public static final String KEYWORD_suspicious_value = "suspicious_value";
+    public static final String COLLECTIBLE_DATA_ACTOR = "collectible_data";
+    public static final String CONTAINS_COLLECTIBLE_ACTOR = "contains_collectible";
+    public static final String TAGS_ACTOR = "tags";
+    public static final String CONDITION_ACTOR = "condition";
+    public static final String PERSONALITY_ACTOR = "personality";
+    public static final String SUSPICIOUS_VALUE_ACTOR = "suspicious_value";
+    public static final String SCRIPT_ACTOR = "script";
 
     //DialogueFile Keywords
     public static final String DIALOGUE_TAG = "dialogue";
