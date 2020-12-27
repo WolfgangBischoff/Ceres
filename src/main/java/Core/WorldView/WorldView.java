@@ -146,7 +146,6 @@ public class WorldView
     public void loadStage(String levelName, String spawnId)
     {
         String methodName = "loadStage() ";
-        boolean debug = true;
 
         clearLevel();
         this.levelName = levelName;
@@ -154,25 +153,25 @@ public class WorldView
         LevelState levelState = GameVariables.getLevelData().get(this.levelName);
         if (levelState != null && levelState.getDay() == GameVariables.getDay())//Level was loaded on same day
         {
-            if (debug)
-                System.out.println(CLASSNAME + methodName + "loaded from state");
             loadFromLevelDailyState(levelState, spawnId);
         }
         else if (levelState != null)//Level was already loaded on another day
         {
-            if (debug)
-                System.out.println(CLASSNAME + methodName + "loaded persistent state");
+            System.out.println(CLASSNAME + methodName + "loaded persistent state");
             loadLevelFromPersistentState(levelState, spawnId);
         }
         else //Level loaded the first time
         {
-            if (debug)
-                System.out.println(CLASSNAME + methodName + "loaded from file");
+            System.out.println(CLASSNAME + methodName + "loaded from file");
             loadLevelFromFile(spawnId);
         }
 
+        bottomLayer.stream().forEach(s -> System.out.println(s.getName()));
+        middleLayer.stream().forEach(s -> System.out.println(s.getName()));
+        topLayer.stream().forEach(s -> System.out.println(s.getName()));
+
         offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
-        offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGHT;
+        offsetMaxY = borders.getMaxY() - CAMERA_HEIGHT;
     }
 
     private void clearLevel()
@@ -284,7 +283,7 @@ public class WorldView
 
     private void loadFromLevelDailyState(LevelState levelState, String spawnId)
     {
-        String methodName = "loadFromLevelState() ";
+        String methodName = "loadFromLevelDailyState() ";
         passiveSpritesLayer = levelState.getPassiveSpritesLayer(); //No collision just render
         activeSpritesLayer = levelState.getActiveSpritesLayer();
         bottomLayer = levelState.getBottomLayer(); //Render height
@@ -305,7 +304,7 @@ public class WorldView
         passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
         passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
         passiveCollisionRelevantSpritesLayer.addAll(topLayer);
-
+        System.out.println(CLASSNAME + methodName);
     }
 
 
@@ -603,7 +602,7 @@ public class WorldView
         //LightMap
         if (shadowColor != null)
         {
-            renderLightEffect();
+            renderLightEffect(currentNanoTime);
         }
 
         //Debugdata
@@ -679,28 +678,18 @@ public class WorldView
             gc.drawImage(newMessageOverlay.render(currentNanoTime), newMessagePosition.getX(), newMessagePosition.getY());
     }
 
-    private void renderLightEffect()
+    private void renderLightEffect(Long currentNanoTime)
     {
         ShadowMaskGc.setFill(shadowColor);
-        ShadowMaskGc.fillRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGHT);
-        for (Sprite sprite : passiveCollisionRelevantSpritesLayer)
-        {
-            if (sprite.getLightningSpriteName().toLowerCase().equals("none"))
+        ShadowMaskGc.fillRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+        for (Sprite sprite : passiveCollisionRelevantSpritesLayer) {
+            if (sprite.getLightningSpriteName().equalsIgnoreCase("none"))
                 continue;
 
             String lightSpriteName = sprite.getLightningSpriteName();
             if (!lightsImageMap.containsKey(sprite.getLightningSpriteName()))
             {
-                //String path = "/"+IMAGE_DIRECTORY_PATH + "lightglows/" + lightSpriteName + ".png";
-                try
-                {
-                    lightsImageMap.put(lightSpriteName, Utilities.readImage(IMAGE_DIRECTORY_PATH+ "lightglows/" + lightSpriteName + ".png"));
-                }
-                catch (IllegalArgumentException e)
-                {
-                    //System.out.println(IMAGE_DIRECTORY_PATH+ "lightglows/" + lightSpriteName + ".png" + " of sprite " + sprite.getName());
-                    continue;
-                }
+                lightsImageMap.put(lightSpriteName, Utilities.readImage(IMAGE_DIRECTORY_PATH + "lightglows/" + lightSpriteName + ".png"));
             }
             Image lightImage = lightsImageMap.get(lightSpriteName);
             ShadowMaskGc.drawImage(lightImage, sprite.getPositionX() + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightImage.getWidth() / 2 - camX, sprite.getPositionY() + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightImage.getHeight() / 2 - camY);

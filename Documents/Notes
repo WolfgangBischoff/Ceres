@@ -2,7 +2,7 @@
 ----- Backlog ----------------------------
 ------------------------------------------
 - Bug
-    - player light is duplicated after quest
+
 - Features
     - Cleaning Bot Moving definition in file
         1) While Map load set actors according to time, date, variables, change daylight accoring to time

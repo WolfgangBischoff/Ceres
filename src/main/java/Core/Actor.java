@@ -486,8 +486,10 @@ public class Actor
     private void changeLayer(Sprite sprite, int targetLayer)
     {
         String methodName = "changeLayer() ";
-        switch (targetLayer)
-        {
+        WorldView.getBottomLayer().remove(sprite);
+        WorldView.getMiddleLayer().remove(sprite);
+        WorldView.getTopLayer().remove(sprite);
+        switch (targetLayer) {
             case 0:
                 WorldView.getBottomLayer().add(sprite);
                 break;
@@ -529,7 +531,7 @@ public class Actor
             toChange.setInitDialogueId(ts.dialogueID);
             toChange.setLayer(ts.heightLayer);
             if (WorldView.getBottomLayer().contains(toChange) || WorldView.getMiddleLayer().contains(toChange) || WorldView.getTopLayer().contains(toChange))
-                changeLayer(toChange, ts.heightLayer);//Change layer if sprite in current stage, not on other map (global system)
+                changeLayer(toChange, ts.heightLayer);//Change layer if sprite in current stage, not on other map (global system) but sprite change triggered by StageMonitor
         }
 
     }
@@ -611,7 +613,7 @@ public class Actor
     private void actAccordingToScript()
     {
 
-        String methodName = "actAccordingToScript()";
+        String methodName = "actAccordingToScript() ";
         script.update(this);
     }
 
@@ -720,7 +722,6 @@ public class Actor
     public void updateCompoundStatus()
     {
         String methodName = "updateCompoundStatus() ";
-        boolean debug = false;
         String oldCompoundStatus = compoundStatus;
         String newStatusString = generalStatus;
 
@@ -733,17 +734,11 @@ public class Actor
         compoundStatus = newStatusString;
 
         if (!(oldCompoundStatus.equals(compoundStatus)))
-        {
-            if (debug && getActorInGameName().equals("Desinfection"))
-                System.out.println(CLASSNAME + methodName + getActorInGameName() + " updated status from " + oldCompoundStatus + " to " + compoundStatus);
             changeSprites();
-        }
 
         //If is part of a group
         if (actorMonitor != null)
-        {
             actorMonitor.sendSignalFrom(memberActorGroups);
-        }
     }
 
     @Override
