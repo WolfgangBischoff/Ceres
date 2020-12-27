@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
-import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
+import static Core.Configs.Config.*;
 
 public class BarStatusOverlay
 {
@@ -30,7 +30,6 @@ public class BarStatusOverlay
     IntegerProperty baseValue;
     Color marking;
 
-    //public StatusBarOverlay(int WIDTH, int HEIGHT, IntegerProperty integerProperty, int maxValue)
     public BarStatusOverlay(BarStatusConfig config)
     {
         this.baseValue = config.integerProperty;
@@ -52,54 +51,39 @@ public class BarStatusOverlay
         marking = config.fillColor;
     }
 
-    private void draw() throws NullPointerException
+    public WritableImage render() throws NullPointerException
     {
         boolean debug = false;
         String methodName = "draw() ";
-        graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
-        //Color background = Color.rgb(60, 90, 85);
-        Color background = Color.rgb(20, 30, 30);
-        double hue = background.getHue();
-        double sat = background.getSaturation();
-        double brig = background.getBrightness();
-        //Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
-        Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-        //Color red = Color.hsb(0, 0.33, 0.90);
-        //Color green = Color.hsb(140, 0.33, 0.90);
-
-        //Background
-        graphicsContext.setGlobalAlpha(0.8);
-        graphicsContext.setFill(background);
-        int backgroundOffsetX = 16, backgroundOffsetY = 15;
-        graphicsContext.fillRect(barOffset, backgroundOffsetY, WIDTH - backgroundOffsetX, HEIGHT - backgroundOffsetY * 2);
-
-        //Fill bar
-        float fillPercentage= current / (float) maxValue * maxWidthBar;
-        graphicsContext.setFill(marking);
-        graphicsContext.fillRect(barOffset, backgroundOffsetY, fillPercentage, HEIGHT - backgroundOffsetY * 2);
-
-
-        graphicsContext.setGlobalAlpha(1);
-        graphicsContext.drawImage(frameImage,0,0);
-
-        if(debug)
-        {
-            graphicsContext.setStroke(Color.RED);
-            graphicsContext.strokeRect(0,0,WIDTH,HEIGHT);
-            String msg = "Current: " + current + " max: " + maxValue + " Percent: " + current / (float) maxValue;
-            graphicsContext.setFill(font);
-            graphicsContext.fillText(msg, barOffset, 20 + graphicsContext.getFont().getSize());
-        }
+        // graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
+//
+        // //Background
+        // int backgroundOffsetX = 16, backgroundOffsetY = 15;
+        // graphicsContext.setGlobalAlpha(0.8);
+        // graphicsContext.setFill(COLOR_BACKGROUND_BLUE);
+        // graphicsContext.fillRect(barOffset, backgroundOffsetY, WIDTH - backgroundOffsetX, HEIGHT - backgroundOffsetY * 2);
+//
+        // //Fill bar
+        // float fillPercentage= current / (float) maxValue * maxWidthBar;
+        // graphicsContext.setFill(marking);
+        // graphicsContext.fillRect(barOffset, backgroundOffsetY, fillPercentage, HEIGHT - backgroundOffsetY * 2);
+//
+//
+        // graphicsContext.setGlobalAlpha(1);
+        // graphicsContext.drawImage(frameImage,0,0);
+//
+        // if(debug)
+        // {
+        //     graphicsContext.setStroke(Color.RED);
+        //     graphicsContext.strokeRect(0,0,WIDTH,HEIGHT);
+        //     String msg = "Current: " + current + " max: " + maxValue + " Percent: " + current / (float) maxValue;
+        //     graphicsContext.setFill(COLOR_FONT);
+        //     graphicsContext.fillText(msg, barOffset, 20 + graphicsContext.getFont().getSize());
+        // }
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
-        writableImage = canvas.snapshot(transparency, null);
-    }
-
-    public WritableImage getWritableImage()
-    {
-        draw();
-        return writableImage;
+        return canvas.snapshot(transparency, null);
     }
 
 }

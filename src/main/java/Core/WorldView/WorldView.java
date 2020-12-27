@@ -152,9 +152,7 @@ public class WorldView
         //check if level was already loaded today
         LevelState levelState = GameVariables.getLevelData().get(this.levelName);
         if (levelState != null && levelState.getDay() == GameVariables.getDay())//Level was loaded on same day
-        {
             loadFromLevelDailyState(levelState, spawnId);
-        }
         else if (levelState != null)//Level was already loaded on another day
         {
             System.out.println(CLASSNAME + methodName + "loaded persistent state");
@@ -165,10 +163,6 @@ public class WorldView
             System.out.println(CLASSNAME + methodName + "loaded from file");
             loadLevelFromFile(spawnId);
         }
-
-        bottomLayer.stream().forEach(s -> System.out.println(s.getName()));
-        middleLayer.stream().forEach(s -> System.out.println(s.getName()));
-        topLayer.stream().forEach(s -> System.out.println(s.getName()));
 
         offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
         offsetMaxY = borders.getMaxY() - CAMERA_HEIGHT;
@@ -598,6 +592,7 @@ public class WorldView
             sprite.render(gc, currentNanoTime);
         }
         //Long sortandRender = (System.nanoTime() - methodStartTime) / 1000;
+        Long sortandRenderFinished = System.nanoTime();
 
         //LightMap
         if (shadowColor != null)
@@ -619,6 +614,7 @@ public class WorldView
 
         //Overlays
         renderHUD(currentNanoTime);
+        Long HUDFinished = System.nanoTime();
         switch (WorldViewController.getWorldViewStatus())
         {
 
@@ -645,6 +641,11 @@ public class WorldView
                 gc.drawImage(daySummaryImage, daySummaryScreenPosition.getX(), daySummaryScreenPosition.getY());
                 break;
         }
+        Long OverlaysFinished = System.nanoTime();
+        long sortRenderTime = (sortandRenderFinished - methodStartTime);
+        long HUDRenderTime = (HUDFinished - methodStartTime - sortRenderTime);
+        long overlaysTime = (OverlaysFinished - methodStartTime - HUDRenderTime);
+        //System.out.println(CLASSNAME + methodName + "Sort and Render: " + (sortRenderTime/1000) + " HUD: " + (HUDRenderTime/1000) + " Overlays: " + (overlaysTime/1000));
 
     }
 
@@ -657,25 +658,29 @@ public class WorldView
 
     private void renderHUD(Long currentNanoTime)
     {
-        Long methodStartTime = System.nanoTime();
-        WritableImage writableImage = mamOverlay.getWritableImage();
-        gc.drawImage(writableImage, mamOverlayPosition.getX(), mamOverlayPosition.getY());
-        Long mamAttention = (System.nanoTime() - methodStartTime) / 1000;
+        long methodStartTime = System.nanoTime();
+        gc.drawImage(hungerOverlay.render(), hungerOverlayPosition.getX(), hungerOverlayPosition.getY());
+        long hungerFinished = System.nanoTime();
 
-        WritableImage moneyWritableImage = moneyOverlay.getWritableImage();
-        gc.drawImage(moneyWritableImage, moneyOverlayPosition.getX(), moneyOverlayPosition.getY());
-        Long money = (System.nanoTime() - methodStartTime) / 1000;
+        gc.drawImage(mamOverlay.render(), mamOverlayPosition.getX(), mamOverlayPosition.getY());
+        long mamAttentionFinished = System.nanoTime();
 
-        WritableImage hungerOverlayImage = hungerOverlay.getWritableImage();
-        gc.drawImage(hungerOverlayImage, hungerOverlayPosition.getX(), hungerOverlayPosition.getY());
-        Long hunger = (System.nanoTime() - methodStartTime) / 1000;
+        gc.drawImage(moneyOverlay.render(), moneyOverlayPosition.getX(), moneyOverlayPosition.getY());
+        long moneyFinished = System.nanoTime();
 
         gc.drawImage(boardTimeOverlay.render(), boardTimeOverlayPosition.getX(), boardTimeOverlayPosition.getY());
-        Long boardTime = (System.nanoTime() - methodStartTime) / 1000;
+        long boardTimeFinished = System.nanoTime();
 
-        //System.out.println(CLASSNAME +" mam " +  mamAttention + " money " + money + " hunger " + hunger + " boardTime " + boardTime);
-        if(newMessageOverlay.isVisible())
+        if (newMessageOverlay.isVisible())
             gc.drawImage(newMessageOverlay.render(currentNanoTime), newMessagePosition.getX(), newMessagePosition.getY());
+        long newMsgOverly = System.nanoTime();
+
+        long hungerTime = hungerFinished - methodStartTime;
+        long mamTime = mamAttentionFinished - hungerFinished;
+        long moneyTime = moneyFinished - mamAttentionFinished;
+        long boardTime = boardTimeFinished - moneyFinished;
+        long msgOverlayTime = newMsgOverly - boardTimeFinished;
+        System.out.println(CLASSNAME + " mam " + (mamTime / 1000) + " hunger " + (hungerTime / 1000) + " money " + (moneyTime / 1000) + " boardTime " + (boardTime / 1000) + " msg " + (msgOverlayTime / 1000));
     }
 
     private void renderLightEffect(Long currentNanoTime)

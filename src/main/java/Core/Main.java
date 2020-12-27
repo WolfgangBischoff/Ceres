@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import static Core.Configs.Config.DEBUG_CONSOLE;
+import static Core.Configs.Config.DEBUG_FPS;
 
 public class Main extends Application
 {
@@ -52,13 +53,14 @@ public class Main extends Application
         {
             public void handle(long currentNanoTime)
             {
-                //Long startUpdate = currentNanoTime;
+                Long startUpdate = currentNanoTime;
                 gameWindowController.update(currentNanoTime);
-                //updateTime = System.nanoTime() - startUpdate;
-                //Long startRender = currentNanoTime;
+                updateTime = System.nanoTime() - startUpdate;
+                Long startRender = currentNanoTime;
                 gameWindowController.render(currentNanoTime);
-                //renderTime = System.nanoTime() - startRender;
-                //System.out.println("Update: " + updateTime/1000000 + " Render : " + renderTime/1000000); //60 is good
+                renderTime = System.nanoTime() - startRender;
+                if (DEBUG_FPS)
+                    System.out.println("Update: " + updateTime / 1000000 + " Render : " + renderTime / 1000000); //60 is good
             }
         }.start();
     }

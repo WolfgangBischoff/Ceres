@@ -1,7 +1,6 @@
 package Core.Menus.StatusOverlay;
 
 import Core.Utilities;
-import Core.Utilities;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -49,7 +48,7 @@ public class VariableStatusOverlay
         graphicsContext.setFont(Utilities.readFont("font/estrog__.ttf"));
     }
 
-    private void draw() throws NullPointerException
+    public WritableImage render() throws NullPointerException
     {
         String methodName = "draw() ";
         graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
@@ -69,13 +68,7 @@ public class VariableStatusOverlay
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
-        writableImage = canvas.snapshot(transparency, null);
-    }
-
-    public WritableImage getWritableImage()
-    {
-        draw();
-        return writableImage;
+        return canvas.snapshot(transparency, null);
     }
 
 }

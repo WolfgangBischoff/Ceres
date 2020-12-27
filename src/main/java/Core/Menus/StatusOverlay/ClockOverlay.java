@@ -51,7 +51,7 @@ public class ClockOverlay
 
     public WritableImage render() throws NullPointerException
     {
-        String methodName = "draw() ";
+        String methodName = "render() ";
         graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
         Color background = COLOR_BACKGROUND_BLUE;
         graphicsContext.setGlobalAlpha(1);

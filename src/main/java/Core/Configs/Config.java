@@ -12,7 +12,7 @@ public class Config
     public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
     public static final Boolean DEBUG_ALL_TEXTBOX_OPTIONS_VISIBLE = false;
     public static final Boolean DEBUG_CONSOLE = true;
-    public static final Boolean DEBUG_FPS = true;
+    public static final Boolean DEBUG_FPS = false;
     //public static final String FIRST_LEVEL = "transporter/transporter";
     public static final String FIRST_LEVEL = "crewdeck/crewdeck";
     public static final double GAME_WINDOW_WIDTH = 1440;
