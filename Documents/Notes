@@ -2,7 +2,7 @@
 ----- Backlog ----------------------------
 ------------------------------------------
 - Bug
-    Gui needs much FPS, but seems to be always the first rendered entity
+
 - Features
     - Cleaning Bot Moving definition in file
         1) While Map load set actors according to time, date, variables, change daylight accoring to time

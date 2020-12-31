@@ -60,7 +60,7 @@ public class Main extends Application
                 gameWindowController.render(currentNanoTime);
                 renderTime = System.nanoTime() - startRender;
                 if (DEBUG_FPS)
-                    System.out.println("Update: " + updateTime / 1000000 + " Render: " + renderTime / 1000000); //60 is good
+                    System.out.println("Update: " + updateTime / 1000000 + " Render: " + renderTime / 1000000); //<10 is good
             }
         }.start();
     }
