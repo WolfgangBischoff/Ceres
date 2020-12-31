@@ -123,10 +123,10 @@ public class Utilities
         return new Image(stream);
     }
 
-    public static Font readFont(String path)
+    public static Font readFont(String path, int size)
     {
         InputStream stream = Utilities.class.getClassLoader().getResourceAsStream(path);
-        return Font.loadFont(stream, 30);
+        return Font.loadFont(stream, size);
     }
 
     public static List<Pair<String, String>> readParameterPairs(String[] arr)

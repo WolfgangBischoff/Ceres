@@ -3,7 +3,6 @@ package Core.Menus.AchievmentLog;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -22,7 +21,7 @@ public class NewMessageOverlay
 
     public NewMessageOverlay()
     {
-        message.setFont(FONT_ESTROG);
+        message.setFont(FONT_ESTROG_30);
     }
 
     public static void showMsg(String msg)

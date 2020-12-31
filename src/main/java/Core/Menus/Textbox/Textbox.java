@@ -72,7 +72,7 @@ public class Textbox
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         characterButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/characterMenuButtonTR.png");
-        gc.setFont(Utilities.readFont(FONT_DIRECTORY_PATH + "estrog__.ttf"));
+        gc.setFont(FONT_ESTROG_30);
     }
 
     public void startConversation(Actor actorParam)

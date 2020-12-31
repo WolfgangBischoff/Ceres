@@ -119,7 +119,7 @@ public class WorldView
         worldCanvas = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gc = worldCanvas.getGraphicsContext2D();
-        gc.setFont(Utilities.readFont("font/estrog__.ttf"));
+        gc.setFont(FONT_ESTROG_30);
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
         loadStage(levelName, "default");
         inventoryController = new InventoryController();
@@ -630,7 +630,7 @@ public class WorldView
                 gc.drawImage(personalityScreenOverlay, personalityScreenPosition.getX(), personalityScreenPosition.getY());
                 break;
             case DISCUSSION_GAME:
-                gc.drawImage(coinGame.render(currentNanoTime), discussionGamePosition.getX(), discussionGamePosition.getY());
+                coinGame.render(gc, currentNanoTime);
                 break;
             case DAY_SUMMARY:
                 WritableImage daySummaryImage = daySummaryScreenController.getWritableImage();
