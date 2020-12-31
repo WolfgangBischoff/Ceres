@@ -1,29 +1,21 @@
 package Core.Menus.StatusOverlay;
 
 import Core.Clock;
-import Core.Configs.Config;
-import Core.Utilities;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.Canvas;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 import static Core.Configs.Config.*;
 
 public class ClockOverlay
 {
-    private static final String CLASSNAME = "ClockOverlay ";
+    private static final String CLASSNAME = "ClockOverlay/";
     private final int WIDTH;
     private final int HEIGHT;
-    Canvas canvas;
-    GraphicsContext graphicsContext;
-    WritableImage writableImage;
+    private final Point2D SCREENPOSITION;
     int current;
     Clock clock;
     Image frameImage;
@@ -43,31 +35,22 @@ public class ClockOverlay
         current = clock.getTime();
         this.WIDTH = config.WIDTH;
         this.HEIGHT = config.HEIGHT;
-        canvas = new Canvas(WIDTH, HEIGHT);
-        graphicsContext = canvas.getGraphicsContext2D();
+        this.SCREENPOSITION = config.SCREEN_POSITION;
         frameImage = new Image(IMAGE_DIRECTORY_PATH + config.imagePath);
-        graphicsContext.setFont(Utilities.readFont("font/estrog__.ttf"));
     }
 
-    public WritableImage render() throws NullPointerException
+    public void render(GraphicsContext gc)
     {
         String methodName = "render() ";
-        graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
-        Color background = COLOR_BACKGROUND_BLUE;
-        graphicsContext.setGlobalAlpha(1);
-        graphicsContext.drawImage(frameImage, 0, 0);
+        gc.drawImage(frameImage, SCREENPOSITION.getX(), SCREENPOSITION.getY());
 
         //Background
-        graphicsContext.setGlobalAlpha(0.8);
-        graphicsContext.setFill(COLOR_MARKING);
+        gc.setGlobalAlpha(0.8);
         String msg = "" + clock.getFormattedTime();
-        graphicsContext.setFill(COLOR_FONT);
-        graphicsContext.setTextAlign(TextAlignment.CENTER);
-        graphicsContext.fillText(msg, WIDTH / 2f, HEIGHT / 2f + Config.FONT_Y_OFFSET_ESTROG__SIZE30);
-
-        SnapshotParameters transparency = new SnapshotParameters();
-        transparency.setFill(Color.TRANSPARENT);
-        return canvas.snapshot(transparency, null);
+        gc.setFill(COLOR_FONT);
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.fillText(msg, SCREENPOSITION.getX() + WIDTH / 2f, SCREENPOSITION.getY() + HEIGHT / 2f);
+        gc.setGlobalAlpha(1);
     }
 
 }

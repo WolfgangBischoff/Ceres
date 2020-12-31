@@ -1,7 +1,9 @@
 package Core.Configs;
 
+import Core.Utilities;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class Config
 {
@@ -11,14 +13,15 @@ public class Config
     public static final Boolean DEBUG_NO_WALL = true;
     public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
     public static final Boolean DEBUG_ALL_TEXTBOX_OPTIONS_VISIBLE = false;
-    public static final Boolean DEBUG_CONSOLE = true;
-    public static final Boolean DEBUG_FPS = false;
+    public static final Boolean DEBUG_CONSOLE = false;
+    public static final Boolean DEBUG_FPS = true;
     //public static final String FIRST_LEVEL = "transporter/transporter";
     public static final String FIRST_LEVEL = "crewdeck/crewdeck";
     public static final double GAME_WINDOW_WIDTH = 1440;
     public static final double GAME_WINDOW_HEIGHT = 900;
     public static final int CAMERA_WIDTH = 1200;
     public static final int CAMERA_HEIGHT = 800;
+    public static final Font FONT_ESTROG = Utilities.readFont("font/estrog__.ttf");
 
     public static final int TEXTBOX_WIDTH = 800;
     public static final int TEXTBOX_HEIGHT = 240;
@@ -30,9 +33,9 @@ public class Config
     public static final int PERSONALITY_HEIGHT = 600;
     public static final Point2D PERSONALITY_POSITION = new Point2D(CAMERA_WIDTH / 2f - PERSONALITY_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - PERSONALITY_HEIGHT / 2.0); //Centered
 
-    public static final int MESSAGE_OVERLAY_WIDTH = 500;
+    public static final int MESSAGE_OVERLAY_WIDTH = 700;
     public static final int MESSAGE_OVERLAY_HEIGHT = 80;
-    public static final Point2D MESSAGE_OVERLAY_POSITION = new Point2D(CAMERA_WIDTH / 2f - MESSAGE_OVERLAY_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - MESSAGE_OVERLAY_HEIGHT / 2.0); //Centered
+    public static final Point2D SCREEN_CENTER = new Point2D(CAMERA_WIDTH / 2.0, CAMERA_HEIGHT / 2.0); //Centered
 
     public static final int INVENTORY_WIDTH = 550;
     public static final int INVENTORY_HEIGHT = 600;
@@ -59,7 +62,7 @@ public class Config
     public static final Point2D MONEY_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 170);
     public static final int BOARD_TIME_WIDTH = 150;
     public static final int BOARD_TIME_HEIGHT = 64;
-    public static final Point2D BOARD_TIME_POSITION = new Point2D(CAMERA_WIDTH - BOARD_TIME_WIDTH -50, 170);
+    public static final Point2D BOARD_TIME_POSITION = new Point2D(CAMERA_WIDTH - BOARD_TIME_WIDTH - 50, 170);
     public static final Point2D HUNGER_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 100);
 
     //Keyboard

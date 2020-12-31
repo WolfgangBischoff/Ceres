@@ -1,34 +1,28 @@
 package Core.Menus.StatusOverlay;
 
-import Core.Utilities;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 
-import static Core.Configs.Config.COLOR_BACKGROUND_BLUE;
-import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
+import static Core.Configs.Config.*;
 
 public class VariableStatusOverlay
 {
     private static final String CLASSNAME = "VariableStatusOverlay/";
     private final int WIDTH;
     private final int HEIGHT;
-    Canvas canvas;
-    GraphicsContext graphicsContext;
-    WritableImage writableImage;
+    private final Point2D SCREEN_POSITION;
     Image field;
 
     int current;
     IntegerProperty baseValue;
 
-    public VariableStatusOverlay(int WIDTH, int HEIGHT, IntegerProperty integerProperty, String imagepath)
+    public VariableStatusOverlay(int WIDTH, int HEIGHT, IntegerProperty integerProperty, String imagePath, Point2D screenPosition)
     {
         this.baseValue = integerProperty;
         baseValue.addListener(new ChangeListener<Number>()
@@ -42,33 +36,19 @@ public class VariableStatusOverlay
         current = baseValue.getValue();
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
-        canvas = new Canvas(WIDTH, HEIGHT);
-        graphicsContext = canvas.getGraphicsContext2D();
-        field = new Image(IMAGE_DIRECTORY_PATH + imagepath);
-        graphicsContext.setFont(Utilities.readFont("font/estrog__.ttf"));
+        field = new Image(IMAGE_DIRECTORY_PATH + imagePath);
+        SCREEN_POSITION = screenPosition;
     }
 
-    public WritableImage render() throws NullPointerException
+    public void render(GraphicsContext gc)
     {
-        String methodName = "draw() ";
-        graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
-        Color background = COLOR_BACKGROUND_BLUE;
-        double hue = background.getHue();
-        double sat = background.getSaturation();
-        double brig = background.getBrightness();
-        Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
-        Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-
-        int backgroundOffsetX = 55, backgroundOffsetY = 32;
-        graphicsContext.drawImage(field, 0, 0);
-        graphicsContext.setFill(marking);
-        graphicsContext.setFill(font);
-        graphicsContext.setTextBaseline(VPos.CENTER);
-        graphicsContext.fillText("" + current, backgroundOffsetX, backgroundOffsetY);
-
-        SnapshotParameters transparency = new SnapshotParameters();
-        transparency.setFill(Color.TRANSPARENT);
-        return canvas.snapshot(transparency, null);
+        String methodName = "render() ";
+        int backgroundOffsetX = 70;
+        gc.drawImage(field, SCREEN_POSITION.getX(), SCREEN_POSITION.getY());
+        gc.setFill(COLOR_FONT);
+        gc.setTextBaseline(VPos.CENTER);
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.fillText("" + current, SCREEN_POSITION.getX() + backgroundOffsetX, SCREEN_POSITION.getY() + HEIGHT / 2f);
     }
 
 }

@@ -14,7 +14,6 @@ import Core.Menus.StatusOverlay.BarStatusConfig;
 import Core.Menus.StatusOverlay.BarStatusOverlay;
 import Core.Menus.Textbox.Textbox;
 import Core.Menus.StatusOverlay.VariableStatusOverlay;
-import Core.Utils.FXUtils;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -70,25 +69,21 @@ public class WorldView
     //Management Attention Meter Overlay
     static BarStatusOverlay mamOverlay = new BarStatusOverlay(
             new BarStatusConfig("interface/bars/MaM_bar_400x64.png", null, COLOR_RED,
-                    MAM_BAR_WIDTH, MAM_BAR_HEIGHT, 100, GameVariables.getPlayerMaM_duringDayProperty()));
+                    MAM_BAR_WIDTH, MAM_BAR_HEIGHT, 100, GameVariables.getPlayerMaM_duringDayProperty(), MAM_BAR_POSITION));
     static Point2D mamOverlayPosition = MAM_BAR_POSITION;
 
     //Money Overlay
-    static VariableStatusOverlay moneyOverlay = new VariableStatusOverlay(MONEY_FIELD_WIDTH, MONEY_FIELD_HEIGHT, GameVariables.playerMoneyProperty(), "interface/bars/money_field_150x64.png");
-    static Point2D moneyOverlayPosition = MONEY_POSITION;
+    static VariableStatusOverlay moneyOverlay = new VariableStatusOverlay(MONEY_FIELD_WIDTH, MONEY_FIELD_HEIGHT, GameVariables.playerMoneyProperty(), "interface/bars/money_field_150x64.png", MONEY_POSITION);
 
     //Hunger Overlay
     static BarStatusOverlay hungerOverlay = new BarStatusOverlay(new BarStatusConfig("interface/bars/food_bar_400x64.png", null, COLOR_GREEN,
-            MAM_BAR_WIDTH, MAM_BAR_HEIGHT, MAX_HUNGER, GameVariables.playerHungerProperty()));
-    static Point2D hungerOverlayPosition = HUNGER_BAR_POSITION;
+            MAM_BAR_WIDTH, MAM_BAR_HEIGHT, MAX_HUNGER, GameVariables.playerHungerProperty(), HUNGER_BAR_POSITION));
 
     //Clock Overlay
     static ClockOverlay boardTimeOverlay;
-    static Point2D boardTimeOverlayPosition = BOARD_TIME_POSITION;
 
     //Message Overlay
     static NewMessageOverlay newMessageOverlay = new NewMessageOverlay();
-    static Point2D newMessagePosition = MESSAGE_OVERLAY_POSITION;
 
     //Sprites
     String levelName;
@@ -124,6 +119,7 @@ public class WorldView
         worldCanvas = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gc = worldCanvas.getGraphicsContext2D();
+        gc.setFont(Utilities.readFont("font/estrog__.ttf"));
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
         loadStage(levelName, "default");
         inventoryController = new InventoryController();
@@ -131,7 +127,7 @@ public class WorldView
         WorldViewController.setWorldViewStatus(WORLD);
         GameVariables.init();
         boardTimeOverlay = new ClockOverlay(new BarStatusConfig("interface/bars/clock.png", null, null,
-                BOARD_TIME_WIDTH, BOARD_TIME_HEIGHT, 0, null), GameVariables.getClock());
+                BOARD_TIME_WIDTH, BOARD_TIME_HEIGHT, 0, null, BOARD_TIME_POSITION), GameVariables.getClock());
     }
 
     public void saveStage()
@@ -565,7 +561,7 @@ public class WorldView
     {
         Long methodStartTime = System.nanoTime();
         String methodName = "render(Long) ";
-        gc.clearRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGHT);
+        gc.clearRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
         gc.translate(-camX, -camY);
 
         //Passiv Layer
@@ -659,20 +655,17 @@ public class WorldView
     private void renderHUD(Long currentNanoTime)
     {
         long methodStartTime = System.nanoTime();
-        gc.drawImage(hungerOverlay.render(), hungerOverlayPosition.getX(), hungerOverlayPosition.getY());
+        hungerOverlay.render(gc);
         long hungerFinished = System.nanoTime();
-
-        gc.drawImage(mamOverlay.render(), mamOverlayPosition.getX(), mamOverlayPosition.getY());
+        mamOverlay.render(gc);
         long mamAttentionFinished = System.nanoTime();
-
-        gc.drawImage(moneyOverlay.render(), moneyOverlayPosition.getX(), moneyOverlayPosition.getY());
+        moneyOverlay.render(gc);
         long moneyFinished = System.nanoTime();
-
-        gc.drawImage(boardTimeOverlay.render(), boardTimeOverlayPosition.getX(), boardTimeOverlayPosition.getY());
+        boardTimeOverlay.render(gc);
         long boardTimeFinished = System.nanoTime();
 
         if (newMessageOverlay.isVisible())
-            gc.drawImage(newMessageOverlay.render(currentNanoTime), newMessagePosition.getX(), newMessagePosition.getY());
+            newMessageOverlay.render(gc, currentNanoTime);
         long newMsgOverly = System.nanoTime();
 
         long hungerTime = hungerFinished - methodStartTime;
@@ -680,7 +673,7 @@ public class WorldView
         long moneyTime = moneyFinished - mamAttentionFinished;
         long boardTime = boardTimeFinished - moneyFinished;
         long msgOverlayTime = newMsgOverly - boardTimeFinished;
-        System.out.println(CLASSNAME + " mam " + (mamTime / 1000) + " hunger " + (hungerTime / 1000) + " money " + (moneyTime / 1000) + " boardTime " + (boardTime / 1000) + " msg " + (msgOverlayTime / 1000));
+        //System.out.println(CLASSNAME + " mam " + (mamTime / 1000) + " hunger " + (hungerTime / 1000) + " money " + (moneyTime / 1000) + " boardTime " + (boardTime / 1000) + " msg " + (msgOverlayTime / 1000));
     }
 
     private void renderLightEffect(Long currentNanoTime)
