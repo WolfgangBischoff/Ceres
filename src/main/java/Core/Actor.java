@@ -20,6 +20,7 @@ import java.util.*;
 
 import static Core.Configs.Config.*;
 import static Core.Enums.ActorTag.*;
+import static Core.Enums.Direction.*;
 import static Core.Enums.TriggerType.CONDITION;
 import static Core.Enums.TriggerType.TEXTBOX_CONDITION;
 
@@ -91,14 +92,12 @@ public class Actor
             actorDefinitionKeywords.add(SCRIPT_ACTOR);
         }
         actordata = Utilities.readAllLineFromTxt(actorFileName + CSV_POSTFIX);
-        for (String[] linedata : actordata)
-        {
+        for (String[] linedata : actordata) {
             if (checkForKeywords(linedata))
                 continue;
 
             //Collect Actor Sprite Data
-            try
-            {
+            try {
                 SpriteData data = SpriteData.tileDefinition(linedata);
                 data.animationDuration = Double.parseDouble(linedata[SpriteData.animationDurationIdx]);
                 data.velocity = Integer.parseInt(linedata[SpriteData.velocityIdx]);
@@ -108,9 +107,7 @@ public class Actor
                 if (!spriteDataMap.containsKey(statusName))
                     spriteDataMap.put(statusName, new ArrayList<>());
                 spriteDataMap.get(statusName).add(data);
-            }
-            catch (IndexOutOfBoundsException e)
-            {
+            } catch (IndexOutOfBoundsException e) {
                 throw new IndexOutOfBoundsException(e.getMessage() + "\n in Actorfile: " + actorFileName);
             }
         }
@@ -132,8 +129,7 @@ public class Actor
         else
             return false;
 
-        switch (keyword)
-        {
+        switch (keyword) {
             case KEYWORD_transition:
                 statusTransitions.put(linedata[1].toLowerCase(), linedata[2].toLowerCase());// old/new status
                 break;
@@ -195,8 +191,7 @@ public class Actor
         int initCooperationValue = Integer.parseInt(linedata[1]);
         readContainer.increaseCooperation(initCooperationValue);
         int firstTraitIdx = 2;
-        for (int i = firstTraitIdx; i < linedata.length; i++)
-        {
+        for (int i = firstTraitIdx; i < linedata.length; i++) {
             String[] traitData = linedata[i].split(",");
             CoinType coinType = CoinType.of(traitData[0]);
             Integer cooperationThreshold = -1;
@@ -248,8 +243,7 @@ public class Actor
     {
         Set<ActorTag> tagDataSet = new HashSet<>();
         int startIdxTags = 1;
-        for (int i = startIdxTags; i < linedata.length; i++)
-        {
+        for (int i = startIdxTags; i < linedata.length; i++) {
             tagDataSet.add(ActorTag.getType(linedata[i]));
         }
         return tagDataSet;
@@ -287,8 +281,7 @@ public class Actor
         int onTextBox_TriggerSensorIdx = 21;
 
         SensorStatus sensorStatus = new SensorStatus(lineData[sensorDataNameIdx]);
-        try
-        {
+        try {
             sensorStatus.onInteraction_TriggerSprite = TriggerType.getStatus(lineData[onInteractionIdx]);
             sensorStatus.onInteractionToStatusSprite = lineData[onInteractionToStatusIdx];
             sensorStatus.onInteraction_TriggerSensor = TriggerType.getStatus(lineData[onInteraction_TriggerSensorIdx]);
@@ -314,9 +307,7 @@ public class Actor
 
             sensorStatus.onTextBoxSignal_SpriteTrigger = TriggerType.getStatus(lineData[onTextBoxIdx]);
             sensorStatus.onTextBox_TriggerSensor = TriggerType.getStatus(lineData[onTextBox_TriggerSensorIdx]);
-        }
-        catch (ArrayIndexOutOfBoundsException e)
-        {
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new ArrayIndexOutOfBoundsException(actorInGameName + "\n" + e.getMessage());
         }
         return sensorStatus;
@@ -327,8 +318,7 @@ public class Actor
         //No lastInteraction time update, just resets if not used. like a automatic door
         String methodName = "onUpdate(Long) ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
-        {
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS) {
             //Sprite
             if (sensorStatus.onUpdate_TriggerSprite != TriggerType.NOTHING && !sensorStatus.onUpdateToStatusSprite.equals(generalStatus))
                 evaluateTriggerType(sensorStatus.onUpdate_TriggerSprite, sensorStatus.onUpdateToStatusSprite, null);
@@ -346,20 +336,17 @@ public class Actor
     {
         String methodName = "updateStatusFromConditions() ";
         boolean debug = false;
-        for (ActorCondition condition : conditions)
-        {
+        for (ActorCondition condition : conditions) {
             if //check pre-condition
             (
                     (generalStatus.equals(condition.spriteStatusCondition) || condition.spriteStatusCondition.equals("*"))
                             &&
                             (sensorStatus.statusName.equals(condition.sensorStatusCondition) || condition.sensorStatusCondition.equals("*"))
-            )
-            {
+            ) {
                 if (condition.evaluate(activeActor, this))
                 //condition met
                 {
-                    if (!condition.trueSpriteStatus.equals("*"))
-                    {
+                    if (!condition.trueSpriteStatus.equals("*")) {
                         generalStatus = condition.trueSpriteStatus;
                         updateCompoundStatus();
                     }
@@ -372,8 +359,7 @@ public class Actor
                 else
                 //condition not met
                 {
-                    if (!condition.falseSpriteStatus.equals("*"))
-                    {
+                    if (!condition.falseSpriteStatus.equals("*")) {
                         generalStatus = condition.falseSpriteStatus;
                         updateCompoundStatus();
                     }
@@ -392,14 +378,14 @@ public class Actor
         String methodName = "onInteraction(Sprite, Long) ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
 
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
-        {
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS) {
             //System.out.println(CLASSNAME + methodName + getActorInGameName());
             if (sensorStatus.getOnInteraction_TriggerSensor() == CONDITION
                     || sensorStatus.getOnInteraction_TriggerSprite() == CONDITION
                     || sensorStatus.getOnInteraction_TriggerSensor() == TEXTBOX_CONDITION
                     || sensorStatus.getOnInteraction_TriggerSprite() == TEXTBOX_CONDITION)
                 updateStatusFromConditions(activeSprite.actor);
+
             //react
             evaluateTriggerType(sensorStatus.onInteraction_TriggerSprite, sensorStatus.onInteractionToStatusSprite, activeSprite.actor);
             setLastInteraction(currentNanoTime);
@@ -443,14 +429,12 @@ public class Actor
             actorRelevant = false;
 
         //trigger
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS && actorRelevant)
-        {
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS && actorRelevant) {
             if (debug)
                 System.out.println(CLASSNAME + methodName + actorFileName + " onIntersection " + detectedSprite.getName());
 
             //Sprite Status
-            if (sensorStatus.onIntersection_TriggerSprite != TriggerType.NOTHING)
-            {
+            if (sensorStatus.onIntersection_TriggerSprite != TriggerType.NOTHING) {
                 evaluateTriggerType(sensorStatus.onIntersection_TriggerSprite, sensorStatus.onIntersectionToStatusSprite, detectedSprite.actor);
             }
 
@@ -474,8 +458,7 @@ public class Actor
         )
             return;
 
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
-        {
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS) {
             if (debug)
                 System.out.println(CLASSNAME + methodName + actorFileName + " onInRange " + detectedSprite.getName());
             evaluateTriggerType(sensorStatus.onInRange_TriggerSprite, sensorStatus.onInRangeToStatusSprite, detectedSprite.actor);
@@ -507,8 +490,7 @@ public class Actor
         String methodName = "changeSprites() ";
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
-        if (targetSpriteData == null)
-        {
+        if (targetSpriteData == null) {
             StringBuilder stringBuilder = new StringBuilder();
             for (Map.Entry<String, List<SpriteData>> entry : spriteDataMap.entrySet())
                 stringBuilder.append("\t").append(entry.getKey()).append("\n");
@@ -519,8 +501,7 @@ public class Actor
             return;
 
         //For all Sprites of the actor onUpdate to new Status
-        for (int i = 0; i < spriteList.size(); i++)
-        {
+        for (int i = 0; i < spriteList.size(); i++) {
             SpriteData ts = targetSpriteData.get(i);
             Sprite toChange = spriteList.get(i);
             toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
@@ -549,8 +530,7 @@ public class Actor
             generalStatus = targetStatusField.toLowerCase();
 
         String influencedOfGroup = actorMonitor.isDependentOnGroup(memberActorGroups);
-        if (influencedOfGroup != null)
-        {
+        if (influencedOfGroup != null) {
             //Check if status is valid dependent on influencing system
             generalStatus = actorMonitor.checkIfStatusIsValid(generalStatus, influencedOfGroup);
         }
@@ -562,11 +542,10 @@ public class Actor
     }
 
     //React on outside sensor
-    private void evaluateTriggerType(TriggerType triggerType, String targetStatusField, Actor activeSprite)
+    private void evaluateTriggerType(TriggerType triggerType, String targetStatusField, Actor activeActor)
     {
         String methodName = "evaluateTriggerType() ";
-        switch (triggerType)
-        {
+        switch (triggerType) {
             case NOTHING:
                 System.out.println(CLASSNAME + methodName + actorInGameName + " triggered without trigger type");
                 return;
@@ -575,12 +554,12 @@ public class Actor
                 break;
             case PERSISTENT_TEXT:
                 evaluateTargetStatus(targetStatusField);
-                activateTextbox();
+                activateText(activeActor);
                 break;
             case TIMED_TEXT:
                 evaluateTargetStatus(targetStatusField);
                 playTimedStatus();
-                activateTextbox();
+                activateText(activeActor);
                 break;
             case TIMED:
                 evaluateTargetStatus(targetStatusField);
@@ -589,10 +568,10 @@ public class Actor
             case TEXTBOX:
             case TEXTBOX_ANALYSIS:
             case TEXTBOX_CONDITION:
-                activateTextbox();
+                activateText(activeActor);
                 break;
             case COLLECTABLE:
-                collect(activeSprite);
+                collect(activeActor);
                 break;
             case SCRIPT:
                 actAccordingToScript();
@@ -626,8 +605,7 @@ public class Actor
         collectingActor.inventory.addItem(collected);
 
         //check if Management-Attention-Meter is affected for Player
-        if (collectingActor.tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(SUSPICIOUS_VALUE_ACTOR))
-        {
+        if (collectingActor.tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(SUSPICIOUS_VALUE_ACTOR)) {
             int suspicious_value = numeric_generic_attributes.get(SUSPICIOUS_VALUE_ACTOR).intValue();
             GameVariables.addPlayerMAM_duringDay(suspicious_value);
             GameVariables.addStolenCollectible(collected);
@@ -669,50 +647,40 @@ public class Actor
         delay.play();
     }
 
-    public void activateTextbox()
+    public void activateText(Actor activeActor)
     {
-        String methodName = "activateDialogue() ";
-        WorldView gameWindow = GameWindow.getSingleton().currentView;
+        String methodName = "activateText() ";
+        if (sensorStatus.onInteraction_TriggerSprite.equals(TriggerType.TEXTBOX_ANALYSIS)) {
+            String analyzedGroupName = null;
+            List<Actor> analyzedGroup = null;
+            try {
+                analyzedGroupName = textbox_analysis_group_name;//set in actor file
+                analyzedGroup = actorMonitor.getGroupIdToActorGroupMap().get(analyzedGroupName).getSystemMembers();
+                WorldView.getTextbox().groupAnalysis(analyzedGroup, this);
+            } catch (NullPointerException e) {
+                StringBuilder stringBuilder = new StringBuilder();
+                if (actorMonitor == null)
+                    stringBuilder.append("\nStageMonitor is null");
+                if (analyzedGroupName == null)
+                    stringBuilder.append("\nAnalyzed group is null: " + memberActorGroups.get(0));
+                if (analyzedGroup == null)
+                    stringBuilder.append("\nDependent group does not exist or is empty: " + analyzedGroupName);
 
-        if (gameWindow instanceof WorldView)
-        {
-            if (sensorStatus.onInteraction_TriggerSprite.equals(TriggerType.TEXTBOX_ANALYSIS))
-            {
-                String analyzedGroupName = null;
-                List<Actor> analyzedGroup = null;
-                try
-                {
-                    analyzedGroupName = textbox_analysis_group_name;//set in actor file
-                    analyzedGroup = actorMonitor.getGroupIdToActorGroupMap().get(analyzedGroupName).getSystemMembers();
-                    WorldView.getTextbox().groupAnalysis(analyzedGroup, this);
-                }
-                catch (NullPointerException e)
-                {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    if (actorMonitor == null)
-                        stringBuilder.append("\nStageMonitor is null");
-                    if (analyzedGroupName == null)
-                        stringBuilder.append("\nAnalyzed group is null: " + memberActorGroups.get(0));
-                    if (analyzedGroup == null)
-                        stringBuilder.append("\nDependent group does not exist or is empty: " + analyzedGroupName);
-
-                    throw new NullPointerException(e.getMessage() + stringBuilder.toString());
-                }
-
+                throw new NullPointerException(e.getMessage() + stringBuilder.toString());
             }
-            else
-                WorldView.getTextbox().startConversation(this);
-            WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
+
         }
-        else
-            System.out.println(CLASSNAME + methodName + " Game Window not instance of WorldView, cannot show Dialogue");
+        else {
+            WorldView.getTextbox().startConversation(this);
+            setDirection(activeActor.direction.getOpposite());
+        }
+        WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
     }
 
     private void transitionGeneralStatus()
     {
         String methodName = "transitionGeneralStatus() ";
-        if (statusTransitions.containsKey(generalStatus))
-        {
+        if (statusTransitions.containsKey(generalStatus)) {
             generalStatus = statusTransitions.get(generalStatus);
         }
         else
@@ -823,11 +791,9 @@ public class Actor
         boolean debugmode = false;
         lastInteraction = value;
 
-        if (debugmode)
-        {
+        if (debugmode) {
             System.out.println(CLASSNAME + methodName + actorInGameName + " set last interaction.");
-            for (StackTraceElement ste : Thread.currentThread().getStackTrace())
-            {
+            for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
                 System.out.println(ste);
             }
         }

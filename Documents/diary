@@ -3,6 +3,7 @@
 
 31 12 20    - improved render performance for coin game and HUD by drawing on WorldView Canvas
             - removed old capsule
+            - Person turns if talking
 27 12 20    - player light is duplicated after quest
 21 12 20    - added Script for movement "route" and "repeat"
             - fixed no wall for non player sprites
