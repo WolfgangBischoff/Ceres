@@ -11,7 +11,9 @@ default		;20		;20			;south
 
 
 tiledefinition:
-#layer: 0 => behind ;1 => middle ;2 => in front
+#File name convention: inner if wall around player + direction ;outer if player can go around wall + direction of corner
+#Naming: FChs_0  ShortName-[wall-hull-roof-floor]-[direction]-[number]
+#layer: 0 => on floor ;1 => player hight ;2 => above player
 #Floor
 #code     ;name        ;spritename                  ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning;dialogueId ;dialogueFile ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 plaiM1    ;metal							;floor/plainM1_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4

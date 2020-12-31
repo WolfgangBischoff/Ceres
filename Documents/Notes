@@ -7,7 +7,6 @@
     - Cleaning Bot Moving definition in file
         1) While Map load set actors according to time, date, variables, change daylight accoring to time
         3) Set Actor script according to time
-    - remove old capsule
     - Person turns if talking, maybe with Tag "turns_on_interaction"
     - Cooperation value just increases two time a day
     - "Rumors"/Random dialogue
