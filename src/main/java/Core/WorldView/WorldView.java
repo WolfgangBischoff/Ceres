@@ -119,7 +119,7 @@ public class WorldView
         worldCanvas = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gc = worldCanvas.getGraphicsContext2D();
-        gc.setFont(FONT_ESTROG_30);
+        gc.setFont(FONT_ESTROG_30_DEFAULT);
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
         loadStage(levelName, "default");
         inventoryController = new InventoryController();

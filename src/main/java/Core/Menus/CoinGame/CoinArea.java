@@ -5,20 +5,15 @@ import Core.GameWindow;
 import Core.Menus.Personality.PersonalityContainer;
 import Core.Utilities;
 import Core.WorldView.WorldView;
-import Core.WorldView.WorldViewController;
-import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
-import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -216,26 +211,26 @@ public class CoinArea
         }
     }
 
-    public WritableImage render(Long currentNanoTime) throws NullPointerException
+    public void render(GraphicsContext gc, Long currentNanoTime)
     {
-        String methodName = "draw() ";
-        boolean debug = false;
-        gc.clearRect(0, 0, WIDTH, HEIGHT);
+        String methodName = "render() ";
         Color font = COLOR_FONT;
 
         //Background
         gc.setGlobalAlpha(0.45);
-        gc.drawImage(backgroundImage, (WIDTH - backgroundImage.getWidth()) / 2, (HEIGHT - backgroundImage.getHeight()) / 2);
+        gc.drawImage(backgroundImage,
+                SCREEN_POSITION.getX(),
+                SCREEN_POSITION.getY());
         gc.setGlobalAlpha(0.7);
         gc.setFill(BLACK);
-        gc.fillRect(0, 0, WIDTH, HEIGHT);
+        gc.fillRect(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
 
         gc.setStroke(font);
         int xInterval = 50, yInterval = 50;
         for (int x = 0; x <= WIDTH; x += xInterval)
-            gc.strokeLine(x, 0, x, HEIGHT);
+            gc.strokeLine(SCREEN_POSITION.getX() + x, SCREEN_POSITION.getY(), SCREEN_POSITION.getX() + x, SCREEN_POSITION.getY() + HEIGHT);
         for (int y = 0; y <= HEIGHT; y += yInterval)
-            gc.strokeLine(0, y, WIDTH, y);
+            gc.strokeLine(SCREEN_POSITION.getX(), SCREEN_POSITION.getY() + y, SCREEN_POSITION.getX() + WIDTH, SCREEN_POSITION.getY() + y);
 
         update(currentNanoTime);
         gc.setGlobalAlpha(1);
@@ -245,14 +240,14 @@ public class CoinArea
             CharacterCoin coin = visibleCoinsList.get(i);
             Circle circle = coin.collisionCircle;
             shapeList.add(circle);
-            gc.drawImage(coin.image, circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius());
+            gc.drawImage(coin.image, SCREEN_POSITION.getX() + circle.getCenterX() - circle.getRadius(), SCREEN_POSITION.getY() + circle.getCenterY() - circle.getRadius());
         }
 
-        gc.fillOval(mouseClickSpace.getCenterX() - mouseClickSpace.getRadius(), mouseClickSpace.getCenterY() - mouseClickSpace.getRadius(), mouseClickSpace.getRadius() * 2, mouseClickSpace.getRadius() * 2);
+        gc.fillOval(SCREEN_POSITION.getX() + mouseClickSpace.getCenterX() - mouseClickSpace.getRadius(), SCREEN_POSITION.getY() + mouseClickSpace.getCenterY() - mouseClickSpace.getRadius(), mouseClickSpace.getRadius() * 2, mouseClickSpace.getRadius() * 2);
 
         if (isFinished)
         {
-            gc.setFont(new Font(30));
+            gc.setFont(FONT_ESTROG_30_DEFAULT);
             gc.setFill(font);
             gc.setTextAlign(TextAlignment.CENTER);
             gc.setTextBaseline(VPos.CENTER);
@@ -267,22 +262,11 @@ public class CoinArea
                 hintMsg = "You were far away from success..";
 
             if (totalResult >= winThreshold)
-                gc.fillText("Success!", WIDTH / 2.0, HEIGHT / 2.0 + gc.getFont().getSize());
+                gc.fillText("Success!", SCREEN_POSITION.getX() + WIDTH / 2.0, SCREEN_POSITION.getY() + HEIGHT / 2.0 + gc.getFont().getSize());
             else
-                gc.fillText(hintMsg, WIDTH / 2.0, HEIGHT / 2.0 + gc.getFont().getSize());
-
-            if (debug)
-            {
-                String text = "You got motivation: " + motivationResult + " focus: " + focusResult + " \ndecision: " + decisionResult + " lifestyle: " + lifestyleResult + " \nTotal: " + totalResult
-                        + "\n MaxPossiblePoints: " + maxPossiblePoints + " WinThreshold: " + winThreshold;
-                gc.fillText(text, WIDTH / 2.0, HEIGHT / 2.0);
-            }
+                gc.fillText(hintMsg, SCREEN_POSITION.getX() + WIDTH / 2.0, SCREEN_POSITION.getY() + HEIGHT / 2.0 + gc.getFont().getSize());
 
         }
-
-        SnapshotParameters transparency = new SnapshotParameters();
-        transparency.setFill(Color.TRANSPARENT);
-        return canvas.snapshot(transparency, null);
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
@@ -325,17 +309,6 @@ public class CoinArea
                 removedCoinsList.add(hoveredElements.get(i));
             }
         }
-//        else if (isMouseClicked && isFinished)
-//        {
-//            //If won discussion
-//            if (totalResult >= winThreshold)
-//                WorldView.getTextbox().setNextDialogueFromDiscussionResult(true);
-//            else
-//                WorldView.getTextbox().setNextDialogueFromDiscussionResult(false);
-//
-//            WorldView.getTextbox().nextMessage(currentNanoTime);
-//            WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
-//        }
     }
 
     private void countClickedCoinTypes(CharacterCoin coin, Long currentNanoTime)

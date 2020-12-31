@@ -21,7 +21,7 @@ public class NewMessageOverlay
 
     public NewMessageOverlay()
     {
-        message.setFont(FONT_ESTROG_30);
+        message.setFont(FONT_ESTROG_30_DEFAULT);
     }
 
     public static void showMsg(String msg)

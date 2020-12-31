@@ -33,12 +33,12 @@ public class Utilities
         return distance <= (a.getRadius() + b.getRadius());
     }
 
-    public static Double roundTwoDigits(Double input)
+    public static String roundTwoDigits(Double input)
     {
         DecimalFormatSymbols point = new DecimalFormatSymbols();
         point.setDecimalSeparator('.');
-        DecimalFormat df = new DecimalFormat("#.##", point);
-        return Double.valueOf(df.format(input));
+        DecimalFormat df = new DecimalFormat("0.00", point);
+        return df.format(input);
     }
 
     public static boolean tryParseInt(String value)

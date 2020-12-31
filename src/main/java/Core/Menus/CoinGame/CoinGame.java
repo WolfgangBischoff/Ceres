@@ -38,11 +38,12 @@ public class CoinGame
     {
         //Background
         gc.setFill(COLOR_BACKGROUND_GREY);
-        gc.setFont(FONT_ESTROG_20);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
         gc.fillRect(SCREEN_POSITION.getX() + backgroundOffsetX, SCREEN_POSITION.getY() + backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
 
-        gc.drawImage(coinArea.render(currentNanoTime), SCREEN_POSITION.getX() + COIN_AREA_WIDTH_OFFSET, SCREEN_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET);
+        coinArea.render(gc, currentNanoTime);
+        gc.setFont(FONT_ESTROG_20);
+        //gc.drawImage(coinArea.render(currentNanoTime), SCREEN_POSITION.getX() + COIN_AREA_WIDTH_OFFSET, SCREEN_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET);
         gc.drawImage(cornerTopLeft, SCREEN_POSITION.getX(), SCREEN_POSITION.getY());
         gc.drawImage(cornerBtmRight, SCREEN_POSITION.getX() + WIDTH - cornerBtmRight.getWidth(), SCREEN_POSITION.getY() + HEIGHT - cornerBtmRight.getHeight());
 
@@ -69,14 +70,18 @@ public class CoinGame
                 SCREEN_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET + 150);
 
         double residualTime = coinArea.getMaxGameTime() - (currentNanoTime - coinArea.gameStartTime) / 1000000000.0;
+        if (residualTime < 4)
+            gc.setFill(COLOR_RED);
         if (residualTime < 0)
             residualTime = 0;
-        gc.fillText("Time: " + Utilities.roundTwoDigits(residualTime), SCREEN_POSITION.getX() + COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + textCenterOffset,
-                SCREEN_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET + 200);
+        gc.fillText("Time:", SCREEN_POSITION.getX() + COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + textCenterOffset,
+                SCREEN_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET + 210);
+        gc.fillText(Utilities.roundTwoDigits(residualTime), SCREEN_POSITION.getX() + COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + textCenterOffset,
+                SCREEN_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET + 230);
 
-        gc.setFill(Color.RED);
+        //gc.setFill(Color.RED);
         gc.drawImage(finishedButton, SCREEN_POSITION.getX() + exitButton.getCenterX() - exitButton.getRadius(), SCREEN_POSITION.getY() + exitButton.getCenterY() - exitButton.getRadius());
-        gc.setFont(FONT_ESTROG_30);
+        gc.setFont(FONT_ESTROG_30_DEFAULT);
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)

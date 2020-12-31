@@ -21,7 +21,7 @@ public class Config
     public static final double GAME_WINDOW_HEIGHT = 900;
     public static final int CAMERA_WIDTH = 1200;
     public static final int CAMERA_HEIGHT = 800;
-    public static final Font FONT_ESTROG_30 = Utilities.readFont("font/estrog__.ttf", 30);
+    public static final Font FONT_ESTROG_30_DEFAULT = Utilities.readFont("font/estrog__.ttf", 30);
     public static final Font FONT_ESTROG_20 = Utilities.readFont("font/estrog__.ttf", 20);
 
     public static final int TEXTBOX_WIDTH = 800;
