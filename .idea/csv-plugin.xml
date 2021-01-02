@@ -87,6 +87,27 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/resources/actorData/doors/horizontal/automatedDoor.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/doors/vertical/autoBulkheadVertical.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/level/crewdeck/crewdeck.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/resources/level/transporter/transporter.csv">
           <value>
             <Attribute>

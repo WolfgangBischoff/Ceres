@@ -132,7 +132,6 @@ public class Sprite
     public void update(Long currentNanoTime)
     {
         String methodName = "update() ";
-        boolean debugMode = false;
 
         double time = (currentNanoTime - lastUpdated) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - actor.getLastInteraction()) / 1000000000.0;
@@ -181,8 +180,8 @@ public class Sprite
                     actor.setLastInteraction(currentNanoTime);
                     interact = false;
                 }
-                //dialogue_files/descriptions ???
-                else if (!(otherSprite.dialogueFileName.equals("dialogueFile") || otherSprite.dialogueFileName.equals("none"))) {
+                else if (otherSprite.actor == null &&//just use this for deco-sprites
+                        !(otherSprite.dialogueFileName.equals("dialogueFile") || otherSprite.dialogueFileName.equals("none"))) {
                     WorldView.startConversation(otherSprite.dialogueFileName, otherSprite.initDialogueId, currentNanoTime);
                     interact = false;
                 }

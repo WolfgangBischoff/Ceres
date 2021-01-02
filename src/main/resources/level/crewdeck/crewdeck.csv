@@ -66,29 +66,29 @@ swap__				                      ;swap mop									                       ;img/ba
 crewDe				                      ;Crew Deck				                           ;img/walls/signs/CREW_DECK				 																																								;false		            ;1									             ;0		      ;0												;0			  ;0			  ;000								;000									;000											;064										  ;128									;040										;none 					          ;none							;none																																	;unused0	;unused1	;unused2	;unused3	;unused4
 
 #Bath room
-sink__				                      ;sink													                       ;img/bath/sink																																																									;true					          ;1 											          ;0        ;0            ;0     ;0     ;000        ;000         ;010           ;065            ;044         ;040										;none 						         ;none							;none																																	;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-wcCabn				                      ;wcCabn											                       ;img/bath/wccabin																																																						;true					          ;1 											          ;0        ;0            ;0     ;0     ;000        ;000         ;000           ;128            ;192         ;100										;none 						         ;wc_cabin			;dialogue_files/transporter_decks				;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-bench_				                      ;bench												                       ;img/furniture/bench																																																			;true					          ;1												          ;0			     ;0												;0				 ;0				 ;000								;000									;000											;064											 ;128									;040										;none 						         ;none							;none																																	;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-towel_				                      ;towel												                       ;img/bath/bathtowel																																																				;true					          ;1												          ;0			     ;0												;0				 ;0				 ;000								;000									;000											;064											 ;064									;064										;none 						         ;none							;none																																	;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+sink__				                      ;sink													                                 ;img/bath/sink																																																									;true					          ;1 											          ;0        ;0            ;0     ;0     ;000        ;000         ;010           ;065            ;044         ;040										;none 						         ;none							;none																																	;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+wcCabn				                      ;wcCabn											                                 ;img/bath/wccabin																																																						;true					          ;1 											          ;0        ;0            ;0     ;0     ;000        ;000         ;000           ;128            ;192         ;100										;none 						         ;wc_cabin			;dialogue_files/transporter_decks				 ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+bench_				                      ;bench												                                 ;img/furniture/bench																																																			;true					          ;1												          ;0			     ;0												;0				 ;0				 ;000								;000									;000											;064											 ;128									;040										;none 						         ;none							;none																																	;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+towel_				                      ;towel												                                 ;img/bath/bathtowel																																																				;true					          ;1												          ;0			     ;0												;0				 ;0				 ;000								;000									;000											;064											 ;064									;064										;none 						         ;none							;none																																	;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 actors:
 #code 																										;actorFileName																											;IngameName																																																								;sprite-status						;sensor-status										;direction
-player					                     ;actorData/player																								;Revolutionary												                                         ;default												;default																;north
-elevSc					                     ;actorData/doors/updown/elevator/elevator										;main elevator												                                         ;toFreightDeck						;default																;undefined
-autoDo					                     ;actorData/doors/vertical/autoBulkheadVertical					;bulkhead vertical								                                         ;on																	;UNLOCKED															;west
-doorHo					                     ;actorData/doors/horizontal/automatedDoor										;bulkhead	horizontal						                                         ;on																	;VARIABLE_UNLOCKED						;south
-cleanB					                     ;actorData/robot/cleaningBot/cleaningBot											;Cleaning Bot													                                         ;default												;default																;west
-steamS					                     ;actorData/bath/steam_shower/steam_shower										;shower																			                                         ;off																;default																;undefined
-bed_Bi					                     ;actorData/furniture/bed/bed																							;Your Bed																	                                         ;bischoff											;sleep																		;undefined
+player					                     ;actorData/player																								          ;Revolutionary												                                             ;default												;default																;north
+elevSc					                     ;actorData/doors/updown/elevator/elevator										;main elevator												                                             ;toFreightDeck						;default																;undefined
+autoDo					                     ;actorData/doors/vertical/autoBulkheadVertical					;bulkhead vertical								                                             ;on																	;UNLOCKED															;west
+doorHo					                     ;actorData/doors/horizontal/automatedDoor										;bulkhead	horizontal						                                             ;on																	;VARIABLE_UNLOCKED						;south
+cleanB					                     ;actorData/robot/cleaningBot/cleaningBot											;Cleaning Bot													                                             ;default												;default																;west
+steamS					                     ;actorData/bath/steam_shower/steam_shower										;shower																			                                             ;off																;default																;undefined
+bed_Bi					                     ;actorData/furniture/bed/bed																							;Your Bed																	                                             ;bischoff											;sleep																		;undefined
 
-smileV					;actorData/system_vendor/smile/smile															;Smile vendor													;default												;inventory														;undefined
-asiaBe					;actorData/collectibles/food/food																		;Asia Star Bento										;asiastar											;default																;undefined
+smileV					                     ;actorData/system_vendor/smile/smile															;Smile vendor													                                             ;default												;inventory														;undefined
+asiaBe					                     ;actorData/collectibles/food/food																		;Asia Star Bento										                                             ;asiastar											;default																;undefined
 
 position:
-asiaBe ;1820 ;1070; one the table
+asiaBe                          ;1820                                              ;1070                                                                  ;one the table
 
 global_system_actor:
-transporter_air_system;hydrOK;airCr1;airCr2;airLif
+transporter_air_system          ;hydrOK                                            ;airCr1                                                                ;airCr2             ;airLif
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
