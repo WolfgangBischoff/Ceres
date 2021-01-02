@@ -25,7 +25,7 @@ public interface CoinType
 
     static CoinType of(String type)
     {
-        switch (type.toUpperCase()) {
+        switch (type.toUpperCase().trim()) {
             case "INTROVERSION":
                 return INTROVERSION;
             case "EXTROVERSION":
