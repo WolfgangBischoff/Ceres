@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Dialogue
 {
-    private static final String CLASSNAME = "Dialogue-";
+    private static final String CLASSNAME = "Dialogue/";
     String type;
     String nextDialogue;
     private String spriteStatus;

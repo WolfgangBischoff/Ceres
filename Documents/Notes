@@ -5,14 +5,13 @@
 
 - Features
     - Cleaning Bot Moving definition in file
-        1) While Map load set actors according to time, date, variables, change daylight accoring to time
+        1) While Map load set actors according to time, date, variables, change daylight according to time
         3) Set Actor script according to time
     - Person turns back after talk
     - Cooperation value just increases two time a day
     - "Rumors"/Random dialogue
     - add attentionmark over sprites
     - change night dynamically
-    - decide on capsule how long to sleep & use for interuption too
     - check higher resolution and zoom, fix not centered overlay
     - Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
     - Inventory
@@ -66,6 +65,7 @@
 ------------------------------------------
 Contents:
 - Biocomputer
+- People are created by bioengeneering, sexuality is fluent
 Goals and Quest:
     - Main Quest
         - Three/n companies with flaws, infiltrate and organize Protest
@@ -88,7 +88,7 @@ Goals and Quest:
           Find Human Embryos frozen
           Give him for money
 Mechanics:
-    - Tag/Nacht Rythmus mit Dunklem Overlay, Lights on at some time. Check STardewVally how to
+    - Tag/Nacht Rythmus mit Dunklem Overlay, Lights on at some time.
     - Daily needs:
         Sleep -> based on time like in StardewVallay,
             board time and ceres time are different, ceres night/day changes world
