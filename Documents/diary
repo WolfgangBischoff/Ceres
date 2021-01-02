@@ -4,6 +4,7 @@
             - fixed minor bugs
             - Bug: technician changes dialogue id after sprite change (turn) => dialogueId should be changed by spritechange
             - onInrange prevents interaction due to timeBetweenInteraction.
+            - Person turns back after talk
 31 12 20    - improved render performance for coin game and HUD by drawing on WorldView Canvas
             - removed old capsule
             - Person turns if talking

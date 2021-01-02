@@ -666,8 +666,10 @@ public class Actor
         }
         else {
             WorldView.getTextbox().startConversation(this);
-            if (tags.contains(TURNS_DIRECTION_ONINTERACTION))
+            if (tags.contains(TURNS_DIRECTION_ONINTERACTION)) {
+                numeric_generic_attributes.put("previousDirection", Double.valueOf(direction.getValue()));
                 setDirection(activeActor.direction.getOpposite());
+            }
         }
         WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
     }

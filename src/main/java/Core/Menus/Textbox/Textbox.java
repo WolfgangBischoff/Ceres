@@ -1,6 +1,7 @@
 package Core.Menus.Textbox;
 
 import Core.*;
+import Core.Enums.Direction;
 import Core.Enums.Knowledge;
 import Core.Menus.AchievmentLog.NewMessageOverlay;
 import Core.Menus.CoinGame.CoinGame;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Core.Configs.Config.*;
+import static Core.Enums.ActorTag.TURNS_DIRECTION_ONINTERACTION;
 
 public class Textbox
 {
@@ -166,7 +168,6 @@ public class Textbox
             changeActorStatus(readDialogue.getSpriteStatus());
         }
 
-
         return readDialogue;
     }
 
@@ -301,7 +302,10 @@ public class Textbox
         else //End Textbox
         {
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
-            //messageIdx = 0;
+            if (actorOfDialogue.tags.contains(TURNS_DIRECTION_ONINTERACTION)) {
+                actorOfDialogue.setDirection(Direction.of(actorOfDialogue.getNumeric_generic_attributes().get("previousDirection").intValue()));
+                actorOfDialogue.getNumeric_generic_attributes().remove("previousDirection");
+            }
         }
         playerActor.setLastInteraction(currentNanoTime);
 

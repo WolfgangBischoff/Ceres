@@ -10,7 +10,7 @@ public enum Direction
         this.value = value;
     }
 
-    public static Direction getDirectionFromValue(String value)
+    public static Direction of(String value)
     {
         switch (value.toLowerCase()) {
             case "north":
@@ -29,6 +29,22 @@ public enum Direction
         }
     }
 
+    public static Direction of(int value)
+    {
+        switch (value) {
+            case 0:
+                return NORTH;
+            case 1:
+                return EAST;
+            case 2:
+                return SOUTH;
+            case 3:
+                return WEST;
+            default:
+                return UNDEFINED;
+        }
+    }
+
     public Direction getOpposite()
     {
         switch (value) {
@@ -43,5 +59,10 @@ public enum Direction
             default:
                 return UNDEFINED;
         }
+    }
+
+    public Integer getValue()
+    {
+        return value;
     }
 }

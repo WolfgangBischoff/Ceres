@@ -265,7 +265,7 @@ public class WorldLoader
         int directionIdx = 3;
         Integer x = Integer.parseInt(lineData[spawnXId]);
         Integer y = Integer.parseInt(lineData[spawnYId]);
-        Direction direction = Direction.getDirectionFromValue(lineData[directionIdx]);
+        Direction direction = Direction.of(lineData[directionIdx]);
         SpawnData spawnData = new SpawnData(x, y, direction);
         spawnPointsMap.put(lineData[spawnIdIdx], spawnData);
     }
@@ -484,7 +484,7 @@ public class WorldLoader
         int sensor_statusIdx = 4;
         int directionIdx = 5;
 
-        Direction direction = Direction.getDirectionFromValue(lineData[directionIdx]);
+        Direction direction = Direction.of(lineData[directionIdx]);
         ActorData actorData = new ActorData(lineData[actorFileNameIdx], lineData[actorIngameNameIdx], lineData[sprite_statusIdx], lineData[sensor_statusIdx], direction);
         actorDataMap.put(lineData[actorCodeIdx], actorData);
 

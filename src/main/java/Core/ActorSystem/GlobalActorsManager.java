@@ -47,7 +47,7 @@ public class GlobalActorsManager
             //Read Actors
             if (readStatus.equals(KEYWORD_ACTORS)) {
                 //airVeR;airSystem/airVent/airVent;Right ventilation;off;default;undefined
-                Actor actor = new Actor(lineData[1], lineData[2], lineData[3], lineData[4], Direction.getDirectionFromValue(lineData[5]));
+                Actor actor = new Actor(lineData[1], lineData[2], lineData[3], lineData[4], Direction.of(lineData[5]));
 
                 actor.updateCompoundStatus();
                 List<SpriteData> spriteDataList = actor.getSpriteDataMap().get(actor.getCompoundStatus());
@@ -116,7 +116,7 @@ public class GlobalActorsManager
                             actorsIdsMap.get(actorId).setGeneralStatus(detailData[spriteStatusIdx]);
                             break;
                         case 2:
-                            actorsIdsMap.get(actorId).setDirection(Direction.getDirectionFromValue(detailData[directionIdx]));
+                            actorsIdsMap.get(actorId).setDirection(Direction.of(detailData[directionIdx]));
                             break;
                         case 3:
                             actorsIdsMap.get(actorId).setSensorStatus(detailData[sensorStatusIdx]);
