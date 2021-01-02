@@ -120,81 +120,18 @@ public class Textbox
             if (((Element) dialogues.item(i)).getAttribute(ID_TAG).equals(dialogueIdentifier)) {
                 dialogueFound = true;
                 Element currentDialogueXML = ((Element) dialogues.item(i));
-                readDialogue = new Dialogue(currentDialogueXML);
-                String dialogueType = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_TYPE);
+                readDialogue = new Dialogue(actorOfDialogue, currentDialogueXML);
 
-                if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE)) {
-
-                }
-                //Discussion Type
-                else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_DISCUSSION)) {
-                    String discussionGameName = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_GAME);
-                    String successNextMsg = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SUCCESS);
-                    String defeatNextMsg = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_DEFEAT);
-                    readDialogue.addOption(TEXTBOX_ATTRIBUTE_SUCCESS, successNextMsg);
-                    readDialogue.addOption(TEXTBOX_ATTRIBUTE_DEFEAT, defeatNextMsg);
-                    WorldView.setDiscussionGame(new CoinGame(discussionGameName, actorOfDialogue));
-                }
-                else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_LEVELCHANGE)) {
-                    String levelname = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL);
-                    String spawnId = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID);
-                    WorldView.getSingleton().saveStage();
-                    WorldView.getSingleton().loadStage(levelname, spawnId);
-                }
-                else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_DAY_CHANGE)) {
-                    WorldViewController.setWorldViewStatus(WorldViewStatus.DAY_SUMMARY);
-                    DaySummaryScreenController.newDay();
-                }
-                else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_VALUE_BOOLEAN)) {
+                if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_VALUE_BOOLEAN)) {
                     String var = GameVariables.getGenericVariableManager().getValue(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
                     if (var == null)
                         System.out.println(CLASSNAME + methodName + "variable not set: " + currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
                     nextDialogueID = Boolean.parseBoolean(var) ? currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_TRUE) : currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_FALSE);
                     return readDialogue(nextDialogueID);
                 }
-                else
-                //Normal Textbox
-                {
-                    if (dialogueType.equals(TEXTBOX_ATTRIBUTE_GET_MONEY)) {
-                        int amount = Integer.parseInt(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_VALUE));
-                        GameVariables.addPlayerMoney(amount);
-                        NewMessageOverlay.showMsg("received " + amount + " GSC!");
-                    }
-                    if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_SET)) {
-                        String varname = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME);
-                        String val = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SET);
-                        GameVariables.setGenericVariable(varname, val);
-                    }
-                    if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_BUMP)) {
-                        WorldView.getSingleton().activateBump();
-                    }
-                    if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_ITEM_ACTOR)) {
-                        Collectible collectible = Collectible.createCollectible(
-                                currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_ACTOR)
-                                , currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_NAME)
-                                , currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_STATUS));
-                        WorldView.getPlayer().getActor().getInventory().addItem(collectible);
-                        NewMessageOverlay.showMsg("New " + collectible.getIngameName() + "!");
-                    }
-                    if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE)) {
-                        GameVariables.addPlayerKnowledge(Knowledge.of(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_KNOWLEDGE)));
-                    }
-                    if (currentDialogueXML.hasAttribute((TEXTBOX_ATTRIBUTE_DIALOGUE_FILE))) {
-                        actorOfDialogue.setDialogueFile(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_FILE));
-                    }
-                    if (currentDialogueXML.hasAttribute((TEXTBOX_ATTRIBUTE_DIALOGUE_ID))) {
-                        actorOfDialogue.setDialogueId(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_ID));
-                    }
-                    if (currentDialogueXML.hasAttribute((TEXTBOX_ATTRIBUTE_SET_WORLD_LIGHT))) {
-                        if (currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SET_WORLD_LIGHT).equals("night"))
-                            WorldView.getSingleton().setShadowColor(COLOR_NIGHT);
-                        else
-                            WorldView.getSingleton().setShadowColor(null);
-                    }
-
-                }
 
                 nextDialogueID = readDialogue.nextDialogue;
+
                 //Check for changes for other sprites
                 NodeList spriteChanges = currentDialogueXML.getElementsByTagName(SPRITECHANGE_TAG);
                 if (spriteChanges != null) {
@@ -228,41 +165,6 @@ public class Textbox
         return readDialogue;
     }
 
-    // private void checkForNextDialogues(Dialogue readDialogue, Element currentDialogue)
-    // {
-    //     //Check for further dialogues
-    //     NodeList nextDialogueIdList = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
-    //     if (nextDialogueIdList.getLength() > 0) {
-    //         nextDialogueID = nextDialogueIdList.item(0).getTextContent();
-    //         readDialogue.nextDialogue = nextDialogueIdList.item(0).getTextContent();
-    //     }
-    //     else if (currentDialogue.hasAttribute(NEXT_DIALOGUE_TAG)) {
-    //         nextDialogueID = currentDialogue.getAttribute(NEXT_DIALOGUE_TAG);
-    //     }
-    //     else {
-    //         nextDialogueID = null;
-    //         readDialogue.nextDialogue = null;
-    //     }
-    // }
-
-    //private String getVariableCondition(String type, String varName)
-    //{
-    //    String methodName = "checkVariableCondition() ";
-    //    String eval = null;
-    //    if (type.equals("boolean")) {
-    //        eval = GameVariables.getGenericVariableManager().getValue(varName);
-    //        if (eval == null)
-    //            System.out.println(CLASSNAME + methodName + "variable not set: " + varName);
-    //        //return eval;
-    //    }
-    //    else if (type.equals("player"))
-    //    {
-    //        if (varName.equals("spritestatus"))
-    //            return WorldView.getPlayer().getActor().getGeneralStatus();
-    //    }
-//
-    //    return eval;
-    //}
 
     public void processKey(ArrayList<String> input, Long currentNanoTime)
     {

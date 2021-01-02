@@ -27,7 +27,7 @@
         <option>[Leave]</option>
     </dialogue>
 
-    <dialogue id="GET_ALGAE" type="normal" item_actor="collectibles/food/food" item_name="Algae Stew"
+    <dialogue id="GET_ALGAE" type="normal" item_actor="actorData/collectibles/food/food" item_name="Algae Stew"
               item_status="algaeStew">
         <line>Here is your algae stew!</line>
     </dialogue>

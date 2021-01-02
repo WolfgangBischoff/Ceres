@@ -1,11 +1,9 @@
 
 tiledefinition:
-#tank_A				;tank													;machines/lifesupport/tank_192_128_a4																														;true					;1 											;2   ;4            ;4    ;1    ;192        ;128         ;0             ;0             ;0           ;0												;greenlight256 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-
 
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status										;direction
-ufo___					;robot/ufo																															;ufo																						;default												;default																;undefined 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+ufo___					;actorData/robot/ufo																															;ufo																						;default												;default																;undefined 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 
 
