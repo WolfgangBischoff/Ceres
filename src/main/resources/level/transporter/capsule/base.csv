@@ -28,7 +28,7 @@ cross_				;pipe													;actorData/machine/stasis_capsule/battery/crossing		
 
 
 actors:
-#code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status										;direction
+#code 					;actorFileN																																								;IngameName															;sprite-status						;sensor-status										;direction
 player					;actorData/player																																		;Revolutionary												;spacesuit										;default																;west
 eyesBx					;actorData/storages/eyes_box/eyes_box														;strange Box														;INIT_COUGH									;INIT_COUGH													;south
 largeB					;actorData/storages/greenBoxLarge/largeBox									;green Box																;default												;default																;none

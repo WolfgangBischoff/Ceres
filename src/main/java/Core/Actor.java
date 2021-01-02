@@ -14,13 +14,10 @@ import Core.WorldView.WorldViewStatus;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 import static Core.Configs.Config.*;
 import static Core.Enums.ActorTag.*;
-import static Core.Enums.Direction.*;
 import static Core.Enums.TriggerType.CONDITION;
 import static Core.Enums.TriggerType.TEXTBOX_CONDITION;
 
@@ -42,6 +39,7 @@ public class Actor
     private double interactionAreaOffsetX = 0;
     private double interactionAreaOffsetY = 0;
     private Long lastInteraction = 0L;
+    private Long lastAutomaticInteraction = 0L;
 
     //Sprite
     String generalStatus;
@@ -67,7 +65,7 @@ public class Actor
 
     public Actor(String actorFileName, String actorInGameName, String initGeneralStatus, String initSensorStatus, Direction direction)
     {
-        String methodName = "Constructor ";
+        String methodName = "Actor() ";
         inventory = new Inventory(this);
 
         this.actorFileName = actorFileName;
@@ -75,7 +73,6 @@ public class Actor
         this.generalStatus = initGeneralStatus.toLowerCase();
         this.direction = direction;
         List<String[]> actordata;
-        Path path = Paths.get(ACTOR_DIRECTORY_PATH + actorFileName + CSV_POSTFIX);
 
         if (actorDefinitionKeywords.isEmpty()) //To avoid adding for each actor
         {
@@ -317,8 +314,9 @@ public class Actor
     {
         //No lastInteraction time update, just resets if not used. like a automatic door
         String methodName = "onUpdate(Long) ";
-        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS) {
+        //double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastAutomaticInteraction) / 1000000000.0;
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS) {
             //Sprite
             if (sensorStatus.onUpdate_TriggerSprite != TriggerType.NOTHING && !sensorStatus.onUpdateToStatusSprite.equals(generalStatus))
                 evaluateTriggerType(sensorStatus.onUpdate_TriggerSprite, sensorStatus.onUpdateToStatusSprite, null);
@@ -379,7 +377,6 @@ public class Actor
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS) {
-            //System.out.println(CLASSNAME + methodName + getActorInGameName());
             if (sensorStatus.getOnInteraction_TriggerSensor() == CONDITION
                     || sensorStatus.getOnInteraction_TriggerSprite() == CONDITION
                     || sensorStatus.getOnInteraction_TriggerSensor() == TEXTBOX_CONDITION
@@ -415,7 +412,7 @@ public class Actor
     {
         String methodName = "onIntersection() ";
         boolean debug = false;
-        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastAutomaticInteraction) / 1000000000.0;
 
         //Check if detection is relevant
         boolean actorRelevant = true;
@@ -429,7 +426,7 @@ public class Actor
             actorRelevant = false;
 
         //trigger
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS && actorRelevant) {
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS && actorRelevant) {
             if (debug)
                 System.out.println(CLASSNAME + methodName + actorFileName + " onIntersection " + detectedSprite.getName());
 
@@ -439,17 +436,16 @@ public class Actor
             }
 
             //SensorStatus
-            if (sensorStatus.onIntersection_TriggerSensor != TriggerType.NOTHING) // && !sensorStatus.onInteraction_StatusSensor.equals(sensorStatus.statusName)
+            if (sensorStatus.onIntersection_TriggerSensor != TriggerType.NOTHING)
                 setSensorStatus(sensorStatus.onIntersection_StatusSensor);
-            setLastInteraction(currentNanoTime);
+            lastAutomaticInteraction = currentNanoTime;
         }
     }
 
     public void onInRange(Sprite detectedSprite, Long currentNanoTime)
     {
         String methodName = "onInRange(Sprite, Long) ";
-        boolean debug = false;
-        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastAutomaticInteraction) / 1000000000.0;
 
         //TODO general lookup
         if (
@@ -458,11 +454,9 @@ public class Actor
         )
             return;
 
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS) {
-            if (debug)
-                System.out.println(CLASSNAME + methodName + actorFileName + " onInRange " + detectedSprite.getName());
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS) {
             evaluateTriggerType(sensorStatus.onInRange_TriggerSprite, sensorStatus.onInRangeToStatusSprite, detectedSprite.actor);
-            setLastInteraction(currentNanoTime);
+            lastAutomaticInteraction = currentNanoTime;
         }
     }
 
@@ -508,8 +502,8 @@ public class Actor
             toChange.setBlocker(ts.blocking);
             toChange.setLightningSpriteName(ts.lightningSprite);
             toChange.setAnimationEnds(ts.animationEnds);
-            toChange.setDialogueFileName(ts.dialogieFile);
-            toChange.setInitDialogueId(ts.dialogueID);
+            //toChange.setDialogueFileName(ts.dialogieFile);
+            //toChange.setInitDialogueId(ts.dialogueID);
             toChange.setLayer(ts.heightLayer);
             if (WorldView.getBottomLayer().contains(toChange) || WorldView.getMiddleLayer().contains(toChange) || WorldView.getTopLayer().contains(toChange))
                 changeLayer(toChange, ts.heightLayer);//Change layer if sprite in current stage, not on other map (global system) but sprite change triggered by StageMonitor
@@ -788,18 +782,8 @@ public class Actor
 
     public void setLastInteraction(Long value)
     {
-        String methodName = "setLastInteraktion(Long) ";
-        boolean debugmode = false;
+        String methodName = "setLastInteraction(Long) ";
         lastInteraction = value;
-
-        if (debugmode) {
-            System.out.println(CLASSNAME + methodName + actorInGameName + " set last interaction.");
-            for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
-                System.out.println(ste);
-            }
-        }
-
-
     }
 
     public Long getLastInteraction()

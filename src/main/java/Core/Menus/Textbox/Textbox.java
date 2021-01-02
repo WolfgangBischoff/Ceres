@@ -141,17 +141,24 @@ public class Textbox
                         String id = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_SPRITE_ID);
                         String newStatus = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_NEW_STATUS);
                         String newDialogueId = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_ID);
+                        String newDialogueFile = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_FILE);
                         Actor actor = WorldView.getSingleton().getSpriteByName(id);
                         if (!newStatus.isEmpty())
                             actor.setGeneralStatus(newStatus);
                         if (!newDialogueId.isEmpty())
                             actor.setDialogueId(newDialogueId);
+                        if (!newDialogueFile.isEmpty())
+                            actor.setDialogueFile(newDialogueFile);
                         actor.updateCompoundStatus();
                     }
                 }
                 break;
             }
         }
+
+        if (!dialogueFound)
+            throw new NullPointerException("Dialogue not found: " + actorOfDialogue.getSpriteList().get(0).getDialogueFileName() + ": " + dialogueIdentifier);
+
         //Sensor Status Changes once per Dialogue
         if (readDialogue.getSensorStatus() != null)
             actorOfDialogue.setSensorStatus(readDialogue.getSensorStatus());
@@ -159,8 +166,6 @@ public class Textbox
             changeActorStatus(readDialogue.getSpriteStatus());
         }
 
-        if (!dialogueFound)
-            throw new NullPointerException("Dialogue not found: " + actorOfDialogue.getSpriteList().get(0).getDialogueFileName() + ": " + dialogueIdentifier);
 
         return readDialogue;
     }

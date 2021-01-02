@@ -3,7 +3,7 @@
 
 <root name = "actorName">
 
-    <dialogue id="INIT_COUGH" type="normal" sensorstatus="hide">
+    <dialogue id="INIT_COUGH" type="normal" sensorstatus="hide" dialogueId="INIT">
         <line>*cough* .. *cough* ...</line>
     </dialogue>
 

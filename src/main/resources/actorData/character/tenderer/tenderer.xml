@@ -52,8 +52,8 @@
 
     <dialogue id="METEORIT" type="normal" nextDialogue="METEORIT_AGAIN" dialogueId="AFTER_METROIT_DECISIONS">
         <line>A %%RDmeteorit%% hit us!</line>
-        <spritechange sprite_id="capsuD" status="capsuleEntry"/>
-        <spritechange sprite_id="spLock" status="capsule"/>
+        <spritechange sprite_id="capsuD" dialogueId="INTRO_CAPSULE" dialogueFile="actorData/doors/vertical/bulkhead"/>
+        <spritechange sprite_id="spLock" dialogueId="INIT_toCapsule"/>
     </dialogue>
 
     <dialogue id="METEORIT_AGAIN" type="normal">

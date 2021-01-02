@@ -61,11 +61,6 @@ public class Dialogue
                 DaySummaryScreenController.newDay();
                 break;
             case TEXTBOX_ATTRIBUTE_VALUE_BOOLEAN:
-                // String var = GameVariables.getGenericVariableManager().getValue(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
-                // if (var == null)
-                //     System.out.println(CLASSNAME + " variable not set: " + currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME));
-                // nextDialogue = Boolean.parseBoolean(var) ? currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_TRUE) : currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_FALSE);
-                // return readDialogue(nextDialogueID);
                 break;
 
 

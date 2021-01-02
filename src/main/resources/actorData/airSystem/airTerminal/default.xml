@@ -67,7 +67,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
     <dialogue id="START_ENGINE" type="discussion" game="air_control_2" success="START_ENGINE_SUCCESS"
               defeat="SOFT_RESTART_FAIL"/>
-    <dialogue id="START_ENGINE_SUCCESS" spritestatus="ON">
+    <dialogue id="START_ENGINE_SUCCESS" spritestatus="ON" dialogueId="INIT_online">
         <line>Starting ventilation engine ...</line>
         <line>Engine %%GRfully operational%% ...</line>
         <line>System reboot ... Done</line>

@@ -101,7 +101,7 @@ ACTORS:
 player					;actorData/player																																		;Revolutionary												;default												;default																;north
 exit__					;actorData/doors/vertical/autoBulkheadVertical					;exit to docking bay						;on																	;levelchange												;west
 autoDo					;actorData/doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;UNLOCKED															;west
-capsuD					                ;actorData/doors/vertical/autoBulkheadVertical					;Capsule Bulkhead									                                             ;on																	    ;textbox																     ;undefined
+capsuD					                ;actorData/doors/vertical/autoBulkheadVertical					;Capsule Bulkhead									                                             ;on													        ;textbox											          ;undefined
 door_H					;actorData/doors/horizontal/automatedDoor										;bulkhead																	;on																	;UNLOCKED															;south
 windL1					;actorData/quest/main/frontwindow/actor												;front window													;spaceView										;default																;undefined
 

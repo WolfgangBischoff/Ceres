@@ -1,5 +1,9 @@
 
 
+02 01 21    - refactored Textbox -> Dialogue
+            - fixed minor bugs
+            - Bug: technician changes dialogue id after sprite change (turn) => dialogueId should be changed by spritechange
+            - onInrange prevents interaction due to timeBetweenInteraction.
 
 31 12 20    - improved render performance for coin game and HUD by drawing on WorldView Canvas
             - removed old capsule
