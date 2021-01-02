@@ -1,7 +1,13 @@
 package Core.Menus.Textbox;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static Core.Configs.Config.*;
+import static Core.Configs.Config.SENSOR_STATUS_TAG;
 
 public class Dialogue
 {
@@ -12,6 +18,38 @@ public class Dialogue
     private String sensorStatus;
     List<String> messages = new ArrayList<>();
     List<Option> options = new ArrayList<>();
+
+    public Dialogue(Element currentDialogueXML)
+    {
+        type = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_TYPE);
+        NodeList xmlLines = currentDialogueXML.getElementsByTagName(LINE_TAG);
+        setSpriteStatus(currentDialogueXML.getAttribute(ACTOR_STATUS_TAG));
+        setSensorStatus(currentDialogueXML.getAttribute(SENSOR_STATUS_TAG));
+        switch (type) {
+            default:
+                for (int messageIdx = 0; messageIdx < xmlLines.getLength(); messageIdx++) //add lines
+                {
+                    String message = xmlLines.item(messageIdx).getTextContent();
+                    messages.add(message);//Without formatting the message
+                }
+                break;
+        }
+        nextDialogue = checkForNextDialogues(currentDialogueXML);
+    }
+
+    private String checkForNextDialogues(Element currentDialogue)
+    {
+        NodeList nextDialogueIdList = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
+        if (nextDialogueIdList.getLength() > 0) {
+            return nextDialogueIdList.item(0).getTextContent();
+        }
+        else if (currentDialogue.hasAttribute(NEXT_DIALOGUE_TAG)) {
+            return currentDialogue.getAttribute(NEXT_DIALOGUE_TAG);
+        }
+        else {
+            return null;
+        }
+    }
 
     public void addOption(String optionMessage, String nextDialogue)
     {
@@ -29,8 +67,7 @@ public class Dialogue
     public List<String> getOptionMessages()
     {
         List<String> optionMessages = new ArrayList<>();
-        for (Option option : options)
-        {
+        for (Option option : options) {
             optionMessages.add(option.optionMessage);
         }
         return optionMessages;
