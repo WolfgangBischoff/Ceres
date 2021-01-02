@@ -4,20 +4,28 @@ public enum ActorTag
 {
     AUTOMATED_DOOR, AUTOMATED_DOOR_DETECTABLE,
     BECOME_TRANSPARENT, DETECTS_PLAYER, PLAYER,
-    PERSISTENT //is loaded on the next day from LevelState
-    ;
+    PERSISTENT, //is loaded on the next day from LevelState
+    TURNS_DIRECTION_ONINTERACTION;
 
     public static ActorTag getType(String type)
     {
-        switch (type.toLowerCase())
-        {
-            case "automated_door_relevant": return AUTOMATED_DOOR_DETECTABLE;
-            case "automated_door": return AUTOMATED_DOOR;
-            case "become_transparent": return BECOME_TRANSPARENT;
-            case "detects_player": return DETECTS_PLAYER;
-            case "player": return PLAYER;
-            case "persistent": return PERSISTENT;
-            default: throw new RuntimeException("ActorType unknown: " + type);
+        switch (type.toUpperCase()) {
+            case "AUTOMATED_DOOR_RELEVANT":
+                return AUTOMATED_DOOR_DETECTABLE;
+            case "AUTOMATED_DOOR":
+                return AUTOMATED_DOOR;
+            case "BECOME_TRANSPARENT":
+                return BECOME_TRANSPARENT;
+            case "DETECTS_PLAYER":
+                return DETECTS_PLAYER;
+            case "PLAYER":
+                return PLAYER;
+            case "PERSISTENT":
+                return PERSISTENT;
+            case "TURNS_DIRECTION_ONINTERACTION":
+                return TURNS_DIRECTION_ONINTERACTION;
+            default:
+                throw new RuntimeException("ActorType unknown: " + type);
         }
     }
 }

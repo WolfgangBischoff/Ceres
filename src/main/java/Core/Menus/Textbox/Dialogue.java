@@ -1,6 +1,9 @@
 package Core.Menus.Textbox;
 
+import Core.GameVariables;
+import Core.WorldView.WorldView;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
@@ -26,6 +29,32 @@ public class Dialogue
         setSpriteStatus(currentDialogueXML.getAttribute(ACTOR_STATUS_TAG));
         setSensorStatus(currentDialogueXML.getAttribute(SENSOR_STATUS_TAG));
         switch (type) {
+            case decision_TYPE_ATTRIBUTE:
+                //For all options
+                NodeList optionData = currentDialogueXML.getElementsByTagName(OPTION_TAG);
+                boolean isOptionVisible = true;
+                for (int optionsIdx = 0; optionsIdx < optionData.getLength(); optionsIdx++) {
+                    Node optionNode = optionData.item(optionsIdx);
+                    NodeList optionChildNodes = optionNode.getChildNodes();
+                    String nextDialogue = null;
+                    String optionText = null;
+
+                    //Check all elements for relevant data
+                    for (int j = 0; j < optionChildNodes.getLength(); j++)
+                        if (optionNode.getNodeName().equals(OPTION_TAG)) {
+                            Element optionNodeElement = (Element) optionNode;
+                            if (optionNodeElement.hasAttribute(NEXT_DIALOGUE_TAG))
+                                nextDialogue = optionNodeElement.getAttribute(NEXT_DIALOGUE_TAG);
+                            optionText = optionNode.getTextContent();
+
+                            isOptionVisible = !optionNodeElement.hasAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF) ||
+                                    optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF)
+                                            .equals(getVariableCondition(optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_TYPE), optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME)));
+                        }
+                    if (isOptionVisible || DEBUG_ALL_TEXTBOX_OPTIONS_VISIBLE)
+                        addOption(optionText, nextDialogue);
+                }
+                break;
             default:
                 for (int messageIdx = 0; messageIdx < xmlLines.getLength(); messageIdx++) //add lines
                 {
@@ -35,6 +64,23 @@ public class Dialogue
                 break;
         }
         nextDialogue = checkForNextDialogues(currentDialogueXML);
+    }
+
+    private String getVariableCondition(String type, String varName)
+    {
+        String methodName = "checkVariableCondition() ";
+        String eval = null;
+        if (type.equals("boolean")) {
+            eval = GameVariables.getGenericVariableManager().getValue(varName);
+            if (eval == null)
+                System.out.println(CLASSNAME + methodName + "variable not set: " + varName);
+        }
+        else if (type.equals("player")) {
+            if (varName.equals("spritestatus"))
+                return WorldView.getPlayer().getActor().getGeneralStatus();
+        }
+
+        return eval;
     }
 
     private String checkForNextDialogues(Element currentDialogue)

@@ -122,37 +122,9 @@ public class Textbox
                 Element currentDialogueXML = ((Element) dialogues.item(i));
                 readDialogue = new Dialogue(currentDialogueXML);
                 String dialogueType = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_TYPE);
-                //NodeList xmlLines = currentDialogueXML.getElementsByTagName(LINE_TAG);
-                //readDialogue.setSpriteStatus(currentDialogueXML.getAttribute(ACTOR_STATUS_TAG));
-                //readDialogue.setSensorStatus(currentDialogueXML.getAttribute(SENSOR_STATUS_TAG));
-                //readDialogue.type = dialogueType;
 
                 if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE)) {
-                    //For all options
-                    NodeList optionData = currentDialogueXML.getElementsByTagName(OPTION_TAG);
-                    boolean isOptionVisible = true;
-                    for (int optionsIdx = 0; optionsIdx < optionData.getLength(); optionsIdx++) {
-                        Node optionNode = optionData.item(optionsIdx);
-                        NodeList optionChildNodes = optionNode.getChildNodes();
-                        String nextDialogue = null;
-                        String optionText = null;
 
-                        //Check all elements for relevant data
-                        for (int j = 0; j < optionChildNodes.getLength(); j++)
-                            if (optionNode.getNodeName().equals(OPTION_TAG))
-                            {
-                                Element optionNodeElement = (Element) optionNode;
-                                if (optionNodeElement.hasAttribute(NEXT_DIALOGUE_TAG))
-                                    nextDialogue = optionNodeElement.getAttribute(NEXT_DIALOGUE_TAG);
-                                optionText = optionNode.getTextContent();
-
-                                isOptionVisible = !optionNodeElement.hasAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF) ||
-                                        optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF)
-                                                .equals(getVariableCondition(optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_TYPE), optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME)));
-                            }
-                        if (isOptionVisible || DEBUG_ALL_TEXTBOX_OPTIONS_VISIBLE)
-                            readDialogue.addOption(optionText, nextDialogue);
-                    }
                 }
                 //Discussion Type
                 else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_DISCUSSION)) {
@@ -183,11 +155,6 @@ public class Textbox
                 else
                 //Normal Textbox
                 {
-                    //for (int messageIdx = 0; messageIdx < xmlLines.getLength(); messageIdx++) //add lines
-                    //{
-                    //    String message = xmlLines.item(messageIdx).getTextContent();
-                    //    readDialogue.messages.add(message);//Without formatting the message
-                    //}
                     if (dialogueType.equals(TEXTBOX_ATTRIBUTE_GET_MONEY)) {
                         int amount = Integer.parseInt(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_VALUE));
                         GameVariables.addPlayerMoney(amount);
@@ -228,8 +195,6 @@ public class Textbox
                 }
 
                 nextDialogueID = readDialogue.nextDialogue;
-                //checkForNextDialogues(readDialogue, currentDialogueXML);
-
                 //Check for changes for other sprites
                 NodeList spriteChanges = currentDialogueXML.getElementsByTagName(SPRITECHANGE_TAG);
                 if (spriteChanges != null) {
@@ -280,24 +245,24 @@ public class Textbox
     //     }
     // }
 
-    private String getVariableCondition(String type, String varName)
-    {
-        String methodName = "checkVariableCondition() ";
-        String eval = null;
-        if (type.equals("boolean")) {
-            eval = GameVariables.getGenericVariableManager().getValue(varName);
-            if (eval == null)
-                System.out.println(CLASSNAME + methodName + "variable not set: " + varName);
-            //return eval;
-        }
-        else if (type.equals("player"))
-        {
-            if (varName.equals("spritestatus"))
-                return WorldView.getPlayer().getActor().getGeneralStatus();
-        }
-
-        return eval;
-    }
+    //private String getVariableCondition(String type, String varName)
+    //{
+    //    String methodName = "checkVariableCondition() ";
+    //    String eval = null;
+    //    if (type.equals("boolean")) {
+    //        eval = GameVariables.getGenericVariableManager().getValue(varName);
+    //        if (eval == null)
+    //            System.out.println(CLASSNAME + methodName + "variable not set: " + varName);
+    //        //return eval;
+    //    }
+    //    else if (type.equals("player"))
+    //    {
+    //        if (varName.equals("spritestatus"))
+    //            return WorldView.getPlayer().getActor().getGeneralStatus();
+    //    }
+//
+    //    return eval;
+    //}
 
     public void processKey(ArrayList<String> input, Long currentNanoTime)
     {
