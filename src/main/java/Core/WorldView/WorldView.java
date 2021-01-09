@@ -374,9 +374,9 @@ public class WorldView
     private void updateAccordingToTime()
     {
         DateTime time = GameVariables.gameDateTime();
-        //TODO update Level
+        //update Level
         if (shadowColor == COLOR_EMERGENCY_LIGHT) {
-
+            //No energy
         }
         else if (Time.isWithin(DAY_LIGHT_ON_TIME, DAY_LIGHT_OFF_TIME, time.getTime())) {
             setShadowColor(null);
