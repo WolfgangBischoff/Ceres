@@ -6,13 +6,17 @@
 
 - Features
     - Level changes with time
-        disable time for level
         While Map load set global actors according to time, date, variables defined in actor file
         Set Actor script according to time
+    - Add set item mechanic
+            1) sprite an Pos adden via Key
+            2) Sprite von Menu und maus adden
+            3) Zeit & Resourcenkosten
+            4) Position check
+            5) Different Sprites
     - Cooperation value just increases two time a day
     - "Rumors"/Random dialogue
-    - add attentionmark over sprites
-    - change night dynamically
+    - Create Questlog
     - check higher resolution and zoom, fix not centered overlay
     - Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
     - Inventory
@@ -22,12 +26,6 @@
            - buy menu: desc, buy bttn
            - add item in box
     - Game Over if health == 0
-- Add set item mechanic
-        1) sprite an Pos adden via Key
-        2) Sprite von Menu und maus adden
-        3) Zeit & Resourcenkosten
-        4) Position check
-        5) Different Sprites
 - Grow Plant for life support
      - Aus Kaim wird Pflanze gesetzt, Erde rar
      - Pflanze wächst jeden Tag, erntbar, stirbt, vermehrt sich
@@ -36,28 +34,32 @@
 
 - Content
     - Main Quest
-        disable lift
-        sprites for reactor
-        finish quest via trader, kay, technican dialogue.
+        disable lift while no energy
+        disable bed, should be dependent on quest status
+        remove one security guy capsule => technician changes room => more space for quest
+        stranger appears when sleeping
+        check logs
+        talk again with sister and stranger
+        go to capsule
+    - General
+        Storage on Control Deck instead of antenna (more room for rescue pod)
 
 
 - change __xx__ to ______; latter should be overwritable for passive layer => default is nothing.
 - add Logger.log(debug, CLASSNAME, methodName, msg)
 
-- Sprites
-    space suit sprite west/east
 
 ------------------------------------------
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
     rescue pods
-    ladder from control to rescue pods
-    freight: cryoc
-    crew deck (security, rescue pods, storage, maybe arrianne reference)
+    security guy
+    storage
+    maybe arrianne reference poster
     moving asteroid as actor
-- Docking Bay:
-    Elevator, minimal table
+    rename sleep capsules
+    change reactor
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels, floor cabel
 - Hammer and Sickle modern, Säulen, Tank
 
@@ -89,7 +91,6 @@ Goals and Quest:
           Find Human Embryos frozen
           Give him for money
 Mechanics:
-    - Tag/Nacht Rythmus mit Dunklem Overlay, Lights on at some time.
     - Daily needs:
         Sleep -> based on time like in StardewVallay,
             board time and ceres time are different, ceres night/day changes world
@@ -140,7 +141,7 @@ Mechanics:
 
 QUEST 1:
 
-Staff: 2 technicians, doctor, traveller, tenderer, 2 guards, blind passenger
+Staff: 2 technicians, doctor, traveller, tenderer, guard, blind passenger
 In the morning after toilet you technician collegue tells you to go to you sister the medic. He also hates Mondays
 Sister: Mum and Dad sent the usual weird words, talk about low rente but we should stay cool. I am running out of money, didnt expected that the biosystem works that well. Goto trader
 Trader: Repair Air System, then go to bed. (maybe side quest)
@@ -156,16 +157,18 @@ Meteorit Night:
         => Tells you about family.
         => I have to tell the trader
         => He already knows, just check the freight log yourself
-        after Confirmation:
-        => Escape with shuttle with help of my code
-        => You have to come with us, they will imprison you (refer to answer to sister)
-        => Prepare Shuttle we will wait here & You can stick a message to you sisters capsule (decision what to write)
-        Level end at shuttle
-    Meeting with sister and stranger. (Sister: let them fly but dont come with them D:)
-    Sister changes bio signature to be invisible: Look for me, I will wait!
-    Go into rescue pods and fly to ceres
-Arrival at Ceres Freight bay:
-    "Good morning and welcome on Ceres"
+    after Confirmation confused sister is also in crew room:
+        => Tell her that the story is true
+        => Idea: Escape with shuttle with help of my code
+        => Stranger: You have to come with us, they will imprison you (refer to answer to sister)
+        => Sister: Not happy about this idea, but will change DNA signature, so you are not registered (new name on Ceres to choose??)
+        => Prepare Shuttle
+    Level end at shuttle
+        => Sister: Look for me, I will wait!
+Arrival at minor Ceres Freight bay:
+        => Talk with stanger family: Thank god we are safe, hurry up, we have to leave this place before they realize what happened
+        => check loot and leave bay (maybe split up?)
+        => workers bay survival begins
 
 
 QUEST 2:
