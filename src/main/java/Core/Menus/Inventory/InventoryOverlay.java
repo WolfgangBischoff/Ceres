@@ -119,7 +119,7 @@ public class InventoryOverlay
         int dateLength = 200;
         gc.setFill(font);
         gc.fillText("Inventory of " + actor.getActorInGameName(), initialOffsetX, offsetYFirstLine);
-        gc.fillText("Day: " + GameVariables.getDay(), WIDTH - dateLength, offsetYFirstLine);
+        gc.fillText(GameVariables.gameDateTime().toString(), WIDTH - dateLength, offsetYFirstLine);
 
         //Decoration
         gc.drawImage(cornerTopLeft, 0, 0);

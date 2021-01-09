@@ -120,12 +120,12 @@ public class WorldView
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gc = worldCanvas.getGraphicsContext2D();
         gc.setFont(FONT_ESTROG_30_DEFAULT);
+        GameVariables.init();
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
         loadStage(levelName, "default");
         inventoryController = new InventoryController();
         textbox = new Textbox();
         WorldViewController.setWorldViewStatus(WORLD);
-        GameVariables.init();
         boardTimeOverlay = new ClockOverlay(new BarStatusConfig("interface/bars/clock.png", null, null,
                 BOARD_TIME_WIDTH, BOARD_TIME_HEIGHT, 0, null, BOARD_TIME_POSITION), GameVariables.getClock());
     }
@@ -136,7 +136,7 @@ public class WorldView
         activeSpritesLayer.remove(player);
         middleLayer.remove(player); //Player Layer
         GameVariables.setPlayer(player);
-        GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.getDay(), borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, topLayer, shadowColor, spawnPointsMap));
+        GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.gameDateTime().getDays(), borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, topLayer, shadowColor, spawnPointsMap));
     }
 
     public void loadStage(String levelName, String spawnId)
@@ -147,7 +147,7 @@ public class WorldView
         this.levelName = levelName;
         //check if level was already loaded today
         LevelState levelState = GameVariables.getLevelData().get(this.levelName);
-        if (levelState != null && levelState.getDay() == GameVariables.getDay())//Level was loaded on same day
+        if (levelState != null && levelState.getDay() == GameVariables.gameDateTime().getDays())//Level was loaded on same day
             loadFromLevelDailyState(levelState, spawnId);
         else if (levelState != null)//Level was already loaded on another day
         {

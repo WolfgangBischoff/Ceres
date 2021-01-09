@@ -1,20 +1,21 @@
 package Core;
 
 import Core.Configs.Config;
+import Core.GameTime.GameDateTime;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 
-import java.text.DecimalFormat;
+import static Core.Configs.Config.DAY_STARTTIME;
+import static Core.Configs.Config.LENGTH_GAME_MINUTE_SECONDS;
 
-import static Core.Configs.Config.DAY_FORCED_ENDTIME;
 
 public class Clock
 {
     private static String CLASSNAME = "Clock/";
-    IntegerProperty time = new SimpleIntegerProperty(Config.DAY_STARTTIME);
-
+    private static final int MINUTES_PER_DAY = 60 * 24;
+    LongProperty timeTicks = new SimpleLongProperty(Config.DAY_STARTTIME);
     Long lastTimeIncremented;
 
     public Clock(Long initRealTime)
@@ -26,61 +27,37 @@ public class Clock
     {
         String methodName = "tryIncrementTime() ";
         double elapsedTimeSinceLastIncrement = (currentNanoTime - lastTimeIncremented) / 1000000000.0;
-        if (elapsedTimeSinceLastIncrement > 1 && WorldViewController.getWorldViewStatus() == WorldViewStatus.WORLD)
-        {
-            time.set(time.getValue() + 1);
+        if (elapsedTimeSinceLastIncrement > LENGTH_GAME_MINUTE_SECONDS && WorldViewController.getWorldViewStatus() == WorldViewStatus.WORLD) {
+            timeTicks.set(timeTicks.getValue() + 1);
             lastTimeIncremented = currentNanoTime;
-            //System.out.println(CLASSNAME + methodName +  time + " " + getFormattedTime());
-        }
-
-        if(time.getValue() > DAY_FORCED_ENDTIME)
-        {
-            System.out.println(CLASSNAME + methodName + "Player falls asleep");
-            time.set(DAY_FORCED_ENDTIME);
         }
     }
 
-    public void reset()
+    public void skipToNextDay()
     {
-        time.setValue(Config.DAY_STARTTIME);
+        long pastTicksCurrentDay = timeTicks.getValue() % MINUTES_PER_DAY;
+        long ticksToNextDayStartTime = MINUTES_PER_DAY - pastTicksCurrentDay + DAY_STARTTIME;
+        timeTicks.setValue(timeTicks.getValue() + ticksToNextDayStartTime);
     }
 
-    public GameTime getFormattedTime()
+    public GameDateTime getCurrentGameTime()
     {
-        int tick = time.getValue();
-        int hours = tick / 60;
-        tick -= hours * 60;
-        int fiveMinutes = tick / 5;
-        return new GameTime(fiveMinutes, hours);
+        long ticks = timeTicks.getValue();
+        long days = ticks / MINUTES_PER_DAY;
+        ticks = ticks - (days * MINUTES_PER_DAY);
+        long hours = ticks / 60;
+        ticks -= hours * 60;
+        long minutes = ticks;
+        return new GameDateTime(days, hours, minutes);
     }
 
-    static class GameTime{
-        int minutes;
-        Integer hour;
-
-        public GameTime(int minutes, int hour)
-        {
-            this.minutes = minutes * 5;
-            this.hour = hour;
-        }
-
-        @Override
-        public String toString()
-        {
-            DecimalFormat formatter = new DecimalFormat("00");
-            String hourFormatted = formatter.format(hour);
-            String minutesFormatted = formatter.format(minutes);
-            return hourFormatted + ":" + minutesFormatted;
-        }
+    public long getTimeTicks()
+    {
+        return timeTicks.get();
     }
 
-    public int getTime()
+    public LongProperty timeTicksProperty()
     {
-        return time.get();
-    }
-
-    public IntegerProperty timeProperty()
-    {
-        return time;
+        return timeTicks;
     }
 }

@@ -5,9 +5,10 @@
 
 
 - Features
-    - Cleaning Bot Moving definition in file
-        1) While Map load set actors according to time, date, variables, change daylight according to time
-        3) Set Actor script according to time
+    - Level changes with time
+        change daylight according to time
+        While Map load set actors according to time, date, variables,
+        Set Actor script according to time
     - Cooperation value just increases two time a day
     - "Rumors"/Random dialogue
     - add attentionmark over sprites

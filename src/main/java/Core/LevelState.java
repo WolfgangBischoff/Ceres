@@ -12,7 +12,7 @@ public class LevelState
     final private static String CLASSNAME = "LevelState ";
 
     String levelName;
-    int day;
+    long day;
     private Rectangle2D borders;
     private List<Sprite> activeSpritesLayer;
     private List<Sprite> passiveSpritesLayer;
@@ -22,7 +22,7 @@ public class LevelState
     private Color shadowColor;
     private Map<String, WorldLoader.SpawnData> spawnPointsMap;
 
-    public LevelState(String levelName, int day, Rectangle2D borders, List<Sprite> activeSpritesLayer, List<Sprite> passiveSpritesLayer, List<Sprite> bottomLayer, List<Sprite> middleLayer, List<Sprite> topLayer, Color shadowColor, Map<String, WorldLoader.SpawnData> spawnPointsMap)
+    public LevelState(String levelName, long day, Rectangle2D borders, List<Sprite> activeSpritesLayer, List<Sprite> passiveSpritesLayer, List<Sprite> bottomLayer, List<Sprite> middleLayer, List<Sprite> topLayer, Color shadowColor, Map<String, WorldLoader.SpawnData> spawnPointsMap)
     {
         this.levelName = levelName;
         this.day = day;
@@ -52,7 +52,7 @@ public class LevelState
         return levelName;
     }
 
-    public int getDay()
+    public long getDay()
     {
         return day;
     }

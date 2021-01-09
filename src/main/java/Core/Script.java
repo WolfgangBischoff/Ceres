@@ -37,14 +37,13 @@ public class Script
     {
         type = ScriptType.of(xmlFile.getAttribute("type"));
         var routePoints = xmlFile.getElementsByTagName("point");
-        for (int i = 0; i < routePoints.getLength(); i++)
-        {
+        for (int i = 0; i < routePoints.getLength(); i++) {
             int x = Integer.parseInt(((Element) routePoints.item(i)).getAttribute("x"));
             int y = Integer.parseInt(((Element) routePoints.item(i)).getAttribute("y"));
             route.add(new Point2D(x, y));
         }
-        System.out.println(CLASSNAME + type);
-        System.out.println(CLASSNAME + route.toString());
+        //System.out.println(CLASSNAME + type);
+        //System.out.println(CLASSNAME + route.toString());
     }
 
     public void update(Actor actor)

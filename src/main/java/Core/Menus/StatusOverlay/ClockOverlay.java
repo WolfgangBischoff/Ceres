@@ -16,7 +16,7 @@ public class ClockOverlay
     private final int WIDTH;
     private final int HEIGHT;
     private final Point2D SCREENPOSITION;
-    int current;
+    long current;
     Clock clock;
     Image frameImage;
 
@@ -24,15 +24,15 @@ public class ClockOverlay
     public ClockOverlay(BarStatusConfig config, Clock clock)
     {
         this.clock = clock;
-        clock.timeProperty().addListener(new ChangeListener<Number>()
+        clock.timeTicksProperty().addListener(new ChangeListener<Number>()
         {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue)
             {
-                current = (int) newValue;
+                current = (long) newValue;
             }
         });
-        current = clock.getTime();
+        current = clock.getTimeTicks();
         this.WIDTH = config.WIDTH;
         this.HEIGHT = config.HEIGHT;
         this.SCREENPOSITION = config.SCREEN_POSITION;
@@ -43,10 +43,8 @@ public class ClockOverlay
     {
         String methodName = "render() ";
         gc.drawImage(frameImage, SCREENPOSITION.getX(), SCREENPOSITION.getY());
-
-        //Background
         gc.setGlobalAlpha(0.8);
-        String msg = "" + clock.getFormattedTime();
+        String msg = clock.getCurrentGameTime().dayTime();
         gc.setFill(COLOR_FONT);
         gc.setTextAlign(TextAlignment.CENTER);
         gc.fillText(msg, SCREENPOSITION.getX() + WIDTH / 2f, SCREENPOSITION.getY() + HEIGHT / 2f);

@@ -2,6 +2,7 @@ package Core;
 
 import Core.Configs.GenericVariablesManager;
 import Core.Enums.Knowledge;
+import Core.GameTime.GameDateTime;
 import Core.Menus.AchievmentLog.NewMessageOverlay;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -18,10 +19,9 @@ public class GameVariables
     static IntegerProperty playerMaM_duringDay = new SimpleIntegerProperty();
     static IntegerProperty playerHunger = new SimpleIntegerProperty(INIT_HUNGER);
     static private Set<Knowledge> playerKnowledge = new HashSet<>();
-    static Integer lastTimeHungerFromTime;
+    static Long lastTimeHungerFromTime;
     static Integer health = INIT_HEALTH;
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
-    static private int day = 0;
     static private Clock clock;
     static private GenericVariablesManager booleanWorldVariables = new GenericVariablesManager();
 
@@ -35,7 +35,7 @@ public class GameVariables
     public static void init()
     {
         clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
-        lastTimeHungerFromTime = clock.time.getValue();
+        lastTimeHungerFromTime = clock.timeTicks.getValue();
     }
 
     public static void setPlayer(Sprite player)
@@ -69,28 +69,21 @@ public class GameVariables
         stolenCollectibles.add(collectible);
     }
 
-    public static int getDay()
-    {
-        return day;
-    }
-
     public static void incrementDay()
     {
         String methodName = "incrementDay() ";
         playerMaM_dayStart = playerMaM_duringDay.getValue();
-        day++;
-        clock.reset();
-        System.out.println(CLASSNAME + methodName + "Day: " + day + " MaM Start: " + playerMaM_dayStart);
+        clock.skipToNextDay();
+        System.out.println(CLASSNAME + methodName + clock.getCurrentGameTime() + " MaM-Start: " + playerMaM_dayStart);
     }
 
     public static void updateHunger(Long currentNanoTime)
     {
         String methodName = "updateHunger() ";
         int intervalsForHunger = 9;// 12hours = 43 200 ticks
-        if (lastTimeHungerFromTime + intervalsForHunger < clock.time.getValue())
-        {
+        if (lastTimeHungerFromTime + intervalsForHunger < clock.timeTicks.getValue()) {
             addHunger(-1);
-            lastTimeHungerFromTime = clock.time.getValue();
+            lastTimeHungerFromTime = clock.timeTicks.getValue();
             //System.out.println(CLASSNAME + methodName + playerHunger.getValue() + " " + clock.getFormattedTime());
         }
     }
@@ -103,6 +96,11 @@ public class GameVariables
         else if (newValue < 0)
             newValue = 0;
         playerHunger.setValue(newValue);
+    }
+
+    public static GameDateTime gameDateTime()
+    {
+        return clock.getCurrentGameTime();
     }
 
     public static int getPlayerMaM_dayStart()
