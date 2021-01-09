@@ -127,7 +127,7 @@ public class Config
     public static final String ID_TAG = "id";
     public static final String ACTOR_STATUS_TAG = "spritestatus";
     public static final String SENSOR_STATUS_TAG = "sensorstatus";
-    public static final String decision_TYPE_ATTRIBUTE = "decision";
+    public static final String TEXTBOX_TYPE_DECISION = "decision";
     public static final String LINE_TAG = "line";
     public static final String NEXT_DIALOGUE_TAG = "nextDialogue";
     public static final String OPTION_TAG = "option";
@@ -139,14 +139,14 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_ITEM_ACTOR = "item_actor";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_NAME = "item_name";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_STATUS = "item_status";
-    public static final String TEXTBOX_ATTRIBUTE_DISCUSSION = "discussion";
+    public static final String TEXTBOX_TYPE_COIN_GAME = "discussion";
     public static final String TEXTBOX_ATTRIBUTE_GAME = "game";
     public static final String TEXTBOX_ATTRIBUTE_SUCCESS = "success";
     public static final String TEXTBOX_ATTRIBUTE_DEFEAT = "defeat";
-    public static final String TEXTBOX_ATTRIBUTE_LEVELCHANGE = "levelchange";
+    public static final String TEXTBOX_TYPE_LEVELCHANGE = "levelchange";
     public static final String TEXTBOX_ATTRIBUTE_LEVEL = "level";
     public static final String TEXTBOX_ATTRIBUTE_SPAWN_ID = "spawnID";
-    public static final String TEXTBOX_ATTRIBUTE_DAY_CHANGE = "dayChange";
+    public static final String TEXTBOX_TYPE_DAY_CHANGE = "dayChange";
     public static final String TEXTBOX_ATTRIBUTE_GET_MONEY = "getMoney";
     public static final String TEXTBOX_ATTRIBUTE_VALUE = "value";
     public static final String TEXTBOX_ATTRIBUTE_VISIBLE_IF = "visibleIf";

@@ -342,7 +342,7 @@ public class WorldView
                 if (input.contains(KEYBOARD_INVENTORY) || input.contains(KEYBOARD_INTERACT) || input.contains(KEYBOARD_ESCAPE))
                     toggleInventory(currentNanoTime);
                 break;
-            case DISCUSSION_GAME://No keyboard input so far
+            case COIN_GAME://No keyboard input so far
                 break;
             default:
                 System.out.println(CLASSNAME + methodName + "Undefined WorldViewStatus: " + WorldViewController.getWorldViewStatus());
@@ -471,7 +471,7 @@ public class WorldView
                     if (isMouseClicked)
                         clicked.onClick(currentNanoTime);//Wraps onInteraction
                 break;
-            case DISCUSSION_GAME:
+            case COIN_GAME:
                 coinGame.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
                 break;
             case DAY_SUMMARY:
@@ -617,7 +617,7 @@ public class WorldView
             case WORLD:
                 break;
             case TEXTBOX:
-                gc.drawImage(textbox.render(), textBoxPosition.getX(), textBoxPosition.getY());
+                textbox.render(gc);
                 break;
             case INVENTORY:
             case INVENTORY_EXCHANGE:
@@ -629,7 +629,7 @@ public class WorldView
                 WritableImage personalityScreenOverlay = personalityScreenController.getWritableImage();
                 gc.drawImage(personalityScreenOverlay, personalityScreenPosition.getX(), personalityScreenPosition.getY());
                 break;
-            case DISCUSSION_GAME:
+            case COIN_GAME:
                 coinGame.render(gc, currentNanoTime);
                 break;
             case DAY_SUMMARY:

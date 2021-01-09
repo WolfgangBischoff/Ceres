@@ -2,10 +2,6 @@ package Core.Menus.Textbox;
 
 import Core.*;
 import Core.Enums.Direction;
-import Core.Enums.Knowledge;
-import Core.Menus.AchievmentLog.NewMessageOverlay;
-import Core.Menus.CoinGame.CoinGame;
-import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.Personality.PersonalityScreenController;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
@@ -13,17 +9,13 @@ import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
@@ -35,12 +27,12 @@ import static Core.Enums.ActorTag.TURNS_DIRECTION_ONINTERACTION;
 public class Textbox
 {
     private static final String CLASSNAME = "Textbox/";
-    private static double WIDTH = TEXTBOX_WIDTH;
-    private static double HEIGHT = TEXTBOX_HEIGHT;
-    private static Point2D SCREEN_POSITION = TEXT_BOX_POSITION;
-    private static Rectangle2D SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
-    Canvas textboxCanvas = new Canvas(WIDTH, HEIGHT);
-    GraphicsContext gc = textboxCanvas.getGraphicsContext2D();
+    private static final double WIDTH = TEXTBOX_WIDTH;
+    private static final double HEIGHT = TEXTBOX_HEIGHT;
+    private static final Point2D SCREEN_POSITION = TEXT_BOX_POSITION;
+    private static final Rectangle2D SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
+    private static final int OFFSET_MARKING_RIGHT = 80;
+    private static final Font font = FONT_ESTROG_30_DEFAULT;
     Dialogue readDialogue;
     Element dialogueFileRoot;
     int messageIdx = 0;
@@ -49,20 +41,19 @@ public class Textbox
     int backgroundOffsetYTalkIcon = 50;
     int backgroundOffsetYDecorationBtm = 10;
     Color background = Color.rgb(60, 90, 85);
-    final int firstLineOffsetY = backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon + 20;
-    final int xOffsetTextLine = 40;
+    final int firstLineOffsetY = (int) SCREEN_POSITION.getY() + backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon + 20;
+    final int xOffsetTextLine = (int) SCREEN_POSITION.getX() + 40;
     String nextDialogueID = null;
     List<String> lineSplitMessage;
     Integer markedOption = 0;
     Actor actorOfDialogue;
-    Point2D mousePosRelativeToTextboxOverlay = null;
     Long lastTimeNewLetterRendered = 0L;
     int maxLettersIdxRendered = 0;
 
     //TalkIcon
     int talkIconWidth = 280;
     int talkIconHeight = 100;
-    Rectangle2D talkIcon = new Rectangle2D(WIDTH - talkIconWidth, 0, talkIconWidth, talkIconHeight);
+    Rectangle2D talkIcon = new Rectangle2D(SCREEN_POSITION.getX() + WIDTH - talkIconWidth, SCREEN_POSITION.getY(), talkIconWidth, talkIconHeight);
     boolean isInfoButtonHovered = false;
 
     Image cornerTopLeft;
@@ -74,7 +65,6 @@ public class Textbox
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         characterButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/characterMenuButtonTR.png");
-        gc.setFont(FONT_ESTROG_30_DEFAULT);
     }
 
     public void startConversation(Actor actorParam)
@@ -212,38 +202,20 @@ public class Textbox
     public void processMouse(Point2D mousePosition, boolean isMouseClicked)
     {
         String methodName = "processMouse(Point2D, boolean) ";
-        Point2D textboxPosition = WorldView.getTextBoxPosition();
-        Rectangle2D textboxPosRelativeToWorldview = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY(), WIDTH, HEIGHT);
+        isInfoButtonHovered = actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null && talkIcon.contains(mousePosition);
 
-        if (textboxPosRelativeToWorldview.contains(mousePosition))
-        {
-            mousePosRelativeToTextboxOverlay = new Point2D(mousePosition.getX() - textboxPosition.getX(), mousePosition.getY() - textboxPosition.getY());
-        }
-        else mousePosRelativeToTextboxOverlay = null;
-
-        isInfoButtonHovered = actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null && talkIcon.contains(mousePosRelativeToTextboxOverlay);
-
-        //Check if hovered on Option
-        int offsetYTmp = firstLineOffsetY;
-        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE) && GameWindow.getSingleton().isMouseMoved())
-        {
-            for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++)
-            {
-                Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY() + offsetYTmp, WIDTH, gc.getFont().getSize());
-                offsetYTmp += gc.getFont().getSize();
-                //Hovers over Option
-                if (positionOptionRelativeToWorldView.contains(mousePosition))
-                {
+        //System.out.println(CLASSNAME + methodName + mousePosition.toString());
+        if (readDialogue.type.equals(TEXTBOX_TYPE_DECISION) && GameWindow.getSingleton().isMouseMoved()) {
+            for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++) {
+                Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(xOffsetTextLine, firstLineOffsetY + (checkedLineIdx * font.getSize()), WIDTH - OFFSET_MARKING_RIGHT, font.getSize());
+                if (positionOptionRelativeToWorldView.contains(mousePosition)) {
                     if (markedOption != checkedLineIdx)
-                    {
                         markedOption = checkedLineIdx;
-                    }
                     break;
                 }
             }
             GameWindow.getSingleton().setMouseMoved(false);
         }
-        //System.out.println(CLASSNAME + methodName + SCREEN_AREA.contains(mousePosition));
         if (isMouseClicked)
         {
             if (isInfoButtonHovered)
@@ -284,8 +256,7 @@ public class Textbox
 
         maxLettersIdxRendered = 0;
 
-        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE))
-        {
+        if (readDialogue.type.equals(TEXTBOX_TYPE_DECISION)) {
             nextDialogueID = readDialogue.options.get(markedOption).nextDialogue;
             markedOption = 0;
         }
@@ -318,78 +289,56 @@ public class Textbox
 
     }
 
-    public WritableImage render() throws NullPointerException
+    public void render(GraphicsContext gc) throws NullPointerException
     {
-        String methodName = "drawTextbox() ";
-        boolean debug = false;
-        double hue = background.getHue();
-        double sat = background.getSaturation();
-        double brig = background.getBrightness();
-        Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
-        Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-        gc.clearRect(0, 0, WIDTH, HEIGHT);
-
-        //testBackground
-        if (debug)
-        {
-            gc.setFill(Color.RED);
-            gc.fillRect(0, 0, WIDTH, HEIGHT);
-        }
+        String methodName = "render() ";
+        gc.setFont(FONT_ESTROG_30_DEFAULT);
 
         //Background
         gc.setFill(background);
         gc.setGlobalAlpha(0.9);
-        gc.fillRect(backgroundOffsetX, backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetYDecorationTop - backgroundOffsetYTalkIcon - backgroundOffsetYDecorationBtm);
+        gc.fillRect(SCREEN_POSITION.getX() + backgroundOffsetX, SCREEN_POSITION.getY() + backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetYDecorationTop - backgroundOffsetYTalkIcon - backgroundOffsetYDecorationBtm);
 
+        if (markedOption != null && readDialogue.type.equals(TEXTBOX_TYPE_DECISION)) {
+            gc.setFill(COLOR_MARKING);
+            gc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * gc.getFont().getSize() + 5, WIDTH - OFFSET_MARKING_RIGHT, gc.getFont().getSize());
+        }
+
+        gc.setGlobalAlpha(1);
+        gc.drawImage(cornerTopLeft, SCREEN_POSITION.getX(), SCREEN_POSITION.getY() + backgroundOffsetYTalkIcon);
+        gc.drawImage(cornerBtmRight, SCREEN_POSITION.getX() + WIDTH - cornerBtmRight.getWidth(), SCREEN_POSITION.getY() + HEIGHT - cornerBtmRight.getHeight());
+
+        int yOffsetTextLine = firstLineOffsetY;
+        gc.setFill(COLOR_FONT);
+
+        switch (readDialogue.type) {
+            case TEXTBOX_TYPE_DECISION:
+                lineSplitMessage = readDialogue.getOptionMessages();
+                break;
+            case TEXTBOX_TYPE_COIN_GAME:
+                WorldViewController.setWorldViewStatus(WorldViewStatus.COIN_GAME);
+                lineSplitMessage = wrapText("Discussion ongoing");
+                break;
+            case TEXTBOX_TYPE_LEVELCHANGE:
+                WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
+                lineSplitMessage = wrapText("technical");
+                break;
+            case TEXTBOX_TYPE_DAY_CHANGE:
+                break;
+            default:
+                String nextMessage = readDialogue.messages.get(messageIdx);
+                lineSplitMessage = wrapText(nextMessage);
+                break;
+        }
 
         gc.setTextAlign(TextAlignment.LEFT);
         gc.setTextBaseline(VPos.TOP);
-
-        if (markedOption != null && readDialogue.type.equals(decision_TYPE_ATTRIBUTE))
-        {
-            gc.setFill(marking);
-            gc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * gc.getFont().getSize() + 5, WIDTH - 100, gc.getFont().getSize());
-        }
-
-        //Decoration of textfield
-        gc.setGlobalAlpha(1);
-        gc.drawImage(cornerTopLeft, 0, backgroundOffsetYTalkIcon);
-        gc.drawImage(cornerBtmRight, WIDTH - cornerBtmRight.getWidth(), HEIGHT - cornerBtmRight.getHeight());
-
-        int yOffsetTextLine = firstLineOffsetY;
-        gc.setFill(font);
-        //Format Text
-        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE))
-        {
-            lineSplitMessage = readDialogue.getOptionMessages();
-        }
-        else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_DISCUSSION))
-        {
-            WorldViewController.setWorldViewStatus(WorldViewStatus.DISCUSSION_GAME);
-            lineSplitMessage = wrapText("Discussion ongoing");
-        }
-        else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_LEVELCHANGE))
-        {
-            WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
-            lineSplitMessage = wrapText("technical");
-        }
-        else if (readDialogue.type.equals(TEXTBOX_ATTRIBUTE_DAY_CHANGE))
-        {
-        }
-        else
-        {
-            String nextMessage = readDialogue.messages.get(messageIdx);
-            lineSplitMessage = wrapText(nextMessage);
-        }
-
-        for (int lineIdx = 0; lineIdx < lineSplitMessage.size(); lineIdx++)
-        {
+        for (int lineIdx = 0; lineIdx < lineSplitMessage.size(); lineIdx++) {
             String line = lineSplitMessage.get(lineIdx);
             FontManager fontManager = new FontManager(line);
             line = FontManager.removeFontMarkings(line);
             double elapsedTimeSinceLastInteraction = (GameWindow.getCurrentNanoRenderTimeGameWindow() - lastTimeNewLetterRendered) / 1000000000.0;
-            if (elapsedTimeSinceLastInteraction > 0.005)
-            {
+            if (elapsedTimeSinceLastInteraction > 0.005) {
                 maxLettersIdxRendered++;
                 lastTimeNewLetterRendered = GameWindow.getCurrentNanoRenderTimeGameWindow();
             }
@@ -397,8 +346,7 @@ public class Textbox
             int lettersRendered = Math.min(maxLettersIdxRendered, line.length());
             String visibleLine = line.substring(0, lettersRendered);
 
-            for (Integer i = 0; i < visibleLine.length(); i++)
-            {
+            for (int i = 0; i < visibleLine.length(); i++) {
                 gc.setFill(fontManager.getFontAtLetter(i));
                 char c = visibleLine.charAt(i);
                 gc.fillText(String.valueOf(c),
@@ -413,10 +361,6 @@ public class Textbox
         {
             gc.drawImage(characterButton, talkIcon.getMinX(), talkIcon.getMinY());
         }
-
-        SnapshotParameters transparency = new SnapshotParameters();
-        transparency.setFill(Color.TRANSPARENT);
-        return textboxCanvas.snapshot(transparency, null);
     }
 
 
@@ -464,16 +408,5 @@ public class Textbox
         }
         wrapped.add(lineBuilder.toString());
         return wrapped;
-    }
-
-
-    public static double getTEXT_BOX_WIDTH()
-    {
-        return WIDTH;
-    }
-
-    public static double getTEXT_BOX_HEIGHT()
-    {
-        return HEIGHT;
     }
 }
