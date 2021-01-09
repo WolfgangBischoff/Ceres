@@ -1,5 +1,6 @@
 
 09 01 21    - improved textbox performance
+            - added light dependent on time
 02 01 21    - refactored Textbox -> Dialogue
             - fixed minor bugs
             - Bug: technician changes dialogue id after sprite change (turn) => dialogueId should be changed by spritechange

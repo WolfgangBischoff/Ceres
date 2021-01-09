@@ -2,7 +2,8 @@ package Core;
 
 import Core.Configs.GenericVariablesManager;
 import Core.Enums.Knowledge;
-import Core.GameTime.GameDateTime;
+import Core.GameTime.Clock;
+import Core.GameTime.DateTime;
 import Core.Menus.AchievmentLog.NewMessageOverlay;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -35,7 +36,7 @@ public class GameVariables
     public static void init()
     {
         clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
-        lastTimeHungerFromTime = clock.timeTicks.getValue();
+        lastTimeHungerFromTime = clock.getTimeTicks();
     }
 
     public static void setPlayer(Sprite player)
@@ -81,9 +82,9 @@ public class GameVariables
     {
         String methodName = "updateHunger() ";
         int intervalsForHunger = 9;// 12hours = 43 200 ticks
-        if (lastTimeHungerFromTime + intervalsForHunger < clock.timeTicks.getValue()) {
+        if (lastTimeHungerFromTime + intervalsForHunger < clock.getTimeTicks()) {
             addHunger(-1);
-            lastTimeHungerFromTime = clock.timeTicks.getValue();
+            lastTimeHungerFromTime = clock.getTimeTicks();
             //System.out.println(CLASSNAME + methodName + playerHunger.getValue() + " " + clock.getFormattedTime());
         }
     }
@@ -98,7 +99,7 @@ public class GameVariables
         playerHunger.setValue(newValue);
     }
 
-    public static GameDateTime gameDateTime()
+    public static DateTime gameDateTime()
     {
         return clock.getCurrentGameTime();
     }

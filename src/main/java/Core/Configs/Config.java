@@ -1,5 +1,6 @@
 package Core.Configs;
 
+import Core.GameTime.Time;
 import Core.Utilities;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -82,10 +83,14 @@ public class Config
     public static final float RUMBLE_GRADE = 8;
     public static final float RUMBLE_GRADE_DECREASE = 0.1f;
     public static final float RUMBLE_MAX_DURATION = 1.3f;
-    public static final int DAY_STARTTIME = 60 * 7;
-    public static final int DAY_LIGHT_ON_TIME = 60 * 8;
-    public static final int DAY_LIGHT_OFF_TIME = 60 * 22;
-    public static final int LENGTH_GAME_MINUTE_SECONDS = 1;
+    //Game Time
+    public static final Time DAY_LIGHT_ON_TIME = new Time(6, 30);
+    public static final Time DAY_LIGHT_OFF_TIME = new Time(22, 0);
+    public static final Time DAY_WAKE_UP_TIME = new Time(7, 0);
+    public static final Color COLOR_EMERGENCY_LIGHT = Color.rgb(0, 30, 30);
+    public static final Color COLOR_NIGHT_LIGHT = Color.rgb(50, 80, 80);
+    public static final float LENGTH_GAME_MINUTE_SECONDS = 1f;
+
     public static final int MAX_HUNGER = 100;
     public static final int INIT_HUNGER = 50;
     public static final int INIT_HEALTH = 5;
@@ -170,7 +175,6 @@ public class Config
     public static final String STAGE_FILE_PATH = "level/";
     public static final String IMAGE_DIRECTORY_PATH = "img/";
     public static final String COINGAME_DIRECTORY_PATH = "discussions/";
-    public static final String FONT_DIRECTORY_PATH = "font/";
 
     //Discussion-Game
     public static final String COIN_BEHAVIOR_MOVING = "moving";
@@ -201,6 +205,6 @@ public class Config
     public static final Color COLOR_VIOLET = Color.rgb(185, 165, 185);//Main Quest
     public static final String REGEX_GOLD = "%%GD";
     public static final Color COLOR_GOLD = Color.rgb(180, 155, 110);//For secrets
-    public static final Color COLOR_NIGHT = Color.rgb(0, 30, 30);
+
 
 }

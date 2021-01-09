@@ -1,6 +1,6 @@
 package Core.Menus.StatusOverlay;
 
-import Core.Clock;
+import Core.GameTime.Clock;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;

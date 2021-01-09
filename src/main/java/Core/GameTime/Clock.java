@@ -1,21 +1,18 @@
-package Core;
+package Core.GameTime;
 
-import Core.Configs.Config;
-import Core.GameTime.GameDateTime;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 
-import static Core.Configs.Config.DAY_STARTTIME;
-import static Core.Configs.Config.LENGTH_GAME_MINUTE_SECONDS;
+import static Core.Configs.Config.*;
 
 
 public class Clock
 {
     private static String CLASSNAME = "Clock/";
     private static final int MINUTES_PER_DAY = 60 * 24;
-    LongProperty timeTicks = new SimpleLongProperty(Config.DAY_STARTTIME);
+    LongProperty timeTicks = new SimpleLongProperty(DAY_WAKE_UP_TIME.ticks());
     Long lastTimeIncremented;
 
     public Clock(Long initRealTime)
@@ -36,11 +33,11 @@ public class Clock
     public void skipToNextDay()
     {
         long pastTicksCurrentDay = timeTicks.getValue() % MINUTES_PER_DAY;
-        long ticksToNextDayStartTime = MINUTES_PER_DAY - pastTicksCurrentDay + DAY_STARTTIME;
+        long ticksToNextDayStartTime = MINUTES_PER_DAY - pastTicksCurrentDay + DAY_WAKE_UP_TIME.ticks();
         timeTicks.setValue(timeTicks.getValue() + ticksToNextDayStartTime);
     }
 
-    public GameDateTime getCurrentGameTime()
+    public DateTime getCurrentGameTime()
     {
         long ticks = timeTicks.getValue();
         long days = ticks / MINUTES_PER_DAY;
@@ -48,7 +45,7 @@ public class Clock
         long hours = ticks / 60;
         ticks -= hours * 60;
         long minutes = ticks;
-        return new GameDateTime(days, hours, minutes);
+        return new DateTime(days, new Time(hours, minutes));
     }
 
     public long getTimeTicks()

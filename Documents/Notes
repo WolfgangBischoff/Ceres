@@ -6,8 +6,8 @@
 
 - Features
     - Level changes with time
-        change daylight according to time
-        While Map load set actors according to time, date, variables,
+        disable time for level
+        While Map load set global actors according to time, date, variables defined in actor file
         Set Actor script according to time
     - Cooperation value just increases two time a day
     - "Rumors"/Random dialogue
