@@ -121,6 +121,7 @@ public class WorldView
         worldCanvas = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         hudCanvas = new Canvas(CAMERA_WIDTH, CAMERA_HEIGHT);
+        hudCanvas.getGraphicsContext2D().setFont(FONT_ESTROG_30_DEFAULT);
         gc = worldCanvas.getGraphicsContext2D();
         gc.setFont(FONT_ESTROG_30_DEFAULT);
         GameVariables.init();
@@ -584,9 +585,35 @@ public class WorldView
         for (Sprite sprite : topLayer) {
             sprite.render(gc, currentNanoTime);
         }
-        //Long sortandRender = (System.nanoTime() - methodStartTime) / 1000;
-        Long sortandRenderFinished = System.nanoTime();
 
+        //Overlays
+        hudCanvas.getGraphicsContext2D().clearRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+        renderHUD(currentNanoTime);
+        switch (WorldViewController.getWorldViewStatus()) {
+
+            case WORLD:
+                break;
+            case TEXTBOX:
+                textbox.render(hudCanvas.getGraphicsContext2D());
+                break;
+            case INVENTORY:
+            case INVENTORY_EXCHANGE:
+            case INVENTORY_SHOP:
+                WritableImage inventoryOverlayMenuImage = inventoryController.getMenuImage();
+                hudCanvas.getGraphicsContext2D().drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
+                break;
+            case PERSONALITY:
+                WritableImage personalityScreenOverlay = personalityScreenController.getWritableImage();
+                hudCanvas.getGraphicsContext2D().drawImage(personalityScreenOverlay, personalityScreenPosition.getX(), personalityScreenPosition.getY());
+                break;
+            case COIN_GAME:
+                coinGame.render(hudCanvas.getGraphicsContext2D(), currentNanoTime);
+                break;
+            case DAY_SUMMARY:
+                WritableImage daySummaryImage = daySummaryScreenController.getWritableImage();
+                hudCanvas.getGraphicsContext2D().drawImage(daySummaryImage, daySummaryScreenPosition.getX(), daySummaryScreenPosition.getY());
+                break;
+        }
 
         //Debugdata
         if (Config.DEBUG_BLOCKER) {
@@ -594,50 +621,17 @@ public class WorldView
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.getBasewidth(), borders.getHeight() + player.getBaseheight());
         }
 
-        root.getChildren().clear();//root-Pane
-        root.getChildren().add(worldCanvas);//The world with all sprites
+        root.getChildren().clear();
+        root.getChildren().add(worldCanvas);
         //LightMap
-        if (shadowColor != null) {//To switch on/off night
-            renderLightEffect(currentNanoTime);//update of the positions of the light points
-            root.getChildren().add(shadowMask);//grey Canvas with some light points
-            shadowMask.setBlendMode(BlendMode.MULTIPLY);//Here is the magic merge the colors
+        if (shadowColor != null) {
+            renderLightEffect(currentNanoTime);
+            root.getChildren().add(shadowMask);
+            shadowMask.setBlendMode(BlendMode.MULTIPLY);
         }
+        root.getChildren().add(hudCanvas);
 
         gc.translate(camX, camY);
-
-        //Overlays
-        renderHUD(currentNanoTime);
-        Long HUDFinished = System.nanoTime();
-        switch (WorldViewController.getWorldViewStatus()) {
-
-            case WORLD:
-                break;
-            case TEXTBOX:
-                textbox.render(gc);
-                break;
-            case INVENTORY:
-            case INVENTORY_EXCHANGE:
-            case INVENTORY_SHOP:
-                WritableImage inventoryOverlayMenuImage = inventoryController.getMenuImage();
-                gc.drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
-                break;
-            case PERSONALITY:
-                WritableImage personalityScreenOverlay = personalityScreenController.getWritableImage();
-                gc.drawImage(personalityScreenOverlay, personalityScreenPosition.getX(), personalityScreenPosition.getY());
-                break;
-            case COIN_GAME:
-                coinGame.render(gc, currentNanoTime);
-                break;
-            case DAY_SUMMARY:
-                WritableImage daySummaryImage = daySummaryScreenController.getWritableImage();
-                gc.drawImage(daySummaryImage, daySummaryScreenPosition.getX(), daySummaryScreenPosition.getY());
-                break;
-        }
-        Long OverlaysFinished = System.nanoTime();
-        long sortRenderTime = (sortandRenderFinished - methodStartTime);
-        long HUDRenderTime = (HUDFinished - methodStartTime - sortRenderTime);
-        long overlaysTime = (OverlaysFinished - methodStartTime - HUDRenderTime);
-        //System.out.println(CLASSNAME + methodName + "Sort and Render: " + (sortRenderTime/1000) + " HUD: " + (HUDRenderTime/1000) + " Overlays: " + (overlaysTime/1000));
 
     }
 
@@ -650,26 +644,12 @@ public class WorldView
 
     private void renderHUD(Long currentNanoTime)
     {
-        long methodStartTime = System.nanoTime();
-        hungerOverlay.render(gc);
-        long hungerFinished = System.nanoTime();
-        mamOverlay.render(gc);
-        long mamAttentionFinished = System.nanoTime();
-        moneyOverlay.render(gc);
-        long moneyFinished = System.nanoTime();
-        boardTimeOverlay.render(gc);
-        long boardTimeFinished = System.nanoTime();
-
+        hungerOverlay.render(hudCanvas.getGraphicsContext2D());
+        mamOverlay.render(hudCanvas.getGraphicsContext2D());
+        moneyOverlay.render(hudCanvas.getGraphicsContext2D());
+        boardTimeOverlay.render(hudCanvas.getGraphicsContext2D());
         if (newMessageOverlay.isVisible())
-            newMessageOverlay.render(gc, currentNanoTime);
-        long newMsgOverly = System.nanoTime();
-
-        long hungerTime = hungerFinished - methodStartTime;
-        long mamTime = mamAttentionFinished - hungerFinished;
-        long moneyTime = moneyFinished - mamAttentionFinished;
-        long boardTime = boardTimeFinished - moneyFinished;
-        long msgOverlayTime = newMsgOverly - boardTimeFinished;
-        //System.out.println(CLASSNAME + " mam " + (mamTime / 1000) + " hunger " + (hungerTime / 1000) + " money " + (moneyTime / 1000) + " boardTime " + (boardTime / 1000) + " msg " + (msgOverlayTime / 1000));
+            newMessageOverlay.render(hudCanvas.getGraphicsContext2D(), currentNanoTime);
     }
 
     private void renderLightEffect(Long currentNanoTime)
@@ -688,7 +668,6 @@ public class WorldView
             shadowMaskGc.drawImage(lightImage, sprite.getPositionX() + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightImage.getWidth() / 2 - camX, sprite.getPositionY() + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightImage.getHeight() / 2 - camY);
         }
     }
-
 
     public Actor getSpriteByName(String id)
     {
