@@ -182,7 +182,6 @@ public class WorldView
     private void loadLevelFromPersistentState(LevelState levelState, String spawnId)
     {
         String methodName = "loadLevelFromPersistentState() ";
-        boolean debug = true;
         WorldLoader worldLoader = new WorldLoader();
         worldLoader.load(levelName, spawnId);
         List<Sprite> tmp_passiveSpritesLayer = worldLoader.getPassivLayer();
@@ -191,7 +190,7 @@ public class WorldView
         List<Sprite> tmp_middleLayer = worldLoader.getMediumLayer();
         List<Sprite> tmp_topLayer = worldLoader.getUpperLayer();
 
-        //filter persistent actors, just not persistent should remain or actorless sprites
+        //remove persistent actors, just not persistent should remain or actorless sprites
         tmp_activeSpritesLayer = tmp_activeSpritesLayer.stream()
                 .filter(sprite ->
                         sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))

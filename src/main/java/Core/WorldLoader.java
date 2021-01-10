@@ -45,10 +45,6 @@ public class WorldLoader
 
     public WorldLoader()
     {
-        //maxVerticalTile = 0;
-        //currentVerticalTile = 0;
-        //currentHorizontalTile = 0;
-        //maxHorizontalTile = 0;
         if (keywords.isEmpty()) {
             keywords.add(KEYWORD_NEW_LAYER);
             keywords.add(KEYWORD_ACTORS);
@@ -163,7 +159,6 @@ public class WorldLoader
         List<String> actorIds = Arrays.asList(linedata).subList(1, linedata.length);
         globalActorsMap.putAll(GlobalActorsManager.getGlobalActors(actorIds));
         loadedTileIdsSet.addAll(actorIds.stream().map(string -> string.split(",")[0]).collect(Collectors.toList()));//remove additional status data. eg: medic_,windo
-        //System.out.println(CLASSNAME + methodName+  globalActorsMap);
     }
 
     private void readPosition(String[] lineData)
