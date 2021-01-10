@@ -19,7 +19,6 @@ import Core.Menus.StatusOverlay.VariableStatusOverlay;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
@@ -43,7 +42,8 @@ public class WorldView
     Canvas worldCanvas;
     GraphicsContext gc;
     Canvas shadowMask;
-    GraphicsContext ShadowMaskGc;
+    GraphicsContext shadowMaskGc;
+    Canvas hudCanvas;
     Map<String, Image> lightsImageMap = new HashMap<>();
     Color shadowColor;
 
@@ -120,10 +120,11 @@ public class WorldView
         root = stackPane;
         worldCanvas = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
+        hudCanvas = new Canvas(CAMERA_WIDTH, CAMERA_HEIGHT);
         gc = worldCanvas.getGraphicsContext2D();
         gc.setFont(FONT_ESTROG_30_DEFAULT);
         GameVariables.init();
-        ShadowMaskGc = shadowMask.getGraphicsContext2D();
+        shadowMaskGc = shadowMask.getGraphicsContext2D();
         loadStage(levelName, "default");
         inventoryController = new InventoryController();
         textbox = new Textbox();
@@ -586,10 +587,6 @@ public class WorldView
         //Long sortandRender = (System.nanoTime() - methodStartTime) / 1000;
         Long sortandRenderFinished = System.nanoTime();
 
-        //LightMap
-        if (shadowColor != null) {
-            renderLightEffect(currentNanoTime);
-        }
 
         //Debugdata
         if (Config.DEBUG_BLOCKER) {
@@ -597,10 +594,16 @@ public class WorldView
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.getBasewidth(), borders.getHeight() + player.getBaseheight());
         }
 
-        root.getChildren().clear();
-        root.getChildren().add(worldCanvas);
-        gc.translate(camX, camY);
+        root.getChildren().clear();//root-Pane
+        root.getChildren().add(worldCanvas);//The world with all sprites
+        //LightMap
+        if (shadowColor != null) {//To switch on/off night
+            renderLightEffect(currentNanoTime);//update of the positions of the light points
+            root.getChildren().add(shadowMask);//grey Canvas with some light points
+            shadowMask.setBlendMode(BlendMode.MULTIPLY);//Here is the magic merge the colors
+        }
 
+        gc.translate(camX, camY);
 
         //Overlays
         renderHUD(currentNanoTime);
@@ -671,8 +674,8 @@ public class WorldView
 
     private void renderLightEffect(Long currentNanoTime)
     {
-        ShadowMaskGc.setFill(shadowColor);
-        ShadowMaskGc.fillRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+        shadowMaskGc.setFill(shadowColor);
+        shadowMaskGc.fillRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
         for (Sprite sprite : passiveCollisionRelevantSpritesLayer) {
             if (sprite.getLightningSpriteName().equalsIgnoreCase("none"))
                 continue;
@@ -682,16 +685,10 @@ public class WorldView
                 lightsImageMap.put(lightSpriteName, Utilities.readImage(IMAGE_DIRECTORY_PATH + "lightglows/" + lightSpriteName + ".png"));
             }
             Image lightImage = lightsImageMap.get(lightSpriteName);
-            ShadowMaskGc.drawImage(lightImage, sprite.getPositionX() + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightImage.getWidth() / 2 - camX, sprite.getPositionY() + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightImage.getHeight() / 2 - camY);
+            shadowMaskGc.drawImage(lightImage, sprite.getPositionX() + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightImage.getWidth() / 2 - camX, sprite.getPositionY() + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightImage.getHeight() / 2 - camY);
         }
-
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-        WritableImage image = shadowMask.snapshot(params, null);
-        gc.setGlobalBlendMode(BlendMode.MULTIPLY);
-        worldCanvas.getGraphicsContext2D().drawImage(image, camX, camY);
-        gc.setGlobalBlendMode(BlendMode.SRC_OVER);
     }
+
 
     public Actor getSpriteByName(String id)
     {
@@ -797,7 +794,7 @@ public class WorldView
 
     public GraphicsContext getShadowMaskGc()
     {
-        return ShadowMaskGc;
+        return shadowMaskGc;
     }
 
     public Map<String, Image> getLightsImageMap()
