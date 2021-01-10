@@ -70,6 +70,23 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Smelly and sometimes disgusting... ..the most Earth-like place on the ship.</line>
     </dialogue>
 
+    <dialogue id="tools_floor" type="normal">
+        <line>The maintenance shaft is opened, seems there is something to repair.</line>
+    </dialogue>
+
+    <dialogue id="crate_1" type="normal">
+        <line>Some goods from earth, no clue whats in there..</line>
+    </dialogue>
+    <dialogue id="crate_2" type="normal">
+        <line>Guess there is some larger machinery in there that can´t be assembled on Ceres.</line>
+    </dialogue>
+    <dialogue id="crate_3" type="normal">
+        <line>The cartons are from "Youth-Living" and have a strange scent, I wonder whats in there.</line>
+    </dialogue>
+    <dialogue id="flat_box_1" type="normal">
+        <line>These standard containers are used for supplies from earth, but there also reused on Ceres.</line>
+    </dialogue>
+
 </root>
 
 

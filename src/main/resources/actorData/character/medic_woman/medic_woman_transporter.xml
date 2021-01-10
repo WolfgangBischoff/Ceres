@@ -1,39 +1,12 @@
 
 
-
-<!--/>
-File Identified by Actor Definition
-First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
-
-id - identifier for lookup of textbox
-type - normal/decision
-spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
-
-    <dialogue id="welcome" type="normal" spritestatus="transition">
-        <line>Shown message</line>
-        <line>Shown message 2</line>
-        <nextDialogue>nextDialogueID</nextDialogue>
-    </dialogue>
-
-    <dialogue id="info" type="decision" spritestatus="transition">
-        <option>
-            <line>Optiontext1</line>
-            <nextDialogue>option1ID</nextDialogue>
-        </option>
-
-        <option>
-            <line>Optiontext1, Nothing happens</line>
-        </option>
-    </dialogue>
-<-->
-
 <root name="medic">
 
     <dialogue id="intro" type = "normal" variablename="TRANSPORTER_AIR_SYSTEM_QUEST_TALKED_TO_SISTER" set="true" dialogueId="GOTO_TRADER">
         <line>Good morning sleepyhead! Well, hopefully you won't oversleep our arrival on %%GDCeres%% ;-)</line>
         <line>Mum and dad sent me a message. %%RDDad lost his job%% again so they had to stop their visits to the theater.</line>
         <line>At least now he doesn't have to lift as hard as in that shitty job. But they have to be even more economical than usual now, but we shouldn't worry.</line>
-        <line>Anyway, you have to %%GDgo to the trader%%, we need some money too.</line>
+        <line>Anyway, you have to %%GDgo to the trader%%, I think he has something to do for you.</line>
     </dialogue>
 
     <dialogue id="GOTO_TRADER" type = "normal" >
@@ -74,7 +47,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     <dialogue id="BUMP" type="normal" bump=""  nextDialogue="METEOR_GOTO_TRADER" dialogueId="METEORIT" worldlight="night">
         <line>%%RDSomething hit the ship!%%</line>
         <spritechange sprite_id="tender" dialogueId="METEORIT"/>
-        <spritechange sprite_id="contro" status="impact"/>
+        <spritechange sprite_id="contro" status="impact" dialogueId="impacted"/>
         <spritechange sprite_id="reacto" dialogueId="off"/>
     </dialogue>
 

@@ -2,7 +2,17 @@
 ----- Backlog ----------------------------
 ------------------------------------------
 - Bug
-
+    Red Keycard spawn again on next day, should be persistent
+-Test
+    Unklar was Maschine Room ist, Text anbringen; was AirHub ist
+    Bugs: Interaktion mit InfoTerminal, Kaffeemaschine, Zustandsterminal
+    Reinigt sofort filter, sollte erst nach Questbeginn möglich sein
+    Dialogue: Frage nach Airsystem status; Never mind unklar; Tipp Luca falsch; "Change to overall" unklar
+    CoinGame: Zu wenig Zeit und Erklärung was zu tun ist
+    Performance schlecht nach mehreren Coingames
+    Textbox sollte weiter nachen egal wo man hinklickt
+    Hinweis "look at the screen" nicht eindeutig, Kapsel nicht zu finden.
+    In der Kapsel brennt licht, sollte dunkel sein
 
 - Features
     - Level changes with time

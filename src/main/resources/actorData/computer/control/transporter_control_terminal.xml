@@ -1,0 +1,21 @@
+<!--/>
+"   &quot;
+'   &apos;
+<   &lt;
+>   &gt;
+&   &amp;
+<-->
+
+<root name="transporter central control terminal">
+
+    <dialogue id="centralControl" type="normal">
+        <line>This is the central control terminal. I wonder if the tenderer uses it or if its remote controlled.</line>
+    </dialogue>
+
+    <dialogue id="impacted" type="normal">
+        <line>Seems the %%VTfirst freight capsule on the left side%% is damaged.</line>
+    </dialogue>
+
+</root>
+
+

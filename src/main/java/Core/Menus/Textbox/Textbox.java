@@ -273,7 +273,7 @@ public class Textbox
         else //End Textbox
         {
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
-            if (actorOfDialogue.tags.contains(TURNS_DIRECTION_ONINTERACTION)) {
+            if (actorOfDialogue != null && actorOfDialogue.tags.contains(TURNS_DIRECTION_ONINTERACTION)) {
                 actorOfDialogue.setDirection(Direction.of(actorOfDialogue.getNumeric_generic_attributes().get("previousDirection").intValue()));
                 actorOfDialogue.getNumeric_generic_attributes().remove("previousDirection");
             }

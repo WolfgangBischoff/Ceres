@@ -101,6 +101,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/resources/actorData/robot/cleaningBot/cleaningBot.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/resources/level/crewdeck/crewdeck.csv">
           <value>
             <Attribute>

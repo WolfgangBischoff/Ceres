@@ -1,0 +1,9 @@
+<root name="cleaning bot">
+
+    <dialogue id="working" type="normal">
+        <line>This little guy is working all day to keep things clean.</line>
+    </dialogue>
+
+</root>
+
+

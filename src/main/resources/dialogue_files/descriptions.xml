@@ -44,10 +44,6 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Lorem Ipsum default</line>
     </dialogue>
 
-    <dialogue id="centralControl" type="normal">
-        <line>This is the central control terminal. I wonder if the tenderer uses it or if its remote controlled.</line>
-    </dialogue>
-
     <dialogue id="coffeVendor" type="normal">
         <line>Looks like the brew coffee beans from earth. Hard to imagine.</line>
     </dialogue>

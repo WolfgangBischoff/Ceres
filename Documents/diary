@@ -2,10 +2,9 @@
 10 01 21    - Test with Alex:
                 Erkundet Welt sehr genau, alles einsammeln und im Inventar nutzen
                 Kothaufen lustig, ggf mehr Humor/Background
-                Wundert sich dass Frau doch kein Geld will, ggf klar machen
                 Unklar was Maschine Room ist, Text anbringen; was AirHub ist
-                Fehlende Interaktionen: Werkzeug am Boden, Putzbot, Kapselinhalte, Werbung, Control Terminal
-                Kapseln leer
+                Mehr Interaktionstexte, Missverständlichkeiten hinzugefügt
+                Kapseln leer => filled
                 Bugs: Interaktion mit InfoTerminal, Kaffeemaschine, Zustandsterminal
                 Reinigt sofort filter, sollte erst nach Questbeginn möglich sein
                 Dialogue: Frage nach Airsystem status; Never mind unklar; Tipp Luca falsch; "Change to overall" unklar
