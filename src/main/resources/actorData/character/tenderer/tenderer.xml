@@ -1,53 +1,69 @@
-
-
-
-
 <root name="tenderer">
-    <dialogue id="day0" type="boolean" variablename="TRANSPORTER_AIR_SYSTEM_QUEST_TALKED_TO_SISTER" true="GET_AIR_SYSTEM_QUEST"
+    <dialogue id="day0" type="boolean" variablename="TRANSPORTER_AIR_SYSTEM_QUEST_TALKED_TO_SISTER"
+              true="GET_AIR_SYSTEM_QUEST"
               false="GOTO_SISTER"/>
 
     <dialogue id="GOTO_SISTER" type="normal">
-       <line>Your %%VTsister%% wants to talk to you, go to her first!</line>
+        <line>Your %%VTsister%% wants to talk to you, go to her first!</line>
     </dialogue>
 
     <dialogue id="GET_AIR_SYSTEM_QUEST" type="decision">
-        <option nextDialogue="COIN_GAME_EXPLANATION" variablename="transporter_air_system_quest_started" visibleIf="true">&gt;How should I fix the air system?&lt;</option>
+        <option nextDialogue="COIN_GAME_EXPLANATION" variablename="transporter_air_system_quest_started"
+                visibleIf="true">&gt;How should I fix the air system?&lt;
+        </option>
         <option nextDialogue="air_system_check"
                 type="boolean" variablename="transporter_air_system_quest_started" visibleIf="true">&gt;Whats the
             %%VTair system status%% now?&lt;
         </option>
         <option nextDialogue="QUEST_AIR_SYSTEM_DESC"
-                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="false">&gt;Do you have work to do?&lt;</option>
+                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="false">&gt;Do you have
+            work to do?&lt;
+        </option>
         <option nextDialogue="GOTO_BED"
-                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="done">&gt;Do you have more work?&lt;</option>
+                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="done">&gt;Do you have more
+            work?&lt;
+        </option>
         <option>[Leave]</option>
     </dialogue>
 
     <dialogue id="GOTO_BED" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
         <line>No, there is nothing to do at the moment, but you can look around if you find something to do.</line>
-        <line>You can go to your %%VTprivate capsule%% to rest. Remember, a well recovered worker is a good worker!</line>
+        <line>You can go to your %%VTprivate capsule%% to rest. Remember, a well recovered worker is a good worker!
+        </line>
     </dialogue>
 
     <dialogue id="COIN_GAME_EXPLANATION" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
         <line>Find the air system console on the %%VTcrew deck%% and get it online.</line>
-        <line>Once you found the console, check out %%GRINFO on the upper right side%% to learn about the characteristics of the machine.</line>
+        <line>Once you found the console, check out %%GRINFO on the upper right side%% to learn about the
+            characteristics of the machine.
+        </line>
         <line>Then start the boot protocols and %%GRclick on the coins%%, which fit to the system.</line>
         <line>You can learn more characteristics by practice or if you %%GRask the technician%%.</line>
     </dialogue>
-    
-    <dialogue id="QUEST_AIR_SYSTEM_DESC" type="normal" variablename="transporter_air_system_quest_started" set="true" nextDialogue="OPEN_LIFE_SUPPORT">
-        <line>The oxygen level decreases due to a malfunction of the %%RDventilation system%%. Do something useful and fix it.</line>
+
+    <dialogue id="QUEST_AIR_SYSTEM_DESC" type="normal" variablename="transporter_air_system_quest_started" set="true"
+              nextDialogue="OPEN_LIFE_SUPPORT">
+        <line>The oxygen level decreases due to a malfunction of the %%RDventilation system%%. Do something useful and
+            fix it.
+        </line>
     </dialogue>
-    <dialogue id="OPEN_LIFE_SUPPORT" type="normal" variablename="IS_LIFE_SUPP_OPEN" set="true" nextDialogue="GET_AIR_SYSTEM_QUEST">
-        <line>I will grant you %%GRaccess%% to the %%GRlife support%% system chamber on the crew deck. Don`t blew it up.</line>
+    <dialogue id="OPEN_LIFE_SUPPORT" type="normal" variablename="IS_LIFE_SUPP_OPEN" set="true"
+              nextDialogue="GET_AIR_SYSTEM_QUEST">
+        <line>I will grant you %%GRaccess%% to the %%GRlife support%% system chamber on the crew deck. Don`t blew it
+            up.
+        </line>
     </dialogue>
-    
-    <dialogue id="air_system_check" type="boolean" variablename="isTransporterAirSystemOn" true="air_system_on" false="air_system_off"/>
-    <dialogue id="air_system_on" type="getMoney" value="40" variablename="transporter_air_system_quest_started" set="done" nextDialogue="GET_AIR_SYSTEM_QUEST">
+
+    <dialogue id="air_system_check" type="boolean" variablename="isTransporterAirSystemOn" true="air_system_on"
+              false="air_system_off"/>
+    <dialogue id="air_system_on" type="getMoney" value="40" variablename="transporter_air_system_quest_started"
+              set="done" nextDialogue="GET_AIR_SYSTEM_QUEST">
         <line>You fixed the air system! Here is you %%GRmoney%%!</line>
     </dialogue>
     <dialogue id="air_system_off" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
-        <line>The air system is %%RDstill down%% ... did you already check the %%VTair control console%% on the crew deck?</line>
+        <line>The air system is %%RDstill down%% ... did you already check the %%VTair control console%% on the crew
+            deck?
+        </line>
         <line>For me it looks like that some of the %%VTvents%% are blocked, you should check them too.</line>
         <line>You can %%GRask Luca%% for help with the air hub, he is on the crewdeck.</line>
     </dialogue>
@@ -65,17 +81,24 @@
     </dialogue>
 
     <dialogue id="AFTER_METROIT_DECISIONS" type="decision">
-        <option nextDialogue="METEORIT_AGAIN" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED" visibleIf="false">&gt;What happened?&lt;</option>
-        <option nextDialogue="RESTORE_POWER" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED" visibleIf="true">&gt;How should I restore power?&lt;</option>
-        <option nextDialogue="RESTORE_POWER_REWARD_1" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED" visibleIf="restored">&gt;I restored the power&lt;</option>
+        <option nextDialogue="METEORIT_AGAIN" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED" visibleIf="false">
+            &gt;What happened?&lt;
+        </option>
+        <option nextDialogue="RESTORE_POWER" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED" visibleIf="true">
+            &gt;How should I restore power?&lt;
+        </option>
+        <option nextDialogue="RESTORE_POWER_REWARD_1" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED"
+                visibleIf="restored">&gt;I restored the power&lt;
+        </option>
         <option>[Leave]</option>
     </dialogue>
 
     <dialogue id="RESTORE_POWER" type="normal" nextDialogue="AFTER_METROIT_DECISIONS">
         <line>Go to the %%VTreactor in the machine room%% there you can restore the main power.</line>
-    </dialogue>   
-    
-    <dialogue id="RESTORE_POWER_REWARD_1" type="normal" nextDialogue="RESTORE_POWER_REWARD_2" variablename="METEROIT_DAMAGE_ANALYZED" set="done">
+    </dialogue>
+
+    <dialogue id="RESTORE_POWER_REWARD_1" type="normal" nextDialogue="RESTORE_POWER_REWARD_2"
+              variablename="METEROIT_DAMAGE_ANALYZED" set="done">
         <line>Indeed. Now we can continue our journey on time.</line>
     </dialogue>
     <dialogue id="RESTORE_POWER_REWARD_2" nextDialogue="AFTER_METROIT_DECISIONS" type="getMoney" value="70">

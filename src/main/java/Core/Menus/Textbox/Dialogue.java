@@ -27,7 +27,7 @@ public class Dialogue
     String nextDialogue;
     private String spriteStatus;
     private String sensorStatus;
-    private Actor actorOfDialogue;
+    private final Actor actorOfDialogue;
     List<String> messages = new ArrayList<>();
     List<Option> options = new ArrayList<>();
 
@@ -62,12 +62,10 @@ public class Dialogue
                 break;
             case TEXTBOX_ATTRIBUTE_VALUE_BOOLEAN:
                 break;
-
-
             default:
                 for (int messageIdx = 0; messageIdx < xmlLines.getLength(); messageIdx++) //add lines
                 {
-                    String message = xmlLines.item(messageIdx).getTextContent();
+                    String message = xmlLines.item(messageIdx).getTextContent().replace("\n", "").replaceAll("\\s{2,}", " ");
                     messages.add(message);//Without formatting the message
                 }
                 if (type.equals(TEXTBOX_ATTRIBUTE_GET_MONEY)) {
@@ -128,7 +126,7 @@ public class Dialogue
                     Element optionNodeElement = (Element) optionNode;
                     if (optionNodeElement.hasAttribute(NEXT_DIALOGUE_TAG))
                         nextDialogue = optionNodeElement.getAttribute(NEXT_DIALOGUE_TAG);
-                    optionText = optionNode.getTextContent();
+                    optionText = optionNode.getTextContent().replace("\n", "").replaceAll("\\s{2,}", " ");
 
                     isOptionVisible = !optionNodeElement.hasAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF) ||
                             optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF)
