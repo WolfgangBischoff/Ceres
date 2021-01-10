@@ -7,6 +7,7 @@ import Core.GameVariables;
 import Core.Menus.AchievmentLog.NewMessageOverlay;
 import Core.Menus.CoinGame.CoinGame;
 import Core.Menus.DaySummary.DaySummaryScreenController;
+import Core.Utilities;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -65,7 +66,7 @@ public class Dialogue
             default:
                 for (int messageIdx = 0; messageIdx < xmlLines.getLength(); messageIdx++) //add lines
                 {
-                    String message = xmlLines.item(messageIdx).getTextContent().replace("\n", "").replaceAll("\\s{2,}", " ");
+                    String message = Utilities.removeAllBlanksExceptOne(xmlLines.item(messageIdx).getTextContent());
                     messages.add(message);//Without formatting the message
                 }
                 if (type.equals(TEXTBOX_ATTRIBUTE_GET_MONEY)) {
@@ -126,7 +127,7 @@ public class Dialogue
                     Element optionNodeElement = (Element) optionNode;
                     if (optionNodeElement.hasAttribute(NEXT_DIALOGUE_TAG))
                         nextDialogue = optionNodeElement.getAttribute(NEXT_DIALOGUE_TAG);
-                    optionText = optionNode.getTextContent().replace("\n", "").replaceAll("\\s{2,}", " ");
+                    optionText = Utilities.removeAllBlanksExceptOne(optionNode.getTextContent());
 
                     isOptionVisible = !optionNodeElement.hasAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF) ||
                             optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF)

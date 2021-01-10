@@ -26,6 +26,11 @@ public class Utilities
 {
     private static String CLASSNAME = "Utilities/";
 
+    public static String removeAllBlanksExceptOne(String s)
+    {
+        return s.replace("\n", "").replaceAll("\\s{2,}", " ").replaceFirst("^\\s*", "");
+    }
+
     public static boolean doCircleOverlap(Circle a, Circle b)
     {
         //Use distance formula to check if a circle overlaps with another circle.
