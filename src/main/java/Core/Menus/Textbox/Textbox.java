@@ -225,7 +225,7 @@ public class Textbox
             }
             else if (!SCREEN_AREA.contains(mousePosition))
             {
-                //Do nothing if not within textbox
+                nextMessage(GameWindow.getSingleton().getRenderTime());//Remove if next Msg should just come if you click inside the box
             }
             else
                 nextMessage(GameWindow.getSingleton().getRenderTime());

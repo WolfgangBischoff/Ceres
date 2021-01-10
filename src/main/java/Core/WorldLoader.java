@@ -126,7 +126,7 @@ public class WorldLoader
                     readActorData(lineData);
                     break;
                 case KEYWORD_WORLDSHADOW:
-                    readWorldShadow(lineData);
+                    shadowColor = readWorldShadow(lineData);
                     break;
                 case KEYWORD_GROUPS:
                     readActorGroups(lineData);
@@ -293,19 +293,14 @@ public class WorldLoader
         ArrayList memberOfGroups = new ArrayList();
     }
 
-    private void readWorldShadow(String[] lineData)
+    private Color readWorldShadow(String[] lineData)
     {
-        String methodName = CLASSNAME + " readWorldShadow ";
-        int red, green, blue;
-        if (lineData[0].toLowerCase().equals("none"))
-            shadowColor = null;
-        else {
-            red = Integer.parseInt(lineData[0]);
-            green = Integer.parseInt(lineData[1]);
-            blue = Integer.parseInt(lineData[2]);
-            shadowColor = Color.rgb(red, green, blue);
-        }
-
+        String methodName = CLASSNAME + "readWorldShadow() ";
+        if (lineData[0].equalsIgnoreCase("EMERGENCY_LIGHT"))
+            return COLOR_EMERGENCY_LIGHT;
+        else if (lineData[0].equalsIgnoreCase("none"))
+            return null;
+        throw new RuntimeException("Shadow Layer unknown: " + lineData[0]);
     }
 
     private void addToCollisionLayer(Sprite sprite, int layer)
