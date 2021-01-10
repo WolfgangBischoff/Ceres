@@ -3,7 +3,7 @@
 INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIVING;
         <-->
 
-<root percentageOfPointsToWin="1">
+<root percentageOfPointsToWin="0.5">
 
     <!--/>
     Wave 0
@@ -14,14 +14,14 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             x="400"
             y="300"
             time="0"
-            maxTime="6"
+            maxTime="15"
     />
     <coin
             characteristic="compute_cloud"
             x="300"
             y="300"
             time="0"
-            maxTime="6"
+            maxTime="15"
     />
 
     <coin
@@ -29,7 +29,7 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             x="500"
             y="300"
             time="0"
-            maxTime="6"
+            maxTime="15"
     />
 
     <coin
@@ -37,21 +37,21 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             x="400"
             y="400"
             time="0"
-            maxTime="6"
+            maxTime="15"
     />
     <coin
             characteristic="MANAGEMENT_LOGGING"
             x="300"
             y="400"
             time="0"
-            maxTime="6"
+            maxTime="15"
     />
     <coin
             characteristic="MANAGEMENT_MONITORING"
             x="500"
             y="400"
             time="0"
-            maxTime="6"
+            maxTime="15"
     />
 
     <coin
@@ -59,21 +59,21 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             x="400"
             y="200"
             time="0"
-            maxTime="6"
+            maxTime="15"
     />
     <coin
             characteristic="INTERFACE_ANALOG"
             x="300"
             y="200"
             time="0"
-            maxTime="6"
+            maxTime="15"
     />
     <coin
             characteristic="INTERFACE_CONNECTION"
             x="500"
             y="200"
             time="0"
-            maxTime="6"
+            maxTime="15"
     />
 
 
@@ -82,21 +82,21 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             x="400"
             y="100"
             time="0"
-            maxTime="6"
+            maxTime="15"
     />
     <coin
             characteristic="NETWORK_SERVER"
             x="300"
             y="100"
             time="0"
-            maxTime="6"
+            maxTime="15"
     />
     <coin
             characteristic="NETWORK_CLIENT"
             x="500"
             y="100"
             time="0"
-            maxTime="6"
+            maxTime="15"
     />
 
 

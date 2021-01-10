@@ -1,31 +1,4 @@
 <!--/>
-File Identified by Actor Definition
-First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
-
-id - identifier for lookup of textbox
-type - normal/decision/discussion
-spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
-
-    <dialogue id="welcome" type="normal" spritestatus="transition">
-        <line>Shown message</line>
-        <line>Shown message 2</line>
-        <nextDialogue>nextDialogueID</nextDialogue>
-    </dialogue>
-
-    <dialogue id="info" type="decision" spritestatus="transition">
-        <option>
-            <line>Optiontext1</line>
-            <nextDialogue>option1ID</nextDialogue>
-        </option>
-
-        <option>
-            <line>Optiontext1, Nothing happens</line>
-        </option>
-    </dialogue>
-
-     <dialogue id="DECISION-DISCUSSION" type="discussion" game="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
-
-
 "   &quot;
 '   &apos;
 <   &lt;
@@ -44,9 +17,25 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
     <dialogue id="REPAIR_OPTION" type="decision">
         <option nextDialogue="ERROR_LOG">[Check error log]</option>
-        <option nextDialogue="SOFT_RESTART" type="boolean" variablename="AIR_SYSTEM_REBOOT_PART1_WON" visibleIf="false">[%%VTReboot Operation System%%]</option>
-        <option nextDialogue="START_ENGINE" type="boolean" variablename="AIR_SYSTEM_REBOOT_PART1_WON" visibleIf="true">[%%VTStart Ventilation Engine%%]</option>
+        <option nextDialogue="HELP">%%GR[Open help]%%</option>
+        <option nextDialogue="SOFT_RESTART" type="boolean" variablename="AIR_SYSTEM_REBOOT_PART1_WON" visibleIf="false">
+            [%%VTReboot Operation System%%]
+        </option>
+        <option nextDialogue="START_ENGINE" type="boolean" variablename="AIR_SYSTEM_REBOOT_PART1_WON" visibleIf="true">
+            [%%VTStart Ventilation Engine%%]
+        </option>
         <option>[Leave]</option>
+    </dialogue>
+
+    <dialogue id="HELP" nextDialogue="REPAIR_OPTION">
+        <line>To fix the issue, click on the %%GRcoins that fit to the machines%% characteristic.</line>
+        <line>Foreach coin color just one characteristic can fit. So you never want to click on different coins of the
+            same color.
+        </line>
+        <line>You can check the characteristics you know with the %%GRINFO button%% in the upper right corner.</line>
+        <line>On the right side you will see the %%GRremaining time%% to solve the issue; you can finish earlier if you
+            click on the green tick.
+        </line>
     </dialogue>
 
     <dialogue id="ERROR_LOG" nextDialogue="REPAIR_OPTION" knowledge="AIR_SYSTEM_CONTROL_COMPUTE_TRAIT">
@@ -55,7 +44,8 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
     <dialogue id="SOFT_RESTART" type="discussion" game="air_control" success="SOFT_RESTART_SUCCESS"
               defeat="SOFT_RESTART_FAIL"/>
-    <dialogue id="SOFT_RESTART_SUCCESS" variablename="AIR_SYSTEM_REBOOT_PART1_WON" set="true" nextDialogue="REPAIR_OPTION">
+    <dialogue id="SOFT_RESTART_SUCCESS" variablename="AIR_SYSTEM_REBOOT_PART1_WON" set="true"
+              nextDialogue="REPAIR_OPTION">
         <line>System reboot initiated ...</line>
         <line>System reboot ... Done</line>
         <line>..but the %%RDventilation engine%% is still down..</line>
