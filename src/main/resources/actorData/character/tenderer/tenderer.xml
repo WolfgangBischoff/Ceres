@@ -13,12 +13,14 @@
     <dialogue id="GET_AIR_SYSTEM_QUEST" type="decision">
         <option nextDialogue="COIN_GAME_EXPLANATION" variablename="transporter_air_system_quest_started" visibleIf="true">&gt;How should I fix the air system?&lt;</option>
         <option nextDialogue="air_system_check"
-                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="true">&gt;Whats do you  %%GDair system status%% now?&lt;</option>
+                type="boolean" variablename="transporter_air_system_quest_started" visibleIf="true">&gt;Whats the
+            %%GDair system status%% now?&lt;
+        </option>
         <option nextDialogue="QUEST_AIR_SYSTEM_DESC"
                 type="boolean" variablename="transporter_air_system_quest_started" visibleIf="false">&gt;Do you have work to do?&lt;</option>
         <option nextDialogue="GOTO_BED"
                 type="boolean" variablename="transporter_air_system_quest_started" visibleIf="done">&gt;Do you have more work?&lt;</option>
-        <option>Never mind.</option>
+        <option>[Leave]</option>
     </dialogue>
 
     <dialogue id="GOTO_BED" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
@@ -66,7 +68,7 @@
         <option nextDialogue="METEORIT_AGAIN" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED" visibleIf="false">&gt;What happened?&lt;</option>
         <option nextDialogue="RESTORE_POWER" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED" visibleIf="true">&gt;How should I restore power?&lt;</option>
         <option nextDialogue="RESTORE_POWER_REWARD_1" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED" visibleIf="restored">&gt;I restored the power&lt;</option>
-        <option>Never mind.</option>
+        <option>[Leave]</option>
     </dialogue>
 
     <dialogue id="RESTORE_POWER" type="normal" nextDialogue="AFTER_METROIT_DECISIONS">

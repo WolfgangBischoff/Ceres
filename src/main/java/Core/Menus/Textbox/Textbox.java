@@ -238,7 +238,7 @@ public class Textbox
         startConversation(speakingActor);
         for (Actor actor : actorsList)
         {
-            Element analysisDialogueFileObserved = Utilities.readXMLFile(actor.getSpriteList().get(0).getDialogueFileName() + ".xml");
+            Element analysisDialogueFileObserved = Utilities.readXMLFile(actor.getSpriteList().get(0).getDialogueFileName());
             Dialogue analysisMessageObserved = readDialogue("analysis-" + actor.getSpriteList().get(0).getInitDialogueId(), analysisDialogueFileObserved);
             readDialogue.messages.add(actor.getActorInGameName() + analysisMessageObserved.messages.get(0));
         }

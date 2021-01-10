@@ -56,6 +56,13 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>All systems are full operational.</line>
     </dialogue>
 
+    <dialogue id="bigDet_add" type="normal">
+        <line>Be informed about the newest products and earn money with no effort! Get your tracker today!</line>
+    </dialogue>
+    <dialogue id="adia_add" type="normal">
+        <line>Adia Coffee - Grown on Earth!</line>
+        <line>I wonder if they mean the coffee beans or their company.</line>
+    </dialogue>
 
 
 </root>

@@ -13,13 +13,14 @@
     </dialogue>
 
     <dialogue id="TASK" type="normal">
-        <line>Your sister waits for you in the %%VTControl Room%%! Go to her, dont let her wait.</line>
+        <line>Your sister waits for you in the %%VTControl Room%%! Go to her, don`t let her wait.</line>
     </dialogue>
 
     <dialogue id="AIR_SYSTEM_NETWORK_SERVER_TRAIT" type="normal" knowledge="AIR_SYSTEM_NETWORK_SERVER_TRAIT">
-        <line>As far I know you have to use server access protocols. Check the the machine %%RDINFO%% to fix it. </line>
+        <line>As far as I know you have to use server access protocols. Check the the machine %%RDINFO%% to know the
+            correct coins.
+        </line>
     </dialogue>
-
 
     <dialogue id="init-door" type="decision">
         <option nextDialogue="DISCUSSION_GAME">Practice Coin Game</option>

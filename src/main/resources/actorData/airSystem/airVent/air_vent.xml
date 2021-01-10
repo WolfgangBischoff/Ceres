@@ -1,32 +1,5 @@
 
 
-
-<!--/>
-File Identified by Actor Definition
-First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
-
-id - identifier for lookup of textbox
-type - normal/decision
-spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
-
-    <dialogue id="welcome" type="normal" spritestatus="transition">
-        <line>Shown message</line>
-        <line>Shown message 2</line>
-        <nextDialogue>nextDialogueID</nextDialogue>
-    </dialogue>
-
-    <dialogue id="info" type="decision" spritestatus="transition">
-        <option>
-            <line>Optiontext1</line>
-            <nextDialogue>option1ID</nextDialogue>
-        </option>
-
-        <option>
-            <line>Optiontext1, Nothing happens</line>
-        </option>
-    </dialogue>
-<-->
-
 <root name="air_vent">
     <dialogue id="none" type="normal">
         <line>air_vent No message defined</line>
@@ -57,7 +30,9 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
     <dialogue id="off-cleanDec" type="decision">
-        <option nextDialogue="cleanDec-cleaned">[Clean the ventilation]</option>
+        <option type="boolean" variablename="transporter_air_system_quest_started" visibleIf="true"
+                nextDialogue="cleanDec-cleaned">[Clean the ventilation]
+        </option>
         <option>[Go away]</option>
     </dialogue>
 
