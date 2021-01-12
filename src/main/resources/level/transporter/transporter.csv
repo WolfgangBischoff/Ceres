@@ -2,13 +2,13 @@
 
 #Red Green Blue ;the higher the brighter ;>none< leads to no shadow
 shadow:
-#0;30;30
 none
 
 spawnpoints:
 #ID												;PosX;PosY	;Direction
 exit											;07		;28			;east
 default								;25		;23			;north
+ladder									;31		;11				;north
 elevator							;31		;34			;south
 meteor_capsule	;24		;19			;east
 
@@ -95,7 +95,6 @@ antenR				                 ;antenna										                                 ;i
 speakR				                 ;speaker										                                 ;actorData/machine/speaker/speaker_right										      					    						;false				              ;2												               ;0			     ;0												;0				 ;0				 ;000								;000									;000									 	;000									 	;000									;000										;none 															;none																	;none																																															;unused0;unused1;unused2;unused3;unused4
 speakL				                 ;speaker										                                 ;actorData/machine/speaker/speaker_left											      					    						;false				              ;2												               ;0			     ;0												;0				 ;0				 ;000								;000									;000									 	;000									 	;000									;000										;none 															;none																	;none																																															;unused0;unused1;unused2;unused3;unused4
 carton																					;brown carton																																						;img/container/carton_brown_0																																										;true																			;1												;0			;0												;0				;0				;000								;000									;000									 	;000									 	;000									;000										;none 															;none																	;none																																															;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-laddeD																					;ladder																																												;actorData/doors/updown/ladder/ladder_hole																													;true																			;1												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 
 ACTORS:
@@ -104,6 +103,8 @@ player					;actorData/player																																		;Revolutionary				
 exit__					;actorData/doors/vertical/autoBulkheadVertical					;exit to docking bay						;on																	;levelchange												;west
 autoDo					;actorData/doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;UNLOCKED															;west
 capsuD					;actorData/doors/vertical/autoBulkheadVertical					;Capsule Bulkhead									;on									        ;textbox						          ;undefined
+laddeD					;actorData/doors/updown/ladder/transporter_ladder		;ladder																			;toCrewDeck									;default																;undefined
+elevSc					;actorData/doors/updown/elevator/elevator										;main elevator										  ;toCrewDeck								 ;default											     ;undefined
 door_H					;actorData/doors/horizontal/automatedDoor										;bulkhead																	;on																	;UNLOCKED															;south
 windL1					;actorData/quest/main/frontwindow/actor												;front window													;spaceView										;default																;undefined
 
@@ -114,9 +115,9 @@ contro					;actorData/computer/control/control																;control terminal	
 
 #spaceway
 trigge					;actorData/floor/trigger																											;Trigger																		;20x64_off										;readyToFire_20									;undefined
-roof__					;img/walls/spaceway/roof														;roof																					;on																	;waitForMonitor									;west
-roof1_					;img/walls/spaceway/roof														;roof																					;on2																;waitForMonitor									;west
-roofw_					                ;img/walls/spaceway/roof														             ;roof																					                                             ;full_win 										    ;waitForMonitor									     ;west
+roof__					;img/walls/spaceway/roof																											;roof																					;on																	;waitForMonitor									;west
+roof1_					;img/walls/spaceway/roof																											;roof																					;on2																;waitForMonitor									;west
+roofw_					;img/walls/spaceway/roof														             ;roof																					;full_win 						    ;waitForMonitor				     ;west
 
 #freightcapsule
 FCtr_0					                ;actorData/floor/trigger																											;Trigger																		                                             ;12x5_yellow									   ;readyToFire_12x5							     ;undefined
@@ -146,8 +147,6 @@ redKey					                ;actorData/collectibles/key/keycard																;R
 algaeS					                ;actorData/collectibles/food/food																		;Algae Stew				 					;algaeStew													 ;default																     ;undefined
 asiaBe					                ;actorData/collectibles/food/food																		;Asia Star Bento					;asiastar														 ;default																     ;undefined
 
-elevSc					                ;actorData/doors/updown/elevator/elevator										;main elevator												                                             ;toCrewDeck												 ;default																     ;undefined
-
 position:
 redKey	                    ;2140                                              ;455                                                                   ;on the control terminal
 
@@ -172,7 +171,7 @@ FC_roof_4														;none																											;none														;FCr__
 trigger_FC_6											;transitionOnChange													;FC_roof_6									;FCtr_5
 FC_roof_6														;none																											;none														;FCr__5
 
-global_system_actor:
+GLOBAL_SYSTEM_ACTOR:
 transporter_air_system;airVeR;ventCo
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer

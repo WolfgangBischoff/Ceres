@@ -1,0 +1,12 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#transition; fromStatus; toStatus
+#condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
+
+#sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+sensorStatus	;default																			;textbox																		;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+
+#status to image
+#status 						;name   				;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning 					;dialogueID 							;dialogueFile																																				;unused;unused;unused;unused;unused ;duration ;velocity ;AnimationEnds
+toCrewDeck				;ladder					;actorData/doors/updown/ladder/ladder_hole															;true				;1												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;bluelight_128		;TO_CREW_DECK						;actorData/doors/updown/ladder/transporter_ladder;unused;unused;unused;unused;unused ;000						;000						;false
+toFreightDeck	;ladder					;actorData/doors/updown/ladder/ladder_wall															;false			;1												;000	;000										;000	;000	;000								;000									;000											;064	 									;064									;064										;bluelight_128		;TO_FREIGHT_DECK			;actorData/doors/updown/ladder/transporter_ladder;unused;unused;unused;unused;unused ;000						;000						;false

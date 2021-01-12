@@ -1,13 +1,13 @@
 
 #Red Green Blue ;the higher the brighter ;>none< leads to no shadow
 shadow:
-#0;30;30
 none
 
 spawnpoints:
 #ID						;PosX;PosY	;Direction
 default		;30		;25			;west
 elevator	;31		;34			;south
+ladder			;32		;13			;east
 bed						;29		;31			;west
 
 
@@ -20,10 +20,8 @@ space2    ;space							;img/floor/space/s2 									;false				;0											;0			
 space3    ;space							;img/floor/space/s3 									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 spaceC    ;space							;img/floor/space/s_ceres					;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
-
-#Walls
 #code     ;name        					;spritename                     									;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
-#transporter
+#transporter wall
 TRf__0				;transportFloor			;img/walls/transporterhull/greyFloor_1	 	;false				;0												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 GFf__0				;greyFloor								;img/floor/greyFloor																			 	;false				;0												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 TRhs_0				;transportHull				;img/walls/transporterhull/hull_s_0				 	;true					;1												;0			;0												;0				;0				;0										;0											;000											;064											;064									;064										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
@@ -40,7 +38,6 @@ Wv_noB				;transportwall				;img/walls/thin_wall_w							  										;false				;
 Wv____				;transportwall				;img/walls/thin_wall_w							  										;true					;2												;0			;0												;0				;0				;0										;0											;000											;000											;020									;064										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 fr_ne0				;transportHull				;img/walls/transporterhull/outer_ne				 	;true					;1												;0			;0												;0				;0				;0										;0											;000											;064											;064									;064										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 fr_nw0				;transportHull				;img/walls/transporterhull/outer_nw				 	;true					;1												;0			;0												;0				;0				;0										;0											;000											;064											;064									;064										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-
 
 #Floor
 CR___0				                      ;transportfloor			                       ;img/transporter/floor/crew_0																																										;false					         ;0												          ;0			     ;0												;0				 ;0				 ;0										;0											;000											;000											 ;000									;000										;none 						         ;none							;none									                        ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
@@ -73,31 +70,31 @@ sink__				                      ;sink													                      ;img/bat
 wcCabn				                      ;wcCabn											                      ;img/bath/wccabin																																																						;true					          ;1 											          ;0        ;0            ;0     ;0     ;000        ;000         ;000           ;128            ;192         ;100										;none 						         ;wc_cabin			;dialogue_files/transporter_decks				 ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 bench_				                      ;bench												                      ;img/furniture/bench																																																			;true					          ;1												          ;0			     ;0												;0				 ;0				 ;000								;000									;000											;064											 ;128									;040										;none 						         ;none							;none																																	;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 towel_				                      ;towel												                      ;img/bath/bathtowel																																																				;true					          ;1												          ;0			     ;0												;0				 ;0				 ;000								;000									;000											;064											 ;064									;064										;none 						         ;none							;none																																	;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-ladder																										;ladder																																	;actorData/doors/updown/ladder/ladder_wall																													;true															;1																						;0								;0												;0						;0				;0										;0											;000											;065												;064									;064										;none 															;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+#ladder																										;ladder																																	;actorData/doors/updown/ladder/ladder_wall																													;true															;1																						;0								;0												;0						;0				;0										;0											;000											;065												;064									;064										;none 															;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
-actors:
-#code 																										;actorFileName																											;IngameName																																																								;sprite-status						;sensor-status										;direction
-player					                     ;actorData/player																								          ;Revolutionary												                                             ;default												;default																;north
-elevSc					                     ;actorData/doors/updown/elevator/elevator										;main elevator												                                             ;toFreightDeck						;default																;undefined
-autoDo					                     ;actorData/doors/vertical/autoBulkheadVertical					;bulkhead vertical								                                             ;on																	;UNLOCKED															;west
-doorHo					                     ;actorData/doors/horizontal/automatedDoor										;bulkhead	horizontal						                                             ;on																	;VARIABLE_UNLOCKED						;south
-cleanB					                     ;actorData/robot/cleaningBot/cleaningBot											;Cleaning Bot													                                             ;default												;default																;west
-steamS					                     ;actorData/bath/steam_shower/steam_shower										;shower																			                                             ;off																;default																;undefined
-bed_Bi					                     ;actorData/furniture/bed/bed																							;Your Bed																	                                             ;bischoff											;sleep																		;undefined
+ACTORS:
+#code 																										;actorFileName																																					;IngameName																		;sprite-status						;sensor-status										;direction
+player					                     ;actorData/player																								          ;Revolutionary												   ;default												;default																;north
+elevSc					                     ;actorData/doors/updown/elevator/elevator										;main elevator												   ;toFreightDeck						;default																;undefined
+ladder																										;actorData/doors/updown/ladder/transporter_ladder		;ladder																						;toFreightDeck						;default																;undefined
 
-smileV					                     ;actorData/system_vendor/smile/smile															;Smile vendor													                                             ;default												;inventory														;undefined
-asiaBe					                     ;actorData/collectibles/food/food																		;Asia Star Bento										                                             ;asiastar											;default																;undefined
-largeB					                ;actorData/storages/greenBoxLarge/largeBox									;green Box											;default													   ;default																     ;none
-largeC					                ;actorData/storages/greenBoxLarge/largeBox									;green Box											;cut																	   ;default																     ;none
-bxCart					                ;actorData/storages/greenBoxLarge/largeBox									;green Box											;crates														   ;default																     ;none
+autoDo					                     ;actorData/doors/vertical/autoBulkheadVertical					;bulkhead vertical								   ;on																	;UNLOCKED															;west
+doorHo					                     ;actorData/doors/horizontal/automatedDoor										;bulkhead	horizontal						   ;on																	;VARIABLE_UNLOCKED						;south
+cleanB					                     ;actorData/robot/cleaningBot/cleaningBot											;Cleaning Bot													   ;default												;default																;west
+steamS					                     ;actorData/bath/steam_shower/steam_shower										;shower																			   ;off																;default																;undefined
+bed_Bi					                     ;actorData/furniture/bed/bed																							;Your Bed																	   ;bischoff											;sleep																		;undefined
 
-position:
+smileV					                     ;actorData/system_vendor/smile/smile															;Smile vendor													   ;default												;inventory														;undefined
+asiaBe					                     ;actorData/collectibles/food/food																		;Asia Star Bento										   ;asiastar											;default																;undefined
+largeB					                					;actorData/storages/greenBoxLarge/largeBox									;green Box																			;default												;default												    ;none
+largeC					                					;actorData/storages/greenBoxLarge/largeBox									;green Box																			;cut																;default												    ;none
+bxCart					                					;actorData/storages/greenBoxLarge/largeBox									;green Box																			;crates													;default												    ;none
+
+POSITION:
 asiaBe                          ;1820                                              ;1070                                                                  ;one the table
 
-global_system_actor:
+GLOBAL_SYSTEM_ACTOR:
 transporter_air_system          ;hydrOK                                            ;airCr1                                                                ;airCr2             ;airLif
-
-
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
@@ -106,14 +103,14 @@ passivlayer:
 001 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 002 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 003 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
-004 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;space1 ;__xx__ ;__xx__ ;__xx__ ;space2 ;__xx__ ;__xx__ ;__xx__ ;space3 ;__xx__ ;__xx__ ;__xx__ ;space0 ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
-005 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
-006 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
-007 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
-008 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;space2 ;__xx__ ;__xx__ ;__xx__ ;space3 ;__xx__ ;__xx__ ;__xx__ ;space0 ;__xx__ ;__xx__ ;__xx__ ;space1 ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
-009 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
-010 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
-011 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
+004 ;______ ;______ ;______ ;______ ;______ ;space0 ;__xx__ ;__xx__ ;__xx__ ;space1 ;__xx__ ;__xx__ ;__xx__ ;space2 ;__xx__ ;__xx__ ;__xx__ ;space3 ;__xx__ ;__xx__ ;__xx__ ;space2 ;__xx__ ;__xx__ ;__xx__ ;space3 ;__xx__ ;__xx__ ;__xx__ ;space0 ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
+005 ;______ ;______ ;______ ;______ ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
+006 ;______ ;______ ;______ ;______ ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
+007 ;______ ;______ ;______ ;______ ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
+008 ;______ ;______ ;______ ;______ ;______ ;space2 ;__xx__ ;__xx__ ;__xx__ ;space3 ;__xx__ ;__xx__ ;__xx__ ;space0 ;__xx__ ;__xx__ ;__xx__ ;space1 ;__xx__ ;__xx__ ;__xx__ ;space3 ;__xx__ ;__xx__ ;__xx__ ;space0 ;__xx__ ;__xx__ ;__xx__ ;space1 ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
+009 ;______ ;______ ;______ ;______ ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
+010 ;______ ;______ ;______ ;______ ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
+011 ;______ ;______ ;______ ;______ ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;______ ;______ ;______;
 012 ;______ ;space0 ;__xx__ ;__xx__ ;__xx__ ;space1 ;__xx__ ;__xx__ ;__xx__ ;space2 ;__xx__ ;__xx__ ;__xx__ ;space3 ;__xx__ ;__xx__ ;__xx__ ;spaceC ;__xx__ ;__xx__ ;__xx__ ;space1 ;__xx__ ;__xx__ ;__xx__ ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;______ ;______;
 013 ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;______ ;______;
 014 ;______ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;__xx__ ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;GFf__0 ;______ ;______;
@@ -166,10 +163,10 @@ layer:
 008 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 009 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 010 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;TRwnw0 ;______ ;______ ;______ ;______ ;______ ;______ ;TRws_0 ;______ ;______ ;______ ;______ ;______ ;______ ;TRwne0 ;______;
-011 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;bxCart ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
+011 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 012 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;TRhw_0 ;______ ;______ ;______ ;largeB ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;largeC ;______ ;TRhe_0 ;______;
 013 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;TRws_0 ;TRws_0 ;TRws_0 ;______ ;______ ;______ ;______ ;______ ;______ ;______;
-014 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;TRhw_0 ;______ ;______ ;______ ;largeB ;______ ;Wv____ ;______ ;______ ;______ ;______ ;______ ;bxCart ;______ ;TRhe_0 ;______;
+014 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;TRhw_0 ;______ ;______ ;______ ;largeB ;______ ;Wv____ ;______ ;______ ;______ ;bxCart ;______ ;bxCart ;______ ;TRhe_0 ;______;
 015 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;Wv____ ;shelf_ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 016 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;TRhw_0 ;______ ;______ ;TRwsw0 ;TRws_0 ;TRws_0 ;TRws_0 ;TRws_0 ;TRws_0 ;TRws_0 ;TRws_0 ;TRws_0 ;TRws_0 ;TRws_0 ;TRhe_0 ;______;
 017 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;Wv____ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
@@ -222,7 +219,7 @@ layer:
 010 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;reSign ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 011 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 012 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
-013 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;Wv____ ;ladder ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
+013 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;Wv_noB ;ladder ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 014 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 015 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 016 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;Wv_noB ;______ ;______ ;______ ;airCr2 ;______ ;______ ;______ ;bed_pe ;______ ;______ ;______ ;______;
