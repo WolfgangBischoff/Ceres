@@ -38,7 +38,6 @@
 
 - Content
     - Main Quest
-        disable lift while no energy
         disable bed, should be dependent on quest status
         remove one security guy capsule => technician changes room => more space for quest
         stranger appears when sleeping
@@ -46,7 +45,8 @@
         talk again with sister and stranger
         go to capsule
     - General
-        Storage on Control Deck instead of antenna (more room for rescue pod)
+        Storage on Control Deck instead of antenna
+        add actor to ladder control-rescuepod
 
 
 - change __xx__ to ______; latter should be overwritable for passive layer => default is nothing.

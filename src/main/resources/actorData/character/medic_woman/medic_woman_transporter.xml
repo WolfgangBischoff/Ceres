@@ -49,6 +49,7 @@
         <spritechange sprite_id="tender" dialogueId="METEORIT"/>
         <spritechange sprite_id="contro" status="impact" dialogueId="impacted"/>
         <spritechange sprite_id="reacto" dialogueId="off"/>
+        <spritechange sprite_id="elevSc" dialogueId="NO_ENERGY"/>
     </dialogue>
 
     <dialogue id="METEOR_GOTO_TRADER" type="normal" variablename="METEROIT_HIT" set="true" bump="" >

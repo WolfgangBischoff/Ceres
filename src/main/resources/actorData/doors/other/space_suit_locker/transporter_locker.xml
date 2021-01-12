@@ -41,7 +41,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
     <dialogue id="INIT_toCapsule" type="decision">
         <option nextDialogue="CHANGE_TO_SPACESUIT" type="player" variablename="spritestatus" visibleIf="default">[Put on space suit]</option>
-        <option nextDialogue="CHANGE_TO_DEFAULT"   type="player" variablename="spritestatus" visibleIf="spacesuit">[Put on overall]</option>
+        <option nextDialogue="CHANGE_TO_DEFAULT"   type="player" variablename="spritestatus" visibleIf="spacesuit">[Put on working clothes]</option>
         <option>[Not now]</option>
     </dialogue>
     <dialogue id="CHANGE_TO_SPACESUIT" type="normal">

@@ -1,33 +1,5 @@
 
 
-<!--/>
-File Identified by Actor Definition
-First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
-
-id - identifier for lookup of textbox
-type - normal/decision
-spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
-
-    <dialogue id="welcome" type="normal" spritestatus="transition">
-        <line>Shown message</line>
-        <line>Shown message 2</line>
-        <nextDialogue>nextDialogueID</nextDialogue>
-    </dialogue>
-
-    <dialogue id="info" type="decision" spritestatus="transition">
-        <option>
-            <line>Optiontext1</line>
-            <nextDialogue>option1ID</nextDialogue>
-        </option>
-
-        <option>
-            <line>Optiontext1, Nothing happens</line>
-        </option>
-    </dialogue>
-
-     <dialogue id="DECISION-DISCUSSION" type="discussion" game="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
-<-->
-
 <root name="elevator">
     <dialogue id="none" type="normal">
         <line>Lorem Ipsum</line>
@@ -43,6 +15,10 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     <dialogue id="INIT-toCrewDeck" type="decision">
         <option nextDialogue="DECISION-toCrewDeck">[Crew Deck]</option>
         <option>[Back]</option>
+    </dialogue>
+
+    <dialogue id="NO_ENERGY" type="normal">
+        <line>No energy</line>
     </dialogue>
 
     <dialogue id="DECISION-toCrewDeck" type="levelchange" level="crewdeck/crewdeck" spawnID="elevator"/>
