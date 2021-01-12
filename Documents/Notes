@@ -44,8 +44,6 @@
         go to capsule
     - General
         Storage on Control Deck instead of antenna
-        add actor to ladder control-rescuepod
-
 
 - change __xx__ to ______; latter should be overwritable for passive layer => default is nothing.
 - add Logger.log(debug, CLASSNAME, methodName, msg)
