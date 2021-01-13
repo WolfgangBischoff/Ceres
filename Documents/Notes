@@ -278,3 +278,6 @@ How to Revolution
 - Ctrl + Alt + </>: Jump to code parts
 - Ctrl + (numblock)/: Comment line
 - jar xf .\Ceres-1.0-SNAPSHOT.jar => To unzip jars
+- Create Executable by
+    gradle->tasks->distribution->installDist
+    In A:\IdeaProjects\Ceres\build\install\Ceres\bin use Ceres.bat
