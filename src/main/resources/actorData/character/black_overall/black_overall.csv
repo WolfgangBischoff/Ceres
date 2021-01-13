@@ -1,0 +1,26 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+#condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
+#tags; automated_door, persistent
+#collectible_data; TYPE (food, quest, ...); base_value
+#suspicious_value; 5
+#personality;initCooperation;trait1, trait1-cooperationThreshold,trai1-knowledgeTag; trait2 ...
+#personality;005;INTROVERSION,1,none;SENSING,1,none;THINKING,9,none;PERCEIVING,12,none
+
+
+#sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+sensorStatus	;default																			;none														    ;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+
+#status to image
+#status 																								;name   													;spritename  																																																																													;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID															;dialogueFile																					;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds
+default-NORTH																			;black_overall_guy																	;img/person/orange_woman/back																																															;true				;1												;0			;0												;00			;00	;00									;000									;10												;84												;44										;44											;whitelight_256;none						;dialogueFile;unused;unused;unused;unused;unused;0        ;300							;false
+default-NORTH-MOVING												;black_overall_guy																	;img/person/orange_woman/back_a8																																												;true				;1												;10		;6												;06			;01	;64									;128									;10												;84												;44										;44											;whitelight_256;none						;dialogueFile;unused;unused;unused;unused;unused;0        ;300							;false
+default-SOUTH																			;black_overall_guy																	;actorData/character/black_overall/black_man_front_a2_standing														;true				;1												;1			;2												;04			;01	;64									;128									;10												;84												;44										;44											;whitelight_256;none						;dialogueFile;unused;unused;unused;unused;unused;0        ;300							;false
+default-SOUTH-MOVING												;black_overall_guy																	;actorData/character/black_overall/black_man_front_a8_moving		              ;true				;1												;10	 ;8					       ;08		 ;01	;64							  ;128				     ;10									   ;84												;44									 ;44											;whitelight_256;none			   ;dialogueFile;unused;unused;unused;unused;unused;0								;300							;false
+default-EAST																				;black_overall_guy																	;img/person/orange_woman/east												              																					;true				;1												;0		 ;0					       ;00		 ;00	;00							  ;000				     ;10									   ;84												;44									 ;44											;whitelight_256;none			   ;dialogueFile;unused;unused;unused;unused;unused;0								;300							;false
+default-EAST-MOVING													;black_overall_guy																	;img/person/orange_woman/east_a10								              																					;true				;1												;12	 ;10				       ;10		 ;01	;64							  ;128				     ;10									   ;84												;44									 ;44											;whitelight_256;none			   ;dialogueFile;unused;unused;unused;unused;unused;0								;300							;false
+default-WEST																				;black_overall_guy																	;img/person/orange_woman/west												              																					;true				;1												;0		 ;0					       ;00		 ;00	;00							  ;000				     ;10									   ;84												;44									 ;44											;whitelight_256;none			   ;dialogueFile;unused;unused;unused;unused;unused;0								;300							;false
+default-WEST-MOVING													;black_overall_guy																	;img/person/orange_woman/left_a10								              																					;true				;1												;12	 ;10				       ;10		 ;01	;64							  ;128				     ;10									   ;84												;44									 ;44											;whitelight_256;none			   ;dialogueFile;unused;unused;unused;unused;unused;0								;300							;false
+

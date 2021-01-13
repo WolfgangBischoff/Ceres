@@ -2,6 +2,7 @@
 ----- Backlog ----------------------------
 ------------------------------------------
 - Bug
+    Key cannot be collected on actor => just put it somewhere else
 
 - Test
 
@@ -52,7 +53,6 @@
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    rescue pods
     security guy
     storage
     maybe arrianne reference poster
