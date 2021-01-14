@@ -138,18 +138,18 @@ spLock				                 ;actorData/doors/other/space_suit_locker/locker				;S
 reacto					                ;actorData/transporter/reactor/reactor													;Reactor																		                                             ;on																	    ;textbox																					;undefined
 
 #collectibles
-box___					                ;actorData/storages/boxSmall/green_persistent						;green Box											;locked 													   ;default																     ;none
 smalBx					                ;actorData/storages/boxSmall/prop																		;green Box											;default													   ;default																     ;none
 largeB					                ;actorData/storages/greenBoxLarge/largeBox									;green Box											;default													   ;default																     ;none
 largeC					                ;actorData/storages/greenBoxLarge/largeBox									;green Box											;cut																	   ;default																     ;none
 bxCart					                ;actorData/storages/greenBoxLarge/largeBox									;green Box											;crates														   ;default																     ;none
 flatBx					                ;actorData/storages/box_flat/box_flat														;green flat Box						;default													   ;default																     ;none
-redKey					                ;actorData/collectibles/key/keycard																;Red Keycard									;red																	   ;default																     ;none
 algaeS					                ;actorData/collectibles/food/food																		;Algae Stew				 					;algaeStew													 ;default																     ;undefined
 asiaBe					                ;actorData/collectibles/food/food																		;Asia Star Bento					;asiastar														 ;default																     ;undefined
 
-position:
-redKey	                    ;2140                                              ;455                                                                   ;on the control terminal
+#box___					                ;actorData/storages/boxSmall/green_persistent						;green Box											;locked 													   ;default																     ;none
+#redKey					                ;actorData/collectibles/key/keycard																;Red Keycard									;red																	   ;default																     ;none
+#position:
+#redKey	                    ;2140                                              ;455                                                                   ;on the control terminal
 
 ACTORGROUPS:
 #level change
