@@ -1,31 +1,5 @@
 
 
-<!--/>
-File Identified by Actor Definition
-First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
-
-id - identifier for lookup of textbox
-type - normal/decision
-spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
-
-    <dialogue id="welcome" type="normal" spritestatus="transition">
-        <line>Shown message</line>
-        <line>Shown message 2</line>
-        <nextDialogue>nextDialogueID</nextDialogue>
-    </dialogue>
-
-    <dialogue id="info" type="decision" spritestatus="transition">
-        <option>
-            <line>Optiontext1</line>
-            <nextDialogue>option1ID</nextDialogue>
-        </option>
-
-        <option>
-            <line>Optiontext1, Nothing happens</line>
-        </option>
-    </dialogue>
-<-->
-
 <root name = "infoTerminal">
     <dialogue id="none" type="normal">
         <line>InfoTerminal Lorem Ipsum</line>
@@ -33,8 +7,8 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
     <dialogue id="welcome" type="normal" spritestatus="transition" nextDialogue="info">
         <line>Welcome to Pancheia Station!</line>
-        <line>Valuable experiences and extensions for you CV await you </line>
-        <line>Board time is 19:00, your access level is Third Class</line>
+        <line>Valuable experiences and extensions for you CV await you.</line>
+        <line>Your access level is Third Class, have a nice day!</line>
     </dialogue>
 
     <dialogue id="info" type="decision" spritestatus="transition">
@@ -52,7 +26,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
     <dialogue id="info-CeresInfo" type="normal" spritestatus="transition" nextDialogue="info">
-        <line>Ceres is the largest object in the main asteroid belt that lies between the orbits of Mars and Jupiter. With a diameter of 940 km, Ceres is the largest of the belts` asteroids.</line>
+        <line>Ceres is the largest object in the main asteroid belt that lies between the orbits of Mars and Jupiter. With a diameter of 940 km, Ceres is the largest of the belts' asteroids.</line>
         <line>The geology of Ceres is driven by ice and brines, with an overall salinity of around 5%.</line>
         <line>One of the most spectacular pheonomena on Ceres are cryovolcanos that errupt ice and minerals to the surface.</line>
     </dialogue>

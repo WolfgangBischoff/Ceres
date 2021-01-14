@@ -59,7 +59,7 @@ public class ActorGroup
         String methodName = "setMemberToGeneralStatus(String) ";
         for (Actor target : systemMembers)
         {
-            target.onMonitorSignal(newStatus.toString());
+            target.onMonitorSignal(newStatus.toString(), null, null, null);
         }
     }
 
@@ -80,7 +80,7 @@ public class ActorGroup
             if (target.getGeneralStatus().toLowerCase().equals(ifInStatus.toLowerCase()))
             {
                 System.out.println(CLASSNAME + methodName + " " + ifInStatus + " set to " + newStatus);
-                target.onMonitorSignal(newStatus);
+                target.onMonitorSignal(newStatus, null , null, null);
             }
         }
     }

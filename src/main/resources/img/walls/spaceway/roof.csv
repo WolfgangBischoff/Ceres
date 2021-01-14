@@ -5,22 +5,22 @@
 
 sensorStatus	;waitForMonitor				;none     													;none    												;none 									;none																;none														;none												;none 									;none												;none																			;none																	;none 									;none																	;none																	;none											;none													;none											;persistent								;none														;none															;none
 
-transition; on; off
-transition; off;on
+transition;on	;off
+transition;off;on
 
-transition; on2; off2
-transition; off2;on2
+transition;on2	;off2
+transition;off2;on2
 
-transition; full_win	; trans_win
+transition;full_win	;trans_win
 transition;trans_win;full_win
 
 #status to image
 #status 											;name 					  				;spritename  																																							;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID;dialogueFile;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds
-ON-west												;automatedDoor			;img/walls/spaceway/roof_uncut																										;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false
-OFF-west											;automatedDoor			;img/walls/spaceway/roof_uncut_trans																				;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false
+ON-west												;gangway									;img/walls/spaceway/roof_uncut																				  ;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false
+OFF-west											;gangway									;img/walls/spaceway/roof_uncut_trans														  ;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false
 
-ON2-west											;automatedDoor			;img/walls/spaceway/roof_cut																												;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false
-OFF2-west										;automatedDoor			;img/walls/spaceway/roof_cut_trans																						;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false
+ON2-west											;gangway									;img/walls/spaceway/roof_cut																						  ;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false
+OFF2-west										;gangway									;img/walls/spaceway/roof_cut_trans																  ;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false
 
-full_win-west						;automatedDoor			;img/walls/spaceway/SW_roof_win																									;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false
-trans_win-west					;automatedDoor			;img/walls/spaceway/SW_roof_win_trans																			;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false
+full_win-west						;gangway									;img/walls/spaceway/SW_roof_win																			  ;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false
+trans_win-west					;gangway									;img/walls/spaceway/SW_roof_win_trans													  ;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;none						;dialogueFile;unused;unused;unused;unused;unused;0								;0									;false

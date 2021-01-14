@@ -50,7 +50,7 @@ public class ActorMonitor
 
     public void sendSignalFrom(List<String> notifyingGroupsList)
     {
-        String methodName = "sendSignalFrom(List<String>)";
+        String methodName = "sendSignalFrom(List<String>) ";
         //Notify all groups of the notifying Actor
         for (int i = 0; i < notifyingGroupsList.size(); i++)
         {
@@ -60,7 +60,7 @@ public class ActorMonitor
 
     public void sendSignalFrom(String notifyingGroup)
     {
-        String methodName = "sendSignalFrom(String)";
+        String methodName = "sendSignalFrom(String) ";
         boolean debug = false;
         String targetGroupID = groupIdToInfluencedGroupIdMap.get(notifyingGroup);
         String logicCode = groupToLogicMap.get(notifyingGroup);
@@ -72,7 +72,7 @@ public class ActorMonitor
             case "none":
                 break;
             case "isBaseSystem":
-                apply_baseSystemLogic(notifyingGroup, targetGroupID);
+                apply_baseSystemLogic_group(notifyingGroup, targetGroupID);
                 break;
             case "allOn_default/locked":
                 allOn_setSensorStatus(notifyingGroup, targetGroupID, UNLOCKED, LOCKED);
@@ -113,7 +113,7 @@ public class ActorMonitor
     private void changeLevel(String filename_level, String spawnId)
     {
         String methodName = "changeLevel(String) ";
-        System.out.println(CLASSNAME + methodName + "loaded: " + filename_level + " spawn at " + spawnId);
+        //System.out.println(CLASSNAME + methodName + "loaded: " + filename_level + " spawn at " + spawnId);
         WorldView.getSingleton().saveStage();
         WorldView.getSingleton().loadStage(filename_level, spawnId);
     }
@@ -121,20 +121,14 @@ public class ActorMonitor
     private void always_sensorStatus(String notifyingGroup, String targetGroupID, SystemStatus sensorStatus)
     {
         String methodName = "always_sensorStatus(String, String, String) ";
-        boolean debug = false;
-
         ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
         ActorGroup signaled = groupIdToActorGroupMap.get(targetGroupID);
-
-        if (debug)
-            System.out.println(CLASSNAME + methodName + notifier.areAllMembersStatusOn() + notifier);
         signaled.setMemberToSensorStatus(sensorStatus);
     }
 
     private void always_spriteStatus(String notifyingGroup, String targetGroupID, SystemStatus spriteStatus)
     {
         String methodName = "always_sensorStatus(String, String, String) ";
-        boolean debug = false;
         ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
         ActorGroup signaled = groupIdToActorGroupMap.get(targetGroupID);
         signaled.setMemberToGeneralStatus(spriteStatus);
@@ -143,8 +137,6 @@ public class ActorMonitor
     private void allOn_setSensorStatus(String notifyingGroup, String targetGroupID, SystemStatus trueStatus, SystemStatus falseStatus)
     {
         String methodName = "allOn_setSensorStatus(String, String, String, String) ";
-        boolean debug = false;
-
         ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
         ActorGroup signaled = groupIdToActorGroupMap.get(targetGroupID);
 
@@ -155,9 +147,9 @@ public class ActorMonitor
 
     }
 
-    private void apply_baseSystemLogic(String checkedGroup, String dependentGroup)
+    private void apply_baseSystemLogic_group(String checkedGroup, String dependentGroup)
     {
-        String methodName = "set_baseOff_IfBaseOffline() ";
+        String methodName = "apply_baseSystemLogic() ";
 
         ActorGroup checkedSystem = groupIdToActorGroupMap.get(checkedGroup);
         ActorGroup dependentSystem = groupIdToActorGroupMap.get(dependentGroup);
@@ -165,13 +157,15 @@ public class ActorMonitor
 
         for (Actor influenced : dependentSystem.getSystemMembers())
         {
-            String status = influenced.getGeneralStatus();
-            String statusConsideringLogic = statusTransition_baseSystemLogic(influencingSystemStatus, status);
-            influenced.onMonitorSignal(statusConsideringLogic);
+            String currentStatus = influenced.getGeneralStatus();
+            String statusConsideringLogic = apply_baseSystemLogic_single(influencingSystemStatus, currentStatus);
+            String dialogueId = influenced.getSpriteDataMap().get(statusConsideringLogic).get(0).dialogueID;
+            String dialogueFile = influenced.getSpriteDataMap().get(statusConsideringLogic).get(0).dialogieFile;
+            influenced.onMonitorSignal(statusConsideringLogic, null, dialogueId, dialogueFile);
         }
     }
 
-    private String statusTransition_baseSystemLogic(String influencingGroupStatus, String influencedActorStatus)
+    private String apply_baseSystemLogic_single(String influencingGroupStatus, String influencedActorStatus)
     {
         String baseSystemOfflineString = "basesystemoffline";
         switch (influencingGroupStatus.toLowerCase())
@@ -194,20 +188,18 @@ public class ActorMonitor
     }
 
     //for Actors to double check their status changes
-    public String checkIfStatusIsValid(String influencedStatus, String influencingSystemId)
+    public boolean checkIfStatusIsValid(String influencedStatus, String influencingSystemId)
     {
-        String methodName = "checkIfStatusIsValid(String, String)";
+        String methodName = "checkIfStatusIsValid(String, String) ";
         ActorGroup influencingSystem = groupIdToActorGroupMap.get(influencingSystemId);
         String logic = groupToLogicMap.get(influencingSystemId);
 
         if (logic.equals("isBaseSystem"))
         {
             String influencingSystemStatus = influencingSystem.areAllMembersStatusOn().toString();
-            return statusTransition_baseSystemLogic(influencingSystemStatus, influencedStatus);
+            return apply_baseSystemLogic_single(influencingSystemStatus, influencedStatus).equals(influencedStatus);
         }
-
-        //System.out.println(CLASSNAME + methodName + " Logic not found for " + influencedStatus + " influenced of " + influencingSystemId);
-        return influencedStatus;
+        return true;
     }
 
     public Map<String, String> getGroupToLogicMap()

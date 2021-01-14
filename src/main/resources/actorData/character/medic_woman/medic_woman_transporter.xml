@@ -10,7 +10,7 @@
     </dialogue>
 
     <dialogue id="GOTO_TRADER" type = "normal" >
-        <line>I am bit worried about mum and dad, they can`t live without money..</line>
+        <line>I am bit worried about mum and dad, they can't live without money..</line>
         <line>Anyway, you have to %%GDgo to the trader%%, we need some money too.</line>
     </dialogue>
 

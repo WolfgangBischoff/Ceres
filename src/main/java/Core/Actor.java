@@ -389,22 +389,27 @@ public class Actor
         }
     }
 
-    public void onMonitorSignal(String newCompoundStatus)
+    /***
+     * DialogueId and File is just set by this method, other methods just change sprite status
+     * @param newCompoundStatus
+     * @param newSensorStatue
+     * @param newDialogueId
+     * @param newDialogueFile
+     */
+    public void onMonitorSignal(String newCompoundStatus, String newSensorStatue, String newDialogueId, String newDialogueFile)
     {
         String methodName = "onMonitorSignal() ";
-        boolean debug = false;
         if (sensorStatus.onMonitorSignal_TriggerSprite == null)
             System.out.println(CLASSNAME + methodName + "OnMonitorSignal not set");
 
-        if (debug)
-            System.out.println(CLASSNAME + methodName + actorInGameName + " set to " + newCompoundStatus);
+        if(newDialogueId != null)
+            setDialogueId(newDialogueId);
         evaluateTriggerType(sensorStatus.onMonitorSignal_TriggerSprite, newCompoundStatus, null);
     }
 
     public void onTextboxSignal(String newCompoundStatus)
     {
         String methodName = "onTextboxSignal() ";
-        //System.out.println(CLASSNAME + methodName + sensorStatus.statusName + " " + generalStatus + " " + newCompoundStatus + " " + sensorStatus.onTextBoxSignal_SpriteTrigger);
         evaluateTriggerType(sensorStatus.onTextBoxSignal_SpriteTrigger, newCompoundStatus, null);
     }
 
@@ -502,8 +507,6 @@ public class Actor
             toChange.setBlocker(ts.blocking);
             toChange.setLightningSpriteName(ts.lightningSprite);
             toChange.setAnimationEnds(ts.animationEnds);
-            //toChange.setDialogueFileName(ts.dialogieFile);
-            //toChange.setInitDialogueId(ts.dialogueID);
             toChange.setLayer(ts.heightLayer);
             if (WorldView.getBottomLayer().contains(toChange) || WorldView.getMiddleLayer().contains(toChange) || WorldView.getTopLayer().contains(toChange))
                 changeLayer(toChange, ts.heightLayer);//Change layer if sprite in current stage, not on other map (global system) but sprite change triggered by StageMonitor
@@ -513,24 +516,18 @@ public class Actor
 
     private void evaluateTargetStatus(String targetStatusField)
     {
-        String methodName = "evaluateTargetStatus(String)";
-        boolean debug = false;
+        String methodName = "evaluateTargetStatus(String) ";
 
         //Do lookup (status is toggled from definition of actorfile)
         if (targetStatusField.toLowerCase().equals(Config.KEYWORD_transition))
             transitionGeneralStatus();
         else
-            //Status is set directly
             generalStatus = targetStatusField.toLowerCase();
 
+        //Check if status is valid dependent on influencing system
         String influencedOfGroup = actorMonitor.isDependentOnGroup(memberActorGroups);
-        if (influencedOfGroup != null) {
-            //Check if status is valid dependent on influencing system
-            generalStatus = actorMonitor.checkIfStatusIsValid(generalStatus, influencedOfGroup);
-        }
-
-        if (debug)
-            System.out.println(CLASSNAME + methodName + actorInGameName + " changed to status: " + generalStatus);
+        if (influencedOfGroup != null && !actorMonitor.checkIfStatusIsValid(generalStatus, influencedOfGroup))
+                actorMonitor.sendSignalFrom(influencedOfGroup);//If not, trigger system to refresh
 
         updateCompoundStatus();
     }
@@ -695,7 +692,7 @@ public class Actor
         if (!(direction == Direction.UNDEFINED))
             newStatusString = newStatusString + "-" + direction.toString().toLowerCase();
         if (isMoving())
-            newStatusString = newStatusString + "-" + "moving";
+            newStatusString = newStatusString + "-moving";
         compoundStatus = newStatusString;
 
         if (!(oldCompoundStatus.equals(compoundStatus)))
@@ -823,16 +820,6 @@ public class Actor
         return spriteList;
     }
 
-    public List<ActorCondition> getConditions()
-    {
-        return conditions;
-    }
-
-    public Map<String, String> getStatusTransitions()
-    {
-        return statusTransitions;
-    }
-
     public Map<String, List<SpriteData>> getSpriteDataMap()
     {
         return spriteDataMap;
@@ -851,16 +838,6 @@ public class Actor
     public String getCollectable_type()
     {
         return collectable_type;
-    }
-
-    public String getTextbox_analysis_group_name()
-    {
-        return textbox_analysis_group_name;
-    }
-
-    public ActorMonitor getStageMonitor()
-    {
-        return actorMonitor;
     }
 
     public List<String> getMemberActorGroups()

@@ -3,6 +3,7 @@
 ------------------------------------------
 - Bug
     Key cannot be collected on actor => just put it somewhere else
+    air vent doesnt change dialogue on trigger
 
 - Test
 
@@ -36,6 +37,7 @@
 
 - Content
     - Main Quest
+        add easy characterGame
         disable bed, should be dependent on quest status
         remove one security guy capsule => technician changes room => more space for quest
         stranger appears when sleeping

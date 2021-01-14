@@ -36,7 +36,7 @@
         <option>[Go away]</option>
     </dialogue>
 
-    <dialogue id="cleanDec-cleaned" type="normal" spritestatus="on">
+    <dialogue id="cleanDec-cleaned" type="normal" spritestatus="on" dialogueId="init-on">
         <line>The vent is clean now.</line>
     </dialogue>
 </root>

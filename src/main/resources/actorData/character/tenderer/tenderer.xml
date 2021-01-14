@@ -37,7 +37,7 @@
         <line>Once you found the console, check out %%GRINFO on the upper right side%% to learn about the
             characteristics of the machine.
         </line>
-        <line>Then start the boot protocols and %%GRclick on the coins%%, which fit to the system.</line>
+        <line>Then start the boot protocols and %%GRclick on the symbols%%, which fit to the system.</line>
         <line>You can learn more characteristics by practice or if you %%GRask the technician%%.</line>
     </dialogue>
 
@@ -49,7 +49,7 @@
     </dialogue>
     <dialogue id="OPEN_LIFE_SUPPORT" type="normal" variablename="IS_LIFE_SUPP_OPEN" set="true"
               nextDialogue="GET_AIR_SYSTEM_QUEST">
-        <line>I will grant you %%GRaccess%% to the %%GRlife support%% system chamber on the crew deck. Don`t blew it
+        <line>I will grant you %%GRaccess%% to the %%GRlife support%% system chamber on the crew deck. Don't blow it
             up.
         </line>
     </dialogue>

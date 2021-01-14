@@ -28,8 +28,8 @@
     </dialogue>
 
     <dialogue id="HELP" nextDialogue="REPAIR_OPTION">
-        <line>To fix the issue, click on the %%GRcoins that fit to the machines%% characteristic.</line>
-        <line>Foreach coin color just one characteristic can fit. So you never want to click on different coins of the
+        <line>To fix the issue, click on the %%GRsymbols that fit to the machines%% characteristic.</line>
+        <line>Foreach coin color just one characteristic can fit. So you never have to click on different symbols of the
             same color.
         </line>
         <line>You can check the characteristics you know with the %%GRINFO button%% in the upper right corner.</line>
