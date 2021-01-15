@@ -2,7 +2,6 @@
 
 #Red Green Blue ;the higher the brighter ;>none< leads to no shadow
 shadow:
-#30;30;30
 none
 
 spawnpoints:
@@ -68,8 +67,6 @@ sink__;sink												;img/bath/sink;																							false;				1;							
 
 #Machines
 #code     ;name        ;spritename                     								;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
-tonage				;tonage						;img/machines/ton																											;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;greenlight256 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-tonagB				;tonage						;img/machines/tonBlue																							;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;greenlight256 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 convBR				;conveyer				;img/machines/conveyerBR																				;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;greenlight256 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 convHo				;conveyer				;img/machines/conveyerH																					;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;greenlight256 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 convTR				;conveyer				;img/machines/conveyerTR																				;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;greenlight256 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4

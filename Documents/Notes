@@ -37,7 +37,6 @@
     - Main Quest
         add easy characterGame
         disable bed, should be dependent on quest status
-        remove one security guy capsule => technician changes room => more space for quest
         stranger appears when sleeping
         check logs
         talk again with sister and stranger
