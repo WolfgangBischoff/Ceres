@@ -1,14 +1,16 @@
 ------------------------------------------
 ----- Backlog ----------------------------
 ------------------------------------------
+- Sprint goal
+
 - Bug
 
 - Test
 
 - Features
-    - Level changes with time
-        While Map load set global actors according to time, date, variables defined in actor file
-        Set Actor script according to time
+    => Level changes with time
+            While Map load set global actors according to time, date, variables defined in actor file
+            Set Actor script according to time
     - Add set item mechanic
             1) sprite an Pos adden via Key
             2) Sprite von Menu und maus adden
