@@ -1,0 +1,18 @@
+
+
+
+<root name = "actorName">
+    <dialogue id="DEFAULT" type="normal">
+        <line>A rescue pods.. if we have to leave the ship quickly. After initializing them they ready to launch in seconds.</line>
+    </dialogue>
+
+    <dialogue id="INIT_CERES" type="decision" spritestatus="transition">
+        <option>Back</option>
+        <option nextDialogue="LEVEL_CERES">Start launch sequence!</option>
+    </dialogue>
+
+    <dialogue id="LEVEL_CERES" type="levelchange" level="living_quarter/air_lock" spawnID="default"/>
+
+</root>
+
+

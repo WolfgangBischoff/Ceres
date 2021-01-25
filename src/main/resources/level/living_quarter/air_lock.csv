@@ -2,6 +2,7 @@
 
 #Red Green Blue ;the higher the brighter ;>none< leads to no shadow
 shadow:
+#0;30;30
 none
 
 spawnpoints:
@@ -26,7 +27,8 @@ dockBa				;dockingBay		;walls/signs/wall_sign																;true					;0							
 
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status	;direction
-player					;actorData/player																								;Revolutionary												;default												;default							;north
+player					;actorData/player																																		;Revolutionary												;default												;default							;north
+infoWe					;computer/infoTerminal/info														;info terminal												;off																;default							;undefined
 
 Actorgroups:
 #System-Name					;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
