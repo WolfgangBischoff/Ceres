@@ -29,6 +29,7 @@
            - buy menu: desc, buy bttn
            - add item in box
     - Game Over if health == 0
+    - change font of textbox
 - Grow Plant for life support
      - Aus Kaim wird Pflanze gesetzt, Erde rar
      - Pflanze wächst jeden Tag, erntbar, stirbt, vermehrt sich

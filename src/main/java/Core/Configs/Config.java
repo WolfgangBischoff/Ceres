@@ -28,7 +28,7 @@ public class Config
 
     public static final int TEXTBOX_WIDTH = 800;
     public static final int TEXTBOX_HEIGHT = 240;
-    public static final Point2D TEXT_BOX_POSITION = new Point2D(CAMERA_WIDTH / 2f - TEXTBOX_WIDTH / 2, CAMERA_HEIGHT - TEXTBOX_HEIGHT - 32);
+    public static final Point2D TEXT_BOX_POSITION = new Point2D(CAMERA_WIDTH / 2f - TEXTBOX_WIDTH / 2f, CAMERA_HEIGHT - TEXTBOX_HEIGHT - 32);
     public static final int TEXTBOX_MAX_LINE_LETTERS = 40;
     public static final int FONT_Y_OFFSET_ESTROG__SIZE30 = 10;
 

@@ -1,4 +1,10 @@
 
+
+
+
+
+25 01 21    - new level air_lock
+            - refinery sprite update
 14 01 21    - fixed air vent doesnt change dialogue on trigger
             - moved box
             - sprites added
@@ -24,8 +30,6 @@
                 In der Kapsel brennt licht, sollte dunkel sein
             - added/changed/repaired several dialogues
             - performance improvement shadow layer
-
-
 09 01 21    - improved textbox performance
             - added light dependent on time
 02 01 21    - refactored Textbox -> Dialogue
@@ -82,6 +86,24 @@
             - add sprint button on SHIFT
             - talk to collegue at window, impact; control changes status; trader text
             - added sprite status change by textbox
+19 10 20    - added eyes box
+17 10 20    - added algae tank transparency, mirror in bath
+15 10 20    - Highlight text & Text "write"
+            - add right capsule wall
+            - added medic, added money field
+            - window onInteraction: bump
+14 10 20    - dodge mechanic to avoid weird hitboxes
+            - Return to World by Esc from Inventory
+13 10 20    - Fixed Docking Bay Door doesnt work
+            - air vent from freight deck are visible on crewdeck if base system becomes on and vent changes status
+12 10 20    - once system is online, you cannot switch of hub; nextDialogue in XML now attribute
+            - tenderer introduces Quest, then checks fullfillment (both on global variable)
+            - door opens after tenderer assigns quest
+10 10 20    - Textbox should be opened on Click even if the sprite has no actor but just a defined textbox file
+            - Interaction by click should use sprite images
+
+
+
 
 
 OLD
@@ -128,21 +150,8 @@ OLD
             - control, coffee, projector with description
             - standing animation
 09 10 20    - added status bar images
-10 10 20    - Textbox should be opened on Click even if the sprite has no actor but just a defined textbox file
-            - Interaction by click should use sprite images
-12 10 20    - once system is online, you cannot switch of hub; nextDialogue in XML now attribute
-            - tenderer introduces Quest, then checks fullfillment (both on global variable)
-            - door opens after tenderer assigns quest
-12 10 20    - Fixed Docking Bay Door doesnt work
-            - air vent from freight deck are visible on crewdeck if base system becomes on and vent changes status
-14 10 20    - dodge mechanic to avoid weird hitboxes
-            - Return to World by Esc from Inventory
-15 10 20    - Highlight text & Text "write"
-            - add right capsule wall
-            - added medic, added money field
-            - window onInteraction: bump
-17 10 20    - added algae tank transparency, mirror in bath
-19 10 20    - added eyes box
+
+
 
 
 

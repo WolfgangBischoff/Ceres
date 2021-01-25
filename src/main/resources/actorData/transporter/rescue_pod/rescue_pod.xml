@@ -3,7 +3,7 @@
 
 <root name = "actorName">
     <dialogue id="DEFAULT" type="normal">
-        <line>A rescue pods.. if we have to leave the ship quickly. After initializing them they ready to launch in seconds.</line>
+        <line>A rescue pod.. if we have to leave the ship quickly. After initialization it is ready to launch in seconds.</line>
     </dialogue>
 
     <dialogue id="INIT_CERES" type="decision" spritestatus="transition">
