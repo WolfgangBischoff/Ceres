@@ -74,6 +74,17 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>The maintenance shaft is opened, seems there is something to repair.</line>
     </dialogue>
 
+    <dialogue id="REFINERY" type="normal">
+        <line>Looks like an oven or some kind of refinery. I am not sure what's the purpose of this machine, but its definitely freight.</line>
+    </dialogue>
+
+    <dialogue id="SHELF_FLUIDS" type="normal">
+        <line>A shelf with canisters, I have no idea what's inside.</line>
+    </dialogue>
+    <dialogue id="SHELF_BATH" type="normal">
+        <line>Toilet articles. Four-layered.. at least a bit luxury.</line>
+    </dialogue>
+
     <dialogue id="crate_1" type="normal">
         <line>Some goods from earth, no clue whats in there..</line>
     </dialogue>
