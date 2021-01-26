@@ -3,6 +3,7 @@
 
 
 26 01 21    - remove __xx__, default is nothing.
+            - arrianne reference poster
 25 01 21    - new level air_lock
             - refinery sprite update, new shelf sprite
 14 01 21    - fixed air vent doesnt change dialogue on trigger

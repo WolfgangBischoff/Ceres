@@ -52,8 +52,6 @@
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    storage
-    maybe arrianne reference poster
     moving asteroid as actor
     rename sleep capsules
     change reactor
