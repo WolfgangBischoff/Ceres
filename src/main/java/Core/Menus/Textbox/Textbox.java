@@ -27,8 +27,8 @@ import static Core.Enums.ActorTag.TURNS_DIRECTION_ONINTERACTION;
 public class Textbox
 {
     private static final String CLASSNAME = "Textbox/";
-    private static final double WIDTH = TEXTBOX_WIDTH;
-    private static final double HEIGHT = TEXTBOX_HEIGHT;
+    private static final double WIDTH = TEXT_WIDTH;
+    private static final double HEIGHT = TEXT_HEIGHT;
     private static final Point2D SCREEN_POSITION = TEXT_BOX_POSITION;
     private static final Rectangle2D SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
     private static final int OFFSET_MARKING_RIGHT = 80;
@@ -397,7 +397,7 @@ public class Textbox
         for (int wordIdx = 0; wordIdx < words.length; wordIdx++)
         {
             int numberDigitsWithoutFontRegex = FontManager.removeFontMarkings(words[wordIdx]).length();
-            if (numberDigits + numberDigitsWithoutFontRegex > TEXTBOX_MAX_LINE_LETTERS)
+            if (numberDigits + numberDigitsWithoutFontRegex > TEXT_MAX_LINE_LETTERS)
             {
                 wrapped.add(lineBuilder.toString());
                 lineBuilder = new StringBuilder();

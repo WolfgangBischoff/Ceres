@@ -133,7 +133,7 @@ public class Dialogue
                             optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF)
                                     .equals(getVariableCondition(optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_TYPE), optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME)));
                 }
-            if (isOptionVisible || DEBUG_ALL_TEXTBOX_OPTIONS_VISIBLE)
+            if (isOptionVisible || DEBUG_ALL_TEXT_OPTIONS_VISIBLE)
                 addOption(optionText, nextDialogue);
         }
     }

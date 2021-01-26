@@ -11,9 +11,9 @@ public class Config
     //General
     public static final Boolean DEBUG_ACTORS = false;
     public static final Boolean DEBUG_BLOCKER = false;
-    public static final Boolean DEBUG_NO_WALL = false;
+    public static final Boolean DEBUG_NO_WALL = true;
     public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
-    public static final Boolean DEBUG_ALL_TEXTBOX_OPTIONS_VISIBLE = false;
+    public static final Boolean DEBUG_ALL_TEXT_OPTIONS_VISIBLE = false;
     public static final Boolean DEBUG_CONSOLE = false;
     public static final Boolean DEBUG_FPS = false;
     //public static final String FIRST_LEVEL = "transporter/transporter";
@@ -26,10 +26,10 @@ public class Config
     public static final Font FONT_ESTROG_30_DEFAULT = Utilities.readFont("font/estrog__.ttf", 30);
     public static final Font FONT_ESTROG_20 = Utilities.readFont("font/estrog__.ttf", 20);
 
-    public static final int TEXTBOX_WIDTH = 800;
-    public static final int TEXTBOX_HEIGHT = 240;
-    public static final Point2D TEXT_BOX_POSITION = new Point2D(CAMERA_WIDTH / 2f - TEXTBOX_WIDTH / 2f, CAMERA_HEIGHT - TEXTBOX_HEIGHT - 32);
-    public static final int TEXTBOX_MAX_LINE_LETTERS = 40;
+    public static final int TEXT_WIDTH = 800;
+    public static final int TEXT_HEIGHT = 240;
+    public static final Point2D TEXT_BOX_POSITION = new Point2D(CAMERA_WIDTH / 2f - TEXT_WIDTH / 2f, CAMERA_HEIGHT - TEXT_HEIGHT - 32);
+    public static final int TEXT_MAX_LINE_LETTERS = 40;
     public static final int FONT_Y_OFFSET_ESTROG__SIZE30 = 10;
 
     public static final int PERSONALITY_WIDTH = 900;
@@ -99,7 +99,6 @@ public class Config
 
     //Map file keywords
     public static final String MAPDEFINITION_EMPTY = "______";
-    public static final String MAPDEFINITION_NO_TILE = "__xx__";
     public static final String KEYWORD_NEW_LAYER = "layer:";
     public static final String KEYWORD_PASSIV_LAYER = "passivlayer:";
     public static final String KEYWORD_ACTORS = "actors:";
