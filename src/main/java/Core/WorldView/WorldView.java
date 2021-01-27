@@ -419,25 +419,25 @@ public class WorldView
 
         if (input.contains("LEFT") || input.contains("A"))
         {
-            addedVelocityX += -playerActor.getSpeed();
+            addedVelocityX += -playerActor.getVelocity();
             moveButtonPressed = true;
             newDirection = Direction.WEST;
         }
         if (input.contains("RIGHT") || input.contains("D"))
         {
-            addedVelocityX += playerActor.getSpeed();
+            addedVelocityX += playerActor.getVelocity();
             moveButtonPressed = true;
             newDirection = Direction.EAST;
         }
         if (input.contains("UP") || input.contains("W"))
         {
-            addedVelocityY += -playerActor.getSpeed();
+            addedVelocityY += -playerActor.getVelocity();
             moveButtonPressed = true;
             newDirection = Direction.NORTH;
         }
         if (input.contains("DOWN") || input.contains("S"))
         {
-            addedVelocityY += playerActor.getSpeed();
+            addedVelocityY += playerActor.getVelocity();
             moveButtonPressed = true;
             newDirection = Direction.SOUTH;
         }

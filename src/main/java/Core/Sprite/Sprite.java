@@ -146,8 +146,8 @@ public class Sprite
         double time = (currentNanoTime - lastUpdated) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - actor.getLastInteraction()) / 1000000000.0;
         List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
-        double velocityX = actor.getVelocityX();
-        double velocityY = actor.getVelocityY();
+        double velocityX = actor.getCurrentVelocityX();
+        double velocityY = actor.getCurrentVelocityY();
         Rectangle2D plannedPosition = new Rectangle2D(position.getX() + hitBoxOffsetX + velocityX * time, position.getY() + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
         Pair<Double, Double> dodgeVelocities = new Pair<>(0d, 0d);
 
@@ -246,6 +246,18 @@ public class Sprite
         for (Sprite otherSprite : WorldView.getPassiveCollisionRelevantSpritesLayer())
             if (isBlockedBy(otherSprite, plannedPosition))
                 return true;
+        return false;
+    }
+
+    public boolean isBlockedByOtherSprites(Direction direction)
+    {
+        switch (direction)
+        {
+            case NORTH: return isBlockedByOtherSprites(0,-1);
+            case SOUTH: return isBlockedByOtherSprites(0,1);
+            case WEST: return isBlockedByOtherSprites(-1,0);
+            case EAST: return isBlockedByOtherSprites(1,0);
+        }
         return false;
     }
 

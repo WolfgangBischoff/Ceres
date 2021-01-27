@@ -38,8 +38,8 @@ public class Script
     int IDLE_MOVE_TIME = 2;
     ScriptType type;
     Queue<Point2D> route = new LinkedList<>();
-    Long idleLastStatusChangeTime = 0L;
-    String idleStatus = "NOT SET";
+    Long lastStatusChangeTime = 0L;
+    String executionStatus = "NOT SET";
     Direction randomDirection = null;
 
 
@@ -53,8 +53,6 @@ public class Script
             int y = Integer.parseInt(((Element) routePoints.item(i)).getAttribute("y"));
             route.add(new Point2D(x, y));
         }
-        //System.out.println(CLASSNAME + type);
-        //System.out.println(CLASSNAME + route.toString());
     }
 
     public void update(Actor actor)
@@ -77,45 +75,49 @@ public class Script
     {
         String methodName = "idle() ";
         long currentTime = GameWindow.getCurrentNanoRenderTimeGameWindow();
-        double elapsedTime = (currentTime - idleLastStatusChangeTime) / 1000000000.0;
+        double elapsedTime = (currentTime - lastStatusChangeTime) / 1000000000.0;
+        double idleVelocity = actor.getVelocity() * 0.5;
 
-        if (idleStatus.equals("MOVE") && elapsedTime > IDLE_MOVE_TIME)
+        if (executionStatus.equals("MOVE") && elapsedTime > IDLE_MOVE_TIME)
         {
-            idleLastStatusChangeTime = currentTime;
-            idleStatus = "WAIT";
+            lastStatusChangeTime = currentTime;
+            executionStatus = "WAIT";
         }
-        else if (idleStatus.equals("WAIT") && elapsedTime > IDLE_WAITING_TIME)
+        else if (executionStatus.equals("WAIT") && elapsedTime > IDLE_WAITING_TIME)
         {
-            idleLastStatusChangeTime = currentTime;
-            idleStatus = "MOVE";
+            lastStatusChangeTime = currentTime;
+            executionStatus = "MOVE";
         }
 
-        if (idleStatus.equals("MOVE"))
+        if (executionStatus.equals("MOVE"))
         {
             Point2D currentPos = new Point2D(actor.getSpriteList().get(0).getX(), actor.getSpriteList().get(0).getY());
             if (randomDirection == null)
             {
                 randomDirection = randomDirection();
             }
-            switch (randomDirection)
-            {
-                case EAST:
-                    actor.setVelocity(60, 0);
-                    break;
-                case WEST:
-                    actor.setVelocity(-60, 0);
-                    break;
-                case NORTH:
-                    actor.setVelocity(0, -60);
-                    break;
-                case SOUTH:
-                    actor.setVelocity(0, 60);
-                    break;
-            }
+            if (!actor.spriteList.get(0).isBlockedByOtherSprites(randomDirection))
+                switch (randomDirection)
+                {
+                    case EAST:
+                        actor.setVelocity(60, 0);
+                        break;
+                    case WEST:
+                        actor.setVelocity(-60, 0);
+                        break;
+                    case NORTH:
+                        actor.setVelocity(0, -60);
+                        break;
+                    case SOUTH:
+                        actor.setVelocity(0, 60);
+                        break;
+                }
+            else
+                actor.setVelocity(0, 0);
         }
         else
         {
-            idleStatus = "WAIT";
+            executionStatus = "WAIT";
             actor.setVelocity(0, 0);
             if (randomDirection != null)
             {
@@ -153,7 +155,7 @@ public class Script
         Point2D currentPos = new Point2D(actor.spriteList.get(0).getX(), actor.spriteList.get(0).getY());
         double deltaX = target.getX() * 64 - currentPos.getX();
         double deltaY = target.getY() * 64 - currentPos.getY();
-        double velocity = 80d;
+        double velocity = actor.getVelocity();
         double addedVelocityX = 0d;
         double addedVelocityY = 0d;
         double moveThreshold = 5d;

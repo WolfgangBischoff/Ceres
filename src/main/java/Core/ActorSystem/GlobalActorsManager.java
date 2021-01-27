@@ -60,7 +60,7 @@ public class GlobalActorsManager
                     actorSprite = Sprite.createSprite(spriteData, 0, 0);
                     actorSprite.setActor(actor);
                     actorSprite.setAnimationEnds(spriteData.animationEnds);
-                    actor.setSpeed(spriteData.velocity);//Set as often as Sprites exist?
+                    actor.setVelocity(spriteData.velocity);//Set as often as Sprites exist?
                     actor.addSprite(actorSprite);
                 }
 

@@ -427,7 +427,7 @@ public class WorldLoader
             actorSprite = Sprite.createSprite(spriteData, x * 64, y * 64);
             actorSprite.setActor(actor);
             actorSprite.setAnimationEnds(spriteData.animationEnds);
-            actor.setSpeed(spriteData.velocity);//Set as often as Sprites exist?
+            actor.setVelocity(spriteData.velocity);//Set as often as Sprites exist?
             //actor.dialogueStatusID = spriteData.dialogueID;
             actor.addSprite(actorSprite);
         }

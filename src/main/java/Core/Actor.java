@@ -14,7 +14,6 @@ import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.animation.PauseTransition;
-import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 
 import java.util.*;
@@ -36,9 +35,9 @@ public class Actor
     String actorId;
     String actorInGameName;
     private Direction direction;
-    private double velocityX;
-    private double velocityY;
-    private double speed = 50;
+    private double currentVelocityX;
+    private double currentVelocityY;
+    private double velocity = 50;
     private double interactionAreaWidth = 8;
     private double interactionAreaDistance = 30;
     private double interactionAreaOffsetX = 0;
@@ -734,8 +733,8 @@ public class Actor
 
     public void setVelocity(double x, double y)
     {
-        velocityX = x;
-        velocityY = y;
+        currentVelocityX = x;
+        currentVelocityY = y;
         if(x < 0)
             setDirection(WEST);
         else if(x > 0)
@@ -750,27 +749,27 @@ public class Actor
 
     public boolean isMoving()
     {
-        return velocityX != 0 || velocityY != 0;
+        return currentVelocityX != 0 || currentVelocityY != 0;
     }
 
-    public Double getVelocityX()
+    public Double getCurrentVelocityX()
     {
-        return velocityX;
+        return currentVelocityX;
     }
 
-    public Double getVelocityY()
+    public Double getCurrentVelocityY()
     {
-        return velocityY;
+        return currentVelocityY;
     }
 
-    public void setSpeed(double speed)
+    public void setVelocity(double velocity)
     {
-        this.speed = speed;
+        this.velocity = velocity;
     }
 
-    public double getSpeed()
+    public double getVelocity()
     {
-        return speed;
+        return velocity;
     }
 
     public double getInteractionAreaWidth()
@@ -909,14 +908,14 @@ public class Actor
         this.actorInGameName = actorInGameName;
     }
 
-    public void setVelocityX(double velocityX)
+    public void setCurrentVelocityX(double currentVelocityX)
     {
-        this.velocityX = velocityX;
+        this.currentVelocityX = currentVelocityX;
     }
 
-    public void setVelocityY(double velocityY)
+    public void setCurrentVelocityY(double currentVelocityY)
     {
-        this.velocityY = velocityY;
+        this.currentVelocityY = currentVelocityY;
     }
 
     public void setInteractionAreaWidth(double interactionAreaWidth)
