@@ -73,7 +73,7 @@ public class Script
         {
             if (route.isEmpty())
             {
-                Point2D currentPos = new Point2D(actor.getSpriteList().get(0).getPositionX(), actor.getSpriteList().get(0).getPositionY());
+                Point2D currentPos = new Point2D(actor.getSpriteList().get(0).getX(), actor.getSpriteList().get(0).getY());
                 double deltaX = Utilities.randomSignedInt(0,150);
                 double deltaY = Utilities.randomSignedInt(0,150);
                 route.add(new Point2D(currentPos.getX() + deltaX, currentPos.getY() + deltaY));
@@ -113,7 +113,7 @@ public class Script
 
     private boolean move(Actor actor, Point2D target)
     {
-        Point2D currentPos = new Point2D(actor.spriteList.get(0).getPositionX(), actor.spriteList.get(0).getPositionY());
+        Point2D currentPos = new Point2D(actor.spriteList.get(0).getX(), actor.spriteList.get(0).getY());
         double deltaX = target.getX() * 64 - currentPos.getX();
         double deltaY = target.getY() * 64 - currentPos.getY();
         double velocity = 80d;

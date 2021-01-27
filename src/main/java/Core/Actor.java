@@ -98,10 +98,10 @@ public class Actor
             //Collect Actor Sprite Data
             try {
                 SpriteData data = SpriteData.tileDefinition(linedata);
-                data.animationDuration = Double.parseDouble(linedata[SpriteData.animationDurationIdx]);
-                data.velocity = Integer.parseInt(linedata[SpriteData.velocityIdx]);
-                data.dialogueID = linedata[SpriteData.dialogueIDIdx];
-                data.animationEnds = Boolean.parseBoolean(linedata[SpriteData.animationEndsIdx]);
+                data.animationDuration = Double.parseDouble(linedata[SpriteData.getAnimationDurationIdx()]);
+                data.velocity = Integer.parseInt(linedata[SpriteData.getVelocityIdx()]);
+                data.dialogueID = linedata[SpriteData.getDialogueIDIdx()];
+                data.animationEnds = Boolean.parseBoolean(linedata[SpriteData.getAnimationEndsIdx()]);
                 String statusName = linedata[0].toLowerCase();
                 if (!spriteDataMap.containsKey(statusName))
                     spriteDataMap.put(statusName, new ArrayList<>());

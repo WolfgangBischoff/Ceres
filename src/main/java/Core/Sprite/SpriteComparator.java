@@ -12,6 +12,6 @@ public class SpriteComparator implements Comparator<Sprite>
     public int compare(Sprite object1, Sprite object2)
     {
         String methodName = "compare() ";
-        return Double.compare(object1.getPositionY() + object1.getHitBoxOffsetY(), object2.getPositionY() + object2.getHitBoxOffsetY());
+        return Double.compare(object1.getY() + object1.getHitBoxOffsetY(), object2.getY() + object2.getHitBoxOffsetY());
     }
 }

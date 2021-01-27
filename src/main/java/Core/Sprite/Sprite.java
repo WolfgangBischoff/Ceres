@@ -24,8 +24,9 @@ public class Sprite
     Image baseimage;
     double basewidth; //width of whole sprite, in therms of animation multiple frames
     double baseheight;
-    double positionX;//reference is upper left corner
-    double positionY;
+    Point2D position;
+    //double position.getX();
+    //double position.getY();
     Long lastFrame = 0L;
     Long lastUpdated = 0L;
     Rectangle2D interactionArea;
@@ -85,13 +86,13 @@ public class Sprite
 
         switch (actor.getDirection()) {
             case NORTH:
-                return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2 + offsetX, positionY + hitBoxOffsetY - maxInteractionDistance + offsetY, interactionWidth, maxInteractionDistance);
+                return new Rectangle2D(position.getX() + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2 + offsetX, position.getY() + hitBoxOffsetY - maxInteractionDistance + offsetY, interactionWidth, maxInteractionDistance);
             case EAST:
-                return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth + offsetX, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2 + offsetY, maxInteractionDistance, interactionWidth);
+                return new Rectangle2D(position.getX() + hitBoxOffsetX + hitBoxWidth + offsetX, position.getY() + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2 + offsetY, maxInteractionDistance, interactionWidth);
             case SOUTH:
-                return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2 + offsetX, positionY + hitBoxOffsetY + hitBoxHeight + offsetY, interactionWidth, maxInteractionDistance);
+                return new Rectangle2D(position.getX() + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2 + offsetX, position.getY() + hitBoxOffsetY + hitBoxHeight + offsetY, interactionWidth, maxInteractionDistance);
             case WEST:
-                return new Rectangle2D(positionX + hitBoxOffsetX - maxInteractionDistance + offsetX, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2 + offsetY, maxInteractionDistance, interactionWidth);
+                return new Rectangle2D(position.getX() + hitBoxOffsetX - maxInteractionDistance + offsetX, position.getY() + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2 + offsetY, maxInteractionDistance, interactionWidth);
             case UNDEFINED:
                 return null;
             default:
@@ -140,7 +141,7 @@ public class Sprite
         List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
         double velocityX = actor.getVelocityX();
         double velocityY = actor.getVelocityY();
-        Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
+        Rectangle2D plannedPosition = new Rectangle2D(position.getX() + hitBoxOffsetX + velocityX * time, position.getY() + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
         Pair<Double, Double> dodgeVelocities = new Pair<>(0d, 0d);
 
         String initGeneralStatusFrame = "";
@@ -154,10 +155,7 @@ public class Sprite
                 continue;
 
             //Collision
-            if
-            (
-                    isBlockedBy(otherSprite, plannedPosition)
-            )
+            if ( isBlockedBy(otherSprite, plannedPosition))
             {
                 if (this == WorldView.getPlayer()) {
                     Pair<Double, Double> delta = calculateCollisionType(plannedPosition, this.actor.getDirection(), otherSprite.getBoundary());
@@ -212,12 +210,10 @@ public class Sprite
         }
 
         if (!blockedByOtherSprite || (DEBUG_NO_WALL && this == WorldView.getPlayer())) {
-            positionX += velocityX * time;
-            positionY += velocityY * time;
+            position = position.add(velocityX * time, velocityY * time);
         }
         else {
-            positionX += dodgeVelocities.getKey() * time;
-            positionY += dodgeVelocities.getValue() * time;
+            position = position.add(dodgeVelocities.getKey() * time, dodgeVelocities.getValue() * time);
         }
 
         interact = false;
@@ -229,7 +225,7 @@ public class Sprite
    private boolean isBlockedBy(Sprite otherSprite, Rectangle2D plannedPosition)
    {
        return otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition);
-    //           || !worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time
+    //           || !worldBorders.contains(position.getX() + velocityX * time, position.getY() + velocityY * time
    }
 
     private Pair<Double, Double> calculateCollisionType(Rectangle2D moving, Direction direction, Rectangle2D standing)
@@ -305,9 +301,9 @@ public class Sprite
     {
         String methodName = "intersectsRelativeToWorldView() ";
         //Uses Hitbox not sprite image
-        //Rectangle2D intersectionHitbox = new Rectangle2D(positionX + hitBoxOffsetX - WorldView.getCamX(), positionY + hitBoxOffsetY - WorldView.getCamY(), hitBoxWidth, hitBoxHeight);
+        //Rectangle2D intersectionHitbox = new Rectangle2D(position.getX() + hitBoxOffsetX - WorldView.getCamX(), position.getY() + hitBoxOffsetY - WorldView.getCamY(), hitBoxWidth, hitBoxHeight);
 
-        Rectangle2D intersectionHitbox = new Rectangle2D(positionX - WorldView.getCamX(), positionY - WorldView.getCamY(), frameWidth, frameHeight);
+        Rectangle2D intersectionHitbox = new Rectangle2D(position.getX() - WorldView.getCamX(), position.getY() - WorldView.getCamY(), frameWidth, frameHeight);
         return intersectionHitbox.contains(point);
     }
 
@@ -334,7 +330,7 @@ public class Sprite
     private void drawDebugFrame(GraphicsContext gc)
     {
         gc.setStroke(Color.BLUE);
-        gc.strokeRect(positionX + hitBoxOffsetX, positionY + hitBoxOffsetY, hitBoxWidth, hitBoxHeight);
+        gc.strokeRect(position.getX() + hitBoxOffsetX, position.getY() + hitBoxOffsetY, hitBoxWidth, hitBoxHeight);
         if (interactionArea != null)
             gc.strokeRect(interactionArea.getMinX(), interactionArea.getMinY(), interactionArea.getWidth(), interactionArea.getHeight());
     }
@@ -342,7 +338,7 @@ public class Sprite
     public void renderSimple(GraphicsContext gc)
     {
         String methodName = "renderSimple() ";
-        gc.drawImage(baseimage, positionX, positionY);
+        gc.drawImage(baseimage, position.getX(), position.getY());
     }
 
     public void renderAnimated(GraphicsContext gc, Long now)
@@ -377,7 +373,7 @@ public class Sprite
             }
         }
 
-        gc.drawImage(baseimage, currentCol * frameWidth, currentRow * frameHeight, frameWidth, frameHeight, positionX, positionY, frameWidth, frameHeight); //(img, srcX, srcY, srcWidht, srcHeight, TargetX, TargetY, TargetWidht, TargetHeight)
+        gc.drawImage(baseimage, currentCol * frameWidth, currentRow * frameHeight, frameWidth, frameHeight, position.getX(), position.getY(), frameWidth, frameHeight); //(img, srcX, srcY, srcWidht, srcHeight, TargetX, TargetY, TargetWidht, TargetHeight)
 
     }
 
@@ -388,12 +384,12 @@ public class Sprite
 
     public Rectangle2D getBoundary()
     {
-        return new Rectangle2D(positionX + hitBoxOffsetX, positionY + hitBoxOffsetY, hitBoxWidth, hitBoxHeight);
+        return new Rectangle2D(position.getX() + hitBoxOffsetX, position.getY() + hitBoxOffsetY, hitBoxWidth, hitBoxHeight);
     }
 
     public String toString()
     {
-        return name + " Position: [" + positionX + "," + positionY + "]"
+        return name + " Position: [" + position.getX() + "," + position.getY() + "]"
                 ;
     }
 
@@ -436,8 +432,7 @@ public class Sprite
 
     public void setPosition(double x, double y)
     {
-        positionX = x;
-        positionY = y;
+        position = new Point2D(x,y);
     }
 
     public Boolean getAnimated()
@@ -521,14 +516,14 @@ public class Sprite
         return baseheight;
     }
 
-    public double getPositionX()
+    public double getX()
     {
-        return positionX;
+        return position.getX();
     }
 
-    public double getPositionY()
+    public double getY()
     {
-        return positionY;
+        return position.getY();
     }
 
     public double getFps()

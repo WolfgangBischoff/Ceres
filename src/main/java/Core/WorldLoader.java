@@ -115,8 +115,8 @@ public class WorldLoader
             //process line according to keyword
             switch (readMode) {
                 case KEYWORD_TILEDEF:
-                    tileDataMap.put(lineData[SpriteData.tileCodeIdx], SpriteData.tileDefinition(lineData));
-                    loadedTileIdsSet.add(lineData[SpriteData.tileCodeIdx]);
+                    tileDataMap.put(lineData[SpriteData.getTileCodeIdx()], SpriteData.tileDefinition(lineData));
+                    loadedTileIdsSet.add(lineData[SpriteData.getTileCodeIdx()]);
                     break;
                 case KEYWORD_NEW_LAYER:
                     readLineOfTiles(lineData, false);

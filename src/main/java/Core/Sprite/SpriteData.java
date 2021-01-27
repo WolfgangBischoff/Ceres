@@ -105,4 +105,134 @@ public class SpriteData
                 ", animationDuration=" + animationDuration +
                 '}';
     }
+
+    public static int getTileCodeIdx()
+    {
+        return tileCodeIdx;
+    }
+
+    public static int getNameIdx()
+    {
+        return nameIdx;
+    }
+
+    public static int getSpriteNameIdx()
+    {
+        return spriteNameIdx;
+    }
+
+    public static int getBlockingIdx()
+    {
+        return blockingIdx;
+    }
+
+    public static int getLayerIdx()
+    {
+        return layerIdx;
+    }
+
+    public static int getFpsIdx()
+    {
+        return fpsIdx;
+    }
+
+    public static int getTotalFramesIdx()
+    {
+        return totalFramesIdx;
+    }
+
+    public static int getColsIdx()
+    {
+        return colsIdx;
+    }
+
+    public static int getRowsIdx()
+    {
+        return rowsIdx;
+    }
+
+    public static int getFrameWidthIdx()
+    {
+        return frameWidthIdx;
+    }
+
+    public static int getFrameHeightIdx()
+    {
+        return frameHeightIdx;
+    }
+
+    public static int getHitboxOffsetXIdx()
+    {
+        return hitboxOffsetXIdx;
+    }
+
+    public static int getHitboxOffsetYIdx()
+    {
+        return hitboxOffsetYIdx;
+    }
+
+    public static int getHitboxWidthIdx()
+    {
+        return hitboxWidthIdx;
+    }
+
+    public static int getHitboxHeightIdx()
+    {
+        return hitboxHeightIdx;
+    }
+
+    public static int getLightningSpriteNameIdx()
+    {
+        return lightningSpriteNameIdx;
+    }
+
+    public static int getDialogueIDIdx()
+    {
+        return dialogueIDIdx;
+    }
+
+    public static int getDialogueFileIdx()
+    {
+        return dialogueFileIdx;
+    }
+
+    public static int getUnused0()
+    {
+        return unused0;
+    }
+
+    public static int getUnused1()
+    {
+        return unused1;
+    }
+
+    public static int getUnused2()
+    {
+        return unused2;
+    }
+
+    public static int getUnused3()
+    {
+        return unused3;
+    }
+
+    public static int getUnused4()
+    {
+        return unused4;
+    }
+
+    public static int getAnimationDurationIdx()
+    {
+        return animationDurationIdx;
+    }
+
+    public static int getVelocityIdx()
+    {
+        return velocityIdx;
+    }
+
+    public static int getAnimationEndsIdx()
+    {
+        return animationEndsIdx;
+    }
 }

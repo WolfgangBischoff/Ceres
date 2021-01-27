@@ -535,8 +535,8 @@ public class WorldView
     {
         String methodName = "calcCameraPosition() ";
         //Camera at world border
-        camX = player.getPositionX() - CAMERA_WIDTH / 2f;
-        camY = player.getPositionY() - CAMERA_HEIGHT / 2f;
+        camX = player.getX() - CAMERA_WIDTH / 2f;
+        camY = player.getY() - CAMERA_HEIGHT / 2f;
         if (camX < offsetMinX)
             camX = offsetMinX;
         if (camY < offsetMinY)
@@ -697,7 +697,7 @@ public class WorldView
                 lightsImageMap.put(lightSpriteName, Utilities.readImage(IMAGE_DIRECTORY_PATH + "lightglows/" + lightSpriteName + ".png"));
             }
             Image lightImage = lightsImageMap.get(lightSpriteName);
-            shadowMaskGc.drawImage(lightImage, sprite.getPositionX() + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightImage.getWidth() / 2 - camX, sprite.getPositionY() + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightImage.getHeight() / 2 - camY);
+            shadowMaskGc.drawImage(lightImage, sprite.getX() + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightImage.getWidth() / 2 - camX, sprite.getY() + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightImage.getHeight() / 2 - camY);
         }
     }
 
