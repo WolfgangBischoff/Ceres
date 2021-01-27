@@ -16,6 +16,8 @@ import javafx.util.Pair;
 import java.util.List;
 
 import static Core.Configs.Config.*;
+import static Core.Enums.Direction.NORTH;
+import static Core.Enums.Direction.SOUTH;
 import static Core.Enums.TriggerType.NOTHING;
 
 public class Sprite
@@ -44,7 +46,7 @@ public class Sprite
     private Boolean animated;
     private Boolean animationEnds = false;
     private Boolean interact = false;
-    private Boolean blockedByOtherSprite = false;
+    //private Boolean blockedByOtherSprite = false;
     private double hitBoxOffsetX = 0, hitBoxOffsetY = 0, hitBoxWidth, hitBoxHeight;
     private String lightningSpriteName;
     private int layer = -1;
@@ -76,40 +78,19 @@ public class Sprite
         hitBoxHeight = frameHeight;
     }
 
-    private Rectangle2D calcInteractionRectangle()
-    {
-        String methodName = "calcInteractionRectangle() ";
-        double interactionWidth = actor.getInteractionAreaWidth();
-        double maxInteractionDistance = actor.getInteractionAreaDistance();
-        double offsetX = actor.getInteractionAreaOffsetX();
-        double offsetY = actor.getInteractionAreaOffsetY();
-
-        switch (actor.getDirection()) {
-            case NORTH:
-                return new Rectangle2D(position.getX() + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2 + offsetX, position.getY() + hitBoxOffsetY - maxInteractionDistance + offsetY, interactionWidth, maxInteractionDistance);
-            case EAST:
-                return new Rectangle2D(position.getX() + hitBoxOffsetX + hitBoxWidth + offsetX, position.getY() + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2 + offsetY, maxInteractionDistance, interactionWidth);
-            case SOUTH:
-                return new Rectangle2D(position.getX() + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2 + offsetX, position.getY() + hitBoxOffsetY + hitBoxHeight + offsetY, interactionWidth, maxInteractionDistance);
-            case WEST:
-                return new Rectangle2D(position.getX() + hitBoxOffsetX - maxInteractionDistance + offsetX, position.getY() + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2 + offsetY, maxInteractionDistance, interactionWidth);
-            case UNDEFINED:
-                return null;
-            default:
-                throw new RuntimeException("calcInteractionRectangle: No Direction Set at " + name);
-        }
-    }
-
     public static Sprite createSprite(SpriteData tile, double x, double y)
     {
         String methodName = "createSprite() ";
         Sprite ca;
-        try {
+        try
+        {
             if (tile.totalFrames > 1)
                 ca = new Sprite(tile.spriteName, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight);
             else
                 ca = new Sprite(tile.spriteName);
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             e.printStackTrace();
             ca = new Sprite(IMAGE_DIRECTORY_PATH + "notfound_64_64" + CSV_POSTFIX);
         }
@@ -131,13 +112,42 @@ public class Sprite
         return ca;
     }
 
+    public static String getClassname()
+    {
+        return CLASSNAME;
+    }
+
+    private Rectangle2D calcInteractionRectangle()
+    {
+        String methodName = "calcInteractionRectangle() ";
+        double interactionWidth = actor.getInteractionAreaWidth();
+        double maxInteractionDistance = actor.getInteractionAreaDistance();
+        double offsetX = actor.getInteractionAreaOffsetX();
+        double offsetY = actor.getInteractionAreaOffsetY();
+
+        switch (actor.getDirection())
+        {
+            case NORTH:
+                return new Rectangle2D(position.getX() + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2 + offsetX, position.getY() + hitBoxOffsetY - maxInteractionDistance + offsetY, interactionWidth, maxInteractionDistance);
+            case EAST:
+                return new Rectangle2D(position.getX() + hitBoxOffsetX + hitBoxWidth + offsetX, position.getY() + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2 + offsetY, maxInteractionDistance, interactionWidth);
+            case SOUTH:
+                return new Rectangle2D(position.getX() + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2 + offsetX, position.getY() + hitBoxOffsetY + hitBoxHeight + offsetY, interactionWidth, maxInteractionDistance);
+            case WEST:
+                return new Rectangle2D(position.getX() + hitBoxOffsetX - maxInteractionDistance + offsetX, position.getY() + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2 + offsetY, maxInteractionDistance, interactionWidth);
+            case UNDEFINED:
+                return null;
+            default:
+                throw new RuntimeException("calcInteractionRectangle: No Direction Set at " + name);
+        }
+    }
+
     public void update(Long currentNanoTime)
     {
         String methodName = "update() ";
 
         double time = (currentNanoTime - lastUpdated) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - actor.getLastInteraction()) / 1000000000.0;
-        Rectangle2D worldBorders = WorldView.getBorders();
         List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
         double velocityX = actor.getVelocityX();
         double velocityY = actor.getVelocityY();
@@ -148,21 +158,12 @@ public class Sprite
         if (actor != null)
             initGeneralStatusFrame = actor.getGeneralStatus();
 
-        for (Sprite otherSprite : activeSprites) {
+        for (Sprite otherSprite : activeSprites)
+        {
             if (otherSprite == this ||
                     otherSprite.actor == actor //if actor has multiple sprites they are usually congruent
             )
                 continue;
-
-            //Collision
-            if ( isBlockedBy(otherSprite, plannedPosition))
-            {
-                if (this == WorldView.getPlayer()) {
-                    Pair<Double, Double> delta = calculateCollisionType(plannedPosition, this.actor.getDirection(), otherSprite.getBoundary());
-                    dodgeVelocities = new Pair<>(delta.getKey() + dodgeVelocities.getKey(), delta.getValue() + dodgeVelocities.getValue());
-                }
-                blockedByOtherSprite = true;
-            }
 
             //Calculate Interaction Area
             if (interact || actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING || getName().equalsIgnoreCase("player"))
@@ -171,17 +172,20 @@ public class Sprite
             //Interact within interaction area
             if (interact
                     && otherSprite.getBoundary().intersects(interactionArea)
-                    && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS) {
+                    && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
+            {
 
                 if (otherSprite.actor != null &&
                         (otherSprite.actor.getSensorStatus().getOnInteraction_TriggerSprite() != NOTHING
-                                || otherSprite.actor.getSensorStatus().getOnInteraction_TriggerSensor() != NOTHING)) {
+                                || otherSprite.actor.getSensorStatus().getOnInteraction_TriggerSensor() != NOTHING))
+                {
                     otherSprite.actor.onInteraction(this, currentNanoTime);
                     actor.setLastInteraction(currentNanoTime);
                     interact = false;
                 }
                 else if (otherSprite.actor == null &&//just use this for deco-sprites
-                        !(otherSprite.dialogueFileName.equals("dialogueFile") || otherSprite.dialogueFileName.equals("none"))) {
+                        !(otherSprite.dialogueFileName.equals("dialogueFile") || otherSprite.dialogueFileName.equals("none")))
+                {
                     WorldView.startConversation(otherSprite.dialogueFileName, otherSprite.initDialogueId, currentNanoTime);
                     interact = false;
                 }
@@ -190,73 +194,101 @@ public class Sprite
             //In range
             if (otherSprite.actor != null
                     && actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING
-                    && otherSprite.getBoundary().intersects(interactionArea)) {
+                    && otherSprite.getBoundary().intersects(interactionArea))
+            {
                 actor.onInRange(otherSprite, currentNanoTime);
             }
 
             //Intersect
-            if (intersects(otherSprite) && (actor.getSensorStatus().getOnIntersection_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnIntersection_TriggerSensor() != NOTHING)) {
+            if (intersects(otherSprite) && (actor.getSensorStatus().getOnIntersection_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnIntersection_TriggerSensor() != NOTHING))
+            {
                 actor.onIntersection(otherSprite, currentNanoTime);
             }
         }
 
 
         //check if status was changed from other triggers, just if not do OnUpdate
-        if (actor != null && initGeneralStatusFrame.equals(actor.getGeneralStatus())) {
+        if (actor != null && initGeneralStatusFrame.equals(actor.getGeneralStatus()))
+        {
             if (actor.getSensorStatus().getOnUpdate_TriggerSprite() != NOTHING && !actor.getSensorStatus().getOnUpdateToStatusSprite().equals(actor.getGeneralStatus()))
                 actor.onUpdate(currentNanoTime);
             if (actor.getSensorStatus().getOnUpdate_TriggerSensor() != NOTHING && !actor.getSensorStatus().getOnUpdate_StatusSensor().equals(actor.getSensorStatus().getStatusName()))
                 actor.onUpdate(currentNanoTime);
         }
 
-        if (!blockedByOtherSprite || (DEBUG_NO_WALL && this == WorldView.getPlayer())) {
+        if (!isBlockedByOtherSprites(velocityX * time, velocityY * time) || (DEBUG_NO_WALL && this == WorldView.getPlayer()))
+        {
             position = position.add(velocityX * time, velocityY * time);
         }
-        else {
+        else
+        {
+            if (this == WorldView.getPlayer())
+            {
+                Pair<Double, Double> delta = calculateDodge(plannedPosition, this.actor.getDirection());
+                dodgeVelocities = new Pair<>(delta.getKey() + dodgeVelocities.getKey(), delta.getValue() + dodgeVelocities.getValue());
+            }
             position = position.add(dodgeVelocities.getKey() * time, dodgeVelocities.getValue() * time);
         }
 
         interact = false;
-        blockedByOtherSprite = false;
         lastUpdated = currentNanoTime;
 
     }
 
-   private boolean isBlockedBy(Sprite otherSprite, Rectangle2D plannedPosition)
-   {
-       return otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition);
-    //           || !worldBorders.contains(position.getX() + velocityX * time, position.getY() + velocityY * time
-   }
+    private boolean isBlockedBy(Sprite otherSprite, Rectangle2D plannedPosition)
+    {
+        if(otherSprite == this)
+            return false;
+        return otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition);
+        //           || !worldBorders.contains(position.getX() + velocityX * time, position.getY() + velocityY * time
+    }
 
-    private Pair<Double, Double> calculateCollisionType(Rectangle2D moving, Direction direction, Rectangle2D standing)
+    private boolean isBlockedByOtherSprites(double deltaX, double deltaY)
+    {
+        Rectangle2D plannedPosition = new Rectangle2D(position.getX() + hitBoxOffsetX + deltaX, position.getY() + hitBoxOffsetY + deltaY, hitBoxWidth, hitBoxHeight);
+        for (Sprite otherSprite : WorldView.getPassiveCollisionRelevantSpritesLayer())
+            if (isBlockedBy(otherSprite, plannedPosition))
+                return true;
+        return false;
+    }
+
+    private Pair<Double, Double> calculateDodge(Rectangle2D plannedPosition, Direction direction)
     {
         String methodName = "calculateCollisionType() ";
         double playerLeftEdge = 0;
         double playerRightEdge = 0;
-        double otherSpriteLeftEdge = 0;
-        double otherSpriteRightEdge = 0;
+        double blockingSpriteLeftEdge = 0;
+        double blockingSpriteRightEdge = 0;
         double velocityDodge = DODGE_VELOCITY;
+        Rectangle2D blockingSprite = null;
+        for (Sprite otherSprite : WorldView.getPassiveCollisionRelevantSpritesLayer())
+            if (isBlockedBy(otherSprite, plannedPosition))
+                blockingSprite = otherSprite.getBoundary();
 
-        if (direction == Direction.NORTH || direction == Direction.SOUTH) {
-            playerLeftEdge = moving.getMinX();
-            playerRightEdge = moving.getMaxX();
-            otherSpriteLeftEdge = standing.getMinX();
-            otherSpriteRightEdge = standing.getMaxX();
+        if (direction == NORTH || direction == SOUTH)
+        {
+            playerLeftEdge = plannedPosition.getMinX();
+            playerRightEdge = plannedPosition.getMaxX();
+            blockingSpriteLeftEdge = blockingSprite.getMinX();
+            blockingSpriteRightEdge = blockingSprite.getMaxX();
         }
-        else if (direction == Direction.WEST || direction == Direction.EAST) {
-            playerLeftEdge = moving.getMaxY();
-            playerRightEdge = moving.getMinY();
-            otherSpriteLeftEdge = standing.getMaxY();
-            otherSpriteRightEdge = standing.getMinY();
+        else if (direction == Direction.WEST || direction == Direction.EAST)
+        {
+            playerLeftEdge = plannedPosition.getMaxY();
+            playerRightEdge = plannedPosition.getMinY();
+            blockingSpriteLeftEdge = blockingSprite.getMaxY();
+            blockingSpriteRightEdge = blockingSprite.getMinY();
         }
-        if (playerLeftEdge < otherSpriteLeftEdge && playerRightEdge < otherSpriteRightEdge) {
-            if (direction == Direction.NORTH || direction == Direction.SOUTH)
+        if (playerLeftEdge < blockingSpriteLeftEdge && playerRightEdge < blockingSpriteRightEdge)
+        {
+            if (direction == NORTH || direction == SOUTH)
                 return new Pair<>(-velocityDodge, 0d);
             else
                 return new Pair<>(0d, -velocityDodge);
         }
-        else if (playerLeftEdge > otherSpriteLeftEdge && playerRightEdge > otherSpriteRightEdge) {
-            if (direction == Direction.NORTH || direction == Direction.SOUTH)
+        else if (playerLeftEdge > blockingSpriteLeftEdge && playerRightEdge > blockingSpriteRightEdge)
+        {
+            if (direction == NORTH || direction == SOUTH)
                 return new Pair<>(velocityDodge, 0d);
             else
                 return new Pair<>(0d, velocityDodge);
@@ -280,15 +312,18 @@ public class Sprite
         if (getBoundary().intersects(player.interactionArea)
                 && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS
 
-        ) {
+        )
+        {
             if (debug)
                 System.out.println(CLASSNAME + methodName + player.getName() + " interact with " + getName() + " by mouseclick.");
             if (actor != null &&
-                    (actor.getSensorStatus().getOnInteraction_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnInteraction_TriggerSensor() != NOTHING)) {
+                    (actor.getSensorStatus().getOnInteraction_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnInteraction_TriggerSensor() != NOTHING))
+            {
                 actor.onInteraction(player, currentNanoTime); //Passive reacts
                 player.actor.setLastInteraction(currentNanoTime);
             }
-            else if (!(getDialogueFileName().equals("dialogueFile") || getDialogueFileName().equals("none"))) {
+            else if (!(getDialogueFileName().equals("dialogueFile") || getDialogueFileName().equals("none")))
+            {
                 WorldView.startConversation(dialogueFileName, initDialogueId, currentNanoTime);
                 player.actor.setLastInteraction(currentNanoTime);
             }
@@ -316,10 +351,12 @@ public class Sprite
     {
         String methodName = "render()";
 
-        if (getAnimated()) {
+        if (getAnimated())
+        {
             renderAnimated(gc, now);
         }
-        else {
+        else
+        {
             renderSimple(gc);
         }
 
@@ -347,7 +384,8 @@ public class Sprite
         int frameJump = (int) Math.floor((now - lastFrame) / (1000000000 / fps)); //Determine how many frames we need to advance to maintain frame rate independence
 
         //Do a bunch of math to determine where the viewport needs to be positioned on the sprite sheet
-        if (frameJump >= 1 && !(isAtLastFrame() && animationEnds)) {
+        if (frameJump >= 1 && !(isAtLastFrame() && animationEnds))
+        {
             lastFrame = now;
 
             int addRows = (int) Math.floor((float) frameJump / (float) cols);
@@ -393,11 +431,6 @@ public class Sprite
                 ;
     }
 
-    public void setBlocker(Boolean blocker)
-    {
-        isBlocker = blocker;
-    }
-
     public void setImage(String filename)
     {
         String methodName = "setImage(String) ";
@@ -432,7 +465,7 @@ public class Sprite
 
     public void setPosition(double x, double y)
     {
-        position = new Point2D(x,y);
+        position = new Point2D(x, y);
     }
 
     public Boolean getAnimated()
@@ -444,11 +477,6 @@ public class Sprite
     {
         lastFrame = GameWindow.getSingleton().getRenderTime(); //To set frameJump to first image, if Animation starts later with interaction
         this.animated = animated;
-    }
-
-    public void setInteract(Boolean interact)
-    {
-        this.interact = interact;
     }
 
     public String getName()
@@ -476,9 +504,19 @@ public class Sprite
         return hitBoxWidth;
     }
 
+    public void setHitBoxWidth(double hitBoxWidth)
+    {
+        this.hitBoxWidth = hitBoxWidth;
+    }
+
     public double getHitBoxHeight()
     {
         return hitBoxHeight;
+    }
+
+    public void setHitBoxHeight(double hitBoxHeight)
+    {
+        this.hitBoxHeight = hitBoxHeight;
     }
 
     public String getLightningSpriteName()
@@ -491,19 +529,14 @@ public class Sprite
         this.lightningSpriteName = lightningSpriteName;
     }
 
-    public void setAnimationEnds(Boolean animationEnds)
-    {
-        this.animationEnds = animationEnds;
-    }
-
     public Actor getActor()
     {
         return actor;
     }
 
-    public static String getClassname()
+    public void setActor(Actor actor)
     {
-        return CLASSNAME;
+        this.actor = actor;
     }
 
     public double getBasewidth()
@@ -531,9 +564,19 @@ public class Sprite
         return fps;
     }
 
+    public void setFps(double fps)
+    {
+        this.fps = fps;
+    }
+
     public int getTotalFrames()
     {
         return totalFrames;
+    }
+
+    public void setTotalFrames(int totalFrames)
+    {
+        this.totalFrames = totalFrames;
     }
 
     public int getCols()
@@ -541,9 +584,19 @@ public class Sprite
         return cols;
     }
 
+    public void setCols(int cols)
+    {
+        this.cols = cols;
+    }
+
     public int getRows()
     {
         return rows;
+    }
+
+    public void setRows(int rows)
+    {
+        this.rows = rows;
     }
 
     public double getFrameWidth()
@@ -551,14 +604,29 @@ public class Sprite
         return frameWidth;
     }
 
+    public void setFrameWidth(double frameWidth)
+    {
+        this.frameWidth = frameWidth;
+    }
+
     public double getFrameHeight()
     {
         return frameHeight;
     }
 
+    public void setFrameHeight(double frameHeight)
+    {
+        this.frameHeight = frameHeight;
+    }
+
     public Boolean getBlocker()
     {
         return isBlocker;
+    }
+
+    public void setBlocker(Boolean blocker)
+    {
+        isBlocker = blocker;
     }
 
     public int getLayer()
@@ -569,51 +637,6 @@ public class Sprite
     public void setLayer(int layer)
     {
         this.layer = layer;
-    }
-
-    public void setFps(double fps)
-    {
-        this.fps = fps;
-    }
-
-    public void setTotalFrames(int totalFrames)
-    {
-        this.totalFrames = totalFrames;
-    }
-
-    public void setCols(int cols)
-    {
-        this.cols = cols;
-    }
-
-    public void setRows(int rows)
-    {
-        this.rows = rows;
-    }
-
-    public void setFrameWidth(double frameWidth)
-    {
-        this.frameWidth = frameWidth;
-    }
-
-    public void setFrameHeight(double frameHeight)
-    {
-        this.frameHeight = frameHeight;
-    }
-
-    public void setHitBoxWidth(double hitBoxWidth)
-    {
-        this.hitBoxWidth = hitBoxWidth;
-    }
-
-    public void setHitBoxHeight(double hitBoxHeight)
-    {
-        this.hitBoxHeight = hitBoxHeight;
-    }
-
-    public void setActor(Actor actor)
-    {
-        this.actor = actor;
     }
 
     public String getDialogueFileName()
@@ -651,15 +674,25 @@ public class Sprite
         return animationEnds;
     }
 
+    public void setAnimationEnds(Boolean animationEnds)
+    {
+        this.animationEnds = animationEnds;
+    }
+
     public Boolean getInteract()
     {
         return interact;
     }
 
-    public Boolean getBlockedByOtherSprite()
+    public void setInteract(Boolean interact)
     {
-        return blockedByOtherSprite;
+        this.interact = interact;
     }
+
+    //public Boolean getBlockedByOtherSprite()
+    //{
+    //    return blockedByOtherSprite;
+    //}
 
     public Image getBaseimage()
     {

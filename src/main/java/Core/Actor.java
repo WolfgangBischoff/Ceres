@@ -14,12 +14,15 @@ import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.animation.PauseTransition;
+import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 
 import java.util.*;
 
 import static Core.Configs.Config.*;
 import static Core.Enums.ActorTag.*;
+import static Core.Enums.Direction.*;
+import static Core.Enums.Direction.WEST;
 import static Core.Enums.TriggerType.CONDITION;
 import static Core.Enums.TriggerType.TEXTBOX_CONDITION;
 
@@ -736,19 +739,42 @@ public class Actor
         updateCompoundStatus();
     }
 
-
+//    private boolean isBlocked()
+//    {
+//        if(getVelocityY() > 0)
+//            return isBlocked(SOUTH);
+//        else if(getVelocityY() < 0)
+//            return isBlocked(NORTH);
+//
+//        if(getVelocityX() > 0)
+//            return isBlocked(EAST);
+//        else if(getVelocityY() < 0)
+//            return isBlocked(WEST);
+//
+//        return false;
+//    }
+//
+//    private boolean isBlocked(Direction direction)
+//    {
+//        int smallDistance = getVelocityY() > 0 ? 1 : -1;
+//        Rectangle2D plannedPosition = new Rectangle2D(position.getX() + hitBoxOffsetX + smallDistance, position.getY() + hitBoxOffsetY + smallDistance, hitBoxWidth, hitBoxHeight);
+//        for (Sprite otherSprite : WorldView.getPassiveCollisionRelevantSpritesLayer())
+//            if (isBlockedBy(otherSprite, plannedPosition))
+//                return true;
+//        return false;
+//    }
 
     public boolean isMoving()
     {
         return velocityX != 0 || velocityY != 0;
     }
 
-    public double getVelocityX()
+    public Double getVelocityX()
     {
         return velocityX;
     }
 
-    public double getVelocityY()
+    public Double getVelocityY()
     {
         return velocityY;
     }
