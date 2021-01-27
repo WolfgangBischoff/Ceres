@@ -27,8 +27,6 @@ public class Sprite
     double basewidth; //width of whole sprite, in therms of animation multiple frames
     double baseheight;
     Point2D position;
-    //double position.getX();
-    //double position.getY();
     Long lastFrame = 0L;
     Long lastUpdated = 0L;
     Rectangle2D interactionArea;
@@ -46,7 +44,6 @@ public class Sprite
     private Boolean animated;
     private Boolean animationEnds = false;
     private Boolean interact = false;
-    //private Boolean blockedByOtherSprite = false;
     private double hitBoxOffsetX = 0, hitBoxOffsetY = 0, hitBoxWidth, hitBoxHeight;
     private String lightningSpriteName;
     private int layer = -1;

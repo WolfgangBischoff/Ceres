@@ -736,33 +736,17 @@ public class Actor
     {
         velocityX = x;
         velocityY = y;
+        if(x < 0)
+            setDirection(WEST);
+        else if(x > 0)
+            setDirection(EAST);
+        if(y < 0)
+            setDirection(NORTH);
+        else if (y > 0)
+            setDirection(SOUTH);
+
         updateCompoundStatus();
     }
-
-//    private boolean isBlocked()
-//    {
-//        if(getVelocityY() > 0)
-//            return isBlocked(SOUTH);
-//        else if(getVelocityY() < 0)
-//            return isBlocked(NORTH);
-//
-//        if(getVelocityX() > 0)
-//            return isBlocked(EAST);
-//        else if(getVelocityY() < 0)
-//            return isBlocked(WEST);
-//
-//        return false;
-//    }
-//
-//    private boolean isBlocked(Direction direction)
-//    {
-//        int smallDistance = getVelocityY() > 0 ? 1 : -1;
-//        Rectangle2D plannedPosition = new Rectangle2D(position.getX() + hitBoxOffsetX + smallDistance, position.getY() + hitBoxOffsetY + smallDistance, hitBoxWidth, hitBoxHeight);
-//        for (Sprite otherSprite : WorldView.getPassiveCollisionRelevantSpritesLayer())
-//            if (isBlockedBy(otherSprite, plannedPosition))
-//                return true;
-//        return false;
-//    }
 
     public boolean isMoving()
     {

@@ -1,5 +1,6 @@
 package Core;
 
+import Core.Enums.Direction;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -33,6 +34,16 @@ public class Utilities
     {
         int number = random.nextInt(max - min) + min;
         return random.nextBoolean() ? number : -number;
+    }
+
+    public static int randomInt(int min, int max)
+    {
+        return random.nextInt(max - min) + min;
+    }
+
+    public static Direction randomDirection()
+    {
+        return Direction.of(random.nextInt(4));
     }
 
     public static String removeAllBlanksExceptOne(String s)
