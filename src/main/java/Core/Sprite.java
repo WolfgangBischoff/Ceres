@@ -14,8 +14,6 @@ import java.util.List;
 
 import static Core.Configs.Config.*;
 import static Core.Enums.TriggerType.NOTHING;
-import static Core.GameVariables.getPlayer;
-import static Core.GameVariables.player;
 
 public class Sprite
 {
@@ -154,11 +152,12 @@ public class Sprite
 
             //Collision
             if
-            (otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition)
-                    || !worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time)
-            ) {
+            (
+                    isBlockedBy(otherSprite, plannedPosition)
+            )
+            {
                 if (this == WorldView.getPlayer()) {
-                    var delta = calculateCollisionType(plannedPosition, this.actor.getDirection(), otherSprite.getBoundary());
+                    Pair<Double, Double> delta = calculateCollisionType(plannedPosition, this.actor.getDirection(), otherSprite.getBoundary());
                     dodgeVelocities = new Pair<>(delta.getKey() + dodgeVelocities.getKey(), delta.getValue() + dodgeVelocities.getValue());
                 }
                 blockedByOtherSprite = true;
@@ -224,6 +223,12 @@ public class Sprite
 
     }
 
+   private boolean isBlockedBy(Sprite otherSprite, Rectangle2D plannedPosition)
+   {
+       return otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition);
+    //           || !worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time
+   }
+
     private Pair<Double, Double> calculateCollisionType(Rectangle2D moving, Direction direction, Rectangle2D standing)
     {
         String methodName = "calculateCollisionType() ";
@@ -248,27 +253,16 @@ public class Sprite
         if (playerLeftEdge < otherSpriteLeftEdge && playerRightEdge < otherSpriteRightEdge) {
             if (direction == Direction.NORTH || direction == Direction.SOUTH)
                 return new Pair<>(-velocityDodge, 0d);
-            else//(direction == Direction.WEST || direction == Direction.EAST)
+            else
                 return new Pair<>(0d, -velocityDodge);
         }
         else if (playerLeftEdge > otherSpriteLeftEdge && playerRightEdge > otherSpriteRightEdge) {
             if (direction == Direction.NORTH || direction == Direction.SOUTH)
                 return new Pair<>(velocityDodge, 0d);
-            else//(direction == Direction.WEST || direction == Direction.EAST)
+            else
                 return new Pair<>(0d, velocityDodge);
 
         }
-        //Case Player hitbox totally covered
-        else if (playerLeftEdge >= otherSpriteLeftEdge && playerRightEdge <= otherSpriteRightEdge) {
-            //System.out.println(CLASSNAME + methodName + this.name + " totally covered" + " playerLeft:" + playerLeftEdge + " playerRight:" + playerRightEdge + " otherLeft:" + otherSpriteLeftEdge + " otherRight:" + otherSpriteRightEdge);
-        }
-        //Case Other Sprite totally covered
-        else if (playerLeftEdge <= otherSpriteLeftEdge && playerRightEdge >= otherSpriteRightEdge) {
-            //System.out.println(CLASSNAME + methodName + this.name + " obastacale small" + " playerLeft:" + playerLeftEdge + " playerRight:" + playerRightEdge + " otherLeft:" + otherSpriteLeftEdge + " otherRight:" + otherSpriteRightEdge);
-        }
-        else
-            System.out.println(CLASSNAME + methodName + "uncated" + " playerLeft:" + playerLeftEdge + " playerRight:" + playerRightEdge + " otherLeft:" + otherSpriteLeftEdge + " otherRight:" + otherSpriteRightEdge);
-
         return new Pair<>(0d, 0d);
     }
 

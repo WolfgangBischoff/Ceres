@@ -734,6 +734,8 @@ public class Actor
         updateCompoundStatus();
     }
 
+
+
     public boolean isMoving()
     {
         return velocityX != 0 || velocityY != 0;

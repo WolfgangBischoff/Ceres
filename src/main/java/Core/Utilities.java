@@ -17,14 +17,23 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Utilities
 {
     private static String CLASSNAME = "Utilities/";
+    private static Random random = new Random();
+
+    public static float randomFloat()
+    {
+        return random.nextFloat();
+    }
+
+    public static int randomSignedInt(int min, int max)
+    {
+        int number = random.nextInt(max - min) + min;
+        return random.nextBoolean() ? number : -number;
+    }
 
     public static String removeAllBlanksExceptOne(String s)
     {

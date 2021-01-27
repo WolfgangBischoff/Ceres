@@ -18,7 +18,7 @@ public enum TriggerType
             case "textbox_analysis": return TEXTBOX_ANALYSIS;
             case "textbox_condition": return TEXTBOX_CONDITION;
             case "collectable": return COLLECTABLE;
-            case "move": return SCRIPT;
+            case "script": return SCRIPT;
             case "inventory_exchange": return INVENTORY_EXCHANGE;
             case "inventory_shop": return INVENTORY_SHOP;
             case "condition": return CONDITION;
