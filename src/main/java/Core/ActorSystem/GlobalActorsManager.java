@@ -3,6 +3,8 @@ package Core.ActorSystem;
 import Core.*;
 import Core.Configs.Config;
 import Core.Enums.Direction;
+import Core.Sprite.Sprite;
+import Core.Sprite.SpriteData;
 
 import java.util.*;
 

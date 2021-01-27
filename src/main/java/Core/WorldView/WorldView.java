@@ -16,6 +16,8 @@ import Core.Menus.StatusOverlay.BarStatusOverlay;
 import Core.Menus.StatusOverlay.ClockOverlay;
 import Core.Menus.StatusOverlay.VariableStatusOverlay;
 import Core.Menus.Textbox.Textbox;
+import Core.Sprite.Sprite;
+import Core.Sprite.SpriteComparator;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;

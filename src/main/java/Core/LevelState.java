@@ -1,5 +1,6 @@
 package Core;
 
+import Core.Sprite.Sprite;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 

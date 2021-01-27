@@ -1,7 +1,10 @@
-package Core;
+package Core.Sprite;
 
+import Core.Actor;
 import Core.Configs.Config;
 import Core.Enums.Direction;
+import Core.GameWindow;
+import Core.Utilities;
 import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -142,7 +145,7 @@ public class Sprite
 
         String initGeneralStatusFrame = "";
         if (actor != null)
-            initGeneralStatusFrame = actor.generalStatus;
+            initGeneralStatusFrame = actor.getGeneralStatus();
 
         for (Sprite otherSprite : activeSprites) {
             if (otherSprite == this ||
@@ -164,7 +167,7 @@ public class Sprite
             }
 
             //Calculate Interaction Area
-            if (interact || actor.sensorStatus.onInRange_TriggerSprite != NOTHING || getName().equalsIgnoreCase("player"))
+            if (interact || actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING || getName().equalsIgnoreCase("player"))
                 interactionArea = calcInteractionRectangle();
 
             //Interact within interaction area
@@ -173,8 +176,8 @@ public class Sprite
                     && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS) {
 
                 if (otherSprite.actor != null &&
-                        (otherSprite.actor.sensorStatus.onInteraction_TriggerSprite != NOTHING
-                                || otherSprite.actor.sensorStatus.onInteraction_TriggerSensor != NOTHING)) {
+                        (otherSprite.actor.getSensorStatus().getOnInteraction_TriggerSprite() != NOTHING
+                                || otherSprite.actor.getSensorStatus().getOnInteraction_TriggerSensor() != NOTHING)) {
                     otherSprite.actor.onInteraction(this, currentNanoTime);
                     actor.setLastInteraction(currentNanoTime);
                     interact = false;
@@ -188,23 +191,23 @@ public class Sprite
 
             //In range
             if (otherSprite.actor != null
-                    && actor.sensorStatus.onInRange_TriggerSprite != NOTHING
+                    && actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING
                     && otherSprite.getBoundary().intersects(interactionArea)) {
                 actor.onInRange(otherSprite, currentNanoTime);
             }
 
             //Intersect
-            if (intersects(otherSprite) && (actor.sensorStatus.onIntersection_TriggerSprite != NOTHING || actor.sensorStatus.onIntersection_TriggerSensor != NOTHING)) {
+            if (intersects(otherSprite) && (actor.getSensorStatus().getOnIntersection_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnIntersection_TriggerSensor() != NOTHING)) {
                 actor.onIntersection(otherSprite, currentNanoTime);
             }
         }
 
 
         //check if status was changed from other triggers, just if not do OnUpdate
-        if (actor != null && initGeneralStatusFrame.equals(actor.generalStatus)) {
-            if (actor.sensorStatus.onUpdate_TriggerSprite != NOTHING && !actor.sensorStatus.onUpdateToStatusSprite.equals(actor.generalStatus))
+        if (actor != null && initGeneralStatusFrame.equals(actor.getGeneralStatus())) {
+            if (actor.getSensorStatus().getOnUpdate_TriggerSprite() != NOTHING && !actor.getSensorStatus().getOnUpdateToStatusSprite().equals(actor.getGeneralStatus()))
                 actor.onUpdate(currentNanoTime);
-            if (actor.sensorStatus.onUpdate_TriggerSensor != NOTHING && !actor.sensorStatus.onUpdate_StatusSensor.equals(actor.sensorStatus.statusName))
+            if (actor.getSensorStatus().getOnUpdate_TriggerSensor() != NOTHING && !actor.getSensorStatus().getOnUpdate_StatusSensor().equals(actor.getSensorStatus().getStatusName()))
                 actor.onUpdate(currentNanoTime);
         }
 
@@ -272,7 +275,7 @@ public class Sprite
         boolean debug = false;
 
         if (debug)
-            System.out.println(CLASSNAME + methodName + name + " clicked: " + actor.actorInGameName);
+            System.out.println(CLASSNAME + methodName + name + " clicked: " + actor.getActorInGameName());
 
         //Sprite is clicked by player and in Range
         Sprite player = WorldView.getPlayer();
@@ -285,7 +288,7 @@ public class Sprite
             if (debug)
                 System.out.println(CLASSNAME + methodName + player.getName() + " interact with " + getName() + " by mouseclick.");
             if (actor != null &&
-                    (actor.sensorStatus.onInteraction_TriggerSprite != NOTHING || actor.sensorStatus.onInteraction_TriggerSensor != NOTHING)) {
+                    (actor.getSensorStatus().getOnInteraction_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnInteraction_TriggerSensor() != NOTHING)) {
                 actor.onInteraction(player, currentNanoTime); //Passive reacts
                 player.actor.setLastInteraction(currentNanoTime);
             }
@@ -637,4 +640,51 @@ public class Sprite
     {
         this.initDialogueId = initDialogueId;
     }
+
+    public int getCurrentCol()
+    {
+        return currentCol;
+    }
+
+    public int getCurrentRow()
+    {
+        return currentRow;
+    }
+
+    public Boolean getAnimationEnds()
+    {
+        return animationEnds;
+    }
+
+    public Boolean getInteract()
+    {
+        return interact;
+    }
+
+    public Boolean getBlockedByOtherSprite()
+    {
+        return blockedByOtherSprite;
+    }
+
+    public Image getBaseimage()
+    {
+        return baseimage;
+    }
+
+    public Long getLastFrame()
+    {
+        return lastFrame;
+    }
+
+    public Long getLastUpdated()
+    {
+        return lastUpdated;
+    }
+
+    public Rectangle2D getInteractionArea()
+    {
+        return interactionArea;
+    }
+
+
 }

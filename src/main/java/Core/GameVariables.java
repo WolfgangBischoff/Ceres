@@ -5,6 +5,7 @@ import Core.Enums.Knowledge;
 import Core.GameTime.Clock;
 import Core.GameTime.DateTime;
 import Core.Menus.AchievmentLog.NewMessageOverlay;
+import Core.Sprite.Sprite;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 

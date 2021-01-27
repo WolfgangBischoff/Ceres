@@ -1,4 +1,4 @@
-package Core;
+package Core.Sprite;
 
 
 public class SpriteData

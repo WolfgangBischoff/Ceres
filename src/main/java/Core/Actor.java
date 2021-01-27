@@ -8,6 +8,8 @@ import Core.Menus.CoinGame.CoinType;
 import Core.Menus.Inventory.Inventory;
 import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Personality.PersonalityContainer;
+import Core.Sprite.Sprite;
+import Core.Sprite.SpriteData;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -381,10 +383,10 @@ public class Actor
                     || sensorStatus.getOnInteraction_TriggerSprite() == CONDITION
                     || sensorStatus.getOnInteraction_TriggerSensor() == TEXTBOX_CONDITION
                     || sensorStatus.getOnInteraction_TriggerSprite() == TEXTBOX_CONDITION)
-                updateStatusFromConditions(activeSprite.actor);
+                updateStatusFromConditions(activeSprite.getActor());
 
             //react
-            evaluateTriggerType(sensorStatus.onInteraction_TriggerSprite, sensorStatus.onInteractionToStatusSprite, activeSprite.actor);
+            evaluateTriggerType(sensorStatus.onInteraction_TriggerSprite, sensorStatus.onInteractionToStatusSprite, activeSprite.getActor());
             setLastInteraction(currentNanoTime);
         }
     }
@@ -421,11 +423,11 @@ public class Actor
 
         //Check if detection is relevant
         boolean actorRelevant = true;
-        if (detectedSprite.actor == null ||
+        if (detectedSprite.getActor() == null ||
                 (
-                        (tags.contains(AUTOMATED_DOOR) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE)) //is door and other detectable
-                                || tags.contains(BECOME_TRANSPARENT) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE) //for roof
-                                || tags.contains(DETECTS_PLAYER) && !detectedSprite.actor.tags.contains(PLAYER) //for trigger
+                        (tags.contains(AUTOMATED_DOOR) && !detectedSprite.getActor().tags.contains(AUTOMATED_DOOR_DETECTABLE)) //is door and other detectable
+                                || tags.contains(BECOME_TRANSPARENT) && !detectedSprite.getActor().tags.contains(AUTOMATED_DOOR_DETECTABLE) //for roof
+                                || tags.contains(DETECTS_PLAYER) && !detectedSprite.getActor().tags.contains(PLAYER) //for trigger
                 )
         )
             actorRelevant = false;
@@ -437,7 +439,7 @@ public class Actor
 
             //Sprite Status
             if (sensorStatus.onIntersection_TriggerSprite != TriggerType.NOTHING) {
-                evaluateTriggerType(sensorStatus.onIntersection_TriggerSprite, sensorStatus.onIntersectionToStatusSprite, detectedSprite.actor);
+                evaluateTriggerType(sensorStatus.onIntersection_TriggerSprite, sensorStatus.onIntersectionToStatusSprite, detectedSprite.getActor());
             }
 
             //SensorStatus
@@ -454,13 +456,13 @@ public class Actor
 
         //TODO general lookup
         if (
-                (tags.contains(AUTOMATED_DOOR) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE))
-                        || tags.contains(BECOME_TRANSPARENT) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE)
+                (tags.contains(AUTOMATED_DOOR) && !detectedSprite.getActor().tags.contains(AUTOMATED_DOOR_DETECTABLE))
+                        || tags.contains(BECOME_TRANSPARENT) && !detectedSprite.getActor().tags.contains(AUTOMATED_DOOR_DETECTABLE)
         )
             return;
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS) {
-            evaluateTriggerType(sensorStatus.onInRange_TriggerSprite, sensorStatus.onInRangeToStatusSprite, detectedSprite.actor);
+            evaluateTriggerType(sensorStatus.onInRange_TriggerSprite, sensorStatus.onInRangeToStatusSprite, detectedSprite.getActor());
             lastAutomaticInteraction = currentNanoTime;
         }
     }
@@ -592,7 +594,7 @@ public class Actor
         String methodName = "collect(String) ";
         CollectableType collectableType = CollectableType.getType(collectable_type);
         Collectible collected = new Collectible(generalStatus, collectableType, actorInGameName, getNumeric_generic_attributes().get("base_value").intValue());
-        collected.image = spriteList.get(0).baseimage;
+        collected.image = spriteList.get(0).getBaseimage();
         collectingActor.inventory.addItem(collected);
 
         //check if Management-Attention-Meter is affected for Player
@@ -713,7 +715,7 @@ public class Actor
     public void addSprite(Sprite sprite)
     {
         spriteList.add(sprite);
-        sprite.actor = this;
+        sprite.setActor(this);
     }
 
     public Direction getDirection()

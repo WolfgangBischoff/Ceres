@@ -4,6 +4,8 @@ import Core.ActorSystem.ActorMonitor;
 import Core.ActorSystem.GlobalActorsManager;
 import Core.Configs.Config;
 import Core.Enums.Direction;
+import Core.Sprite.Sprite;
+import Core.Sprite.SpriteData;
 import Core.WorldView.WorldView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
@@ -423,7 +425,7 @@ public class WorldLoader
             Sprite actorSprite;
             SpriteData spriteData = spriteDataList.get(j);
             actorSprite = Sprite.createSprite(spriteData, x * 64, y * 64);
-            actorSprite.actor = actor;
+            actorSprite.setActor(actor);
             actorSprite.setAnimationEnds(spriteData.animationEnds);
             actor.setSpeed(spriteData.velocity);//Set as often as Sprites exist?
             //actor.dialogueStatusID = spriteData.dialogueID;
@@ -465,7 +467,7 @@ public class WorldLoader
         Actor actor;
         //Reruse Player if already created
         if (WorldView.getPlayer() != null) {
-            actor = WorldView.getPlayer().actor;
+            actor = WorldView.getPlayer().getActor();
             WorldView.getPlayer().setPosition(playerSpawn.x * 64, playerSpawn.y * 64);
         }
         else
