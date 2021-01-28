@@ -721,9 +721,6 @@ public class Actor
             newStatusString = newStatusString + "-moving";
         compoundStatus = newStatusString;
 
-        if (actorInGameName.equals("Revolutionary"))
-            System.out.println(newStatusString);
-
         if (!(oldCompoundStatus.equals(compoundStatus)))
             changeSprites();
 
