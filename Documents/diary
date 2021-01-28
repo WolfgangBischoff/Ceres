@@ -1,6 +1,7 @@
 
 
-
+29 01 21    - added black overal side sprites
+            - fixed animation missing bug
 28 01 21    - refactored Sprite
             - added idle script
 26 01 21    - remove __xx__, default is nothing.
