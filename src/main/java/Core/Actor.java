@@ -21,7 +21,6 @@ import java.util.*;
 import static Core.Configs.Config.*;
 import static Core.Enums.ActorTag.*;
 import static Core.Enums.Direction.*;
-import static Core.Enums.Direction.WEST;
 import static Core.Enums.TriggerType.CONDITION;
 import static Core.Enums.TriggerType.TEXTBOX_CONDITION;
 
@@ -29,11 +28,28 @@ public class Actor
 {
     private static final String CLASSNAME = "Actor/";
     private static final Set<String> actorDefinitionKeywords = new HashSet<>();
-
+    final Map<String, String> statusTransitions = new HashMap<>();
+    final Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
+    final List<Sprite> spriteList = new ArrayList<>();
+    public Set<ActorTag> tags = new HashSet<>();
     //General
     String actorFileName;
     String actorId;
     String actorInGameName;
+    //Sprite
+    String generalStatus;
+    String compoundStatus = "default";
+    //Sensor
+    Map<String, SensorStatus> sensorStatusMap = new HashMap<>();
+    SensorStatus sensorStatus;
+    List<ActorCondition> conditions = new ArrayList<>();
+    String textbox_analysis_group_name = "none";
+    ActorMonitor actorMonitor;
+    List<String> memberActorGroups = new ArrayList<>();
+    Inventory inventory;
+    PersonalityContainer personalityContainer;
+    Map<String, Double> numeric_generic_attributes = new HashMap<>();
+    Script script;
     private Direction direction;
     private double currentVelocityX;
     private double currentVelocityY;
@@ -44,28 +60,7 @@ public class Actor
     private double interactionAreaOffsetY = 0;
     private Long lastInteraction = 0L;
     private Long lastAutomaticInteraction = 0L;
-
-    //Sprite
-    String generalStatus;
-    String compoundStatus = "default";
-    final Map<String, String> statusTransitions = new HashMap<>();
-    final Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
-    final List<Sprite> spriteList = new ArrayList<>();
-
-    //Sensor
-    Map<String, SensorStatus> sensorStatusMap = new HashMap<>();
-    SensorStatus sensorStatus;
-
-    List<ActorCondition> conditions = new ArrayList<>();
     private String collectable_type;
-    String textbox_analysis_group_name = "none";
-    ActorMonitor actorMonitor;
-    List<String> memberActorGroups = new ArrayList<>();
-    Inventory inventory;
-    public Set<ActorTag> tags = new HashSet<>();
-    PersonalityContainer personalityContainer;
-    Map<String, Double> numeric_generic_attributes = new HashMap<>();
-    Script script;
 
     public Actor(String actorFileName, String actorInGameName, String initGeneralStatus, String initSensorStatus, Direction direction)
     {
@@ -93,12 +88,14 @@ public class Actor
             actorDefinitionKeywords.add(SCRIPT_ACTOR);
         }
         actordata = Utilities.readAllLineFromTxt(actorFileName + CSV_POSTFIX);
-        for (String[] linedata : actordata) {
+        for (String[] linedata : actordata)
+        {
             if (checkForKeywords(linedata))
                 continue;
 
             //Collect Actor Sprite Data
-            try {
+            try
+            {
                 SpriteData data = SpriteData.tileDefinition(linedata);
                 data.animationDuration = Double.parseDouble(linedata[SpriteData.getAnimationDurationIdx()]);
                 data.velocity = Integer.parseInt(linedata[SpriteData.getVelocityIdx()]);
@@ -108,7 +105,9 @@ public class Actor
                 if (!spriteDataMap.containsKey(statusName))
                     spriteDataMap.put(statusName, new ArrayList<>());
                 spriteDataMap.get(statusName).add(data);
-            } catch (IndexOutOfBoundsException e) {
+            }
+            catch (IndexOutOfBoundsException e)
+            {
                 throw new IndexOutOfBoundsException(e.getMessage() + "\n in Actorfile: " + actorFileName);
             }
         }
@@ -117,6 +116,16 @@ public class Actor
 
         if (sensorStatus == null)
             System.out.println(CLASSNAME + methodName + actorInGameName + " no sensor found: " + initSensorStatus);
+    }
+
+    public static String getCLASSNAME()
+    {
+        return CLASSNAME;
+    }
+
+    public static Set<String> getActorDefinitionKeywords()
+    {
+        return actorDefinitionKeywords;
     }
 
     private boolean checkForKeywords(String[] linedata)
@@ -130,7 +139,8 @@ public class Actor
         else
             return false;
 
-        switch (keyword) {
+        switch (keyword)
+        {
             case KEYWORD_transition:
                 statusTransitions.put(linedata[1].toLowerCase(), linedata[2].toLowerCase());// old/new status
                 break;
@@ -192,7 +202,8 @@ public class Actor
         int initCooperationValue = Integer.parseInt(linedata[1]);
         readContainer.increaseCooperation(initCooperationValue);
         int firstTraitIdx = 2;
-        for (int i = firstTraitIdx; i < linedata.length; i++) {
+        for (int i = firstTraitIdx; i < linedata.length; i++)
+        {
             String[] traitData = linedata[i].split(",");
             CoinType coinType = CoinType.of(traitData[0]);
             Integer cooperationThreshold = -1;
@@ -244,7 +255,8 @@ public class Actor
     {
         Set<ActorTag> tagDataSet = new HashSet<>();
         int startIdxTags = 1;
-        for (int i = startIdxTags; i < linedata.length; i++) {
+        for (int i = startIdxTags; i < linedata.length; i++)
+        {
             tagDataSet.add(ActorTag.getType(linedata[i]));
         }
         return tagDataSet;
@@ -282,7 +294,8 @@ public class Actor
         int onTextBox_TriggerSensorIdx = 21;
 
         SensorStatus sensorStatus = new SensorStatus(lineData[sensorDataNameIdx]);
-        try {
+        try
+        {
             sensorStatus.onInteraction_TriggerSprite = TriggerType.getStatus(lineData[onInteractionIdx]);
             sensorStatus.onInteractionToStatusSprite = lineData[onInteractionToStatusIdx];
             sensorStatus.onInteraction_TriggerSensor = TriggerType.getStatus(lineData[onInteraction_TriggerSensorIdx]);
@@ -308,7 +321,9 @@ public class Actor
 
             sensorStatus.onTextBoxSignal_SpriteTrigger = TriggerType.getStatus(lineData[onTextBoxIdx]);
             sensorStatus.onTextBox_TriggerSensor = TriggerType.getStatus(lineData[onTextBox_TriggerSensorIdx]);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+        catch (ArrayIndexOutOfBoundsException e)
+        {
             throw new ArrayIndexOutOfBoundsException(actorInGameName + "\n" + e.getMessage());
         }
         return sensorStatus;
@@ -320,7 +335,8 @@ public class Actor
         String methodName = "onUpdate(Long) ";
         //double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastAutomaticInteraction) / 1000000000.0;
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS) {
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS)
+        {
             //Sprite
             if (sensorStatus.onUpdate_TriggerSprite != TriggerType.NOTHING && !sensorStatus.onUpdateToStatusSprite.equals(generalStatus))
                 evaluateTriggerType(sensorStatus.onUpdate_TriggerSprite, sensorStatus.onUpdateToStatusSprite, null);
@@ -338,17 +354,20 @@ public class Actor
     {
         String methodName = "updateStatusFromConditions() ";
         boolean debug = false;
-        for (ActorCondition condition : conditions) {
+        for (ActorCondition condition : conditions)
+        {
             if //check pre-condition
             (
                     (generalStatus.equals(condition.spriteStatusCondition) || condition.spriteStatusCondition.equals("*"))
                             &&
                             (sensorStatus.statusName.equals(condition.sensorStatusCondition) || condition.sensorStatusCondition.equals("*"))
-            ) {
+            )
+            {
                 if (condition.evaluate(activeActor, this))
                 //condition met
                 {
-                    if (!condition.trueSpriteStatus.equals("*")) {
+                    if (!condition.trueSpriteStatus.equals("*"))
+                    {
                         generalStatus = condition.trueSpriteStatus;
                         updateCompoundStatus();
                     }
@@ -361,7 +380,8 @@ public class Actor
                 else
                 //condition not met
                 {
-                    if (!condition.falseSpriteStatus.equals("*")) {
+                    if (!condition.falseSpriteStatus.equals("*"))
+                    {
                         generalStatus = condition.falseSpriteStatus;
                         updateCompoundStatus();
                     }
@@ -380,7 +400,8 @@ public class Actor
         String methodName = "onInteraction(Sprite, Long) ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
 
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS) {
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
+        {
             if (sensorStatus.getOnInteraction_TriggerSensor() == CONDITION
                     || sensorStatus.getOnInteraction_TriggerSprite() == CONDITION
                     || sensorStatus.getOnInteraction_TriggerSensor() == TEXTBOX_CONDITION
@@ -406,7 +427,7 @@ public class Actor
         if (sensorStatus.onMonitorSignal_TriggerSprite == null)
             System.out.println(CLASSNAME + methodName + "OnMonitorSignal not set");
 
-        if(newDialogueId != null)
+        if (newDialogueId != null)
             setDialogueId(newDialogueId);
         evaluateTriggerType(sensorStatus.onMonitorSignal_TriggerSprite, newCompoundStatus, null);
     }
@@ -435,12 +456,14 @@ public class Actor
             actorRelevant = false;
 
         //trigger
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS && actorRelevant) {
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS && actorRelevant)
+        {
             if (debug)
                 System.out.println(CLASSNAME + methodName + actorFileName + " onIntersection " + detectedSprite.getName());
 
             //Sprite Status
-            if (sensorStatus.onIntersection_TriggerSprite != TriggerType.NOTHING) {
+            if (sensorStatus.onIntersection_TriggerSprite != TriggerType.NOTHING)
+            {
                 evaluateTriggerType(sensorStatus.onIntersection_TriggerSprite, sensorStatus.onIntersectionToStatusSprite, detectedSprite.getActor());
             }
 
@@ -463,7 +486,8 @@ public class Actor
         )
             return;
 
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS) {
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS)
+        {
             evaluateTriggerType(sensorStatus.onInRange_TriggerSprite, sensorStatus.onInRangeToStatusSprite, detectedSprite.getActor());
             lastAutomaticInteraction = currentNanoTime;
         }
@@ -475,7 +499,8 @@ public class Actor
         WorldView.getBottomLayer().remove(sprite);
         WorldView.getMiddleLayer().remove(sprite);
         WorldView.getTopLayer().remove(sprite);
-        switch (targetLayer) {
+        switch (targetLayer)
+        {
             case 0:
                 WorldView.getBottomLayer().add(sprite);
                 break;
@@ -493,7 +518,8 @@ public class Actor
         String methodName = "changeSprites() ";
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
-        if (targetSpriteData == null) {
+        if (targetSpriteData == null)
+        {
             StringBuilder stringBuilder = new StringBuilder();
             for (Map.Entry<String, List<SpriteData>> entry : spriteDataMap.entrySet())
                 stringBuilder.append("\t").append(entry.getKey()).append("\n");
@@ -504,7 +530,8 @@ public class Actor
             return;
 
         //For all Sprites of the actor onUpdate to new Status
-        for (int i = 0; i < spriteList.size(); i++) {
+        for (int i = 0; i < spriteList.size(); i++)
+        {
             SpriteData ts = targetSpriteData.get(i);
             Sprite toChange = spriteList.get(i);
             toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
@@ -531,7 +558,7 @@ public class Actor
         //Check if status is valid dependent on influencing system
         String influencedOfGroup = actorMonitor.isDependentOnGroup(memberActorGroups);
         if (influencedOfGroup != null && !actorMonitor.checkIfStatusIsValid(generalStatus, influencedOfGroup))
-                actorMonitor.sendSignalFrom(influencedOfGroup);//If not, trigger system to refresh
+            actorMonitor.sendSignalFrom(influencedOfGroup);//If not, trigger system to refresh
 
         updateCompoundStatus();
     }
@@ -540,7 +567,8 @@ public class Actor
     private void evaluateTriggerType(TriggerType triggerType, String targetStatusField, Actor activeActor)
     {
         String methodName = "evaluateTriggerType() ";
-        switch (triggerType) {
+        switch (triggerType)
+        {
             case NOTHING:
                 System.out.println(CLASSNAME + methodName + actorInGameName + " triggered without trigger type");
                 return;
@@ -600,27 +628,14 @@ public class Actor
         collectingActor.inventory.addItem(collected);
 
         //check if Management-Attention-Meter is affected for Player
-        if (collectingActor.tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(SUSPICIOUS_VALUE_ACTOR)) {
+        if (collectingActor.tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(SUSPICIOUS_VALUE_ACTOR))
+        {
             int suspicious_value = numeric_generic_attributes.get(SUSPICIOUS_VALUE_ACTOR).intValue();
             GameVariables.addPlayerMAM_duringDay(suspicious_value);
             GameVariables.addStolenCollectible(collected);
         }
 
         WorldView.getToRemove().addAll(spriteList);
-    }
-
-    public void setSensorStatus(String sensorStatusString)
-    {
-        String methodName = "setSensorStatus(String) ";
-        boolean debug = false;
-
-        if (sensorStatusMap.get(sensorStatusString) == null)
-            throw new RuntimeException("Sensor Status not defined: " + sensorStatusString + " at actor " + actorFileName + " known status: " + sensorStatusMap);
-
-        if (debug)
-            System.out.println(CLASSNAME + methodName + "set sensor from " + sensorStatus.statusName + " to " + sensorStatusString);
-        if (sensorStatusMap.get(sensorStatusString) != sensorStatus)
-            this.sensorStatus = sensorStatusMap.get(sensorStatusString);
     }
 
     private void playTimedStatus()
@@ -645,14 +660,18 @@ public class Actor
     public void activateText(Actor activeActor)
     {
         String methodName = "activateText() ";
-        if (sensorStatus.onInteraction_TriggerSprite.equals(TriggerType.TEXTBOX_ANALYSIS)) {
+        if (sensorStatus.onInteraction_TriggerSprite.equals(TriggerType.TEXTBOX_ANALYSIS))
+        {
             String analyzedGroupName = null;
             List<Actor> analyzedGroup = null;
-            try {
+            try
+            {
                 analyzedGroupName = textbox_analysis_group_name;//set in actor file
                 analyzedGroup = actorMonitor.getGroupIdToActorGroupMap().get(analyzedGroupName).getSystemMembers();
                 WorldView.getTextbox().groupAnalysis(analyzedGroup, this);
-            } catch (NullPointerException e) {
+            }
+            catch (NullPointerException e)
+            {
                 StringBuilder stringBuilder = new StringBuilder();
                 if (actorMonitor == null)
                     stringBuilder.append("\nStageMonitor is null");
@@ -665,9 +684,11 @@ public class Actor
             }
 
         }
-        else {
+        else
+        {
             WorldView.getTextbox().startConversation(this);
-            if (tags.contains(TURNS_DIRECTION_ONINTERACTION)) {
+            if (tags.contains(TURNS_DIRECTION_ONINTERACTION))
+            {
                 numeric_generic_attributes.put("previousDirection", Double.valueOf(direction.getValue()));
                 setDirection(activeActor.direction.getOpposite());
             }
@@ -678,7 +699,8 @@ public class Actor
     private void transitionGeneralStatus()
     {
         String methodName = "transitionGeneralStatus() ";
-        if (statusTransitions.containsKey(generalStatus)) {
+        if (statusTransitions.containsKey(generalStatus))
+        {
             generalStatus = statusTransitions.get(generalStatus);
         }
         else
@@ -699,6 +721,9 @@ public class Actor
             newStatusString = newStatusString + "-moving";
         compoundStatus = newStatusString;
 
+        if (actorInGameName.equals("Revolutionary"))
+            System.out.println(newStatusString);
+
         if (!(oldCompoundStatus.equals(compoundStatus)))
             changeSprites();
 
@@ -712,7 +737,6 @@ public class Actor
     {
         return actorInGameName;
     }
-
 
     public void addSprite(Sprite sprite)
     {
@@ -735,14 +759,16 @@ public class Actor
     {
         currentVelocityX = x;
         currentVelocityY = y;
-        if(x < 0)
-            setDirection(WEST);
-        else if(x > 0)
-            setDirection(EAST);
-        if(y < 0)
+
+        if (y < 0)
             setDirection(NORTH);
         else if (y > 0)
             setDirection(SOUTH);
+        else if (x < 0)
+            setDirection(WEST);
+        else if (x > 0)
+            setDirection(EAST);
+
 
         updateCompoundStatus();
     }
@@ -757,14 +783,19 @@ public class Actor
         return currentVelocityX;
     }
 
+    public void setCurrentVelocityX(double currentVelocityX)
+    {
+        this.currentVelocityX = currentVelocityX;
+    }
+
     public Double getCurrentVelocityY()
     {
         return currentVelocityY;
     }
 
-    public void setVelocity(double velocity)
+    public void setCurrentVelocityY(double currentVelocityY)
     {
-        this.velocity = velocity;
+        this.currentVelocityY = currentVelocityY;
     }
 
     public double getVelocity()
@@ -772,9 +803,19 @@ public class Actor
         return velocity;
     }
 
+    public void setVelocity(double velocity)
+    {
+        this.velocity = velocity;
+    }
+
     public double getInteractionAreaWidth()
     {
         return interactionAreaWidth;
+    }
+
+    public void setInteractionAreaWidth(double interactionAreaWidth)
+    {
+        this.interactionAreaWidth = interactionAreaWidth;
     }
 
     public double getInteractionAreaDistance()
@@ -782,14 +823,34 @@ public class Actor
         return interactionAreaDistance;
     }
 
+    public void setInteractionAreaDistance(double interactionAreaDistance)
+    {
+        this.interactionAreaDistance = interactionAreaDistance;
+    }
+
     public double getInteractionAreaOffsetX()
     {
         return interactionAreaOffsetX;
     }
 
+    public void setInteractionAreaOffsetX(double interactionAreaOffsetX)
+    {
+        this.interactionAreaOffsetX = interactionAreaOffsetX;
+    }
+
     public double getInteractionAreaOffsetY()
     {
         return interactionAreaOffsetY;
+    }
+
+    public void setInteractionAreaOffsetY(double interactionAreaOffsetY)
+    {
+        this.interactionAreaOffsetY = interactionAreaOffsetY;
+    }
+
+    public Long getLastInteraction()
+    {
+        return lastInteraction;
     }
 
     public void setLastInteraction(Long value)
@@ -798,14 +859,14 @@ public class Actor
         lastInteraction = value;
     }
 
-    public Long getLastInteraction()
-    {
-        return lastInteraction;
-    }
-
     public PersonalityContainer getPersonalityContainer()
     {
         return personalityContainer;
+    }
+
+    public void setPersonalityContainer(PersonalityContainer personalityContainer)
+    {
+        this.personalityContainer = personalityContainer;
     }
 
     public String getActorFileName()
@@ -813,19 +874,19 @@ public class Actor
         return actorFileName;
     }
 
-    public static String getCLASSNAME()
+    public void setActorFileName(String actorFileName)
     {
-        return CLASSNAME;
-    }
-
-    public static Set<String> getActorDefinitionKeywords()
-    {
-        return actorDefinitionKeywords;
+        this.actorFileName = actorFileName;
     }
 
     public String getActorInGameName()
     {
         return actorInGameName;
+    }
+
+    public void setActorInGameName(String actorInGameName)
+    {
+        this.actorInGameName = actorInGameName;
     }
 
     public List<Sprite> getSpriteList()
@@ -843,9 +904,19 @@ public class Actor
         return generalStatus;
     }
 
+    public void setGeneralStatus(String generalStatus)
+    {
+        this.generalStatus = generalStatus;
+    }
+
     public String getCompoundStatus()
     {
         return compoundStatus;
+    }
+
+    public void setCompoundStatus(String compoundStatus)
+    {
+        this.compoundStatus = compoundStatus;
     }
 
     public String getCollectable_type()
@@ -853,9 +924,19 @@ public class Actor
         return collectable_type;
     }
 
+    public void setCollectable_type(String collectable_type)
+    {
+        this.collectable_type = collectable_type;
+    }
+
     public List<String> getMemberActorGroups()
     {
         return memberActorGroups;
+    }
+
+    public void setMemberActorGroups(List<String> memberActorGroups)
+    {
+        this.memberActorGroups = memberActorGroups;
     }
 
     public Inventory getInventory()
@@ -863,9 +944,19 @@ public class Actor
         return inventory;
     }
 
+    public void setInventory(Inventory inventory)
+    {
+        this.inventory = inventory;
+    }
+
     public Map<String, SensorStatus> getSensorStatusMap()
     {
         return sensorStatusMap;
+    }
+
+    public void setSensorStatusMap(Map<String, SensorStatus> sensorStatusMap)
+    {
+        this.sensorStatusMap = sensorStatusMap;
     }
 
     public SensorStatus getSensorStatus()
@@ -873,14 +964,43 @@ public class Actor
         return sensorStatus;
     }
 
+    public void setSensorStatus(String sensorStatusString)
+    {
+        String methodName = "setSensorStatus(String) ";
+        boolean debug = false;
+
+        if (sensorStatusMap.get(sensorStatusString) == null)
+            throw new RuntimeException("Sensor Status not defined: " + sensorStatusString + " at actor " + actorFileName + " known status: " + sensorStatusMap);
+
+        if (debug)
+            System.out.println(CLASSNAME + methodName + "set sensor from " + sensorStatus.statusName + " to " + sensorStatusString);
+        if (sensorStatusMap.get(sensorStatusString) != sensorStatus)
+            this.sensorStatus = sensorStatusMap.get(sensorStatusString);
+    }
+
+    public void setSensorStatus(SensorStatus sensorStatus)
+    {
+        this.sensorStatus = sensorStatus;
+    }
+
     public Set<ActorTag> getTags()
     {
         return tags;
     }
 
+    public void setTags(Set<ActorTag> tags)
+    {
+        this.tags = tags;
+    }
+
     public Map<String, Double> getNumeric_generic_attributes()
     {
         return numeric_generic_attributes;
+    }
+
+    public void setNumeric_generic_attributes(Map<String, Double> numeric_generic_attributes)
+    {
+        this.numeric_generic_attributes = numeric_generic_attributes;
     }
 
     public void setStageMonitor(ActorMonitor actorMonitor)
@@ -898,99 +1018,9 @@ public class Actor
         this.actorId = actorId;
     }
 
-    public void setActorFileName(String actorFileName)
-    {
-        this.actorFileName = actorFileName;
-    }
-
-    public void setActorInGameName(String actorInGameName)
-    {
-        this.actorInGameName = actorInGameName;
-    }
-
-    public void setCurrentVelocityX(double currentVelocityX)
-    {
-        this.currentVelocityX = currentVelocityX;
-    }
-
-    public void setCurrentVelocityY(double currentVelocityY)
-    {
-        this.currentVelocityY = currentVelocityY;
-    }
-
-    public void setInteractionAreaWidth(double interactionAreaWidth)
-    {
-        this.interactionAreaWidth = interactionAreaWidth;
-    }
-
-    public void setInteractionAreaDistance(double interactionAreaDistance)
-    {
-        this.interactionAreaDistance = interactionAreaDistance;
-    }
-
-    public void setInteractionAreaOffsetX(double interactionAreaOffsetX)
-    {
-        this.interactionAreaOffsetX = interactionAreaOffsetX;
-    }
-
-    public void setInteractionAreaOffsetY(double interactionAreaOffsetY)
-    {
-        this.interactionAreaOffsetY = interactionAreaOffsetY;
-    }
-
-    public void setGeneralStatus(String generalStatus)
-    {
-        this.generalStatus = generalStatus;
-    }
-
-    public void setCompoundStatus(String compoundStatus)
-    {
-        this.compoundStatus = compoundStatus;
-    }
-
-    public void setSensorStatusMap(Map<String, SensorStatus> sensorStatusMap)
-    {
-        this.sensorStatusMap = sensorStatusMap;
-    }
-
-    public void setSensorStatus(SensorStatus sensorStatus)
-    {
-        this.sensorStatus = sensorStatus;
-    }
-
-    public void setCollectable_type(String collectable_type)
-    {
-        this.collectable_type = collectable_type;
-    }
-
     public void setTextbox_analysis_group_name(String textbox_analysis_group_name)
     {
         this.textbox_analysis_group_name = textbox_analysis_group_name;
-    }
-
-    public void setMemberActorGroups(List<String> memberActorGroups)
-    {
-        this.memberActorGroups = memberActorGroups;
-    }
-
-    public void setInventory(Inventory inventory)
-    {
-        this.inventory = inventory;
-    }
-
-    public void setTags(Set<ActorTag> tags)
-    {
-        this.tags = tags;
-    }
-
-    public void setPersonalityContainer(PersonalityContainer personalityContainer)
-    {
-        this.personalityContainer = personalityContainer;
-    }
-
-    public void setNumeric_generic_attributes(Map<String, Double> numeric_generic_attributes)
-    {
-        this.numeric_generic_attributes = numeric_generic_attributes;
     }
 
 
