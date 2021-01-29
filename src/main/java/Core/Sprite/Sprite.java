@@ -223,8 +223,8 @@ public class Sprite
             {
                 Pair<Double, Double> delta = calculateDodge(plannedPosition, this.actor.getDirection());
                 dodgeVelocities = new Pair<>(delta.getKey() + dodgeVelocities.getKey(), delta.getValue() + dodgeVelocities.getValue());
+                position = position.add(dodgeVelocities.getKey() * time, dodgeVelocities.getValue() * time);
             }
-            position = position.add(dodgeVelocities.getKey() * time, dodgeVelocities.getValue() * time);
         }
 
         interact = false;
@@ -263,7 +263,10 @@ public class Sprite
 
     private Pair<Double, Double> calculateDodge(Rectangle2D plannedPosition, Direction direction)
     {
-        String methodName = "calculateCollisionType() ";
+
+        //TODO isBlockedByOtherSprites(NORTH)
+
+        String methodName = "calculateDodge() ";
         double playerLeftEdge = 0;
         double playerRightEdge = 0;
         double blockingSpriteLeftEdge = 0;
@@ -288,14 +291,15 @@ public class Sprite
             blockingSpriteLeftEdge = blockingSprite.getMaxY();
             blockingSpriteRightEdge = blockingSprite.getMinY();
         }
-        if (playerLeftEdge < blockingSpriteLeftEdge && playerRightEdge < blockingSpriteRightEdge)
+
+        if (playerLeftEdge < blockingSpriteLeftEdge && playerRightEdge < blockingSpriteRightEdge)//at left border
         {
             if (direction == NORTH || direction == SOUTH)
                 return new Pair<>(-velocityDodge, 0d);
             else
                 return new Pair<>(0d, -velocityDodge);
         }
-        else if (playerLeftEdge > blockingSpriteLeftEdge && playerRightEdge > blockingSpriteRightEdge)
+        else if (playerLeftEdge > blockingSpriteLeftEdge && playerRightEdge > blockingSpriteRightEdge)//at right side
         {
             if (direction == NORTH || direction == SOUTH)
                 return new Pair<>(velocityDodge, 0d);

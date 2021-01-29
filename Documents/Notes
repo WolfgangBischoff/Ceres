@@ -4,6 +4,7 @@
 - Sprint goal
 
 - Bug
+    calculateDodge dodges into wall
 
 - Test
 
@@ -55,7 +56,6 @@
 - Ship:
     moving asteroid as actor
     rename sleep capsules
-    change reactor
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels, floor cabel
 - Hammer and Sickle modern, Säulen, Tank
 
