@@ -18,7 +18,6 @@ import java.util.List;
 import static Core.Configs.Config.*;
 import static Core.Enums.Direction.*;
 import static Core.Enums.TriggerType.NOTHING;
-import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class Sprite
@@ -243,15 +242,16 @@ public class Sprite
 
     public boolean isBlockedByOtherSprites(Direction direction)
     {
+        double delta = 0.01;
         switch (direction) {
             case NORTH:
-                return isBlockedByOtherSprites(0, -1);
+                return isBlockedByOtherSprites(0, -delta);
             case SOUTH:
-                return isBlockedByOtherSprites(0, 1);
+                return isBlockedByOtherSprites(0, delta);
             case WEST:
-                return isBlockedByOtherSprites(-1, 0);
+                return isBlockedByOtherSprites(-delta, 0);
             case EAST:
-                return isBlockedByOtherSprites(1, 0);
+                return isBlockedByOtherSprites(delta, 0);
         }
         return false;
     }
@@ -285,15 +285,15 @@ public class Sprite
 
         if (playerLeftEdge < blockingSpriteLeftEdge && playerRightEdge < blockingSpriteRightEdge)//at west border
         {
-            if ((direction == NORTH || direction == SOUTH) && !isBlockedByOtherSprites(WEST))
+            if ((direction == NORTH || direction == SOUTH) && !isBlockedByOtherSprites(-velocityDodge * time, 0))
                 ret = new Pair<>(-velocityDodge, 0d);//west edge => go west
-            else if (!isBlockedByOtherSprites(SOUTH))
+            else if (!isBlockedByOtherSprites(0d, -velocityDodge))
                 ret = new Pair<>(0d, -velocityDodge);//south edge => go south
         }
         else if (playerLeftEdge > blockingSpriteLeftEdge && playerRightEdge > blockingSpriteRightEdge) {
-            if ((direction == NORTH || direction == SOUTH) && !isBlockedByOtherSprites(EAST))
+            if ((direction == NORTH || direction == SOUTH) && !isBlockedByOtherSprites(velocityDodge, 0d))
                 ret = new Pair<>(velocityDodge, 0d);
-            else if (!isBlockedByOtherSprites(NORTH))
+            else if (!isBlockedByOtherSprites(0d, velocityDodge))
                 ret = new Pair<>(0d, velocityDodge);
 
         }
@@ -335,9 +335,6 @@ public class Sprite
     public boolean intersectsRelativeToWorldView(Point2D point)
     {
         String methodName = "intersectsRelativeToWorldView() ";
-        //Uses Hitbox not sprite image
-        //Rectangle2D intersectionHitbox = new Rectangle2D(position.getX() + hitBoxOffsetX - WorldView.getCamX(), position.getY() + hitBoxOffsetY - WorldView.getCamY(), hitBoxWidth, hitBoxHeight);
-
         Rectangle2D intersectionHitbox = new Rectangle2D(position.getX() - WorldView.getCamX(), position.getY() - WorldView.getCamY(), frameWidth, frameHeight);
         return intersectionHitbox.contains(point);
     }

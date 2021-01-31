@@ -76,7 +76,6 @@ public class Script
         String methodName = "idle() ";
         long currentTime = GameWindow.getCurrentNanoRenderTimeGameWindow();
         double elapsedTime = (currentTime - lastStatusChangeTime) / 1000000000.0;
-        double idleVelocity = actor.getVelocity() * 0.5;
 
         if (executionStatus.equals("MOVE") && elapsedTime > IDLE_MOVE_TIME)
         {
@@ -91,7 +90,6 @@ public class Script
 
         if (executionStatus.equals("MOVE"))
         {
-            Point2D currentPos = new Point2D(actor.getSpriteList().get(0).getX(), actor.getSpriteList().get(0).getY());
             if (randomDirection == null)
             {
                 randomDirection = randomDirection();
