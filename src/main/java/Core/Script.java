@@ -177,33 +177,33 @@ public class Script
         Point2D currentPos = new Point2D(actor.spriteList.get(0).getX(), actor.spriteList.get(0).getY());
         double deltaX = target.getX() * 64 - currentPos.getX();
         double deltaY = target.getY() * 64 - currentPos.getY();
-        double velocity = actor.getVelocity();
-        double addedVelocityX = 0d;
-        double addedVelocityY = 0d;
         double moveThreshold = 5d;
         boolean xreached = false, yreached = false;
 
+        //tan(a) = Gegenkathete / Ankathete
+        //sin(a) = Gegenkathete / Hypotenuse
+        //cos(a) = Ankathete    / Hypotenuse
+        //0     => right
+        //45    => btm right
+        double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+        double hypotenuse = actor.getVelocity();
+        double angle_rad = Math.toRadians(angle);
+        double addedVelocityX = 0d;
+        double addedVelocityY = 0d;
+        //System.out.println("Angel: " + angle + "X: " + velX + " Y: " + velY);
+
         if (option.equals("warp")) {
-            actor.spriteList.forEach(s -> s.setPosition(target.getX(), target.getY()));
+            actor.spriteList.forEach(s -> s.setPosition(target.getX() * 64, target.getY() * 64));
             return true;
         }
 
-        if (deltaX < -moveThreshold) {
-            addedVelocityX = -velocity;
-        }
-        else if (deltaX > moveThreshold) {
-            addedVelocityX = velocity;
+        if (Math.abs(deltaX) > moveThreshold) {
+            addedVelocityX = Math.cos(angle_rad) * hypotenuse;
         }
         else xreached = true;
 
-        if (deltaY < -moveThreshold)
-        {
-            addedVelocityY = -velocity;
-        }
-        else if (deltaY > moveThreshold)
-        {
-            addedVelocityY = velocity;
-        }
+        if (Math.abs(deltaY) > moveThreshold)
+            addedVelocityY = Math.sin(angle_rad) * hypotenuse;
         else yreached = true;
 
         actor.setVelocity(addedVelocityX, addedVelocityY);
