@@ -71,9 +71,7 @@ convBR				;conveyer				;img/machines/conveyerBR																				;true					;1 
 convHo				;conveyer				;img/machines/conveyerH																					;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;greenlight256 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 convTR				;conveyer				;img/machines/conveyerTR																				;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;greenlight256 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 tank_A				;tank								;img/machines/lifesupport/greenTank_Anim																;true					;1 											;4   ;4            ;4    ;1    ;64         ;128         ;0             ;0             ;0           ;0												;greenlight256 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-refine				;refinery				;img/machines/refinery																						;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 bedmod				;bed									;actorData/furniture/bed/bedmodule_bischoff			;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;000           ;128           ;192         ;064										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-bedmo2				;bed									;actorData/furniture/bed/bedmodule_hoffer			;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;000           ;128           ;192         ;064										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 bedmoH				;bed									;actorData/furniture/bed/bedmodule_husar			;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;000           ;128           ;192         ;064										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 bedmoW				;bed									;actorData/furniture/bed/bedmodule_winkler			;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;000           ;128           ;192         ;064										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
@@ -86,8 +84,8 @@ boge_4				;bogenhanf				;img/plants/plant_64_128_large	 											;true					;1 
 
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status	;direction
-player					;player																																		;Revolutionary												;default												;default							;WEST
-doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;levelchange			;west
+player					;actorData/player																																		;Revolutionary												;default												;default							;WEST
+doorVe					;actorData/doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;levelchange			;west
 
 
 Actorgroups:
@@ -164,13 +162,13 @@ layer:
 019 ;back_e ;convHo ;convHo ;convBR ;______ ;______ ;couchB ;______ ;______ ;couchW ;______ ;______ ;couchR ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 020 ;back_e ;______ ;______ ;______ ;______ ;______ ;bck_nw ;back_n ;back_n ;back_n ;back_n ;back_n ;back_n ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 021 ;back_e ;______ ;______ ;______ ;______ ;______ ;fro_sw ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;wFBR__ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
-022 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;refine ;______ ;tank_A ;tank_A ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
+022 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;tank_A ;tank_A ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 023 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 024 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 025 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 026 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;tonage ;tonagB ;______ ;______ ;back_w
 027 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
-028 ;back_e ;bedmod ;______ ;______ ;bedmo2 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
+028 ;back_e ;bedmod ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 029 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 030 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 031 ;back_e ;bedmoH ;______ ;______ ;bedmoW ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w

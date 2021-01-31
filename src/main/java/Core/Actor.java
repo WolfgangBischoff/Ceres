@@ -523,7 +523,7 @@ public class Actor
             StringBuilder stringBuilder = new StringBuilder();
             for (Map.Entry<String, List<SpriteData>> entry : spriteDataMap.entrySet())
                 stringBuilder.append("\t").append(entry.getKey()).append("\n");
-            throw new RuntimeException(compoundStatus + " not found in \n" + stringBuilder.toString());
+            throw new RuntimeException(compoundStatus + " not found in for \n" + actorFileName + "\n" + stringBuilder.toString());
         }
 
         if (spriteList.isEmpty())//Before Actor is initialized
