@@ -81,15 +81,12 @@ public class Sprite
     {
         String methodName = "createSprite() ";
         Sprite ca;
-        try
-        {
+        try {
             if (tile.totalFrames > 1)
                 ca = new Sprite(tile.spriteName, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight);
             else
                 ca = new Sprite(tile.spriteName);
-        }
-        catch (IllegalArgumentException e)
-        {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
             ca = new Sprite(IMAGE_DIRECTORY_PATH + "notfound_64_64" + CSV_POSTFIX);
         }
@@ -124,8 +121,7 @@ public class Sprite
         double offsetX = actor.getInteractionAreaOffsetX();
         double offsetY = actor.getInteractionAreaOffsetY();
 
-        switch (actor.getDirection())
-        {
+        switch (actor.getDirection()) {
             case NORTH:
                 return new Rectangle2D(position.getX() + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2 + offsetX, position.getY() + hitBoxOffsetY - maxInteractionDistance + offsetY, interactionWidth, maxInteractionDistance);
             case EAST:
@@ -157,8 +153,7 @@ public class Sprite
         if (actor != null)
             initGeneralStatusFrame = actor.getGeneralStatus();
 
-        for (Sprite otherSprite : activeSprites)
-        {
+        for (Sprite otherSprite : activeSprites) {
             if (otherSprite == this ||
                     otherSprite.actor == actor //if actor has multiple sprites they are usually congruent
             )
@@ -171,20 +166,17 @@ public class Sprite
             //Interact within interaction area
             if (interact
                     && otherSprite.getBoundary().intersects(interactionArea)
-                    && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
-            {
+                    && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS) {
 
                 if (otherSprite.actor != null &&
                         (otherSprite.actor.getSensorStatus().getOnInteraction_TriggerSprite() != NOTHING
-                                || otherSprite.actor.getSensorStatus().getOnInteraction_TriggerSensor() != NOTHING))
-                {
+                                || otherSprite.actor.getSensorStatus().getOnInteraction_TriggerSensor() != NOTHING)) {
                     otherSprite.actor.onInteraction(this, currentNanoTime);
                     actor.setLastInteraction(currentNanoTime);
                     interact = false;
                 }
                 else if (otherSprite.actor == null &&//just use this for deco-sprites
-                        !(otherSprite.dialogueFileName.equals("dialogueFile") || otherSprite.dialogueFileName.equals("none")))
-                {
+                        !(otherSprite.dialogueFileName.equals("dialogueFile") || otherSprite.dialogueFileName.equals("none"))) {
                     WorldView.startConversation(otherSprite.dialogueFileName, otherSprite.initDialogueId, currentNanoTime);
                     interact = false;
                 }
@@ -193,48 +185,39 @@ public class Sprite
             //In range
             if (otherSprite.actor != null
                     && actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING
-                    && otherSprite.getBoundary().intersects(interactionArea))
-            {
+                    && otherSprite.getBoundary().intersects(interactionArea)) {
                 actor.onInRange(otherSprite, currentNanoTime);
             }
 
             //Intersect
-            if (intersects(otherSprite) && (actor.getSensorStatus().getOnIntersection_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnIntersection_TriggerSensor() != NOTHING))
-            {
+            if (intersects(otherSprite) && (actor.getSensorStatus().getOnIntersection_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnIntersection_TriggerSensor() != NOTHING)) {
                 actor.onIntersection(otherSprite, currentNanoTime);
             }
         }
 
 
         //check if status was changed from other triggers, just if not do OnUpdate
-        if (actor != null && initGeneralStatusFrame.equals(actor.getGeneralStatus()))
-        {
+        if (actor != null && initGeneralStatusFrame.equals(actor.getGeneralStatus())) {
             if (actor.getSensorStatus().getOnUpdate_TriggerSprite() != NOTHING && !actor.getSensorStatus().getOnUpdateToStatusSprite().equals(actor.getGeneralStatus()))
                 actor.onUpdate(currentNanoTime);
             if (actor.getSensorStatus().getOnUpdate_TriggerSensor() != NOTHING && !actor.getSensorStatus().getOnUpdate_StatusSensor().equals(actor.getSensorStatus().getStatusName()))
                 actor.onUpdate(currentNanoTime);
         }
 
-        if (!isBlockedByOtherSprites(velocityX * time, velocityY * time) || (DEBUG_NO_WALL && this == WorldView.getPlayer()))
-        {
-            position = position.add(velocityX * time, velocityY * time);
-        }
-        else {
-            //Set blocked velocity to Zero
-            if (isBlockedByOtherSprites(0, velocityY * time) || isBlockedByOtherSprites(0, velocityY * time))
-                velocityY = 0;
-            if (isBlockedByOtherSprites(velocityX * time, 0) || isBlockedByOtherSprites(velocityX * time, 0))
-                velocityX = 0;
-
-
-            if (this == WorldView.getPlayer()) {
-                Pair<Double, Double> dodgeVelocity = calculateDodgeVelocity(plannedPosition, this.actor.getDirection());
-                //velocityX += dodgeVelocity.getKey();
-                //velocityY += dodgeVelocity.getValue();
-                position = position.add(dodgeVelocity.getKey() * time, dodgeVelocity.getValue() * time);
+        if (!(DEBUG_NO_WALL && this == WorldView.getPlayer())) {
+            if (this == WorldView.getPlayer() && isBlockedByOtherSprites(velocityX * time, velocityY * time)) {
+                Pair<Double, Double> dodgeVelocity = calculateDodgeVelocity(plannedPosition, this.actor.getDirection(), time);
+                velocityX += dodgeVelocity.getKey();
+                velocityY += dodgeVelocity.getValue();
             }
-            position = position.add(velocityX * time, velocityY * time);
+
+            //Set blocked velocity to Zero
+            if (isBlockedByOtherSprites(0, velocityY * time))
+                velocityY = 0;
+            if (isBlockedByOtherSprites(velocityX * time, 0))
+                velocityX = 0;
         }
+        position = position.add(velocityX * time, velocityY * time);
 
         interact = false;
         lastUpdated = currentNanoTime;
@@ -243,7 +226,7 @@ public class Sprite
 
     private boolean isBlockedBy(Sprite otherSprite, Rectangle2D plannedPosition)
     {
-        if(otherSprite == this)
+        if (otherSprite == this)
             return false;
         return otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition);
         //           || !worldBorders.contains(position.getX() + velocityX * time, position.getY() + velocityY * time
@@ -260,17 +243,20 @@ public class Sprite
 
     public boolean isBlockedByOtherSprites(Direction direction)
     {
-        switch (direction)
-        {
-            case NORTH: return isBlockedByOtherSprites(0,-1);
-            case SOUTH: return isBlockedByOtherSprites(0,1);
-            case WEST: return isBlockedByOtherSprites(-1,0);
-            case EAST: return isBlockedByOtherSprites(1,0);
+        switch (direction) {
+            case NORTH:
+                return isBlockedByOtherSprites(0, -1);
+            case SOUTH:
+                return isBlockedByOtherSprites(0, 1);
+            case WEST:
+                return isBlockedByOtherSprites(-1, 0);
+            case EAST:
+                return isBlockedByOtherSprites(1, 0);
         }
         return false;
     }
 
-    private Pair<Double, Double> calculateDodgeVelocity(Rectangle2D plannedPosition, Direction direction)
+    private Pair<Double, Double> calculateDodgeVelocity(Rectangle2D plannedPosition, Direction direction, double time)
     {
         String methodName = "calculateDodge() ";
         double playerLeftEdge = 0;
@@ -329,18 +315,15 @@ public class Sprite
         if (getBoundary().intersects(player.interactionArea)
                 && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS
 
-        )
-        {
+        ) {
             if (debug)
                 System.out.println(CLASSNAME + methodName + player.getName() + " interact with " + getName() + " by mouseclick.");
             if (actor != null &&
-                    (actor.getSensorStatus().getOnInteraction_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnInteraction_TriggerSensor() != NOTHING))
-            {
+                    (actor.getSensorStatus().getOnInteraction_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnInteraction_TriggerSensor() != NOTHING)) {
                 actor.onInteraction(player, currentNanoTime); //Passive reacts
                 player.actor.setLastInteraction(currentNanoTime);
             }
-            else if (!(getDialogueFileName().equals("dialogueFile") || getDialogueFileName().equals("none")))
-            {
+            else if (!(getDialogueFileName().equals("dialogueFile") || getDialogueFileName().equals("none"))) {
                 WorldView.startConversation(dialogueFileName, initDialogueId, currentNanoTime);
                 player.actor.setLastInteraction(currentNanoTime);
             }
@@ -368,12 +351,10 @@ public class Sprite
     {
         String methodName = "render()";
 
-        if (getAnimated())
-        {
+        if (getAnimated()) {
             renderAnimated(gc, now);
         }
-        else
-        {
+        else {
             renderSimple(gc);
         }
 
@@ -401,8 +382,7 @@ public class Sprite
         int frameJump = (int) Math.floor((now - lastFrame) / (1000000000 / fps)); //Determine how many frames we need to advance to maintain frame rate independence
 
         //Do a bunch of math to determine where the viewport needs to be positioned on the sprite sheet
-        if (frameJump >= 1 && !(isAtLastFrame() && animationEnds))
-        {
+        if (frameJump >= 1 && !(isAtLastFrame() && animationEnds)) {
             lastFrame = now;
 
             int addRows = (int) Math.floor((float) frameJump / (float) cols);
