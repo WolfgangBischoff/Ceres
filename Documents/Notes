@@ -53,7 +53,6 @@
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    moving asteroid as actor
     rename sleep capsules
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels, floor cabel
 - Hammer and Sickle modern, Säulen, Tank
@@ -177,12 +176,6 @@ You sleep in a container, you have nothing, start an existance by quests and ste
 
 Character (Who are they, dreams, personality, history)
 
-Enviroment Plot:
-    Flora on Ceres is intelliget, can communicate.
-    Hivemind does not understand human unequality.
-    Disease came from here but was not on purpose.
-    Can give you plant parts, want knowledge over society
-
 Cultural Dominance Plot:
     Style of Station, Music, Interests
 
@@ -193,14 +186,18 @@ Spiritual Mission:
 ------------------------------------------
 ----- Lore & World -----------------------
 ------------------------------------------
-Lore (Info not related to PLot, History, descriptions)
+Lore (Info not related to Plot, History, descriptions)
     Third Class
         => Earth damaged, people want to live in space and station, Ceres is base for asteriod belt mining
             - Private Company build Station, Earth law doesnt apply, Earth Gov am Gängelband
         => Subscriptions to benefits like housing, food and air
-        => Dwarf planet Ceres, Water colony with science; can travel to asteriods; Vanguard of Humankind in private ownership (CereX company)
+        => Dwarf planet Ceres, Water colony with science and mining; can travel to asteriods; Vanguard of Humankind in private ownership (CereX company)
         => Board time / Ceres Time (9h 4min per day) connection affects world (year 4,605 years)
-        => Society changes, very liberal. Open Sex at Clubs, drugs, home-delivery standard, arguments
+        => Society changes, very liberal. Open Sex at Clubs, man/women not important, just prefered position, no classic partnerships
+        => drugs are normal
+        => home-delivery of goods is standard, maybe stealing?
+        => arguments for human body
+        => Children usually designed, just Ökos take old way
 
     Ceres
         - Ceres Base gets energy and water from old colony ship, which works automated;
@@ -208,18 +205,23 @@ Lore (Info not related to PLot, History, descriptions)
                 - need air masks all day, union knows about
                 - workers are dept slaves from cryo capsules
         - The trade hub contains a space elevator and in secret luxury apartements
-        - There are water and mineral resource fields near cryo vulcanos
+        - There are water and mineral resource fields near cryo vulcanos + other asteriods
         - Resources very limited, nearly autarc; cheap drones with oxygen fuel can sent back resources, but oxygen is rare;
             goods from earth must be sent to space, expensive, from ceres weight is not a problem
 
-        - Food/Water Supplies Company (Erster Gegner; Shared Knowledge)
-            - bad products, people get ill; experiments on humans
+       - Food/Water Supplies Company (Erster Gegner; Stolen Knowledge / Algae)
+            - bad air, people get ill; experiments on own workers; lose health every day
+            - Infiltration durch Luftschacht, stealthmission; finde algenprobe und baue eigenen reaktor
+            - Wachmänner müssen befreundet, mit item abgelenkt oder krank gemacht werden. (Gift in Heim)
+            - Sobald Luft besser, AirLock öffnet sich zu neuem Bereich
+            - Zeitung meldet später, dass Luft sich verbessert hat wegen Firma, keine Folgen für Firma
+        - Food/Water Supplies Company (Shared Knowledge / Patente)
             - Biomasse wird anonym eingekauft, um Arbeitsverträge zu vermeiden. (Akkordarbeit, Werkvertrag)
             - Spieler gibt viel ab, wird bemerkt. Kriegt spezialauftrag. Gff bekommt anzug um Ceresflora zu sammeln
             - Kriegt mehr Zugang, stiehlt Geheimnisse
             - Öffentlich bekannte anbaumethode/Gerät führt zu lokal produzierter Nahrung
-            - Firma nicht wirklich besiegt, muss aber einlenken um Kunden zu behalten
             - Adia is a small coffee company owned
+            - Firma nicht wirklich besiegt, muss aber einlenken um Kunden zu behalten
         - Trade Company "Smile" (Zweiter Gegner; Wisthleblowing, Gemeinschaftsarbeit)
             - destroys Ceres Ecosystem, erhöht Preise künstlich
             - Produkte stehlen, Riot => Kurzfristige Verbesserung aber dann mehr Security, Situation verschlechtert sich
@@ -239,7 +241,7 @@ Lore (Info not related to PLot, History, descriptions)
 ------------------------------------------
 ----- COLLECTIBLES -----------------------
 ------------------------------------------
-SpaceStamps with Social
+SpaceStamps with Social and goods delivery
 Old Earth artefacts by exploration
 Plants züchten
 Wohnkapsel ist erweiterbares Raumschiff
@@ -268,6 +270,12 @@ How to Revolution
     Angst vor dem Gefängnis schlimmer als Gefängnis selbst, Information macht Mut. Organize people outside to call police and ask questions, celebrate once freed.
     Use social media to show police bruality, let oppression backfire.
     Invite all groups, patriotic and liberal under one motto, not too much topics.
+
+Die Form des Wassers
+    Einfache Putzkräfte haben Zugang zu geheimen Bereichen, bei Befragungen werde sie aber nicht ernst genommen
+
+Lupin
+    Mitarbeiter hilft Räubern beim Eindringen, er kennt Sicherheitsprotokolle und wie man sie umgeht. Rein/raus als MA
 ------------------------------------------
 ----- SHORTKEY ---------------------------
 ------------------------------------------

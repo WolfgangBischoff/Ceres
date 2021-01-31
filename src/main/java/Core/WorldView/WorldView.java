@@ -317,6 +317,7 @@ public class WorldView
     public void update(Long currentNanoTime)
     {
         String methodName = "update(Long) ";
+        long updateStartTime = System.nanoTime();
         ArrayList<String> input = GameWindow.getInput();
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastTimeMenuWasOpened) / 1000000000.0;
 
@@ -368,11 +369,12 @@ public class WorldView
 
         processMouse(currentNanoTime);
 
+        long inputStartTime = System.nanoTime();
         //Update Sprites
         player.update(currentNanoTime);
         for (Sprite active : activeSpritesLayer)
             active.update(currentNanoTime);
-
+        long spritesStartTime = System.nanoTime();
         //Remove Sprites
         for (Sprite sprite : toRemove)
         {
@@ -389,6 +391,12 @@ public class WorldView
 
         GameVariables.getClock().tryIncrementTime(currentNanoTime);
         GameVariables.updateHunger(currentNanoTime);
+
+        long ClockHungerStartTime = System.nanoTime();
+        long timeInput = inputStartTime - updateStartTime;
+        long timeSprites = spritesStartTime - updateStartTime - timeInput;
+        long hudTime = ClockHungerStartTime - updateStartTime - timeInput - timeSprites;
+        //System.out.println("inputTime: " + timeInput + " sprites: " + timeSprites + " hud: " + hudTime);
     }
 
     private void updateAccordingToTime()

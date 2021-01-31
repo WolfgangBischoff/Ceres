@@ -1,5 +1,7 @@
 
 31 01 21    - calculateDodge dodges into wall fixed
+            - added meteorit and additional sprite layer
+            - changes move behavior
 29 01 21    - added black overal side sprites
             - fixed animation missing bug
 28 01 21    - refactored Sprite
