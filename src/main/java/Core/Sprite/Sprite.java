@@ -16,13 +16,15 @@ import javafx.util.Pair;
 import java.util.List;
 
 import static Core.Configs.Config.*;
-import static Core.Enums.Direction.NORTH;
-import static Core.Enums.Direction.SOUTH;
+import static Core.Enums.Direction.*;
 import static Core.Enums.TriggerType.NOTHING;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public class Sprite
 {
     private static final String CLASSNAME = "Sprite/";
+    private static final double DEBUG_LAG_TIME_MAX = 0.05;
     Image baseimage;
     double basewidth; //width of whole sprite, in therms of animation multiple frames
     double baseheight;
@@ -143,7 +145,7 @@ public class Sprite
     {
         String methodName = "update() ";
 
-        double time = (currentNanoTime - lastUpdated) / 1000000000.0;
+        double time = min(((currentNanoTime - lastUpdated) / 1000000000.0), DEBUG_LAG_TIME_MAX);
         double elapsedTimeSinceLastInteraction = (currentNanoTime - actor.getLastInteraction()) / 1000000000.0;
         List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
         double velocityX = actor.getCurrentVelocityX();
@@ -217,14 +219,21 @@ public class Sprite
         {
             position = position.add(velocityX * time, velocityY * time);
         }
-        else
-        {
-            if (this == WorldView.getPlayer())
-            {
-                Pair<Double, Double> delta = calculateDodge(plannedPosition, this.actor.getDirection());
-                dodgeVelocities = new Pair<>(delta.getKey() + dodgeVelocities.getKey(), delta.getValue() + dodgeVelocities.getValue());
-                position = position.add(dodgeVelocities.getKey() * time, dodgeVelocities.getValue() * time);
+        else {
+            //Set blocked velocity to Zero
+            if (isBlockedByOtherSprites(0, velocityY * time) || isBlockedByOtherSprites(0, velocityY * time))
+                velocityY = 0;
+            if (isBlockedByOtherSprites(velocityX * time, 0) || isBlockedByOtherSprites(velocityX * time, 0))
+                velocityX = 0;
+
+
+            if (this == WorldView.getPlayer()) {
+                Pair<Double, Double> dodgeVelocity = calculateDodgeVelocity(plannedPosition, this.actor.getDirection());
+                //velocityX += dodgeVelocity.getKey();
+                //velocityY += dodgeVelocity.getValue();
+                position = position.add(dodgeVelocity.getKey() * time, dodgeVelocity.getValue() * time);
             }
+            position = position.add(velocityX * time, velocityY * time);
         }
 
         interact = false;
@@ -261,11 +270,8 @@ public class Sprite
         return false;
     }
 
-    private Pair<Double, Double> calculateDodge(Rectangle2D plannedPosition, Direction direction)
+    private Pair<Double, Double> calculateDodgeVelocity(Rectangle2D plannedPosition, Direction direction)
     {
-
-        //TODO isBlockedByOtherSprites(NORTH)
-
         String methodName = "calculateDodge() ";
         double playerLeftEdge = 0;
         double playerRightEdge = 0;
@@ -273,41 +279,39 @@ public class Sprite
         double blockingSpriteRightEdge = 0;
         double velocityDodge = DODGE_VELOCITY;
         Rectangle2D blockingSprite = null;
+        Pair<Double, Double> ret = new Pair<>(0d, 0d);
         for (Sprite otherSprite : WorldView.getPassiveCollisionRelevantSpritesLayer())
             if (isBlockedBy(otherSprite, plannedPosition))
                 blockingSprite = otherSprite.getBoundary();
 
-        if (direction == NORTH || direction == SOUTH)
-        {
+        if (direction == NORTH || direction == SOUTH) {
             playerLeftEdge = plannedPosition.getMinX();
             playerRightEdge = plannedPosition.getMaxX();
             blockingSpriteLeftEdge = blockingSprite.getMinX();
             blockingSpriteRightEdge = blockingSprite.getMaxX();
         }
-        else if (direction == Direction.WEST || direction == Direction.EAST)
-        {
+        else if (direction == WEST || direction == Direction.EAST) {
             playerLeftEdge = plannedPosition.getMaxY();
             playerRightEdge = plannedPosition.getMinY();
             blockingSpriteLeftEdge = blockingSprite.getMaxY();
             blockingSpriteRightEdge = blockingSprite.getMinY();
         }
 
-        if (playerLeftEdge < blockingSpriteLeftEdge && playerRightEdge < blockingSpriteRightEdge)//at left border
+        if (playerLeftEdge < blockingSpriteLeftEdge && playerRightEdge < blockingSpriteRightEdge)//at west border
         {
-            if (direction == NORTH || direction == SOUTH)
-                return new Pair<>(-velocityDodge, 0d);
-            else
-                return new Pair<>(0d, -velocityDodge);
+            if ((direction == NORTH || direction == SOUTH) && !isBlockedByOtherSprites(WEST))
+                ret = new Pair<>(-velocityDodge, 0d);//west edge => go west
+            else if (!isBlockedByOtherSprites(SOUTH))
+                ret = new Pair<>(0d, -velocityDodge);//south edge => go south
         }
-        else if (playerLeftEdge > blockingSpriteLeftEdge && playerRightEdge > blockingSpriteRightEdge)//at right side
-        {
-            if (direction == NORTH || direction == SOUTH)
-                return new Pair<>(velocityDodge, 0d);
-            else
-                return new Pair<>(0d, velocityDodge);
+        else if (playerLeftEdge > blockingSpriteLeftEdge && playerRightEdge > blockingSpriteRightEdge) {
+            if ((direction == NORTH || direction == SOUTH) && !isBlockedByOtherSprites(EAST))
+                ret = new Pair<>(velocityDodge, 0d);
+            else if (!isBlockedByOtherSprites(NORTH))
+                ret = new Pair<>(0d, velocityDodge);
 
         }
-        return new Pair<>(0d, 0d);
+        return ret;
     }
 
     public void onClick(Long currentNanoTime)
