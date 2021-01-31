@@ -45,13 +45,13 @@ public class ConsoleCommandInterpreter
             }
         }
         else if (tokens.get(0).text.equals("sprites")) {
-            int total = WorldView.getBottomLayer().size() + WorldView.getMiddleLayer().size() + WorldView.getTopLayer().size();
+            int total = WorldView.getBottomLayer().size() + WorldView.getMiddleLayer().size() + WorldView.getUpperLayer().size();
             print("Total: " + total);
             print("Bottom Layer (" + WorldView.getBottomLayer().size() + "):");
             //WorldView.getBottomLayer().stream().forEach(s -> print(s.getName()));
             print("Middle Layer (" + WorldView.getMiddleLayer().size() + "):");
             //WorldView.getMiddleLayer().stream().forEach(s -> print(s.getName()));
-            print("Top Layer (" + WorldView.getTopLayer().size() + "):");
+            print("Top Layer (" + WorldView.getUpperLayer().size() + "):");
             //WorldView.getTopLayer().stream().forEach(s -> print(s.getName()));
         }
     }

@@ -25,13 +25,12 @@ public class WorldLoader
     String spawnId;
     Sprite player;
     Color shadowColor;
-    private Rectangle2D borders;
     List<Sprite> passivLayer = new ArrayList<>();
     List<Sprite> activeLayer = new ArrayList<>();
     List<Sprite> bttmLayer = new ArrayList<>();
     List<Sprite> mediumLayer = new ArrayList<>();
     List<Sprite> upperLayer = new ArrayList<>();
-
+    List<Sprite> topLayer = new ArrayList<>();
     Set<String> loadedTileIdsSet = new HashSet<>();
     Map<String, SpriteData> tileDataMap = new HashMap<>();
     Map<String, ActorData> actorDataMap = new HashMap<>();
@@ -44,6 +43,7 @@ public class WorldLoader
     int currentVerticalTile = 0;
     int currentHorizontalTile = 0;
     int maxHorizontalTile = 0;
+    private Rectangle2D borders;
 
     public WorldLoader()
     {
@@ -60,6 +60,16 @@ public class WorldLoader
             keywords.add(KEYWORD_GLOBAL_SYSTEM_ACTOR);
         }
 
+    }
+
+    public static String getCLASSNAME()
+    {
+        return CLASSNAME;
+    }
+
+    public static Set<String> getKeywords()
+    {
+        return keywords;
     }
 
     private void readFile(String fileName)
@@ -242,7 +252,6 @@ public class WorldLoader
 
     }
 
-
     private void readSpawnPoint(String[] lineData)
     {
         String methodName = "readSpawnPoint()";
@@ -290,11 +299,6 @@ public class WorldLoader
 
     }
 
-    static class ActorGroupData
-    {
-        ArrayList memberOfGroups = new ArrayList();
-    }
-
     private Color readWorldShadow(String[] lineData)
     {
         String methodName = CLASSNAME + "readWorldShadow() ";
@@ -318,6 +322,9 @@ public class WorldLoader
             case 2:
                 upperLayer.add(sprite);
                 break;
+            case 3:
+                topLayer.add(sprite);
+                break;
             default:
                 throw new RuntimeException("Layer not defined");
         }
@@ -325,7 +332,7 @@ public class WorldLoader
 
     private void readLineOfTiles(String[] lineData, Boolean isPassiv) throws IllegalArgumentException
     {
-        String methodName = "readTile ";
+        String methodName = "readLineOfTiles() ";
         String lineNumber = "[not set]";
 
 
@@ -485,70 +492,6 @@ public class WorldLoader
         player = actor.spriteList.get(0);
     }
 
-    public class SpawnData
-    {
-        Integer x, y;
-        Direction direction;
-
-        public SpawnData(Integer x, Integer y, Direction direction)
-        {
-            this.x = x;
-            this.y = y;
-            this.direction = direction;
-        }
-
-        @Override
-        public String toString()
-        {
-            return "x=" + x +
-                    ", y=" + y +
-                    ", direction=" + direction +
-                    '}';
-        }
-
-        public Integer getX()
-        {
-            return x;
-        }
-
-        public Integer getY()
-        {
-            return y;
-        }
-
-        public Direction getDirection()
-        {
-            return direction;
-        }
-    }
-
-    class ActorData
-    {
-        String actorFileName;
-        String actorInGameName;
-        String generalStatus;
-        String sensor_status;
-        Direction direction;
-
-        public ActorData(String actorname, String actorInGameName, String generalStatus, String sensor_status, Direction direction)
-        {
-            this.actorFileName = actorname;
-            this.actorInGameName = actorInGameName;
-            this.sensor_status = sensor_status;
-            this.generalStatus = generalStatus;
-            this.direction = direction;
-        }
-
-        @Override
-        public String toString()
-        {
-            return "ActorData{" +
-                    "actorname='" + actorFileName + '\'' +
-                    '}';
-        }
-    }
-
-
     public Rectangle2D getBorders()
     {
         return borders;
@@ -582,16 +525,6 @@ public class WorldLoader
     public Color getShadowColor()
     {
         return shadowColor;
-    }
-
-    public static String getCLASSNAME()
-    {
-        return CLASSNAME;
-    }
-
-    public static Set<String> getKeywords()
-    {
-        return keywords;
     }
 
     public String getLevelName()
@@ -662,5 +595,80 @@ public class WorldLoader
     public int getMaxHorizontalTile()
     {
         return maxHorizontalTile;
+    }
+
+    static class ActorGroupData
+    {
+        ArrayList memberOfGroups = new ArrayList();
+    }
+
+    public List<Sprite> getTopLayer()
+    {
+        return topLayer;
+    }
+
+    public class SpawnData
+    {
+        Integer x, y;
+        Direction direction;
+
+        public SpawnData(Integer x, Integer y, Direction direction)
+        {
+            this.x = x;
+            this.y = y;
+            this.direction = direction;
+        }
+
+        @Override
+        public String toString()
+        {
+            return "x=" + x +
+                    ", y=" + y +
+                    ", direction=" + direction +
+                    '}';
+        }
+
+        public Integer getX()
+        {
+            return x;
+        }
+
+        public Integer getY()
+        {
+            return y;
+        }
+
+        public Direction getDirection()
+        {
+            return direction;
+        }
+
+
+    }
+
+    class ActorData
+    {
+        String actorFileName;
+        String actorInGameName;
+        String generalStatus;
+        String sensor_status;
+        Direction direction;
+
+        public ActorData(String actorname, String actorInGameName, String generalStatus, String sensor_status, Direction direction)
+        {
+            this.actorFileName = actorname;
+            this.actorInGameName = actorInGameName;
+            this.sensor_status = sensor_status;
+            this.generalStatus = generalStatus;
+            this.direction = direction;
+        }
+
+        @Override
+        public String toString()
+        {
+            return "ActorData{" +
+                    "actorname='" + actorFileName + '\'' +
+                    '}';
+        }
     }
 }

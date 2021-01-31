@@ -5,7 +5,8 @@ public enum ActorTag
     AUTOMATED_DOOR, AUTOMATED_DOOR_DETECTABLE,
     BECOME_TRANSPARENT, DETECTS_PLAYER, PLAYER,
     PERSISTENT, //is loaded on the next day from LevelState
-    TURNS_DIRECTION_ONINTERACTION;
+    TURNS_DIRECTION_ONINTERACTION,
+    NO_COLLISION;
 
     public static ActorTag getType(String type)
     {
@@ -24,6 +25,8 @@ public enum ActorTag
                 return PERSISTENT;
             case "TURNS_DIRECTION_ONINTERACTION":
                 return TURNS_DIRECTION_ONINTERACTION;
+            case "NO_COLLISION":
+                return NO_COLLISION;
             default:
                 throw new RuntimeException("ActorType unknown: " + type);
         }

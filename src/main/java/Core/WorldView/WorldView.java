@@ -97,6 +97,7 @@ public class WorldView
     static List<Sprite> passiveSpritesLayer = new ArrayList<>();
     static List<Sprite> bottomLayer = new ArrayList<>();
     static List<Sprite> middleLayer = new ArrayList<>();
+    static List<Sprite> upperLayer = new ArrayList<>();
     static List<Sprite> topLayer = new ArrayList<>();
     static Sprite player;
     static Map<String, WorldLoader.SpawnData> spawnPointsMap = new HashMap<>();
@@ -142,7 +143,7 @@ public class WorldView
         activeSpritesLayer.remove(player);
         middleLayer.remove(player); //Player Layer
         GameVariables.setPlayer(player);
-        GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.gameDateTime().getDays(), borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, topLayer, shadowColor, spawnPointsMap));
+        GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.gameDateTime().getDays(), borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, upperLayer, shadowColor, spawnPointsMap));
     }
 
     public void loadStage(String levelName, String spawnId)
@@ -177,6 +178,7 @@ public class WorldView
         activeSpritesLayer = new ArrayList<>();
         bottomLayer = new ArrayList<>();
         middleLayer = new ArrayList<>();
+        upperLayer = new ArrayList<>();
         topLayer = new ArrayList<>();
         passiveCollisionRelevantSpritesLayer = new ArrayList<>();
         borders = null;
@@ -192,7 +194,8 @@ public class WorldView
         List<Sprite> tmp_activeSpritesLayer = worldLoader.getActiveLayer();
         List<Sprite> tmp_bottomLayer = worldLoader.getBttmLayer();
         List<Sprite> tmp_middleLayer = worldLoader.getMediumLayer();
-        List<Sprite> tmp_topLayer = worldLoader.getUpperLayer();
+        List<Sprite> tmp_upperLayer = worldLoader.getUpperLayer();
+        List<Sprite> tmp_topLayer = worldLoader.getTopLayer();
 
         //remove persistent actors, just not persistent should remain or actorless sprites
         tmp_activeSpritesLayer = tmp_activeSpritesLayer.stream()
@@ -207,20 +210,21 @@ public class WorldView
                 .filter(sprite ->
                         sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))
                 .collect(Collectors.toList());
+        tmp_upperLayer = tmp_upperLayer.stream()
+                .filter(sprite ->
+                        sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))
+                .collect(Collectors.toList());
         tmp_topLayer = tmp_topLayer.stream()
                 .filter(sprite ->
                         sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))
                 .collect(Collectors.toList());
 
         //add persistent actors from state
-        for (Sprite activeSprite : levelState.getActiveSpritesLayer())
-        {
-            if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT))
-            {
+        for (Sprite activeSprite : levelState.getActiveSpritesLayer()) {
+            if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT)) {
                 System.out.println(CLASSNAME + methodName + activeSprite.getActor().getActorInGameName());
                 tmp_activeSpritesLayer.add(activeSprite);
-                switch (activeSprite.getLayer())
-                {
+                switch (activeSprite.getLayer()) {
                     case 0:
                         tmp_bottomLayer.add(activeSprite);
                         break;
@@ -228,6 +232,9 @@ public class WorldView
                         tmp_middleLayer.add(activeSprite);
                         break;
                     case 2:
+                        tmp_upperLayer.add(activeSprite);
+                        break;
+                    case 3:
                         tmp_topLayer.add(activeSprite);
                         break;
                     default:
@@ -240,6 +247,7 @@ public class WorldView
         activeSpritesLayer = tmp_activeSpritesLayer;
         bottomLayer = tmp_bottomLayer;
         middleLayer = tmp_middleLayer;
+        upperLayer = tmp_upperLayer;
         topLayer = tmp_topLayer;
 
         //Player
@@ -252,6 +260,7 @@ public class WorldView
 
         passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
         passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
+        passiveCollisionRelevantSpritesLayer.addAll(upperLayer);
         passiveCollisionRelevantSpritesLayer.addAll(topLayer);
         borders = worldLoader.getBorders();
         shadowColor = worldLoader.getShadowColor();
@@ -267,9 +276,11 @@ public class WorldView
         activeSpritesLayer = worldLoader.getActiveLayer();
         bottomLayer = worldLoader.getBttmLayer(); //Render height
         middleLayer = worldLoader.getMediumLayer();
-        topLayer = worldLoader.getUpperLayer();
+        upperLayer = worldLoader.getUpperLayer();
+        topLayer = worldLoader.getTopLayer();
         passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
         passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
+        passiveCollisionRelevantSpritesLayer.addAll(upperLayer);
         passiveCollisionRelevantSpritesLayer.addAll(topLayer);
         borders = worldLoader.getBorders();
         setShadowColor(worldLoader.getShadowColor());
@@ -283,7 +294,7 @@ public class WorldView
         activeSpritesLayer = levelState.getActiveSpritesLayer();
         bottomLayer = levelState.getBottomLayer(); //Render height
         middleLayer = levelState.getMiddleLayer();
-        topLayer = levelState.getTopLayer();
+        upperLayer = levelState.getTopLayer();
         borders = levelState.getBorders();
         shadowColor = levelState.getShadowColor();
         spawnPointsMap = levelState.getSpawnPointsMap();
@@ -298,7 +309,7 @@ public class WorldView
 
         passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
         passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
-        passiveCollisionRelevantSpritesLayer.addAll(topLayer);
+        passiveCollisionRelevantSpritesLayer.addAll(upperLayer);
         System.out.println(CLASSNAME + methodName);
     }
 
@@ -367,7 +378,7 @@ public class WorldView
         {
             WorldView.bottomLayer.remove(sprite);
             WorldView.middleLayer.remove(sprite);
-            WorldView.topLayer.remove(sprite);
+            WorldView.upperLayer.remove(sprite);
             WorldView.activeSpritesLayer.remove(sprite);
             WorldView.passiveSpritesLayer.remove(sprite);
             WorldView.passiveCollisionRelevantSpritesLayer.remove(sprite);
@@ -596,28 +607,29 @@ public class WorldView
         }
         //Bottom heightLayer
         bottomLayer.sort(new SpriteComparator());
-        for (Sprite sprite : bottomLayer)
-        {
+        for (Sprite sprite : bottomLayer) {
             sprite.render(gc, currentNanoTime);
         }
         //Middle Layer
         middleLayer.sort(new SpriteComparator());
-        for (Sprite sprite : middleLayer)
-        {
+        for (Sprite sprite : middleLayer) {
+            sprite.render(gc, currentNanoTime);
+        }
+        //Upper Layer
+        upperLayer.sort(new SpriteComparator());
+        for (Sprite sprite : upperLayer) {
             sprite.render(gc, currentNanoTime);
         }
         //Top Layer
         topLayer.sort(new SpriteComparator());
-        for (Sprite sprite : topLayer)
-        {
+        for (Sprite sprite : topLayer) {
             sprite.render(gc, currentNanoTime);
         }
 
         //Overlays
         hudCanvas.getGraphicsContext2D().clearRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
         renderHUD(currentNanoTime);
-        switch (WorldViewController.getWorldViewStatus())
-        {
+        switch (WorldViewController.getWorldViewStatus()) {
 
             case WORLD:
                 break;
@@ -726,9 +738,9 @@ public class WorldView
         return middleLayer;
     }
 
-    public static List<Sprite> getTopLayer()
+    public static List<Sprite> getUpperLayer()
     {
-        return topLayer;
+        return upperLayer;
     }
 
     public static Rectangle2D getBorders()

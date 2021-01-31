@@ -31,13 +31,33 @@ enum ScriptType
     }
 }
 
+class RoutePoint2D
+{
+    String option;
+    Point2D target;
+
+    public RoutePoint2D(double x, double y, String option)
+    {
+        this.option = option;
+        this.target = new Point2D(x, y);
+    }
+
+    public RoutePoint2D(double x, double y)
+    {
+        this.option = "not set";
+        this.target = new Point2D(x, y);
+    }
+}
+
 public class Script
 {
     String CLASSNAME = "Script/";
+    String OPTION_ATTRIBUTE = "option";
+
     int IDLE_WAITING_TIME = 3;
     int IDLE_MOVE_TIME = 2;
     ScriptType type;
-    Queue<Point2D> route = new LinkedList<>();
+    Queue<RoutePoint2D> route = new LinkedList<>();
     Long lastStatusChangeTime = 0L;
     String executionStatus = "NOT SET";
     Direction randomDirection = null;
@@ -47,11 +67,15 @@ public class Script
     {
         type = ScriptType.of(xmlFile.getAttribute("type"));
         var routePoints = xmlFile.getElementsByTagName("point");
-        for (int i = 0; i < routePoints.getLength(); i++)
-        {
-            int x = Integer.parseInt(((Element) routePoints.item(i)).getAttribute("x"));
-            int y = Integer.parseInt(((Element) routePoints.item(i)).getAttribute("y"));
-            route.add(new Point2D(x, y));
+        for (int i = 0; i < routePoints.getLength(); i++) {
+            Element routePoint = (Element) routePoints.item(i);
+            int x = Integer.parseInt((routePoint.getAttribute("x")));
+            int y = Integer.parseInt((routePoint.getAttribute("y")));
+            if ((routePoint.hasAttribute(OPTION_ATTRIBUTE))) {
+                route.add(new RoutePoint2D(x, y, routePoint.getAttribute(OPTION_ATTRIBUTE)));
+            }
+            else
+                route.add(new RoutePoint2D(x, y));
         }
     }
 
@@ -130,8 +154,8 @@ public class Script
         String methodName = "repeat() ";
         if (route.isEmpty())
             return;
-        Point2D target = route.peek();
-        boolean reachedTarget = moveUnchecked(actor, target);
+        Point2D target = route.peek().target;
+        boolean reachedTarget = moveUnchecked(actor, target, route.peek().option);
         if (reachedTarget)
             route.add(route.remove());
     }
@@ -141,14 +165,14 @@ public class Script
         String methodName = "route() ";
         if (route.isEmpty())
             return;
-        Point2D target = route.peek();
-        boolean reachedTarget = moveUnchecked(actor, target);
+        Point2D target = route.peek().target;
+        boolean reachedTarget = moveUnchecked(actor, target, route.peek().option);
         if (reachedTarget)
             route.remove(target);
 //        System.out.println(CLASSNAME + methodName + target.getX() + " " + target.getY());
     }
 
-    private boolean moveUnchecked(Actor actor, Point2D target)
+    private boolean moveUnchecked(Actor actor, Point2D target, String option)
     {
         Point2D currentPos = new Point2D(actor.spriteList.get(0).getX(), actor.spriteList.get(0).getY());
         double deltaX = target.getX() * 64 - currentPos.getX();
@@ -159,12 +183,15 @@ public class Script
         double moveThreshold = 5d;
         boolean xreached = false, yreached = false;
 
-        if (deltaX < -moveThreshold)
-        {
+        if (option.equals("warp")) {
+            actor.spriteList.forEach(s -> s.setPosition(target.getX(), target.getY()));
+            return true;
+        }
+
+        if (deltaX < -moveThreshold) {
             addedVelocityX = -velocity;
         }
-        else if (deltaX > moveThreshold)
-        {
+        else if (deltaX > moveThreshold) {
             addedVelocityX = velocity;
         }
         else xreached = true;

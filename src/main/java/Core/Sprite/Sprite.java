@@ -2,6 +2,7 @@ package Core.Sprite;
 
 import Core.Actor;
 import Core.Configs.Config;
+import Core.Enums.ActorTag;
 import Core.Enums.Direction;
 import Core.GameWindow;
 import Core.Utilities;
@@ -16,6 +17,7 @@ import javafx.util.Pair;
 import java.util.List;
 
 import static Core.Configs.Config.*;
+import static Core.Enums.ActorTag.NO_COLLISION;
 import static Core.Enums.Direction.*;
 import static Core.Enums.TriggerType.NOTHING;
 import static java.lang.Math.min;
@@ -203,7 +205,8 @@ public class Sprite
                 actor.onUpdate(currentNanoTime);
         }
 
-        if (!(DEBUG_NO_WALL && this == WorldView.getPlayer())) {
+        if (!((DEBUG_NO_WALL && this == WorldView.getPlayer()) ||
+                (actor != null && actor.tags.contains(NO_COLLISION)))) {
             if (this == WorldView.getPlayer() && isBlockedByOtherSprites(velocityX * time, velocityY * time)) {
                 Pair<Double, Double> dodgeVelocity = calculateDodgeVelocity(plannedPosition, this.actor.getDirection(), time);
                 velocityX += dodgeVelocity.getKey();

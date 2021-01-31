@@ -112,6 +112,7 @@ laddeD					;actorData/doors/updown/ladder/transporter_ladder		;ladder											
 elevSc					;actorData/doors/updown/elevator/elevator										;main elevator										  ;toCrewDeck								 ;default											     ;undefined
 door_H					;actorData/doors/horizontal/automatedDoor										;bulkhead																	;on																	;UNLOCKED															;south
 windL1					;actorData/quest/main/frontwindow/actor												;front window													;spaceView										;default																;undefined
+metrod					;actorData/transporter/metroid/metroid													;metroid																		;default												;default																;north
 
 #control center
 tender					;actorData/character/tenderer/tenderer													;Julius Soulles											;day0															;default																;south
@@ -173,6 +174,9 @@ FC_roof_6														;none																											;none														;FCr__
 
 GLOBAL_SYSTEM_ACTOR:
 transporter_air_system;airVeR;ventCo
+
+POSITION:
+metrod	            ;700     ;600    ;on the bench
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision

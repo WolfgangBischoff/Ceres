@@ -498,7 +498,7 @@ public class Actor
         String methodName = "changeLayer() ";
         WorldView.getBottomLayer().remove(sprite);
         WorldView.getMiddleLayer().remove(sprite);
-        WorldView.getTopLayer().remove(sprite);
+        WorldView.getUpperLayer().remove(sprite);
         switch (targetLayer)
         {
             case 0:
@@ -508,7 +508,7 @@ public class Actor
                 WorldView.getMiddleLayer().add(sprite);
                 break;
             case 2:
-                WorldView.getTopLayer().add(sprite);
+                WorldView.getUpperLayer().add(sprite);
                 break;
         }
     }
@@ -539,7 +539,7 @@ public class Actor
             toChange.setLightningSpriteName(ts.lightningSprite);
             toChange.setAnimationEnds(ts.animationEnds);
             toChange.setLayer(ts.heightLayer);
-            if (WorldView.getBottomLayer().contains(toChange) || WorldView.getMiddleLayer().contains(toChange) || WorldView.getTopLayer().contains(toChange))
+            if (WorldView.getBottomLayer().contains(toChange) || WorldView.getMiddleLayer().contains(toChange) || WorldView.getUpperLayer().contains(toChange))
                 changeLayer(toChange, ts.heightLayer);//Change layer if sprite in current stage, not on other map (global system) but sprite change triggered by StageMonitor
         }
 
