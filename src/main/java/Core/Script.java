@@ -7,7 +7,9 @@ import org.w3c.dom.Element;
 import java.util.LinkedList;
 import java.util.Queue;
 
+
 import static Core.Utilities.randomDirection;
+import static java.lang.Math.min;
 
 enum ScriptType
 {
@@ -59,6 +61,7 @@ public class Script
     ScriptType type;
     Queue<RoutePoint2D> route = new LinkedList<>();
     Long lastStatusChangeTime = 0L;
+    Long lastScriptActTime = 0L;
     String executionStatus = "NOT SET";
     Direction randomDirection = null;
 
@@ -99,53 +102,51 @@ public class Script
     {
         String methodName = "idle() ";
         long currentTime = GameWindow.getCurrentNanoRenderTimeGameWindow();
-        double elapsedTime = (currentTime - lastStatusChangeTime) / 1000000000.0;
+        double time = (currentTime - lastScriptActTime) / 1000000000.0;
+        double elapsedTimeLastStatusChange = (currentTime - lastStatusChangeTime) / 1000000000.0;
+        double IDLE_VELOCITY = 60;
 
-        if (executionStatus.equals("MOVE") && elapsedTime > IDLE_MOVE_TIME)
-        {
+        if (executionStatus.equals("MOVE") && elapsedTimeLastStatusChange > IDLE_MOVE_TIME) {
             lastStatusChangeTime = currentTime;
             executionStatus = "WAIT";
         }
-        else if (executionStatus.equals("WAIT") && elapsedTime > IDLE_WAITING_TIME)
-        {
+        else if (executionStatus.equals("WAIT") && elapsedTimeLastStatusChange > IDLE_WAITING_TIME) {
             lastStatusChangeTime = currentTime;
             executionStatus = "MOVE";
         }
 
         if (executionStatus.equals("MOVE"))
         {
-            if (randomDirection == null)
-            {
+            if (randomDirection == null) {
                 randomDirection = randomDirection();
             }
-            if (!actor.spriteList.get(0).isBlockedByOtherSprites(randomDirection))
-                switch (randomDirection)
-                {
+            if (!actor.spriteList.get(0).isBlockedByOtherSprites(randomDirection, IDLE_VELOCITY * time))
+                switch (randomDirection) {
                     case EAST:
-                        actor.setVelocity(60, 0);
+                        actor.setVelocity(IDLE_VELOCITY, 0);
                         break;
                     case WEST:
-                        actor.setVelocity(-60, 0);
+                        actor.setVelocity(-IDLE_VELOCITY, 0);
                         break;
                     case NORTH:
-                        actor.setVelocity(0, -60);
+                        actor.setVelocity(0, -IDLE_VELOCITY);
                         break;
                     case SOUTH:
-                        actor.setVelocity(0, 60);
+                        actor.setVelocity(0, IDLE_VELOCITY);
                         break;
                 }
             else
                 actor.setVelocity(0, 0);
         }
-        else
-        {
+        else {
             executionStatus = "WAIT";
             actor.setVelocity(0, 0);
-            if (randomDirection != null)
-            {
+            if (randomDirection != null) {
                 randomDirection = null;
             }
         }
+
+        lastScriptActTime = currentTime;
 
     }
 

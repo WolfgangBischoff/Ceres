@@ -220,7 +220,6 @@ public class Sprite
                 velocityX = 0;
         }
         position = position.add(velocityX * time, velocityY * time);
-
         interact = false;
         lastUpdated = currentNanoTime;
 
@@ -243,9 +242,8 @@ public class Sprite
         return false;
     }
 
-    public boolean isBlockedByOtherSprites(Direction direction)
+    public boolean isBlockedByOtherSprites(Direction direction, double delta)
     {
-        double delta = 0.01;
         switch (direction) {
             case NORTH:
                 return isBlockedByOtherSprites(0, -delta);
