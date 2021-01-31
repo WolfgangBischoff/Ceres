@@ -1,0 +1,7 @@
+<root type="repeat">
+    <route>
+        <point x="10" y="11" option="warp"/>
+        <point x="60" y="46"/>
+    </route>
+
+</root>

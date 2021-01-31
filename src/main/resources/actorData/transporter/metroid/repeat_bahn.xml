@@ -1,9 +1,8 @@
-<!-->Absolute/Relative?<!-->
 
 
 <root type="repeat">
     <route>
-        <point x="10" y="01" option="warp"/>
+        <point x="0" y="01" option="warp"/>
         <point x="60" y="45"/>
     </route>
 
