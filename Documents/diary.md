@@ -1,7 +1,14 @@
 
-01 02 21    - more metroids
-            - added trader sprites, changed sprites
-            - Storage on Control Deck instead of antenna
+
+
+#####04 02 21
+* added incubator menu
+
+#####01 02 21    
+* more metroids
+* added trader sprites, changed sprites
+* Storage on Control Deck instead of antenna
+
 31 01 21    - calculateDodge dodges into wall fixed
             - added meteorit and additional sprite layer
             - changes move behavior

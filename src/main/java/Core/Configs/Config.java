@@ -11,7 +11,7 @@ public class Config
     //General
     public static final Boolean DEBUG_ACTORS = false;
     public static final Boolean DEBUG_BLOCKER = false;
-    public static final Boolean DEBUG_NO_WALL = false;
+    public static final Boolean DEBUG_NO_WALL = true;
     public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
     public static final Boolean DEBUG_ALL_TEXT_OPTIONS_VISIBLE = false;
     public static final Boolean DEBUG_CONSOLE = false;
@@ -44,6 +44,7 @@ public class Config
     public static final int INVENTORY_HEIGHT = 600;
     public static Point2D INVENTORY_POSITION = new Point2D(64, CAMERA_HEIGHT / 2.0 - INVENTORY_HEIGHT / 2.0);
     public static Point2D EXCHANGE_INVENTORY_POSITION = new Point2D(64 + INVENTORY_WIDTH, CAMERA_HEIGHT / 2.0 - INVENTORY_HEIGHT / 2.0);
+    public static Point2D INCUBATOR_POSITION = new Point2D(64 + INVENTORY_WIDTH, CAMERA_HEIGHT / 2.0 - INVENTORY_HEIGHT / 2.0);
 
     public static final int COIN_AREA_WIDTH = 800;
     public static final int COIN_AREA_HEIGHT = 650;
@@ -129,11 +130,15 @@ public class Config
     public static final String SCRIPT_ACTOR = "script";
 
     //DialogueFile Keywords
+    public static final String TEXTBOX_TYPE_LEVELCHANGE = "levelchange";
+    public static final String TEXTBOX_TYPE_DECISION = "decision";
+    public static final String TEXTBOX_TYPE_COIN_GAME = "discussion";
+    public static final String TEXTBOX_TYPE_DAY_CHANGE = "dayChange";
+
     public static final String DIALOGUE_TAG = "dialogue";
     public static final String ID_TAG = "id";
     public static final String ACTOR_STATUS_TAG = "spritestatus";
     public static final String SENSOR_STATUS_TAG = "sensorstatus";
-    public static final String TEXTBOX_TYPE_DECISION = "decision";
     public static final String LINE_TAG = "line";
     public static final String NEXT_DIALOGUE_TAG = "nextDialogue";
     public static final String OPTION_TAG = "option";
@@ -145,14 +150,11 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_ITEM_ACTOR = "item_actor";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_NAME = "item_name";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_STATUS = "item_status";
-    public static final String TEXTBOX_TYPE_COIN_GAME = "discussion";
     public static final String TEXTBOX_ATTRIBUTE_GAME = "game";
     public static final String TEXTBOX_ATTRIBUTE_SUCCESS = "success";
     public static final String TEXTBOX_ATTRIBUTE_DEFEAT = "defeat";
-    public static final String TEXTBOX_TYPE_LEVELCHANGE = "levelchange";
     public static final String TEXTBOX_ATTRIBUTE_LEVEL = "level";
     public static final String TEXTBOX_ATTRIBUTE_SPAWN_ID = "spawnID";
-    public static final String TEXTBOX_TYPE_DAY_CHANGE = "dayChange";
     public static final String TEXTBOX_ATTRIBUTE_GET_MONEY = "getMoney";
     public static final String TEXTBOX_ATTRIBUTE_VALUE = "value";
     public static final String TEXTBOX_ATTRIBUTE_VISIBLE_IF = "visibleIf";

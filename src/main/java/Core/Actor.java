@@ -23,6 +23,7 @@ import static Core.Enums.ActorTag.*;
 import static Core.Enums.Direction.*;
 import static Core.Enums.TriggerType.CONDITION;
 import static Core.Enums.TriggerType.TEXTBOX_CONDITION;
+import static Core.WorldView.WorldViewStatus.*;
 
 public class Actor
 {
@@ -600,14 +601,17 @@ public class Actor
                 actAccordingToScript();
                 break;
             case INVENTORY_SHOP:
-                WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY_SHOP);
+                WorldViewController.setWorldViewStatus(INVENTORY_SHOP);
                 InventoryController.setExchangeInventoryActor(this);
                 break;
             case INVENTORY_EXCHANGE:
-                WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY_EXCHANGE);
+                WorldViewController.setWorldViewStatus(INVENTORY_EXCHANGE);
                 InventoryController.setExchangeInventoryActor(this);
                 break;
             case CONDITION:
+                break;
+            case INCUBATOR:
+                WorldViewController.setWorldViewStatus(INCUBATOR);
                 break;
         }
     }

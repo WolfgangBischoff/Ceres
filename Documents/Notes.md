@@ -1,13 +1,40 @@
-------------------------------------------
------ Backlog ----------------------------
-------------------------------------------
-- Sprint goal
 
-- Bug
+#Backlog
 
-- Test
+#### Grow Plant / Genes
+* workenbench/breeder that uses base bacteria and genes
+* air bacteria, food, material, social buff, computers?
+* bases need organic matter to grow, can be spliced for improvements
+* bases can be mixed, mutated over time
+* bacteria cultures can be used in incubators (bottleneck)
 
-- Features
+#### Minor
+* "Rumors"/Random dialogue
+* change font of textbox
+* StatusInfo over sprite on key + ExclamationMark
+* Enable fullscreen mode
+
+#### Stealth mechanic
+* split inRange area into several parts
+* every part will be blocked by bocker sprites
+* in range player interaction
+
+#### Main Quest
+* add easy characterGame
+* disable bed, should be dependent on quest status
+* stranger appears when sleeping
+* check logs with stranger => warp both
+* on return talk to sister and stranger
+* create electro potion for capsule
+* they leave transporter
+* goto bed an leave transporter 
+
+####Sprites  
+- Ship: rename sleep capsules
+- Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels, floor cabel
+- Hammer and Sickle modern, Säulen, Tank    
+    
+    
     => Level changes with time
             While Map load set global actors according to time, date, variables defined in actor file
             Set Actor script according to time
@@ -18,7 +45,6 @@
             4) Position check
             5) Different Sprites
     - Cooperation value just increases two time a day
-    - "Rumors"/Random dialogue
     - Create Questlog
     - check higher resolution and zoom, fix not centered overlay
     - Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
@@ -29,32 +55,11 @@
            - buy menu: desc, buy bttn
            - add item in box
     - Game Over if health == 0
-    - change font of textbox
-    - Grow Plant for life support
-         - Aus Kaim wird Pflanze gesetzt, Erde rar
-         - Pflanze wächst jeden Tag, erntbar, stirbt, vermehrt sich
-         - Habitat: Station, WaterTank, Ceres, Hot
-         - Mutieren und Kreuzen von Pflanzen, cookie Clicker
-    - StatusInfo over sprite on key + ExclamationMark
+    
 
-- Content
-    - Main Quest
-        add easy characterGame
-        disable bed, should be dependent on quest status
-        stranger appears when sleeping
-        check logs
-        talk again with sister and stranger
-        go to capsule
+##Improvements from tests   
 
-
-
-------------------------------------------
------ Sprites ----------------------------
-------------------------------------------
-- Ship:
-    rename sleep capsules
-- Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels, floor cabel
-- Hammer and Sickle modern, Säulen, Tank
+    
 
 ------------------------------------------
 ----- Ideas ------------------------------

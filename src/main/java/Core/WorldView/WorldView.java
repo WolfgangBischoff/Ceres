@@ -9,6 +9,7 @@ import Core.GameTime.Time;
 import Core.Menus.AchievmentLog.NewMessageOverlay;
 import Core.Menus.CoinGame.CoinGame;
 import Core.Menus.DaySummary.DaySummaryScreenController;
+import Core.Menus.Inventory.IncubatorOverlay;
 import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Personality.PersonalityScreenController;
 import Core.Menus.StatusOverlay.BarStatusConfig;
@@ -363,6 +364,8 @@ public class WorldView
                 break;
             case COIN_GAME://No keyboard input so far
                 break;
+            case INCUBATOR:
+                break;
             default:
                 System.out.println(CLASSNAME + methodName + "Undefined WorldViewStatus: " + WorldViewController.getWorldViewStatus());
         }
@@ -530,6 +533,7 @@ public class WorldView
             case INVENTORY:
             case INVENTORY_EXCHANGE:
             case INVENTORY_SHOP:
+            case INCUBATOR:
                 inventoryController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
                 break;
             default:
@@ -647,8 +651,8 @@ public class WorldView
             case INVENTORY:
             case INVENTORY_EXCHANGE:
             case INVENTORY_SHOP:
-                WritableImage inventoryOverlayMenuImage = inventoryController.getMenuImage();
-                hudCanvas.getGraphicsContext2D().drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
+            case INCUBATOR:
+                inventoryController.render(hudCanvas.getGraphicsContext2D());
                 break;
             case PERSONALITY:
                 WritableImage personalityScreenOverlay = personalityScreenController.getWritableImage();

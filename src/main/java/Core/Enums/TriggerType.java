@@ -2,7 +2,20 @@ package Core.Enums;
 
 public enum TriggerType
 {
-    NOTHING, PERSISTENT, PERSISTENT_TEXT,  TIMED, TIMED_TEXT, TEXTBOX, TEXTBOX_ANALYSIS, TEXTBOX_CONDITION, COLLECTABLE, SCRIPT, INVENTORY_EXCHANGE, INVENTORY_SHOP, CONDITION;
+    NOTHING,
+    PERSISTENT,
+    PERSISTENT_TEXT,
+    TIMED,
+    TIMED_TEXT,
+    TEXTBOX,
+    TEXTBOX_ANALYSIS,
+    TEXTBOX_CONDITION,
+    COLLECTABLE,
+    SCRIPT,
+    INVENTORY_EXCHANGE,
+    INVENTORY_SHOP,
+    CONDITION,
+    INCUBATOR;
 
     public static TriggerType getStatus(String status)
     {
@@ -22,6 +35,7 @@ public enum TriggerType
             case "inventory_exchange": return INVENTORY_EXCHANGE;
             case "inventory_shop": return INVENTORY_SHOP;
             case "condition": return CONDITION;
+            case "incubator": return INCUBATOR;
             default: throw new RuntimeException("TriggerType unknown: " + status);
         }
     }

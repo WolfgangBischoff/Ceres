@@ -12,9 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
-import static Core.Configs.Config.CAMERA_HEIGHT;
-import static Core.Configs.Config.CAMERA_WIDTH;
-import static Core.Configs.Config.EXCHANGE_INVENTORY_POSITION;
+import static Core.Configs.Config.*;
 
 public class InventoryController
 {
@@ -24,6 +22,7 @@ public class InventoryController
     static InventoryOverlay playerInventoryOverlay;
     static InventoryOverlay otherInventoryOverlay;
     static ShopOverlay shopOverlay;
+    static IncubatorOverlay incubatorOverlay= new IncubatorOverlay(INCUBATOR_POSITION);
     WritableImage playerInventory;
     WritableImage interactionInventoryImage;
     static Actor exchangeInventoryActor;
@@ -45,24 +44,28 @@ public class InventoryController
     }
 
 
-    public WritableImage getMenuImage()
+    public WritableImage render(GraphicsContext gc)
     {
         String methodName = "getMenuImage() ";
-        graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
+        //gc.clearRect(0, 0, WIDTH, HEIGHT);
         playerInventory = playerInventoryOverlay.getMenuImage();
-        graphicsContext.drawImage(playerInventory, playerInventoryPosition.getX(), playerInventoryPosition.getY());
+        gc.drawImage(playerInventory, playerInventoryPosition.getX(), playerInventoryPosition.getY());
 
         if (WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_EXCHANGE)
         {
             otherInventoryOverlay.setActor(exchangeInventoryActor);
             interactionInventoryImage = otherInventoryOverlay.getMenuImage();
-            graphicsContext.drawImage(interactionInventoryImage, exchangeInventoryPosition.getX(), exchangeInventoryPosition.getY());
+            gc.drawImage(interactionInventoryImage, exchangeInventoryPosition.getX(), exchangeInventoryPosition.getY());
         }
         else if(WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_SHOP)
         {
             shopOverlay.setActor(exchangeInventoryActor);
             interactionInventoryImage = shopOverlay.getMenuImage();
-            graphicsContext.drawImage(interactionInventoryImage, shopInterfacePosition.getX(), shopInterfacePosition.getY());
+            gc.drawImage(interactionInventoryImage, shopInterfacePosition.getX(), shopInterfacePosition.getY());
+        }
+        else if(WorldViewController.getWorldViewStatus() == WorldViewStatus.INCUBATOR)
+        {
+            incubatorOverlay.render(gc);
         }
 
         SnapshotParameters transparency = new SnapshotParameters();
@@ -76,6 +79,7 @@ public class InventoryController
         boolean clickedIntoOverlayPlayer = playerInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean clickedIntoOverlayOther = otherInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean clickedIntoOverlayShop = shopOverlay.getSCREEN_AREA().contains(mousePosition);
+        boolean clickedIntoOverlayIncubator = incubatorOverlay.getSCREEN_AREA().contains(mousePosition);
 
         //Check if player clicked outside the inventory to exit
         if(isMouseClicked && !clickedIntoOverlayPlayer && WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY)
@@ -102,6 +106,14 @@ public class InventoryController
                 playerActor.setLastInteraction(currentNanoTime);
             }else
             shopOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+        }else if(WorldViewController.getWorldViewStatus() == WorldViewStatus.INCUBATOR)
+        {
+            if(isMouseClicked && !clickedIntoOverlayPlayer && !clickedIntoOverlayIncubator)
+            {
+                WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
+                playerActor.setLastInteraction(currentNanoTime);
+            }else
+            incubatorOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
         }
 
 
