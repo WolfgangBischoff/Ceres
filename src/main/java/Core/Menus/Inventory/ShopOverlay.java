@@ -50,7 +50,6 @@ public class ShopOverlay
     {
         String methodName = "draw() ";
         menuGc.clearRect(0, 0, WIDTH, HEIGHT);
-        Color background = COLOR_BACKGROUND_BLUE;
         Color marking = COLOR_MARKING;
         Color font = COLOR_FONT;
         interfaceElements_Rectangles.clear();
@@ -58,7 +57,7 @@ public class ShopOverlay
 
         //Background
         menuGc.setGlobalAlpha(0.8);
-        menuGc.setFill(background);
+        menuGc.setFill(COLOR_BACKGROUND_BLUE);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
         menuGc.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
 

@@ -19,14 +19,15 @@ public class InventoryController
     private static String CLASSNAME = "InventoryController/";
     Canvas canvas;
     GraphicsContext graphicsContext;
+    static Actor exchangeInventoryActor;
+    static Actor playerActor;
     static InventoryOverlay playerInventoryOverlay;
     static InventoryOverlay otherInventoryOverlay;
     static ShopOverlay shopOverlay;
-    static IncubatorOverlay incubatorOverlay= new IncubatorOverlay(INCUBATOR_POSITION);
+    static IncubatorOverlay incubatorOverlay;
     WritableImage playerInventory;
     WritableImage interactionInventoryImage;
-    static Actor exchangeInventoryActor;
-    static Actor playerActor;
+
     private static int WIDTH = CAMERA_WIDTH;
     private static int HEIGHT = CAMERA_HEIGHT;
     Point2D playerInventoryPosition = Config.INVENTORY_POSITION;
@@ -38,6 +39,7 @@ public class InventoryController
         canvas = new Canvas(WIDTH, HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
         playerInventoryOverlay = new InventoryOverlay(WorldView.getPlayer().getActor(), playerInventoryPosition);
+        incubatorOverlay = new IncubatorOverlay(exchangeInventoryActor, INCUBATOR_POSITION);
         playerActor = WorldView.getPlayer().getActor();
         otherInventoryOverlay = new InventoryOverlay(null, exchangeInventoryPosition);
         shopOverlay = new ShopOverlay(null, shopInterfacePosition);
@@ -46,8 +48,7 @@ public class InventoryController
 
     public WritableImage render(GraphicsContext gc)
     {
-        String methodName = "getMenuImage() ";
-        //gc.clearRect(0, 0, WIDTH, HEIGHT);
+        String methodName = "render() ";
         playerInventory = playerInventoryOverlay.getMenuImage();
         gc.drawImage(playerInventory, playerInventoryPosition.getX(), playerInventoryPosition.getY());
 

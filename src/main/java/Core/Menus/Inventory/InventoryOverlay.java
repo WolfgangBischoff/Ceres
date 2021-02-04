@@ -52,7 +52,6 @@ public class InventoryOverlay
     {
         String methodName = "draw() ";
         gc.clearRect(0, 0, WIDTH, HEIGHT);
-        Color background = COLOR_BACKGROUND_BLUE;
         Color marking = COLOR_MARKING;
         Color font = COLOR_FONT;
         Color darkRed = Color.hsb(0, 0.23, 0.70);
@@ -61,7 +60,7 @@ public class InventoryOverlay
 
         //Background
         gc.setGlobalAlpha(0.8);
-        gc.setFill(background);
+        gc.setFill(COLOR_BACKGROUND_BLUE);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
         gc.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
 

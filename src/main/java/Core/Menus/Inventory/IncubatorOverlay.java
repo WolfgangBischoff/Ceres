@@ -1,15 +1,20 @@
 package Core.Menus.Inventory;
 
-import Core.*;
+import Core.Actor;
+import Core.Collectible;
+import Core.GameWindow;
+import Core.Utilities;
 import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,23 +24,34 @@ import static Core.Configs.Config.*;
 public class IncubatorOverlay
 {
     private static final String CLASSNAME = "IncubatorOverlay/";
+    private static int WIDTH = INVENTORY_WIDTH;
+    private static int HEIGHT = INVENTORY_HEIGHT;
+    Image cornerTopLeft;
+    Image cornerBtmRight;
     private List<String> interfaceElements_list = new ArrayList<>();
     private List<Rectangle2D> interfaceElements_Rectangles = new ArrayList<>();
     private Integer highlightedElement = 0;
-    private static int WIDTH = INVENTORY_WIDTH;
-    private static int HEIGHT = INVENTORY_HEIGHT;
     private Point2D SCREEN_POSITION;
     private Rectangle2D SCREEN_AREA;
+    private Actor incubator;
 
-    Image cornerTopLeft;
-    Image cornerBtmRight;
-
-    public IncubatorOverlay(Point2D SCREEN_POSITION)
+    public IncubatorOverlay(Actor incubator, Point2D SCREEN_POSITION)
     {
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         this.SCREEN_POSITION = SCREEN_POSITION;
         SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
+        this.incubator = incubator;
+    }
+
+    public static int getMenuWidth()
+    {
+        return WIDTH;
+    }
+
+    public static int getMenuHeight()
+    {
+        return HEIGHT;
     }
 
     public void render(GraphicsContext gc) throws NullPointerException
@@ -47,6 +63,20 @@ public class IncubatorOverlay
         gc.setFill(COLOR_BACKGROUND_BLUE);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
         gc.fillRect(SCREEN_POSITION.getX() + backgroundOffsetX, SCREEN_POSITION.getY() + backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
+        gc.setGlobalAlpha(1);
+
+        int inputItemFieldX = 100, inputItemFieldY = 200;
+        gc.setFill(COLOR_FONT);
+        gc.fillRect(SCREEN_POSITION.getX() + inputItemFieldX, SCREEN_POSITION.getY() + inputItemFieldY, 64, 64);
+        gc.setFill(COLOR_MARKING);
+        gc.fillRect(SCREEN_POSITION.getX() + inputItemFieldX + 2, SCREEN_POSITION.getY() + inputItemFieldY + 2, 64 - 4, 64 - 4);
+
+        int outputItemFieldX = 200, outputItemFieldY = 200;
+        gc.setFill(COLOR_FONT);
+        gc.fillRect(SCREEN_POSITION.getX() + outputItemFieldX, SCREEN_POSITION.getY() + outputItemFieldY, 64, 64);
+        gc.setFill(COLOR_MARKING);
+        gc.fillRect(SCREEN_POSITION.getX() + outputItemFieldX + 2, SCREEN_POSITION.getY() + outputItemFieldY + 2, 64 - 4, 64 - 4);
+
 
         //Text
         int offsetYFirstLine = 60;
@@ -59,6 +89,8 @@ public class IncubatorOverlay
         gc.drawImage(cornerBtmRight, SCREEN_POSITION.getX() + WIDTH - cornerBtmRight.getWidth(), SCREEN_POSITION.getY() + HEIGHT - cornerBtmRight.getHeight());
 
     }
+
+
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
@@ -109,17 +141,6 @@ public class IncubatorOverlay
             System.out.println(CLASSNAME + methodName + highlightedElement + " " + interfaceElements_list.get(highlightedElement));
         this.highlightedElement = highlightedElement;
     }
-
-    public static int getMenuWidth()
-    {
-        return WIDTH;
-    }
-
-    public static int getMenuHeight()
-    {
-        return HEIGHT;
-    }
-
 
     public void setInterfaceElements_list(List<String> interfaceElements_list)
     {
