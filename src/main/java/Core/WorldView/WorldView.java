@@ -505,6 +505,7 @@ public class WorldView
         Point2D mousePosition = GameWindow.getSingleton().getMousePosition();
         Point2D mousePositionRelativeToCamera = new Point2D(mousePosition.getX() - (screenWidth - Config.CAMERA_WIDTH) / 2, mousePosition.getY() - (screenHeight - Config.CAMERA_HEIGHT) / 2);
         boolean isMouseClicked = GameWindow.getSingleton().isMouseClicked();
+        boolean isMouseDragged = GameWindow.getSingleton().isMouseDragged();
 
         Set<Sprite> mouseHoveredSprites = new HashSet<>();
         for (Sprite blocker : passiveCollisionRelevantSpritesLayer)
@@ -534,7 +535,7 @@ public class WorldView
             case INVENTORY_EXCHANGE:
             case INVENTORY_SHOP:
             case INCUBATOR:
-                inventoryController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+                inventoryController.processMouse(mousePositionRelativeToCamera, isMouseClicked, isMouseDragged, currentNanoTime);
                 break;
             default:
                 System.out.println(CLASSNAME + methodName + "mouseinput undefined for: " + WorldViewController.getWorldViewStatus());

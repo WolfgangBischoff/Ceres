@@ -26,7 +26,7 @@ public class Main extends Application
     static Console console;
 
     @Override
-    public void start(Stage primaryStage) throws IOException
+    public void start(Stage primaryStage)
     {
         GameWindow gameWindowController = GameWindow.getSingleton();
         gameWindowController.setTitle("Game Window");

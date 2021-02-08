@@ -17,15 +17,12 @@ import static Core.Configs.Config.*;
 public class InventoryController
 {
     private static String CLASSNAME = "InventoryController/";
-    Canvas canvas;
-    GraphicsContext graphicsContext;
     static Actor exchangeInventoryActor;
     static Actor playerActor;
     static InventoryOverlay playerInventoryOverlay;
     static InventoryOverlay otherInventoryOverlay;
     static ShopOverlay shopOverlay;
     static IncubatorOverlay incubatorOverlay;
-    WritableImage playerInventory;
     WritableImage interactionInventoryImage;
 
     private static int WIDTH = CAMERA_WIDTH;
@@ -36,27 +33,25 @@ public class InventoryController
 
     public InventoryController()
     {
-        canvas = new Canvas(WIDTH, HEIGHT);
-        graphicsContext = canvas.getGraphicsContext2D();
-        playerInventoryOverlay = new InventoryOverlay(WorldView.getPlayer().getActor(), playerInventoryPosition);
-        incubatorOverlay = new IncubatorOverlay(exchangeInventoryActor, INCUBATOR_POSITION);
         playerActor = WorldView.getPlayer().getActor();
+        playerInventoryOverlay = new InventoryOverlay(WorldView.getPlayer().getActor(), playerInventoryPosition);
         otherInventoryOverlay = new InventoryOverlay(null, exchangeInventoryPosition);
+        incubatorOverlay = new IncubatorOverlay(exchangeInventoryActor, INCUBATOR_POSITION);
         shopOverlay = new ShopOverlay(null, shopInterfacePosition);
     }
 
 
-    public WritableImage render(GraphicsContext gc)
+    public void render(GraphicsContext gc)
     {
         String methodName = "render() ";
-        playerInventory = playerInventoryOverlay.getMenuImage();
-        gc.drawImage(playerInventory, playerInventoryPosition.getX(), playerInventoryPosition.getY());
+        playerInventoryOverlay.render(gc);
+
 
         if (WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_EXCHANGE)
         {
             otherInventoryOverlay.setActor(exchangeInventoryActor);
-            interactionInventoryImage = otherInventoryOverlay.getMenuImage();
-            gc.drawImage(interactionInventoryImage, exchangeInventoryPosition.getX(), exchangeInventoryPosition.getY());
+                    otherInventoryOverlay.render(gc);
+
         }
         else if(WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_SHOP)
         {
@@ -69,12 +64,9 @@ public class InventoryController
             incubatorOverlay.render(gc);
         }
 
-        SnapshotParameters transparency = new SnapshotParameters();
-        transparency.setFill(Color.TRANSPARENT);
-        return canvas.snapshot(transparency, null);
     }
 
-    public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
+    public void processMouse(Point2D mousePosition, boolean isMouseClicked, boolean isMouseDragged, Long currentNanoTime)
     {
         String methodName = "processMouse() ";
         boolean clickedIntoOverlayPlayer = playerInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
@@ -87,8 +79,9 @@ public class InventoryController
         {
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
             playerActor.setLastInteraction(currentNanoTime);
-        }else
-            playerInventoryOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+        }
+        else
+            playerInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
 
         if (WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_EXCHANGE)
         {
@@ -97,7 +90,7 @@ public class InventoryController
                 WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
                 playerActor.setLastInteraction(currentNanoTime);
             }else
-            otherInventoryOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+            otherInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged,  currentNanoTime);
         }
         else if(WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_SHOP)
         {

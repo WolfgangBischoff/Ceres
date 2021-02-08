@@ -1,6 +1,12 @@
 
 #Backlog
 
+####Inventory
+* DragDrop
+* Close button
+* item desrcp
+* add item in box
+           
 #### Grow Plant / Genes
 * workenbench/breeder that uses base bacteria and genes
 * air bacteria, food, material, social buff, computers?
@@ -48,13 +54,6 @@
     - Create Questlog
     - check higher resolution and zoom, fix not centered overlay
     - Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
-    - Inventory
-           - Close button
-           - item desrcp
-           - other inventory, DragDrop
-           - buy menu: desc, buy bttn
-           - add item in box
-    - Game Over if health == 0
     
 
 ##Improvements from tests   

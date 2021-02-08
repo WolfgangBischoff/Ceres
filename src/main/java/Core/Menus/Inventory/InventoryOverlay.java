@@ -5,12 +5,11 @@ import Core.Enums.CollectableType;
 import Core.WorldView.WorldViewController;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.Canvas;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,25 +21,20 @@ import static Core.WorldView.WorldViewStatus.INVENTORY_SHOP;
 public class InventoryOverlay
 {
     private static final String CLASSNAME = "InventoryOverlay ";
-    private Canvas menuCanvas;
-    private GraphicsContext gc;
-    private WritableImage menuImage;
+    private static int WIDTH = INVENTORY_WIDTH;
+    private static int HEIGHT = INVENTORY_HEIGHT;
+    Image cornerTopLeft;
+    Image cornerBtmRight;
     private Actor actor;
     private List<String> interfaceElements_list = new ArrayList<>();
     private List<Rectangle2D> interfaceElements_Rectangles = new ArrayList<>();
     private Integer highlightedElement = 0;
-    private static int WIDTH = INVENTORY_WIDTH;
-    private static int HEIGHT = INVENTORY_HEIGHT;
     private Point2D SCREEN_POSITION;
     private Rectangle2D SCREEN_AREA;
-
-    Image cornerTopLeft;
-    Image cornerBtmRight;
+    private DragAndDropItem dragAndDropItem;
 
     public InventoryOverlay(Actor actor, Point2D SCREEN_POSITION)
     {
-        menuCanvas = new Canvas(WIDTH, HEIGHT);
-        gc = menuCanvas.getGraphicsContext2D();
         this.actor = actor;
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
@@ -48,10 +42,19 @@ public class InventoryOverlay
         SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
     }
 
-    private void draw() throws NullPointerException
+    public static void setWIDTH(int WIDTH)
     {
-        String methodName = "draw() ";
-        gc.clearRect(0, 0, WIDTH, HEIGHT);
+        InventoryOverlay.WIDTH = WIDTH;
+    }
+
+    public static void setHEIGHT(int HEIGHT)
+    {
+        InventoryOverlay.HEIGHT = HEIGHT;
+    }
+
+    public void render(GraphicsContext gc) throws NullPointerException
+    {
+        String methodName = "render() ";
         Color marking = COLOR_MARKING;
         Color font = COLOR_FONT;
         Color darkRed = Color.hsb(0, 0.23, 0.70);
@@ -62,7 +65,7 @@ public class InventoryOverlay
         gc.setGlobalAlpha(0.8);
         gc.setFill(COLOR_BACKGROUND_BLUE);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
-        gc.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
+        gc.fillRect(backgroundOffsetX + SCREEN_POSITION.getX(), SCREEN_POSITION.getY() + backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
 
         //Item Slots
         gc.setGlobalAlpha(1);
@@ -77,13 +80,14 @@ public class InventoryOverlay
         for (int y = 0; y < numberRows; y++)
         {
             int slotY = y * (itemTileWidth + spaceBetweenTiles) + initialOffsetY;
-            for (int i = 0; i < numberColumns; i++) {
+            for (int i = 0; i < numberColumns; i++)
+            {
                 //Rectangle
                 int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
                 gc.setFill(font);
-                gc.fillRect(slotX, slotY, itemTileWidth, itemTileWidth);
+                gc.fillRect(SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY, itemTileWidth, itemTileWidth);
                 gc.setFill(marking);
-                Rectangle2D rectangle2D = new Rectangle2D(slotX + 2, slotY + 2, itemTileWidth - 4, itemTileWidth - 4);
+                Rectangle2D rectangle2D = new Rectangle2D(SCREEN_POSITION.getX() + slotX + 2, SCREEN_POSITION.getY() + slotY + 2, itemTileWidth - 4, itemTileWidth - 4);
                 interfaceElements_Rectangles.add(rectangle2D);
                 interfaceElements_list.add(Integer.valueOf(slotNumber).toString());
 
@@ -92,21 +96,23 @@ public class InventoryOverlay
                     gc.setFill(font);
                 else
                     gc.setFill(marking);
-                gc.fillRect(rectangle2D.getMinX(), rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
+                gc.fillRect( rectangle2D.getMinX(),  rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
                 slotNumber++;
 
                 //Item slot images
                 Collectible current = null;
                 if (itemSlotNumber < actor.getInventory().itemsList.size())
                     current = actor.getInventory().itemsList.get(itemSlotNumber);
-                if (current != null) {
-                    gc.drawImage(current.getImage(), slotX, slotY);
+                if (current != null)
+                {
+                    gc.drawImage(current.getImage(), SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY);
                     //Stolen sign
-                    if (GameVariables.getStolenCollectibles().contains(current)) {
+                    if (GameVariables.getStolenCollectibles().contains(current))
+                    {
                         gc.setFill(darkRed);
-                        gc.fillOval(slotX + 44, slotY + 44, 16, 16);
+                        gc.fillOval(SCREEN_POSITION.getX() + slotX + 44, SCREEN_POSITION.getY() + slotY + 44, 16, 16);
                         gc.setFill(COLOR_RED);
-                        gc.fillOval(slotX + 46, slotY + 46, 12, 12);
+                        gc.fillOval(SCREEN_POSITION.getX() + slotX + 46, SCREEN_POSITION.getY() + slotY + 46, 12, 12);
                     }
                 }
                 itemSlotNumber++;
@@ -115,47 +121,34 @@ public class InventoryOverlay
 
         //Text
         int offsetYFirstLine = 60;
-        int dateLength = 200;
         gc.setFill(font);
-        gc.fillText("Inventory of " + actor.getActorInGameName(), initialOffsetX, offsetYFirstLine);
-        gc.fillText(GameVariables.gameDateTime().toString(), WIDTH - dateLength, offsetYFirstLine);
+        gc.setFont(FONT_ESTROG_20);
+        gc.setTextBaseline(VPos.BOTTOM);
+        gc.setTextAlign(TextAlignment.LEFT);
+        gc.fillText(actor.getActorInGameName().toUpperCase(),  SCREEN_POSITION.getX() + initialOffsetX,  SCREEN_POSITION.getY() + offsetYFirstLine);
 
         //Decoration
-        gc.drawImage(cornerTopLeft, 0, 0);
-        gc.drawImage(cornerBtmRight, WIDTH - cornerBtmRight.getWidth(), HEIGHT - cornerBtmRight.getHeight());
+        gc.drawImage(cornerTopLeft, SCREEN_POSITION.getX(), SCREEN_POSITION.getY());
+        gc.drawImage(cornerBtmRight, SCREEN_POSITION.getX() + WIDTH - cornerBtmRight.getWidth(), SCREEN_POSITION.getY() + HEIGHT - cornerBtmRight.getHeight());
 
-        SnapshotParameters transparency = new SnapshotParameters();
-        transparency.setFill(Color.TRANSPARENT);
-        menuImage = menuCanvas.snapshot(transparency, null);
+        if (dragAndDropItem != null)
+            gc.drawImage(dragAndDropItem.collectible.getImage(),  dragAndDropItem.screenPosition.getX(),  dragAndDropItem.screenPosition.getY());
 
     }
 
-    public WritableImage getMenuImage()
-    {
-        draw();
-        return menuImage;
-    }
-
-    public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
+    public void processMouse(Point2D mousePosition, boolean isMouseClicked, boolean isMouseDragged, Long currentNanoTime)
     {
         String methodName = "processMouse(Point2D, boolean) ";
         Rectangle2D posRelativeToWorldview = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
 
-        Point2D relativeMousePosition;
-        if (posRelativeToWorldview.contains(mousePosition))
-            relativeMousePosition = new Point2D(mousePosition.getX() - SCREEN_POSITION.getX(), mousePosition.getY() - SCREEN_POSITION.getY());
-        else relativeMousePosition = null;
-
         Integer hoveredElement = null;
         for (int i = 0; i < interfaceElements_Rectangles.size(); i++)
         {
-            if (interfaceElements_Rectangles.get(i).contains(relativeMousePosition))
+            if (interfaceElements_Rectangles.get(i).contains(mousePosition))
             {
                 hoveredElement = interfaceElements_list.indexOf(Integer.toString(i));
             }
         }
-
-
 
         if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved
         {
@@ -167,6 +160,28 @@ public class InventoryOverlay
         if (isMouseClicked && hoveredElement != null)//To prevent click of not hovered
         {
             activateHighlightedOption(currentNanoTime);
+        }
+        else if (isMouseDragged)
+        {
+            dragCollectible(currentNanoTime, mousePosition);
+        }
+        else if (dragAndDropItem != null)
+        {
+            dragAndDropItem = null;
+        }
+    }
+
+    private void dragCollectible(Long currentNanoTime, Point2D mousePosition)
+    {
+        Collectible collectible;
+        if (actor.getInventory().itemsList.size() > highlightedElement && highlightedElement >= 0 && dragAndDropItem == null)
+        {
+            collectible = actor.getInventory().itemsList.get(highlightedElement);
+            dragAndDropItem = new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible);
+        }
+        else if (dragAndDropItem != null)
+        {
+            dragAndDropItem.setPosition(new Point2D(mousePosition.getX(), mousePosition.getY()));
         }
     }
 
@@ -192,7 +207,8 @@ public class InventoryOverlay
                 InventoryController.playerActor.getInventory().addItem(collectible);
                 InventoryController.exchangeInventoryActor.getInventory().removeItem(collectible);
             }
-        }else if(WorldViewController.getWorldViewStatus() == INVENTORY_SHOP)
+        }
+        else if (WorldViewController.getWorldViewStatus() == INVENTORY_SHOP)
         {
             System.out.println(CLASSNAME + methodName + "Clicked in item, shopmode, nothing happens");
         }
@@ -215,30 +231,6 @@ public class InventoryOverlay
         this.highlightedElement = highlightedElement;
     }
 
-    public static int getMenuWidth()
-    {
-        return WIDTH;
-    }
-
-    public static int getMenuHeight()
-    {
-        return HEIGHT;
-    }
-
-    public void setMenuCanvas(Canvas menuCanvas)
-    {
-        this.menuCanvas = menuCanvas;
-    }
-
-    public void setGc(GraphicsContext gc)
-    {
-        this.gc = gc;
-    }
-
-    public void setMenuImage(WritableImage menuImage)
-    {
-        this.menuImage = menuImage;
-    }
 
     public void setActor(Actor actor)
     {
@@ -253,16 +245,6 @@ public class InventoryOverlay
     public void setInterfaceElements_Rectangles(List<Rectangle2D> interfaceElements_Rectangles)
     {
         this.interfaceElements_Rectangles = interfaceElements_Rectangles;
-    }
-
-    public static void setWIDTH(int WIDTH)
-    {
-        InventoryOverlay.WIDTH = WIDTH;
-    }
-
-    public static void setHEIGHT(int HEIGHT)
-    {
-        InventoryOverlay.HEIGHT = HEIGHT;
     }
 
     public void setSCREEN_POSITION(Point2D SCREEN_POSITION)

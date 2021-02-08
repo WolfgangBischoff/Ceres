@@ -15,11 +15,11 @@ public class GameWindow extends Stage
     private static GameWindow singleton;
     private static long currentNanoRenderTimeGameWindow = 0L;
     private Stage gameStage;
-    private Scene gameScene;
     WorldView currentView;
     boolean mouseClicked = false;
     Point2D mousePosition = new Point2D(0, 0); //To avoid NullPointerException of mouse was not moved at first
     boolean mouseMoved;
+    boolean mouseDragged;
 
     private GameWindow()
     {
@@ -37,7 +37,7 @@ public class GameWindow extends Stage
     {
         String methodName = "createNextScene()";
         this.currentView = controller;
-        gameScene = new Scene(controller.getRoot(), Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
+        Scene gameScene = new Scene(controller.getRoot(), Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
         //input
         gameScene.setOnKeyPressed(
                 e ->
@@ -59,6 +59,16 @@ public class GameWindow extends Stage
             mouseMoved = true;
             mousePosition = new Point2D(event.getX(), event.getY());
         });
+        gameScene.setOnMouseDragged(event ->
+        {
+            mouseDragged = true;
+            mousePosition = new Point2D(event.getX(), event.getY());
+        });
+        gameScene.setOnMouseReleased(event ->
+        {
+            mouseDragged = false;
+        });
+
         gameStage.setScene(gameScene);
     }
 
@@ -127,6 +137,11 @@ public class GameWindow extends Stage
     public static long getCurrentNanoRenderTimeGameWindow()
     {
         return currentNanoRenderTimeGameWindow;
+    }
+
+    public boolean isMouseDragged()
+    {
+        return mouseDragged;
     }
 
     public void setMouseClicked(boolean mouseClicked)
