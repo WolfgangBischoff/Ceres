@@ -2,7 +2,8 @@
 #Backlog
 
 ####Inventory
-* DragDrop
+* Bug: Item on last index can vanish with DragAndDrop
+* Add Incubator DragDRop
 * Close button
 * item desrcp
 * add item in box

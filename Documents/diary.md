@@ -1,4 +1,7 @@
 
+#####11 02 21
+* drag and drop improved
+
 #####08 02 21
 * added first DragAndDrop
 

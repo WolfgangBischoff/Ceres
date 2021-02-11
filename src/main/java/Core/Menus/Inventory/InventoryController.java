@@ -74,50 +74,33 @@ public class InventoryController
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, boolean isMouseDragged, Long currentNanoTime)
     {
         String methodName = "processMouse() ";
-        boolean clickedIntoOverlayPlayer = playerInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
-        boolean clickedIntoOverlayOther = otherInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
-        boolean clickedIntoOverlayShop = shopOverlay.getSCREEN_AREA().contains(mousePosition);
-        boolean clickedIntoOverlayIncubator = incubatorOverlay.getSCREEN_AREA().contains(mousePosition);
+        boolean hoversOverlayPlayer = playerInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
+        boolean hoversOverlayOther = otherInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
+        boolean hoversOverlayShop = shopOverlay.getSCREEN_AREA().contains(mousePosition);
+        boolean hoversOverlayIncubator = incubatorOverlay.getSCREEN_AREA().contains(mousePosition);
+        WorldViewStatus worldViewStatus = WorldViewController.getWorldViewStatus();
 
-        //Check if player clicked outside the inventory to exit
-        if (isMouseClicked && !clickedIntoOverlayPlayer && WorldViewController.getWorldViewStatus() == INVENTORY)
+        if (//Check if a inventory is hovered
+                (hoversOverlayPlayer ||
+                        (worldViewStatus == INVENTORY_EXCHANGE && hoversOverlayOther) ||
+                        (worldViewStatus == INVENTORY_SHOP && hoversOverlayShop) ||
+                        (worldViewStatus == INCUBATOR && hoversOverlayIncubator)))
+        {
+            if (hoversOverlayPlayer)
+                playerInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
+            else if (worldViewStatus == INVENTORY_EXCHANGE)
+                otherInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
+            else if (worldViewStatus == INVENTORY_SHOP)
+                shopOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+            else if (worldViewStatus == INCUBATOR)
+                incubatorOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+        }
+        else if (isMouseClicked)//if no inventory is hovered and clicked, close inventory
         {
             WorldViewController.setWorldViewStatus(WORLD);
             playerActor.setLastInteraction(currentNanoTime);
         }
-        else if (clickedIntoOverlayPlayer)
-            playerInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
 
-        if (WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE)
-        {
-            if (isMouseClicked && !clickedIntoOverlayPlayer && !clickedIntoOverlayOther)
-            {
-                WorldViewController.setWorldViewStatus(WORLD);
-                playerActor.setLastInteraction(currentNanoTime);
-            }
-            else
-                otherInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
-        }
-        else if (WorldViewController.getWorldViewStatus() == INVENTORY_SHOP)
-        {
-            if (isMouseClicked && !clickedIntoOverlayPlayer && !clickedIntoOverlayShop)
-            {
-                WorldViewController.setWorldViewStatus(WORLD);
-                playerActor.setLastInteraction(currentNanoTime);
-            }
-            else
-                shopOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
-        }
-        else if (WorldViewController.getWorldViewStatus() == INCUBATOR)
-        {
-            if (isMouseClicked && !clickedIntoOverlayPlayer && !clickedIntoOverlayIncubator)
-            {
-                WorldViewController.setWorldViewStatus(WORLD);
-                playerActor.setLastInteraction(currentNanoTime);
-            }
-            else
-                incubatorOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
-        }
 
     }
 

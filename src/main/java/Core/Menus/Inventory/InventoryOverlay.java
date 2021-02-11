@@ -165,7 +165,7 @@ public class InventoryOverlay
         }
         else if (controller.getDragAndDropItem() != null)
         {
-            actor.getInventory().removeItem(controller.getDragAndDropItem().collectible);
+            //actor.getInventory().removeItem(controller.getDragAndDropItem().collectible);
             actor.getInventory().addItemIdx(controller.getDragAndDropItem().collectible, highlightedElement);
             controller.setDragAndDropItem(null);
         }
@@ -177,7 +177,7 @@ public class InventoryOverlay
         if (actor.getInventory().itemsList.get(highlightedElement) != null && controller.getDragAndDropItem() == null)
         {
             collectible = actor.getInventory().itemsList.get(highlightedElement);
-            actor.getInventory().itemsList.remove(collectible);
+            actor.getInventory().removeItem(collectible);
             controller.setDragAndDropItem(new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible));
         }
         else if (controller.getDragAndDropItem() != null)

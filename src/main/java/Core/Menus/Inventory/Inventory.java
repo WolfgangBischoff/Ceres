@@ -16,7 +16,7 @@ public class Inventory
     public Inventory(Actor owner)
     {
         this.owner = owner;
-        for(int i=0; i<MAX_IDX_ITEMS;i++)
+        for (int i = 0; i < MAX_IDX_ITEMS; i++)
             itemsList.add(null);
     }
 
@@ -24,12 +24,12 @@ public class Inventory
     {
         String methodName = "addItem() ";
         if (idx <= MAX_IDX_ITEMS)
-            itemsList.add(idx, collectible);
+            itemsList.set(idx, collectible);
     }
 
     public boolean addItemNextSlot(Collectible collectible)
     {
-        if(hasFreeSlot())
+        if (hasFreeSlot())
         {
             itemsList.add(nextFreeIdx(), collectible);
             return true;
@@ -40,8 +40,13 @@ public class Inventory
     public void removeItem(Collectible collectible)
     {
         String methodName = "removeItem(String, String) ";
-        boolean debug = false;
-        itemsList.remove(collectible);
+        removeItem(itemsList.indexOf(collectible));
+    }
+
+    public void removeItem(int idx)
+    {
+        if (idx >= 0)
+            itemsList.set(idx, null);
     }
 
 
@@ -74,11 +79,10 @@ public class Inventory
     }
 
 
-
     public boolean hasFreeSlot()
     {
-        for(int i=0; i<MAX_IDX_ITEMS;i++)
-            if(itemsList.get(i) == null)
+        for (int i = 0; i < MAX_IDX_ITEMS; i++)
+            if (itemsList.get(i) == null)
             {
                 return true;
             }
@@ -87,8 +91,8 @@ public class Inventory
 
     public int nextFreeIdx()
     {
-        for(int i=0; i<itemsList.size();i++)
-            if(itemsList.get(i) == null)
+        for (int i = 0; i < itemsList.size(); i++)
+            if (itemsList.get(i) == null)
             {
                 return i;
             }
