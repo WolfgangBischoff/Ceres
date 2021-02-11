@@ -1,7 +1,6 @@
 package Core.Menus.Inventory;
 
 import Core.*;
-import Core.Configs.Config;
 import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -182,7 +181,7 @@ public class ShopOverlay
             if (GameVariables.getPlayerMoney() >= price)
             {
                 GameVariables.addPlayerMoney(-price);
-                player.getInventory().addItem(collectible);
+                player.getInventory().addItemNextSlot(collectible);
             }
             else
                 System.out.println(CLASSNAME + methodName + "You cannot afford this item.");

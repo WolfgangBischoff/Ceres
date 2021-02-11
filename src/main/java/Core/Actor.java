@@ -164,7 +164,7 @@ public class Actor
                 break;
             case CONTAINS_COLLECTIBLE_ACTOR:
                 Collectible collectible = Collectible.createCollectible(linedata[1], linedata[2], linedata[3]);
-                inventory.addItem(collectible);
+                inventory.addItemNextSlot(collectible);
                 break;
             case KEYWORD_sensorStatus:
                 sensorStatusMap.put(linedata[1], readSensorData(linedata));
@@ -629,17 +629,20 @@ public class Actor
         CollectableType collectableType = CollectableType.getType(collectable_type);
         Collectible collected = new Collectible(generalStatus, collectableType, actorInGameName, getNumeric_generic_attributes().get("base_value").intValue());
         collected.image = spriteList.get(0).getBaseimage();
-        collectingActor.inventory.addItem(collected);
+        boolean wasCollected = collectingActor.inventory.addItemNextSlot(collected);
 
-        //check if Management-Attention-Meter is affected for Player
-        if (collectingActor.tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(SUSPICIOUS_VALUE_ACTOR))
+        if (wasCollected)
         {
-            int suspicious_value = numeric_generic_attributes.get(SUSPICIOUS_VALUE_ACTOR).intValue();
-            GameVariables.addPlayerMAM_duringDay(suspicious_value);
-            GameVariables.addStolenCollectible(collected);
-        }
+            //check if Management-Attention-Meter is affected for Player
+            if (collectingActor.tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(SUSPICIOUS_VALUE_ACTOR))
+            {
+                int suspicious_value = numeric_generic_attributes.get(SUSPICIOUS_VALUE_ACTOR).intValue();
+                GameVariables.addPlayerMAM_duringDay(suspicious_value);
+                GameVariables.addStolenCollectible(collected);
+            }
 
-        WorldView.getToRemove().addAll(spriteList);
+            WorldView.getToRemove().addAll(spriteList);
+        }
     }
 
     private void playTimedStatus()

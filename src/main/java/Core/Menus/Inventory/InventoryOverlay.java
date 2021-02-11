@@ -165,6 +165,8 @@ public class InventoryOverlay
         }
         else if (controller.getDragAndDropItem() != null)
         {
+            actor.getInventory().removeItem(controller.getDragAndDropItem().collectible);
+            actor.getInventory().addItemIdx(controller.getDragAndDropItem().collectible, highlightedElement);
             controller.setDragAndDropItem(null);
         }
     }
@@ -172,9 +174,10 @@ public class InventoryOverlay
     private void dragCollectible(Long currentNanoTime, Point2D mousePosition)
     {
         Collectible collectible;
-        if (actor.getInventory().itemsList.size() > highlightedElement && highlightedElement >= 0 && controller.getDragAndDropItem() == null)
+        if (actor.getInventory().itemsList.get(highlightedElement) != null && controller.getDragAndDropItem() == null)
         {
             collectible = actor.getInventory().itemsList.get(highlightedElement);
+            actor.getInventory().itemsList.remove(collectible);
             controller.setDragAndDropItem(new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible));
         }
         else if (controller.getDragAndDropItem() != null)
@@ -190,19 +193,19 @@ public class InventoryOverlay
         if (actor.getInventory().itemsList.size() > highlightedElement && highlightedElement >= 0)
             collectible = actor.getInventory().itemsList.get(highlightedElement);
 
-        System.out.println(CLASSNAME + methodName + actor.getActorInGameName() + " inventory clicked " + collectible);
+        //System.out.println(CLASSNAME + methodName + actor.getActorInGameName() + " inventory clicked " + collectible);
 
         if (collectible != null && WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE)
         {
             //check from which inventory to which inventory we exchange
             if (InventoryController.playerInventoryOverlay == this)
             {
-                InventoryController.exchangeInventoryActor.getInventory().addItem(collectible);
+                InventoryController.exchangeInventoryActor.getInventory().addItemNextSlot(collectible);
                 InventoryController.playerActor.getInventory().removeItem(collectible);
             }
             else if (InventoryController.otherInventoryOverlay == this)
             {
-                InventoryController.playerActor.getInventory().addItem(collectible);
+                InventoryController.playerActor.getInventory().addItemNextSlot(collectible);
                 InventoryController.exchangeInventoryActor.getInventory().removeItem(collectible);
             }
         }

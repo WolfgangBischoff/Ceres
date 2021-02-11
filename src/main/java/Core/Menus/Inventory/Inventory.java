@@ -3,31 +3,38 @@ package Core.Menus.Inventory;
 import Core.Actor;
 import Core.Collectible;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Inventory
 {
-    private static final String CLASSNAME = "Inventory-";
+    private static final String CLASSNAME = "Inventory/";
     List<Collectible> itemsList = new ArrayList<>();
     Actor owner;
+    private Integer MAX_IDX_ITEMS = 29;
 
     public Inventory(Actor owner)
     {
         this.owner = owner;
+        for(int i=0; i<MAX_IDX_ITEMS;i++)
+            itemsList.add(null);
     }
 
-    public void addItem(Collectible collectible)
+    public void addItemIdx(Collectible collectible, int idx)
     {
-        String methodName = "addItem(String, String) ";
-        boolean debug = false;
-        itemsList.add(collectible);
-        if (debug)
+        String methodName = "addItem() ";
+        if (idx <= MAX_IDX_ITEMS)
+            itemsList.add(idx, collectible);
+    }
+
+    public boolean addItemNextSlot(Collectible collectible)
+    {
+        if(hasFreeSlot())
         {
-            System.out.println(CLASSNAME + methodName + owner.getActorInGameName() + " collected " + collectible);
-            System.out.println(CLASSNAME + methodName + " " + itemsList.toString());
+            itemsList.add(nextFreeIdx(), collectible);
+            return true;
         }
+        return false;
     }
 
     public void removeItem(Collectible collectible)
@@ -36,7 +43,6 @@ public class Inventory
         boolean debug = false;
         itemsList.remove(collectible);
     }
-
 
 
     public boolean contains(Collectible toCheck)
@@ -52,7 +58,7 @@ public class Inventory
     @Override
     public String toString()
     {
-        return  owner.getActorInGameName() +
+        return owner.getActorInGameName() +
                 " inv: " + itemsList.toString()
                 ;
     }
@@ -65,5 +71,27 @@ public class Inventory
     public int size()
     {
         return itemsList.size();
+    }
+
+
+
+    public boolean hasFreeSlot()
+    {
+        for(int i=0; i<MAX_IDX_ITEMS;i++)
+            if(itemsList.get(i) == null)
+            {
+                return true;
+            }
+        return false;
+    }
+
+    public int nextFreeIdx()
+    {
+        for(int i=0; i<itemsList.size();i++)
+            if(itemsList.get(i) == null)
+            {
+                return i;
+            }
+        throw new RuntimeException("No free Inventory Slots, check before");
     }
 }
