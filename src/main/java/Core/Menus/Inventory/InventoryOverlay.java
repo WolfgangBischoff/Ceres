@@ -25,17 +25,18 @@ public class InventoryOverlay
     private static int HEIGHT = INVENTORY_HEIGHT;
     Image cornerTopLeft;
     Image cornerBtmRight;
+    private InventoryController controller;
     private Actor actor;
     private List<String> interfaceElements_list = new ArrayList<>();
     private List<Rectangle2D> interfaceElements_Rectangles = new ArrayList<>();
     private Integer highlightedElement = 0;
     private Point2D SCREEN_POSITION;
     private Rectangle2D SCREEN_AREA;
-    private DragAndDropItem dragAndDropItem;
 
-    public InventoryOverlay(Actor actor, Point2D SCREEN_POSITION)
+    public InventoryOverlay(Actor actor, Point2D SCREEN_POSITION, InventoryController controller)
     {
         this.actor = actor;
+        this.controller = controller;
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         this.SCREEN_POSITION = SCREEN_POSITION;
@@ -96,7 +97,7 @@ public class InventoryOverlay
                     gc.setFill(font);
                 else
                     gc.setFill(marking);
-                gc.fillRect( rectangle2D.getMinX(),  rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
+                gc.fillRect(rectangle2D.getMinX(), rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
                 slotNumber++;
 
                 //Item slot images
@@ -125,21 +126,17 @@ public class InventoryOverlay
         gc.setFont(FONT_ESTROG_20);
         gc.setTextBaseline(VPos.BOTTOM);
         gc.setTextAlign(TextAlignment.LEFT);
-        gc.fillText(actor.getActorInGameName().toUpperCase(),  SCREEN_POSITION.getX() + initialOffsetX,  SCREEN_POSITION.getY() + offsetYFirstLine);
+        gc.fillText(actor.getActorInGameName().toUpperCase(), SCREEN_POSITION.getX() + initialOffsetX, SCREEN_POSITION.getY() + offsetYFirstLine);
 
         //Decoration
         gc.drawImage(cornerTopLeft, SCREEN_POSITION.getX(), SCREEN_POSITION.getY());
         gc.drawImage(cornerBtmRight, SCREEN_POSITION.getX() + WIDTH - cornerBtmRight.getWidth(), SCREEN_POSITION.getY() + HEIGHT - cornerBtmRight.getHeight());
-
-        if (dragAndDropItem != null)
-            gc.drawImage(dragAndDropItem.collectible.getImage(),  dragAndDropItem.screenPosition.getX(),  dragAndDropItem.screenPosition.getY());
 
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, boolean isMouseDragged, Long currentNanoTime)
     {
         String methodName = "processMouse(Point2D, boolean) ";
-        Rectangle2D posRelativeToWorldview = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
 
         Integer hoveredElement = null;
         for (int i = 0; i < interfaceElements_Rectangles.size(); i++)
@@ -149,8 +146,9 @@ public class InventoryOverlay
                 hoveredElement = interfaceElements_list.indexOf(Integer.toString(i));
             }
         }
+        //System.out.println(CLASSNAME + actor.getActorInGameName() + " " + hoveredElement + " " + isMouseDragged);
 
-        if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved
+        if ((GameWindow.getSingleton().isMouseMoved() || isMouseDragged) && hoveredElement != null)//Set highlight if mouse moved
         {
             setHighlightedElement(hoveredElement);
             GameWindow.getSingleton().setMouseMoved(false);
@@ -165,23 +163,23 @@ public class InventoryOverlay
         {
             dragCollectible(currentNanoTime, mousePosition);
         }
-        else if (dragAndDropItem != null)
+        else if (controller.getDragAndDropItem() != null)
         {
-            dragAndDropItem = null;
+            controller.setDragAndDropItem(null);
         }
     }
 
     private void dragCollectible(Long currentNanoTime, Point2D mousePosition)
     {
         Collectible collectible;
-        if (actor.getInventory().itemsList.size() > highlightedElement && highlightedElement >= 0 && dragAndDropItem == null)
+        if (actor.getInventory().itemsList.size() > highlightedElement && highlightedElement >= 0 && controller.getDragAndDropItem() == null)
         {
             collectible = actor.getInventory().itemsList.get(highlightedElement);
-            dragAndDropItem = new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible);
+            controller.setDragAndDropItem(new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible));
         }
-        else if (dragAndDropItem != null)
+        else if (controller.getDragAndDropItem() != null)
         {
-            dragAndDropItem.setPosition(new Point2D(mousePosition.getX(), mousePosition.getY()));
+            controller.getDragAndDropItem().setPosition(new Point2D(mousePosition.getX(), mousePosition.getY()));
         }
     }
 

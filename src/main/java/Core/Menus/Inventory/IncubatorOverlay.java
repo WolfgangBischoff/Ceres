@@ -35,7 +35,7 @@ public class IncubatorOverlay
     private Rectangle2D SCREEN_AREA;
     private Actor incubator;
 
-    public IncubatorOverlay(Actor incubator, Point2D SCREEN_POSITION)
+    public IncubatorOverlay(Actor incubator, Point2D SCREEN_POSITION, InventoryController controller)
     {
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");

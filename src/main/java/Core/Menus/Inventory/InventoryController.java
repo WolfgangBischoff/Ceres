@@ -27,6 +27,7 @@ public class InventoryController
 
     private static int WIDTH = CAMERA_WIDTH;
     private static int HEIGHT = CAMERA_HEIGHT;
+    private DragAndDropItem dragAndDropItem;
     Point2D playerInventoryPosition = Config.INVENTORY_POSITION;
     Point2D exchangeInventoryPosition = EXCHANGE_INVENTORY_POSITION;
     Point2D shopInterfacePosition = EXCHANGE_INVENTORY_POSITION;
@@ -34,10 +35,10 @@ public class InventoryController
     public InventoryController()
     {
         playerActor = WorldView.getPlayer().getActor();
-        playerInventoryOverlay = new InventoryOverlay(WorldView.getPlayer().getActor(), playerInventoryPosition);
-        otherInventoryOverlay = new InventoryOverlay(null, exchangeInventoryPosition);
-        incubatorOverlay = new IncubatorOverlay(exchangeInventoryActor, INCUBATOR_POSITION);
-        shopOverlay = new ShopOverlay(null, shopInterfacePosition);
+        playerInventoryOverlay = new InventoryOverlay(WorldView.getPlayer().getActor(), playerInventoryPosition, this);
+        otherInventoryOverlay = new InventoryOverlay(null, exchangeInventoryPosition, this);
+        incubatorOverlay = new IncubatorOverlay(exchangeInventoryActor, INCUBATOR_POSITION, this);
+        shopOverlay = new ShopOverlay(null, shopInterfacePosition, this);
     }
 
 
@@ -63,6 +64,8 @@ public class InventoryController
         {
             incubatorOverlay.render(gc);
         }
+        if (dragAndDropItem != null)
+            gc.drawImage(dragAndDropItem.collectible.getImage(),  dragAndDropItem.screenPosition.getX(),  dragAndDropItem.screenPosition.getY());
 
     }
 
@@ -110,14 +113,21 @@ public class InventoryController
             incubatorOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
         }
 
-
-
-
     }
 
     public static void setExchangeInventoryActor(Actor exchangeInventoryActor)
     {
         String methodName = "setExchangeInventoryActor() ";
         InventoryController.exchangeInventoryActor = exchangeInventoryActor;
+    }
+
+    public DragAndDropItem getDragAndDropItem()
+    {
+        return dragAndDropItem;
+    }
+
+    public void setDragAndDropItem(DragAndDropItem dragAndDropItem)
+    {
+        this.dragAndDropItem = dragAndDropItem;
     }
 }

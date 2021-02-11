@@ -35,7 +35,7 @@ public class ShopOverlay
     Image cornerTopLeft;
     Image cornerBtmRight;
 
-    public ShopOverlay(Actor actor, Point2D SCREEN_POSITION)
+    public ShopOverlay(Actor actor, Point2D SCREEN_POSITION, InventoryController controller)
     {
         menuCanvas = new Canvas(WIDTH, HEIGHT);
         menuGc = menuCanvas.getGraphicsContext2D();
