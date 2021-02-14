@@ -49,6 +49,10 @@ public class Inventory
             itemsList.set(idx, null);
     }
 
+    public Collectible getItem(int idx)
+    {
+        return itemsList.get(idx);
+    }
 
     public boolean contains(Collectible toCheck)
     {

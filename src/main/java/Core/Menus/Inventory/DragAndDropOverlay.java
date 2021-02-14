@@ -5,7 +5,7 @@ import javafx.geometry.Point2D;
 
 public interface DragAndDropOverlay
 {
-    public void dropCollectible(Collectible collectible);
+    public void dropCollectible(DragAndDropItem collectible);
 
     public void dragCollectible(Long currentNanoTime, Point2D mousePosition);
 

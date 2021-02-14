@@ -106,7 +106,7 @@ public class InventoryController
                 }
                 else if (getDragAndDropItem() != null)//Drop Item
                 {
-                    hoveredOverlay.dropCollectible(getDragAndDropItem().collectible);
+                    hoveredOverlay.dropCollectible(getDragAndDropItem());
                 }
             }
 
