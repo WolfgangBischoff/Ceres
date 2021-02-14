@@ -9,7 +9,8 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
 
-import static Core.Configs.Config.*;
+import static Core.Configs.Config.EXCHANGE_INVENTORY_POSITION;
+import static Core.Configs.Config.INCUBATOR_POSITION;
 import static Core.WorldView.WorldViewStatus.*;
 
 public class InventoryController
@@ -21,8 +22,6 @@ public class InventoryController
     static ShopOverlay shopOverlay;
     static IncubatorOverlay incubatorOverlay;
     private static String CLASSNAME = "InventoryController/";
-    private static int WIDTH = CAMERA_WIDTH;
-    private static int HEIGHT = CAMERA_HEIGHT;
     WritableImage interactionInventoryImage;
     Point2D playerInventoryPosition = Config.INVENTORY_POSITION;
     Point2D exchangeInventoryPosition = EXCHANGE_INVENTORY_POSITION;
@@ -50,20 +49,17 @@ public class InventoryController
         playerInventoryOverlay.render(gc);
 
 
-        if (WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE)
-        {
+        if (WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE) {
             otherInventoryOverlay.setActor(exchangeInventoryActor);
             otherInventoryOverlay.render(gc);
 
         }
-        else if (WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_SHOP)
-        {
+        else if (WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_SHOP) {
             shopOverlay.setActor(exchangeInventoryActor);
             interactionInventoryImage = shopOverlay.getMenuImage();
             gc.drawImage(interactionInventoryImage, shopInterfacePosition.getX(), shopInterfacePosition.getY());
         }
-        else if (WorldViewController.getWorldViewStatus() == INCUBATOR)
-        {
+        else if (WorldViewController.getWorldViewStatus() == INCUBATOR) {
             incubatorOverlay.render(gc);
         }
         if (dragAndDropItem != null)
@@ -78,29 +74,57 @@ public class InventoryController
         boolean hoversOverlayOther = otherInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean hoversOverlayShop = shopOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean hoversOverlayIncubator = incubatorOverlay.getSCREEN_AREA().contains(mousePosition);
+        DragAndDropOverlay hoveredOverlay = null;
+        if (playerInventoryOverlay.getSCREEN_AREA().contains(mousePosition))
+            hoveredOverlay = playerInventoryOverlay;
+        else if (otherInventoryOverlay.getSCREEN_AREA().contains(mousePosition))
+            hoveredOverlay = otherInventoryOverlay;
+
         WorldViewStatus worldViewStatus = WorldViewController.getWorldViewStatus();
 
         if (//Check if a inventory is hovered
                 (hoversOverlayPlayer ||
                         (worldViewStatus == INVENTORY_EXCHANGE && hoversOverlayOther) ||
                         (worldViewStatus == INVENTORY_SHOP && hoversOverlayShop) ||
-                        (worldViewStatus == INCUBATOR && hoversOverlayIncubator)))
-        {
-            if (hoversOverlayPlayer)
+                        (worldViewStatus == INCUBATOR && hoversOverlayIncubator))) {
+            if (hoversOverlayPlayer) {
                 playerInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
-            else if (worldViewStatus == INVENTORY_EXCHANGE)
+            }
+            else if (worldViewStatus == INVENTORY_EXCHANGE && hoversOverlayOther) {
                 otherInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
-            else if (worldViewStatus == INVENTORY_SHOP)
-                shopOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
-            else if (worldViewStatus == INCUBATOR)
-                incubatorOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+            }
+
+            if (hoveredOverlay != null) {
+                if (isMouseDragged && getDragAndDropItem() == null)//Drag Item
+                {
+                    hoveredOverlay.dragCollectible(currentNanoTime, mousePosition);
+                }
+                else if (isMouseDragged && getDragAndDropItem() != null)//Updated Draged Item
+                {
+                    //otherInventoryOverlay.removeItem(getDragAndDropItem().collectible);
+                    hoveredOverlay.updateDraggedCollectible(currentNanoTime, mousePosition);
+                }
+                else if (getDragAndDropItem() != null)//Drop Item
+                {
+                    hoveredOverlay.dropCollectible(getDragAndDropItem().collectible);
+                }
+            }
+
+            // else if (worldViewStatus == INVENTORY_EXCHANGE) {
+//
+            //     otherInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
+            //
+            // }
+            // else if (worldViewStatus == INVENTORY_SHOP)
+            //     shopOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+            // else if (worldViewStatus == INCUBATOR)
+            //     incubatorOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
         }
         else if (isMouseClicked)//if no inventory is hovered and clicked, close inventory
         {
             WorldViewController.setWorldViewStatus(WORLD);
             playerActor.setLastInteraction(currentNanoTime);
         }
-
 
     }
 

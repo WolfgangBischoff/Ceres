@@ -1,10 +1,14 @@
 package Core;
 
 import Core.Configs.Config;
+import Core.Menus.Inventory.MyHandler;
 import Core.WorldView.WorldView;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
 import java.util.ArrayList;
 
 
@@ -20,6 +24,12 @@ public class GameWindow extends Stage
     Point2D mousePosition = new Point2D(0, 0); //To avoid NullPointerException of mouse was not moved at first
     boolean mouseMoved;
     boolean mouseDragged;
+    EventHandler<MouseEvent> eventHandler = new MyHandler(event ->
+    {
+        mouseDragged = true;
+        mousePosition = new Point2D(event.getX(), event.getY());
+    }, event ->
+            mouseClicked = true);
 
     private GameWindow()
     {
@@ -38,7 +48,7 @@ public class GameWindow extends Stage
         String methodName = "createNextScene()";
         this.currentView = controller;
         Scene gameScene = new Scene(controller.getRoot(), Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
-        //input
+
         gameScene.setOnKeyPressed(
                 e ->
                 {
@@ -52,20 +62,26 @@ public class GameWindow extends Stage
                     String code = e.getCode().toString();
                     input.remove(code);
                 });
-        gameScene.setOnMouseClicked(event ->
-                mouseClicked = true);
+
         gameScene.setOnMouseMoved(event ->
         {
             mouseMoved = true;
             mousePosition = new Point2D(event.getX(), event.getY());
         });
+
         gameScene.setOnMouseDragged(event ->
         {
             mouseDragged = true;
             mousePosition = new Point2D(event.getX(), event.getY());
         });
+        gameScene.setOnMousePressed(pressed ->
+        {
+            mouseClicked = false;
+        });
         gameScene.setOnMouseReleased(event ->
         {
+            if (!mouseDragged)
+                mouseClicked = true;
             mouseDragged = false;
         });
 

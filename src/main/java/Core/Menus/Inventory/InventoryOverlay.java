@@ -18,7 +18,7 @@ import static Core.Configs.Config.*;
 import static Core.WorldView.WorldViewStatus.INVENTORY_EXCHANGE;
 import static Core.WorldView.WorldViewStatus.INVENTORY_SHOP;
 
-public class InventoryOverlay
+public class InventoryOverlay implements DragAndDropOverlay
 {
     private static final String CLASSNAME = "InventoryOverlay ";
     private static int WIDTH = INVENTORY_WIDTH;
@@ -78,11 +78,9 @@ public class InventoryOverlay
         int initialOffsetY = 75;
         int itemSlotNumber = 0;
         int slotNumber = 0;
-        for (int y = 0; y < numberRows; y++)
-        {
+        for (int y = 0; y < numberRows; y++) {
             int slotY = y * (itemTileWidth + spaceBetweenTiles) + initialOffsetY;
-            for (int i = 0; i < numberColumns; i++)
-            {
+            for (int i = 0; i < numberColumns; i++) {
                 //Rectangle
                 int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
                 gc.setFill(font);
@@ -104,12 +102,10 @@ public class InventoryOverlay
                 Collectible current = null;
                 if (itemSlotNumber < actor.getInventory().itemsList.size())
                     current = actor.getInventory().itemsList.get(itemSlotNumber);
-                if (current != null)
-                {
+                if (current != null) {
                     gc.drawImage(current.getImage(), SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY);
                     //Stolen sign
-                    if (GameVariables.getStolenCollectibles().contains(current))
-                    {
+                    if (GameVariables.getStolenCollectibles().contains(current)) {
                         gc.setFill(darkRed);
                         gc.fillOval(SCREEN_POSITION.getX() + slotX + 44, SCREEN_POSITION.getY() + slotY + 44, 16, 16);
                         gc.setFill(COLOR_RED);
@@ -139,10 +135,8 @@ public class InventoryOverlay
         String methodName = "processMouse(Point2D, boolean) ";
 
         Integer hoveredElement = null;
-        for (int i = 0; i < interfaceElements_Rectangles.size(); i++)
-        {
-            if (interfaceElements_Rectangles.get(i).contains(mousePosition))
-            {
+        for (int i = 0; i < interfaceElements_Rectangles.size(); i++) {
+            if (interfaceElements_Rectangles.get(i).contains(mousePosition)) {
                 hoveredElement = interfaceElements_list.indexOf(Integer.toString(i));
             }
         }
@@ -159,34 +153,44 @@ public class InventoryOverlay
         {
             activateHighlightedOption(currentNanoTime);
         }
-        else if (isMouseDragged && controller.getDragAndDropItem() == null)//Drag Item
-        {
-            dragCollectible(currentNanoTime, mousePosition);
-        }
-        else if (isMouseDragged && controller.getDragAndDropItem() != null)//Updated Draged Item
-        {
-            //actor.getInventory().removeItem(controller.getDragAndDropItem().collectible);
-            updateDraggedCollectible(currentNanoTime, mousePosition);
-        }
-        else if (controller.getDragAndDropItem() != null)//Drop Item
-        {
-            actor.getInventory().addItemIdx(controller.getDragAndDropItem().collectible, highlightedElement);
-            controller.setDragAndDropItem(null);
-        }
+        //    else if (isMouseDragged && controller.getDragAndDropItem() == null)//Drag Item
+        //    {
+        //        dragCollectible(currentNanoTime, mousePosition);
+        //    }
+        //    else if (isMouseDragged && controller.getDragAndDropItem() != null)//Updated Draged Item
+        //    {
+        //        //actor.getInventory().removeItem(controller.getDragAndDropItem().collectible);
+        //        updateDraggedCollectible(currentNanoTime, mousePosition);
+        //    }
+        //else if (controller.getDragAndDropItem() != null)//Drop Item
+        //{
+        //    actor.getInventory().addItemIdx(controller.getDragAndDropItem().collectible, highlightedElement);
+        //    controller.setDragAndDropItem(null);
+        //}
     }
 
-    private void dragCollectible(Long currentNanoTime, Point2D mousePosition)
+    public void removeItem(Collectible collectible)
     {
+        actor.getInventory().removeItem(collectible);
+    }
 
+    public void dropCollectible(Collectible collectible)
+    {
+        actor.getInventory().addItemIdx(collectible, highlightedElement);
+        controller.setDragAndDropItem(null);
+    }
+
+    public void dragCollectible(Long currentNanoTime, Point2D mousePosition)
+    {
         if (actor.getInventory().itemsList.get(highlightedElement) != null && controller.getDragAndDropItem() == null) {
             Collectible collectible;
             collectible = actor.getInventory().itemsList.get(highlightedElement);
             actor.getInventory().removeItem(collectible);
-            controller.setDragAndDropItem(new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible));
+            controller.setDragAndDropItem(new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible, actor.getInventory(), highlightedElement));
         }
     }
 
-    private void updateDraggedCollectible(Long currentNanoTime, Point2D mousePosition)
+    public void updateDraggedCollectible(Long currentNanoTime, Point2D mousePosition)
     {
         if (controller.getDragAndDropItem() != null) {
             controller.getDragAndDropItem().setPosition(new Point2D(mousePosition.getX(), mousePosition.getY()));
@@ -202,26 +206,21 @@ public class InventoryOverlay
 
         //System.out.println(CLASSNAME + methodName + actor.getActorInGameName() + " inventory clicked " + collectible);
 
-        if (collectible != null && WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE)
-        {
+        if (collectible != null && WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE) {
             //check from which inventory to which inventory we exchange
-            if (InventoryController.playerInventoryOverlay == this)
-            {
+            if (InventoryController.playerInventoryOverlay == this) {
                 InventoryController.exchangeInventoryActor.getInventory().addItemNextSlot(collectible);
                 InventoryController.playerActor.getInventory().removeItem(collectible);
             }
-            else if (InventoryController.otherInventoryOverlay == this)
-            {
+            else if (InventoryController.otherInventoryOverlay == this) {
                 InventoryController.playerActor.getInventory().addItemNextSlot(collectible);
                 InventoryController.exchangeInventoryActor.getInventory().removeItem(collectible);
             }
         }
-        else if (WorldViewController.getWorldViewStatus() == INVENTORY_SHOP)
-        {
+        else if (WorldViewController.getWorldViewStatus() == INVENTORY_SHOP) {
             System.out.println(CLASSNAME + methodName + "Clicked in item, shopmode, nothing happens");
         }
-        else if (collectible != null && collectible.getType() == CollectableType.FOOD)
-        {
+        else if (collectible != null && collectible.getType() == CollectableType.FOOD) {
             System.out.println(CLASSNAME + methodName + "You ate " + collectible.getIngameName());
             GameVariables.addHunger(collectible.getBaseValue());
             actor.getInventory().itemsList.remove(collectible);
