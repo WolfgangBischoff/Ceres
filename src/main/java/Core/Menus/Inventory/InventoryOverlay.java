@@ -159,13 +159,17 @@ public class InventoryOverlay
         {
             activateHighlightedOption(currentNanoTime);
         }
-        else if (isMouseDragged)
+        else if (isMouseDragged && controller.getDragAndDropItem() == null)//Drag Item
         {
             dragCollectible(currentNanoTime, mousePosition);
         }
-        else if (controller.getDragAndDropItem() != null)
+        else if (isMouseDragged && controller.getDragAndDropItem() != null)//Updated Draged Item
         {
             //actor.getInventory().removeItem(controller.getDragAndDropItem().collectible);
+            updateDraggedCollectible(currentNanoTime, mousePosition);
+        }
+        else if (controller.getDragAndDropItem() != null)//Drop Item
+        {
             actor.getInventory().addItemIdx(controller.getDragAndDropItem().collectible, highlightedElement);
             controller.setDragAndDropItem(null);
         }
@@ -173,15 +177,18 @@ public class InventoryOverlay
 
     private void dragCollectible(Long currentNanoTime, Point2D mousePosition)
     {
-        Collectible collectible;
-        if (actor.getInventory().itemsList.get(highlightedElement) != null && controller.getDragAndDropItem() == null)
-        {
+
+        if (actor.getInventory().itemsList.get(highlightedElement) != null && controller.getDragAndDropItem() == null) {
+            Collectible collectible;
             collectible = actor.getInventory().itemsList.get(highlightedElement);
             actor.getInventory().removeItem(collectible);
             controller.setDragAndDropItem(new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible));
         }
-        else if (controller.getDragAndDropItem() != null)
-        {
+    }
+
+    private void updateDraggedCollectible(Long currentNanoTime, Point2D mousePosition)
+    {
+        if (controller.getDragAndDropItem() != null) {
             controller.getDragAndDropItem().setPosition(new Point2D(mousePosition.getX(), mousePosition.getY()));
         }
     }
