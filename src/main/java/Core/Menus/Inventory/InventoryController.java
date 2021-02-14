@@ -75,12 +75,13 @@ public class InventoryController
         boolean hoversOverlayShop = shopOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean hoversOverlayIncubator = incubatorOverlay.getSCREEN_AREA().contains(mousePosition);
         DragAndDropOverlay hoveredOverlay = null;
+        WorldViewStatus worldViewStatus = WorldViewController.getWorldViewStatus();
         if (playerInventoryOverlay.getSCREEN_AREA().contains(mousePosition))
             hoveredOverlay = playerInventoryOverlay;
-        else if (otherInventoryOverlay.getSCREEN_AREA().contains(mousePosition))
+        else if (hoversOverlayOther && worldViewStatus == INVENTORY_EXCHANGE)
             hoveredOverlay = otherInventoryOverlay;
-
-        WorldViewStatus worldViewStatus = WorldViewController.getWorldViewStatus();
+        else if (hoversOverlayIncubator && worldViewStatus == INCUBATOR)
+            hoveredOverlay = incubatorOverlay;
 
         if (//Check if a inventory is hovered
                 (hoversOverlayPlayer ||

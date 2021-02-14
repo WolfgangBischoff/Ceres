@@ -21,7 +21,7 @@ import java.util.List;
 
 import static Core.Configs.Config.*;
 
-public class IncubatorOverlay
+public class IncubatorOverlay implements DragAndDropOverlay
 {
     private static final String CLASSNAME = "IncubatorOverlay/";
     private static int WIDTH = INVENTORY_WIDTH;
@@ -30,7 +30,7 @@ public class IncubatorOverlay
     Image cornerBtmRight;
     private List<String> interfaceElements_list = new ArrayList<>();
     private List<Rectangle2D> interfaceElements_Rectangles = new ArrayList<>();
-    private Integer highlightedElement = 0;
+    private String highlightedElement = "";
     private Point2D SCREEN_POSITION;
     private Rectangle2D SCREEN_AREA;
     private Actor incubator;
@@ -44,19 +44,11 @@ public class IncubatorOverlay
         this.incubator = incubator;
     }
 
-    public static int getMenuWidth()
-    {
-        return WIDTH;
-    }
-
-    public static int getMenuHeight()
-    {
-        return HEIGHT;
-    }
-
     public void render(GraphicsContext gc) throws NullPointerException
     {
         String methodName = "render() ";
+        String BASE_INPUT_SLOT = "base_input";
+        String BASE_OUTPUT_SLOT = "base_output";
 
         //Background
         gc.setGlobalAlpha(0.8);
@@ -65,18 +57,23 @@ public class IncubatorOverlay
         gc.fillRect(SCREEN_POSITION.getX() + backgroundOffsetX, SCREEN_POSITION.getY() + backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
         gc.setGlobalAlpha(1);
 
+        interfaceElements_list.add(BASE_INPUT_SLOT);
         int inputItemFieldX = 100, inputItemFieldY = 200;
+        Rectangle2D base_input = new Rectangle2D(SCREEN_POSITION.getX() + inputItemFieldX, SCREEN_POSITION.getY() + inputItemFieldY, 64, 64);
+        interfaceElements_Rectangles.add(base_input);
         gc.setFill(COLOR_FONT);
         gc.fillRect(SCREEN_POSITION.getX() + inputItemFieldX, SCREEN_POSITION.getY() + inputItemFieldY, 64, 64);
-        gc.setFill(COLOR_MARKING);
+        gc.setFill(highlightedElement.equals(BASE_INPUT_SLOT) ? COLOR_FONT : COLOR_MARKING);
         gc.fillRect(SCREEN_POSITION.getX() + inputItemFieldX + 2, SCREEN_POSITION.getY() + inputItemFieldY + 2, 64 - 4, 64 - 4);
 
+        interfaceElements_list.add(BASE_OUTPUT_SLOT);
         int outputItemFieldX = 200, outputItemFieldY = 200;
+        Rectangle2D base_output = new Rectangle2D(SCREEN_POSITION.getX() + outputItemFieldX, SCREEN_POSITION.getY() + outputItemFieldY, 64, 64);
+        interfaceElements_Rectangles.add(base_output);
         gc.setFill(COLOR_FONT);
         gc.fillRect(SCREEN_POSITION.getX() + outputItemFieldX, SCREEN_POSITION.getY() + outputItemFieldY, 64, 64);
-        gc.setFill(COLOR_MARKING);
+        gc.setFill(highlightedElement.equals(BASE_OUTPUT_SLOT) ? COLOR_FONT : COLOR_MARKING);
         gc.fillRect(SCREEN_POSITION.getX() + outputItemFieldX + 2, SCREEN_POSITION.getY() + outputItemFieldY + 2, 64 - 4, 64 - 4);
-
 
         //Text
         int offsetYFirstLine = 60;
@@ -94,35 +91,24 @@ public class IncubatorOverlay
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
-        String methodName = "processMouse(Point2D, boolean) ";
-        Rectangle2D posRelativeToWorldview = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
-
-        //Calculate Mouse Position relative to Discussion
-        Point2D relativeMousePosition;
-        if (posRelativeToWorldview.contains(mousePosition))
-            relativeMousePosition = new Point2D(mousePosition.getX() - SCREEN_POSITION.getX(), mousePosition.getY() - SCREEN_POSITION.getY());
-        else relativeMousePosition = null;
-
         Integer hoveredElement = null;
-        for (int i = 0; i < interfaceElements_Rectangles.size(); i++)
-        {
-            if (interfaceElements_Rectangles.get(i).contains(relativeMousePosition))
-            {
-                hoveredElement = interfaceElements_list.indexOf(Integer.toString(i));
+        for (int i = 0; i < interfaceElements_Rectangles.size(); i++) {
+            if (interfaceElements_Rectangles.get(i).contains(mousePosition)) {
+                highlightedElement = interfaceElements_list.get(i);
             }
         }
+        System.out.println(highlightedElement);
 
-        if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved
-        {
-            setHighlightedElement(hoveredElement);
-            GameWindow.getSingleton().setMouseMoved(false);
-        }
+        //if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved
+        //{
+        //    setHighlightedElement(hoveredElement);
+        //    GameWindow.getSingleton().setMouseMoved(false);
+        //}
 
-
-        if (isMouseClicked && hoveredElement != null)//To prevent click of not hovered
-        {
-            activateHighlightedOption(currentNanoTime);
-        }
+        // if (isMouseClicked && hoveredElement != null)//To prevent click of not hovered
+        // {
+        //     activateHighlightedOption(currentNanoTime);
+        // }
     }
 
     private void activateHighlightedOption(Long currentNanoTime)
@@ -133,42 +119,31 @@ public class IncubatorOverlay
 
     }
 
-    public void setHighlightedElement(Integer highlightedElement)
-    {
-        String methodName = "setHighlightedElement() ";
-        boolean debug = false;
-        if (debug && !this.highlightedElement.equals(highlightedElement))
-            System.out.println(CLASSNAME + methodName + highlightedElement + " " + interfaceElements_list.get(highlightedElement));
-        this.highlightedElement = highlightedElement;
-    }
-
-    public void setInterfaceElements_list(List<String> interfaceElements_list)
-    {
-        this.interfaceElements_list = interfaceElements_list;
-    }
-
-    public void setInterfaceElements_Rectangles(List<Rectangle2D> interfaceElements_Rectangles)
-    {
-        this.interfaceElements_Rectangles = interfaceElements_Rectangles;
-    }
-
     public void setSCREEN_POSITION(Point2D SCREEN_POSITION)
     {
         this.SCREEN_POSITION = SCREEN_POSITION;
     }
 
-    public void setCornerTopLeft(Image cornerTopLeft)
-    {
-        this.cornerTopLeft = cornerTopLeft;
-    }
-
-    public void setCornerBtmRight(Image cornerBtmRight)
-    {
-        this.cornerBtmRight = cornerBtmRight;
-    }
-
     public Rectangle2D getSCREEN_AREA()
     {
         return SCREEN_AREA;
+    }
+
+    @Override
+    public void dropCollectible(DragAndDropItem collectible)
+    {
+
+    }
+
+    @Override
+    public void dragCollectible(Long currentNanoTime, Point2D mousePosition)
+    {
+
+    }
+
+    @Override
+    public void updateDraggedCollectible(Long currentNanoTime, Point2D mousePosition)
+    {
+
     }
 }

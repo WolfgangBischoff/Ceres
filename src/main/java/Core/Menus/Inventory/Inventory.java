@@ -11,7 +11,7 @@ public class Inventory
     private static final String CLASSNAME = "Inventory/";
     List<Collectible> itemsList = new ArrayList<>();
     Actor owner;
-    private Integer MAX_IDX_ITEMS = 30;
+    private final Integer MAX_IDX_ITEMS = 30;
 
     public Inventory(Actor owner)
     {
@@ -22,7 +22,6 @@ public class Inventory
 
     public void addItemIdx(Collectible collectible, int idx)
     {
-        String methodName = "addItem() ";
         if (idx < MAX_IDX_ITEMS)
             itemsList.set(idx, collectible);
     }
@@ -39,7 +38,6 @@ public class Inventory
 
     public void removeItem(Collectible collectible)
     {
-        String methodName = "removeItem(String, String) ";
         removeItem(itemsList.indexOf(collectible));
     }
 

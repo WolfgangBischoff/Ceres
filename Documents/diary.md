@@ -12,7 +12,6 @@
 * added first DragAndDrop
 
 ##### 04 02 21
-
 * added incubator menu
 
 #####01 02 21    
@@ -35,44 +34,44 @@ Reinigt sofort filter, sollte erst nach Questbeginn möglich sein Dialogue: Frag
 CoinGame: Zu wenig Zeit und Erklärung was zu tun ist Performance schlecht nach mehreren Coingames Textbox sollte weiter nachen egal wo man hinklickt
 Hinweis "look at the screen" nicht eindeutig, Kapsel nicht zu finden. In der Kapsel brennt licht, sollte dunkel sein - added/changed/repaired several dialogues
 - performance improvement shadow layer
-09 01 21    - improved textbox performance - added light dependent on time
-02 01 21    - refactored Textbox -> Dialogue - fixed minor bugs - Bug: technician changes dialogue id after sprite change (turn) => dialogueId should be changed by spritechange
+  09 01 21 - improved textbox performance - added light dependent on time
+  02 01 21 - refactored Textbox -> Dialogue - fixed minor bugs - Bug: technician changes dialogue id after sprite change (turn) => dialogueId should be changed by spritechange
 - onInrange prevents interaction due to timeBetweenInteraction. - Person turns back after talk
-31 12 20    - improved render performance for coin game and HUD by drawing on WorldView Canvas - removed old capsule - Person turns if talking
-27 12 20    - player light is duplicated after quest
-21 12 20    - added Script for movement "route" and "repeat"
+  31 12 20 - improved render performance for coin game and HUD by drawing on WorldView Canvas - removed old capsule - Person turns if talking
+  27 12 20 - player light is duplicated after quest
+  21 12 20 - added Script for movement "route" and "repeat"
 - fixed no wall for non player sprites - remove old paths of actors
-16 12 20    - textbox mode where all options are visible - first Console change variables
-09 12 20    - Created export with gradle - performance improvement & refactor
-30 11 20    - restart power at generator to fix light - money msg
-19 11 20    - added capsule level, sprites, dialogues - player status dependent textbox - night on textbox
-16 11 20    - added info box if new trait/knowledge is visible; new item - exit game after finished by clicking into coin area AND coin game
-12 11 20    - space suit moving south & north
-09 11 20    - sister -> family info; air hub =>  find manual at technician; trader send you to bed - pipe in the floor sprite added; exit button, finish button
+  16 12 20 - textbox mode where all options are visible - first Console change variables
+  09 12 20 - Created export with gradle - performance improvement & refactor
+  30 11 20 - restart power at generator to fix light - money msg
+  19 11 20 - added capsule level, sprites, dialogues - player status dependent textbox - night on textbox
+  16 11 20 - added info box if new trait/knowledge is visible; new item - exit game after finished by clicking into coin area AND coin game
+  12 11 20 - space suit moving south & north
+  09 11 20 - sister -> family info; air hub =>  find manual at technician; trader send you to bed - pipe in the floor sprite added; exit button, finish button
 - Coin Game: Player Finish message changed; finish earlier button that removes all coins; show cooperation value, name, and number traits in INFO
-08 11 20    - added actor changes on global actor get - added dialogueFile and dialogueId change via Textbox
-04 11 20    - background coin game
-02 11 20    - better coin game explanation from trader - change Eyes Box more obvious, added carton box sprite - added interface, network trait
+  08 11 20 - added actor changes on global actor get - added dialogueFile and dialogueId change via Textbox
+  04 11 20 - background coin game
+  02 11 20 - better coin game explanation from trader - change Eyes Box more obvious, added carton box sprite - added interface, network trait
 - show residual coin game time - air system coin game in form of ventilation
-01 11 20    - reworked personality traits - added machine traits and game - decoration, background - add buffs; number unknown traits
-29 10 20    - reworked Coin movement - added buff_double_reward, win threshold calculation
-28 10 20    - first buff for Coin Game
+  01 11 20 - reworked personality traits - added machine traits and game - decoration, background - add buffs; number unknown traits
+  29 10 20 - reworked Coin movement - added buff_double_reward, win threshold calculation
+  28 10 20 - first buff for Coin Game
 
 26 10 20    - Test with Alex => Coin Game needs better explanation, maybe symbols ingame; more sprites with interaction; more content to freight capsules
 - wall sign Crewdeck, Controldeck - more sprite txt: Crewdeck table, small controls, beds - add cursor with border hitbox
 - add item with textbox
-22 10 20    - changed box sprite - added Ceres behind window, speaker, clock img, first space suit, improved bump; changed textbox
-21 10 20    - added global actors; placed on map according to variables - add sprint button on SHIFT - talk to collegue at window, impact; control changes status; trader text
+  22 10 20 - changed box sprite - added Ceres behind window, speaker, clock img, first space suit, improved bump; changed textbox
+  21 10 20 - added global actors; placed on map according to variables - add sprint button on SHIFT - talk to collegue at window, impact; control changes status; trader text
 - added sprite status change by textbox
-19 10 20    - added eyes box
-17 10 20    - added algae tank transparency, mirror in bath
-15 10 20    - Highlight text & Text "write"
+  19 10 20 - added eyes box
+  17 10 20 - added algae tank transparency, mirror in bath
+  15 10 20 - Highlight text & Text "write"
 - add right capsule wall - added medic, added money field - window onInteraction: bump
-14 10 20    - dodge mechanic to avoid weird hitboxes - Return to World by Esc from Inventory
-13 10 20    - Fixed Docking Bay Door doesnt work - air vent from freight deck are visible on crewdeck if base system becomes on and vent changes status
-12 10 20    - once system is online, you cannot switch of hub; nextDialogue in XML now attribute - tenderer introduces Quest, then checks fullfillment (both on global variable)
+  14 10 20 - dodge mechanic to avoid weird hitboxes - Return to World by Esc from Inventory
+  13 10 20 - Fixed Docking Bay Door doesnt work - air vent from freight deck are visible on crewdeck if base system becomes on and vent changes status
+  12 10 20 - once system is online, you cannot switch of hub; nextDialogue in XML now attribute - tenderer introduces Quest, then checks fullfillment (both on global variable)
 - door opens after tenderer assigns quest
-10 10 20    - Textbox should be opened on Click even if the sprite has no actor but just a defined textbox file - Interaction by click should use sprite images
+  10 10 20 - Textbox should be opened on Click even if the sprite has no actor but just a defined textbox file - Interaction by click should use sprite images
 
 OLD
 
@@ -89,19 +88,19 @@ OLD
 16 09 20    - Added Health, reduces if hungry during night - added board time GUI - added maintenance hole sprite and rescue room
 17 09 20    - added tenderer game, collegue and food dependent on MaM; improved floor - added personality screen coins, dependent on cooperation value
 - fixed exception during launch
-20 09 20    - Test with Alex => Skip textbox, change introversion coin, more description, button and click to close inventory
+  20 09 20 - Test with Alex => Skip textbox, change introversion coin, more description, button and click to close inventory
 
 20 09 20    - Added flat crate and capsule roof - Fixed unused tile detection
 21 09 20    - added bridge windows, cerex logo and small control - added chart, incubator - clicking outside menu in Inventory closes menu
 - added alternative font, improved clock
-23 09 20    - improved debugging - added air system - added first Global System
-27 09 20    - moved Project to Java 11 and Gradle; now "Ceres"
+  23 09 20 - improved debugging - added air system - added first Global System
+  27 09 20 - moved Project to Java 11 and Gradle; now "Ceres"
 - remove start screen, refactored code - add Escape to Textbox
-04 10 20    - added global StageMonitor
-05 10 20    - hydrau aka airHubSmall add broken sprite; - cerex logo C now red - new symbol for extra/introversion coin
+  04 10 20 - added global StageMonitor
+  05 10 20 - hydrau aka airHubSmall add broken sprite; - cerex logo C now red - new symbol for extra/introversion coin
 - tenderer checks if air system condition full filled; world variable
-08 10 20    - DialogueFile part of sprite status, lightweight textbox - control, coffee, projector with description - standing animation
-09 10 20    - added status bar images
+  08 10 20 - DialogueFile part of sprite status, lightweight textbox - control, coffee, projector with description - standing animation
+  09 10 20 - added status bar images
 
 
 
