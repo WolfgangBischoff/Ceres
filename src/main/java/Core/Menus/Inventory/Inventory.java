@@ -31,7 +31,7 @@ public class Inventory
     {
         if (hasFreeSlot())
         {
-            itemsList.add(nextFreeIdx(), collectible);
+            addItemIdx(collectible, nextFreeIdx());
             return true;
         }
         return false;

@@ -1,9 +1,7 @@
 package Core;
 
 import Core.Configs.Config;
-import Core.Menus.Inventory.MyHandler;
 import Core.WorldView.WorldView;
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -15,21 +13,15 @@ import java.util.ArrayList;
 public class GameWindow extends Stage
 {
     public static ArrayList<String> input = new ArrayList<>();
-    private static final String CLASSNAME = "GameWindow-";
+    private static final String CLASSNAME = "GameWindow/";
     private static GameWindow singleton;
     private static long currentNanoRenderTimeGameWindow = 0L;
-    private Stage gameStage;
+    private final Stage gameStage;
     WorldView currentView;
     boolean mouseClicked = false;
     Point2D mousePosition = new Point2D(0, 0); //To avoid NullPointerException of mouse was not moved at first
     boolean mouseMoved;
     boolean mouseDragged;
-    EventHandler<MouseEvent> eventHandler = new MyHandler(event ->
-    {
-        mouseDragged = true;
-        mousePosition = new Point2D(event.getX(), event.getY());
-    }, event ->
-            mouseClicked = true);
 
     private GameWindow()
     {
@@ -72,6 +64,7 @@ public class GameWindow extends Stage
         gameScene.setOnMouseDragged(event ->
         {
             mouseDragged = true;
+            mouseMoved = true;
             mousePosition = new Point2D(event.getX(), event.getY());
         });
         gameScene.setOnMousePressed(pressed ->

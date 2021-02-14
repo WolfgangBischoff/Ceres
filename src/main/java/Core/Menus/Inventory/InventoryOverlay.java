@@ -133,7 +133,6 @@ public class InventoryOverlay implements DragAndDropOverlay
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, boolean isMouseDragged, Long currentNanoTime)
     {
         String methodName = "processMouse(Point2D, boolean) ";
-
         Integer hoveredElement = null;
         for (int i = 0; i < interfaceElements_Rectangles.size(); i++) {
             if (interfaceElements_Rectangles.get(i).contains(mousePosition)) {
@@ -142,31 +141,16 @@ public class InventoryOverlay implements DragAndDropOverlay
         }
         //System.out.println(CLASSNAME + actor.getActorInGameName() + " " + hoveredElement + " " + isMouseDragged);
 
-        if ((GameWindow.getSingleton().isMouseMoved() || isMouseDragged) && hoveredElement != null)//Set highlight if mouse moved
+        if ((GameWindow.getSingleton().isMouseMoved()) && hoveredElement != null)//Set highlight if mouse moved
         {
             setHighlightedElement(hoveredElement);
             GameWindow.getSingleton().setMouseMoved(false);
         }
 
-
         if (isMouseClicked && hoveredElement != null)//To prevent click of not hovered
         {
             activateHighlightedOption(currentNanoTime);
         }
-        //    else if (isMouseDragged && controller.getDragAndDropItem() == null)//Drag Item
-        //    {
-        //        dragCollectible(currentNanoTime, mousePosition);
-        //    }
-        //    else if (isMouseDragged && controller.getDragAndDropItem() != null)//Updated Draged Item
-        //    {
-        //        //actor.getInventory().removeItem(controller.getDragAndDropItem().collectible);
-        //        updateDraggedCollectible(currentNanoTime, mousePosition);
-        //    }
-        //else if (controller.getDragAndDropItem() != null)//Drop Item
-        //{
-        //    actor.getInventory().addItemIdx(controller.getDragAndDropItem().collectible, highlightedElement);
-        //    controller.setDragAndDropItem(null);
-        //}
     }
 
     public void removeItem(Collectible collectible)
@@ -234,7 +218,7 @@ public class InventoryOverlay implements DragAndDropOverlay
         else if (collectible != null && collectible.getType() == CollectableType.FOOD) {
             System.out.println(CLASSNAME + methodName + "You ate " + collectible.getIngameName());
             GameVariables.addHunger(collectible.getBaseValue());
-            actor.getInventory().itemsList.remove(collectible);
+            actor.getInventory().removeItem(collectible);
             GameVariables.getStolenCollectibles().remove(collectible);
         }
 

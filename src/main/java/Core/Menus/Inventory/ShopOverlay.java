@@ -26,10 +26,10 @@ public class ShopOverlay
     private List<String> interfaceElements_list = new ArrayList<>();
     private List<Rectangle2D> interfaceElements_Rectangles = new ArrayList<>();
     private Integer highlightedElement = 0;
-    private static int WIDTH = INVENTORY_WIDTH;
-    private static int HEIGHT = INVENTORY_HEIGHT;
+    private static final int WIDTH = INVENTORY_WIDTH;
+    private static final int HEIGHT = INVENTORY_HEIGHT;
     private Point2D SCREEN_POSITION;
-    private Rectangle2D SCREEN_AREA;
+    private final Rectangle2D SCREEN_AREA;
 
     Image cornerTopLeft;
     Image cornerBtmRight;

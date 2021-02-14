@@ -87,21 +87,25 @@ public class InventoryController
                         (worldViewStatus == INVENTORY_EXCHANGE && hoversOverlayOther) ||
                         (worldViewStatus == INVENTORY_SHOP && hoversOverlayShop) ||
                         (worldViewStatus == INCUBATOR && hoversOverlayIncubator))) {
+
             if (hoversOverlayPlayer) {
                 playerInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
             }
-            else if (worldViewStatus == INVENTORY_EXCHANGE && hoversOverlayOther) {
+            else if (worldViewStatus == INVENTORY_EXCHANGE) {
                 otherInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
             }
+            else if (worldViewStatus == INVENTORY_SHOP)
+                shopOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+            else if (worldViewStatus == INCUBATOR)
+                incubatorOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
 
             if (hoveredOverlay != null) {
                 if (isMouseDragged && getDragAndDropItem() == null)//Drag Item
                 {
                     hoveredOverlay.dragCollectible(currentNanoTime, mousePosition);
                 }
-                else if (isMouseDragged && getDragAndDropItem() != null)//Updated Draged Item
+                else if (isMouseDragged && getDragAndDropItem() != null)//Update Dragged Item
                 {
-                    //otherInventoryOverlay.removeItem(getDragAndDropItem().collectible);
                     hoveredOverlay.updateDraggedCollectible(currentNanoTime, mousePosition);
                 }
                 else if (getDragAndDropItem() != null)//Drop Item
@@ -109,16 +113,6 @@ public class InventoryController
                     hoveredOverlay.dropCollectible(getDragAndDropItem());
                 }
             }
-
-            // else if (worldViewStatus == INVENTORY_EXCHANGE) {
-//
-            //     otherInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
-            //
-            // }
-            // else if (worldViewStatus == INVENTORY_SHOP)
-            //     shopOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
-            // else if (worldViewStatus == INCUBATOR)
-            //     incubatorOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
         }
         else if (isMouseClicked)//if no inventory is hovered and clicked, close inventory
         {
