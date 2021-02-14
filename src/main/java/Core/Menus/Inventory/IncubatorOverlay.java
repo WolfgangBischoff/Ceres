@@ -59,14 +59,16 @@ public class IncubatorOverlay implements DragAndDropOverlay
         gc.fillRect(SCREEN_POSITION.getX() + backgroundOffsetX, SCREEN_POSITION.getY() + backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
         gc.setGlobalAlpha(1);
 
-        interfaceElements_list.add(BASE_INPUT_SLOT);
         int inputItemFieldX = 100, inputItemFieldY = 200;
         Rectangle2D base_input = new Rectangle2D(SCREEN_POSITION.getX() + inputItemFieldX, SCREEN_POSITION.getY() + inputItemFieldY, 64, 64);
+        interfaceElements_list.add(BASE_INPUT_SLOT);
         interfaceElements_Rectangles.add(base_input);
         gc.setFill(COLOR_FONT);
         gc.fillRect(SCREEN_POSITION.getX() + inputItemFieldX, SCREEN_POSITION.getY() + inputItemFieldY, 64, 64);
         gc.setFill(highlightedElement.equals(BASE_INPUT_SLOT) ? COLOR_FONT : COLOR_MARKING);
         gc.fillRect(SCREEN_POSITION.getX() + inputItemFieldX + 2, SCREEN_POSITION.getY() + inputItemFieldY + 2, 64 - 4, 64 - 4);
+        if (incubator.getInventory().itemsList.get(0) != null)
+            gc.drawImage(incubator.getInventory().itemsList.get(0).getImage(), SCREEN_POSITION.getX() + inputItemFieldX, SCREEN_POSITION.getY() + inputItemFieldY);
 
         interfaceElements_list.add(BASE_OUTPUT_SLOT);
         int outputItemFieldX = 200, outputItemFieldY = 200;
@@ -76,6 +78,9 @@ public class IncubatorOverlay implements DragAndDropOverlay
         gc.fillRect(SCREEN_POSITION.getX() + outputItemFieldX, SCREEN_POSITION.getY() + outputItemFieldY, 64, 64);
         gc.setFill(highlightedElement.equals(BASE_OUTPUT_SLOT) ? COLOR_FONT : COLOR_MARKING);
         gc.fillRect(SCREEN_POSITION.getX() + outputItemFieldX + 2, SCREEN_POSITION.getY() + outputItemFieldY + 2, 64 - 4, 64 - 4);
+        if (incubator.getInventory().itemsList.get(1) != null)
+            gc.drawImage(incubator.getInventory().itemsList.get(1).getImage(), SCREEN_POSITION.getX() + outputItemFieldX, SCREEN_POSITION.getY() + outputItemFieldY);
+
 
         //Text
         int offsetYFirstLine = 60;
@@ -135,17 +140,11 @@ public class IncubatorOverlay implements DragAndDropOverlay
     {
         Collectible collectibleToDrop = dropped.collectible;
         Collectible collectibleOnTargetSlot = incubator.getInventory().getItem(interfaceElements_list.indexOf(highlightedElement));
-        if (collectibleOnTargetSlot == null)//slot is empty
-        {
-            incubator.getInventory().addItemIdx(collectibleToDrop, interfaceElements_list.indexOf(highlightedElement));
-            controller.setDragAndDropItem(null);
-        }
-        else//swap items
-        {
+        if (collectibleOnTargetSlot != null) {//swap
             dropped.origin.addItemIdx(collectibleOnTargetSlot, dropped.originIdx);
-            incubator.getInventory().addItemIdx(collectibleToDrop, interfaceElements_list.indexOf(highlightedElement));
-            controller.setDragAndDropItem(null);
         }
+        incubator.getInventory().addItemIdx(collectibleToDrop, interfaceElements_list.indexOf(highlightedElement));
+        controller.setDragAndDropItem(null);
     }
 
     @Override
