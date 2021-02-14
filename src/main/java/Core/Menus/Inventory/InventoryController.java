@@ -99,7 +99,7 @@ public class InventoryController
             else if (worldViewStatus == INVENTORY_SHOP)
                 shopOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
             else if (worldViewStatus == INCUBATOR)
-                incubatorOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+                incubatorOverlay.processMouse(mousePosition);
 
             if (hoveredOverlay != null) {
                 if (isMouseDragged && getDragAndDropItem() == null)//Drag Item

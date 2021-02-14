@@ -162,17 +162,11 @@ public class InventoryOverlay implements DragAndDropOverlay
     {
         Collectible collectibleToDrop = dropped.collectible;
         Collectible collectibleOnTargetSlot = actor.getInventory().getItem(highlightedElement);
-        if (collectibleOnTargetSlot == null)//slot is empty
-        {
-            actor.getInventory().addItemIdx(collectibleToDrop, highlightedElement);
-            controller.setDragAndDropItem(null);
+        if (collectibleOnTargetSlot != null) {
+            dropped.previousInventory.addItemIdx(collectibleOnTargetSlot, dropped.previousIdx);
         }
-        else//swap items
-        {
-            dropped.origin.addItemIdx(collectibleOnTargetSlot, dropped.originIdx);
-            actor.getInventory().addItemIdx(collectibleToDrop, highlightedElement);
-            controller.setDragAndDropItem(null);
-        }
+        actor.getInventory().addItemIdx(collectibleToDrop, highlightedElement);
+        controller.setDragAndDropItem(null);
     }
 
     public void dragCollectible(Long currentNanoTime, Point2D mousePosition)

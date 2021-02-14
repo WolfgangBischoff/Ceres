@@ -2,19 +2,12 @@ package Core.Menus.Inventory;
 
 import Core.Actor;
 import Core.Collectible;
-import Core.GameWindow;
 import Core.Utilities;
 import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +19,9 @@ public class IncubatorOverlay implements DragAndDropOverlay
     private static final String CLASSNAME = "IncubatorOverlay/";
     private static int WIDTH = INVENTORY_WIDTH;
     private static int HEIGHT = INVENTORY_HEIGHT;
-    private InventoryController controller;
     Image cornerTopLeft;
     Image cornerBtmRight;
+    private InventoryController controller;
     private List<String> interfaceElements_list = new ArrayList<>();
     private List<Rectangle2D> interfaceElements_Rectangles = new ArrayList<>();
     private String highlightedElement = "";
@@ -49,8 +42,6 @@ public class IncubatorOverlay implements DragAndDropOverlay
     public void render(GraphicsContext gc) throws NullPointerException
     {
         String methodName = "render() ";
-        String BASE_INPUT_SLOT = "base_input";
-        String BASE_OUTPUT_SLOT = "base_output";
 
         //Background
         gc.setGlobalAlpha(0.8);
@@ -59,28 +50,10 @@ public class IncubatorOverlay implements DragAndDropOverlay
         gc.fillRect(SCREEN_POSITION.getX() + backgroundOffsetX, SCREEN_POSITION.getY() + backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
         gc.setGlobalAlpha(1);
 
-        int inputItemFieldX = 100, inputItemFieldY = 200;
-        Rectangle2D base_input = new Rectangle2D(SCREEN_POSITION.getX() + inputItemFieldX, SCREEN_POSITION.getY() + inputItemFieldY, 64, 64);
-        interfaceElements_list.add(BASE_INPUT_SLOT);
-        interfaceElements_Rectangles.add(base_input);
-        gc.setFill(COLOR_FONT);
-        gc.fillRect(SCREEN_POSITION.getX() + inputItemFieldX, SCREEN_POSITION.getY() + inputItemFieldY, 64, 64);
-        gc.setFill(highlightedElement.equals(BASE_INPUT_SLOT) ? COLOR_FONT : COLOR_MARKING);
-        gc.fillRect(SCREEN_POSITION.getX() + inputItemFieldX + 2, SCREEN_POSITION.getY() + inputItemFieldY + 2, 64 - 4, 64 - 4);
-        if (incubator.getInventory().itemsList.get(0) != null)
-            gc.drawImage(incubator.getInventory().itemsList.get(0).getImage(), SCREEN_POSITION.getX() + inputItemFieldX, SCREEN_POSITION.getY() + inputItemFieldY);
-
-        interfaceElements_list.add(BASE_OUTPUT_SLOT);
-        int outputItemFieldX = 200, outputItemFieldY = 200;
-        Rectangle2D base_output = new Rectangle2D(SCREEN_POSITION.getX() + outputItemFieldX, SCREEN_POSITION.getY() + outputItemFieldY, 64, 64);
-        interfaceElements_Rectangles.add(base_output);
-        gc.setFill(COLOR_FONT);
-        gc.fillRect(SCREEN_POSITION.getX() + outputItemFieldX, SCREEN_POSITION.getY() + outputItemFieldY, 64, 64);
-        gc.setFill(highlightedElement.equals(BASE_OUTPUT_SLOT) ? COLOR_FONT : COLOR_MARKING);
-        gc.fillRect(SCREEN_POSITION.getX() + outputItemFieldX + 2, SCREEN_POSITION.getY() + outputItemFieldY + 2, 64 - 4, 64 - 4);
-        if (incubator.getInventory().itemsList.get(1) != null)
-            gc.drawImage(incubator.getInventory().itemsList.get(1).getImage(), SCREEN_POSITION.getX() + outputItemFieldX, SCREEN_POSITION.getY() + outputItemFieldY);
-
+        String BASE_INPUT_SLOT = "base_input";
+        String BASE_OUTPUT_SLOT = "base_output";
+        drawItemSlot(gc, BASE_INPUT_SLOT, 100, 200);
+        drawItemSlot(gc, BASE_OUTPUT_SLOT, 200, 200);
 
         //Text
         int offsetYFirstLine = 60;
@@ -94,27 +67,32 @@ public class IncubatorOverlay implements DragAndDropOverlay
 
     }
 
-
-
-    public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
+    private void drawItemSlot(GraphicsContext gc, String itemslotName, int slotX, int slotY)
     {
-        Integer hoveredElement = null;
+        Rectangle2D base_input = new Rectangle2D(SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY, 64, 64);
+        interfaceElements_list.add(itemslotName);
+        interfaceElements_Rectangles.add(base_input);
+        int inventoryIdx = interfaceElements_list.indexOf(itemslotName);
+
+        gc.setFill(COLOR_FONT);
+        gc.fillRect(SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY, 64, 64);
+        gc.setFill(highlightedElement.equals(itemslotName) ? COLOR_FONT : COLOR_MARKING);
+        gc.fillRect(SCREEN_POSITION.getX() + slotX + 2, SCREEN_POSITION.getY() + slotY + 2, 64 - 4, 64 - 4);
+        if (incubator.getInventory().itemsList.get(inventoryIdx) != null)
+            gc.drawImage(incubator.getInventory().itemsList.get(inventoryIdx).getImage(), SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY);
+    }
+
+
+    public void processMouse(Point2D mousePosition)
+    {
         for (int i = 0; i < interfaceElements_Rectangles.size(); i++) {
             if (interfaceElements_Rectangles.get(i).contains(mousePosition)) {
                 highlightedElement = interfaceElements_list.get(i);
             }
         }
 
-        //if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved
-        //{
-        //    setHighlightedElement(hoveredElement);
-        //    GameWindow.getSingleton().setMouseMoved(false);
-        //}
+        //TODO click events
 
-        // if (isMouseClicked && hoveredElement != null)//To prevent click of not hovered
-        // {
-        //     activateHighlightedOption(currentNanoTime);
-        // }
     }
 
     private void activateHighlightedOption(Long currentNanoTime)
@@ -139,10 +117,9 @@ public class IncubatorOverlay implements DragAndDropOverlay
     public void dropCollectible(DragAndDropItem dropped)
     {
         Collectible collectibleToDrop = dropped.collectible;
-        Collectible collectibleOnTargetSlot = incubator.getInventory().getItem(interfaceElements_list.indexOf(highlightedElement));
-        if (collectibleOnTargetSlot != null) {//swap
-            dropped.origin.addItemIdx(collectibleOnTargetSlot, dropped.originIdx);
-        }
+        dropped.previousInventory.addItemIdx(//Swap item if existse
+                incubator.getInventory().getItem(interfaceElements_list.indexOf(highlightedElement)),
+                dropped.previousIdx);
         incubator.getInventory().addItemIdx(collectibleToDrop, interfaceElements_list.indexOf(highlightedElement));
         controller.setDragAndDropItem(null);
     }
@@ -164,11 +141,6 @@ public class IncubatorOverlay implements DragAndDropOverlay
         if (controller.getDragAndDropItem() != null) {
             controller.getDragAndDropItem().setPosition(new Point2D(mousePosition.getX(), mousePosition.getY()));
         }
-    }
-
-    public Actor getIncubator()
-    {
-        return incubator;
     }
 
     public void setIncubator(Actor incubator)

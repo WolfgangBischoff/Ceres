@@ -1,7 +1,7 @@
 ##### 14 02 21
-
 * Fixed: Item on last index can vanish with DragAndDrop
 * Finalized Drag and Drop
+* Add Incubator DragDRop
 
 ##### 11 02 21
 
