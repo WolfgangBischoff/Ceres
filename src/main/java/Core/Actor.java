@@ -612,6 +612,7 @@ public class Actor
                 break;
             case INCUBATOR:
                 WorldViewController.setWorldViewStatus(INCUBATOR);
+                InventoryController.setExchangeInventoryActor(this);
                 break;
         }
     }

@@ -26,6 +26,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
     private static final String CLASSNAME = "IncubatorOverlay/";
     private static int WIDTH = INVENTORY_WIDTH;
     private static int HEIGHT = INVENTORY_HEIGHT;
+    private InventoryController controller;
     Image cornerTopLeft;
     Image cornerBtmRight;
     private List<String> interfaceElements_list = new ArrayList<>();
@@ -42,6 +43,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
         this.SCREEN_POSITION = SCREEN_POSITION;
         SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
         this.incubator = incubator;
+        this.controller = controller;
     }
 
     public void render(GraphicsContext gc) throws NullPointerException
@@ -97,7 +99,6 @@ public class IncubatorOverlay implements DragAndDropOverlay
                 highlightedElement = interfaceElements_list.get(i);
             }
         }
-        System.out.println(highlightedElement);
 
         //if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved
         //{
@@ -130,20 +131,49 @@ public class IncubatorOverlay implements DragAndDropOverlay
     }
 
     @Override
-    public void dropCollectible(DragAndDropItem collectible)
+    public void dropCollectible(DragAndDropItem dropped)
     {
-
+        Collectible collectibleToDrop = dropped.collectible;
+        Collectible collectibleOnTargetSlot = incubator.getInventory().getItem(interfaceElements_list.indexOf(highlightedElement));
+        if (collectibleOnTargetSlot == null)//slot is empty
+        {
+            incubator.getInventory().addItemIdx(collectibleToDrop, interfaceElements_list.indexOf(highlightedElement));
+            controller.setDragAndDropItem(null);
+        }
+        else//swap items
+        {
+            dropped.origin.addItemIdx(collectibleOnTargetSlot, dropped.originIdx);
+            incubator.getInventory().addItemIdx(collectibleToDrop, interfaceElements_list.indexOf(highlightedElement));
+            controller.setDragAndDropItem(null);
+        }
     }
 
     @Override
     public void dragCollectible(Long currentNanoTime, Point2D mousePosition)
     {
-
+        if (incubator.getInventory().itemsList.get(interfaceElements_list.indexOf(highlightedElement)) != null && controller.getDragAndDropItem() == null) {
+            Collectible collectible;
+            collectible = incubator.getInventory().itemsList.get(interfaceElements_list.indexOf(highlightedElement));
+            incubator.getInventory().removeItem(collectible);
+            controller.setDragAndDropItem(new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible, incubator.getInventory(), interfaceElements_list.indexOf(highlightedElement)));
+        }
     }
 
     @Override
     public void updateDraggedCollectible(Long currentNanoTime, Point2D mousePosition)
     {
+        if (controller.getDragAndDropItem() != null) {
+            controller.getDragAndDropItem().setPosition(new Point2D(mousePosition.getX(), mousePosition.getY()));
+        }
+    }
 
+    public Actor getIncubator()
+    {
+        return incubator;
+    }
+
+    public void setIncubator(Actor incubator)
+    {
+        this.incubator = incubator;
     }
 }

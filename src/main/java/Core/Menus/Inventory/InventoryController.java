@@ -33,7 +33,7 @@ public class InventoryController
         playerActor = WorldView.getPlayer().getActor();
         playerInventoryOverlay = new InventoryOverlay(WorldView.getPlayer().getActor(), playerInventoryPosition, this);
         otherInventoryOverlay = new InventoryOverlay(null, exchangeInventoryPosition, this);
-        incubatorOverlay = new IncubatorOverlay(exchangeInventoryActor, INCUBATOR_POSITION, this);
+        incubatorOverlay = new IncubatorOverlay(null, INCUBATOR_POSITION, this);
         shopOverlay = new ShopOverlay(null, shopInterfacePosition, this);
     }
 
@@ -60,6 +60,7 @@ public class InventoryController
             gc.drawImage(interactionInventoryImage, shopInterfacePosition.getX(), shopInterfacePosition.getY());
         }
         else if (WorldViewController.getWorldViewStatus() == INCUBATOR) {
+            incubatorOverlay.setIncubator(exchangeInventoryActor);
             incubatorOverlay.render(gc);
         }
         if (dragAndDropItem != null)
@@ -132,4 +133,5 @@ public class InventoryController
     {
         this.dragAndDropItem = dragAndDropItem;
     }
+
 }
