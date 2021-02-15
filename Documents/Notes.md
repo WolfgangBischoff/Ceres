@@ -2,7 +2,7 @@
 #Backlog
 
 ####Inventory
-* Incubator Convert Button
+Incubator Convert Button
 * Close button
 * item desrcp
 * add item in box
@@ -15,10 +15,10 @@
 * bacteria cultures can be used in incubators (bottleneck)
 
 #### Minor
-* "Rumors"/Random dialogue
-* change font of textbox
 * StatusInfo over sprite on key + ExclamationMark
 * Enable fullscreen mode
+* change font of textbox
+* "Rumors"/Random dialogue
 
 #### Stealth mechanic
 * split inRange area into several parts
@@ -28,10 +28,11 @@
 #### Main Quest
 * add easy characterGame
 * disable bed, should be dependent on quest status
-* stranger appears when sleeping
-* check logs with stranger => warp both
-* on return talk to sister and stranger
-* create electro potion for capsule
+* spawn during night on control deck, hear starnge noises from storage
+* find stranger in storage
+* tells story, check the logs
+* check the rescure pods => need to be overriden
+* ask sister for help => fade out => create electro potion for capsule
 * they leave transporter
 * goto bed an leave transporter 
 
@@ -139,34 +140,30 @@ Mechanics:
 
 QUEST 1:
 
+#### First day
 Staff: 2 technicians, doctor, traveller, tenderer, guard, blind passenger
-In the morning after toilet you technician collegue tells you to go to you sister the medic. He also hates Mondays
-Sister: Mum and Dad sent the usual weird words, talk about low rente but we should stay cool. I am running out of money, didnt expected that the biosystem works that well. Goto trader
-Trader: Repair Air System, then go to bed. (maybe side quest)
-Meteorit Day: notTIME
+#####Quest from sister to introduce biotec
+* create energy bactery stem
+
+#####Air System Quest
+* In the morning after toilet you technician collegue tells you to go to you sister the medic. He also hates Mondays
+* Sister: Mum and Dad sent the usual weird words, talk about low rente but we should stay cool. I am running out of money, didnt expected that the biosystem works that well. Goto trader
+* Trader: Repair Air System, then go to bed.
+* Meteorit Day: notTIME
     Msg of sister: meet at window
     After impact you get a space suit to check capsule
     There is a crate with eyes that dissapear onRange
     Cannot repair hull breach, loosing air, life systems failing => trader tells you we are insured, just leave it as it is => restart main energy
-Meteorit Night:
-    Stranger suprises you in front of capsule:
-        => He and his family freezes to death, you have to help
-        => Whats going on here?
-        => Tells you about family.
-        => I have to tell the trader
-        => He already knows, just check the freight log yourself
-    after Confirmation confused sister is also in crew room:
-        => Tell her that the story is true
-        => Idea: Escape with shuttle with help of my code
-        => Stranger: You have to come with us, they will imprison you (refer to answer to sister)
-        => Sister: Not happy about this idea, but will change DNA signature, so you are not registered (new name on Ceres to choose??)
-        => Prepare Shuttle
-    Level end at shuttle
-        => Sister: Look for me, I will wait!
-Arrival at minor Ceres Freight bay:
-        => Talk with stanger family: Thank god we are safe, hurry up, we have to leave this place before they realize what happened
-        => check loot and leave bay (maybe split up?)
-        => workers bay survival begins
+    Go to Rest before night shift
+#### Meteorit Night:
+#####You spawn at the control terminal, there are noises from the storage:
+* you find the stranger, he tells you his story, fam freezes to death
+* I have to tell the trader, He already knows, just check the freight log yourself, confirmation
+* check the rescue pods, you need override code
+#####Sisters spawns after talking to capsule
+* ask sister for help => override bacteria
+* Send them to Ceres
+* goto bed and leave ship
 
 
 QUEST 2:
