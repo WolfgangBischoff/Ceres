@@ -1,14 +1,16 @@
+
+##### 15 02 21
+* added trader side sprite
+
 ##### 14 02 21
 * Fixed: Item on last index can vanish with DragAndDrop
 * Finalized Drag and Drop
 * Add Incubator DragDRop
 
 ##### 11 02 21
-
 * drag and drop improved
 
 ##### 08 02 21
-
 * added first DragAndDrop
 
 ##### 04 02 21

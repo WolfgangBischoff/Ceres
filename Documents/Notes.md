@@ -37,8 +37,9 @@
 
 ####Sprites  
 - Ship: rename sleep capsules
-- Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels, floor cabel
-- Hammer and Sickle modern, Säulen, Tank    
+- Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
+- Hammer and Sickle modern, Säulen, Tank
+- bacteria culture, stranger person    
     
     
     => Level changes with time
