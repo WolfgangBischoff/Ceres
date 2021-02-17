@@ -1,5 +1,6 @@
 package Core;
 
+import Core.GameTime.TimeMode;
 import Core.Sprite.Sprite;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
@@ -22,8 +23,9 @@ public class LevelState
     private List<Sprite> topLayer;
     private Color shadowColor;
     private Map<String, WorldLoader.SpawnData> spawnPointsMap;
+    private TimeMode timeMode;
 
-    public LevelState(String levelName, long day, Rectangle2D borders, List<Sprite> activeSpritesLayer, List<Sprite> passiveSpritesLayer, List<Sprite> bottomLayer, List<Sprite> middleLayer, List<Sprite> topLayer, Color shadowColor, Map<String, WorldLoader.SpawnData> spawnPointsMap)
+    public LevelState(String levelName, long day, Rectangle2D borders, List<Sprite> activeSpritesLayer, List<Sprite> passiveSpritesLayer, List<Sprite> bottomLayer, List<Sprite> middleLayer, List<Sprite> topLayer, Color shadowColor, Map<String, WorldLoader.SpawnData> spawnPointsMap, TimeMode timeMode)
     {
         this.levelName = levelName;
         this.day = day;
@@ -35,6 +37,7 @@ public class LevelState
         this.topLayer = topLayer;
         this.shadowColor = shadowColor;
         this.spawnPointsMap = new HashMap<>(spawnPointsMap);
+        this.timeMode = timeMode;
     }
 
     @Override
@@ -97,5 +100,10 @@ public class LevelState
     public Map<String, WorldLoader.SpawnData> getSpawnPointsMap()
     {
         return spawnPointsMap;
+    }
+
+    public TimeMode getTimeMode()
+    {
+        return timeMode;
     }
 }

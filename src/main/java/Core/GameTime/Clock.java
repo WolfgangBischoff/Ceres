@@ -81,6 +81,6 @@ public class Clock
     public void setTimeMode(TimeMode timeMode)
     {
         this.timeMode = timeMode;
-        System.out.println(CLASSNAME + "setTimeMode: " + timeMode.name());
+        //System.out.println(CLASSNAME + "setTimeMode: " + timeMode.name());
     }
 }

@@ -11,7 +11,7 @@ sensorStatus	           ;default																			               ;textbox						
 tags                    ;persistent; TURNS_DIRECTION_ONINTERACTION
 
 #personality;initCooperation;trait1, trait1-cooperationThreshold,trai1-knowledgeTag; trait2 ...
-personality             ;003                                      ;EXTROVERSION                                                                                                                                                                                                                                                                                                                                               ,3,none                 ;SENSING,6,none          ;FEELING,9,none;JUDGING,12,none
+personality             ;003                                      ;EXTROVERSION ,3,none                 ;SENSING,6,none          ;FEELING,9,none;JUDGING,12,none
 
 #status to image
 #status 																;name   				;spritename  																												;blocker																	;heightLayer			;fps												;totalFrames		;cols										;rows									;frameWidth			;frameHeight						;hitboxOffsetX					;hitboxOffsetY ;hitBoxWidth 	;hitBoxHeight ;lightning 				;dialogueID								;dialogueId																															; unused; unused; unused; unused; unused ;duration ;velocity  ;AnimationEnds

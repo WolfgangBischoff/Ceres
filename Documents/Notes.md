@@ -2,7 +2,7 @@
 #Backlog
 
 ####Bug
-* after finishing air quest, technician changes place
+
 
 ####Inventory
 Incubator Convert Button

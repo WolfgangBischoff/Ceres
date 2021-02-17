@@ -280,7 +280,7 @@ public class WorldView
         activeSpritesLayer.remove(player);
         middleLayer.remove(player); //Player Layer
         GameVariables.setPlayer(player);
-        GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.gameDateTime().getDays(), borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, upperLayer, shadowColor, spawnPointsMap));
+        GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.gameDateTime().getDays(), borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, upperLayer, shadowColor, spawnPointsMap, GameVariables.getClock().getTimeMode()));
     }
 
     public void loadStage(String levelName, String spawnId)
@@ -291,22 +291,22 @@ public class WorldView
         this.levelName = levelName;
         //check if level was already loaded today
         LevelState levelState = GameVariables.getLevelData().get(this.levelName);
-        WorldLoader worldLoader = new WorldLoader();
-        worldLoader.load(levelName, spawnId);
+//        WorldLoader worldLoader = new WorldLoader();
+//        worldLoader.load(levelName, spawnId);
 
         if (levelState != null && levelState.getDay() == GameVariables.gameDateTime().getDays())//Level was loaded on same day
             loadFromLevelDailyState(levelState, spawnId);
         else if (levelState != null)//Level was already loaded on another day
         {
             System.out.println(CLASSNAME + methodName + "loaded persistent state");
-            loadLevelFromPersistentState(levelState, spawnId, worldLoader);
+            loadLevelFromPersistentState(levelState, spawnId);
         }
         else //Level loaded the first time
         {
             System.out.println(CLASSNAME + methodName + "loaded from file");
-            loadLevelFromFile(spawnId, worldLoader);
+            loadLevelFromFile(spawnId);
         }
-        GameVariables.getClock().setTimeMode(worldLoader.getTimeMode());
+
 
         offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
         offsetMaxY = borders.getMaxY() - CAMERA_HEIGHT;
@@ -326,9 +326,11 @@ public class WorldView
         shadowColor = null;
     }
 
-    private void loadLevelFromPersistentState(LevelState levelState, String spawnId, WorldLoader worldLoader)
+    private void loadLevelFromPersistentState(LevelState levelState, String spawnId)
     {
         String methodName = "loadLevelFromPersistentState() ";
+        WorldLoader worldLoader = new WorldLoader();
+        worldLoader.load(levelName, spawnId);
         List<Sprite> tmp_passiveSpritesLayer = worldLoader.getPassivLayer();
         List<Sprite> tmp_activeSpritesLayer = worldLoader.getActiveLayer();
         List<Sprite> tmp_bottomLayer = worldLoader.getBttmLayer();
@@ -407,10 +409,13 @@ public class WorldView
         borders = worldLoader.getBorders();
         shadowColor = worldLoader.getShadowColor();
         spawnPointsMap = worldLoader.getSpawnPointsMap();
+        GameVariables.getClock().setTimeMode(worldLoader.getTimeMode());
     }
 
-    private void loadLevelFromFile(String spawnId, WorldLoader worldLoader)
+    private void loadLevelFromFile(String spawnId)
     {
+        WorldLoader worldLoader = new WorldLoader();
+        worldLoader.load(levelName, spawnId);
         player = worldLoader.getPlayer();
         passiveSpritesLayer = worldLoader.getPassivLayer(); //No collision just render
         activeSpritesLayer = worldLoader.getActiveLayer();
@@ -425,6 +430,7 @@ public class WorldView
         borders = worldLoader.getBorders();
         setShadowColor(worldLoader.getShadowColor());
         spawnPointsMap = worldLoader.getSpawnPointsMap();
+        GameVariables.getClock().setTimeMode(worldLoader.getTimeMode());
     }
 
     private void loadFromLevelDailyState(LevelState levelState, String spawnId)
@@ -438,6 +444,7 @@ public class WorldView
         borders = levelState.getBorders();
         shadowColor = levelState.getShadowColor();
         spawnPointsMap = levelState.getSpawnPointsMap();
+        GameVariables.getClock().setTimeMode(levelState.getTimeMode());
 
         //Player
         player = GameVariables.getPlayer();
@@ -450,6 +457,7 @@ public class WorldView
         passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
         passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
         passiveCollisionRelevantSpritesLayer.addAll(upperLayer);
+
         System.out.println(CLASSNAME + methodName);
     }
 
