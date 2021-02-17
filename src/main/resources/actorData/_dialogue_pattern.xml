@@ -56,7 +56,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
     <dialogue id="air_system_check" type="boolean" variablename="isTransporterAirSystemOn" true="air_system_on" false="air_system_off"/>
 
-    <dialogue id="LEVEL_" type="levelchange" level="crewdeck/crewdeck" spawnID="default"/>
+    <dialogue id="LEVEL_" type="normal" levelchange="crewdeck/crewdeck" spawnID="default"/>
 
 </root>
 

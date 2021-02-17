@@ -11,7 +11,7 @@
         <option nextDialogue="LEVEL_CERES">Start launch sequence!</option>
     </dialogue>
 
-    <dialogue id="LEVEL_CERES" type="levelchange" level="living_quarter/air_lock" spawnID="default"/>
+    <dialogue id="LEVEL_CERES" type="normal" levelchange="living_quarter/air_lock" spawnID="default"/>
 
 </root>
 

@@ -11,13 +11,13 @@
         <option type="player" variablename="spritestatus" visibleIf="spacesuit">[Leave]</option>
         <option type="player" variablename="spritestatus" visibleIf="default">You need a %%VTspace suit%% to enter the area.</option>
     </dialogue>
-    <dialogue id="GOTO_CAPSULE" type="levelchange" level="transporter/capsule/base" spawnID="default"/>
+    <dialogue id="GOTO_CAPSULE" type="normal" levelchange="transporter/capsule/base" spawnID="default"/>
 
     <dialogue id="INTRO_CAPSULE_EXIT" type="decision">
         <option nextDialogue="EXIT_CAPSULE">[Exit freight capsule]</option>
         <option>[Leave]</option>
     </dialogue>
-    <dialogue id="EXIT_CAPSULE" type="levelchange" level="transporter/transporter" spawnID="meteor_capsule"/>
+    <dialogue id="EXIT_CAPSULE" type="normal" levelchange="transporter/transporter" spawnID="meteor_capsule"/>
 
 </root>
 

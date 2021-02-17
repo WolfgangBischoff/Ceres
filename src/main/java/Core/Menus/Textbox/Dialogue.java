@@ -51,12 +51,6 @@ public class Dialogue
                 addOption(TEXTBOX_ATTRIBUTE_DEFEAT, defeatNextMsg);
                 WorldView.setDiscussionGame(new CoinGame(discussionGameName, actorOfDialogue));
                 break;
-            case TEXTBOX_TYPE_LEVELCHANGE_DEPRECATED:
-                String levelname = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL);
-                String spawnId = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID);
-                WorldView.getSingleton().saveStage();
-                WorldView.getSingleton().loadStage(levelname, spawnId);
-                break;
             case TEXTBOX_TYPE_DAY_CHANGE:
                 WorldViewController.setWorldViewStatus(WorldViewStatus.DAY_SUMMARY);
                 DaySummaryScreenController.newDay();

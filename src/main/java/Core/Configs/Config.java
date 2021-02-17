@@ -131,7 +131,6 @@ public class Config
     public static final String SCRIPT_ACTOR = "script";
 
     //DialogueFile Keywords
-    public static final String TEXTBOX_TYPE_LEVELCHANGE_DEPRECATED = "levelchange";
     public static final String TEXTBOX_TYPE_DECISION = "decision";
     public static final String TEXTBOX_TYPE_COIN_GAME = "discussion";
     public static final String TEXTBOX_TYPE_DAY_CHANGE = "dayChange";

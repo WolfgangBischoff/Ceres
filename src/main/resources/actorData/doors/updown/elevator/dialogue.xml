@@ -21,9 +21,9 @@
         <line>No energy</line>
     </dialogue>
 
-    <dialogue id="DECISION-toCrewDeck" type="levelchange" level="crewdeck/crewdeck" spawnID="elevator"/>
+    <dialogue id="DECISION-toCrewDeck" type="normal" levelchange="crewdeck/crewdeck" spawnID="elevator"/>
 
-    <dialogue id="DECISION-toFreightDeck" type="levelchange" level="transporter/transporter" spawnID="elevator"/>
+    <dialogue id="DECISION-toFreightDeck" type="normal" levelchange="transporter/transporter" spawnID="elevator"/>
 </root>
 
 

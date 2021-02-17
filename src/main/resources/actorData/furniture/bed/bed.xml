@@ -41,10 +41,6 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Technical</line>
     </dialogue>
 
-    <dialogue id="decision_toNightShift" type="timeChange" value="16" nextDialogue="start_night_shift">
-        <line>Technical</line>
-    </dialogue>
-
     <dialogue id="start_night_shift" type="normal" levelchange="transporter/transporter" spawnID="default" timechange="16"/>
 </root>
 
