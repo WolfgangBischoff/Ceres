@@ -2,20 +2,31 @@
 
 <root name="bed">
     <dialogue id="sleep" type="normal" nextDialogue="sleep-decision">
-        <line>Do you want to spend the remaining day in your capsule?</line>
+        <line>You can rest if there is no work left...</line>
     </dialogue>
 
     <dialogue id="sleep-decision" type="decision">
-        <option nextDialogue="decision_nextDay">Rest till next day.</option>
-        <option nextDialogue="start_night_shift">Rest till night shift.</option>
+        <option nextDialogue="decision_nextDay" type="boolean" variablename="transporter_air_system_quest_started"
+                visibleIf="done">Rest till next day.
+        </option>
         <option>[back]</option>
     </dialogue>
 
-    <dialogue id="decision_nextDay" type="technical" daychange="">
-        <line>Technical</line>
+    <dialogue id="day2" type="normal" nextDialogue="day2_decision">
+        <line>You can rest if there is no work left...</line>
     </dialogue>
 
-    <dialogue id="start_night_shift" type="normal" levelchange="transporter/transporter" spawnID="default" timechange="16"/>
+    <dialogue id="day2_decision" type="decision">
+        <option nextDialogue="start_night_shift" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED"
+                visibleIf="done">Rest till night shift.
+        </option>
+        <option>[back]</option>
+    </dialogue>
+
+    <dialogue id="decision_nextDay" type="technical" daychange="" dialogueId="day2"/>
+
+    <dialogue id="start_night_shift" type="normal" levelchange="transporter/transporter" spawnID="default"
+              timechange="16" variablename="STRANGER_APPEARANCE_QUEST" set="started"/>
 </root>
 
 

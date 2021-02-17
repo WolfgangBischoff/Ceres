@@ -365,7 +365,7 @@ public class WorldView
         {
             if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT))
             {
-                System.out.println(CLASSNAME + methodName + activeSprite.getActor().getActorInGameName());
+                //System.out.println(CLASSNAME + methodName + activeSprite.getActor().getActorInGameName());
                 tmp_activeSpritesLayer.add(activeSprite);
                 switch (activeSprite.getLayer())
                 {

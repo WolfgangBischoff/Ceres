@@ -3,6 +3,8 @@
 * added optional time clock tick
 * changed many textbox types to attributes
 * Click on Coins buggy, now also uses drag
+* disable bed, should be dependent on quest status
+* spawn during night on control deck
 
 ##### 15 02 21
 * added trader side sprite

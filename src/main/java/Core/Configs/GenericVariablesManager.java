@@ -16,6 +16,7 @@ public class GenericVariablesManager
         stringWorldVariables.put("AIR_SYSTEM_REBOOT_PART1_WON", "false");
         stringWorldVariables.put("METEROIT_HIT", "false");
         stringWorldVariables.put("METEROIT_DAMAGE_ANALYZED", "false");
+        stringWorldVariables.put("STRANGER_APPEARANCE_QUEST", "false");
     }
 
     public String getValue(String varName)

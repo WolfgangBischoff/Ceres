@@ -2,7 +2,8 @@
 #Backlog
 
 ####Bug
-
+* after begin of night shift the level doesnt reload from file, so wrong sprites appear
+* STRANGER_APPEARANCE_QUEST not set after Dialogue
 
 ####Inventory
 Incubator Convert Button
@@ -30,8 +31,7 @@ Incubator Convert Button
 
 #### Main Quest
 * add easy characterGame -> sister before talk to trader, get some item
-* disable bed, should be dependent on quest status
-* spawn during night on control deck, hear starnge noises from storage
+* global var for found stranger prevents from crew deck
 * find stranger in storage
 * tells story, check the logs
 * check the rescure pods => need to be overriden

@@ -76,7 +76,7 @@ public class GameVariables
         String methodName = "incrementDay() ";
         playerMaM_dayStart = playerMaM_duringDay.getValue();
         clock.skipToNextDay();
-        System.out.println(CLASSNAME + methodName + clock.getCurrentGameTime() + " MaM-Start: " + playerMaM_dayStart);
+        //System.out.println(CLASSNAME + methodName + clock.getCurrentGameTime() + " MaM-Start: " + playerMaM_dayStart);
     }
 
     public static void updateHunger(Long currentNanoTime)
@@ -202,6 +202,7 @@ public class GameVariables
     public static void setGenericVariable(String varName, String newValue)
     {
         booleanWorldVariables.setValue(varName, newValue);
+        System.out.println(CLASSNAME + "set " + varName + " to " + newValue);
     }
 
     public static Map<String, String> getGenericVariables()
