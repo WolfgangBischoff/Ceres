@@ -132,8 +132,7 @@ public class Config
 
     //DialogueFile Keywords
     public static final String DIALOGUE_TYPE_DECISION = "decision";
-    public static final String DIALOGUE_TYPE_COIN_GAME = "discussion";
-    //public static final String DIALOGUE_TYPE_DAY_CHANGE = "dayChange";
+    public static final String DIALOGUE_TYPE_TEXT = "normal";
     public static final String DIALOGUE_TYPE_TECHNICAL = "technical";
 
     public static final String DIALOGUE_TAG = "dialogue";
@@ -145,13 +144,13 @@ public class Config
     public static final String OPTION_TAG = "option";
     public static final String SPRITECHANGE_TAG = "spritechange";
 
+    public static final String TEXTBOX_ATTRIBUTE_COIN_GAME = "discussion";
     public static final String TEXTBOX_ATTRIBUTE_SPRITE_ID = "sprite_id";
     public static final String TEXTBOX_ATTRIBUTE_NEW_STATUS = "status";
     public static final String TEXTBOX_ATTRIBUTE_TYPE = "type";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_ACTOR = "item_actor";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_NAME = "item_name";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_STATUS = "item_status";
-    public static final String TEXTBOX_ATTRIBUTE_GAME = "game";
     public static final String TEXTBOX_ATTRIBUTE_SUCCESS = "success";
     public static final String TEXTBOX_ATTRIBUTE_DEFEAT = "defeat";
     public static final String TEXTBOX_ATTRIBUTE_SPAWN_ID = "spawnID";

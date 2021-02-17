@@ -43,14 +43,6 @@ public class Dialogue
             case DIALOGUE_TYPE_DECISION:
                 readOptions(currentDialogueXML);
                 break;
-            case DIALOGUE_TYPE_COIN_GAME:
-                String discussionGameName = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_GAME);
-                String successNextMsg = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SUCCESS);
-                String defeatNextMsg = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_DEFEAT);
-                addOption(TEXTBOX_ATTRIBUTE_SUCCESS, successNextMsg);
-                addOption(TEXTBOX_ATTRIBUTE_DEFEAT, defeatNextMsg);
-                WorldView.setDiscussionGame(new CoinGame(discussionGameName, actorOfDialogue));
-                break;
             case TEXTBOX_ATTRIBUTE_VALUE_BOOLEAN:
                 break;
             default:
@@ -59,11 +51,22 @@ public class Dialogue
                     String message = Utilities.removeAllBlanksExceptOne(xmlLines.item(messageIdx).getTextContent());
                     messages.add(message);//Without formatting the message
                 }
+
                 if (type.equals(TEXTBOX_ATTRIBUTE_GET_MONEY))
                 {
                     int amount = Integer.parseInt(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_VALUE));
                     GameVariables.addPlayerMoney(amount);
                     NewMessageOverlay.showMsg("received " + amount + " GSC!");
+                }
+                if(currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_COIN_GAME))
+                {
+                    String discussionGameName = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_COIN_GAME);
+                    String successNextMsg = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SUCCESS);
+                    String defeatNextMsg = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_DEFEAT);
+                    addOption(TEXTBOX_ATTRIBUTE_SUCCESS, successNextMsg);
+                    addOption(TEXTBOX_ATTRIBUTE_DEFEAT, defeatNextMsg);
+                    WorldView.setDiscussionGame(new CoinGame(discussionGameName, actorOfDialogue));
+                    WorldViewController.setWorldViewStatus(WorldViewStatus.COIN_GAME);
                 }
                 if(currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_TIME_CHANGE))
                 {

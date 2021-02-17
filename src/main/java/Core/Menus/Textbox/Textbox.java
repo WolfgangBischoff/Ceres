@@ -315,17 +315,15 @@ public class Textbox
             case DIALOGUE_TYPE_DECISION:
                 lineSplitMessage = readDialogue.getOptionMessages();
                 break;
-            case DIALOGUE_TYPE_COIN_GAME:
-                WorldViewController.setWorldViewStatus(WorldViewStatus.COIN_GAME);
-                lineSplitMessage = wrapText("Discussion ongoing");
-                break;
             case DIALOGUE_TYPE_TECHNICAL:
                 lineSplitMessage = wrapText("technical");
                 break;
+            case DIALOGUE_TYPE_TEXT:
             default:
                 String nextMessage = readDialogue.messages.get(messageIdx);
                 lineSplitMessage = wrapText(nextMessage);
                 break;
+
         }
 
         gc.setTextAlign(TextAlignment.LEFT);
