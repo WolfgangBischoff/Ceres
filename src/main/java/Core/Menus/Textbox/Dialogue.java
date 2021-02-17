@@ -51,7 +51,7 @@ public class Dialogue
                 addOption(TEXTBOX_ATTRIBUTE_DEFEAT, defeatNextMsg);
                 WorldView.setDiscussionGame(new CoinGame(discussionGameName, actorOfDialogue));
                 break;
-            case TEXTBOX_TYPE_LEVELCHANGE:
+            case TEXTBOX_TYPE_LEVELCHANGE_DEPRECATED:
                 String levelname = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL);
                 String spawnId = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID);
                 WorldView.getSingleton().saveStage();
@@ -74,6 +74,18 @@ public class Dialogue
                     int amount = Integer.parseInt(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_VALUE));
                     GameVariables.addPlayerMoney(amount);
                     NewMessageOverlay.showMsg("received " + amount + " GSC!");
+                }
+                if(currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_TIME_CHANGE))
+                {
+                    GameVariables.getClock().addTime(Integer.parseInt(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_TIME_CHANGE)));
+                }
+                if(currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE))
+                {
+                    WorldView.getSingleton().saveStage();
+                    WorldView.getSingleton().loadStage(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE), currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID));
+                    WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
+                    //lineSplitMessage = wrapText("technical");
+                    break;
                 }
                 if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_SET))
                 {

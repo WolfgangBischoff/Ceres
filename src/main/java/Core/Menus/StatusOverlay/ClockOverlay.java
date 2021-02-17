@@ -24,7 +24,7 @@ public class ClockOverlay
     public ClockOverlay(BarStatusConfig config, Clock clock)
     {
         this.clock = clock;
-        clock.timeTicksProperty().addListener(new ChangeListener<Number>()
+        clock.totalTimeTicksProperty().addListener(new ChangeListener<Number>()
         {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue)
@@ -32,7 +32,7 @@ public class ClockOverlay
                 current = (long) newValue;
             }
         });
-        current = clock.getTimeTicks();
+        current = clock.getTotalTimeTicks();
         this.WIDTH = config.WIDTH;
         this.HEIGHT = config.HEIGHT;
         this.SCREENPOSITION = config.SCREEN_POSITION;

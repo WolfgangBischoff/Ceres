@@ -11,7 +11,7 @@ spawnpoints:
 #ID												;PosX;PosY	;Direction
 exit											;07		;28			;east
 default								;25		;23			;north
-ladder									;31		;11				;north
+ladder									;31		;11			;north
 elevator							;31		;34			;south
 meteor_capsule	;24		;19			;east
 
@@ -21,7 +21,7 @@ tiledefinition:
 #layer: 0 => on floor ;1 => player hight ;2 => above player
 #Floor
 #code     ;name        ;spritename        										;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueId ;dialogueFile ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-black_    ;black							;img/void_64_64														;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+black_    ;black							;img/void_64_64														;false				;0												;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 space0    ;space							;img/floor/space/s0 						 		;false				;0											 ;0			;0												;0				;0				;0										;0											;0													;0													;0										 ;0												;none						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 space1    ;space							;img/floor/space/s1 						 		;false				;0											 ;0			;0												;0				;0				;0										;0											;0													;0													;0										 ;0												;none						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 space2    ;space							;img/floor/space/s2 						 		;false				;0											 ;0			;0												;0				;0				;0										;0											;0													;0													;0										 ;0												;none						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4

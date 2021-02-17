@@ -37,7 +37,7 @@ public class GameVariables
     public static void init()
     {
         clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
-        lastTimeHungerFromTime = clock.getTimeTicks();
+        lastTimeHungerFromTime = clock.getTotalTimeTicks();
     }
 
     public static void setPlayer(Sprite player)
@@ -83,9 +83,9 @@ public class GameVariables
     {
         String methodName = "updateHunger() ";
         int intervalsForHunger = 9;// 12hours = 43 200 ticks
-        if (lastTimeHungerFromTime + intervalsForHunger < clock.getTimeTicks()) {
+        if (lastTimeHungerFromTime + intervalsForHunger < clock.getTotalTimeTicks()) {
             addHunger(-1);
-            lastTimeHungerFromTime = clock.getTimeTicks();
+            lastTimeHungerFromTime = clock.getTotalTimeTicks();
             //System.out.println(CLASSNAME + methodName + playerHunger.getValue() + " " + clock.getFormattedTime());
         }
     }

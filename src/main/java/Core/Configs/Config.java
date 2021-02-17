@@ -131,7 +131,7 @@ public class Config
     public static final String SCRIPT_ACTOR = "script";
 
     //DialogueFile Keywords
-    public static final String TEXTBOX_TYPE_LEVELCHANGE = "levelchange";
+    public static final String TEXTBOX_TYPE_LEVELCHANGE_DEPRECATED = "levelchange";
     public static final String TEXTBOX_TYPE_DECISION = "decision";
     public static final String TEXTBOX_TYPE_COIN_GAME = "discussion";
     public static final String TEXTBOX_TYPE_DAY_CHANGE = "dayChange";
@@ -169,6 +169,8 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_DIALOGUE_ID = "dialogueId";
     public static final String TEXTBOX_ATTRIBUTE_VALUE_BOOLEAN = "boolean";
     public static final String TEXTBOX_ATTRIBUTE_SET_WORLD_LIGHT = "worldlight";
+    public static final String TEXTBOX_ATTRIBUTE_TIME_CHANGE = "timechange";
+    public static final String TEXTBOX_ATTRIBUTE_LEVEL_CHANGE = "levelchange";
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";

@@ -319,7 +319,7 @@ public class Textbox
                 WorldViewController.setWorldViewStatus(WorldViewStatus.COIN_GAME);
                 lineSplitMessage = wrapText("Discussion ongoing");
                 break;
-            case TEXTBOX_TYPE_LEVELCHANGE:
+            case TEXTBOX_TYPE_LEVELCHANGE_DEPRECATED:
                 WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
                 lineSplitMessage = wrapText("technical");
                 break;
