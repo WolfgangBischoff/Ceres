@@ -4,6 +4,9 @@ shadow:
 EMERGENCY_LIGHT
 #none
 
+time_mode:
+DAY
+
 spawnpoints:
 #ID						;PosX;PosY	;Direction
 default		;26		;19			;west

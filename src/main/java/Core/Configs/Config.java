@@ -110,6 +110,7 @@ public class Config
     public static final String KEYWORD_INCLUDE = "include:";
     public static final String KEYWORD_POSITION = "position:";
     public static final String KEYWORD_GLOBAL_SYSTEM_ACTOR = "global_system_actor:";
+    public static final String KEYWORD_TIME_MODE = "time_mode:";
 
     public static final String INCLUDE_CONDITION_suspicion_lessequal = "suspicion_lessequal";
     public static final String INCLUDE_CONDITION_day_greaterequal = "day_greaterequal";

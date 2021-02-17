@@ -14,6 +14,7 @@ public class Clock
     private static final int MINUTES_PER_DAY = 60 * 24;
     LongProperty timeTicks = new SimpleLongProperty(DAY_WAKE_UP_TIME.ticks());
     Long lastTimeIncremented;
+    TimeMode timeMode = TimeMode.RUNNING;
 
     public Clock(Long initRealTime)
     {
@@ -23,10 +24,17 @@ public class Clock
     public void tryIncrementTime(Long currentNanoTime)
     {
         String methodName = "tryIncrementTime() ";
-        double elapsedTimeSinceLastIncrement = (currentNanoTime - lastTimeIncremented) / 1000000000.0;
-        if (elapsedTimeSinceLastIncrement > LENGTH_GAME_MINUTE_SECONDS && WorldViewController.getWorldViewStatus() == WorldViewStatus.WORLD) {
-            timeTicks.set(timeTicks.getValue() + 1);
-            lastTimeIncremented = currentNanoTime;
+        switch (timeMode)
+        {
+            case DAY:
+            case NIGHT:
+                break;
+            case RUNNING:
+                double elapsedTimeSinceLastIncrement = (currentNanoTime - lastTimeIncremented) / 1000000000.0;
+                if (elapsedTimeSinceLastIncrement > LENGTH_GAME_MINUTE_SECONDS && WorldViewController.getWorldViewStatus() == WorldViewStatus.WORLD) {
+                    timeTicks.set(timeTicks.getValue() + 1);
+                    lastTimeIncremented = currentNanoTime;
+                }
         }
     }
 
@@ -56,5 +64,16 @@ public class Clock
     public LongProperty timeTicksProperty()
     {
         return timeTicks;
+    }
+
+    public TimeMode getTimeMode()
+    {
+        return timeMode;
+    }
+
+    public void setTimeMode(TimeMode timeMode)
+    {
+        this.timeMode = timeMode;
+        System.out.println(CLASSNAME + "setTimeMode: " + timeMode.name());
     }
 }

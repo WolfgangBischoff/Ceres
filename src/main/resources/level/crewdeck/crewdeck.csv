@@ -3,6 +3,9 @@
 shadow:
 none
 
+time_mode:
+DAY
+
 spawnpoints:
 #ID						;PosX;PosY	;Direction
 default		;30		;25			;west

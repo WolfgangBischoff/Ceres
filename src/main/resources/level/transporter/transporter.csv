@@ -4,6 +4,9 @@
 shadow:
 none
 
+time_mode:
+DAY
+
 spawnpoints:
 #ID												;PosX;PosY	;Direction
 exit											;07		;28			;east

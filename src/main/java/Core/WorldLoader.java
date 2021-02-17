@@ -4,6 +4,7 @@ import Core.ActorSystem.ActorMonitor;
 import Core.ActorSystem.GlobalActorsManager;
 import Core.Configs.Config;
 import Core.Enums.Direction;
+import Core.GameTime.TimeMode;
 import Core.Sprite.Sprite;
 import Core.Sprite.SpriteData;
 import Core.WorldView.WorldView;
@@ -44,6 +45,7 @@ public class WorldLoader
     int currentHorizontalTile = 0;
     int maxHorizontalTile = 0;
     private Rectangle2D borders;
+    TimeMode timeMode = TimeMode.RUNNING;
 
     public WorldLoader()
     {
@@ -58,6 +60,7 @@ public class WorldLoader
             keywords.add(KEYWORD_INCLUDE);
             keywords.add(KEYWORD_POSITION);
             keywords.add(KEYWORD_GLOBAL_SYSTEM_ACTOR);
+            keywords.add(KEYWORD_TIME_MODE);
         }
 
     }
@@ -121,47 +124,53 @@ public class WorldLoader
             return;
         }
 
-        {
-            //process line according to keyword
-            switch (readMode) {
-                case KEYWORD_TILEDEF:
-                    tileDataMap.put(lineData[SpriteData.getTileCodeIdx()], SpriteData.tileDefinition(lineData));
-                    loadedTileIdsSet.add(lineData[SpriteData.getTileCodeIdx()]);
-                    break;
-                case KEYWORD_NEW_LAYER:
-                    readLineOfTiles(lineData, false);
-                    break;
-                case KEYWORD_PASSIV_LAYER:
-                    readLineOfTiles(lineData, true);
-                    break;
-                case KEYWORD_ACTORS:
-                    readActorData(lineData);
-                    break;
-                case KEYWORD_WORLDSHADOW:
-                    shadowColor = readWorldShadow(lineData);
-                    break;
-                case KEYWORD_GROUPS:
-                    readActorGroups(lineData);
-                    break;
-                case KEYWORD_SPAWNPOINTS:
-                    readSpawnPoint(lineData);
-                    break;
-                case KEYWORD_INCLUDE:
-                    String readModeTmp = readMode;
-                    readInclude(lineData);
-                    readMode = readModeTmp;
-                    break;
-                case KEYWORD_POSITION:
-                    readPosition(lineData);
-                    break;
-                case KEYWORD_GLOBAL_SYSTEM_ACTOR:
-                    getGlobalSystemActor(lineData);
-                    break;
-                default:
-                    throw new RuntimeException(CLASSNAME + methodName + "readMode unknown: " + readMode);
-            }
+        //process line according to keyword
+        switch (readMode) {
+            case KEYWORD_TILEDEF:
+                tileDataMap.put(lineData[SpriteData.getTileCodeIdx()], SpriteData.tileDefinition(lineData));
+                loadedTileIdsSet.add(lineData[SpriteData.getTileCodeIdx()]);
+                break;
+            case KEYWORD_NEW_LAYER:
+                readLineOfTiles(lineData, false);
+                break;
+            case KEYWORD_PASSIV_LAYER:
+                readLineOfTiles(lineData, true);
+                break;
+            case KEYWORD_ACTORS:
+                readActorData(lineData);
+                break;
+            case KEYWORD_WORLDSHADOW:
+                shadowColor = readWorldShadow(lineData);
+                break;
+            case KEYWORD_GROUPS:
+                readActorGroups(lineData);
+                break;
+            case KEYWORD_SPAWNPOINTS:
+                readSpawnPoint(lineData);
+                break;
+            case KEYWORD_INCLUDE:
+                String readModeTmp = readMode;
+                readInclude(lineData);
+                readMode = readModeTmp;
+                break;
+            case KEYWORD_POSITION:
+                readPosition(lineData);
+                break;
+            case KEYWORD_GLOBAL_SYSTEM_ACTOR:
+                getGlobalSystemActor(lineData);
+                break;
+                case KEYWORD_TIME_MODE:
+                    timeMode = readTimeMode(lineData);
+                break;
+            default:
+                throw new RuntimeException(CLASSNAME + methodName + "readMode unknown: " + readMode);
         }
 
+    }
+
+    private TimeMode readTimeMode(String[] linedata)
+    {
+        return TimeMode.of(linedata[0]);
     }
 
     private void getGlobalSystemActor(String[] linedata)
@@ -595,6 +604,11 @@ public class WorldLoader
     public int getMaxHorizontalTile()
     {
         return maxHorizontalTile;
+    }
+
+    public TimeMode getTimeMode()
+    {
+        return timeMode;
     }
 
     static class ActorGroupData

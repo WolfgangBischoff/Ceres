@@ -6,10 +6,10 @@ import Core.Enums.ActorTag;
 import Core.Enums.Direction;
 import Core.GameTime.DateTime;
 import Core.GameTime.Time;
+import Core.GameTime.TimeMode;
 import Core.Menus.AchievmentLog.NewMessageOverlay;
 import Core.Menus.CoinGame.CoinGame;
 import Core.Menus.DaySummary.DaySummaryScreenController;
-import Core.Menus.Inventory.IncubatorOverlay;
 import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Personality.PersonalityScreenController;
 import Core.Menus.StatusOverlay.BarStatusConfig;
@@ -40,59 +40,36 @@ import static Core.WorldView.WorldViewStatus.WORLD;
 public class WorldView
 {
     private static final String CLASSNAME = "WorldView/";
-    private static WorldView singleton;
-    Pane root;
-    Canvas worldCanvas;
-    GraphicsContext gc;
-    Canvas shadowMask;
-    GraphicsContext shadowMaskGc;
-    Canvas hudCanvas;
-    Map<String, Image> lightsImageMap = new HashMap<>();
-    Color shadowColor;
-
     //Inventory Overlay
     static InventoryController inventoryController;
     static Point2D inventoryOverlayPosition = new Point2D(0, 0);
     static Long lastTimeMenuWasOpened = 0L;
-
     //TextBox Overlay
     static Textbox textbox;
     static Point2D textBoxPosition = TEXT_BOX_POSITION;
-
     //Personality Overlay
     static PersonalityScreenController personalityScreenController;
     static Point2D personalityScreenPosition = PERSONALITY_POSITION;
-
     //Discussion Game Overlay
     static CoinGame coinGame;
     static Point2D discussionGamePosition = COINGAME_POSITION;
-
     //DaySummary Overlay
     static DaySummaryScreenController daySummaryScreenController = new DaySummaryScreenController();
     static Point2D daySummaryScreenPosition = DAY_SUMMARY_POSITION;
-
     //Management Attention Meter Overlay
     static BarStatusOverlay mamOverlay = new BarStatusOverlay(
             new BarStatusConfig("interface/bars/MaM_bar_400x64.png", null, COLOR_RED,
                     MAM_BAR_WIDTH, MAM_BAR_HEIGHT, 100, GameVariables.getPlayerMaM_duringDayProperty(), MAM_BAR_POSITION));
     static Point2D mamOverlayPosition = MAM_BAR_POSITION;
-
     //Money Overlay
     static VariableStatusOverlay moneyOverlay = new VariableStatusOverlay(MONEY_FIELD_WIDTH, MONEY_FIELD_HEIGHT, GameVariables.playerMoneyProperty(), "interface/bars/money_field_150x64.png", MONEY_POSITION);
-
     //Hunger Overlay
     static BarStatusOverlay hungerOverlay = new BarStatusOverlay(new BarStatusConfig("interface/bars/food_bar_400x64.png", null, COLOR_GREEN,
             MAM_BAR_WIDTH, MAM_BAR_HEIGHT, MAX_HUNGER, GameVariables.playerHungerProperty(), HUNGER_BAR_POSITION));
-
     //Clock Overlay
     static ClockOverlay boardTimeOverlay;
-
     //Message Overlay
     static NewMessageOverlay newMessageOverlay = new NewMessageOverlay();
-
-    //Sprites
-    String levelName;
-    private static Rectangle2D borders;
     static List<Sprite> activeSpritesLayer = new ArrayList<>();
     static List<Sprite> passiveCollisionRelevantSpritesLayer = new ArrayList<>();
     static List<Sprite> passiveSpritesLayer = new ArrayList<>();
@@ -103,15 +80,25 @@ public class WorldView
     static Sprite player;
     static Map<String, WorldLoader.SpawnData> spawnPointsMap = new HashMap<>();
     static List<Sprite> toRemove = new ArrayList<>();
-
+    static double camX;
+    static double camY;
+    private static WorldView singleton;
+    private static Rectangle2D borders;
+    Pane root;
+    Canvas worldCanvas;
+    GraphicsContext gc;
+    Canvas shadowMask;
+    GraphicsContext shadowMaskGc;
+    Canvas hudCanvas;
+    Map<String, Image> lightsImageMap = new HashMap<>();
+    Color shadowColor;
+    //Sprites
+    String levelName;
     //Camera
     double offsetMaxX;
     double offsetMaxY;
     int offsetMinX = 0;
     int offsetMinY = 0;
-    static double camX;
-    static double camY;
-
     double bumpX = 0, bumpY = 0, rumbleGrade = RUMBLE_GRADE;
     Long timeStartBump = null;
     float durationBump = RUMBLE_MAX_DURATION;
@@ -138,6 +125,155 @@ public class WorldView
                 BOARD_TIME_WIDTH, BOARD_TIME_HEIGHT, 0, null, BOARD_TIME_POSITION), GameVariables.getClock());
     }
 
+    public static void startConversation(String dialogueFile, String dialogueId, Long currentNanoTime)
+    {
+        textbox.startConversation(dialogueFile, dialogueId);
+        WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
+        player.getActor().setLastInteraction(currentNanoTime);
+    }
+
+    public static List<Sprite> getPassiveCollisionRelevantSpritesLayer()
+    {
+        return passiveCollisionRelevantSpritesLayer;
+    }
+
+    public static List<Sprite> getMiddleLayer()
+    {
+        return middleLayer;
+    }
+
+    public static List<Sprite> getUpperLayer()
+    {
+        return upperLayer;
+    }
+
+    public static Rectangle2D getBorders()
+    {
+        return borders;
+    }
+
+    public static Sprite getPlayer()
+    {
+        return player;
+    }
+
+    public static WorldView getSingleton()
+    {
+        if (singleton == null)
+            singleton = new WorldView(Config.FIRST_LEVEL);
+        return singleton;
+    }
+
+    public static Point2D getInventoryOverlayPosition()
+    {
+        return inventoryOverlayPosition;
+    }
+
+    public static Point2D getTextBoxPosition()
+    {
+        return textBoxPosition;
+    }
+
+    public static Point2D getPersonalityScreenPosition()
+    {
+        return personalityScreenPosition;
+    }
+
+    public static Textbox getTextbox()
+    {
+        return textbox;
+    }
+
+    public static String getCLASSNAME()
+    {
+        return CLASSNAME;
+    }
+
+    public static Long getLastTimeMenuWasOpened()
+    {
+        return lastTimeMenuWasOpened;
+    }
+
+    public static PersonalityScreenController getPersonalityScreenController()
+    {
+        return personalityScreenController;
+    }
+
+    public static void setPersonalityScreenController(PersonalityScreenController personalityScreenController)
+    {
+        WorldView.personalityScreenController = personalityScreenController;
+    }
+
+    public static CoinGame getDiscussionGame()
+    {
+        return coinGame;
+    }
+
+    public static void setDiscussionGame(CoinGame coinArea)
+    {
+        WorldView.coinGame = coinArea;
+    }
+
+    public static Point2D getDiscussionGamePosition()
+    {
+        return discussionGamePosition;
+    }
+
+    public static DaySummaryScreenController getDaySummaryScreenController()
+    {
+        return daySummaryScreenController;
+    }
+
+    public static Point2D getDaySummaryScreenPosition()
+    {
+        return daySummaryScreenPosition;
+    }
+
+    public static BarStatusOverlay getMamOverlay()
+    {
+        return mamOverlay;
+    }
+
+    public static Point2D getMamOverlayPosition()
+    {
+        return mamOverlayPosition;
+    }
+
+    public static List<Sprite> getActiveSpritesLayer()
+    {
+        return activeSpritesLayer;
+    }
+
+    public static List<Sprite> getPassiveSpritesLayer()
+    {
+        return passiveSpritesLayer;
+    }
+
+    public static List<Sprite> getBottomLayer()
+    {
+        return bottomLayer;
+    }
+
+    public static Map<String, WorldLoader.SpawnData> getSpawnPointsMap()
+    {
+        return spawnPointsMap;
+    }
+
+    public static List<Sprite> getToRemove()
+    {
+        return toRemove;
+    }
+
+    public static double getCamX()
+    {
+        return camX;
+    }
+
+    public static double getCamY()
+    {
+        return camY;
+    }
+
     public void saveStage()
     {
         String levelNameToSave = this.levelName;
@@ -155,18 +291,22 @@ public class WorldView
         this.levelName = levelName;
         //check if level was already loaded today
         LevelState levelState = GameVariables.getLevelData().get(this.levelName);
+        WorldLoader worldLoader = new WorldLoader();
+        worldLoader.load(levelName, spawnId);
+
         if (levelState != null && levelState.getDay() == GameVariables.gameDateTime().getDays())//Level was loaded on same day
             loadFromLevelDailyState(levelState, spawnId);
         else if (levelState != null)//Level was already loaded on another day
         {
             System.out.println(CLASSNAME + methodName + "loaded persistent state");
-            loadLevelFromPersistentState(levelState, spawnId);
+            loadLevelFromPersistentState(levelState, spawnId, worldLoader);
         }
         else //Level loaded the first time
         {
             System.out.println(CLASSNAME + methodName + "loaded from file");
-            loadLevelFromFile(spawnId);
+            loadLevelFromFile(spawnId, worldLoader);
         }
+        GameVariables.getClock().setTimeMode(worldLoader.getTimeMode());
 
         offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
         offsetMaxY = borders.getMaxY() - CAMERA_HEIGHT;
@@ -186,11 +326,9 @@ public class WorldView
         shadowColor = null;
     }
 
-    private void loadLevelFromPersistentState(LevelState levelState, String spawnId)
+    private void loadLevelFromPersistentState(LevelState levelState, String spawnId, WorldLoader worldLoader)
     {
         String methodName = "loadLevelFromPersistentState() ";
-        WorldLoader worldLoader = new WorldLoader();
-        worldLoader.load(levelName, spawnId);
         List<Sprite> tmp_passiveSpritesLayer = worldLoader.getPassivLayer();
         List<Sprite> tmp_activeSpritesLayer = worldLoader.getActiveLayer();
         List<Sprite> tmp_bottomLayer = worldLoader.getBttmLayer();
@@ -221,11 +359,14 @@ public class WorldView
                 .collect(Collectors.toList());
 
         //add persistent actors from state
-        for (Sprite activeSprite : levelState.getActiveSpritesLayer()) {
-            if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT)) {
+        for (Sprite activeSprite : levelState.getActiveSpritesLayer())
+        {
+            if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT))
+            {
                 System.out.println(CLASSNAME + methodName + activeSprite.getActor().getActorInGameName());
                 tmp_activeSpritesLayer.add(activeSprite);
-                switch (activeSprite.getLayer()) {
+                switch (activeSprite.getLayer())
+                {
                     case 0:
                         tmp_bottomLayer.add(activeSprite);
                         break;
@@ -268,10 +409,8 @@ public class WorldView
         spawnPointsMap = worldLoader.getSpawnPointsMap();
     }
 
-    private void loadLevelFromFile(String spawnId)
+    private void loadLevelFromFile(String spawnId, WorldLoader worldLoader)
     {
-        WorldLoader worldLoader = new WorldLoader();
-        worldLoader.load(levelName, spawnId);
         player = worldLoader.getPlayer();
         passiveSpritesLayer = worldLoader.getPassivLayer(); //No collision just render
         activeSpritesLayer = worldLoader.getActiveLayer();
@@ -313,7 +452,6 @@ public class WorldView
         passiveCollisionRelevantSpritesLayer.addAll(upperLayer);
         System.out.println(CLASSNAME + methodName);
     }
-
 
     public void update(Long currentNanoTime)
     {
@@ -490,13 +628,6 @@ public class WorldView
 
     }
 
-    public static void startConversation(String dialogueFile, String dialogueId, Long currentNanoTime)
-    {
-        textbox.startConversation(dialogueFile, dialogueId);
-        WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
-        player.getActor().setLastInteraction(currentNanoTime);
-    }
-
     private void processMouse(Long currentNanoTime)
     {
         String methodName = "processMouse() ";
@@ -620,29 +751,34 @@ public class WorldView
         }
         //Bottom heightLayer
         bottomLayer.sort(new SpriteComparator());
-        for (Sprite sprite : bottomLayer) {
+        for (Sprite sprite : bottomLayer)
+        {
             sprite.render(gc, currentNanoTime);
         }
         //Middle Layer
         middleLayer.sort(new SpriteComparator());
-        for (Sprite sprite : middleLayer) {
+        for (Sprite sprite : middleLayer)
+        {
             sprite.render(gc, currentNanoTime);
         }
         //Upper Layer
         upperLayer.sort(new SpriteComparator());
-        for (Sprite sprite : upperLayer) {
+        for (Sprite sprite : upperLayer)
+        {
             sprite.render(gc, currentNanoTime);
         }
         //Top Layer
         topLayer.sort(new SpriteComparator());
-        for (Sprite sprite : topLayer) {
+        for (Sprite sprite : topLayer)
+        {
             sprite.render(gc, currentNanoTime);
         }
 
         //Overlays
         hudCanvas.getGraphicsContext2D().clearRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
         renderHUD(currentNanoTime);
-        switch (WorldViewController.getWorldViewStatus()) {
+        switch (WorldViewController.getWorldViewStatus())
+        {
 
             case WORLD:
                 break;
@@ -702,7 +838,8 @@ public class WorldView
         hungerOverlay.render(hudCanvas.getGraphicsContext2D());
         mamOverlay.render(hudCanvas.getGraphicsContext2D());
         moneyOverlay.render(hudCanvas.getGraphicsContext2D());
-        boardTimeOverlay.render(hudCanvas.getGraphicsContext2D());
+        if (GameVariables.getClock().getTimeMode() == TimeMode.RUNNING)
+            boardTimeOverlay.render(hudCanvas.getGraphicsContext2D());
         if (newMessageOverlay.isVisible())
             newMessageOverlay.render(hudCanvas.getGraphicsContext2D(), currentNanoTime);
     }
@@ -741,76 +878,9 @@ public class WorldView
         return root;
     }
 
-    public static List<Sprite> getPassiveCollisionRelevantSpritesLayer()
-    {
-        return passiveCollisionRelevantSpritesLayer;
-    }
-
-    public static List<Sprite> getMiddleLayer()
-    {
-        return middleLayer;
-    }
-
-    public static List<Sprite> getUpperLayer()
-    {
-        return upperLayer;
-    }
-
-    public static Rectangle2D getBorders()
-    {
-        return borders;
-    }
-
-    public static Sprite getPlayer()
-    {
-        return player;
-    }
-
-    public static WorldView getSingleton()
-    {
-        if (singleton == null)
-            singleton = new WorldView(Config.FIRST_LEVEL);
-        return singleton;
-    }
-
-    public static Point2D getInventoryOverlayPosition()
-    {
-        return inventoryOverlayPosition;
-    }
-
-    public static Point2D getTextBoxPosition()
-    {
-        return textBoxPosition;
-    }
-
-    public static Point2D getPersonalityScreenPosition()
-    {
-        return personalityScreenPosition;
-    }
-
-    public static void setPersonalityScreenController(PersonalityScreenController personalityScreenController)
-    {
-        WorldView.personalityScreenController = personalityScreenController;
-    }
-
-    public static void setDiscussionGame(CoinGame coinArea)
-    {
-        WorldView.coinGame = coinArea;
-    }
-
-    public static Textbox getTextbox()
-    {
-        return textbox;
-    }
-
     public String getLevelName()
     {
         return levelName;
-    }
-
-    public static String getCLASSNAME()
-    {
-        return CLASSNAME;
     }
 
     public Canvas getWorldCanvas()
@@ -843,74 +913,9 @@ public class WorldView
         return shadowColor;
     }
 
-
-    public static Long getLastTimeMenuWasOpened()
+    public void setShadowColor(Color shadowColor)
     {
-        return lastTimeMenuWasOpened;
-    }
-
-
-    public static PersonalityScreenController getPersonalityScreenController()
-    {
-        return personalityScreenController;
-    }
-
-
-    public static CoinGame getDiscussionGame()
-    {
-        return coinGame;
-    }
-
-    public static Point2D getDiscussionGamePosition()
-    {
-        return discussionGamePosition;
-    }
-
-
-    public static DaySummaryScreenController getDaySummaryScreenController()
-    {
-        return daySummaryScreenController;
-    }
-
-    public static Point2D getDaySummaryScreenPosition()
-    {
-        return daySummaryScreenPosition;
-    }
-
-
-    public static BarStatusOverlay getMamOverlay()
-    {
-        return mamOverlay;
-    }
-
-    public static Point2D getMamOverlayPosition()
-    {
-        return mamOverlayPosition;
-    }
-
-    public static List<Sprite> getActiveSpritesLayer()
-    {
-        return activeSpritesLayer;
-    }
-
-    public static List<Sprite> getPassiveSpritesLayer()
-    {
-        return passiveSpritesLayer;
-    }
-
-    public static List<Sprite> getBottomLayer()
-    {
-        return bottomLayer;
-    }
-
-    public static Map<String, WorldLoader.SpawnData> getSpawnPointsMap()
-    {
-        return spawnPointsMap;
-    }
-
-    public static List<Sprite> getToRemove()
-    {
-        return toRemove;
+        this.shadowColor = shadowColor;
     }
 
     public double getOffsetMaxX()
@@ -931,16 +936,6 @@ public class WorldView
     public int getOffsetMinY()
     {
         return offsetMinY;
-    }
-
-    public static double getCamX()
-    {
-        return camX;
-    }
-
-    public static double getCamY()
-    {
-        return camY;
     }
 
     public double getBumpX()
@@ -976,10 +971,5 @@ public class WorldView
     public void setBumpActive(boolean bumpActive)
     {
         this.bumpActive = bumpActive;
-    }
-
-    public void setShadowColor(Color shadowColor)
-    {
-        this.shadowColor = shadowColor;
     }
 }

@@ -1,4 +1,7 @@
 
+##### 17 02 21
+* added optional time clock tick
+
 ##### 15 02 21
 * added trader side sprite
 
