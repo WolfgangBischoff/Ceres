@@ -40,20 +40,16 @@ public class Dialogue
         setSensorStatus(currentDialogueXML.getAttribute(SENSOR_STATUS_TAG));
         switch (type)
         {
-            case TEXTBOX_TYPE_DECISION:
+            case DIALOGUE_TYPE_DECISION:
                 readOptions(currentDialogueXML);
                 break;
-            case TEXTBOX_TYPE_COIN_GAME:
+            case DIALOGUE_TYPE_COIN_GAME:
                 String discussionGameName = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_GAME);
                 String successNextMsg = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SUCCESS);
                 String defeatNextMsg = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_DEFEAT);
                 addOption(TEXTBOX_ATTRIBUTE_SUCCESS, successNextMsg);
                 addOption(TEXTBOX_ATTRIBUTE_DEFEAT, defeatNextMsg);
                 WorldView.setDiscussionGame(new CoinGame(discussionGameName, actorOfDialogue));
-                break;
-            case TEXTBOX_TYPE_DAY_CHANGE:
-                WorldViewController.setWorldViewStatus(WorldViewStatus.DAY_SUMMARY);
-                DaySummaryScreenController.newDay();
                 break;
             case TEXTBOX_ATTRIBUTE_VALUE_BOOLEAN:
                 break;
@@ -72,6 +68,11 @@ public class Dialogue
                 if(currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_TIME_CHANGE))
                 {
                     GameVariables.getClock().addTime(Integer.parseInt(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_TIME_CHANGE)));
+                }
+                if(currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_DAY_CHANGE))
+                {
+                    WorldViewController.setWorldViewStatus(WorldViewStatus.DAY_SUMMARY);
+                    DaySummaryScreenController.newDay();
                 }
                 if(currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE))
                 {

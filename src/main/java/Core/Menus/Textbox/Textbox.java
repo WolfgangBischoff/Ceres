@@ -205,7 +205,7 @@ public class Textbox
         isInfoButtonHovered = actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null && talkIcon.contains(mousePosition);
 
         //System.out.println(CLASSNAME + methodName + mousePosition.toString());
-        if (readDialogue.type.equals(TEXTBOX_TYPE_DECISION) && GameWindow.getSingleton().isMouseMoved()) {
+        if (readDialogue.type.equals(DIALOGUE_TYPE_DECISION) && GameWindow.getSingleton().isMouseMoved()) {
             for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++) {
                 Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(xOffsetTextLine, firstLineOffsetY + (checkedLineIdx * font.getSize()), WIDTH - OFFSET_MARKING_RIGHT, font.getSize());
                 if (positionOptionRelativeToWorldView.contains(mousePosition)) {
@@ -256,7 +256,7 @@ public class Textbox
 
         maxLettersIdxRendered = 0;
 
-        if (readDialogue.type.equals(TEXTBOX_TYPE_DECISION)) {
+        if (readDialogue.type.equals(DIALOGUE_TYPE_DECISION)) {
             nextDialogueID = readDialogue.options.get(markedOption).nextDialogue;
             markedOption = 0;
         }
@@ -299,7 +299,7 @@ public class Textbox
         gc.setGlobalAlpha(0.9);
         gc.fillRect(SCREEN_POSITION.getX() + backgroundOffsetX, SCREEN_POSITION.getY() + backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetYDecorationTop - backgroundOffsetYTalkIcon - backgroundOffsetYDecorationBtm);
 
-        if (markedOption != null && readDialogue.type.equals(TEXTBOX_TYPE_DECISION)) {
+        if (markedOption != null && readDialogue.type.equals(DIALOGUE_TYPE_DECISION)) {
             gc.setFill(COLOR_MARKING);
             gc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * gc.getFont().getSize() + 5, WIDTH - OFFSET_MARKING_RIGHT, gc.getFont().getSize());
         }
@@ -312,14 +312,15 @@ public class Textbox
         gc.setFill(COLOR_FONT);
 
         switch (readDialogue.type) {
-            case TEXTBOX_TYPE_DECISION:
+            case DIALOGUE_TYPE_DECISION:
                 lineSplitMessage = readDialogue.getOptionMessages();
                 break;
-            case TEXTBOX_TYPE_COIN_GAME:
+            case DIALOGUE_TYPE_COIN_GAME:
                 WorldViewController.setWorldViewStatus(WorldViewStatus.COIN_GAME);
                 lineSplitMessage = wrapText("Discussion ongoing");
                 break;
-            case TEXTBOX_TYPE_DAY_CHANGE:
+            case DIALOGUE_TYPE_TECHNICAL:
+                lineSplitMessage = wrapText("technical");
                 break;
             default:
                 String nextMessage = readDialogue.messages.get(messageIdx);

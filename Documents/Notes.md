@@ -26,7 +26,7 @@ Incubator Convert Button
 * in range player interaction
 
 #### Main Quest
-* add easy characterGame
+* add easy characterGame -> sister before talk to trader, get some item
 * disable bed, should be dependent on quest status
 * spawn during night on control deck, hear starnge noises from storage
 * find stranger in storage

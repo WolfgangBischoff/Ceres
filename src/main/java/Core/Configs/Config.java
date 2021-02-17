@@ -131,9 +131,10 @@ public class Config
     public static final String SCRIPT_ACTOR = "script";
 
     //DialogueFile Keywords
-    public static final String TEXTBOX_TYPE_DECISION = "decision";
-    public static final String TEXTBOX_TYPE_COIN_GAME = "discussion";
-    public static final String TEXTBOX_TYPE_DAY_CHANGE = "dayChange";
+    public static final String DIALOGUE_TYPE_DECISION = "decision";
+    public static final String DIALOGUE_TYPE_COIN_GAME = "discussion";
+    //public static final String DIALOGUE_TYPE_DAY_CHANGE = "dayChange";
+    public static final String DIALOGUE_TYPE_TECHNICAL = "technical";
 
     public static final String DIALOGUE_TAG = "dialogue";
     public static final String ID_TAG = "id";
@@ -153,7 +154,6 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_GAME = "game";
     public static final String TEXTBOX_ATTRIBUTE_SUCCESS = "success";
     public static final String TEXTBOX_ATTRIBUTE_DEFEAT = "defeat";
-    public static final String TEXTBOX_ATTRIBUTE_LEVEL = "level";
     public static final String TEXTBOX_ATTRIBUTE_SPAWN_ID = "spawnID";
     public static final String TEXTBOX_ATTRIBUTE_GET_MONEY = "getMoney";
     public static final String TEXTBOX_ATTRIBUTE_VALUE = "value";
@@ -170,6 +170,7 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_SET_WORLD_LIGHT = "worldlight";
     public static final String TEXTBOX_ATTRIBUTE_TIME_CHANGE = "timechange";
     public static final String TEXTBOX_ATTRIBUTE_LEVEL_CHANGE = "levelchange";
+    public static final String TEXTBOX_ATTRIBUTE_DAY_CHANGE = "daychange";
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";
