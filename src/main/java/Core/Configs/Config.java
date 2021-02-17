@@ -144,7 +144,7 @@ public class Config
     public static final String OPTION_TAG = "option";
     public static final String SPRITECHANGE_TAG = "spritechange";
 
-    public static final String TEXTBOX_ATTRIBUTE_COIN_GAME = "discussion";
+    public static final String TEXTBOX_ATTRIBUTE_COIN_GAME = "coingame";
     public static final String TEXTBOX_ATTRIBUTE_SPRITE_ID = "sprite_id";
     public static final String TEXTBOX_ATTRIBUTE_NEW_STATUS = "status";
     public static final String TEXTBOX_ATTRIBUTE_TYPE = "type";

@@ -42,7 +42,7 @@
         <line>Error 0451: Central Processing Unit overheat. Initiated emergency shutdown protocol.</line>
     </dialogue>
 
-    <dialogue id="SOFT_RESTART" type="technical" discussion="air_control" success="SOFT_RESTART_SUCCESS"
+    <dialogue id="SOFT_RESTART" type="technical" coingame="air_control" success="SOFT_RESTART_SUCCESS"
               defeat="SOFT_RESTART_FAIL"/>
     <dialogue id="SOFT_RESTART_SUCCESS" variablename="AIR_SYSTEM_REBOOT_PART1_WON" set="true"
               nextDialogue="REPAIR_OPTION">
@@ -55,7 +55,7 @@
     </dialogue>
 
 
-    <dialogue id="START_ENGINE" type="technical" discussion="air_control_2" success="START_ENGINE_SUCCESS"
+    <dialogue id="START_ENGINE" type="technical" coingame="air_control_2" success="START_ENGINE_SUCCESS"
               defeat="SOFT_RESTART_FAIL"/>
     <dialogue id="START_ENGINE_SUCCESS" spritestatus="ON" dialogueId="INIT_online">
         <line>Starting ventilation engine ...</line>

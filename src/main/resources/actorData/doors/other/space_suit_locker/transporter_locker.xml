@@ -25,7 +25,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         </option>
     </dialogue>
 
-     <dialogue id="DECISION-DISCUSSION" type="technical" discussion="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
+     <dialogue id="DECISION-DISCUSSION" type="technical" coingame="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
 <-->
 
 <root name="elevator">

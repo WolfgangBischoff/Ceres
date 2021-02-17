@@ -40,9 +40,9 @@
         <option nextDialogue="init-door">[Go away]</option>
     </dialogue>
 
-    <dialogue id="game-test" type="technical" discussion="lifesupport" success="game-success" defeat="game-defeat"/>
-    <dialogue id="game-test2" type="technical" discussion="circles" success="game-success" defeat="game-defeat"/>
-    <dialogue id="game-test3" type="technical" discussion="test" success="game-success" defeat="game-defeat"/>
+    <dialogue id="game-test" type="technical" coingame="lifesupport" success="game-success" defeat="game-defeat"/>
+    <dialogue id="game-test2" type="technical" coingame="circles" success="game-success" defeat="game-defeat"/>
+    <dialogue id="game-test3" type="technical" coingame="test" success="game-success" defeat="game-defeat"/>
 
     <dialogue id="game-success" type = "normal">
         <line>Ok, ist ja gut. Geh einfach rein.</line>
