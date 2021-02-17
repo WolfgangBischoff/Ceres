@@ -1,6 +1,10 @@
 
 #Backlog
 
+####Bug
+* Click on Coins buggy, colliosion is strange
+* after finishing air quest, technician changes place
+
 ####Inventory
 Incubator Convert Button
 * Close button

@@ -154,7 +154,7 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_SUCCESS = "success";
     public static final String TEXTBOX_ATTRIBUTE_DEFEAT = "defeat";
     public static final String TEXTBOX_ATTRIBUTE_SPAWN_ID = "spawnID";
-    public static final String TEXTBOX_ATTRIBUTE_GET_MONEY = "getMoney";
+    public static final String TEXTBOX_ATTRIBUTE_GET_MONEY = "getmoney";
     public static final String TEXTBOX_ATTRIBUTE_VALUE = "value";
     public static final String TEXTBOX_ATTRIBUTE_VISIBLE_IF = "visibleIf";
     public static final String TEXTBOX_ATTRIBUTE_SET = "set";

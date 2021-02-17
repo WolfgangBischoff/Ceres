@@ -52,9 +52,9 @@ public class Dialogue
                     messages.add(message);//Without formatting the message
                 }
 
-                if (type.equals(TEXTBOX_ATTRIBUTE_GET_MONEY))
+                if (currentDialogueXML.hasAttribute((TEXTBOX_ATTRIBUTE_GET_MONEY)))
                 {
-                    int amount = Integer.parseInt(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_VALUE));
+                    int amount = Integer.parseInt(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_GET_MONEY));
                     GameVariables.addPlayerMoney(amount);
                     NewMessageOverlay.showMsg("received " + amount + " GSC!");
                 }

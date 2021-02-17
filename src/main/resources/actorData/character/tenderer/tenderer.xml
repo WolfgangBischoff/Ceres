@@ -56,7 +56,7 @@
 
     <dialogue id="air_system_check" type="boolean" variablename="isTransporterAirSystemOn" true="air_system_on"
               false="air_system_off"/>
-    <dialogue id="air_system_on" type="getMoney" value="40" variablename="transporter_air_system_quest_started"
+    <dialogue id="air_system_on" type="normal" getmoney="40" variablename="transporter_air_system_quest_started"
               set="done" nextDialogue="GET_AIR_SYSTEM_QUEST">
         <line>You fixed the air system! Here is you %%GRmoney%%!</line>
     </dialogue>
@@ -101,7 +101,7 @@
               variablename="METEROIT_DAMAGE_ANALYZED" set="done">
         <line>Indeed. Now we can continue our journey on time.</line>
     </dialogue>
-    <dialogue id="RESTORE_POWER_REWARD_2" nextDialogue="AFTER_METROIT_DECISIONS" type="getMoney" value="70">
+    <dialogue id="RESTORE_POWER_REWARD_2" nextDialogue="AFTER_METROIT_DECISIONS" type="normal" getmoney="70">
         <line>The insurance will pay for the damage. We can be glad that %%GDCereX%% thinks of everything!</line>
         <spritechange sprite_id="medic_" dialogueId="AFTER_ENERGY_RESTORED"/>
     </dialogue>
