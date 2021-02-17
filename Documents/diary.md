@@ -1,7 +1,8 @@
 
 ##### 17 02 21
 * added optional time clock tick
-* changed levelchange type to attribute
+* changed many textbox types to attributes
+* Click on Coins buggy, now also uses drag
 
 ##### 15 02 21
 * added trader side sprite

@@ -37,8 +37,6 @@ public class CoinArea
     private static final int WIDTH = COIN_AREA_WIDTH;
     private static final Point2D SCREEN_POSITION = new Point2D(COINGAME_POSITION.getX() + COIN_AREA_WIDTH_OFFSET, COINGAME_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET);
     private static Rectangle2D SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
-    private Canvas canvas;
-    private GraphicsContext gc;
     Image cornerTopLeft, cornerBtmRight;
     Point2D mousePosRelativeToDiscussionOverlay;
     List<Shape> shapeList = new ArrayList<>();
@@ -77,8 +75,6 @@ public class CoinArea
 
     private void init()
     {
-        canvas = new Canvas(WIDTH, HEIGHT);
-        gc = canvas.getGraphicsContext2D();
         loadDiscussion();
         gameStartTime = GameWindow.getSingleton().getRenderTime();
         actorOfDiscussion.getPersonalityContainer().increaseCooperation(2);
@@ -126,7 +122,7 @@ public class CoinArea
             coin.move(currentNanoTime - gameStartTime);
 
             //Check if is visible
-            if (!new Rectangle2D(0, 0, canvas.getWidth(), canvas.getHeight()).
+            if (!SCREEN_AREA.
                     intersects(circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius(), circle.getCenterX() + circle.getRadius(), circle.getCenterY() + circle.getRadius())
                     || elapsedTimeSinceSpawn > coin.time_max
             )
@@ -275,6 +271,7 @@ public class CoinArea
         Point2D overlayPosition = SCREEN_POSITION;
         Rectangle2D posRelativeToWorldview = new Rectangle2D(overlayPosition.getX(), overlayPosition.getY(), WIDTH, HEIGHT);
         List<CharacterCoin> hoveredElements = new ArrayList<>();
+        boolean isMouseDragged = GameWindow.getSingleton().isMouseDragged();
 
         //Calculate Mouse Position relative to Discussion
         if (posRelativeToWorldview.contains(mousePosition))
@@ -285,12 +282,14 @@ public class CoinArea
         }
 
         //Check for hovered elements
-        if (isMouseClicked)
+        if (isMouseClicked || isMouseDragged)
             for (int i = 0; i < visibleCoinsList.size(); i++)
             {
                 Circle circle = visibleCoinsList.get(i).collisionCircle;
                 if (doCircleOverlap(circle, mouseClickSpace))
+                {
                     hoveredElements.add(visibleCoinsList.get(i));
+                }
             }
 
         if (GameWindow.getSingleton().isMouseMoved() && !hoveredElements.isEmpty())//Set highlight if mouse moved
@@ -299,7 +298,7 @@ public class CoinArea
         }
 
         //Process click
-        if (isMouseClicked && !hoveredElements.isEmpty())
+        if ((isMouseClicked || isMouseDragged) && !hoveredElements.isEmpty())
         {
             for (int i = 0; i < hoveredElements.size(); i++)
             {

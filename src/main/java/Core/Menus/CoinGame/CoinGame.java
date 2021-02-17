@@ -43,7 +43,6 @@ public class CoinGame
 
         coinArea.render(gc, currentNanoTime);
         gc.setFont(FONT_ESTROG_20);
-        //gc.drawImage(coinArea.render(currentNanoTime), SCREEN_POSITION.getX() + COIN_AREA_WIDTH_OFFSET, SCREEN_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET);
         gc.drawImage(cornerTopLeft, SCREEN_POSITION.getX(), SCREEN_POSITION.getY());
         gc.drawImage(cornerBtmRight, SCREEN_POSITION.getX() + WIDTH - cornerBtmRight.getWidth(), SCREEN_POSITION.getY() + HEIGHT - cornerBtmRight.getHeight());
 
