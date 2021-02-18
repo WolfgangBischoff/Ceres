@@ -286,13 +286,9 @@ public class WorldView
     public void loadStage(String levelName, String spawnId)
     {
         String methodName = "loadStage() ";
-
         clearLevel();
         this.levelName = levelName;
-        //check if level was already loaded today
         LevelState levelState = GameVariables.getLevelData().get(this.levelName);
-//        WorldLoader worldLoader = new WorldLoader();
-//        worldLoader.load(levelName, spawnId);
 
         if (levelState != null && levelState.getDay() == GameVariables.gameDateTime().getDays())//Level was loaded on same day
             loadFromLevelDailyState(levelState, spawnId);
@@ -306,7 +302,6 @@ public class WorldView
             System.out.println(CLASSNAME + methodName + "loaded from file");
             loadLevelFromFile(spawnId);
         }
-
 
         offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
         offsetMaxY = borders.getMaxY() - CAMERA_HEIGHT;

@@ -3,7 +3,7 @@
 
 ####Bug
 * after begin of night shift the level doesnt reload from file, so wrong sprites appear
-* STRANGER_APPEARANCE_QUEST not set after Dialogue
+* black in capsule level
 
 ####Inventory
 Incubator Convert Button

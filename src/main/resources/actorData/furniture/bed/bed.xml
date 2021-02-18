@@ -20,6 +20,7 @@
         <option nextDialogue="start_night_shift" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED"
                 visibleIf="done">Rest till night shift.
         </option>
+
         <option>[back]</option>
     </dialogue>
 

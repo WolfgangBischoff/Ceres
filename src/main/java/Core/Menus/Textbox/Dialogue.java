@@ -40,11 +40,11 @@ public class Dialogue
         setSensorStatus(currentDialogueXML.getAttribute(SENSOR_STATUS_TAG));
         switch (type)
         {
-            case DIALOGUE_TYPE_DECISION:
-                readOptions(currentDialogueXML);
-                break;
+
             case TEXTBOX_ATTRIBUTE_VALUE_BOOLEAN:
                 break;
+            case DIALOGUE_TYPE_DECISION:
+                readOptions(currentDialogueXML);
             default:
                 for (int messageIdx = 0; messageIdx < xmlLines.getLength(); messageIdx++) //add lines
                 {
@@ -82,8 +82,6 @@ public class Dialogue
                     WorldView.getSingleton().saveStage();
                     WorldView.getSingleton().loadStage(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE), currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID));
                     WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
-                    //lineSplitMessage = wrapText("technical");
-                    break;
                 }
                 if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_SET))
                 {
