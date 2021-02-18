@@ -111,6 +111,7 @@ public class Config
     public static final String KEYWORD_POSITION = "position:";
     public static final String KEYWORD_GLOBAL_SYSTEM_ACTOR = "global_system_actor:";
     public static final String KEYWORD_TIME_MODE = "time_mode:";
+    public static final String KEYWORD_LOG = "log:";
 
     public static final String INCLUDE_CONDITION_suspicion_lessequal = "suspicion_lessequal";
     public static final String INCLUDE_CONDITION_day_greaterequal = "day_greaterequal";
@@ -155,7 +156,6 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_DEFEAT = "defeat";
     public static final String TEXTBOX_ATTRIBUTE_SPAWN_ID = "spawnID";
     public static final String TEXTBOX_ATTRIBUTE_GET_MONEY = "getmoney";
-    public static final String TEXTBOX_ATTRIBUTE_VALUE = "value";
     public static final String TEXTBOX_ATTRIBUTE_VISIBLE_IF = "visibleIf";
     public static final String TEXTBOX_ATTRIBUTE_SET = "set";
     public static final String TEXTBOX_ATTRIBUTE_VARIABLE_NAME = "variablename";
@@ -170,6 +170,7 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_TIME_CHANGE = "timechange";
     public static final String TEXTBOX_ATTRIBUTE_LEVEL_CHANGE = "levelchange";
     public static final String TEXTBOX_ATTRIBUTE_DAY_CHANGE = "daychange";
+    public static final String TEXTBOX_ATTRIBUTE_INVALIDATE_LEVEL_STATE = "invalidate_level_state";
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";

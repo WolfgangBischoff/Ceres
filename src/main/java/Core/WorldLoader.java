@@ -44,12 +44,13 @@ public class WorldLoader
     int currentVerticalTile = 0;
     int currentHorizontalTile = 0;
     int maxHorizontalTile = 0;
-    private Rectangle2D borders;
     TimeMode timeMode = TimeMode.RUNNING;
+    private Rectangle2D borders;
 
     public WorldLoader()
     {
-        if (keywords.isEmpty()) {
+        if (keywords.isEmpty())
+        {
             keywords.add(KEYWORD_NEW_LAYER);
             keywords.add(KEYWORD_ACTORS);
             keywords.add(KEYWORD_TILEDEF);
@@ -61,6 +62,7 @@ public class WorldLoader
             keywords.add(KEYWORD_POSITION);
             keywords.add(KEYWORD_GLOBAL_SYSTEM_ACTOR);
             keywords.add(KEYWORD_TIME_MODE);
+            keywords.add(KEYWORD_LOG);
         }
 
     }
@@ -84,11 +86,15 @@ public class WorldLoader
         readMode = null;
         if (debug)
             System.out.println(CLASSNAME + methodName + "begin read file: " + fileName);
-        for (int i = 0; i < leveldata.size(); i++) {
+        for (int i = 0; i < leveldata.size(); i++)
+        {
             String[] lineData = leveldata.get(i);
-            try {
+            try
+            {
                 readLine(lineData);
-            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            }
+            catch (IndexOutOfBoundsException | NumberFormatException e)
+            {
                 StringBuilder stringBuilder = new StringBuilder();
                 for (String s : lineData)
                     stringBuilder.append(s).append("; ");
@@ -118,14 +124,16 @@ public class WorldLoader
     {
         String methodName = "readLine() ";
 
-        if (keywords.contains(lineData[0].toLowerCase())) {
+        if (keywords.contains(lineData[0].toLowerCase()))
+        {
             readMode = lineData[0].toLowerCase();
             currentVerticalTile = 0;
             return;
         }
 
         //process line according to keyword
-        switch (readMode) {
+        switch (readMode)
+        {
             case KEYWORD_TILEDEF:
                 tileDataMap.put(lineData[SpriteData.getTileCodeIdx()], SpriteData.tileDefinition(lineData));
                 loadedTileIdsSet.add(lineData[SpriteData.getTileCodeIdx()]);
@@ -159,13 +167,24 @@ public class WorldLoader
             case KEYWORD_GLOBAL_SYSTEM_ACTOR:
                 getGlobalSystemActor(lineData);
                 break;
-                case KEYWORD_TIME_MODE:
-                    timeMode = readTimeMode(lineData);
+            case KEYWORD_TIME_MODE:
+                timeMode = readTimeMode(lineData);
+                break;
+            case KEYWORD_LOG:
+                log(lineData);
                 break;
             default:
                 throw new RuntimeException(CLASSNAME + methodName + "readMode unknown: " + readMode);
         }
 
+    }
+
+    private void log(String[] linedate)
+    {
+        System.out.println(CLASSNAME + "loaded:");
+        for (String s : linedate)
+            System.out.print(s);
+        System.out.println();
     }
 
     private TimeMode readTimeMode(String[] linedata)
@@ -193,7 +212,8 @@ public class WorldLoader
         activeLayer.addAll(actor.spriteList);
         List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
 
-        for (int j = 0; j < spriteDataList.size(); j++) {
+        for (int j = 0; j < spriteDataList.size(); j++)
+        {
             actor.spriteList.get(j).setPosition(xPos, yPos);
             addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
             loadedTileIdsSet.remove(actorId);//Check for ununsed Definitions
@@ -211,7 +231,8 @@ public class WorldLoader
 
         //Check include condition
         String condition = lineData[includeConditionTypeIdx];
-        switch (condition) {
+        switch (condition)
+        {
             case INCLUDE_CONDITION_suspicion_lessequal:
                 int suspicionThreshold = Integer.parseInt(lineData[includeConditionParamsStartIdx]);
                 int currentSuspicion = GameVariables.getPlayerMaM_dayStart();
@@ -291,16 +312,19 @@ public class WorldLoader
 
         //map for all contained group members in which groups they are: actor -> groups
         ActorGroupData actorGroupData;
-        for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++) {
+        for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++)
+        {
             String actorId = lineData[membersIdx];
-            if (!actorGroupDataMap.containsKey(actorId)) {
+            if (!actorGroupDataMap.containsKey(actorId))
+            {
                 actorGroupDataMap.put(actorId, new ActorGroupData());
             }
             actorGroupData = actorGroupDataMap.get(actorId);
             actorGroupData.memberOfGroups.add(lineData[groupName_Idx]);
         }
 
-        if (debug) {
+        if (debug)
+        {
             for (Map.Entry<String, ActorGroupData> actorData : actorGroupDataMap.entrySet())
                 System.out.println(CLASSNAME + methodName + actorData.getKey() + " " + actorData.getValue().memberOfGroups);
         }
@@ -321,7 +345,8 @@ public class WorldLoader
     private void addToCollisionLayer(Sprite sprite, int layer)
     {
         sprite.setLayer(layer);
-        switch (layer) {
+        switch (layer)
+        {
             case 0:
                 bttmLayer.add(sprite);
                 break;
@@ -346,22 +371,29 @@ public class WorldLoader
 
 
         //from left to right, reads tile codes
-        for (currentHorizontalTile = 0; currentHorizontalTile < lineData.length; currentHorizontalTile++) {
+        for (currentHorizontalTile = 0; currentHorizontalTile < lineData.length; currentHorizontalTile++)
+        {
             //if first column is line number
-            if (currentHorizontalTile == 0 && lineData[currentHorizontalTile].chars().allMatch(x -> Character.isDigit(x))) {
+            if (currentHorizontalTile == 0 && lineData[currentHorizontalTile].chars().allMatch(x -> Character.isDigit(x)))
+            {
                 lineNumber = lineData[0];
                 lineData = Arrays.copyOfRange(lineData, 1, lineData.length);
             }
 
             //Is Tile
-            if (tileDataMap.containsKey(lineData[currentHorizontalTile])) {
+            if (tileDataMap.containsKey(lineData[currentHorizontalTile]))
+            {
                 SpriteData tile = tileDataMap.get(lineData[currentHorizontalTile]);
                 Sprite ca;
-                try {
+                try
+                {
                     ca = Sprite.createSprite(tile, 64 * currentHorizontalTile, currentVerticalTile * 64);
-                } catch (IllegalArgumentException e) {
+                }
+                catch (IllegalArgumentException e)
+                {
                     StringBuilder stringBuilder = new StringBuilder();
-                    for (String s : lineData) {
+                    for (String s : lineData)
+                    {
                         stringBuilder.append(s).append(" ");
                     }
                     throw new IllegalArgumentException("\nLine: " + stringBuilder.toString() +
@@ -375,7 +407,8 @@ public class WorldLoader
                     addToCollisionLayer(ca, tile.heightLayer);
             }
             //Is Actor that is just relevant on this stage
-            else if (actorDataMap.containsKey(lineData[currentHorizontalTile])) {
+            else if (actorDataMap.containsKey(lineData[currentHorizontalTile]))
+            {
                 Actor actor = createActor(lineData[currentHorizontalTile]);
                 activeLayer.addAll(actor.spriteList);
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
@@ -383,7 +416,8 @@ public class WorldLoader
                     addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
             }
             //Is Actor of global System
-            else if (globalActorsMap.containsKey(lineData[currentHorizontalTile])) {
+            else if (globalActorsMap.containsKey(lineData[currentHorizontalTile]))
+            {
                 Actor actor = globalActorsMap.get(lineData[currentHorizontalTile]);
                 actor.getSpriteList().forEach(sprite ->
                 {
@@ -395,7 +429,8 @@ public class WorldLoader
                 for (int j = 0; j < spriteDataList.size(); j++)
                     addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
             }
-            else if (isPassiv && lineData[currentHorizontalTile].equals(MAPDEFINITION_EMPTY)) {
+            else if (isPassiv && lineData[currentHorizontalTile].equals(MAPDEFINITION_EMPTY))
+            {
                 //Do nothing => White
             }
             else if (!lineData[currentHorizontalTile].equals(Config.MAPDEFINITION_EMPTY))
@@ -430,14 +465,16 @@ public class WorldLoader
 
         //check for actorgroup Data
         ActorGroupData actorGroupData = actorGroupDataMap.get(actorId);
-        if (actorGroupData != null) {
+        if (actorGroupData != null)
+        {
             actor.memberActorGroups.addAll(actorGroupData.memberOfGroups);
             for (String groupName : actor.memberActorGroups)
                 actorMonitor.addActorToActorSystem(groupName, actor);
         }
 
         //Create initial Sprites of Actor
-        for (int j = 0; j < spriteDataList.size(); j++) {
+        for (int j = 0; j < spriteDataList.size(); j++)
+        {
             Sprite actorSprite;
             SpriteData spriteData = spriteDataList.get(j);
             actorSprite = Sprite.createSprite(spriteData, x * 64, y * 64);
@@ -482,7 +519,8 @@ public class WorldLoader
             throw new RuntimeException("Spawn Point " + spawnId + " not set in " + levelName + "\nSpawn Points: " + spawnPointsMap.toString());
         Actor actor;
         //Reruse Player if already created
-        if (WorldView.getPlayer() != null) {
+        if (WorldView.getPlayer() != null)
+        {
             actor = WorldView.getPlayer().getActor();
             WorldView.getPlayer().setPosition(playerSpawn.x * 64, playerSpawn.y * 64);
         }
@@ -493,7 +531,8 @@ public class WorldLoader
         actor.setDirection(playerSpawn.direction);
         activeLayer.addAll(actor.spriteList);
         List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
-        for (int j = 0; j < spriteDataList.size(); j++) {
+        for (int j = 0; j < spriteDataList.size(); j++)
+        {
             //System.out.println(CLASSNAME + methodName + actor.spriteList.get(j) +" layer: "+ spriteDataList.get(j).heightLayer + " size " + spriteDataList.size());
             addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
         }
@@ -611,14 +650,14 @@ public class WorldLoader
         return timeMode;
     }
 
-    static class ActorGroupData
-    {
-        ArrayList memberOfGroups = new ArrayList();
-    }
-
     public List<Sprite> getTopLayer()
     {
         return topLayer;
+    }
+
+    static class ActorGroupData
+    {
+        ArrayList memberOfGroups = new ArrayList();
     }
 
     public class SpawnData

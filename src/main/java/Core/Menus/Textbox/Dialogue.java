@@ -58,7 +58,7 @@ public class Dialogue
                     GameVariables.addPlayerMoney(amount);
                     NewMessageOverlay.showMsg("received " + amount + " GSC!");
                 }
-                if(currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_COIN_GAME))
+                if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_COIN_GAME))
                 {
                     String discussionGameName = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_COIN_GAME);
                     String successNextMsg = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SUCCESS);
@@ -68,27 +68,32 @@ public class Dialogue
                     WorldView.setDiscussionGame(new CoinGame(discussionGameName, actorOfDialogue));
                     WorldViewController.setWorldViewStatus(WorldViewStatus.COIN_GAME);
                 }
-                if(currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_TIME_CHANGE))
-                {
-                    GameVariables.getClock().addTime(Integer.parseInt(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_TIME_CHANGE)));
-                }
-                if(currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_DAY_CHANGE))
-                {
-                    WorldViewController.setWorldViewStatus(WorldViewStatus.DAY_SUMMARY);
-                    DaySummaryScreenController.newDay();
-                }
-                if(currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE))
-                {
-                    WorldView.getSingleton().saveStage();
-                    WorldView.getSingleton().loadStage(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE), currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID));
-                    WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
-                }
                 if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_SET))
                 {
                     String varname = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME);
                     String val = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SET);
                     GameVariables.setGenericVariable(varname, val);
                 }
+//                if (currentDialogueXML.hasAttribute((TEXTBOX_ATTRIBUTE_INVALIDATE_LEVEL_STATE)))
+//                {
+//                    GameVariables.getLevelData().get(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_INVALIDATE_LEVEL_STATE)).setDay(-1);
+//                }
+                if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_TIME_CHANGE))
+                {
+                    GameVariables.getClock().addTime(Integer.parseInt(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_TIME_CHANGE)));
+                }
+                if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_DAY_CHANGE))
+                {
+                    WorldViewController.setWorldViewStatus(WorldViewStatus.DAY_SUMMARY);
+                    DaySummaryScreenController.newDay();
+                }
+                if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE))
+                {
+                    WorldView.getSingleton().saveStage();
+                    WorldView.getSingleton().loadStage(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE), currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID));
+                    WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
+                }
+
                 if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_BUMP))
                 {
                     WorldView.getSingleton().activateBump();
@@ -116,6 +121,7 @@ public class Dialogue
                 {
                     actorOfDialogue.setDialogueId(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_ID));
                 }
+
                 if (currentDialogueXML.hasAttribute((TEXTBOX_ATTRIBUTE_SET_WORLD_LIGHT)))
                 {
                     if (currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SET_WORLD_LIGHT).equals("night"))
@@ -261,6 +267,7 @@ public class Dialogue
     {
         String nextDialogue;
         String optionMessage;
+
         Option(String optionMessage, String nextDialogue)
         {
             this.optionMessage = optionMessage;

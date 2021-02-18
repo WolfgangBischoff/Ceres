@@ -2,8 +2,6 @@
 #Backlog
 
 ####Bug
-* after begin of night shift the level doesnt reload from file, so wrong sprites appear
-* black in capsule level
 
 ####Inventory
 Incubator Convert Button
@@ -23,6 +21,7 @@ Incubator Convert Button
 * Enable fullscreen mode
 * change font of textbox
 * "Rumors"/Random dialogue
+* first stranger sound
 
 #### Stealth mechanic
 * split inRange area into several parts
@@ -31,8 +30,7 @@ Incubator Convert Button
 
 #### Main Quest
 * add easy characterGame -> sister before talk to trader, get some item
-* global var for found stranger prevents from crew deck
-* find stranger in storage
+* player cannot leave transporter before stranger + control (you heard something strange, checkout before)
 * tells story, check the logs
 * check the rescure pods => need to be overriden
 * ask sister for help => fade out => create electro potion for capsule

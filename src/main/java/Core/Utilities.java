@@ -103,8 +103,7 @@ public class Utilities
         }
         catch (IOException | NullPointerException e)
         {
-            System.out.println(CLASSNAME + methodName + path + " not found.");
-            e.printStackTrace();
+            throw new RuntimeException(path + " not found.");
         }
         return data;
     }

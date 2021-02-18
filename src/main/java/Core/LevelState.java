@@ -61,6 +61,11 @@ public class LevelState
         return day;
     }
 
+    public void setDay(long day)
+    {
+        this.day = day;
+    }
+
     public Rectangle2D getBorders()
     {
         return borders;

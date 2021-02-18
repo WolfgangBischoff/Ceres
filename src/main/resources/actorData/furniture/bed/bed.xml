@@ -26,8 +26,10 @@
 
     <dialogue id="decision_nextDay" type="technical" daychange="" dialogueId="day2"/>
 
-    <dialogue id="start_night_shift" type="normal" levelchange="transporter/transporter" spawnID="default"
-              timechange="16" variablename="STRANGER_APPEARANCE_QUEST" set="started"/>
+    <dialogue id="start_night_shift" type="normal" levelchange="transporter/transporter" spawnID="ladder"
+              timechange="40"
+              variablename="STRANGER_APPEARANCE_QUEST" set="started"
+    />
 </root>
 
 
