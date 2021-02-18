@@ -1,5 +1,6 @@
 ##### 18 02 21
 * fixed bugs and quest build
+* changed font of textbox
 ##### 17 02 21
 * added optional time clock tick
 * changed many textbox types to attributes

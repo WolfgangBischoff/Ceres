@@ -25,6 +25,7 @@ public class Config
     public static final int CAMERA_HEIGHT = 800;
     public static final Font FONT_ESTROG_30_DEFAULT = Utilities.readFont("font/estrog__.ttf", 30);
     public static final Font FONT_ESTROG_20 = Utilities.readFont("font/estrog__.ttf", 20);
+    public static final Font FONT_ORBITRON_20 = Utilities.readFont("font/Orbitron-Regular.ttf", 22);
 
     public static final int TEXT_WIDTH = 800;
     public static final int TEXT_HEIGHT = 240;

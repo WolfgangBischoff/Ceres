@@ -19,7 +19,6 @@
 #### Minor
 * StatusInfo over sprite on key + ExclamationMark
 * Enable fullscreen mode
-* change font of textbox
 * "Rumors"/Random dialogue
 * first stranger sound
 

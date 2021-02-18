@@ -292,7 +292,7 @@ public class Textbox
     public void render(GraphicsContext gc) throws NullPointerException
     {
         String methodName = "render() ";
-        gc.setFont(FONT_ESTROG_30_DEFAULT);
+        gc.setFont(FONT_ORBITRON_20);
 
         //Background
         gc.setFill(background);
