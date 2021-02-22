@@ -45,7 +45,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
     <dialogue id="coffeVendor" type="normal">
-        <line>Looks like the brew coffee beans from earth. Hard to imagine.</line>
+        <line>Looks like the coffee beans are imported from earth. Hard to imagine.</line>
     </dialogue>
 
     <dialogue id="door_locked" type="normal">

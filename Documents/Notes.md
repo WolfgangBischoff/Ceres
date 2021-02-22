@@ -16,6 +16,13 @@
 * bases can be mixed, mutated over time
 * bacteria cultures can be used in incubators (bottleneck)
 
+#### Set item mechanic
+* sprite an Pos adden via Key
+* Sprite von Menu und maus adden
+* Zeit & Resourcenkosten
+* Position check
+* Different Sprites
+
 #### Minor
 * StatusInfo over sprite on key + ExclamationMark
 * Enable fullscreen mode
@@ -40,18 +47,15 @@
 - Ship: rename sleep capsules
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
 - Hammer and Sickle modern, Säulen, Tank
-- bacteria culture, stranger person    
+- bacteria culture, stranger person
+- Docking Bay: Big Elevator    
+- Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
     
     
     => Level changes with time
             While Map load set global actors according to time, date, variables defined in actor file
             Set Actor script according to time
-    - Add set item mechanic
-            1) sprite an Pos adden via Key
-            2) Sprite von Menu und maus adden
-            3) Zeit & Resourcenkosten
-            4) Position check
-            5) Different Sprites
+  
     - Cooperation value just increases two time a day
     - Create Questlog
     - check higher resolution and zoom, fix not centered overlay
@@ -210,6 +214,7 @@ Lore (Info not related to Plot, History, descriptions)
         - Resources very limited, nearly autarc; cheap drones with oxygen fuel can sent back resources, but oxygen is rare;
             goods from earth must be sent to space, expensive, from ceres weight is not a problem
 
+=> Vielleciht auch unabhängige Systeme. Besiegte Firmen geben nur Bereiche frei, aber Verbesserungen individuell
        - Food/Water Supplies Company (Erster Gegner; Stolen Knowledge / Algae)
             - bad air, people get ill; experiments on own workers; lose health every day
             - Infiltration durch Luftschacht, stealthmission; finde algenprobe und baue eigenen reaktor

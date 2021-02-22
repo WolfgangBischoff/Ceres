@@ -16,9 +16,9 @@ public class Config
     public static final Boolean DEBUG_ALL_TEXT_OPTIONS_VISIBLE = false;
     public static final Boolean DEBUG_CONSOLE = false;
     public static final Boolean DEBUG_FPS = false;
-    //public static final String FIRST_LEVEL = "transporter/transporter";
+    public static final String FIRST_LEVEL = "transporter/transporter";
     //public static final String FIRST_LEVEL = "transporter/capsule/base";
-    public static final String FIRST_LEVEL = "crewdeck/crewdeck";
+    //public static final String FIRST_LEVEL = "crewdeck/crewdeck";
     public static final double GAME_WINDOW_WIDTH = 1440;
     public static final double GAME_WINDOW_HEIGHT = 900;
     public static final int CAMERA_WIDTH = 1200;
