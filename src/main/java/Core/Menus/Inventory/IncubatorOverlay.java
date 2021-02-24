@@ -24,6 +24,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
     final String CONVERT_BUTTON_ID = "CONVERT";
     Image cornerTopLeft;
     Image cornerBtmRight;
+    Image convertButton;
     private InventoryController controller;
     private MouseElementsContainer mouseElements = new MouseElementsContainer();
     private MouseElement highlightedElement = null;
@@ -35,6 +36,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
     {
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+        convertButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "interface/incubator/convert_button.png");
         this.SCREEN_POSITION = SCREEN_POSITION;
         SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
         this.actor = incubator;
@@ -69,8 +71,9 @@ public class IncubatorOverlay implements DragAndDropOverlay
         drawItemSlot(gc, BASE_OUTPUT_SLOT);
 
         gc.setFill(COLOR_RED);
-        Rectangle2D convertButton = mouseElements.get(CONVERT_BUTTON_ID).position;
-        gc.fillRect(convertButton.getMinX(), convertButton.getMinY(), convertButton.getWidth(), convertButton.getHeight());
+        Rectangle2D convertButtonRect = mouseElements.get(CONVERT_BUTTON_ID).position;
+        gc.drawImage(convertButton, convertButtonRect.getMinX(), convertButtonRect.getMinY());
+        //gc.fillRect(convertButton.getMinX(), convertButton.getMinY(), convertButton.getWidth(), convertButton.getHeight());
 
         //Text
         int offsetYFirstLine = 60;
