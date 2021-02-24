@@ -5,6 +5,9 @@ import Core.Collectible;
 import Core.Enums.CollectableType;
 import Core.GameWindow;
 import Core.Utilities;
+import Core.WorldView.WorldView;
+import Core.WorldView.WorldViewController;
+import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,9 +25,11 @@ public class IncubatorOverlay implements DragAndDropOverlay
     final String BASE_INPUT_SLOT = "base_input";
     final String BASE_OUTPUT_SLOT = "base_output";
     final String CONVERT_BUTTON_ID = "CONVERT";
+    final String CANCEL_BUTTON_ID = "CANCEL";
     Image cornerTopLeft;
     Image cornerBtmRight;
     Image convertButton;
+    Image cancelButton;
     private InventoryController controller;
     private MouseElementsContainer mouseElements = new MouseElementsContainer();
     private MouseElement highlightedElement = null;
@@ -37,6 +42,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         convertButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "interface/incubator/convert_button.png");
+        cancelButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "interface/cancelButton.png");
         this.SCREEN_POSITION = SCREEN_POSITION;
         SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
         this.actor = incubator;
@@ -54,6 +60,9 @@ public class IncubatorOverlay implements DragAndDropOverlay
 
         Rectangle2D base_output = new Rectangle2D(SCREEN_POSITION.getX() + 200, SCREEN_POSITION.getY() + 200, 64, 64);
         mouseElements.add(new MouseElement(base_output, BASE_OUTPUT_SLOT, DRAG));
+
+        Rectangle2D cancelButtonRect = new Rectangle2D(SCREEN_POSITION.getX() + WIDTH - cancelButton.getWidth(), SCREEN_POSITION.getY(), 64, 64);
+        mouseElements.add(new MouseElement(cancelButtonRect, CANCEL_BUTTON_ID, CLICK));
     }
 
     public void render(GraphicsContext gc) throws NullPointerException
@@ -70,10 +79,9 @@ public class IncubatorOverlay implements DragAndDropOverlay
         drawItemSlot(gc, BASE_INPUT_SLOT);
         drawItemSlot(gc, BASE_OUTPUT_SLOT);
 
-        gc.setFill(COLOR_RED);
         Rectangle2D convertButtonRect = mouseElements.get(CONVERT_BUTTON_ID).position;
         gc.drawImage(convertButton, convertButtonRect.getMinX(), convertButtonRect.getMinY());
-        //gc.fillRect(convertButton.getMinX(), convertButton.getMinY(), convertButton.getWidth(), convertButton.getHeight());
+
 
         //Text
         int offsetYFirstLine = 60;
@@ -84,6 +92,8 @@ public class IncubatorOverlay implements DragAndDropOverlay
         //Decoration
         gc.drawImage(cornerTopLeft, SCREEN_POSITION.getX(), SCREEN_POSITION.getY());
         gc.drawImage(cornerBtmRight, SCREEN_POSITION.getX() + WIDTH - cornerBtmRight.getWidth(), SCREEN_POSITION.getY() + HEIGHT - cornerBtmRight.getHeight());
+        Rectangle2D cancelButtonRect = mouseElements.get(CANCEL_BUTTON_ID).position;
+        gc.drawImage(cancelButton, cancelButtonRect.getMinX(), cancelButtonRect.getMinY());
 
     }
 
@@ -127,6 +137,10 @@ public class IncubatorOverlay implements DragAndDropOverlay
         {
             case CONVERT_BUTTON_ID:
                 convertItem();
+                break;
+            case CANCEL_BUTTON_ID:
+                WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
+                break;
             default:
         }
 

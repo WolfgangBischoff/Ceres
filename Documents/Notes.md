@@ -4,7 +4,6 @@
 ####Bug
 
 ####Inventory
-* Close button
 * item desrcp
 * add item in box
            

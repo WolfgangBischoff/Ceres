@@ -3,6 +3,7 @@ package Core.Menus.Inventory;
 import Core.*;
 import Core.Enums.CollectableType;
 import Core.WorldView.WorldViewController;
+import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -24,15 +25,14 @@ public class InventoryOverlay implements DragAndDropOverlay
     private static final String CLASSNAME = "InventoryOverlay ";
     private static int WIDTH = INVENTORY_WIDTH;
     private static int HEIGHT = INVENTORY_HEIGHT;
+    final String CANCEL_BUTTON_ID = "CANCEL";
     Image cornerTopLeft;
     Image cornerBtmRight;
+    Image cancelButton;
     private InventoryController controller;
     private Actor actor;
-    //private List<String> interfaceElements_list = new ArrayList<>();
-    //private List<Rectangle2D> interfaceElements_Rectangles = new ArrayList<>();
     private MouseElementsContainer mouseElements = new MouseElementsContainer();
     private MouseElement highlightedElement = null;
-    // private Integer highlightedElement = 0;
     private Point2D SCREEN_POSITION;
     private Rectangle2D SCREEN_AREA;
 
@@ -42,6 +42,7 @@ public class InventoryOverlay implements DragAndDropOverlay
         this.controller = controller;
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+        cancelButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "interface/cancelButton.png");
         this.SCREEN_POSITION = SCREEN_POSITION;
         SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
         init();
@@ -84,7 +85,8 @@ public class InventoryOverlay implements DragAndDropOverlay
             }
         }
 
-
+        Rectangle2D cancelButtonRect = new Rectangle2D(SCREEN_POSITION.getX() + WIDTH - cancelButton.getWidth(), SCREEN_POSITION.getY(), 64, 64);
+        mouseElements.add(new MouseElement(cancelButtonRect, CANCEL_BUTTON_ID, CLICK));
     }
 
     public void render(GraphicsContext gc) throws NullPointerException
@@ -164,6 +166,8 @@ public class InventoryOverlay implements DragAndDropOverlay
         //Decoration
         gc.drawImage(cornerTopLeft, SCREEN_POSITION.getX(), SCREEN_POSITION.getY());
         gc.drawImage(cornerBtmRight, SCREEN_POSITION.getX() + WIDTH - cornerBtmRight.getWidth(), SCREEN_POSITION.getY() + HEIGHT - cornerBtmRight.getHeight());
+        Rectangle2D cancelButtonRect = mouseElements.get(CANCEL_BUTTON_ID).position;
+        gc.drawImage(cancelButton, cancelButtonRect.getMinX(), cancelButtonRect.getMinY());
 
     }
 
@@ -175,7 +179,7 @@ public class InventoryOverlay implements DragAndDropOverlay
         {
             if (mouseElements.get(i).getPosition().contains(mousePosition))
             {
-                hoveredElement = mouseElements.get(Integer.toString(i));
+                hoveredElement = mouseElements.get(i);
             }
         }
         //System.out.println(CLASSNAME + actor.getActorInGameName() + " " + hoveredElement + " " + isMouseDragged);
@@ -188,7 +192,7 @@ public class InventoryOverlay implements DragAndDropOverlay
 
         if (isMouseClicked && hoveredElement != null)//To prevent click of not hovered
         {
-            activateHighlightedOption(currentNanoTime);
+            activateHighlightedOption();
         }
     }
 
@@ -239,7 +243,7 @@ public class InventoryOverlay implements DragAndDropOverlay
         }
     }
 
-    private void activateHighlightedOption(Long currentNanoTime)
+    private void activateHighlightedOption()
     {
         String methodName = "activateHighlightedOption() ";
         Collectible collectible = null;
@@ -248,32 +252,64 @@ public class InventoryOverlay implements DragAndDropOverlay
             collectible = actor.getInventory().itemsList.get(itemIdx);
 
 
-        if (collectible != null && WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE)
+        if (WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE)
         {
-            //check from which inventory to which inventory we exchange
-            if (InventoryController.playerInventoryOverlay == this)
+            switch (highlightedElement.identifier)
             {
-                InventoryController.exchangeInventoryActor.getInventory().addItemNextSlot(collectible);
-                InventoryController.playerActor.getInventory().removeItem(collectible);
+                case CANCEL_BUTTON_ID:
+                    if (InventoryController.playerInventoryOverlay == this)
+                        WorldViewController.setWorldViewStatus(WORLD);
+                    else
+                        WorldViewController.setWorldViewStatus(INVENTORY);
+                    break;
+                default:
             }
-            else if (InventoryController.otherInventoryOverlay == this)
+
+            if (collectible != null)
             {
-                InventoryController.playerActor.getInventory().addItemNextSlot(collectible);
-                InventoryController.exchangeInventoryActor.getInventory().removeItem(collectible);
+                //check from which inventory to which inventory we exchange
+                if (InventoryController.playerInventoryOverlay == this)
+                {
+                    InventoryController.exchangeInventoryActor.getInventory().addItemNextSlot(collectible);
+                    InventoryController.playerActor.getInventory().removeItem(collectible);
+                }
+                else if (InventoryController.otherInventoryOverlay == this)
+                {
+                    InventoryController.playerActor.getInventory().addItemNextSlot(collectible);
+                    InventoryController.exchangeInventoryActor.getInventory().removeItem(collectible);
+                }
             }
+
         }
         else if (WorldViewController.getWorldViewStatus() == INVENTORY_SHOP)
         {
             System.out.println(CLASSNAME + methodName + "Clicked in item, shopmode, nothing happens");
+            switch (highlightedElement.identifier)
+            {
+                case CANCEL_BUTTON_ID:
+                    WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
+                    break;
+                default:
+            }
         }
-        else if (WorldViewController.getWorldViewStatus() == INVENTORY
-                && collectible != null
-                && collectible.getType() == CollectableType.FOOD)
+        else if (WorldViewController.getWorldViewStatus() == INVENTORY)
         {
-            System.out.println(CLASSNAME + methodName + "You ate " + collectible.getIngameName());
-            GameVariables.addHunger(collectible.getBaseValue());
-            actor.getInventory().removeItem(collectible);
-            GameVariables.getStolenCollectibles().remove(collectible);
+            switch (highlightedElement.identifier)
+            {
+                case CANCEL_BUTTON_ID:
+                    WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
+                    break;
+                default:
+            }
+
+            if (collectible != null
+                    && collectible.getType() == CollectableType.FOOD)
+            {
+                System.out.println(CLASSNAME + methodName + "You ate " + collectible.getIngameName());
+                GameVariables.addHunger(collectible.getBaseValue());
+                actor.getInventory().removeItem(collectible);
+                GameVariables.getStolenCollectibles().remove(collectible);
+            }
         }
 
     }
