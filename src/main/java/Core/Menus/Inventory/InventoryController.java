@@ -60,7 +60,7 @@ public class InventoryController
             gc.drawImage(interactionInventoryImage, shopInterfacePosition.getX(), shopInterfacePosition.getY());
         }
         else if (WorldViewController.getWorldViewStatus() == INCUBATOR) {
-            incubatorOverlay.setIncubator(exchangeInventoryActor);
+            incubatorOverlay.setActor(exchangeInventoryActor);
             incubatorOverlay.render(gc);
         }
         if (dragAndDropItem != null)

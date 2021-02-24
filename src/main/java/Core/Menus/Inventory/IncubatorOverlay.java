@@ -5,14 +5,10 @@ import Core.Collectible;
 import Core.Enums.CollectableType;
 import Core.GameWindow;
 import Core.Utilities;
-import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static Core.Configs.Config.*;
 import static Core.Menus.Inventory.MouseInteractionType.CLICK;
@@ -23,6 +19,9 @@ public class IncubatorOverlay implements DragAndDropOverlay
     private static final String CLASSNAME = "IncubatorOverlay/";
     private static int WIDTH = INVENTORY_WIDTH;
     private static int HEIGHT = INVENTORY_HEIGHT;
+    final String BASE_INPUT_SLOT = "base_input";
+    final String BASE_OUTPUT_SLOT = "base_output";
+    final String CONVERT_BUTTON_ID = "CONVERT";
     Image cornerTopLeft;
     Image cornerBtmRight;
     private InventoryController controller;
@@ -30,10 +29,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
     private MouseElement highlightedElement = null;
     private Point2D SCREEN_POSITION;
     private Rectangle2D SCREEN_AREA;
-    private Actor incubator;
-    final String BASE_INPUT_SLOT = "base_input";
-    final String BASE_OUTPUT_SLOT = "base_output";
-    final String CONVERT_BUTTON_ID = "CONVERT";
+    private Actor actor;
 
     public IncubatorOverlay(Actor incubator, Point2D SCREEN_POSITION, InventoryController controller)
     {
@@ -41,14 +37,14 @@ public class IncubatorOverlay implements DragAndDropOverlay
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         this.SCREEN_POSITION = SCREEN_POSITION;
         SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
-        this.incubator = incubator;
+        this.actor = incubator;
         this.controller = controller;
         init();
     }
 
     private void init()
     {
-        MouseElement convertBtn = new MouseElement(new Rectangle2D(SCREEN_POSITION.getX() + 150,SCREEN_POSITION.getY() + 300, 150, 64), CONVERT_BUTTON_ID, CLICK);
+        MouseElement convertBtn = new MouseElement(new Rectangle2D(SCREEN_POSITION.getX() + 150, SCREEN_POSITION.getY() + 300, 150, 64), CONVERT_BUTTON_ID, CLICK);
         mouseElements.add(convertBtn);
 
         Rectangle2D base_input = new Rectangle2D(SCREEN_POSITION.getX() + 100, SCREEN_POSITION.getY() + 200, 64, 64);
@@ -97,23 +93,25 @@ public class IncubatorOverlay implements DragAndDropOverlay
         gc.setFill(COLOR_FONT);
         gc.fillRect(rectangle2D.getMinX(), rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
         gc.setFill(highlightedElement == mouseElement ? COLOR_FONT : COLOR_MARKING);
-        gc.fillRect(rectangle2D.getMinX() +2, rectangle2D.getMinY() +2, rectangle2D.getWidth()-4, rectangle2D.getHeight()-4);
-        if (incubator.getInventory().itemsList.get(inventoryIdx) != null)
-            gc.drawImage(incubator.getInventory().itemsList.get(inventoryIdx).getImage(), rectangle2D.getMinX(), rectangle2D.getMinY());
+        gc.fillRect(rectangle2D.getMinX() + 2, rectangle2D.getMinY() + 2, rectangle2D.getWidth() - 4, rectangle2D.getHeight() - 4);
+        if (actor.getInventory().itemsList.get(inventoryIdx) != null)
+            gc.drawImage(actor.getInventory().itemsList.get(inventoryIdx).getImage(), rectangle2D.getMinX(), rectangle2D.getMinY());
     }
 
 
     public void processMouse(Point2D mousePosition)
     {
-        for (int i = 0; i < mouseElements.size(); i++) {
-            if (mouseElements.get(i).getPosition().contains(mousePosition)) {
+        for (int i = 0; i < mouseElements.size(); i++)
+        {
+            if (mouseElements.get(i).getPosition().contains(mousePosition))
+            {
                 highlightedElement = mouseElements.get(i);
             }
         }
 
-        if(GameWindow.getSingleton().isMouseClicked())
+        if (GameWindow.getSingleton().isMouseClicked())
         {
-            if(highlightedElement.reactiveTypes.contains(CLICK))
+            if (highlightedElement.reactiveTypes.contains(CLICK))
                 activateHighlightedOption();
         }
 
@@ -133,15 +131,15 @@ public class IncubatorOverlay implements DragAndDropOverlay
 
     private void convertItem()
     {
-        Collectible inputSlotItem = incubator.getInventory().getItem(mouseElements.indexOf(mouseElements.get(BASE_INPUT_SLOT)));
-        Collectible outputSlotItem = incubator.getInventory().getItem(mouseElements.indexOf(mouseElements.get(BASE_OUTPUT_SLOT)));
+        Collectible inputSlotItem = actor.getInventory().getItem(mouseElements.indexOf(mouseElements.get(BASE_INPUT_SLOT)));
+        Collectible outputSlotItem = actor.getInventory().getItem(mouseElements.indexOf(mouseElements.get(BASE_OUTPUT_SLOT)));
 
         Collectible converted = Collectible.createCollectible("actorData/collectibles/bacteria/bacteria_crafted", "Electric Bacteria", "electric");
 
-        if(inputSlotItem != null && inputSlotItem.getType() == CollectableType.FOOD && outputSlotItem == null)
+        if (inputSlotItem != null && inputSlotItem.getType() == CollectableType.FOOD && outputSlotItem == null)
         {
-            incubator.getInventory().addItemIdx(converted, mouseElements.indexOf(mouseElements.get(BASE_OUTPUT_SLOT)));
-            incubator.getInventory().removeItem(inputSlotItem);
+            actor.getInventory().addItemIdx(converted, mouseElements.indexOf(mouseElements.get(BASE_OUTPUT_SLOT)));
+            actor.getInventory().removeItem(inputSlotItem);
         }
     }
 
@@ -158,13 +156,13 @@ public class IncubatorOverlay implements DragAndDropOverlay
     @Override
     public void dropCollectible(DragAndDropItem dropped)
     {
-        if(highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG))
+        if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG))
         {
             Collectible collectibleToDrop = dropped.collectible;
             dropped.previousInventory.addItemIdx(//Swap item if exists
-                    incubator.getInventory().getItem(mouseElements.indexOf(highlightedElement)),
+                    actor.getInventory().getItem(mouseElements.indexOf(highlightedElement)),
                     dropped.previousIdx);
-            incubator.getInventory().addItemIdx(collectibleToDrop, mouseElements.indexOf(highlightedElement));
+            actor.getInventory().addItemIdx(collectibleToDrop, mouseElements.indexOf(highlightedElement));
         }
         else
         {
@@ -178,27 +176,29 @@ public class IncubatorOverlay implements DragAndDropOverlay
     @Override
     public void dragCollectible(Long currentNanoTime, Point2D mousePosition)
     {
-        if(highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG))
+        if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG))
         {
-        if (incubator.getInventory().itemsList.get(mouseElements.indexOf(highlightedElement)) != null && controller.getDragAndDropItem() == null) {
-            Collectible collectible;
-            collectible = incubator.getInventory().itemsList.get(mouseElements.indexOf(highlightedElement));
-            incubator.getInventory().removeItem(collectible);
-            controller.setDragAndDropItem(new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible, incubator.getInventory(), mouseElements.indexOf(highlightedElement)));
-        }
+            if (actor.getInventory().itemsList.get(mouseElements.indexOf(highlightedElement)) != null && controller.getDragAndDropItem() == null)
+            {
+                Collectible collectible;
+                collectible = actor.getInventory().itemsList.get(mouseElements.indexOf(highlightedElement));
+                actor.getInventory().removeItem(collectible);
+                controller.setDragAndDropItem(new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible, actor.getInventory(), mouseElements.indexOf(highlightedElement)));
+            }
         }
     }
 
     @Override
     public void updateDraggedCollectible(Long currentNanoTime, Point2D mousePosition)
     {
-        if (controller.getDragAndDropItem() != null) {
+        if (controller.getDragAndDropItem() != null)
+        {
             controller.getDragAndDropItem().setPosition(new Point2D(mousePosition.getX(), mousePosition.getY()));
         }
     }
 
-    public void setIncubator(Actor incubator)
+    public void setActor(Actor actor)
     {
-        this.incubator = incubator;
+        this.actor = actor;
     }
 }

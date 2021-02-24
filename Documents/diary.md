@@ -2,6 +2,7 @@
 
 ##### 24 02 21
 * added Incubator Convert Button
+* refactored Inventory, now with mouseEvent
 ##### 18 02 21
 * fixed bugs and quest build
 * changed font of textbox
