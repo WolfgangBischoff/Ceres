@@ -12,6 +12,6 @@ sensorStatus	;inventory																	;inventory_shop											;none  	 					
 #status 			;name   						;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning 						;dialogueID;dialogueFile;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds
 default				;smile vendor	;actorData/system_vendor/smile/vendor_128_160					   				;true				;1												;000	;000										;000	;000	;000								;000									;000											;100	 									;128									;60											;whitelight_256		;none						;dialogueFile;unused;unused;unused;unused;unused;000						;000							;false
 
-#contains_collectible ;actor file path								;IngameName							;SpriteStatus;AMOUNT
+#contains_collectible ;actor file path																		;IngameName							;SpriteStatus;AMOUNT
 contains_collectible 	;actorData/collectibles/food/food	;Algae Stew							;algaeStew			;15
 contains_collectible 	;actorData/collectibles/food/food	;Asia Star Bento		;asiaStar				;3

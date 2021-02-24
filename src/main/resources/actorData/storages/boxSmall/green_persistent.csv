@@ -19,3 +19,6 @@ unlocked 		;greenBox			;actorData/storages/boxSmall/greenBox_64_64							    			
 #condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
 condition	;locked										;*															;hasItem ;unlocked										;inventory									;locked													;*						 												;green ;key ;red; key
 
+#contains_collectible ;actor file path																		;IngameName							;SpriteStatus;AMOUNT
+contains_collectible 	;actorData/collectibles/food/food	;Algae Stew							;algaeStew			;15
+contains_collectible 	;actorData/collectibles/food/food	;Asia Star Bento		;asiaStar				;3

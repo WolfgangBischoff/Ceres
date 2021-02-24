@@ -5,7 +5,6 @@
 
 ####Inventory
 * item desrcp
-* add item in box
            
 #### Set item mechanic
 * sprite an Pos adden via Key
