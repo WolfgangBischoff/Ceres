@@ -33,6 +33,7 @@ public class InventoryOverlay implements DragAndDropOverlay
     private Actor actor;
     private MouseElementsContainer mouseElements = new MouseElementsContainer();
     private MouseElement highlightedElement = null;
+    private MouseElement tooltipElement = null;
     private Point2D SCREEN_POSITION;
     private Rectangle2D SCREEN_AREA;
 
@@ -164,20 +165,46 @@ public class InventoryOverlay implements DragAndDropOverlay
         Rectangle2D cancelButtonRect = mouseElements.get(CANCEL_BUTTON_ID).position;
         gc.drawImage(cancelButton, cancelButtonRect.getMinX(), cancelButtonRect.getMinY());
 
+        //Tooltip
+        Collectible tooltipedCollectible = null;
+        if (mouseElements.indexOf(tooltipElement) >= 0 && mouseElements.indexOf(tooltipElement) < actor.getInventory().itemsList.size())
+            tooltipedCollectible = actor.getInventory().itemsList.get(mouseElements.indexOf(tooltipElement));
+        if (tooltipElement != null && tooltipedCollectible != null)
+        {
+
+            gc.setFill(COLOR_GREEN);
+            gc.fillRect(tooltipElement.position.getMinX() + 50, tooltipElement.position.getMinY() + 50, 300, 100);
+            gc.setFill(COLOR_BACKGROUND_GREY);
+            gc.fillRect(tooltipElement.position.getMinX() + 50 + 2, tooltipElement.position.getMinY() + 50 + 2, 300 - 4, 100 - 4);
+            gc.setFill(font);
+            gc.setFont(FONT_ORBITRON_20);
+            gc.fillText(tooltipedCollectible.getIngameName(),
+                    tooltipElement.position.getMinX() + 50 + 5,
+                    tooltipElement.position.getMinY() + 50 + gc.getFont().getSize() + 3);
+            gc.setFont(FONT_ORBITRON_12);
+            gc.fillText("lorem ipsum",
+                    tooltipElement.position.getMinX() + 50 + 5,
+                    tooltipElement.position.getMinY() + 50 + FONT_ORBITRON_20.getSize() * 1.5 + 3);
+        }
+
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, boolean isMouseDragged, Long currentNanoTime)
     {
         String methodName = "processMouse(Point2D, boolean) ";
         MouseElement hoveredElement = null;
+        tooltipElement = null;
         for (int i = 0; i < mouseElements.size(); i++)
         {
             if (mouseElements.get(i).getPosition().contains(mousePosition))
             {
                 hoveredElement = mouseElements.get(i);
+                if (hoveredElement == highlightedElement)
+                    tooltipElement = mouseElements.get(i);
             }
         }
         //System.out.println(CLASSNAME + actor.getActorInGameName() + " " + hoveredElement + " " + isMouseDragged);
+
 
         if ((GameWindow.getSingleton().isMouseMoved()) && hoveredElement != null)//Set highlight if mouse moved
         {

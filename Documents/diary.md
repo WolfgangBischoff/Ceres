@@ -5,6 +5,7 @@
 * refactored Inventory, now with mouseEvent
 * added Close button
 * add item in box
+* added tooltip
 ##### 18 02 21
 * fixed bugs and quest build
 * changed font of textbox
