@@ -110,22 +110,17 @@ public class InventoryOverlay implements DragAndDropOverlay
         int numberRows = 6;
         int spaceBetweenTiles = 10;
         int initialOffsetX = (WIDTH - (numberColumns * itemTileWidth + (numberColumns - 1) * spaceBetweenTiles)) / 2; //Centered
-        int initialOffsetY = 75;
         int itemSlotNumber = 0;
         int slotNumber = 0;
         for (int y = 0; y < numberRows; y++)
         {
-            int slotY = y * (itemTileWidth + spaceBetweenTiles) + initialOffsetY;
             for (int i = 0; i < numberColumns; i++)
             {
-                MouseElement currentE = mouseElements.get(slotNumber);//TODO
-
-                //Rectangle
-                int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
+                Rectangle2D currentRect = mouseElements.get(slotNumber).position;
                 gc.setFill(font);
-                gc.fillRect(SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY, itemTileWidth, itemTileWidth);
+                gc.fillRect(currentRect.getMinX(), currentRect.getMinY(), currentRect.getWidth(), currentRect.getHeight());
                 gc.setFill(marking);
-                Rectangle2D rectangle2D = new Rectangle2D(SCREEN_POSITION.getX() + slotX + 2, SCREEN_POSITION.getY() + slotY + 2, itemTileWidth - 4, itemTileWidth - 4);
+                Rectangle2D rectangle2D = new Rectangle2D(currentRect.getMinX() + 2, currentRect.getMinY() + 2, currentRect.getWidth() - 4, currentRect.getHeight() - 4);
 
                 //Highlighting
                 if (mouseElements.indexOf(highlightedElement) == slotNumber)
@@ -141,14 +136,14 @@ public class InventoryOverlay implements DragAndDropOverlay
                     current = actor.getInventory().itemsList.get(itemSlotNumber);
                 if (current != null)
                 {
-                    gc.drawImage(current.getImage(), SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY);
+                    gc.drawImage(current.getImage(), currentRect.getMinX(), currentRect.getMinY());
                     //Stolen sign
                     if (GameVariables.getStolenCollectibles().contains(current))
                     {
                         gc.setFill(darkRed);
-                        gc.fillOval(SCREEN_POSITION.getX() + slotX + 44, SCREEN_POSITION.getY() + slotY + 44, 16, 16);
+                        gc.fillOval(currentRect.getMinX() + 44, currentRect.getMinY() + 44, 16, 16);
                         gc.setFill(COLOR_RED);
-                        gc.fillOval(SCREEN_POSITION.getX() + slotX + 46, SCREEN_POSITION.getY() + slotY + 46, 12, 12);
+                        gc.fillOval(currentRect.getMinX() + 46, currentRect.getMinY() + 46, 12, 12);
                     }
                 }
                 itemSlotNumber++;
