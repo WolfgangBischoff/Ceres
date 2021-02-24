@@ -2,6 +2,7 @@
 #Backlog
 
 ####Bug
+* same items dissapear in inventory of dropped on each other
 
 ####Inventory
 * item desrcp
