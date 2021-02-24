@@ -6,13 +6,13 @@ public enum CollectableType
 
     public static CollectableType getType(String type)
     {
-        switch (type.toLowerCase())
+        switch (type.toUpperCase())
         {
-            case "money": return MONEY;
-            case "key": return KEY;
-            case "quest": return QUEST;
-            case "food": return FOOD;
-            case "nonfunction": return NONFUNCTION;
+            case "MONEY": return MONEY;
+            case "KEY": return KEY;
+            case "QUEST": return QUEST;
+            case "FOOD": return FOOD;
+            case "NONFUNCTION": return NONFUNCTION;
             default: throw new RuntimeException("ItemType unknown: " + type);
         }
     }

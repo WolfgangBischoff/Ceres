@@ -4,10 +4,16 @@
 ####Bug
 
 ####Inventory
-* Incubator Convert Button
 * Close button
 * item desrcp
 * add item in box
+           
+#### Set item mechanic
+* sprite an Pos adden via Key
+* Sprite von Menu und maus adden
+* Zeit & Resourcenkosten
+* Position check
+* Different Sprites           
            
 #### Grow Plant / Genes
 * workenbench/breeder that uses base bacteria and genes
@@ -15,13 +21,6 @@
 * bases need organic matter to grow, can be spliced for improvements
 * bases can be mixed, mutated over time
 * bacteria cultures can be used in incubators (bottleneck)
-
-#### Set item mechanic
-* sprite an Pos adden via Key
-* Sprite von Menu und maus adden
-* Zeit & Resourcenkosten
-* Position check
-* Different Sprites
 
 #### Minor
 * StatusInfo over sprite on key + ExclamationMark
@@ -66,10 +65,25 @@
 
     
 
-------------------------------------------
------ Ideas ------------------------------
-------------------------------------------
-Contents:
+# Ideas
+##Basemechanics
+### Transform Station to better place to live
+* Build Support Infrastructure (predefinded place or semi free)
+* Maintain Service by inputs to increase revolutionary spirit
+* Propaganda actions also increase revSpirit
+* Once revSpirit Threshold is reached you can go to another area
+* Delegate mtx to other people
+* Bonus for good service in an area, endgame if all areas are maintained
+
+###Daily needs
+* Sleep -> based on time like in StardewVallay, but maybe no defined end time. Some areas dont have time
+* board time and ceres time are different, ceres night/day changes world
+* Better bed increases skills, also Kuschis; different places over time
+* Food -> Eat during game (if not eaten for days, dies)
+* Air -> needed for space suit
+* Entertainment -> maybe useless but nice value
+
+##Contents
 - Biocomputer
 - People are created by bioengeneering, sexuality is fluent
 Goals and Quest:
@@ -94,14 +108,7 @@ Goals and Quest:
           Find Human Embryos frozen
           Give him for money
 Mechanics:
-    - Daily needs:
-        Sleep -> based on time like in StardewVallay,
-            board time and ceres time are different, ceres night/day changes world
-            Better bed increases skills, also Kuschis; container => lend capsule => then room/hideout
-        Food -> Eat during game (if not eaten for days, dies)
-        Air -> needed for space suit
-        Medicine -> needed if ill
-        Entertainment -> maybe useless but nice value
+   
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
 
     With high attention meter place have surveilance
