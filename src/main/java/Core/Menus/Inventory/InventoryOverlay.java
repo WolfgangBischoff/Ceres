@@ -183,7 +183,7 @@ public class InventoryOverlay implements DragAndDropOverlay
 
             gc.setFill(font);
             gc.setFont(FONT_ORBITRON_20);
-            gc.fillText(tooltippedCollectible.getIngameName(),
+            gc.fillText(tooltippedCollectible.getIngameName() + " " + tooltippedCollectible.getId(),
                     tooltipElement.position.getMinX() + 50 + 5,
                     tooltipElement.position.getMinY() + 50 + gc.getFont().getSize() + 3);
             gc.setFont(FONT_ORBITRON_12);
@@ -238,8 +238,9 @@ public class InventoryOverlay implements DragAndDropOverlay
         if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG))
         {
             Collectible collectibleToDrop = dropped.collectible;
+            Collectible collectibleAtTargetSlot = actor.getInventory().getItem(mouseElements.indexOf(highlightedElement));
             dropped.previousInventory.addItemIdx(//Swap item if exists
-                    actor.getInventory().getItem(mouseElements.indexOf(highlightedElement)),
+                    collectibleAtTargetSlot,
                     dropped.previousIdx);
             actor.getInventory().addItemIdx(collectibleToDrop, mouseElements.indexOf(highlightedElement));
         }

@@ -12,25 +12,28 @@ import static Core.Configs.Config.*;
 public class Collectible
 {
     static final String CLASSNAME = "Collectible";
+    static int collectibleNextId = 0;
+    int id;
     String ingameName;
-    String name;
+    String technicalName;
     Image image;
     CollectableType type;
     int baseValue;
     String description = "";
 
-    public Collectible(String name, CollectableType type, String nameGame, int baseValue)
+    public Collectible(String technicalName, CollectableType type, String nameGame, int baseValue)
     {
-        this.name = name;
+        this.technicalName = technicalName;
         this.type = type;
         this.ingameName = nameGame;
         this.baseValue = baseValue;
+        id = collectibleNextId++;
     }
 
-    public static Collectible createCollectible(String actorfilepath, String ingameName, String spriteStatus)
+    public static Collectible createCollectible(String actorfilepath, String technicalName, String spriteStatus)
     {
-        Actor collectibleActor = new Actor(actorfilepath, ingameName, spriteStatus, "default", Direction.UNDEFINED);
-        Collectible collectible = new Collectible(ingameName, CollectableType.getType(collectibleActor.getCollectable_type()), collectibleActor.actorInGameName, (collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
+        Actor collectibleActor = new Actor(actorfilepath, technicalName, spriteStatus, "default", Direction.UNDEFINED);
+        Collectible collectible = new Collectible(technicalName, CollectableType.getType(collectibleActor.getCollectable_type()), collectibleActor.actorInGameName, (collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
         collectible.image = Utilities.readImage(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).spriteName + PNG_POSTFIX);
 
         String path = collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).dialogieFile;
@@ -55,19 +58,9 @@ public class Collectible
     }
 
     @Override
-    public boolean equals(Object o)
-    {
-        if (this == o) return true;
-        if (!(o instanceof Collectible)) return false;
-        Collectible that = (Collectible) o;
-        return name.equals(that.name) &&
-                type == that.type;
-    }
-
-    @Override
     public String toString()
     {
-        return "{" + name + " " + type +  " value: " + baseValue + "}";
+        return "{" + technicalName + " " + type +  " value: " + baseValue + "}";
     }
 
     public String getIngameName()
@@ -75,9 +68,9 @@ public class Collectible
         return ingameName;
     }
 
-    public String getName()
+    public String getTechnicalName()
     {
-        return name;
+        return technicalName;
     }
 
     public Image getImage()
@@ -98,5 +91,10 @@ public class Collectible
     public String getDescription()
     {
         return description;
+    }
+
+    public int getId()
+    {
+        return id;
     }
 }

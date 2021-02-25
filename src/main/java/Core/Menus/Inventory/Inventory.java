@@ -2,6 +2,7 @@ package Core.Menus.Inventory;
 
 import Core.Actor;
 import Core.Collectible;
+import Core.Enums.CollectableType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +10,23 @@ import java.util.List;
 public class Inventory
 {
     private static final String CLASSNAME = "Inventory/";
+    private final Integer MAX_IDX_ITEMS = 30;
     List<Collectible> itemsList = new ArrayList<>();
     Actor owner;
-    private final Integer MAX_IDX_ITEMS = 30;
 
     public Inventory(Actor owner)
     {
         this.owner = owner;
         for (int i = 0; i < MAX_IDX_ITEMS; i++)
             itemsList.add(null);
+    }
+
+    public boolean hasItemOfType(String technicalName, CollectableType type)
+    {
+        for (Collectible c : itemsList)
+            if (c != null && c.getType() == type && c.getTechnicalName().equals(technicalName))
+                return true;
+        return false;
     }
 
     public void addItemIdx(Collectible collectible, int idx)
