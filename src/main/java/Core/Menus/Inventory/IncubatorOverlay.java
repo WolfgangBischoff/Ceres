@@ -140,7 +140,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
                 convertItem();
                 break;
             case CANCEL_BUTTON_ID:
-                WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
+                WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY);
                 break;
             default:
         }

@@ -1,8 +1,7 @@
 package Core.Menus.Personality;
 
 import Core.Actor;
-import Core.GameVariables;
-import Core.Menus.AchievmentLog.NewMessageOverlay;
+import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.Menus.CoinGame.CoinType;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class PersonalityContainer
         {
             if (cooperation >= trait.getCooperationVisibilityThreshold() && trait.getCooperationVisibilityThreshold() >= 0)
                 if(trait.setVisibility(true))
-                    NewMessageOverlay.showMsg(ownerActor.getActorInGameName() + " has trait " + trait.getName());
+                    CentralMessageOverlay.showMsg(ownerActor.getActorInGameName() + " has trait " + trait.getName());
         });
     }
 

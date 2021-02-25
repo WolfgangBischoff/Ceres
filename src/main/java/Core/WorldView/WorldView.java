@@ -7,7 +7,7 @@ import Core.Enums.Direction;
 import Core.GameTime.DateTime;
 import Core.GameTime.Time;
 import Core.GameTime.TimeMode;
-import Core.Menus.AchievmentLog.NewMessageOverlay;
+import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.Menus.CoinGame.CoinGame;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.Inventory.InventoryController;
@@ -69,7 +69,7 @@ public class WorldView
     //Clock Overlay
     static ClockOverlay boardTimeOverlay;
     //Message Overlay
-    static NewMessageOverlay newMessageOverlay = new NewMessageOverlay();
+    static CentralMessageOverlay centralMessageOverlay = new CentralMessageOverlay();
     static List<Sprite> activeSpritesLayer = new ArrayList<>();
     static List<Sprite> passiveCollisionRelevantSpritesLayer = new ArrayList<>();
     static List<Sprite> passiveSpritesLayer = new ArrayList<>();
@@ -843,8 +843,8 @@ public class WorldView
         moneyOverlay.render(hudCanvas.getGraphicsContext2D());
         if (GameVariables.getClock().getTimeMode() == TimeMode.RUNNING)
             boardTimeOverlay.render(hudCanvas.getGraphicsContext2D());
-        if (newMessageOverlay.isVisible())
-            newMessageOverlay.render(hudCanvas.getGraphicsContext2D(), currentNanoTime);
+        if (centralMessageOverlay.isVisible())
+            centralMessageOverlay.render(hudCanvas.getGraphicsContext2D(), currentNanoTime);
     }
 
     private void renderLightEffect(Long currentNanoTime)

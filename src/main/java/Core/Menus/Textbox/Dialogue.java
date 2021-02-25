@@ -4,7 +4,7 @@ import Core.Actor;
 import Core.Collectible;
 import Core.Enums.Knowledge;
 import Core.GameVariables;
-import Core.Menus.AchievmentLog.NewMessageOverlay;
+import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.Menus.CoinGame.CoinGame;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Utilities;
@@ -56,7 +56,7 @@ public class Dialogue
                 {
                     int amount = Integer.parseInt(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_GET_MONEY));
                     GameVariables.addPlayerMoney(amount);
-                    NewMessageOverlay.showMsg("received " + amount + " GSC!");
+                    CentralMessageOverlay.showMsg("received " + amount + " GSC!");
                 }
                 if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_COIN_GAME))
                 {
@@ -105,7 +105,7 @@ public class Dialogue
                             , currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_NAME)
                             , currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_STATUS));
                     if (WorldView.getPlayer().getActor().getInventory().addItemNextSlot(collectible))
-                        NewMessageOverlay.showMsg("New " + collectible.getIngameName() + "!");
+                        CentralMessageOverlay.showMsg("New " + collectible.getIngameName() + "!");
                     else
                         System.out.println(CLASSNAME + "TODO Item could not be added to Inventory");
                 }

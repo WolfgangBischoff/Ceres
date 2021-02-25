@@ -4,7 +4,7 @@ import Core.Configs.GenericVariablesManager;
 import Core.Enums.Knowledge;
 import Core.GameTime.Clock;
 import Core.GameTime.DateTime;
-import Core.Menus.AchievmentLog.NewMessageOverlay;
+import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.Sprite.Sprite;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -218,7 +218,7 @@ public class GameVariables
     public static void addPlayerKnowledge(Knowledge knowledge)
     {
         if (!playerKnowledge.contains(knowledge))
-            NewMessageOverlay.showMsg("Learned " + knowledge.getName());
+            CentralMessageOverlay.showMsg("Learned " + knowledge.getName());
         playerKnowledge.add(knowledge);
     }
 

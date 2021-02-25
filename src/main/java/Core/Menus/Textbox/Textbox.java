@@ -32,7 +32,8 @@ public class Textbox
     private static final Point2D SCREEN_POSITION = TEXT_BOX_POSITION;
     private static final Rectangle2D SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
     private static final int OFFSET_MARKING_RIGHT = 80;
-    private static final Font font = FONT_ESTROG_30_DEFAULT;
+    private static final int LINE_SPACE = 5;
+    private static Font font = FONT_ORBITRON_20;
     Dialogue readDialogue;
     Element dialogueFileRoot;
     int messageIdx = 0;
@@ -41,7 +42,7 @@ public class Textbox
     int backgroundOffsetYTalkIcon = 50;
     int backgroundOffsetYDecorationBtm = 10;
     Color background = Color.rgb(60, 90, 85);
-    final int firstLineOffsetY = (int) SCREEN_POSITION.getY() + backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon + 20;
+    final int firstLineOffsetY = (int) SCREEN_POSITION.getY() + backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon + 30;
     final int xOffsetTextLine = (int) SCREEN_POSITION.getX() + 40;
     String nextDialogueID = null;
     List<String> lineSplitMessage;
@@ -201,13 +202,11 @@ public class Textbox
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked)
     {
-        String methodName = "processMouse(Point2D, boolean) ";
         isInfoButtonHovered = actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null && talkIcon.contains(mousePosition);
 
-        //System.out.println(CLASSNAME + methodName + mousePosition.toString());
         if (readDialogue.type.equals(DIALOGUE_TYPE_DECISION) && GameWindow.getSingleton().isMouseMoved()) {
             for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++) {
-                Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(xOffsetTextLine, firstLineOffsetY + (checkedLineIdx * font.getSize()), WIDTH - OFFSET_MARKING_RIGHT, font.getSize());
+                Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(xOffsetTextLine, firstLineOffsetY + checkedLineIdx * (font.getSize() + LINE_SPACE), WIDTH - OFFSET_MARKING_RIGHT, font.getSize());
                 if (positionOptionRelativeToWorldView.contains(mousePosition)) {
                     if (markedOption != checkedLineIdx)
                         markedOption = checkedLineIdx;
@@ -292,6 +291,7 @@ public class Textbox
     public void render(GraphicsContext gc) throws NullPointerException
     {
         String methodName = "render() ";
+        font = FONT_ORBITRON_20;
         gc.setFont(FONT_ORBITRON_20);
 
         //Background
@@ -301,14 +301,13 @@ public class Textbox
 
         if (markedOption != null && readDialogue.type.equals(DIALOGUE_TYPE_DECISION)) {
             gc.setFill(COLOR_MARKING);
-            gc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * gc.getFont().getSize() + 5, WIDTH - OFFSET_MARKING_RIGHT, gc.getFont().getSize());
+            gc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * (gc.getFont().getSize() + LINE_SPACE), WIDTH - OFFSET_MARKING_RIGHT, gc.getFont().getSize());
         }
 
         gc.setGlobalAlpha(1);
         gc.drawImage(cornerTopLeft, SCREEN_POSITION.getX(), SCREEN_POSITION.getY() + backgroundOffsetYTalkIcon);
         gc.drawImage(cornerBtmRight, SCREEN_POSITION.getX() + WIDTH - cornerBtmRight.getWidth(), SCREEN_POSITION.getY() + HEIGHT - cornerBtmRight.getHeight());
 
-        int yOffsetTextLine = firstLineOffsetY;
         gc.setFill(COLOR_FONT);
 
         switch (readDialogue.type) {
@@ -316,13 +315,12 @@ public class Textbox
                 lineSplitMessage = readDialogue.getOptionMessages();
                 break;
             case DIALOGUE_TYPE_TECHNICAL:
-                lineSplitMessage = wrapText("nextMessage", FONT_ORBITRON_20, WIDTH - backgroundOffsetX * 4);
+                lineSplitMessage = wrapText("nextMessage", font, WIDTH - backgroundOffsetX * 4);
                 break;
             case DIALOGUE_TYPE_TEXT:
             default:
                 String nextMessage = readDialogue.messages.get(messageIdx);
-                //lineSplitMessage = wrapText(nextMessage);
-                lineSplitMessage = wrapText(nextMessage, FONT_ORBITRON_20, WIDTH - backgroundOffsetX * 4);
+                lineSplitMessage = wrapText(nextMessage, font, WIDTH - backgroundOffsetX * 4);
                 break;
 
         }
@@ -347,9 +345,8 @@ public class Textbox
                 char c = visibleLine.charAt(i);
                 gc.fillText(String.valueOf(c),
                         Math.round(xOffsetTextLine) + textWidth(gc.getFont(), line.substring(0, i)),
-                        Math.round(yOffsetTextLine) + FONT_Y_OFFSET_ESTROG__SIZE30);
+                        firstLineOffsetY + (gc.getFont().getSize() + LINE_SPACE) * lineIdx);
             }
-            yOffsetTextLine += gc.getFont().getSize();
         }
 
         //Character Info Button
@@ -385,7 +382,6 @@ public class Textbox
     private List<String> wrapText(String longMessage, Font font, double length)
     {
         String methodName = "wrapText() ";
-
         return Utilities.wrapText(longMessage, font, length, "%%");
     }
 }

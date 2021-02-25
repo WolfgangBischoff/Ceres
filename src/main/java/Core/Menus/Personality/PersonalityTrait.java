@@ -1,8 +1,6 @@
 package Core.Menus.Personality;
 
-import Core.Actor;
 import Core.Enums.Knowledge;
-import Core.Menus.AchievmentLog.NewMessageOverlay;
 import Core.Menus.CoinGame.CoinType;
 
 public enum PersonalityTrait implements CoinType
