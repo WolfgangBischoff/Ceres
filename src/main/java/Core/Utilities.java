@@ -185,7 +185,7 @@ public class Utilities
         String[] words = s.split(" ");
         int i = 0;
         String checkIfTooLong = "";
-        String fits;
+        String fits = "";
         while (words.length > i)
         {
             fits = checkIfTooLong;
@@ -203,6 +203,8 @@ public class Utilities
             else
                 i++;
         }
+        if(!checkIfTooLong.equals(""))
+            lines.add(checkIfTooLong);
         return lines;
     }
 
