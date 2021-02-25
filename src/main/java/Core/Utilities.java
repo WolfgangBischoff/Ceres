@@ -108,6 +108,10 @@ public class Utilities
         return data;
     }
 
+    public static boolean doesXMLFileExist(String path)
+    {
+        return (Utilities.class.getClassLoader().getResourceAsStream(path + ".xml") != null);
+    }
 
     public static Element readXMLFile(String path)
     {

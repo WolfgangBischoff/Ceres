@@ -250,6 +250,11 @@ public class Dialogue
             this.sensorStatus = sensorStatus;
     }
 
+    public List<String> getMessages()
+    {
+        return messages;
+    }
+
     @Override
     public String toString()
     {

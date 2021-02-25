@@ -3,9 +3,7 @@
 
 ####Bug
 * same items dissapear in inventory of dropped on each other
-
-####Inventory
-* item desrcp
+* item description not visible
            
 #### Set item mechanic
 * sprite an Pos adden via Key

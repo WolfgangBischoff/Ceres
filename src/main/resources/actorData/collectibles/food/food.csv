@@ -11,6 +11,6 @@ collectible_data; food; 5
 suspicious_value; 5
 
 #status to image
-#status 						;name   									;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning;dialogueID;dialogueFile;unused;unused;unused;unused;unused ;duration ;velocity  ;AnimationEnds
-algaeStew					;algae stew						;actorData/collectibles/food/algae_stew				;false			;1												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none					;default			;dialogueFile;unused;unused;unused;unused;unused	;000						;000							;false
+#status 						;name   									;spritename  																														;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning;dialogueID;dialogueFile;unused;unused;unused;unused;unused ;duration ;velocity  ;AnimationEnds
+algaeStew					;algae stew						;actorData/collectibles/food/algae_stew				;false			;1												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none					;asia_bento			;actorData/collectibles/food/food;unused;unused;unused;unused;unused	;000						;000							;false
 asiaStar						;bento box							;actorData/collectibles/food/bento									;false			;1												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none					;default			;dialogueFile;unused;unused;unused;unused;unused	;000						;000							;false

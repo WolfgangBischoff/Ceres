@@ -2,10 +2,12 @@ package Core;
 
 import Core.Enums.CollectableType;
 import Core.Enums.Direction;
+import Core.Menus.Textbox.Dialogue;
 import javafx.scene.image.Image;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
-import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
-import static Core.Configs.Config.PNG_POSTFIX;
+import static Core.Configs.Config.*;
 
 public class Collectible
 {
@@ -14,6 +16,7 @@ public class Collectible
     Image image;
     CollectableType type;
     int baseValue;
+    String description = "";
 
     public Collectible(String name, CollectableType type, String nameGame, int baseValue)
     {
@@ -28,6 +31,23 @@ public class Collectible
         Actor collectibleActor = new Actor(actorfilepath, ingameName, spriteStatus, "default", Direction.UNDEFINED);
         Collectible collectible = new Collectible(ingameName, CollectableType.getType(collectibleActor.getCollectable_type()), collectibleActor.actorInGameName, (collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
         collectible.image = Utilities.readImage(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).spriteName + PNG_POSTFIX);
+
+
+        if(Utilities.doesXMLFileExist(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).dialogieFile))
+        {
+            Element dialogueFileRoot = Utilities.readXMLFile(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).dialogieFile);
+            String descId = collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).dialogueID;
+            NodeList dialogues = dialogueFileRoot.getElementsByTagName(DIALOGUE_TAG);
+            for(int i = 0; i<dialogues.getLength(); i++)
+            {
+                if (((Element) dialogues.item(i)).getAttribute(ID_TAG).equals(descId)) {
+                    Element currentDialogueXML = ((Element) dialogues.item(i));
+                    Dialogue readDialogue = new Dialogue(collectibleActor, currentDialogueXML);
+                    collectible.description = readDialogue.getMessages().get(0);
+                }
+            }
+        }
+
         return collectible;
     }
 
@@ -70,5 +90,10 @@ public class Collectible
     public int getBaseValue()
     {
         return baseValue;
+    }
+
+    public String getDescription()
+    {
+        return description;
     }
 }

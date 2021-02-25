@@ -166,10 +166,10 @@ public class InventoryOverlay implements DragAndDropOverlay
         gc.drawImage(cancelButton, cancelButtonRect.getMinX(), cancelButtonRect.getMinY());
 
         //Tooltip
-        Collectible tooltipedCollectible = null;
+        Collectible tooltippedCollectible = null;
         if (mouseElements.indexOf(tooltipElement) >= 0 && mouseElements.indexOf(tooltipElement) < actor.getInventory().itemsList.size())
-            tooltipedCollectible = actor.getInventory().itemsList.get(mouseElements.indexOf(tooltipElement));
-        if (tooltipElement != null && tooltipedCollectible != null)
+            tooltippedCollectible = actor.getInventory().itemsList.get(mouseElements.indexOf(tooltipElement));
+        if (tooltipElement != null && tooltippedCollectible != null)
         {
 
             gc.setFill(COLOR_GREEN);
@@ -178,11 +178,11 @@ public class InventoryOverlay implements DragAndDropOverlay
             gc.fillRect(tooltipElement.position.getMinX() + 50 + 2, tooltipElement.position.getMinY() + 50 + 2, 300 - 4, 100 - 4);
             gc.setFill(font);
             gc.setFont(FONT_ORBITRON_20);
-            gc.fillText(tooltipedCollectible.getIngameName(),
+            gc.fillText(tooltippedCollectible.getIngameName(),
                     tooltipElement.position.getMinX() + 50 + 5,
                     tooltipElement.position.getMinY() + 50 + gc.getFont().getSize() + 3);
             gc.setFont(FONT_ORBITRON_12);
-            gc.fillText("lorem ipsum",
+            gc.fillText(tooltippedCollectible.getDescription(),
                     tooltipElement.position.getMinX() + 50 + 5,
                     tooltipElement.position.getMinY() + 50 + FONT_ORBITRON_20.getSize() * 1.5 + 3);
         }

@@ -6,6 +6,7 @@
 * added Close button
 * add item in box
 * added tooltip
+* added first item desc
 ##### 18 02 21
 * fixed bugs and quest build
 * changed font of textbox
