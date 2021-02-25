@@ -313,9 +313,8 @@ public class InventoryOverlay implements DragAndDropOverlay
             }
 
         }
-        else if (WorldViewController.getWorldViewStatus() == INVENTORY_SHOP)
+        else if (WorldViewController.getWorldViewStatus() == INVENTORY_SHOP || WorldViewController.getWorldViewStatus() == INCUBATOR)
         {
-            System.out.println(CLASSNAME + methodName + "Clicked in item, shopmode, nothing happens");
             switch (highlightedElement.identifier)
             {
                 case CANCEL_BUTTON_ID:
