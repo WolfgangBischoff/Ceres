@@ -4,6 +4,7 @@ import Core.Enums.Direction;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.util.Pair;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,6 +20,8 @@ import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.*;
+
+import static Core.Configs.Config.FONT_ORBITRON_12;
 
 public class Utilities
 {
@@ -174,6 +177,33 @@ public class Utilities
             System.out.println(CLASSNAME + methodName + "Must have a equal number of elements: " + Arrays.toString(arr));
         }
         return ret;
+    }
+
+    public static List<String> wrapText(String s, Font font, double lineWidth)
+    {
+        List<String> lines = new ArrayList<>();
+        String[] words = s.split(" ");
+        int i = 0;
+        String checkIfTooLong = "";
+        String fits;
+        while (words.length > i)
+        {
+            fits = checkIfTooLong;
+            checkIfTooLong = fits + " " + words[i];
+            Text text = new Text(checkIfTooLong);
+            text.setFont(font);
+            double width = text.getBoundsInLocal().getWidth();
+            if (width > lineWidth)
+            {
+                lines.add(fits);
+                checkIfTooLong = "";
+                words = Arrays.copyOfRange(words, i, words.length);
+                i = 0;
+            }
+            else
+                i++;
+        }
+        return lines;
     }
 
 }
