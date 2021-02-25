@@ -1,42 +1,13 @@
 
 
-<!--/>
-File Identified by Actor Definition
-First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
-
-id - identifier for lookup of textbox
-type - normal/decision/discussion
-spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
-
-    <dialogue id="welcome" type="normal" spritestatus="transition">
-        <line>Shown message</line>
-        <line>Shown message 2</line>
-        <nextDialogue>nextDialogueID</nextDialogue>
-    </dialogue>
-
-    <dialogue id="info" type="decision" spritestatus="transition">
-        <option>
-            <line>Optiontext1</line>
-            <nextDialogue>option1ID</nextDialogue>
-        </option>
-
-        <option>
-            <line>Optiontext1, Nothing happens</line>
-        </option>
-    </dialogue>
-
-     <dialogue id="DECISION-DISCUSSION" type="technical" coingame="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
-
-"   &quot;
-'   &apos;
-<   &lt;
->   &gt;
-&   &amp;
-<-->
 
 <root name = "actorName">
+    <dialogue id="green_algae" type="normal">
+        <line>A can of green algae, slimy but cheap. Available in several flavors.</line>
+    </dialogue>
+
     <dialogue id="asia_bento" type="normal">
-        <line>This is Asia Bento</line>
+        <line>"Delicious, Tasty, Palatable - Just try", they seem to have a motivated marketing department.</line>
     </dialogue>
 
 </root>

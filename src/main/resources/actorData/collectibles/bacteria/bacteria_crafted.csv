@@ -9,5 +9,5 @@ sensorStatus	;default										;collectable														;none  	 														
 collectible_data; NONFUNCTION; 5
 
 #status to image
-#status 						;name   									;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning;dialogueID;dialogueFile;unused;unused;unused;unused;unused ;duration ;velocity  ;AnimationEnds
-electric						;electric  						;actorData/collectibles/bacteria/electric					;false			;1												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none					;default			;dialogueFile;unused;unused;unused;unused;unused	;000						;000							;false
+#status 						;name   									;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning;dialogueID;dialogueFile																													;unused;unused;unused;unused;unused ;duration ;velocity  ;AnimationEnds
+electric						;electric  						;actorData/collectibles/bacteria/electric					;false			;1												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none					;electric		;actorData/collectibles/bacteria/bacteria	;unused;unused;unused;unused;unused	;000						;000							;false

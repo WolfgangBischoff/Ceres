@@ -11,6 +11,7 @@ import static Core.Configs.Config.*;
 
 public class Collectible
 {
+    static final String CLASSNAME = "Collectible";
     String ingameName;
     String name;
     Image image;
@@ -32,8 +33,8 @@ public class Collectible
         Collectible collectible = new Collectible(ingameName, CollectableType.getType(collectibleActor.getCollectable_type()), collectibleActor.actorInGameName, (collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
         collectible.image = Utilities.readImage(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).spriteName + PNG_POSTFIX);
 
-
-        if(Utilities.doesXMLFileExist(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).dialogieFile))
+        String path = collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).dialogieFile;
+        if(Utilities.doesXMLFileExist(path))
         {
             Element dialogueFileRoot = Utilities.readXMLFile(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).dialogieFile);
             String descId = collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).dialogueID;
@@ -47,6 +48,8 @@ public class Collectible
                 }
             }
         }
+        else
+            System.out.println(CLASSNAME + " create Collectible() Path does not exist: " + path);
 
         return collectible;
     }

@@ -10,10 +10,10 @@ import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static Core.Configs.Config.*;
 import static Core.Menus.Inventory.MouseInteractionType.CLICK;
@@ -171,20 +171,52 @@ public class InventoryOverlay implements DragAndDropOverlay
             tooltippedCollectible = actor.getInventory().itemsList.get(mouseElements.indexOf(tooltipElement));
         if (tooltipElement != null && tooltippedCollectible != null)
         {
-
+            int tooltipWidth = 300;
             gc.setFill(COLOR_GREEN);
-            gc.fillRect(tooltipElement.position.getMinX() + 50, tooltipElement.position.getMinY() + 50, 300, 100);
+            gc.fillRect(tooltipElement.position.getMinX() + 50, tooltipElement.position.getMinY() + 50, tooltipWidth, 100);
             gc.setFill(COLOR_BACKGROUND_GREY);
-            gc.fillRect(tooltipElement.position.getMinX() + 50 + 2, tooltipElement.position.getMinY() + 50 + 2, 300 - 4, 100 - 4);
+            gc.fillRect(tooltipElement.position.getMinX() + 50 + 2, tooltipElement.position.getMinY() + 50 + 2, tooltipWidth - 4, 100 - 4);
+
             gc.setFill(font);
             gc.setFont(FONT_ORBITRON_20);
+
+
+            List<String> lines = new ArrayList<>();
+            String s = tooltippedCollectible.getDescription();
+            String[] words = s.split(" ");
+            int i = 0;
+            String checkIfTooLong = "";
+            String fits = "";
+            while (words.length > i)
+            {
+                fits = checkIfTooLong;
+                checkIfTooLong = fits + " " + words[i];
+                Text text = new Text(checkIfTooLong);
+                text.setFont(FONT_ORBITRON_12);
+                double width = text.getBoundsInLocal().getWidth();
+                if (width > tooltipWidth)
+                {
+                    lines.add(fits);
+                    checkIfTooLong = "";
+                    words = Arrays.copyOfRange(words, i, words.length);
+                    i = 0;
+                }
+                else
+                    i++;
+            }
+
             gc.fillText(tooltippedCollectible.getIngameName(),
                     tooltipElement.position.getMinX() + 50 + 5,
                     tooltipElement.position.getMinY() + 50 + gc.getFont().getSize() + 3);
             gc.setFont(FONT_ORBITRON_12);
-            gc.fillText(tooltippedCollectible.getDescription(),
-                    tooltipElement.position.getMinX() + 50 + 5,
-                    tooltipElement.position.getMinY() + 50 + FONT_ORBITRON_20.getSize() * 1.5 + 3);
+
+            for(int l=0; l<lines.size();l++)
+            {
+                gc.fillText(lines.get(l),
+                        tooltipElement.position.getMinX() + 50 + 5,
+                        tooltipElement.position.getMinY() + (50 + FONT_ORBITRON_20.getSize() * 1.5) + FONT_ORBITRON_12.getSize() * l + 3);
+            }
+
         }
 
     }

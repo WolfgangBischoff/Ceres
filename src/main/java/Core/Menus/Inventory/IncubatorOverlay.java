@@ -86,6 +86,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
         //Text
         int offsetYFirstLine = 60;
         int dateLength = 200;
+        gc.setFont(FONT_ESTROG_20);
         gc.setFill(COLOR_FONT);
         gc.fillText("Incubator", SCREEN_POSITION.getX() + WIDTH - dateLength, SCREEN_POSITION.getY() + offsetYFirstLine);
 
@@ -151,10 +152,9 @@ public class IncubatorOverlay implements DragAndDropOverlay
         Collectible inputSlotItem = actor.getInventory().getItem(mouseElements.indexOf(mouseElements.get(BASE_INPUT_SLOT)));
         Collectible outputSlotItem = actor.getInventory().getItem(mouseElements.indexOf(mouseElements.get(BASE_OUTPUT_SLOT)));
 
-        Collectible converted = Collectible.createCollectible("actorData/collectibles/bacteria/bacteria_crafted", "Electric Bacteria", "electric");
-
         if (inputSlotItem != null && inputSlotItem.getType() == CollectableType.FOOD && outputSlotItem == null)
         {
+            Collectible converted = Collectible.createCollectible("actorData/collectibles/bacteria/bacteria_crafted", "Electric Bacteria", "electric");
             actor.getInventory().addItemIdx(converted, mouseElements.indexOf(mouseElements.get(BASE_OUTPUT_SLOT)));
             actor.getInventory().removeItem(inputSlotItem);
         }

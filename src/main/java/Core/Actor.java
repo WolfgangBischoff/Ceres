@@ -629,6 +629,8 @@ public class Actor
         String methodName = "collect(String) ";
         CollectableType collectableType = CollectableType.getType(collectable_type);
         Collectible collected = new Collectible(generalStatus, collectableType, actorInGameName, getNumeric_generic_attributes().get("base_value").intValue());
+
+        //Collectible collected = Collectible.createCollectible();
         collected.image = spriteList.get(0).getBaseimage();
         boolean wasCollected = collectingActor.inventory.addItemNextSlot(collected);
 

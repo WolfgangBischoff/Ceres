@@ -1,0 +1,11 @@
+
+
+
+<root name = "actorName">
+    <dialogue id="electric" type="normal">
+        <line>The bacteria glow with electricity.</line>
+    </dialogue>
+
+</root>
+
+
