@@ -172,7 +172,7 @@ public class InventoryOverlay implements DragAndDropOverlay
         if (tooltipElement != null && tooltippedCollectible != null)
         {
             int tooltipWidth = 300;
-            List<String> lines = Utilities.wrapText(tooltippedCollectible.getDescription(), FONT_ORBITRON_12, tooltipWidth);
+            List<String> lines = Utilities.wrapText(tooltippedCollectible.getDescription(), FONT_ORBITRON_12, tooltipWidth, null);
 
             double collectibleHeadlineHeight = (FONT_ORBITRON_20.getSize() * 1.5);
             double tooltipHeight = collectibleHeadlineHeight + (FONT_ORBITRON_12.getSize() * lines.size() + 3);

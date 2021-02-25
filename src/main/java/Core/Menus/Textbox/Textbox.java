@@ -316,12 +316,13 @@ public class Textbox
                 lineSplitMessage = readDialogue.getOptionMessages();
                 break;
             case DIALOGUE_TYPE_TECHNICAL:
-                lineSplitMessage = wrapText("technical");
+                lineSplitMessage = wrapText("nextMessage", FONT_ORBITRON_20, WIDTH - backgroundOffsetX * 4);
                 break;
             case DIALOGUE_TYPE_TEXT:
             default:
                 String nextMessage = readDialogue.messages.get(messageIdx);
-                lineSplitMessage = wrapText(nextMessage);
+                //lineSplitMessage = wrapText(nextMessage);
+                lineSplitMessage = wrapText(nextMessage, FONT_ORBITRON_20, WIDTH - backgroundOffsetX * 4);
                 break;
 
         }
@@ -381,27 +382,10 @@ public class Textbox
             actorOfDialogue.onTextboxSignal(toGeneralStatus);
     }
 
-    private List<String> wrapText(String longMessage)
+    private List<String> wrapText(String longMessage, Font font, double length)
     {
         String methodName = "wrapText() ";
-        List<String> wrapped = new ArrayList<>();
-        String[] words = longMessage.split(" ");
 
-        int numberDigits = 0;
-        StringBuilder lineBuilder = new StringBuilder();
-        for (int wordIdx = 0; wordIdx < words.length; wordIdx++)
-        {
-            int numberDigitsWithoutFontRegex = FontManager.removeFontMarkings(words[wordIdx]).length();
-            if (numberDigits + numberDigitsWithoutFontRegex > TEXT_MAX_LINE_LETTERS)
-            {
-                wrapped.add(lineBuilder.toString());
-                lineBuilder = new StringBuilder();
-                numberDigits = 0;
-            }
-            numberDigits += numberDigitsWithoutFontRegex + 1;
-            lineBuilder.append(words[wordIdx]).append(" ");
-        }
-        wrapped.add(lineBuilder.toString());
-        return wrapped;
+        return Utilities.wrapText(longMessage, font, length, "%%");
     }
 }
