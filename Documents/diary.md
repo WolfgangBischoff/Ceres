@@ -1,5 +1,7 @@
 
-
+##### 25 02 21
+* item description not visible
+* refactoring, multiple gui bugs fixed
 ##### 24 02 21
 * added Incubator Convert Button
 * refactored Inventory, now with mouseEvent
