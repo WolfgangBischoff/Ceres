@@ -2,7 +2,7 @@
 #Backlog
 
 ####Bug
-* same items dissapear in inventory of dropped on each other
+* linebreak for tooltip and textbox
            
 #### Set item mechanic
 * sprite an Pos adden via Key

@@ -1,0 +1,15 @@
+
+
+
+<root name = "reader">
+    <dialogue id="pda" type="normal">
+        <line>Delivery Order
+            1) Calibration Equipment
+            2) Precision mechanics (heat)
+            3) General Support
+            3) Consumer Goods (Smile, Chiv, Alliance)</line>
+    </dialogue>
+
+</root>
+
+

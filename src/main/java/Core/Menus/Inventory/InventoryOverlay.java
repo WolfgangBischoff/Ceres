@@ -183,7 +183,7 @@ public class InventoryOverlay implements DragAndDropOverlay
 
             gc.setFill(font);
             gc.setFont(FONT_ORBITRON_20);
-            gc.fillText(tooltippedCollectible.getIngameName() + " " + tooltippedCollectible.getId(),
+            gc.fillText(tooltippedCollectible.getIngameName(),
                     tooltipElement.position.getMinX() + 50 + 5,
                     tooltipElement.position.getMinY() + 50 + gc.getFont().getSize() + 3);
             gc.setFont(FONT_ORBITRON_12);
