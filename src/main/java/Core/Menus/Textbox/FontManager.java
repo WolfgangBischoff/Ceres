@@ -7,7 +7,6 @@ import javafx.scene.text.Text;
 import javafx.util.Pair;
 
 import java.util.*;
-import java.util.List;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.stream.Collectors;
 
@@ -19,37 +18,49 @@ public class FontManager
     static String regex_default = "%%DE";
     Queue<Pair<String, Pair<Integer, Integer>>> fondData;
     String message = "";
-    List<String> wrappedMessage = new ArrayList();
+    List<String> wrappedMessage = new ArrayList<>();
     Font font;
 
     public FontManager()
     {
-        //fondData = findFontMarkings(line);
-        if(regexMap.isEmpty())
-        {
+        if (regexMap.isEmpty()) {
             regexMap.put(regex_default, COLOR_FONT);
             regexMap.put(REGEX_RED, COLOR_RED);
             regexMap.put(REGEX_GREEN, COLOR_GREEN);
             regexMap.put(REGEX_VIOLET, COLOR_VIOLET);
             regexMap.put(REGEX_GOLD, COLOR_GOLD);
         }
+    }
 
+    private static double textWidth(Font font, String s)
+    {
+        Text text = new Text(s);
+        text.setFont(font);
+        return text.getBoundsInLocal().getWidth();
+    }
+
+    public static String removeColorMarkings(String line)
+    {
+        for (String s : regexMap.keySet())
+            line = line.replace(s, "");
+        line = line.replace("%%", "");
+        return line;
     }
 
     public void parseText(String messages, Font font, double lineWidth)
     {
         fondData = findFontMarkings(messages);
-        message = removeFontMarkings(messages);
+        message = removeColorMarkings(messages);
         this.font = font;
-        wrappedMessage = Utilities.wrapText(message, font, lineWidth, null);
+        wrappedMessage = Utilities.wrapText(message, font, lineWidth);
     }
 
     public void parseOptions(List<String> options, Font font, double lineWidth)
     {
         String optionsAsOneString = String.join("", options);
         fondData = findFontMarkings(optionsAsOneString);
-        message = removeFontMarkings(optionsAsOneString);
-        wrappedMessage = options.stream().map(s -> removeFontMarkings(s)).collect(Collectors.toList());
+        message = removeColorMarkings(optionsAsOneString);
+        wrappedMessage = options.stream().map(FontManager::removeColorMarkings).collect(Collectors.toList());
     }
 
     public int lettersTo(int maxLettersRendered)
@@ -65,10 +76,9 @@ public class FontManager
     public int getLineIdx(int letterIdx)
     {
         int sumLetters = 0;
-        for(int i=0; i<wrappedMessage.size(); i++)
-        {
+        for (int i = 0; i < wrappedMessage.size(); i++) {
             sumLetters += wrappedMessage.get(i).length();
-            if(letterIdx < sumLetters)
+            if (letterIdx < sumLetters)
                 return i;
         }
         return 0;
@@ -76,32 +86,9 @@ public class FontManager
 
     public double getLineXOffset(int lineIdx, int nextLetterIdx)
     {
-        for(int i=0; i<lineIdx; i++)
+        for (int i = 0; i < lineIdx; i++)
             nextLetterIdx -= wrappedMessage.get(i).length();
-       return textWidth(font, wrappedMessage.get(lineIdx).substring(0, nextLetterIdx));
-    }
-
-    private static double textWidth(Font font, String s)
-    {
-        Text text = new Text(s);
-        text.setFont(font);
-        return text.getBoundsInLocal().getWidth();
-    }
-
-    public String getLine(int idx)
-    {
-        if(idx < wrappedMessage.size())
-            return wrappedMessage.get(idx);
-        else
-            return "";
-    }
-
-    public static String removeFontMarkings(String line)
-    {
-        for (String s : regexMap.keySet())
-            line = line.replace(s, "");
-        line = line.replace("%%", "");
-        return line;
+        return textWidth(font, wrappedMessage.get(lineIdx).substring(0, nextLetterIdx));
     }
 
     public Color getFontAtLetter(int idx)

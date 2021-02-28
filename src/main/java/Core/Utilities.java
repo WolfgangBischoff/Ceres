@@ -179,7 +179,7 @@ public class Utilities
         return ret;
     }
 
-    public static List<String> wrapText(String s, Font font, double lineWidth, String regexToIgnore)
+    public static List<String> wrapText(String s, Font font, double lineWidth)
     {
         List<String> lines = new ArrayList<>();
         String[] words = s.split(" ");
@@ -193,8 +193,10 @@ public class Utilities
             Text text = new Text(checkIfTooLong);
             text.setFont(font);
             double width = text.getBoundsInLocal().getWidth();
-            if (width > lineWidth)
+            if (width > lineWidth || checkIfTooLong.contains("%n"))
             {
+                if(checkIfTooLong.contains("%n"))
+                    i++;
                 lines.add(fits);
                 checkIfTooLong = "";
                 words = Arrays.copyOfRange(words, i, words.length);

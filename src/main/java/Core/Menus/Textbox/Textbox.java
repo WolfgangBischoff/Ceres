@@ -1,8 +1,11 @@
 package Core.Menus.Textbox;
 
-import Core.*;
+import Core.Actor;
 import Core.Enums.Direction;
+import Core.GameVariables;
+import Core.GameWindow;
 import Core.Menus.Personality.PersonalityScreenController;
+import Core.Utilities;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -13,7 +16,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -33,18 +35,17 @@ public class Textbox
     private static final Rectangle2D SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
     private static final int OFFSET_MARKING_RIGHT = 80;
     private static final int LINE_SPACE = 5;
-    int NUMBER_LINES = 4;
     private static Font font = FONT_ORBITRON_20;
+    final int xOffsetTextLine = (int) SCREEN_POSITION.getX() + 40;
     Dialogue readDialogue;
     Element dialogueFileRoot;
     int messageIdx = 0;
     int backgroundOffsetX = 16;
     int backgroundOffsetYDecorationTop = 10;
     int backgroundOffsetYTalkIcon = 50;
+    final int firstLineOffsetY = (int) SCREEN_POSITION.getY() + backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon + 30;
     int backgroundOffsetYDecorationBtm = 10;
     Color background = Color.rgb(60, 90, 85);
-    final int firstLineOffsetY = (int) SCREEN_POSITION.getY() + backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon + 30;
-    final int xOffsetTextLine = (int) SCREEN_POSITION.getX() + 40;
     String nextDialogueID = null;
     Integer markedOption = 0;
     Actor actorOfDialogue;
@@ -166,20 +167,18 @@ public class Textbox
     public void processKey(ArrayList<String> input, Long currentNanoTime)
     {
         //int maxMarkedOptionIdx = lineSplitMessage.size() - 1;
-        int maxMarkedOptionIdx = fontManager.wrappedMessage.size() -1;
+        int maxMarkedOptionIdx = fontManager.wrappedMessage.size() - 1;
         int newMarkedOption = markedOption;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - WorldView.getPlayer().getActor().getLastInteraction()) / 1000000000.0;
         if (!(elapsedTimeSinceLastInteraction > TIME_BETWEEN_DIALOGUE))
             return;
 
-        if (input.contains(KEYBOARD_INTERACT) || input.contains("ENTER") || input.contains("SPACE"))
-        {
+        if (input.contains(KEYBOARD_INTERACT) || input.contains("ENTER") || input.contains("SPACE")) {
             nextMessage(currentNanoTime);
             WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
             return;
         }
-        else if (input.contains(KEYBOARD_ESCAPE))
-        {
+        else if (input.contains(KEYBOARD_ESCAPE)) {
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
         }
 
@@ -193,8 +192,7 @@ public class Textbox
         if (newMarkedOption > maxMarkedOptionIdx)
             newMarkedOption = 0;
 
-        if (markedOption != newMarkedOption)
-        {
+        if (markedOption != newMarkedOption) {
             markedOption = newMarkedOption;
             WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
         }
@@ -205,7 +203,7 @@ public class Textbox
         isInfoButtonHovered = actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null && talkIcon.contains(mousePosition);
 
         if (readDialogue.type.equals(DIALOGUE_TYPE_DECISION) && GameWindow.getSingleton().isMouseMoved()) {
-            for (int checkedLineIdx = 0; checkedLineIdx < NUMBER_LINES; checkedLineIdx++) {
+            for (int checkedLineIdx = 0; checkedLineIdx < fontManager.wrappedMessage.size(); checkedLineIdx++) {
                 Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(xOffsetTextLine, firstLineOffsetY + checkedLineIdx * (font.getSize() + LINE_SPACE), WIDTH - OFFSET_MARKING_RIGHT, font.getSize());
                 if (positionOptionRelativeToWorldView.contains(mousePosition)) {
                     if (markedOption != checkedLineIdx)
@@ -215,15 +213,12 @@ public class Textbox
             }
             GameWindow.getSingleton().setMouseMoved(false);
         }
-        if (isMouseClicked)
-        {
-            if (isInfoButtonHovered)
-            {
+        if (isMouseClicked) {
+            if (isInfoButtonHovered) {
                 WorldView.setPersonalityScreenController(new PersonalityScreenController(actorOfDialogue));
                 WorldViewController.setWorldViewStatus(WorldViewStatus.PERSONALITY);
             }
-            else if (!SCREEN_AREA.contains(mousePosition))
-            {
+            else if (!SCREEN_AREA.contains(mousePosition)) {
                 nextMessage(GameWindow.getSingleton().getRenderTime());//Remove if next Msg should just come if you click inside the box
             }
             else
@@ -235,8 +230,7 @@ public class Textbox
     {
         String methodName = "groupAnalysis(List<Actor>, Actor) ";
         startConversation(speakingActor);
-        for (Actor actor : actorsList)
-        {
+        for (Actor actor : actorsList) {
             Element analysisDialogueFileObserved = Utilities.readXMLFile(actor.getSpriteList().get(0).getDialogueFileName());
             Dialogue analysisMessageObserved = readDialogue("analysis-" + actor.getSpriteList().get(0).getInitDialogueId(), analysisDialogueFileObserved);
             readDialogue.messages.add(actor.getActorInGameName() + analysisMessageObserved.messages.get(0));
@@ -252,7 +246,6 @@ public class Textbox
     {
         String methodName = "nextMessage(Long) ";
         Actor playerActor = WorldView.getPlayer().getActor();
-
         maxLettersIdxRendered = 0;
 
         if (readDialogue.type.equals(DIALOGUE_TYPE_DECISION)) {
@@ -280,17 +273,14 @@ public class Textbox
         playerActor.setLastInteraction(currentNanoTime);
 
         //for PC screen we want change after each click
-        if (readDialogue.getSpriteStatus() != null)
-        {
+        if (readDialogue.getSpriteStatus() != null) {
             changeActorStatus(readDialogue.getSpriteStatus());
         }
-
 
     }
 
     public void render(GraphicsContext gc) throws NullPointerException
     {
-        String methodName = "render() ";
         font = FONT_ORBITRON_20;
         gc.setFont(FONT_ORBITRON_20);
 
@@ -315,11 +305,11 @@ public class Textbox
                 fontManager.parseOptions(readDialogue.getOptionMessages(), font, textLineWidth);
                 break;
             case DIALOGUE_TYPE_TEXT:
+            case DIALOGUE_TYPE_TECHNICAL:
+            default:
                 String nextMessage = readDialogue.messages.get(messageIdx);
                 fontManager.parseText(nextMessage, font, textLineWidth);
                 break;
-            default:
-
         }
 
         gc.setTextAlign(TextAlignment.LEFT);
@@ -331,8 +321,7 @@ public class Textbox
             lastTimeNewLetterRendered = GameWindow.getCurrentNanoRenderTimeGameWindow();
         }
 
-        for(int idxLetter = 0; idxLetter < fontManager.lettersTo(maxLettersIdxRendered); idxLetter++)
-        {
+        for (int idxLetter = 0; idxLetter < fontManager.lettersTo(maxLettersIdxRendered); idxLetter++) {
             char letter = fontManager.getLetterAt(idxLetter);
             Color f = fontManager.getFontAtLetter(idxLetter);
             int lineIdx = fontManager.getLineIdx(idxLetter);
@@ -344,8 +333,7 @@ public class Textbox
         }
 
         //Character Info Button
-        if (actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null)
-        {
+        if (actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null) {
             gc.drawImage(characterButton, talkIcon.getMinX(), talkIcon.getMinY());
         }
     }
@@ -363,11 +351,5 @@ public class Textbox
         String methodName = "changeActorStatus(String) ";
         if (!actorOfDialogue.getGeneralStatus().equals(toGeneralStatus))
             actorOfDialogue.onTextboxSignal(toGeneralStatus);
-    }
-
-    private List<String> wrapText(String longMessage, Font font, double length)
-    {
-        String methodName = "wrapText() ";
-        return Utilities.wrapText(longMessage, font, length, "%%");
     }
 }
