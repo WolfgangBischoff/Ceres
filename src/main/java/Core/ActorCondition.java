@@ -45,8 +45,6 @@ public class ActorCondition
         //If at least on item fits return true
         for (int i = 0; i < params.size(); i = i + 2)
         {
-            //Collectible toCheck = new Collectible(params.get(i), CollectableType.getType(params.get(i + 1)), "checkitem hasItem()", 0);
-            //if (actor.inventory.contains(toCheck))
             if (actor.inventory.hasItemOfType(params.get(i), CollectableType.getType(params.get(i + 1))))
                 return true;
         }
@@ -56,9 +54,7 @@ public class ActorCondition
     private boolean variable()
     {
         String methodName = "value() ";
-        boolean debug = true;
         String variableName = params.get(0);
-        //System.out.println(CLASSNAME + methodName + Boolean.parseBoolean(GameVariables.getGenericVariableManager().getValue(variableName)));
         return Boolean.parseBoolean(GameVariables.getGenericVariableManager().getValue(variableName));
     }
 }

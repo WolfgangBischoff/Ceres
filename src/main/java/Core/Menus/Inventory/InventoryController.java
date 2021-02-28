@@ -21,7 +21,7 @@ public class InventoryController
     static InventoryOverlay otherInventoryOverlay;
     static ShopOverlay shopOverlay;
     static IncubatorOverlay incubatorOverlay;
-    private static String CLASSNAME = "InventoryController/";
+    private static final String CLASSNAME = "InventoryController/";
     WritableImage interactionInventoryImage;
     Point2D playerInventoryPosition = Config.INVENTORY_POSITION;
     Point2D exchangeInventoryPosition = EXCHANGE_INVENTORY_POSITION;

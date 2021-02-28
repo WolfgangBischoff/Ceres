@@ -10,10 +10,11 @@ import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static Core.Configs.Config.*;
 import static Core.Menus.Inventory.MouseInteractionType.CLICK;
@@ -22,20 +23,20 @@ import static Core.WorldView.WorldViewStatus.*;
 
 public class InventoryOverlay implements DragAndDropOverlay
 {
-    private static final String CLASSNAME = "InventoryOverlay ";
+    private static final String CLASSNAME = "InventoryOverlay/";
     private static int WIDTH = INVENTORY_WIDTH;
     private static int HEIGHT = INVENTORY_HEIGHT;
     final String CANCEL_BUTTON_ID = "CANCEL";
+    private final InventoryController controller;
+    private final Rectangle2D SCREEN_AREA;
     Image cornerTopLeft;
     Image cornerBtmRight;
     Image cancelButton;
-    private InventoryController controller;
     private Actor actor;
     private MouseElementsContainer mouseElements = new MouseElementsContainer();
     private MouseElement highlightedElement = null;
     private MouseElement tooltipElement = null;
     private Point2D SCREEN_POSITION;
-    private final Rectangle2D SCREEN_AREA;
 
     public InventoryOverlay(Actor actor, Point2D SCREEN_POSITION, InventoryController controller)
     {
@@ -61,7 +62,6 @@ public class InventoryOverlay implements DragAndDropOverlay
 
     private void init()
     {
-        //Item Slots
         Set<MouseInteractionType> clickAndDrag = new HashSet<>();
         clickAndDrag.add(CLICK);
         clickAndDrag.add(DRAG);
@@ -72,11 +72,9 @@ public class InventoryOverlay implements DragAndDropOverlay
         int initialOffsetX = (WIDTH - (numberColumns * itemTileWidth + (numberColumns - 1) * spaceBetweenTiles)) / 2; //Centered
         int initialOffsetY = 75;
         int slotNumber = 0;
-        for (int y = 0; y < numberRows; y++)
-        {
+        for (int y = 0; y < numberRows; y++) {
             int slotY = y * (itemTileWidth + spaceBetweenTiles) + initialOffsetY;
-            for (int i = 0; i < numberColumns; i++)
-            {
+            for (int i = 0; i < numberColumns; i++) {
                 //Rectangle
                 int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
                 Rectangle2D rectangle2D = new Rectangle2D(SCREEN_POSITION.getX() + slotX + 2, SCREEN_POSITION.getY() + slotY + 2, itemTileWidth - 4, itemTileWidth - 4);
@@ -113,10 +111,8 @@ public class InventoryOverlay implements DragAndDropOverlay
         int initialOffsetX = (WIDTH - (numberColumns * itemTileWidth + (numberColumns - 1) * spaceBetweenTiles)) / 2; //Centered
         int itemSlotNumber = 0;
         int slotNumber = 0;
-        for (int y = 0; y < numberRows; y++)
-        {
-            for (int i = 0; i < numberColumns; i++)
-            {
+        for (int y = 0; y < numberRows; y++) {
+            for (int i = 0; i < numberColumns; i++) {
                 Rectangle2D currentRect = mouseElements.get(slotNumber).position;
                 gc.setFill(font);
                 gc.fillRect(currentRect.getMinX(), currentRect.getMinY(), currentRect.getWidth(), currentRect.getHeight());
@@ -135,12 +131,10 @@ public class InventoryOverlay implements DragAndDropOverlay
                 Collectible current = null;
                 if (itemSlotNumber < actor.getInventory().itemsList.size())
                     current = actor.getInventory().itemsList.get(itemSlotNumber);
-                if (current != null)
-                {
+                if (current != null) {
                     gc.drawImage(current.getImage(), currentRect.getMinX(), currentRect.getMinY());
                     //Stolen sign
-                    if (GameVariables.getStolenCollectibles().contains(current))
-                    {
+                    if (GameVariables.getStolenCollectibles().contains(current)) {
                         gc.setFill(darkRed);
                         gc.fillOval(currentRect.getMinX() + 44, currentRect.getMinY() + 44, 16, 16);
                         gc.setFill(COLOR_RED);
@@ -169,8 +163,7 @@ public class InventoryOverlay implements DragAndDropOverlay
         Collectible tooltippedCollectible = null;
         if (mouseElements.indexOf(tooltipElement) >= 0 && mouseElements.indexOf(tooltipElement) < actor.getInventory().itemsList.size())
             tooltippedCollectible = actor.getInventory().itemsList.get(mouseElements.indexOf(tooltipElement));
-        if (tooltipElement != null && tooltippedCollectible != null)
-        {
+        if (tooltipElement != null && tooltippedCollectible != null) {
             int tooltipWidth = 300;
             List<String> lines = Utilities.wrapText(tooltippedCollectible.getDescription(), FONT_ORBITRON_12, tooltipWidth);
 
@@ -188,8 +181,7 @@ public class InventoryOverlay implements DragAndDropOverlay
                     tooltipElement.position.getMinY() + 50 + gc.getFont().getSize() + 3);
             gc.setFont(FONT_ORBITRON_12);
 
-            for (int l = 0; l < lines.size(); l++)
-            {
+            for (int l = 0; l < lines.size(); l++) {
                 gc.fillText(lines.get(l),
                         tooltipElement.position.getMinX() + 50 + 5,
                         tooltipElement.position.getMinY() + 55 + collectibleHeadlineHeight + FONT_ORBITRON_12.getSize() * l + 3);
@@ -204,10 +196,8 @@ public class InventoryOverlay implements DragAndDropOverlay
         String methodName = "processMouse(Point2D, boolean) ";
         MouseElement hoveredElement = null;
         tooltipElement = null;
-        for (int i = 0; i < mouseElements.size(); i++)
-        {
-            if (mouseElements.get(i).getPosition().contains(mousePosition))
-            {
+        for (int i = 0; i < mouseElements.size(); i++) {
+            if (mouseElements.get(i).getPosition().contains(mousePosition)) {
                 hoveredElement = mouseElements.get(i);
                 if (hoveredElement == highlightedElement)
                     tooltipElement = mouseElements.get(i);
@@ -235,8 +225,7 @@ public class InventoryOverlay implements DragAndDropOverlay
 
     public void dropCollectible(DragAndDropItem dropped)
     {
-        if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG))
-        {
+        if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG)) {
             Collectible collectibleToDrop = dropped.collectible;
             Collectible collectibleAtTargetSlot = actor.getInventory().getItem(mouseElements.indexOf(highlightedElement));
             dropped.previousInventory.addItemIdx(//Swap item if exists
@@ -244,8 +233,7 @@ public class InventoryOverlay implements DragAndDropOverlay
                     dropped.previousIdx);
             actor.getInventory().addItemIdx(collectibleToDrop, mouseElements.indexOf(highlightedElement));
         }
-        else
-        {
+        else {
             dropped.previousInventory.addItemIdx(//Back to previous Inventory
                     dropped.collectible,
                     dropped.previousIdx);
@@ -256,10 +244,8 @@ public class InventoryOverlay implements DragAndDropOverlay
     @Override
     public void dragCollectible(Long currentNanoTime, Point2D mousePosition)
     {
-        if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG))
-        {
-            if (actor.getInventory().itemsList.get(mouseElements.indexOf(highlightedElement)) != null && controller.getDragAndDropItem() == null)
-            {
+        if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG)) {
+            if (actor.getInventory().itemsList.get(mouseElements.indexOf(highlightedElement)) != null && controller.getDragAndDropItem() == null) {
                 Collectible collectible;
                 collectible = actor.getInventory().itemsList.get(mouseElements.indexOf(highlightedElement));
                 actor.getInventory().removeItem(collectible);
@@ -270,8 +256,7 @@ public class InventoryOverlay implements DragAndDropOverlay
 
     public void updateDraggedCollectible(Long currentNanoTime, Point2D mousePosition)
     {
-        if (controller.getDragAndDropItem() != null)
-        {
+        if (controller.getDragAndDropItem() != null) {
             controller.getDragAndDropItem().setPosition(new Point2D(mousePosition.getX(), mousePosition.getY()));
         }
     }
@@ -285,10 +270,8 @@ public class InventoryOverlay implements DragAndDropOverlay
             collectible = actor.getInventory().itemsList.get(itemIdx);
 
 
-        if (WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE)
-        {
-            switch (highlightedElement.identifier)
-            {
+        if (WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE) {
+            switch (highlightedElement.identifier) {
                 case CANCEL_BUTTON_ID:
                     if (InventoryController.playerInventoryOverlay == this)
                         WorldViewController.setWorldViewStatus(WORLD);
@@ -298,36 +281,29 @@ public class InventoryOverlay implements DragAndDropOverlay
                 default:
             }
 
-            if (collectible != null)
-            {
+            if (collectible != null) {
                 //check from which inventory to which inventory we exchange
-                if (InventoryController.playerInventoryOverlay == this)
-                {
+                if (InventoryController.playerInventoryOverlay == this) {
                     InventoryController.exchangeInventoryActor.getInventory().addItemNextSlot(collectible);
                     InventoryController.playerActor.getInventory().removeItem(collectible);
                 }
-                else if (InventoryController.otherInventoryOverlay == this)
-                {
+                else if (InventoryController.otherInventoryOverlay == this) {
                     InventoryController.playerActor.getInventory().addItemNextSlot(collectible);
                     InventoryController.exchangeInventoryActor.getInventory().removeItem(collectible);
                 }
             }
 
         }
-        else if (WorldViewController.getWorldViewStatus() == INVENTORY_SHOP || WorldViewController.getWorldViewStatus() == INCUBATOR)
-        {
-            switch (highlightedElement.identifier)
-            {
+        else if (WorldViewController.getWorldViewStatus() == INVENTORY_SHOP || WorldViewController.getWorldViewStatus() == INCUBATOR) {
+            switch (highlightedElement.identifier) {
                 case CANCEL_BUTTON_ID:
                     WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
                     break;
                 default:
             }
         }
-        else if (WorldViewController.getWorldViewStatus() == INVENTORY)
-        {
-            switch (highlightedElement.identifier)
-            {
+        else if (WorldViewController.getWorldViewStatus() == INVENTORY) {
+            switch (highlightedElement.identifier) {
                 case CANCEL_BUTTON_ID:
                     WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
                     break;
@@ -335,8 +311,7 @@ public class InventoryOverlay implements DragAndDropOverlay
             }
 
             if (collectible != null
-                    && collectible.getType() == CollectableType.FOOD)
-            {
+                    && collectible.getType() == CollectableType.FOOD) {
                 System.out.println(CLASSNAME + methodName + "You ate " + collectible.getIngameName());
                 GameVariables.addHunger(collectible.getBaseValue());
                 actor.getInventory().removeItem(collectible);

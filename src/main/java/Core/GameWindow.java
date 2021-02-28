@@ -4,7 +4,6 @@ import Core.Configs.Config;
 import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;

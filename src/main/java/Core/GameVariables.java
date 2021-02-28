@@ -15,7 +15,7 @@ import static Core.Configs.Config.*;
 
 public class GameVariables
 {
-    private static String CLASSNAME = "GameVariables/";
+    private static final String CLASSNAME = "GameVariables/";
     private static GameVariables singleton;
     static private IntegerProperty playerMoney = new SimpleIntegerProperty(INIT_MONEY);
     static IntegerProperty playerMaM_duringDay = new SimpleIntegerProperty();

@@ -5,7 +5,6 @@ import Core.Collectible;
 import Core.Enums.CollectableType;
 import Core.GameWindow;
 import Core.Utilities;
-import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
@@ -20,8 +19,8 @@ import static Core.Menus.Inventory.MouseInteractionType.DRAG;
 public class IncubatorOverlay implements DragAndDropOverlay
 {
     private static final String CLASSNAME = "IncubatorOverlay/";
-    private static int WIDTH = INVENTORY_WIDTH;
-    private static int HEIGHT = INVENTORY_HEIGHT;
+    private static final int WIDTH = INVENTORY_WIDTH;
+    private static final int HEIGHT = INVENTORY_HEIGHT;
     final String BASE_INPUT_SLOT = "base_input";
     final String BASE_OUTPUT_SLOT = "base_output";
     final String CONVERT_BUTTON_ID = "CONVERT";
@@ -30,11 +29,11 @@ public class IncubatorOverlay implements DragAndDropOverlay
     Image cornerBtmRight;
     Image convertButton;
     Image cancelButton;
-    private InventoryController controller;
-    private MouseElementsContainer mouseElements = new MouseElementsContainer();
+    private final InventoryController controller;
+    private final MouseElementsContainer mouseElements = new MouseElementsContainer();
     private MouseElement highlightedElement = null;
     private Point2D SCREEN_POSITION;
-    private Rectangle2D SCREEN_AREA;
+    private final Rectangle2D SCREEN_AREA;
     private Actor actor;
 
     public IncubatorOverlay(Actor incubator, Point2D SCREEN_POSITION, InventoryController controller)
