@@ -46,6 +46,7 @@ public class VariableStatusOverlay
         int backgroundOffsetX = 80;
         gc.drawImage(field, SCREEN_POSITION.getX(), SCREEN_POSITION.getY());
         gc.setFill(COLOR_FONT);
+        gc.setFont(FONT_ESTROG_30_DEFAULT);
         gc.setTextBaseline(VPos.CENTER);
         gc.setTextAlign(TextAlignment.CENTER);
         gc.fillText("" + current, SCREEN_POSITION.getX() + backgroundOffsetX, SCREEN_POSITION.getY() + HEIGHT / 2f);
