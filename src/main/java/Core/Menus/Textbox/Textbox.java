@@ -33,6 +33,7 @@ public class Textbox
     private static final Rectangle2D SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
     private static final int OFFSET_MARKING_RIGHT = 80;
     private static final int LINE_SPACE = 5;
+    int NUMBER_LINES = 4;
     private static Font font = FONT_ORBITRON_20;
     Dialogue readDialogue;
     Element dialogueFileRoot;
@@ -45,11 +46,11 @@ public class Textbox
     final int firstLineOffsetY = (int) SCREEN_POSITION.getY() + backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon + 30;
     final int xOffsetTextLine = (int) SCREEN_POSITION.getX() + 40;
     String nextDialogueID = null;
-    List<String> lineSplitMessage;
     Integer markedOption = 0;
     Actor actorOfDialogue;
     Long lastTimeNewLetterRendered = 0L;
     int maxLettersIdxRendered = 0;
+    FontManager fontManager = new FontManager();
 
     //TalkIcon
     int talkIconWidth = 280;
@@ -82,7 +83,6 @@ public class Textbox
 
     public void startConversation(String dialogueFile, String dialogueId)
     {
-        String methodName = "startConversation(String, String) ";
         init();
         actorOfDialogue = null;
         dialogueFileRoot = Utilities.readXMLFile(dialogueFile);
@@ -165,8 +165,8 @@ public class Textbox
 
     public void processKey(ArrayList<String> input, Long currentNanoTime)
     {
-        String methodName = "processKey() ";
-        int maxMarkedOptionIdx = lineSplitMessage.size() - 1;
+        //int maxMarkedOptionIdx = lineSplitMessage.size() - 1;
+        int maxMarkedOptionIdx = fontManager.wrappedMessage.size() -1;
         int newMarkedOption = markedOption;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - WorldView.getPlayer().getActor().getLastInteraction()) / 1000000000.0;
         if (!(elapsedTimeSinceLastInteraction > TIME_BETWEEN_DIALOGUE))
@@ -205,7 +205,7 @@ public class Textbox
         isInfoButtonHovered = actorOfDialogue != null && actorOfDialogue.getPersonalityContainer() != null && talkIcon.contains(mousePosition);
 
         if (readDialogue.type.equals(DIALOGUE_TYPE_DECISION) && GameWindow.getSingleton().isMouseMoved()) {
-            for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++) {
+            for (int checkedLineIdx = 0; checkedLineIdx < NUMBER_LINES; checkedLineIdx++) {
                 Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(xOffsetTextLine, firstLineOffsetY + checkedLineIdx * (font.getSize() + LINE_SPACE), WIDTH - OFFSET_MARKING_RIGHT, font.getSize());
                 if (positionOptionRelativeToWorldView.contains(mousePosition)) {
                     if (markedOption != checkedLineIdx)
@@ -307,46 +307,40 @@ public class Textbox
         gc.setGlobalAlpha(1);
         gc.drawImage(cornerTopLeft, SCREEN_POSITION.getX(), SCREEN_POSITION.getY() + backgroundOffsetYTalkIcon);
         gc.drawImage(cornerBtmRight, SCREEN_POSITION.getX() + WIDTH - cornerBtmRight.getWidth(), SCREEN_POSITION.getY() + HEIGHT - cornerBtmRight.getHeight());
-
         gc.setFill(COLOR_FONT);
 
+        double textLineWidth = WIDTH * 0.9;
         switch (readDialogue.type) {
             case DIALOGUE_TYPE_DECISION:
-                lineSplitMessage = readDialogue.getOptionMessages();
-                break;
-            case DIALOGUE_TYPE_TECHNICAL:
-                lineSplitMessage = wrapText("nextMessage", font, WIDTH - backgroundOffsetX * 4);
+                fontManager.parseOptions(readDialogue.getOptionMessages(), font, textLineWidth);
                 break;
             case DIALOGUE_TYPE_TEXT:
-            default:
                 String nextMessage = readDialogue.messages.get(messageIdx);
-                lineSplitMessage = wrapText(nextMessage, font, WIDTH - backgroundOffsetX * 4);
+                fontManager.parseText(nextMessage, font, textLineWidth);
                 break;
+            default:
 
         }
 
         gc.setTextAlign(TextAlignment.LEFT);
         gc.setTextBaseline(VPos.TOP);
-        for (int lineIdx = 0; lineIdx < lineSplitMessage.size(); lineIdx++) {
-            String line = lineSplitMessage.get(lineIdx);
-            FontManager fontManager = new FontManager(line);
-            line = FontManager.removeFontMarkings(line);
-            double elapsedTimeSinceLastInteraction = (GameWindow.getCurrentNanoRenderTimeGameWindow() - lastTimeNewLetterRendered) / 1000000000.0;
-            if (elapsedTimeSinceLastInteraction > 0.005) {
-                maxLettersIdxRendered++;
-                lastTimeNewLetterRendered = GameWindow.getCurrentNanoRenderTimeGameWindow();
-            }
 
-            int lettersRendered = Math.min(maxLettersIdxRendered, line.length());
-            String visibleLine = line.substring(0, lettersRendered);
+        double elapsedTimeSinceLastInteraction = (GameWindow.getCurrentNanoRenderTimeGameWindow() - lastTimeNewLetterRendered) / 1000000000.0;
+        if (elapsedTimeSinceLastInteraction > 0.005) {
+            maxLettersIdxRendered++;
+            lastTimeNewLetterRendered = GameWindow.getCurrentNanoRenderTimeGameWindow();
+        }
 
-            for (int i = 0; i < visibleLine.length(); i++) {
-                gc.setFill(fontManager.getFontAtLetter(i));
-                char c = visibleLine.charAt(i);
-                gc.fillText(String.valueOf(c),
-                        Math.round(xOffsetTextLine) + textWidth(gc.getFont(), line.substring(0, i)),
-                        firstLineOffsetY + (gc.getFont().getSize() + LINE_SPACE) * lineIdx);
-            }
+        for(int idxLetter = 0; idxLetter < fontManager.lettersTo(maxLettersIdxRendered); idxLetter++)
+        {
+            char letter = fontManager.getLetterAt(idxLetter);
+            Color f = fontManager.getFontAtLetter(idxLetter);
+            int lineIdx = fontManager.getLineIdx(idxLetter);
+            double stringOffsetX = fontManager.getLineXOffset(lineIdx, idxLetter);
+            gc.setFill(f);
+            gc.fillText(String.valueOf(letter),
+                    Math.round(xOffsetTextLine) + stringOffsetX,
+                    firstLineOffsetY + (gc.getFont().getSize() + LINE_SPACE) * lineIdx);
         }
 
         //Character Info Button
@@ -354,14 +348,6 @@ public class Textbox
         {
             gc.drawImage(characterButton, talkIcon.getMinX(), talkIcon.getMinY());
         }
-    }
-
-
-    private static double textWidth(Font font, String s)
-    {
-        Text text = new Text(s);
-        text.setFont(font);
-        return text.getBoundsInLocal().getWidth();
     }
 
     public void setNextDialogueFromDiscussionResult(boolean hasWon)

@@ -1,59 +1,122 @@
 package Core.Menus.Textbox;
 
-import Core.Configs.Config;
+import Core.Utilities;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.util.Pair;
 
-
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.stream.Collectors;
 
 import static Core.Configs.Config.*;
 
 public class FontManager
 {
-    static Map<String, Color> regex = new HashMap<>();
+    static Map<String, Color> regexMap = new HashMap<>();
     static String regex_default = "%%DE";
     Queue<Pair<String, Pair<Integer, Integer>>> fondData;
+    String message = "";
+    List<String> wrappedMessage = new ArrayList();
+    Font font;
 
-    public FontManager(String line)
+    public FontManager()
     {
-        fondData = findFontMarkings(line);
-        Color background = Config.COLOR_BACKGROUND_BLUE;
-        double hue = background.getHue();
-        double sat = background.getSaturation();
-        double brig = background.getBrightness();
-        Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
-        Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-        regex.put(regex_default, font);
-        regex.put(REGEX_RED, COLOR_RED);
-        regex.put(REGEX_GREEN, COLOR_GREEN);
-        regex.put(REGEX_VIOLET, COLOR_VIOLET);
-        regex.put(REGEX_GOLD, COLOR_GOLD);
+        //fondData = findFontMarkings(line);
+        if(regexMap.isEmpty())
+        {
+            regexMap.put(regex_default, COLOR_FONT);
+            regexMap.put(REGEX_RED, COLOR_RED);
+            regexMap.put(REGEX_GREEN, COLOR_GREEN);
+            regexMap.put(REGEX_VIOLET, COLOR_VIOLET);
+            regexMap.put(REGEX_GOLD, COLOR_GOLD);
+        }
+
+    }
+
+    public void parseText(String messages, Font font, double lineWidth)
+    {
+        fondData = findFontMarkings(messages);
+        message = removeFontMarkings(messages);
+        this.font = font;
+        wrappedMessage = Utilities.wrapText(message, font, lineWidth, null);
+    }
+
+    public void parseOptions(List<String> options, Font font, double lineWidth)
+    {
+        String optionsAsOneString = String.join("", options);
+        fondData = findFontMarkings(optionsAsOneString);
+        message = removeFontMarkings(optionsAsOneString);
+        wrappedMessage = options.stream().map(s -> removeFontMarkings(s)).collect(Collectors.toList());
+    }
+
+    public int lettersTo(int maxLettersRendered)
+    {
+        return Math.min(maxLettersRendered, message.length());
+    }
+
+    public char getLetterAt(int idx)
+    {
+        return message.charAt(idx);
+    }
+
+    public int getLineIdx(int letterIdx)
+    {
+        int sumLetters = 0;
+        for(int i=0; i<wrappedMessage.size(); i++)
+        {
+            sumLetters += wrappedMessage.get(i).length();
+            if(letterIdx < sumLetters)
+                return i;
+        }
+        return 0;
+    }
+
+    public double getLineXOffset(int lineIdx, int nextLetterIdx)
+    {
+        for(int i=0; i<lineIdx; i++)
+            nextLetterIdx -= wrappedMessage.get(i).length();
+       return textWidth(font, wrappedMessage.get(lineIdx).substring(0, nextLetterIdx));
+    }
+
+    private static double textWidth(Font font, String s)
+    {
+        Text text = new Text(s);
+        text.setFont(font);
+        return text.getBoundsInLocal().getWidth();
+    }
+
+    public String getLine(int idx)
+    {
+        if(idx < wrappedMessage.size())
+            return wrappedMessage.get(idx);
+        else
+            return "";
+    }
+
+    public static String removeFontMarkings(String line)
+    {
+        for (String s : regexMap.keySet())
+            line = line.replace(s, "");
+        line = line.replace("%%", "");
+        return line;
     }
 
     public Color getFontAtLetter(int idx)
     {
         if (fondData.peek() != null
                 && idx >= fondData.peek().getValue().getKey()//begin Color
-                && idx<fondData.peek().getValue().getValue())//end Color
+                && idx < fondData.peek().getValue().getValue())//end Color
         {
-            //System.out.println(CLASSNAME + methodName + charSpecialMarkingFound);
-            Color color = regex.get(fondData.peek().getKey());
-            if(idx+1 >= fondData.peek().getValue().getValue())
+            Color color = regexMap.get(fondData.peek().getKey());
+            if (idx + 1 >= fondData.peek().getValue().getValue())
                 fondData.remove();
             return color;
         }
         else
-            return regex.get(regex_default);
-    }
-
-    public static String removeFontMarkings(String line)
-    {
-        for (String s: regex.keySet())
-            line = line.replace(s,"");
-        line = line.replace("%%", "");
-        return line;
+            return regexMap.get(regex_default);
     }
 
     private Queue<Pair<String, Pair<Integer, Integer>>> findFontMarkings(String line)
@@ -61,11 +124,9 @@ public class FontManager
         Queue<Pair<String, Pair<Integer, Integer>>> colorCodeToIdxQueue = new LinkedBlockingDeque<Pair<String, Pair<Integer, Integer>>>();
         int idxStartTag;
         int idxEndTag;
-        do
-        {
+        do {
             idxStartTag = line.indexOf("%%");
-            if (idxStartTag >= 0)
-            {
+            if (idxStartTag >= 0) {
                 String regexColorCode = line.substring(idxStartTag, idxStartTag + 4);
                 line = line.replaceFirst(regexColorCode, "");
                 idxEndTag = line.indexOf("%%");

@@ -189,11 +189,8 @@ public class Utilities
         while (words.length > i)
         {
             fits = checkIfTooLong;
-            checkIfTooLong = fits + " " + words[i];
-            String regexCleaned = checkIfTooLong;
-            if(regexToIgnore != null)
-                regexCleaned = checkIfTooLong.replace(regexToIgnore, "");
-            Text text = new Text(regexCleaned);
+            checkIfTooLong = fits + words[i];
+            Text text = new Text(checkIfTooLong);
             text.setFont(font);
             double width = text.getBoundsInLocal().getWidth();
             if (width > lineWidth)
@@ -204,7 +201,10 @@ public class Utilities
                 i = 0;
             }
             else
+            {
                 i++;
+                checkIfTooLong = checkIfTooLong + " ";
+            }
         }
         if(!checkIfTooLong.equals(""))
             lines.add(checkIfTooLong);
