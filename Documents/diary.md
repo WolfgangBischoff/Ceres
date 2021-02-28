@@ -25,11 +25,12 @@
 ##### 28 02 21
 * added linebreak
 * refactor textbox
+* fixed hasItem() bug
 
 ##### 14 02 21
 * Fixed: Item on last index can vanish with DragAndDrop
 * Finalized Drag and Drop
-* Add Incubator DragDRop
+* Add Incubator DragDrop
 
 ##### 11 02 21
 * drag and drop improved

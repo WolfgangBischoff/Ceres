@@ -2,8 +2,7 @@
 #Backlog
 
 ####Bug
-* linebreak for tooltip and textbox
-           
+        
 #### Set item mechanic
 * sprite an Pos adden via Key
 * Sprite von Menu und maus adden
@@ -20,9 +19,12 @@
 
 #### Minor
 * StatusInfo over sprite on key + ExclamationMark
-* Enable fullscreen mode
+* Enable fullscreen mode, check higher resolution and zoom
+* Tooltip is rendered over Other Overlays
 * "Rumors"/Random dialogue
 * first stranger sound
+* Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
+
 
 #### Stealth mechanic
 * split inRange area into several parts
@@ -53,8 +55,6 @@
   
     - Cooperation value just increases two time a day
     - Create Questlog
-    - check higher resolution and zoom, fix not centered overlay
-    - Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
     
 
 ##Improvements from tests   

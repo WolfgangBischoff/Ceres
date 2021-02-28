@@ -35,7 +35,7 @@ public class InventoryOverlay implements DragAndDropOverlay
     private MouseElement highlightedElement = null;
     private MouseElement tooltipElement = null;
     private Point2D SCREEN_POSITION;
-    private Rectangle2D SCREEN_AREA;
+    private final Rectangle2D SCREEN_AREA;
 
     public InventoryOverlay(Actor actor, Point2D SCREEN_POSITION, InventoryController controller)
     {

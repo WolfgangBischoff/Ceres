@@ -626,12 +626,7 @@ public class Actor
 
     private void collect(Actor collectingActor)
     {
-        String methodName = "collect(String) ";
-        CollectableType collectableType = CollectableType.getType(collectable_type);
-       // Collectible collected = new Collectible(generalStatus, collectableType, actorInGameName, getNumeric_generic_attributes().get("base_value").intValue());
-        Collectible collected = Collectible.createCollectible(actorFileName, actorInGameName, generalStatus );
-
-        //Collectible collected = Collectible.createCollectible();
+        Collectible collected = Collectible.createCollectible(actorFileName, generalStatus, generalStatus );
         collected.image = spriteList.get(0).getBaseimage();
         boolean wasCollected = collectingActor.inventory.addItemNextSlot(collected);
 
@@ -644,7 +639,6 @@ public class Actor
                 GameVariables.addPlayerMAM_duringDay(suspicious_value);
                 GameVariables.addStolenCollectible(collected);
             }
-
             WorldView.getToRemove().addAll(spriteList);
         }
     }
