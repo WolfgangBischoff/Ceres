@@ -22,6 +22,10 @@
 ##### 15 02 21
 * added trader side sprite
 
+##### 28 02 21
+* added linebreak
+* refactor textbox
+
 ##### 14 02 21
 * Fixed: Item on last index can vanish with DragAndDrop
 * Finalized Drag and Drop
