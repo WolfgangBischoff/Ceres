@@ -7,7 +7,7 @@
     </dialogue>
 
     <dialogue id="asia_bento" type="normal">
-        <line>"Your fast food can be your last food. - Eat slow, reduce stress" - Guangzhou State Food Company</line>
+        <line>"Your fast food can be your last food. - Eat slow, reduce stress" %n - Guangzhou State Food Company</line>
     </dialogue>
 
 </root>

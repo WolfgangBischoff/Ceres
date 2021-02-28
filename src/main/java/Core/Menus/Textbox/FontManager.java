@@ -60,6 +60,7 @@ public class FontManager
         String optionsAsOneString = String.join("", options);
         fondData = findFontMarkings(optionsAsOneString);
         message = removeColorMarkings(optionsAsOneString);
+        this.font = font;
         wrappedMessage = options.stream().map(FontManager::removeColorMarkings).collect(Collectors.toList());
     }
 
