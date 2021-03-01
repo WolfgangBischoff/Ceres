@@ -53,7 +53,6 @@ CR___3				                      ;transportfloor			                       ;img/tr
 #life support
 #code     																						;name        																												;img/spritename                  																																						;blocker												;heightLayer												;fps					 ;totalFrames  ;cols 	;rows 	;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY 	;hitBoxWidth ;hitBoxHeight ;lightning 										;dialogueId ;dialogueFile 																								;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 tank_A				                      ;tank													                       ;img/machines/lifesupport/tank_192_128_a4																														;true					          ;1 											          ;2        ;4            ;4     ;1     ;192        ;128         ;000           ;064            ;192         ;054										;greenlight256 						;algae_tank	;dialogue_files/transporter_decks    ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-#incuba				                      ;incubator								                       ;actorData/system_science/incubator/incubator							    		   										;true					          ;1 											          ;000      ;000          ;000   ;000   ;000        ;000         ;020           ;064            ;088         ;040										;greenlight256 						;none							;none									                        ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 reSign				                      ;Rescue Pod Sign							                  ;actorData/transporter/rescue_pod/rescue_pod_sign   							    		   			;false				          ;1 											          ;000      ;000          ;000   ;000   ;000        ;000         ;000           ;065            ;0000        ;0064									;none									 						;none							;none									                        ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 #code     																						;name        																												;img/spritename                  																																						;blocker												;heightLayer												;fps					 ;totalFrames  ;cols 	;rows 	;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY 	;hitBoxWidth ;hitBoxHeight ;lightning 										;dialogueId 													;dialogueFile 																								;unused0 ;unused1 ;unused2 ;unused3 ;unused4
@@ -102,7 +101,7 @@ bxCart					                					;actorData/storages/greenBoxLarge/largeBox						
 box___					                					;actorData/storages/boxSmall/green_persistent						;green Box																			;locked 									   ;default											     ;none
 redKey					                					;actorData/collectibles/key/keycard																;Red Keycard																	;red													   ;default											     ;none
 recPod																										;actorData/transporter/rescue_pod/rescue_pod							;rescue pod																		;default												;default																;undefined
-recPoL																										;actorData/transporter/rescue_pod/rescue_pod							;rescue pod																		;LVL_CHANGE									;default																;undefined
+recPoL																										;actorData/transporter/rescue_pod/rescue_pod							;rescue pod																		;RELEASE												;default																;undefined
 
 POSITION:
 redKey	                    ;2257     ;1595    ;on the bench

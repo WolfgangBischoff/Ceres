@@ -6,12 +6,14 @@
         <line>A rescue pod.. if we have to leave the ship quickly. After initialization it is ready to launch in seconds.</line>
     </dialogue>
 
-    <dialogue id="INIT_CERES" type="decision" spritestatus="transition">
+    <dialogue id="INIT_RELEASE" type="decision" spritestatus="transition">
         <option>Back</option>
-        <option nextDialogue="LEVEL_CERES">Start launch sequence!</option>
+        <option nextDialogue="RELEASE">Start launch sequence!</option>
     </dialogue>
 
-    <dialogue id="LEVEL_CERES" type="normal" levelchange="living_quarter/air_lock" spawnID="default"/>
+    <dialogue id="RELEASE" type="normal">
+        <line>3...2....1....Released</line>
+    </dialogue>
 
 </root>
 

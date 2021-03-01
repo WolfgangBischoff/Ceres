@@ -3,7 +3,16 @@
 
 ####Bug
         
-#### Set item mechanic
+#### Main Quest
+* add easy characterGame -> sister before talk to trader, get some item
+* player cannot leave transporter before stranger + control (you heard something strange, checkout before)
+* tells story, check the logs
+* check the rescure pods => need to be overriden
+* ask sister for help => fade out => create electro potion for capsule
+* they leave transporter
+* goto bed an leave transporter         
+        
+#### Set item mechanic (provide Service)
 * sprite an Pos adden via Key
 * Sprite von Menu und maus adden
 * Zeit & Resourcenkosten
@@ -25,27 +34,17 @@
 * first stranger sound
 * Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
 
-
 #### Stealth mechanic
 * split inRange area into several parts
 * every part will be blocked by bocker sprites
 * in range player interaction
-
-#### Main Quest
-* add easy characterGame -> sister before talk to trader, get some item
-* player cannot leave transporter before stranger + control (you heard something strange, checkout before)
-* tells story, check the logs
-* check the rescure pods => need to be overriden
-* ask sister for help => fade out => create electro potion for capsule
-* they leave transporter
-* goto bed an leave transporter 
 
 ####Sprites  
 - Ship: rename sleep capsules
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
 - Hammer and Sickle modern, Säulen, Tank
 - bacteria culture, stranger person
-- Docking Bay: Big Elevator    
+- Docking Bay: Big Elevator, bodenmarkierung lift    
 - Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
     
     

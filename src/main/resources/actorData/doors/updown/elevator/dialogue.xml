@@ -24,6 +24,12 @@
     <dialogue id="DECISION-toCrewDeck" type="normal" levelchange="crewdeck/crewdeck" spawnID="elevator"/>
 
     <dialogue id="DECISION-toFreightDeck" type="normal" levelchange="transporter/transporter" spawnID="elevator"/>
+
+    <dialogue id="INIT_TO_CERES" type="decision">
+        <option nextDialogue="TO_CERES">[Use Space Elevator]</option>
+        <option>[Back]</option>
+    </dialogue>
+    <dialogue id="TO_CERES" type="normal" levelchange="living_quarter/air_lock" spawnID="default"/>
 </root>
 
 
