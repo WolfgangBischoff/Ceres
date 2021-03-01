@@ -43,8 +43,8 @@
 - Ship: rename sleep capsules
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
 - Hammer and Sickle modern, Säulen, Tank
-- bacteria culture, stranger person
-- Docking Bay: Big Elevator, bodenmarkierung lift    
+- stranger person
+- Docking Bay: space elevator rope, bodenmarkierung lift    
 - Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
     
     
