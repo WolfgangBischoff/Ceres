@@ -1,4 +1,6 @@
 
+##### 02 03 21
+* added sprites
 ##### 25 02 21
 * item description not visible
 * refactoring, multiple gui bugs fixed  
