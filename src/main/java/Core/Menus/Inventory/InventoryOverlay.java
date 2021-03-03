@@ -132,7 +132,7 @@ public class InventoryOverlay implements DragAndDropOverlay
                 if (itemSlotNumber < actor.getInventory().itemsList.size())
                     current = actor.getInventory().itemsList.get(itemSlotNumber);
                 if (current != null) {
-                    gc.drawImage(current.getImage(), currentRect.getMinX(), currentRect.getMinY());
+                    gc.drawImage(current.getImage(), currentRect.getMinX() -2, currentRect.getMinY()-2);
                     //Stolen sign
                     if (GameVariables.getStolenCollectibles().contains(current)) {
                         gc.setFill(darkRed);

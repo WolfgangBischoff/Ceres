@@ -9,7 +9,7 @@
         <line>Anyway, I got this parcel stamp before we left earth, wanna have it? Just ask my %%GRintroverted%% me friendly.</line>
     </dialogue>
 
-    <dialogue id="GAME_TUTORIAL_1" type="technical" coingame="tutorial_1" success="GAME_TUTORIAL_1_WON" defeat="GAME_TUTORIAL_1_LOST"/>
+    <dialogue id="GAME_TUTORIAL_1" type="technical" coingame="tutorial_1" success="GAME_TUTORIAL_1_WON" defeat="GAME_TUTORIAL_1_LOST" dialogueId="intro"/>
     <dialogue id="GAME_TUTORIAL_1_WON" type="normal" item_actor="actorData/collectibles/stamp/stamp" item_name="Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2">
         <line>Haha nice, here you have the little treasure!</line>
     </dialogue>
@@ -17,7 +17,7 @@
         <line>Hmm ok... anyway...</line>
     </dialogue>
 
-    <dialogue id="intro_2" type = "normal" nextDialogue="GAME_TUTORIAL_2">
+    <dialogue id="intro_2" type = "normal" nextDialogue="GAME_TUTORIAL_2" dialogueId="intro_2">
         <line>Haha, lets try this again. I have some %%GRCornuts%% if you like.</line>
         <line>I quiet "please" for my %%GRintroverted%% self is enough.. you know I am a sensitive, %%GRfeeling%% person..</line>
     </dialogue>
