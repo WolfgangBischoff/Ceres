@@ -1,0 +1,16 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+
+
+#sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+sensorStatus	;default																			;collectable														;none  	 																;none										 									;none																			;none																;none												;none 									;none												;none																			;none																	;none 									;none																	;none																	;none											;none 									;none													;none											;none														;none														;none															;none
+
+tags; persistent
+#collectable_type; key
+collectible_data; NONFUNCTION; 0
+
+#status to image
+#status 																							;name   				;spritename  																																																		;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID 																;dialogueFile																							;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds
+early_space_exploration								;stamp 					;actorData/collectibles/stamp/early_space_exploration  							 ;false			;1												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;early_space_exploration			 ;actorData/collectibles/stamp/stamp	;unused;unused;unused;unused;unused;000						;000							;false

@@ -10,7 +10,6 @@
 * ask sister for help => fade out => create electro potion for capsule
 * they leave transporter
 * goto bed an leave transporter   
-* changes item from sister => stamp and Cornuts #
 * stranger sprite with air mask and gloves   
         
 #### Set item mechanic (provide Service)

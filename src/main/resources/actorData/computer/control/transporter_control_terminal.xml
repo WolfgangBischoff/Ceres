@@ -16,6 +16,12 @@
         <line>Seems the %%VTfirst freight capsule on the left side%% is damaged.</line>
     </dialogue>
 
+    <dialogue id="INTRO_PROOF" type="decision">
+        <option>[Read Mail]</option>
+        <option>[Open Freight capsules]</option>
+        <option>[Leave]</option>
+    </dialogue>
+
 </root>
 
 

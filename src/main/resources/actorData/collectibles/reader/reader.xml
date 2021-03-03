@@ -3,11 +3,14 @@
 
 <root name = "reader">
     <dialogue id="pda" type="normal">
-        <line>Delivery Order %n
-            1) Calibration Equipment %n
-            2) Precision mechanics (heat) %n
-            3) General Support %n
-            3) Consumer Goods (Smile, Chiv, Alliance)</line>
+        <line>Flight ZBER-CRXB %n
+            1) Auxiliaries, Consumer Goods %n
+            2) Precision mechanics (Wobi Inc) %n
+            3) Auxiliaries %n
+            4) Consumer Goods (Smile, UnisL) %n
+            5) Auxiliaries %n
+            6) Auxiliaries %n
+        </line>
     </dialogue>
 
 </root>

@@ -1,16 +1,39 @@
-
-
 <root name="medic">
 
-    <dialogue id="INIT_STRANGER" type = "normal" nextDialogue="DECISION">
+    <dialogue id="INIT_STRANGER" type="normal" nextDialogue="DECISION_1">
         <line>Wait, be quit, I am a %%VTfriend%%...</line>
     </dialogue>
-    <dialogue id="DECISION" type = "decision">
+    <dialogue id="DECISION_1" type="decision">
         <option nextDialogue="BIO">What the hell, who are you?</option>
     </dialogue>
-    <dialogue id="BIO" type = "normal" nextDialogue="DECISION">
-        <line>I shouldn't be here, but I had to follow my loved one.</line>
+    <dialogue id="BIO" type="normal" nextDialogue="DECISION_2">
+        <line>I shouldn't be here, but I had to follow my loved ones.</line>
         <line>My name is not important now.. ..my family is %%RDfreezing to death%%. I need your help..</line>
+    </dialogue>
+    <dialogue id="DECISION_2" type="decision">
+        <option nextDialogue="PASSENGER">How did you enter the ship? There are no passenger..</option>
+    </dialogue>
+    <dialogue id="PASSENGER" type="normal" nextDialogue="DECISION_3">
+        <line>There are passengers, but you cant see them. They are in the freight capsules on the sides of the ship.
+        </line>
+        <line>Guess all of them are %%GR"volunteers"%% from earth. They are in stasis, a deep sleep.</line>
+        <line>My wife and son volunteered to pay our debts. I told them it would be a bad idea to sign to "Availability
+            on Demand".
+        </line>
+    </dialogue>
+    <dialogue id="DECISION_3" type="decision">
+        <option nextDialogue="PROOF">Do you have proof?</option>
+    </dialogue>
+    <dialogue id="PROOF" type="normal" dialogueId="INTRO_PROOF">
+        <line>Check the %%GRfreight notes%%, or open the freight capsules with the %%GRcontrol terminal%%.</line>
+        <line>I will stay here, but please hurry, my family is still %%RDfreezing%%.</line>
+        <spritechange sprite_id="contro" dialogueId="INTRO_PROOF"/>
+    </dialogue>
+
+
+    <dialogue id="INTRO_PROOF" type="decision">
+        <option nextDialogue="PROOF">Where can I find proof?</option>
+        <option>[Leave]</option>
     </dialogue>
 </root>
 

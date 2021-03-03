@@ -1,0 +1,11 @@
+
+
+
+<root name = "infoTerminal">
+    <dialogue id="early_space_exploration" type="normal">
+        <line>The Ariane 6 is a European space rocket operated by the European Space Agency (ESA).</line>
+    </dialogue>
+
+</root>
+
+
