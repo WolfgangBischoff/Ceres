@@ -4,13 +4,13 @@
 ####Bug
         
 #### Main Quest
-* add easy characterGame -> sister before talk to trader, get some item
 * player cannot leave transporter before stranger + control (you heard something strange, checkout before)
 * tells story, check the logs
 * check the rescure pods => need to be overriden
 * ask sister for help => fade out => create electro potion for capsule
 * they leave transporter
-* goto bed an leave transporter         
+* goto bed an leave transporter   
+* changes item from sister => stamp and Cornuts      
         
 #### Set item mechanic (provide Service)
 * sprite an Pos adden via Key

@@ -9,7 +9,7 @@
         <line>Anyway, I got this parcel stamp before we left earth, wanna have it? Just ask my %%GRintroverted%% me friendly.</line>
     </dialogue>
 
-    <dialogue id="GAME_TUTORIAL_1" type="technical" coingame="test" success="GAME_TUTORIAL_1_WON" defeat="GAME_TUTORIAL_1_LOST"/>
+    <dialogue id="GAME_TUTORIAL_1" type="technical" coingame="tutorial_1" success="GAME_TUTORIAL_1_WON" defeat="GAME_TUTORIAL_1_LOST"/>
     <dialogue id="GAME_TUTORIAL_1_WON" type="normal" item_actor="actorData/collectibles/food/food" item_name="Algae Stew" item_status="algaeStew" nextDialogue="intro_2">
         <line>Haha nice, here you have the little treasure!</line>
     </dialogue>
@@ -21,7 +21,7 @@
         <line>Haha, lets try this again. I have some %%GRCornuts%% if you like.</line>
         <line>I quiet "please" for my %%GRintroverted%% self is enough.. you know I am a sensitive, %%GRfeeling%% person..</line>
     </dialogue>
-    <dialogue id="GAME_TUTORIAL_2" type="technical" coingame="test" success="GAME_TUTORIAL_2_WON" defeat="GAME_TUTORIAL_2_LOST"/>
+    <dialogue id="GAME_TUTORIAL_2" type="technical" coingame="tutorial_2" success="GAME_TUTORIAL_2_WON" defeat="GAME_TUTORIAL_2_LOST"/>
     <dialogue id="GAME_TUTORIAL_2_WON" type="normal" item_actor="actorData/collectibles/food/food" item_name="Algae Stew" item_status="algaeStew" nextDialogue="GOTO_TRADER">
         <line>Enjoy :-)</line>
     </dialogue>
@@ -29,8 +29,9 @@
         <line>I think you should know me better..</line>
     </dialogue>
     <dialogue id="GOTO_TRADER" type = "normal" dialogueId="GOTO_TRADER">
-        <line>Haha, enough present today, time work I guess.</line>
-        <line>Seems the the%%VTsupervisor%% has work for you, thats a good opportunity to get some money.</line>
+        <line>Haha, enough gifts for you today, time work I guess.</line>
+        <line>If you %%RDforget how to address%% me right, %%RDcheck out the INFO%% in upper right corner.</line>
+        <line>Seems the the %%VTsupervisor%% has work for you, thats a good opportunity to get some money.</line>
     </dialogue>
 
 

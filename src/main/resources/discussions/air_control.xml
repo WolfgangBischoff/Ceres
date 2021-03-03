@@ -1,6 +1,9 @@
 <!-->
 //self  	;social		;detail	  ;holistic	;logic	;emotion;conservative progressive ;
 INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIVING;
+
+
+
         <-->
 
 <root percentageOfPointsToWin="0.5">
@@ -32,27 +35,6 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             maxTime="15"
     />
 
-    <coin
-            characteristic="MANAGEMENT_DEBUG"
-            x="400"
-            y="400"
-            time="0"
-            maxTime="15"
-    />
-    <coin
-            characteristic="MANAGEMENT_LOGGING"
-            x="300"
-            y="400"
-            time="0"
-            maxTime="15"
-    />
-    <coin
-            characteristic="MANAGEMENT_MONITORING"
-            x="500"
-            y="400"
-            time="0"
-            maxTime="15"
-    />
 
     <coin
             characteristic="INTERFACE_DIRECT"
@@ -80,21 +62,21 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
     <coin
             characteristic="NETWORK_UNCONNECTED"
             x="400"
-            y="100"
+            y="400"
             time="0"
             maxTime="15"
     />
     <coin
             characteristic="NETWORK_SERVER"
             x="300"
-            y="100"
+            y="400"
             time="0"
             maxTime="15"
     />
     <coin
             characteristic="NETWORK_CLIENT"
             x="500"
-            y="100"
+            y="400"
             time="0"
             maxTime="15"
     />

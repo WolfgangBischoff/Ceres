@@ -43,7 +43,7 @@
 
     <dialogue id="QUEST_AIR_SYSTEM_DESC" type="normal" variablename="transporter_air_system_quest_started" set="true"
               nextDialogue="OPEN_LIFE_SUPPORT">
-        <line>The oxygen level decreases due to a malfunction of the %%RDventilation system%%. Do something useful and
+        <line>Yeah, seems that the oxygen level decreases due to a malfunction of the %%RDventilation system%%. Do something useful and
             fix it.
         </line>
     </dialogue>

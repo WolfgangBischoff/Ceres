@@ -55,7 +55,7 @@ public class Textbox
 
     //TalkIcon
     int talkIconWidth = 280;
-    int talkIconHeight = 100;
+    int talkIconHeight = 80;
     Rectangle2D talkIcon = new Rectangle2D(SCREEN_POSITION.getX() + WIDTH - talkIconWidth, SCREEN_POSITION.getY(), talkIconWidth, talkIconHeight);
     boolean isInfoButtonHovered = false;
 

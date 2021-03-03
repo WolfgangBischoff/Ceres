@@ -1,4 +1,8 @@
 
+
+
+##### 03 03 21
+* add easy characterGame -> sister before talk to trader, get some item
 ##### 02 03 21
 * added sprites
 ##### 25 02 21
