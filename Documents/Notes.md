@@ -10,11 +10,8 @@
 * ask sister for help => fade out => create electro potion for capsule
 * they leave transporter
 * goto bed an leave transporter   
-* changes item from sister => stamp and Cornuts
-* small desk for reader
-* close trap door till talked to stranger + confirm
-* close hallway on day 2
-* trigger that closes bttm lift      
+* changes item from sister => stamp and Cornuts #
+* stranger sprite with air mask and gloves   
         
 #### Set item mechanic (provide Service)
 * sprite an Pos adden via Key

@@ -1,0 +1,16 @@
+
+
+<root name="medic">
+
+    <dialogue id="INIT_STRANGER" type = "normal" nextDialogue="DECISION">
+        <line>Wait, be quit, I am a %%VTfriend%%...</line>
+    </dialogue>
+    <dialogue id="DECISION" type = "decision">
+        <option nextDialogue="BIO">What the hell, who are you?</option>
+    </dialogue>
+    <dialogue id="BIO" type = "normal" nextDialogue="DECISION">
+        <line>I shouldn't be here, but I had to follow my loved one.</line>
+        <line>My name is not important now.. ..my family is %%RDfreezing to death%%. I need your help..</line>
+    </dialogue>
+</root>
+

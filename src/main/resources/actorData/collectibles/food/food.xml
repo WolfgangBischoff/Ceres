@@ -10,6 +10,10 @@
         <line>"Your fast food can be your last food. - Eat slow, reduce stress" %n - Guangzhou State Food Company</line>
     </dialogue>
 
+    <dialogue id="asia_bento" type="normal">
+        <line>A seduction of caramel and salt, perfect for an evening on the sofa.</line>
+    </dialogue>
+
 </root>
 
 
