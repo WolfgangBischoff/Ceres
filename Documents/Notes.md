@@ -10,7 +10,8 @@
 * ask sister for help => fade out => create electro potion for capsule
 * they leave transporter
 * goto bed an leave transporter   
-* changes item from sister => stamp and Cornuts      
+* changes item from sister => stamp and Cornuts
+* small desk for reader      
         
 #### Set item mechanic (provide Service)
 * sprite an Pos adden via Key

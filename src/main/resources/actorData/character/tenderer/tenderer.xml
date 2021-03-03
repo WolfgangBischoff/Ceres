@@ -28,7 +28,7 @@
 
     <dialogue id="GOTO_BED" type="normal" nextDialogue="GET_AIR_SYSTEM_QUEST">
         <line>No, there is nothing to do at the moment, but you can look around if you find something to do.</line>
-        <line>You can go to your %%VTprivate capsule%% to rest. Remember, a well recovered worker is a good worker!
+        <line>Or go to your %%VTprivate capsule%% to rest. Remember, a well recovered worker is a good worker!
         </line>
     </dialogue>
 
@@ -101,9 +101,14 @@
               variablename="METEROIT_DAMAGE_ANALYZED" set="done">
         <line>Indeed. Now we can continue our journey on time.</line>
     </dialogue>
-    <dialogue id="RESTORE_POWER_REWARD_2" nextDialogue="AFTER_METROIT_DECISIONS" type="normal" getmoney="70">
+    <dialogue id="RESTORE_POWER_REWARD_2" nextDialogue="AFTER_METROIT_DECISIONS" type="normal" getmoney="70" dialogueId="GOTO_BED_NIGHTSHIFT">
         <line>The insurance will pay for the damage. We can be glad that %%GDCereX%% thinks of everything!</line>
+        <line>Because of the hull breach, %%RD24-hour monitoring%% must be ensured. You are the most suitable, so please prepare for a board time night shift</line>
         <spritechange sprite_id="medic_" dialogueId="AFTER_ENERGY_RESTORED"/>
+    </dialogue>
+
+    <dialogue id="GOTO_BED_NIGHTSHIFT" type="normal">
+        <line>You should rest now to take over the watch during the night.</line>
     </dialogue>
 
 </root>

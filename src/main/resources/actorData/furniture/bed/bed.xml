@@ -28,8 +28,9 @@
 
     <dialogue id="start_night_shift" type="normal" levelchange="transporter/transporter" spawnID="ladder"
               timechange="40"
-              variablename="STRANGER_APPEARANCE_QUEST" set="started"
-    />
+              variablename="STRANGER_APPEARANCE_QUEST" set="started">
+        <spritechange sprite_id="player" status="default"/>
+    </dialogue>
 </root>
 
 
