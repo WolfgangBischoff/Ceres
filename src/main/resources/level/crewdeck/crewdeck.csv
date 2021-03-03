@@ -276,7 +276,6 @@ layer:
 #include	;path																		;condition 												;params
 include:
 crewdeck/suspicion_low										;suspicion_lessequal 		;2
-#crewdeck/suspicion_medium							;suspicion_lessequal 		;6
-crewdeck/day2																			;day_greaterequal						;2
+#crewdeck/day2																			;day_greaterequal						;2
 crewdeck/afterAirQuest 									;onDaystart_if									;transporter_air_system_quest_started; done
 crewdeck/beforeAirQuest 								;onDaystart_ifNot						;transporter_air_system_quest_started; done

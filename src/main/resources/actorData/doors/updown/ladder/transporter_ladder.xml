@@ -12,6 +12,13 @@
         <option>[Back]</option>
     </dialogue>
 
+    <dialogue id="BLOCKED" type="normal" nextDialogue="BLOCKED_DECISION">
+        <line>Its blocked.</line>
+    </dialogue>
+    <dialogue id="BLOCKED_DECISION" type="decision">
+        <option>[Back]</option>
+    </dialogue>
+
     <dialogue id="TO_CREW_DECK" type="decision">
         <option nextDialogue="DECISION_TO_CREW_DECK">[Crew Deck]</option>
         <option>[Back]</option>

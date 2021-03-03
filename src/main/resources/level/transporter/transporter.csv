@@ -116,13 +116,14 @@ player					;actorData/player																																		;Revolutionary				
 exit__					;actorData/doors/vertical/autoBulkheadVertical					;exit to docking bay						;on																	;levelchange												;west
 autoDo					;actorData/doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;UNLOCKED															;west
 capsuD					;actorData/doors/vertical/autoBulkheadVertical					;Capsule Bulkhead									;on									        ;textbox						          ;undefined
-laddeD					;actorData/doors/updown/ladder/transporter_ladder		;ladder																			;toCrewDeck									;default																;undefined
+laddeD					;actorData/doors/updown/ladder/transporter_ladder		;ladder																			;blocked												;default																;undefined
 elevSc					;actorData/doors/updown/elevator/elevator										;main elevator										  ;toCrewDeck								 ;default											     ;undefined
 door_H					;actorData/doors/horizontal/automatedDoor										;bulkhead																	;on																	;UNLOCKED															;south
 windL1					;actorData/quest/main/frontwindow/actor												;front window													;spaceView										;default																;undefined
 metrod					;actorData/transporter/metroid/metroid													;metroid																		;default												;default																;north
 metro2					;actorData/transporter/metroid/metroid2												;metroid																		;default												;default																;north
 metro3					;actorData/transporter/metroid/metroid3												;metroid																		;default												;default																;north
+
 
 #control center
 contro					;actorData/computer/control/control																;control terminal									;default												;default																;undefined

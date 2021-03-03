@@ -102,6 +102,11 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>These standard containers are used for supplies from earth, but there also reused on Ceres.</line>
     </dialogue>
 
+    <dialogue id="NOISES" type="normal">
+        <line>Bang!.. %%RDWhat was that?%% There are strange noises..</line>
+        <spritechange sprite_id="elevSc" dialogueId="NOISES"/>
+    </dialogue>
+
 </root>
 
 

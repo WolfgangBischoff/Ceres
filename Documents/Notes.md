@@ -11,7 +11,10 @@
 * they leave transporter
 * goto bed an leave transporter   
 * changes item from sister => stamp and Cornuts
-* small desk for reader      
+* small desk for reader
+* close trap door till talked to stranger + confirm
+* close hallway on day 2
+* trigger that closes bttm lift      
         
 #### Set item mechanic (provide Service)
 * sprite an Pos adden via Key
