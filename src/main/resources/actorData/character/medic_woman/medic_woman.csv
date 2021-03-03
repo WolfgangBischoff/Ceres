@@ -9,7 +9,7 @@ sensorStatus	           ;default																			               ;textbox						
 
 #dialogueFile            ;actorData/character/technician/technician
 #personality;initCooperation;trait1, trait1-cooperationThreshold,trai1-knowledgeTag; trait2 ...
-personality             ;005                                      ;INTROVERSION                                                                                                                                                                                                                                                                                                                                                ,1,none                           ;SENSING,1,none          ;THINKING,9,none;PERCEIVING,12,none
+personality ;005            ;INTROVERSION ,0 ,none	     ;SENSING,1,none    ;FEELING,9,none; PERCEIVING,12,none
 
 #status to image
 default-NORTH													;medic								;actorData/character/medic_woman/medic_back	;true				;1												;0			;0												;0			;0			;0										;0											;10												;84												;44										;44											;whitelight_256;intro					;actorData/character/medic_woman/medic_woman_transporter; unused; unused; unused; unused; unused ;0        ;300							;false
