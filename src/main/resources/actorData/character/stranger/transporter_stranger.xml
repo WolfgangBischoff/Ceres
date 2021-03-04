@@ -24,16 +24,28 @@
     <dialogue id="DECISION_3" type="decision">
         <option nextDialogue="PROOF">Do you have proof?</option>
     </dialogue>
-    <dialogue id="PROOF" type="normal" dialogueId="INTRO_PROOF">
+    <dialogue id="PROOF" type="normal" dialogueId="PROOF">
         <line>Check the %%GRfreight notes%%, or open the freight capsules with the %%GRcontrol terminal%%.</line>
         <line>I will stay here, but please hurry, my family is still %%RDfreezing%%.</line>
         <spritechange sprite_id="contro" dialogueId="INTRO_PROOF"/>
     </dialogue>
 
 
-    <dialogue id="INTRO_PROOF" type="decision">
-        <option nextDialogue="PROOF">Where can I find proof?</option>
-        <option>[Leave]</option>
+    <dialogue id="FOUND_PROOF" type="decision">
+        <option nextDialogue="ESCAPE_PLAN">I can't believe what I saw, our cargo is human?!</option>
     </dialogue>
+    <dialogue id="ESCAPE_PLAN" type="normal" nextDialogue="ESCAPE_PLAN_1">
+        <line>Me too.. When my family was called to this %%RD"business trip"%%, I followed them and discovered hundreds of stasis capsules. Some were taken to the spaceport. I could just sneak in there.</line>
+        <line>I have no clue why they ship them off the damn planet, but what matters now is that they survive.</line>
+        <line>Will you help me to take them out of the broken cargo capsule?</line>
+    </dialogue>
+    <dialogue id="ESCAPE_PLAN_1" type="decision">
+        <option nextDialogue="ESCAPE_PLAN_2">Yeah, I can't let them die, maybe we can send your family off board.</option>
+    </dialogue>
+    <dialogue id="ESCAPE_PLAN_2" type="decision" variablename="RESCUE_POD_QUEST_STATUS" set="true">
+        <option nextDialogue="LEVELCHANGE_RESCUE_POD">I will check the %%VTrescue pods on the crew deck%%.</option>
+    </dialogue>
+
+    <dialogue id="LEVELCHANGE_RESCUE_POD" type="normal" timechange="24" levelchange="crewdeck/crewdeck" spawnID="ladder" />
 </root>
 

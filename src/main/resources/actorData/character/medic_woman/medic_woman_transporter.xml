@@ -73,19 +73,23 @@
         <spritechange sprite_id="reacto" dialogueId="off"/>
         <spritechange sprite_id="elevSc" dialogueId="NO_ENERGY"/>
     </dialogue>
-
     <dialogue id="METEOR_GOTO_TRADER" type="normal" variablename="METEROIT_HIT" set="true" bump="" >
         <line>Hurry! Go to the %%RDtrader%%, we have to act quickly!</line>
     </dialogue>
-
     <dialogue id="METEORIT" type="normal">
         <line>Hurry! Go to the %%RDtrader%%!</line>
     </dialogue>
-
     <dialogue id="AFTER_ENERGY_RESTORED" type="normal">
         <line>I am glad the meteor just hit some freight. It could be worse..</line>
         <line>%%GRJulius is too proud%% to admit it, but everybody is happy that you were able to restore the energy. You should %%VTrest a little now%%.</line>
     </dialogue>
+
+
+    <dialogue id="INIT_RESCUE_POD" type="normal">
+        <line>I wanted to check how you night shift was going.. but what are you doing here?</line>
+    </dialogue>
+
+
 
 
 </root>

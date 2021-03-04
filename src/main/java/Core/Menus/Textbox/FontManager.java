@@ -54,7 +54,7 @@ public class FontManager
 
     public void parseText(String messages, Font font, double lineWidth)
     {
-        fondData = findFontMarkings(messages);
+        fondData = findFontMarkings(removeLinebreakMarkings(messages));
         message = removeColorMarkings(messages);
         this.font = font;
         wrappedMessage = Utilities.wrapText(message, font, lineWidth);

@@ -866,14 +866,18 @@ public class WorldView
         }
     }
 
-    public Actor getSpriteByName(String id)
+    public List<Actor> getSpritesByName(String id)
     {
         String methodName = "getSpriteByName() ";
+        List<Actor> re = new ArrayList<>();
         for (Sprite sprite : activeSpritesLayer)
+        {
             if (sprite.getActor().getActorId().equals(id))
-                return sprite.getActor();
-        System.out.println(CLASSNAME + methodName + "No Actor found with ID: " + id);
-        return null;
+                re.add(sprite.getActor());
+        }
+        if(re.isEmpty())
+            System.out.println(CLASSNAME + methodName + "No Actor found with ID: " + id);
+        return re;
     }
 
     public Pane getRoot()

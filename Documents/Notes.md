@@ -4,13 +4,12 @@
 ####Bug
         
 #### Main Quest
-* player cannot leave transporter before stranger + control (you heard something strange, checkout before)
-* tells story, check the logs
-* check the rescure pods => need to be overriden
-* ask sister for help => fade out => create electro potion for capsule
-* they leave transporter
+* warp to the rescure pods => sister in range ask what happens (need alarm or override)
+* crewdeck is blocked
+* ask sister for help => create electro potion for capsule
+* override capsule => fade out => last talk => fade out => capule gone
 * goto bed an leave transporter   
-* stranger sprite with air mask and gloves   
+* add statis to capsules 
         
 #### Set item mechanic (provide Service)
 * sprite an Pos adden via Key
@@ -40,12 +39,12 @@
 * in range player interaction
 
 ####Sprites  
-- Ship: rename sleep capsules
-- Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
-- Hammer and Sickle modern, Säulen, Tank
-- stranger person
-- Docking Bay: space elevator rope, bodenmarkierung lift    
-- Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
+* Ship: rename sleep capsules
+* Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
+* Hammer and Sickle modern, Säulen, Tank
+* stranger sprite with air mask and gloves  
+* Docking Bay: space elevator rope, bodenmarkierung lift    
+* Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
     
     
     => Level changes with time

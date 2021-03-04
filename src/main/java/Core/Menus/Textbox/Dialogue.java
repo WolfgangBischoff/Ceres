@@ -74,10 +74,6 @@ public class Dialogue
                     String val = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SET);
                     GameVariables.setGenericVariable(varname, val);
                 }
-//                if (currentDialogueXML.hasAttribute((TEXTBOX_ATTRIBUTE_INVALIDATE_LEVEL_STATE)))
-//                {
-//                    GameVariables.getLevelData().get(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_INVALIDATE_LEVEL_STATE)).setDay(-1);
-//                }
                 if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_TIME_CHANGE))
                 {
                     GameVariables.getClock().addTime(Integer.parseInt(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_TIME_CHANGE)));

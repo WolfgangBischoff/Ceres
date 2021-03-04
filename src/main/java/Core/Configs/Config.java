@@ -148,6 +148,7 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_COIN_GAME = "coingame";
     public static final String TEXTBOX_ATTRIBUTE_SPRITE_ID = "sprite_id";
     public static final String TEXTBOX_ATTRIBUTE_NEW_STATUS = "status";
+    public static final String TEXTBOX_ATTRIBUTE_SENSOR_STATUS = "sensorstatus";
     public static final String TEXTBOX_ATTRIBUTE_TYPE = "type";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_ACTOR = "item_actor";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_NAME = "item_name";

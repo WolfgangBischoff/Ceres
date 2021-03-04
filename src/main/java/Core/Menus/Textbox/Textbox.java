@@ -133,17 +133,25 @@ public class Textbox
                     for (int j = 0; j < spriteChanges.getLength(); j++) {
                         changeDirective = (Element) spriteChanges.item(j);
                         String id = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_SPRITE_ID);
+                        String newSensorStatus = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_SENSOR_STATUS);
                         String newStatus = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_NEW_STATUS);
                         String newDialogueId = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_ID);
                         String newDialogueFile = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_FILE);
-                        Actor actor = WorldView.getSingleton().getSpriteByName(id);
-                        if (!newStatus.isEmpty())
-                            actor.setGeneralStatus(newStatus);
-                        if (!newDialogueId.isEmpty())
-                            actor.setDialogueId(newDialogueId);
-                        if (!newDialogueFile.isEmpty())
-                            actor.setDialogueFile(newDialogueFile);
-                        actor.updateCompoundStatus();
+                        List<Actor> actorToChange = WorldView.getSingleton().getSpritesByName(id);
+
+                        for(Actor a : actorToChange)
+                        {
+                            if (!newStatus.isEmpty())
+                                a.setGeneralStatus(newStatus);
+                            if (!newDialogueId.isEmpty())
+                                a.setDialogueId(newDialogueId);
+                            if (!newDialogueFile.isEmpty())
+                                a.setDialogueFile(newDialogueFile);
+                            if (!newSensorStatus.isEmpty())
+                                a.setSensorStatus(newSensorStatus);
+                            a.updateCompoundStatus();
+                        }
+
                     }
                 }
                 break;
