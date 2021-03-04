@@ -1,7 +1,7 @@
 <root name="medic">
 
     <dialogue id="INIT_STRANGER" type="normal" nextDialogue="DECISION_1">
-        <line>Wait, be quit, I am a %%VTfriend%%...</line>
+        <line>Wait, be quiet, I am a %%VTfriend%%...</line>
     </dialogue>
     <dialogue id="DECISION_1" type="decision">
         <option nextDialogue="BIO">What the hell, who are you?</option>

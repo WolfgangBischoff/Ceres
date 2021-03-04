@@ -1,0 +1,11 @@
+
+
+<root name="guard">
+    <dialogue id="INIT_RULES" type="normal">
+        <line>
+            Always be careful, carelessness can have dire consequences out here.
+        </line>
+    </dialogue>
+
+</root>
+

@@ -47,12 +47,18 @@ public class FontManager
         return line;
     }
 
+    public static String removeLinebreakMarkings(String line)
+    {
+        return line.replace(REGEX_LINEBREAK  + " ", "");
+    }
+
     public void parseText(String messages, Font font, double lineWidth)
     {
         fondData = findFontMarkings(messages);
         message = removeColorMarkings(messages);
         this.font = font;
         wrappedMessage = Utilities.wrapText(message, font, lineWidth);
+        message = removeLinebreakMarkings(message);
     }
 
     public void parseOptions(List<String> options, Font font, double lineWidth)
@@ -82,7 +88,7 @@ public class FontManager
             if (letterIdx < sumLetters)
                 return i;
         }
-        return 0;
+        return -1;
     }
 
     public double getLineXOffset(int lineIdx, int nextLetterIdx)

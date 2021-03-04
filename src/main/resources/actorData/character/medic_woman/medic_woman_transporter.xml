@@ -13,7 +13,7 @@
     <dialogue id="GAME_TUTORIAL_1_WON" type="normal" item_actor="actorData/collectibles/stamp/stamp" item_name="Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2">
         <line>Haha nice, here you have the little treasure!</line>
     </dialogue>
-    <dialogue id="GAME_TUTORIAL_1_LOST" type="normal" item_actor="actorData/collectibles/food/food" item_name="cornuts" item_status="cornuts" nextDialogue="intro_2">
+    <dialogue id="GAME_TUTORIAL_1_LOST" type="normal" item_actor="actorData/collectibles/food/food" item_name="Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2">
         <line>Hmm ok... anyway...</line>
     </dialogue>
 
@@ -22,7 +22,7 @@
         <line>I quiet "please" for my %%GRintroverted%% self is enough.. you know I am a sensitive, %%GRfeeling%% person..</line>
     </dialogue>
     <dialogue id="GAME_TUTORIAL_2" type="technical" coingame="tutorial_2" success="GAME_TUTORIAL_2_WON" defeat="GAME_TUTORIAL_2_LOST"/>
-    <dialogue id="GAME_TUTORIAL_2_WON" type="normal" item_actor="actorData/collectibles/food/food" item_name="Algae Stew" item_status="algaeStew" nextDialogue="GOTO_TRADER">
+    <dialogue id="GAME_TUTORIAL_2_WON" type="normal" item_actor="actorData/collectibles/food/food" item_name="Cornuts" item_status="cornuts" nextDialogue="GOTO_TRADER">
         <line>Enjoy :-)</line>
     </dialogue>
     <dialogue id="GAME_TUTORIAL_2_LOST" type="normal" nextDialogue="intro_2">

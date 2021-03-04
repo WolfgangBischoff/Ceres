@@ -115,7 +115,7 @@ ACTORS:
 #code 					;actorFileN																																								;IngameName															;sprite-status						;sensor-status										;direction
 player					;actorData/player																																		;Revolutionary												;default												;default																;north
 exit__					;actorData/doors/vertical/autoBulkheadVertical					;exit to docking bay						;on																	;levelchange												;west
-autoDo					;actorData/doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;UNLOCKED															;west
+autoDo					;actorData/doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;LOCKED																	;west
 capsuD					;actorData/doors/vertical/autoBulkheadVertical					;Capsule Bulkhead									;on									        ;textbox						          ;undefined
 laddeD					;actorData/doors/updown/ladder/transporter_ladder		;ladder																			;blocked												;default																;undefined
 elevSc					;actorData/doors/updown/elevator/elevator										;main elevator										  ;toCrewDeck								 ;default											     ;undefined
@@ -160,7 +160,7 @@ flatBx					                ;actorData/storages/box_flat/box_flat														;g
 #collectibles
 algaeS					                ;actorData/collectibles/food/food																		;Algae Stew				 					;algaeStew													 ;default																     ;undefined
 asiaBe					                ;actorData/collectibles/food/food																		;Asia Star Bento					;asiastar														 ;default																     ;undefined
-pda__0					                ;actorData/collectibles/reader/reader														;Reader														;reader																 ;default																     ;undefined
+pda__0					                ;actorData/collectibles/reader/reader														;Cargo list										;reader																 ;default																     ;undefined
 
 ACTORGROUPS:
 #level change

@@ -30,10 +30,10 @@ public class Collectible
         id = collectibleNextId++;
     }
 
-    public static Collectible createCollectible(String actorfilepath, String technicalName, String spriteStatus)
+    public static Collectible createCollectible(String actorfilepath, String v2IngameName, String spriteStatus)
     {
-        Actor collectibleActor = new Actor(actorfilepath, technicalName, spriteStatus, "default", Direction.UNDEFINED);
-        Collectible collectible = new Collectible(technicalName, CollectableType.getType(collectibleActor.getCollectable_type()), collectibleActor.actorInGameName, (collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
+        Actor collectibleActor = new Actor(actorfilepath, v2IngameName, spriteStatus, "default", Direction.UNDEFINED);
+        Collectible collectible = new Collectible(spriteStatus, CollectableType.getType(collectibleActor.getCollectable_type()), collectibleActor.actorInGameName, (collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
         collectible.image = Utilities.readImage(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).spriteName + PNG_POSTFIX);
 
         String path = collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).dialogieFile;

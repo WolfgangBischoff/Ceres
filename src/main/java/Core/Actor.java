@@ -603,7 +603,7 @@ public class Actor
 
     private void collect(Actor collectingActor)
     {
-        Collectible collected = Collectible.createCollectible(actorFileName, generalStatus, generalStatus);
+        Collectible collected = Collectible.createCollectible(actorFileName, actorInGameName, generalStatus);
         collected.image = spriteList.get(0).getBaseimage();
         boolean wasCollected = collectingActor.inventory.addItemNextSlot(collected);
 

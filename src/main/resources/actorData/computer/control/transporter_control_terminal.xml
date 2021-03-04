@@ -17,9 +17,35 @@
     </dialogue>
 
     <dialogue id="INTRO_PROOF" type="decision">
-        <option>[Read Mail]</option>
-        <option>[Open Freight capsules]</option>
+        <option nextDialogue="MAIL">[Read Mail]</option>
+        <option nextDialogue="DAMAGE_REPORT">[Damage Report]</option>
+        <option nextDialogue="OPEN_FREIGHT">[Unlock cargo]</option>
         <option>[Leave]</option>
+    </dialogue>
+    <dialogue id="MAIL" type="normal" nextDialogue="INTRO_PROOF">
+        <line>To: itv042@crx.com - From: cain@crx-logistic.com %n
+            Subject: RE: Meteroid Impact Emergency %n
+            Analysis result: asset significance medium - %%VTlife insurance bond detected and worthwhile%% - write off and continue - insurance process initiated
+        </line>
+        <line>To: cain@crx-logistic.com - From: itv042@crx.com %n
+            Subject: Meteroid Impact Emergency %n
+            We got hit by a meteroid, no injured, cargo capsule 1 damaged, asset loss imminent, awaiting instruction.
+        </line>
+    </dialogue>
+    <dialogue id="DAMAGE_REPORT" type="normal" nextDialogue="INTRO_PROOF">
+        <line>
+            Hull break detected cargo capsule 1; %n
+            Main system shut down according to protocol; %n
+            Cargo capsule 1: Decreasing atmosphere; temperature %n
+            %%RDWarning Cargo capsule 1:%% Atmosphere critical
+        </line>
+    </dialogue>
+    <dialogue id="OPEN_FREIGHT" type="normal">
+        <line>
+            Unlocking cargo capsules... %n
+            %%GR..Done%%
+        </line>
+        <spritechange sprite_id="autoDo" status="UNLOCKED"/>
     </dialogue>
 
 </root>

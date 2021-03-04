@@ -16,7 +16,7 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             initspeed="2"
             movementType=""
             time="0"
-            maxTime="10"
+            maxTime="20"
     />
 
     <coin
@@ -26,7 +26,7 @@ INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIV
             initspeed="2"
             movementType=""
             time="0"
-            maxTime="10"
+            maxTime="20"
     />
 
 </root>
