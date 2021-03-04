@@ -62,6 +62,10 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>A lot of machinery, everything looks operational.</line>
     </dialogue>
 
+    <dialogue id="sink" type="normal">
+        <line>Somebody left some remains of toothpaste.</line>
+    </dialogue>
+
     <dialogue id="algae_tank" type="normal">
         <line>A tank full of green algae. This must be part of the ship's air treatment system.</line>
     </dialogue>
