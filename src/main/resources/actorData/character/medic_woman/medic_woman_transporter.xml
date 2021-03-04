@@ -13,7 +13,7 @@
     <dialogue id="GAME_TUTORIAL_1_WON" type="normal" item_actor="actorData/collectibles/stamp/stamp" item_name="Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2">
         <line>Haha nice, here you have the little treasure!</line>
     </dialogue>
-    <dialogue id="GAME_TUTORIAL_1_LOST" type="normal" item_actor="actorData/collectibles/food/food" item_name="Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2">
+    <dialogue id="GAME_TUTORIAL_1_LOST" type="normal" item_actor="actorData/collectibles/stamp/stamp" item_name="Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2">
         <line>Hmm ok... anyway...</line>
     </dialogue>
 

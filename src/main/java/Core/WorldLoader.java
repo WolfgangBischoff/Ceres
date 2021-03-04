@@ -181,7 +181,7 @@ public class WorldLoader
 
     private void log(String[] linedate)
     {
-        System.out.println(CLASSNAME + "loaded:");
+        System.out.print(CLASSNAME + "loaded: ");
         for (String s : linedate)
             System.out.print(s);
         System.out.println();

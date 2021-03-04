@@ -7,8 +7,8 @@
 #sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
 sensorStatus	           ;default																			               ;textbox																		           ;none  	 																;none 								 ;none 								  ;none								 ;none										;none 								;none 								;none													;none														;none 								 ;none 								;none							  ;none										;none 								;none 									                           ;none					;none 								;none  ;none
 
-#dialogueFile            ;actorData/character/technician/technician
-tags                    ;persistent; TURNS_DIRECTION_ONINTERACTION
+#dialogueFile           ;actorData/character/technician/technician
+tags                    ; TURNS_DIRECTION_ONINTERACTION
 
 #personality;initCooperation;trait1, trait1-cooperationThreshold,trai1-knowledgeTag; trait2 ...
 personality             ;003                                      ;EXTROVERSION ,3,none                 ;SENSING,6,none          ;FEELING,9,none;JUDGING,12,none

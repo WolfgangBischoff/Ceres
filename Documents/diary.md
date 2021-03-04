@@ -1,6 +1,7 @@
 
 
-
+##### 04 03 21
+* main quest build
 ##### 03 03 21
 * add easy characterGame -> sister before talk to trader, get some item
 * build main quest, added sprites
@@ -25,29 +26,22 @@
 * Click on Coins buggy, now also uses drag
 * disable bed, should be dependent on quest status
 * spawn during night on control deck
-
 ##### 15 02 21
 * added trader side sprite
-
 ##### 28 02 21
 * added linebreak
 * refactor textbox
 * fixed hasItem() bug
-
 ##### 14 02 21
 * Fixed: Item on last index can vanish with DragAndDrop
 * Finalized Drag and Drop
 * Add Incubator DragDrop
-
 ##### 11 02 21
 * drag and drop improved
-
 ##### 08 02 21
 * added first DragAndDrop
-
 ##### 04 02 21
 * added incubator menu
-
 #####01 02 21    
 * more metroids
 * added trader sprites, changed sprites
