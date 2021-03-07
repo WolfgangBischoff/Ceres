@@ -22,5 +22,5 @@ ON-south											;automatedDoor			;actorData/doors/horizontal/close_btm_128_12
 OFF-south										;automatedDoor			;actorData/doors/horizontal/open_top_128_128								;false			;2												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;none														;dialogueFile																;unused;unused;unused;unused;unused ;3								;0									;false
 OFF-south										;automatedDoor			;actorData/doors/horizontal/open_btm_128_128								;false			;1												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;none														;dialogueFile																;unused;unused;unused;unused;unused ;3								;0									;false
 
-#condition;if sprite-status;if sensor-status;type					;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
-condition	;*															;*															;variable ;*																	;VARIABLE_UNLOCKED	;*																		;VARIABLE_LOCKED					;IS_LIFE_SUPP_OPEN
+#condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;true-dialogue-id;true-dialogue-file;false-sprite-status;false-sensor-status;false-dialogue-id;false-dialogue_file;params
+condition	;*															;*															;variable;*																	;VARIABLE_UNLOCKED	;*															;*																	;*																		;VARIABLE_LOCKED				;*																;*																		;IS_LIFE_SUPP_OPEN

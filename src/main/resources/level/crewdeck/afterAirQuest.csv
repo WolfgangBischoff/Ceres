@@ -5,6 +5,7 @@ floTol				                      ;open floor				                          ;img/fl
 
 
 global_system_actor:
+#character           ;mapId ,spStatus   , direction , sensStatus, dialogFile, dialogueID
 character           ;	techni,default,west,,actorData/character/technician/technician,init-door
 
 layer:

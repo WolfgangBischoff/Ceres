@@ -10,7 +10,9 @@ import java.util.List;
 public class ActorCondition
 {
     private static final String CLASSNAME = "ActorCondition/";
-    String spriteStatusCondition, sensorStatusCondition, trueSpriteStatus, trueSensorStatus, falseSpriteStatus, falseSensorStatus;
+    String spriteStatusCondition, sensorStatusCondition,
+            trueSpriteStatus, trueSensorStatus, trueDialogueId, trueDialogueFile,
+            falseSpriteStatus, falseSensorStatus, falseDialogueId, falseDialogueFile;
     List<String> params = new ArrayList<>();
     ActorConditionType actorConditionType;
 

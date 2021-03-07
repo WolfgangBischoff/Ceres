@@ -151,7 +151,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
         Collectible inputSlotItem = actor.getInventory().getItem(mouseElements.indexOf(mouseElements.get(BASE_INPUT_SLOT)));
         Collectible outputSlotItem = actor.getInventory().getItem(mouseElements.indexOf(mouseElements.get(BASE_OUTPUT_SLOT)));
 
-        if (inputSlotItem != null && inputSlotItem.getType() == CollectableType.FOOD && outputSlotItem == null)
+        if (inputSlotItem != null && inputSlotItem.getType() == CollectableType.BACTERIA_BASE && outputSlotItem == null)
         {
             Collectible converted = Collectible.createCollectible("actorData/collectibles/bacteria/bacteria_crafted", "Electric Bacteria", "electric");
             actor.getInventory().addItemIdx(converted, mouseElements.indexOf(mouseElements.get(BASE_OUTPUT_SLOT)));

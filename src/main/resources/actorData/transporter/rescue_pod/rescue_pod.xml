@@ -6,15 +6,28 @@
         <line>A rescue pod.. if we have to leave the ship quickly. After initialization it is ready to launch in seconds.</line>
     </dialogue>
 
-    <dialogue id="INIT_RELEASE" type="decision" spritestatus="transition">
-        <option>Back</option>
-        <option nextDialogue="RELEASE">Start launch sequence!</option>
+    <dialogue id="NEED_BAC" type="decision" spritestatus="transition">
+        <option>[Leave]</option>
+        <option nextDialogue="NO_BACTERY">[Check Console]</option>
     </dialogue>
-
-    <dialogue id="RELEASE" type="normal">
-        <line>3...2....1....Released</line>
+    <dialogue id="NO_BACTERY" type="normal">
+        <line>The rescue pod must be overridden, you need %%VTelectric bacteria%%!</line>
     </dialogue>
-
+    <dialogue id="OVERRIDE" type="decision">
+        <option>[Leave]</option>
+        <option nextDialogue="RELEASE">[Override Console]</option>
+    </dialogue>
+    <dialogue id="RELEASE" type="normal" dialogue="READY">
+        <line>Krrz... Bzzt...</line>
+        <line>Ready for Launch!</line>
+    </dialogue>
+    <dialogue id="READY" type="decision">
+        <option>[Leave]</option>
+        <option nextDialogue="LAUNCH">[Launch rescue pod]</option>
+    </dialogue>
+    <dialogue id="LAUNCH" type="normal" >
+        <line>3... 2... 1... Release</line>
+    </dialogue>
 </root>
 
 

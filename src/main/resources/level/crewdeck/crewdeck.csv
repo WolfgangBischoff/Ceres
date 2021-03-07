@@ -110,6 +110,7 @@ redKey	                    ;2257     ;1595    ;on the bench
 asiaBe                     ;1820     ;1060    ;one the table
 
 GLOBAL_SYSTEM_ACTOR:
+#character           ;mapId ,spStatus   , direction , sensStatus, dialogFile, dialogueID
 transporter_air_system          ;hydrOK                                            ;airCr1                                                                ;airCr2             ;airLif
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer

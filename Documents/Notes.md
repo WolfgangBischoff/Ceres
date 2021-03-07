@@ -4,12 +4,11 @@
 ####Bug
         
 #### Main Quest
-* warp to the rescure pods => sister in range ask what happens (need alarm or override)
-* crewdeck is blocked
-* ask sister for help => create electro potion for capsule
+* crewdeck is blocked when rescue pod mission
 * override capsule => fade out => last talk => fade out => capule gone
-* goto bed an leave transporter   
-* add statis to capsules 
+* goto bed an leave transporter
+* rescue pod: hervorheben der wichtigen capsel, launchbereit mit person am fenster
+* Space suit: front helmrahmen fehlt
         
 #### Set item mechanic (provide Service)
 * sprite an Pos adden via Key
@@ -26,11 +25,11 @@
 * bacteria cultures can be used in incubators (bottleneck)
 
 #### Minor
-* StatusInfo over sprite on key + ExclamationMark
 * Enable fullscreen mode, check higher resolution and zoom
-* Tooltip is rendered over Other Overlays
-* "Rumors"/Random dialogue
 * first stranger sound
+* Tooltip is rendered over Other Overlays
+* StatusInfo over sprite on key + ExclamationMark
+* "Rumors"/Random dialogue
 * Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
 
 #### Stealth mechanic

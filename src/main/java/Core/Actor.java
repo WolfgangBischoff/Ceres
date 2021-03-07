@@ -21,8 +21,8 @@ import java.util.*;
 import static Core.Configs.Config.*;
 import static Core.Enums.ActorTag.*;
 import static Core.Enums.Direction.*;
-import static Core.Enums.TriggerType.CONDITION;
-import static Core.Enums.TriggerType.TEXTBOX_CONDITION;
+import static Core.Enums.TriggerType.*;
+import static Core.Enums.TriggerType.PERSISTENT;
 import static Core.WorldView.WorldViewStatus.*;
 
 public class Actor
@@ -225,23 +225,30 @@ public class Actor
     private ActorCondition readCondition(String[] linedata)
     {
         String methodName = "readCondition() ";
-        //#condition; if sprite-status ;if sensor-status ;type ;true-sprite-status ;true-sensor-status ;false-sprite-status ;false-sensor-status	;params
         int spriteStatusConditionIdx = 1;
         int sensorStatusConditionIdx = 2;
         int actorConditionTypeIdx = 3;
         int trueSpriteStatusIdx = 4;
         int trueSensorStatusIdx = 5;
-        int falseSpriteStatusIdx = 6;
-        int falseSensorStatusIdx = 7;
-        int paramsIdx = 8;
+        int trueDialogueIdIdx = 6;
+        int trueDialogueFileIdx = 7;
+        int falseSpriteStatusIdx = 8;
+        int falseSensorStatusIdx = 9;
+        int falseDialogueIdIdx = 10;
+        int falseDialogueFileIdx = 11;
+        int paramsIdx = 12;
         ActorCondition actorCondition = new ActorCondition();
         actorCondition.spriteStatusCondition = linedata[spriteStatusConditionIdx];
         actorCondition.sensorStatusCondition = linedata[sensorStatusConditionIdx];
         actorCondition.actorConditionType = ActorConditionType.getConditionFromValue(linedata[actorConditionTypeIdx]);
         actorCondition.trueSpriteStatus = linedata[trueSpriteStatusIdx];
         actorCondition.trueSensorStatus = linedata[trueSensorStatusIdx];
+        actorCondition.trueDialogueId = linedata[trueDialogueIdIdx];
+        actorCondition.trueDialogueFile = linedata[trueDialogueFileIdx];
         actorCondition.falseSpriteStatus = linedata[falseSpriteStatusIdx];
         actorCondition.falseSensorStatus = linedata[falseSensorStatusIdx];
+        actorCondition.falseDialogueId = linedata[falseDialogueIdIdx];
+        actorCondition.falseDialogueFile = linedata[falseDialogueFileIdx];
         actorCondition.params.addAll(Arrays.asList(linedata).subList(paramsIdx, linedata.length));
         return actorCondition;
     }
@@ -329,7 +336,7 @@ public class Actor
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS) {
             //Sprite
             if (sensorStatus.onUpdate_TriggerSprite != TriggerType.NOTHING && !sensorStatus.onUpdateToStatusSprite.equals(generalStatus))
-                evaluateTriggerType(sensorStatus.onUpdate_TriggerSprite, sensorStatus.onUpdateToStatusSprite, null);
+                evaluateTriggerTypeSprite(sensorStatus.onUpdate_TriggerSprite, sensorStatus.onUpdateToStatusSprite, null);
 
             //SensorStatus
             if (sensorStatus.getOnUpdate_TriggerSensor() == CONDITION)
@@ -347,7 +354,7 @@ public class Actor
         for (ActorCondition condition : conditions) {
             if //check pre-condition
             (
-                    (generalStatus.equals(condition.spriteStatusCondition) || condition.spriteStatusCondition.equals("*"))
+                    (generalStatus.equalsIgnoreCase(condition.spriteStatusCondition) || condition.spriteStatusCondition.equals("*"))
                             &&
                             (sensorStatus.statusName.equals(condition.sensorStatusCondition) || condition.sensorStatusCondition.equals("*"))
             ) {
@@ -360,6 +367,10 @@ public class Actor
                     }
                     if (!condition.trueSensorStatus.equals("*"))
                         setSensorStatus(condition.trueSensorStatus);
+                    if(!condition.trueDialogueFile.equals("*"))
+                        setDialogueFile(condition.trueDialogueFile);
+                    if(!condition.trueDialogueId.equals("*"))
+                        setDialogueId(condition.trueDialogueId);
 
                     if (debug)
                         System.out.println(CLASSNAME + methodName + " condition met " + generalStatus + " " + sensorStatus.statusName);
@@ -373,6 +384,10 @@ public class Actor
                     }
                     if (!condition.falseSensorStatus.equals("*"))
                         setSensorStatus(condition.falseSensorStatus);
+                    if(!condition.falseDialogueFile.equals("*"))
+                        setDialogueFile(condition.falseDialogueFile);
+                    if(!condition.falseDialogueId.equals("*"))
+                        setDialogueId(condition.falseDialogueId);
 
                     if (debug)
                         System.out.println(CLASSNAME + methodName + "Not met " + generalStatus + " " + sensorStatus.statusName);
@@ -394,7 +409,7 @@ public class Actor
                 updateStatusFromConditions(activeSprite.getActor());
 
             //react
-            evaluateTriggerType(sensorStatus.onInteraction_TriggerSprite, sensorStatus.onInteractionToStatusSprite, activeSprite.getActor());
+            evaluateTriggerTypeSprite(sensorStatus.onInteraction_TriggerSprite, sensorStatus.onInteractionToStatusSprite, activeSprite.getActor());
             setLastInteraction(currentNanoTime);
         }
     }
@@ -414,13 +429,13 @@ public class Actor
 
         if (newDialogueId != null)
             setDialogueId(newDialogueId);
-        evaluateTriggerType(sensorStatus.onMonitorSignal_TriggerSprite, newCompoundStatus, null);
+        evaluateTriggerTypeSprite(sensorStatus.onMonitorSignal_TriggerSprite, newCompoundStatus, null);
     }
 
     public void onTextboxSignal(String newCompoundStatus)
     {
         String methodName = "onTextboxSignal() ";
-        evaluateTriggerType(sensorStatus.onTextBoxSignal_SpriteTrigger, newCompoundStatus, null);
+        evaluateTriggerTypeSprite(sensorStatus.onTextBoxSignal_SpriteTrigger, newCompoundStatus, null);
     }
 
     public void onIntersection(Sprite detectedSprite, Long currentNanoTime)
@@ -447,7 +462,7 @@ public class Actor
 
             //Sprite Status
             if (sensorStatus.onIntersection_TriggerSprite != TriggerType.NOTHING) {
-                evaluateTriggerType(sensorStatus.onIntersection_TriggerSprite, sensorStatus.onIntersectionToStatusSprite, detectedSprite.getActor());
+                evaluateTriggerTypeSprite(sensorStatus.onIntersection_TriggerSprite, sensorStatus.onIntersectionToStatusSprite, detectedSprite.getActor());
             }
 
             //SensorStatus
@@ -470,7 +485,12 @@ public class Actor
             return;
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS) {
-            evaluateTriggerType(sensorStatus.onInRange_TriggerSprite, sensorStatus.onInRangeToStatusSprite, detectedSprite.getActor());
+            evaluateTriggerTypeSprite(sensorStatus.onInRange_TriggerSprite, sensorStatus.onInRangeToStatusSprite, detectedSprite.getActor());
+            lastAutomaticInteraction = currentNanoTime;
+        }
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS && sensorStatus.onInRange_TriggerSensor != NOTHING) {
+            if(sensorStatus.onInRange_TriggerSensor == PERSISTENT)//TODO should be like evaluateTriggerType for sensorStaus
+                setSensorStatus(sensorStatusMap.get(sensorStatus.onInRangeToStatusSensorStatus));
             lastAutomaticInteraction = currentNanoTime;
         }
     }
@@ -543,7 +563,7 @@ public class Actor
     }
 
     //React on outside sensor
-    private void evaluateTriggerType(TriggerType triggerType, String targetStatusField, Actor activeActor)
+    private void evaluateTriggerTypeSprite(TriggerType triggerType, String targetStatusField, Actor activeActor)
     {
         String methodName = "evaluateTriggerType() ";
         switch (triggerType) {
@@ -578,17 +598,17 @@ public class Actor
                 actAccordingToScript();
                 break;
             case INVENTORY_SHOP:
-                WorldViewController.setWorldViewStatus(INVENTORY_SHOP);
+                WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY_SHOP);
                 InventoryController.setExchangeInventoryActor(this);
                 break;
             case INVENTORY_EXCHANGE:
-                WorldViewController.setWorldViewStatus(INVENTORY_EXCHANGE);
+                WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY_EXCHANGE);
                 InventoryController.setExchangeInventoryActor(this);
                 break;
             case CONDITION:
                 break;
             case INCUBATOR:
-                WorldViewController.setWorldViewStatus(INCUBATOR);
+                WorldViewController.setWorldViewStatus(WorldViewStatus.INCUBATOR);
                 InventoryController.setExchangeInventoryActor(this);
                 break;
         }

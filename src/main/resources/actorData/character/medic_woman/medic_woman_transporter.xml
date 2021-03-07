@@ -85,12 +85,31 @@
     </dialogue>
 
 
-    <dialogue id="INIT_RESCUE_POD" type="normal">
-        <line>I wanted to check how you night shift was going.. but what are you doing here?</line>
+    <dialogue id="INIT_RESCUE_POD" type="normal" nextDialogue="RESCUE_POD_0">
+        <line>Hey?! I just wanted to look after you while you are on the night shift.. Shouldn't you be in the control room?</line>
+        <line>Or is something wrong with the %%VTrescue pods%%?</line>
     </dialogue>
-
-
-
+    <dialogue id="RESCUE_POD_0" type="decision" >
+        <option nextDialogue="RESCUE_POD_1">&gt;We have a blind passenger.. to be precise a lot of..&lt;</option>
+    </dialogue>
+    <dialogue id="RESCUE_POD_1" type="normal" nextDialogue="RESCUE_POD_2">
+        <line>Thats a crazy story. And now you want to %%VTsend them off board%% by a rescue pod?</line>
+    </dialogue>
+    <dialogue id="RESCUE_POD_2" type="decision" >
+        <option nextDialogue="RESCUE_POD_3">&gt;At least some of them, otherwise they die&lt;</option>
+    </dialogue>
+    <dialogue id="RESCUE_POD_3" type="normal" nextDialogue="RESCUE_POD_4">
+        <line>You cannot launch the rescue pods without %%RDactivating the alarm%%, and this would wake up the CereX guys.</line>
+        <line>But the console could be overridden by some of my %%GRsmall friends%%..</line>
+        <line>Take this %%GRGeobacter Electra%% culture and let them grow in the incubator of the %%VTlife support room%%.</line>
+    </dialogue>
+    <dialogue id="RESCUE_POD_4" type="normal" nextDialogue="RESCUE_POD_5"  item_actor="actorData/collectibles/bacteria/bacteria_crafted" item_name="Inactive Geobacter Electra" item_status="electric_base">
+        <line>Take this %%GRGeobacter Electra%% culture and let them grow in the incubator of the %%VTlife support room%%.</line>
+    </dialogue>
+    <dialogue id="RESCUE_POD_5" type="normal" dialogueId="RESCUE_POD_5">
+        <line>Go to the %%VTlife support room%% and use the incubator to grow %%GRGeobacter Electra%%.</line>
+        <line>With the %%GRbacteria%% you can overload the %%VTrescue pods%% console.</line>
+    </dialogue>
 
 </root>
 

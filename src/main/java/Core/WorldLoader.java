@@ -98,7 +98,7 @@ public class WorldLoader
                 StringBuilder stringBuilder = new StringBuilder();
                 for (String s : lineData)
                     stringBuilder.append(s).append("; ");
-                throw new RuntimeException(e.getMessage() + "\nRead Mode: " + readMode + "\nat\t" + stringBuilder.toString());
+                throw new RuntimeException(e.getMessage() + "\nRead Mode: " + readMode + "\nat\t" + stringBuilder.toString() + "\n" + Arrays.toString(e.getStackTrace()));
             }
         }
 
@@ -197,7 +197,7 @@ public class WorldLoader
         String methodName = "getGlobalSystemActor() ";
         GlobalActorsManager.loadGlobalSystem(linedata[0]);
         List<String> actorIds = Arrays.asList(linedata).subList(1, linedata.length);
-        globalActorsMap.putAll(GlobalActorsManager.getGlobalActors(actorIds));
+        globalActorsMap.putAll(GlobalActorsManager.getGlobalActorsWithStatus(actorIds));
         loadedTileIdsSet.addAll(actorIds.stream().map(string -> string.split(",")[0]).collect(Collectors.toList()));//remove additional status data. eg: medic_,windo
     }
 

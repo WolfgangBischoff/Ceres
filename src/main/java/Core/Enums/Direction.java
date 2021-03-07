@@ -12,7 +12,7 @@ public enum Direction
 
     public static Direction of(String value)
     {
-        switch (value.toLowerCase()) {
+        switch (value.toLowerCase().trim()) {
             case "north":
                 return NORTH;
             case "east":
