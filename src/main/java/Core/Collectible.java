@@ -52,7 +52,8 @@ public class Collectible
             }
         }
         else
-            System.out.println(CLASSNAME + " create Collectible() Path does not exist: " + path);
+            if(!path.equals("dialogueFile") && !path.equals("none"))
+                System.out.println(CLASSNAME + " create Collectible() Path does not exist: " + path);
 
         return collectible;
     }

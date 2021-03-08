@@ -9,9 +9,16 @@
     <dialogue id="INTRO_TO_MEDIC_REPEAT" type="decision">
         <option nextDialogue="TASK">What should I do?</option>
         <option nextDialogue="AIR_SYSTEM_NETWORK_SERVER_TRAIT" type="boolean" variablename="transporter_air_system_quest_started" visibleIf="true">Can you help me with the %%VTair hub%%?</option>
+        <option nextDialogue="FADE" >Fade Out</option>
+        <option nextDialogue="FADE_IN" >Fade In</option>
         <option>[Leave]</option>
     </dialogue>
-
+    <dialogue id="FADE" type="normal" fadeout="true" nextDialogue="INTRO_TO_MEDIC_REPEAT">
+        <line>Your sister waits for you in the %%VTControl Room%%! Go to her, don't let her wait.</line>
+    </dialogue>
+    <dialogue id="FADE_IN" type="normal" fadeout="false" nextDialogue="INTRO_TO_MEDIC_REPEAT">
+        <line>Your sister waits for you in the %%VTControl Room%%! Go to her, don't let her wait.</line>
+    </dialogue>
     <dialogue id="TASK" type="normal">
         <line>Your sister waits for you in the %%VTControl Room%%! Go to her, don't let her wait.</line>
     </dialogue>

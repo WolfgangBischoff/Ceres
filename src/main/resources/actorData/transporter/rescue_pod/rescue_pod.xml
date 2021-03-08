@@ -17,7 +17,7 @@
         <option>[Leave]</option>
         <option nextDialogue="RELEASE">[Override Console]</option>
     </dialogue>
-    <dialogue id="RELEASE" type="normal" dialogue="READY">
+    <dialogue id="RELEASE" type="normal" dialogueId="READY">
         <line>Krrz... Bzzt...</line>
         <line>Ready for Launch!</line>
     </dialogue>
@@ -25,8 +25,14 @@
         <option>[Leave]</option>
         <option nextDialogue="LAUNCH">[Launch rescue pod]</option>
     </dialogue>
-    <dialogue id="LAUNCH" type="normal" >
+    <dialogue id="LAUNCH" fadeout="true" type="normal" nextDialogue="LAUNCH_0">
         <line>3... 2... 1... Release</line>
+    </dialogue>
+    <dialogue id="LAUNCH_0"  type="normal" nextDialogue="LAUNCH_1">
+        <line>There are gone.. hope they arrive %%VTCeres%% with those pod.</line>
+    </dialogue>
+    <dialogue id="LAUNCH_1" fadeout="false" type="normal" dialogueId="RELEASE">
+        <line>You should go back to work now and write a report. Looks like an %%GRrescue pod had a "malfunction"%%..</line>
     </dialogue>
 </root>
 

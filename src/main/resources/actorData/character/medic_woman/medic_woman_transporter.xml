@@ -41,14 +41,12 @@
         <line>You can already see %%VTCeres%%.. we are light-years away from home. Can you imagine?</line>
         <line>I was always curious about your motivations.. %%GRwhy are you here?%%</line>
     </dialogue>
-
     <dialogue id="OPTION_GOALS" type="decision" >
         <option nextDialogue="WANT_MONEY">&gt;.. need %%GRmoney%%.&lt;</option>
         <option nextDialogue="WANT_LEAVE_HOME">&gt;.. wanted to %%GRleave everything behind%%&lt;</option>
         <option nextDialogue="WANT_PROGRESS">&gt;.. be part of %%GRhuman progress%%&lt;</option>
         <option nextDialogue="WANT_ADVENTURE">&gt;.. keen on %%GRadventures%%&lt;</option>
     </dialogue>
-
     <dialogue id="WANT_MONEY" type="normal" nextDialogue="MEDIC_MOTIVATION">
         <line>Ahh, I understand.. many people come here for the money. %%VTCereX%% pays their technician well.</line>
     </dialogue>
@@ -61,11 +59,9 @@
     <dialogue id="WANT_ADVENTURE" type="normal" nextDialogue="MEDIC_MOTIVATION">
         <line>You will find it for sure, there is much to discover. %%VTCereX%% paid billions to dig up the marvels of this place.</line>
     </dialogue>
-
     <dialogue id="MEDIC_MOTIVATION" type="normal" nextDialogue="BUMP">
         <line>For my part tough.. I am a doctor, I want to %%GRhelp people%%. On earth its feels difficult to make a difference, but here I can change things.</line>
     </dialogue>
-
     <dialogue id="BUMP" type="normal" bump=""  nextDialogue="METEOR_GOTO_TRADER" dialogueId="METEORIT" worldlight="night">
         <line>%%RDSomething hit the ship!%%</line>
         <spritechange sprite_id="tender" dialogueId="METEORIT"/>
@@ -92,21 +88,24 @@
     <dialogue id="RESCUE_POD_0" type="decision" >
         <option nextDialogue="RESCUE_POD_1">&gt;We have a blind passenger.. to be precise a lot of..&lt;</option>
     </dialogue>
-    <dialogue id="RESCUE_POD_1" type="normal" nextDialogue="RESCUE_POD_2">
+    <dialogue id="RESCUE_POD_1" type="normal" fadeout="true" nextDialogue="RESCUE_POD_2">
+        <line>Tell me what happened..</line>
+    </dialogue>
+    <dialogue id="RESCUE_POD_2" type="normal" fadeout="false" nextDialogue="RESCUE_POD_3">
         <line>Thats a crazy story. And now you want to %%VTsend them off board%% by a rescue pod?</line>
     </dialogue>
-    <dialogue id="RESCUE_POD_2" type="decision" >
-        <option nextDialogue="RESCUE_POD_3">&gt;At least some of them, otherwise they die&lt;</option>
+    <dialogue id="RESCUE_POD_3" type="decision" >
+        <option nextDialogue="RESCUE_POD_4">&gt;At least some of them, otherwise they die&lt;</option>
     </dialogue>
-    <dialogue id="RESCUE_POD_3" type="normal" nextDialogue="RESCUE_POD_4">
+    <dialogue id="RESCUE_POD_4" type="normal" nextDialogue="RESCUE_POD_5">
         <line>You cannot launch the rescue pods without %%RDactivating the alarm%%, and this would wake up the CereX guys.</line>
         <line>But the console could be overridden by some of my %%GRsmall friends%%..</line>
         <line>Take this %%GRGeobacter Electra%% culture and let them grow in the incubator of the %%VTlife support room%%.</line>
     </dialogue>
-    <dialogue id="RESCUE_POD_4" type="normal" nextDialogue="RESCUE_POD_5"  item_actor="actorData/collectibles/bacteria/bacteria_crafted" item_name="Inactive Geobacter Electra" item_status="electric_base">
+    <dialogue id="RESCUE_POD_5" type="normal" nextDialogue="RESCUE_POD_6"  item_actor="actorData/collectibles/bacteria/bacteria_crafted" item_name="Inactive Geobacter Electra" item_status="electric_base">
         <line>Take this %%GRGeobacter Electra%% culture and let them grow in the incubator of the %%VTlife support room%%.</line>
     </dialogue>
-    <dialogue id="RESCUE_POD_5" type="normal" dialogueId="RESCUE_POD_5">
+    <dialogue id="RESCUE_POD_6" type="normal" dialogueId="RESCUE_POD_6">
         <line>Go to the %%VTlife support room%% and use the incubator to grow %%GRGeobacter Electra%%.</line>
         <line>With the %%GRbacteria%% you can overload the %%VTrescue pods%% console.</line>
     </dialogue>

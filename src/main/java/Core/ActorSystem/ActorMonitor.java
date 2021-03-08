@@ -19,9 +19,10 @@ public class ActorMonitor
 
     public Actor getActorById(String actorId)
     {
-        for (Map.Entry<String, ActorGroup> entry : groupIdToActorGroupMap.entrySet()) {
-            if(entry.getValue().containsActor(actorId))
-            return entry.getValue().getActor(actorId);
+        for (Map.Entry<String, ActorGroup> entry : groupIdToActorGroupMap.entrySet())
+        {
+            if (entry.getValue().containsActor(actorId))
+                return entry.getValue().getActor(actorId);
         }
         return null;
     }
@@ -114,8 +115,9 @@ public class ActorMonitor
     {
         String methodName = "changeLevel(String) ";
         //System.out.println(CLASSNAME + methodName + "loaded: " + filename_level + " spawn at " + spawnId);
-        WorldView.getSingleton().saveStage();
-        WorldView.getSingleton().loadStage(filename_level, spawnId);
+        WorldView.getSingleton().changeStage(filename_level, spawnId);
+        //WorldView.getSingleton().saveStage();
+        //WorldView.getSingleton().loadStage(filename_level, spawnId);
     }
 
     private void always_sensorStatus(String notifyingGroup, String targetGroupID, SystemStatus sensorStatus)
@@ -237,8 +239,8 @@ public class ActorMonitor
     {
         return
                 "groupToLogicMap=" + groupToLogicMap +
-                ", groupIdToInfluencedGroupIdMap=" + groupIdToInfluencedGroupIdMap +
-                ", groupIdToActorGroupMap=" + groupIdToActorGroupMap
+                        ", groupIdToInfluencedGroupIdMap=" + groupIdToInfluencedGroupIdMap +
+                        ", groupIdToActorGroupMap=" + groupIdToActorGroupMap
                 ;
     }
 }

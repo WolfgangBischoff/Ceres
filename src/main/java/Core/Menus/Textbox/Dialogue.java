@@ -83,10 +83,15 @@ public class Dialogue
                     WorldViewController.setWorldViewStatus(WorldViewStatus.DAY_SUMMARY);
                     DaySummaryScreenController.newDay();
                 }
+                if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_FADE))
+                {
+                    WorldView.getSingleton().setFadedOut(Boolean.parseBoolean(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_FADE)));
+                }
                 if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE))
                 {
-                    WorldView.getSingleton().saveStage();
-                    WorldView.getSingleton().loadStage(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE), currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID));
+                    WorldView.getSingleton().changeStage(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE), currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID));
+                    //WorldView.getSingleton().saveStage();
+                    //WorldView.getSingleton().loadStage(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE), currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID));
                     WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
                 }
 

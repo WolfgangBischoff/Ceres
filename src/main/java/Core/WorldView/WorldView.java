@@ -36,6 +36,7 @@ import java.util.stream.Collectors;
 
 import static Core.Configs.Config.*;
 import static Core.WorldView.WorldViewStatus.WORLD;
+import static javafx.scene.paint.Color.BLACK;
 
 public class WorldView
 {
@@ -84,6 +85,9 @@ public class WorldView
     static double camY;
     private static WorldView singleton;
     private static Rectangle2D borders;
+    String levelName;
+
+    //Render
     Pane root;
     Canvas worldCanvas;
     GraphicsContext gc;
@@ -92,7 +96,12 @@ public class WorldView
     Canvas hudCanvas;
     Map<String, Image> lightsImageMap = new HashMap<>();
     Color shadowColor;
-    String levelName;
+
+    Canvas blackOverlayCanvas;
+    GraphicsContext blackOverlayGc;
+    boolean isFadedOut = false;
+    float fadedOutPercent = 0;
+    long lastBlackOverlayChangeTime = 0;
 
     //Camera
     double offsetMaxX;
@@ -111,6 +120,8 @@ public class WorldView
         root = stackPane;
         worldCanvas = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
+        blackOverlayCanvas = new Canvas(CAMERA_WIDTH, CAMERA_HEIGHT);
+        blackOverlayGc = blackOverlayCanvas.getGraphicsContext2D();
         hudCanvas = new Canvas(CAMERA_WIDTH, CAMERA_HEIGHT);
         hudCanvas.getGraphicsContext2D().setFont(FONT_ESTROG_30_DEFAULT);
         gc = worldCanvas.getGraphicsContext2D();
@@ -164,21 +175,6 @@ public class WorldView
         return singleton;
     }
 
-    public static Point2D getInventoryOverlayPosition()
-    {
-        return inventoryOverlayPosition;
-    }
-
-    public static Point2D getTextBoxPosition()
-    {
-        return textBoxPosition;
-    }
-
-    public static Point2D getPersonalityScreenPosition()
-    {
-        return personalityScreenPosition;
-    }
-
     public static Textbox getTextbox()
     {
         return textbox;
@@ -189,64 +185,14 @@ public class WorldView
         return CLASSNAME;
     }
 
-    public static Long getLastTimeMenuWasOpened()
-    {
-        return lastTimeMenuWasOpened;
-    }
-
-    public static PersonalityScreenController getPersonalityScreenController()
-    {
-        return personalityScreenController;
-    }
-
     public static void setPersonalityScreenController(PersonalityScreenController personalityScreenController)
     {
         WorldView.personalityScreenController = personalityScreenController;
     }
 
-    public static CoinGame getDiscussionGame()
-    {
-        return coinGame;
-    }
-
     public static void setDiscussionGame(CoinGame coinArea)
     {
         WorldView.coinGame = coinArea;
-    }
-
-    public static Point2D getDiscussionGamePosition()
-    {
-        return discussionGamePosition;
-    }
-
-    public static DaySummaryScreenController getDaySummaryScreenController()
-    {
-        return daySummaryScreenController;
-    }
-
-    public static Point2D getDaySummaryScreenPosition()
-    {
-        return daySummaryScreenPosition;
-    }
-
-    public static BarStatusOverlay getMamOverlay()
-    {
-        return mamOverlay;
-    }
-
-    public static Point2D getMamOverlayPosition()
-    {
-        return mamOverlayPosition;
-    }
-
-    public static List<Sprite> getActiveSpritesLayer()
-    {
-        return activeSpritesLayer;
-    }
-
-    public static List<Sprite> getPassiveSpritesLayer()
-    {
-        return passiveSpritesLayer;
     }
 
     public static List<Sprite> getBottomLayer()
@@ -274,7 +220,15 @@ public class WorldView
         return camY;
     }
 
-    public void saveStage()
+    public void changeStage(String levelName, String spawnId)
+    {
+        setFadedOut(true);
+        saveStage();
+        loadStage(levelName, spawnId);
+        setFadedOut(false);
+    }
+
+    private void saveStage()
     {
         String levelNameToSave = this.levelName;
         activeSpritesLayer.remove(player);
@@ -283,7 +237,7 @@ public class WorldView
         GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.gameDateTime().getDays(), borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, upperLayer, shadowColor, spawnPointsMap, GameVariables.getClock().getTimeMode()));
     }
 
-    public void loadStage(String levelName, String spawnId)
+    private void loadStage(String levelName, String spawnId)
     {
         String methodName = "loadStage() ";
         clearLevel();
@@ -476,6 +430,11 @@ public class WorldView
                 shadowColor = COLOR_EMERGENCY_LIGHT;
             else
                 shadowColor = null;
+            lastTimeMenuWasOpened = currentNanoTime;
+        }
+        if (input.contains("I") && elapsedTimeSinceLastInteraction > 1)
+        {
+            isFadedOut = !isFadedOut;
             lastTimeMenuWasOpened = currentNanoTime;
         }
 
@@ -819,10 +778,28 @@ public class WorldView
             root.getChildren().add(shadowMask);
             shadowMask.setBlendMode(BlendMode.MULTIPLY);
         }
-        root.getChildren().add(hudCanvas);
 
+        calcBlackOverlay(currentNanoTime);
+        root.getChildren().add(blackOverlayCanvas);
+        root.getChildren().add(hudCanvas);
         gc.translate(camX, camY);
 
+    }
+
+    public void calcBlackOverlay(long currentNanoTime)
+    {
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastBlackOverlayChangeTime) / 1000000000.0;
+        if ((elapsedTimeSinceLastInteraction > 0.05) &&
+                ((fadedOutPercent < 1 && isFadedOut) || (fadedOutPercent > 0 && !isFadedOut)))
+        {
+            blackOverlayGc.clearRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+            fadedOutPercent += isFadedOut ? 0.1 : -0.1;
+            blackOverlayGc.setGlobalAlpha(fadedOutPercent);
+            blackOverlayGc.setFill(BLACK);
+            blackOverlayGc.fillRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+            lastBlackOverlayChangeTime = currentNanoTime;
+            System.out.println(CLASSNAME + fadedOutPercent);
+        }
     }
 
     public void activateBump()
@@ -871,7 +848,7 @@ public class WorldView
             if (sprite.getActor().getActorId().equals(id))
                 re.add(sprite.getActor());
         }
-        if(re.isEmpty())
+        if (re.isEmpty())
             System.out.println(CLASSNAME + methodName + "No Actor found with ID: " + id);
         return re;
     }
@@ -896,83 +873,18 @@ public class WorldView
         return gc;
     }
 
-    public Canvas getShadowMask()
-    {
-        return shadowMask;
-    }
-
-    public GraphicsContext getShadowMaskGc()
-    {
-        return shadowMaskGc;
-    }
-
-    public Map<String, Image> getLightsImageMap()
-    {
-        return lightsImageMap;
-    }
-
-    public Color getShadowColor()
-    {
-        return shadowColor;
-    }
-
     public void setShadowColor(Color shadowColor)
     {
         this.shadowColor = shadowColor;
     }
 
-    public double getOffsetMaxX()
+    public boolean isFadedOut()
     {
-        return offsetMaxX;
+        return isFadedOut;
     }
 
-    public double getOffsetMaxY()
+    public void setFadedOut(boolean fadedOut)
     {
-        return offsetMaxY;
-    }
-
-    public int getOffsetMinX()
-    {
-        return offsetMinX;
-    }
-
-    public int getOffsetMinY()
-    {
-        return offsetMinY;
-    }
-
-    public double getBumpX()
-    {
-        return bumpX;
-    }
-
-    public double getBumpY()
-    {
-        return bumpY;
-    }
-
-    public double getRumbleGrade()
-    {
-        return rumbleGrade;
-    }
-
-    public Long getTimeStartBump()
-    {
-        return timeStartBump;
-    }
-
-    public float getDurationBump()
-    {
-        return durationBump;
-    }
-
-    public boolean isBumpActive()
-    {
-        return bumpActive;
-    }
-
-    public void setBumpActive(boolean bumpActive)
-    {
-        this.bumpActive = bumpActive;
+        isFadedOut = fadedOut;
     }
 }
