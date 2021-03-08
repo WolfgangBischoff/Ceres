@@ -92,8 +92,8 @@ public class WorldView
     Canvas hudCanvas;
     Map<String, Image> lightsImageMap = new HashMap<>();
     Color shadowColor;
-    //Sprites
     String levelName;
+
     //Camera
     double offsetMaxX;
     double offsetMaxY;
@@ -747,30 +747,25 @@ public class WorldView
         gc.clearRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
         gc.translate(-camX, -camY);
 
-        //Passiv Layer
         for (Sprite sprite : passiveSpritesLayer)
         {
             sprite.render(gc, currentNanoTime);
         }
-        //Bottom heightLayer
         bottomLayer.sort(new SpriteComparator());
         for (Sprite sprite : bottomLayer)
         {
             sprite.render(gc, currentNanoTime);
         }
-        //Middle Layer
         middleLayer.sort(new SpriteComparator());
         for (Sprite sprite : middleLayer)
         {
             sprite.render(gc, currentNanoTime);
         }
-        //Upper Layer
         upperLayer.sort(new SpriteComparator());
         for (Sprite sprite : upperLayer)
         {
             sprite.render(gc, currentNanoTime);
         }
-        //Top Layer
         topLayer.sort(new SpriteComparator());
         for (Sprite sprite : topLayer)
         {
@@ -816,6 +811,7 @@ public class WorldView
 
         root.getChildren().clear();
         root.getChildren().add(worldCanvas);
+
         //LightMap
         if (shadowColor != null)
         {
