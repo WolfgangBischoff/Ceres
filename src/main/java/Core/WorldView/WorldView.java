@@ -222,10 +222,8 @@ public class WorldView
 
     public void changeStage(String levelName, String spawnId)
     {
-        setFadedOut(true);
         saveStage();
         loadStage(levelName, spawnId);
-        setFadedOut(false);
     }
 
     private void saveStage()
@@ -798,7 +796,6 @@ public class WorldView
             blackOverlayGc.setFill(BLACK);
             blackOverlayGc.fillRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
             lastBlackOverlayChangeTime = currentNanoTime;
-            System.out.println(CLASSNAME + fadedOutPercent);
         }
     }
 

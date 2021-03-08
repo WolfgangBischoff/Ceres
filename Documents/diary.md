@@ -1,4 +1,6 @@
 
+##### 08 03 21
+* added fadeout
 
 ##### 04 03 21
 * main quest build

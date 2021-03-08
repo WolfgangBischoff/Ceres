@@ -23,6 +23,9 @@
     <dialogue id="NOISES" type="normal">
         <line>[You should check what's going on here first, what are those noises?]</line>
     </dialogue>
+    <dialogue id="CHECK_LOCAL" type="normal">
+        <line>[You should check what's going on here first.]</line>
+    </dialogue>
 
     <dialogue id="DECISION-toCrewDeck" type="normal" levelchange="crewdeck/crewdeck" spawnID="elevator"/>
 

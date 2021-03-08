@@ -107,7 +107,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     </dialogue>
 
     <dialogue id="NOISES" type="normal">
-        <line>Bang!.. %%RDWhat was that?%% There are strange noises..</line>
+        <line>Bang! Ksshh! .. %%RDWhat was that?%% There are strange noises..</line>
         <spritechange sprite_id="elevSc" dialogueId="NOISES"/>
     </dialogue>
 

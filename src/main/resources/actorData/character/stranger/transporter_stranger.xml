@@ -43,7 +43,7 @@
         <option nextDialogue="ESCAPE_PLAN_2">Yeah, I can't let them die, we can send you all off board.</option>
     </dialogue>
     <dialogue id="ESCAPE_PLAN_2" type="decision" variablename="RESCUE_POD_QUEST_STATUS" set="true">
-        <option nextDialogue="LEVELCHANGE_RESCUE_POD">I will check the %%VTrescue pods on the crew deck%%.</option>
+        <option nextDialogue="LEVELCHANGE_RESCUE_POD" >I will check the %%VTrescue pods on the crew deck%%.</option>
     </dialogue>
 
     <dialogue id="LEVELCHANGE_RESCUE_POD" type="normal" timechange="24" levelchange="crewdeck/crewdeck" spawnID="rescpod" />

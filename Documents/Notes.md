@@ -1,13 +1,13 @@
 
 #Backlog
+* set arrival variable
+* remove sister arrival day
+* debug why medic is reloaded on arrival day
 
 ####Bug
         
 #### Main Quest
-* crewdeck is blocked when rescue pod mission
-* override capsule => fade out => last talk => fade out => capule gone
 * goto bed an leave transporter
-* rescue pod: hervorheben der wichtigen capsel, launchbereit mit person am fenster
 * Space suit: front helmrahmen fehlt
         
 #### Set item mechanic (provide Service)

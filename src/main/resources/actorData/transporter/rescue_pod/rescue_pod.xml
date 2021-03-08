@@ -6,19 +6,22 @@
         <line>A rescue pod.. if we have to leave the ship quickly. After initialization it is ready to launch in seconds.</line>
     </dialogue>
 
-    <dialogue id="NEED_BAC" type="decision" spritestatus="transition">
+    <dialogue id="NEED_BAC" type="decision">
         <option>[Leave]</option>
         <option nextDialogue="NO_BACTERY">[Check Console]</option>
     </dialogue>
     <dialogue id="NO_BACTERY" type="normal">
-        <line>The rescue pod must be overridden, you need %%VTelectric bacteria%%!</line>
+        <line>The launch control must be overridden, you need %%VTelectric bacteria%%!</line>
     </dialogue>
-    <dialogue id="OVERRIDE" type="decision">
-        <option>[Leave]</option>
+
+    <dialogue id="OVERRIDE" type="decision" fadeout="true">
         <option nextDialogue="RELEASE">[Override Console]</option>
     </dialogue>
-    <dialogue id="RELEASE" type="normal" dialogueId="READY">
+    <dialogue id="RELEASE" type="normal" dialogueId="READY" spritestatus="READY" nextDialogue="RELEASE_1">
         <line>Krrz... Bzzt...</line>
+        <line>It worked, they can %%GRenter the pod%%!</line>
+    </dialogue>
+    <dialogue id="RELEASE_1" type="normal" fadeout="false">
         <line>Ready for Launch!</line>
     </dialogue>
     <dialogue id="READY" type="decision">
@@ -26,14 +29,16 @@
         <option nextDialogue="LAUNCH">[Launch rescue pod]</option>
     </dialogue>
     <dialogue id="LAUNCH" fadeout="true" type="normal" nextDialogue="LAUNCH_0">
-        <line>3... 2... 1... Release</line>
+        <line>3... 2... 1... launch</line>
     </dialogue>
-    <dialogue id="LAUNCH_0"  type="normal" nextDialogue="LAUNCH_1">
-        <line>There are gone.. hope they arrive %%VTCeres%% with those pod.</line>
+    <dialogue id="LAUNCH_0"  type="normal" nextDialogue="LAUNCH_1" spritestatus="RELEASED">
+        <line>There are gone.. hope they reach %%VTCeres%% with safely.</line>
     </dialogue>
-    <dialogue id="LAUNCH_1" fadeout="false" type="normal" dialogueId="RELEASE">
-        <line>You should go back to work now and write a report. Looks like an %%GRrescue pod had a "malfunction"%%..</line>
+    <dialogue id="LAUNCH_1" fadeout="false" type="normal" dialogueId="LAUNCH_1" >
+        <line>Time to talk to your sister, she is totaly upset...</line>
+        <spritechange sprite_id="medic_" dialogueId="AFTER_LAUNCH"/>
     </dialogue>
+
 </root>
 
 
