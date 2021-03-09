@@ -240,6 +240,8 @@ public class WorldView
         String methodName = "loadStage() ";
         clearLevel();
         this.levelName = levelName;
+        setFadedOut(false);
+        fadedOutPercent = 1;
         LevelState levelState = GameVariables.getLevelData().get(this.levelName);
 
         if (levelState != null && levelState.getDay() == GameVariables.gameDateTime().getDays())//Level was loaded on same day

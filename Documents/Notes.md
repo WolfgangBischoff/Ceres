@@ -1,14 +1,14 @@
 
 #Backlog
-* set arrival variable
-* remove sister arrival day
-* debug why medic is reloaded on arrival day
+
 
 ####Bug
         
 #### Main Quest
-* goto bed an leave transporter
-* Space suit: front helmrahmen fehlt
+* set ARRIVEL variable
+* remove sister on arrival day => invalidate time warp
+    check loadFrompersistent state, maybe its loaded with includes
+* debug why medic is reloaded on arrival day
         
 #### Set item mechanic (provide Service)
 * sprite an Pos adden via Key
@@ -24,7 +24,7 @@
 * bases can be mixed, mutated over time
 * bacteria cultures can be used in incubators (bottleneck)
 
-#### Minor
+#### Various
 * Enable fullscreen mode, check higher resolution and zoom
 * first stranger sound
 * Tooltip is rendered over Other Overlays
@@ -44,7 +44,7 @@
 * stranger sprite with air mask and gloves  
 * Docking Bay: space elevator rope, bodenmarkierung lift    
 * Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
-    
+* Space suit: front helmrahmen fehlt
     
     => Level changes with time
             While Map load set global actors according to time, date, variables defined in actor file
