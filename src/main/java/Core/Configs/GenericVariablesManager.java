@@ -18,6 +18,7 @@ public class GenericVariablesManager
         stringWorldVariables.put("METEROIT_DAMAGE_ANALYZED", "false");
         stringWorldVariables.put("STRANGER_APPEARANCE_QUEST", "false");
         stringWorldVariables.put("RESCUE_POD_QUEST_STATUS", "false");
+        stringWorldVariables.put("ARRIVED_CERES", "false");
     }
 
     public String getValue(String varName)

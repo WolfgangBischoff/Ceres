@@ -484,10 +484,13 @@ public class Actor
         )
             return;
 
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS) {
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS)
+        {
+            System.out.println(CLASSNAME + actorInGameName);
             evaluateTriggerTypeSprite(sensorStatus.onInRange_TriggerSprite, sensorStatus.onInRangeToStatusSprite, detectedSprite.getActor());
             lastAutomaticInteraction = currentNanoTime;
         }
+
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS && sensorStatus.onInRange_TriggerSensor != NOTHING) {
             if(sensorStatus.onInRange_TriggerSensor == PERSISTENT)//TODO should be like evaluateTriggerType for sensorStaus
                 setSensorStatus(sensorStatusMap.get(sensorStatus.onInRangeToStatusSensorStatus));

@@ -1,6 +1,7 @@
 
 ##### 09 03 21
 * fadeIn after Level load
+* invalidate stages moved
 ##### 08 03 21
 * added fadeout
 * level build

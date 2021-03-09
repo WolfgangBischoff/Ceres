@@ -116,7 +116,7 @@
     <dialogue id="AFTER_LAUNCH_0" type="decision" >
         <option nextDialogue="ARRIVAL_DAY">Correct, lets meet tomorrow once we reached %%VTCeres%%.</option>
     </dialogue>
-    <dialogue id="ARRIVAL_DAY" type="normal" levelchange="crewdeck/crewdeck" spawnID="default" timechange="30" />
+    <dialogue id="ARRIVAL_DAY" type="normal" levelchange="crewdeck/crewdeck" invalidstages="" spawnID="default" timechange="30" />
 
 
 </root>

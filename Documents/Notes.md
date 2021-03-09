@@ -3,13 +3,11 @@
 
 
 ####Bug
-* Check warum credeck pod load works? vllt wegen 24 stunden zeit? Das sollte druch invalidate erstzt werden
-        
+       
 #### Main Quest
-* set ARRIVEL variable => load docking bay acces
-* remove sister on arrival day => invalidate time warp
-    check loadFrompersistent state, maybe its loaded with includes
-* debug why medic is reloaded on arrival day
+* set ARRIVEL variable => load docking bay access
+* crewdeck lift should work arrival day
+* fill capsule 
         
 #### Set item mechanic (provide Service)
 * sprite an Pos adden via Key
