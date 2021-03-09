@@ -24,7 +24,6 @@ public class DaySummary
     void init()
     {
         String methodName = "init() ";
-
         //Check interogation and MaM
         foundStolenCollectibles.clear();
         if (GameVariables.getPlayerMaM_duringDay() >= MAM_THRESHOLD_INTERROGATION)
@@ -53,7 +52,6 @@ public class DaySummary
         //Check hunger
         if(GameVariables.getPlayerHunger() < 10)
         {
-            System.out.println(CLASSNAME + methodName + "you are starving");
             GameVariables.setHealth(GameVariables.getHealth() - 1);
             isStarving = true;
         }
@@ -63,14 +61,10 @@ public class DaySummary
             GameVariables.setHealth(GameVariables.getHealth() + 1);
         }
 
-
     }
 
     public void endDay()
     {
-        String methodName = "endDay() ";
-        boolean debug = false;
-
         //Time decreases MaM, but not below zero
         if (GameVariables.getPlayerMaM_duringDay() > MAM_DAILY_DECREASE)
             GameVariables.addPlayerMAM_duringDay(-MAM_DAILY_DECREASE);
@@ -79,7 +73,6 @@ public class DaySummary
 
         //lower Hunger bar
         GameVariables.addHunger(-20);
-
         GameVariables.incrementDay();
     }
 

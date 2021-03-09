@@ -220,9 +220,12 @@ public class WorldView
         return camY;
     }
 
-    public void changeStage(String levelName, String spawnId)
+    public void changeStage(String levelName, String spawnId, boolean invalidateSavedStages)
     {
-        saveStage();
+        if(!invalidateSavedStages)
+            saveStage();
+        else
+            GameVariables.getLevelData().forEach((stagename, stage) -> stage.setValid(false));
         loadStage(levelName, spawnId);
     }
 
@@ -235,7 +238,7 @@ public class WorldView
         GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.gameDateTime().getDays(), borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, upperLayer, shadowColor, spawnPointsMap, GameVariables.getClock().getTimeMode()));
     }
 
-    private void loadStage(String levelName, String spawnId)
+    public void loadStage(String levelName, String spawnId)
     {
         String methodName = "loadStage() ";
         clearLevel();
@@ -243,13 +246,14 @@ public class WorldView
         setFadedOut(false);
         fadedOutPercent = 1;
         LevelState levelState = GameVariables.getLevelData().get(this.levelName);
+        //System.out.println(CLASSNAME + methodName + "past days: " + GameVariables.gameDateTime().getDays());
 
-        if (levelState != null && levelState.getDay() == GameVariables.gameDateTime().getDays())//Level was loaded on same day
+        if (levelState != null && levelState.isValid())
             loadFromLevelDailyState(levelState, spawnId);
         else if (levelState != null)//Level was already loaded on another day
         {
             System.out.println(CLASSNAME + methodName + "loaded persistent state");
-            loadLevelFromPersistentState(levelState, spawnId);
+            loadLevelFromPersistentState(levelState, spawnId);//TODO find solution for respawning items to spawn after time not always if invalidated
         }
         else //Level loaded the first time
         {

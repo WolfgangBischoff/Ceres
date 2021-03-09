@@ -3,9 +3,10 @@
 
 
 ####Bug
+* Check warum credeck pod load works? vllt wegen 24 stunden zeit? Das sollte druch invalidate erstzt werden
         
 #### Main Quest
-* set ARRIVEL variable
+* set ARRIVEL variable => load docking bay acces
 * remove sister on arrival day => invalidate time warp
     check loadFrompersistent state, maybe its loaded with includes
 * debug why medic is reloaded on arrival day
@@ -45,6 +46,7 @@
 * Docking Bay: space elevator rope, bodenmarkierung lift    
 * Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
 * Space suit: front helmrahmen fehlt
+* Manual with Incubator info
     
     => Level changes with time
             While Map load set global actors according to time, date, variables defined in actor file

@@ -172,6 +172,7 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_LEVEL_CHANGE = "levelchange";
     public static final String TEXTBOX_ATTRIBUTE_DAY_CHANGE = "daychange";
     public static final String TEXTBOX_ATTRIBUTE_FADE = "fadeout";
+    public static final String TEXTBOX_ATTRIBUTE_INVALID_STAGES = "invalidstages";
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";

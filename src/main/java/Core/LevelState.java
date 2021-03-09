@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class LevelState
 {
-    final private static String CLASSNAME = "LevelState ";
+    final private static String CLASSNAME = "LevelState/";
 
     String levelName;
     long day;
@@ -24,6 +24,7 @@ public class LevelState
     private Color shadowColor;
     private Map<String, WorldLoader.SpawnData> spawnPointsMap;
     private TimeMode timeMode;
+    private boolean isValid = true;
 
     public LevelState(String levelName, long day, Rectangle2D borders, List<Sprite> activeSpritesLayer, List<Sprite> passiveSpritesLayer, List<Sprite> bottomLayer, List<Sprite> middleLayer, List<Sprite> topLayer, Color shadowColor, Map<String, WorldLoader.SpawnData> spawnPointsMap, TimeMode timeMode)
     {
@@ -110,5 +111,15 @@ public class LevelState
     public TimeMode getTimeMode()
     {
         return timeMode;
+    }
+
+    public boolean isValid()
+    {
+        return isValid;
+    }
+
+    public void setValid(boolean valid)
+    {
+        isValid = valid;
     }
 }

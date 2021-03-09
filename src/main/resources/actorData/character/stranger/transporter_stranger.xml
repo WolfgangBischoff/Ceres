@@ -46,6 +46,6 @@
         <option nextDialogue="LEVELCHANGE_RESCUE_POD" >I will check the %%VTrescue pods on the crew deck%%.</option>
     </dialogue>
 
-    <dialogue id="LEVELCHANGE_RESCUE_POD" type="normal" timechange="24" levelchange="crewdeck/crewdeck" spawnID="rescpod" />
+    <dialogue id="LEVELCHANGE_RESCUE_POD" type="normal" levelchange="crewdeck/crewdeck" spawnID="rescpod" />
 </root>
 
