@@ -13,7 +13,7 @@
     <dialogue id="GAME_TUTORIAL_1_WON" type="normal" item_actor="actorData/collectibles/stamp/stamp" item_name="Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2">
         <line>Haha nice, here you have the little treasure!</line>
     </dialogue>
-    <dialogue id="GAME_TUTORIAL_1_LOST" type="normal" item_actor="actorData/collectibles/stamp/stamp" item_name="Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2">
+    <dialogue id="GAME_TUTORIAL_1_LOST" type="normal" item_actor="actorData/collectibles/stamp/stamp" item_name="Early Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2">
         <line>Hmm ok... anyway...</line>
     </dialogue>
 
@@ -113,8 +113,9 @@
         <line>I cant believe what happened.. we have to %%RDkeep this secret%%, otherwise they will throw us out of an airlock.</line>
         <line>You should go back to work now and write a technical report. Looks like a %%GRrescue pod had a "malfunction"%% haha..</line>
     </dialogue>
-    <dialogue id="AFTER_LAUNCH_0" type="decision" >
+    <dialogue id="AFTER_LAUNCH_0" type="decision"  variablename="ARRIVED_CERES" set="true">
         <option nextDialogue="ARRIVAL_DAY">Correct, lets meet tomorrow once we reached %%VTCeres%%.</option>
+        <spritechange sprite_id="elevSc" dialogueId="INIT-toFreightDeck"/>
     </dialogue>
     <dialogue id="ARRIVAL_DAY" type="normal" levelchange="crewdeck/crewdeck" invalidstages="" spawnID="default" timechange="30" />
 

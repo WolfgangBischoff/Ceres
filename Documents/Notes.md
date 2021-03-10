@@ -5,9 +5,7 @@
 ####Bug
        
 #### Main Quest
-* set ARRIVEL variable => load docking bay access
-* crewdeck lift should work arrival day
-* fill capsule 
+
         
 #### Set item mechanic (provide Service)
 * sprite an Pos adden via Key

@@ -486,7 +486,6 @@ public class Actor
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS)
         {
-            System.out.println(CLASSNAME + actorInGameName);
             evaluateTriggerTypeSprite(sensorStatus.onInRange_TriggerSprite, sensorStatus.onInRangeToStatusSprite, detectedSprite.getActor());
             lastAutomaticInteraction = currentNanoTime;
         }

@@ -1,4 +1,11 @@
 
+
+
+##### 10 03 21
+* fill capsule 
+* crewdeck lift should work arrival day
+* set ARRIVEL variable => load docking bay access
+
 ##### 09 03 21
 * fadeIn after Level load
 * invalidate stages moved

@@ -22,4 +22,4 @@ condition	;locked										;*															;hasItem ;unlocked										;invento
 #contains_collectible ;actor file path																										;IngameName							;SpriteStatus;AMOUNT
 contains_collectible 	;actorData/collectibles/food/food									;Algae Stew							;algaeStew			;15
 contains_collectible 	;actorData/collectibles/food/food									;Asia Star Bento		;asiaStar				;3
-contains_collectible 	;actorData/collectibles/bacteria/bacteria_crafted	;debug Elel							;electric_base				;3
+#contains_collectible 	;actorData/collectibles/bacteria/bacteria_crafted	;debug Elel							;electric_base				;3

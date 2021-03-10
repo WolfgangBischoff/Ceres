@@ -168,6 +168,7 @@ flatBx					                ;actorData/storages/box_flat/box_flat														;g
 algaeS					                ;actorData/collectibles/food/food																		;Algae Stew				 					;algaeStew													 ;default																     ;undefined
 asiaBe					                ;actorData/collectibles/food/food																		;Asia Star Bento					;asiastar														 ;default																     ;undefined
 pda__0					                ;actorData/collectibles/reader/reader														;Cargo list										;reader																 ;default																     ;undefined
+stamp0					                ;actorData/collectibles/stamp/stamp																;10 years GSC								;10_years_gsc										 ;default																     ;undefined
 
 ACTORGROUPS:
 #level change
@@ -195,6 +196,7 @@ transporter_air_system;airVeR;ventCo
 
 POSITION:
 pda__0; 2240;280;on control terminal
+stamp0; 1200;2330;on control terminal
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
@@ -461,8 +463,8 @@ layer:
 
 #include	                                                             ;path																                                    ;condition 																																								                             ;params
 include:
-transporter/afterAirQuest 				                                        ;onDaystart_if									                                  ;transporter_air_system_quest_started                                           ;done                                            ;STRANGER_APPEARANCE_QUEST   ;false
 transporter/beforeAirQuest			                                         ;onDaystart_ifNot						                                  ;transporter_air_system_quest_started                                           ;done
-transporter/stranger_appeared                                         ;onDaystart_if									                                  ;STRANGER_APPEARANCE_QUEST											                                           ;started
-transporter/after_arrival 			                                         ;onDaystart_if									                                  ;ARRIVED_CERES																							                                           ;true
+transporter/afterAirQuest 				                                        ;onDaystart_if									                                  ;transporter_air_system_quest_started                                           ;done                                            ;STRANGER_APPEARANCE_QUEST   ;false
 transporter/before_arrival 			                                        ;onDaystart_if									                                  ;ARRIVED_CERES																							                                           ;false
+transporter/stranger_appeared                                         ;onDaystart_if									                                  ;STRANGER_APPEARANCE_QUEST											                                           ;started ;ARRIVED_CERES; false
+transporter/after_arrival 			                                         ;onDaystart_if									                                  ;ARRIVED_CERES																							                                           ;true

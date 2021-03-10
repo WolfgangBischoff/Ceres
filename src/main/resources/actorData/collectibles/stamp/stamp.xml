@@ -3,7 +3,11 @@
 
 <root name = "infoTerminal">
     <dialogue id="early_space_exploration" type="normal">
-        <line>The Ariane 6 is a European space rocket operated by the European Space Agency (ESA).</line>
+        <line>The Ariane 6 is a European space rocket operated in the early days of space exploration.</line>
+    </dialogue>
+
+    <dialogue id="10_years_gsc" type="normal">
+        <line>10th anniversary of the official launch of the Global Standard Currency.</line>
     </dialogue>
 
 </root>
