@@ -42,7 +42,7 @@ backVN				;thinwall				;img/walls/wall_vertical_upperend																								
 
 #Elevator
 ele_00				;elevatorwall;img/transporter/elevator/white_wall_elevator_0										;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;014									;064										;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-FCf__0				;floor	      ;img/walls/freightcapsule/floor_0																				    ;false				;0            ;0   ;0												;0			 ;0			 ;0										;0											;000									 	;000									 	;000									;000										;none 						         ;none							          ;none									                                      ;unused0;unused1;unused2;unused3;unused4
+FCf__0				;floor	      ;img/walls/freightcapsule/floor_0																				    ;false				;0            ;0   ;0												;0			 ;0			 ;0										;0											;000									 	;000									 	;000									;000										;none 				  ;none					  ;none							  ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 
 #Wall Decoration

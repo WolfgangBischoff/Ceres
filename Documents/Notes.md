@@ -1,12 +1,10 @@
 
 #Backlog
 
-
 ####Bug
        
 #### Main Quest
 
-        
 #### Set item mechanic (provide Service)
 * sprite an Pos adden via Key
 * Sprite von Menu und maus adden
