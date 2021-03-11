@@ -25,6 +25,7 @@
 * StatusInfo over sprite on key + ExclamationMark
 * "Rumors"/Random dialogue
 * Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
+* sprite stop script if talking
 
 #### Stealth mechanic
 * split inRange area into several parts

@@ -61,7 +61,7 @@ public class GameWindow extends Stage
             gameStage.setFullScreenExitHint("");
         }
         else
-            gameScene = new Scene(root, GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
+            gameScene = new Scene(root, CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gameStage.setScene(gameScene);
 
         gameScene.setOnKeyPressed(
