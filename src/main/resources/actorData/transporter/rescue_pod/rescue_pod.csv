@@ -21,6 +21,8 @@ NOTREADY																																;rescue pod							               ;actorD
 READY																																			;rescue pod							               ;actorData/transporter/rescue_pod/rescue_pod_ready		    		   														;true				;1 	          ;000 ;000          ;000 ;000 ;000        ;000         ;0000          ;0200          ;0128        ;0128									;redlight_256		 						;NEED_BAC														 		;actorData/transporter/rescue_pod/rescue_pod						                    ;unused0 ;unused1 ;unused2 ;unused3 ;unused4;000						;000							;false
 RELEASED																																;rescue pod							               ;actorData/transporter/rescue_pod/rescue_pod_launched  		   															;true				;1 	          ;000 ;000          ;000 ;000 ;000        ;000         ;0000          ;0200          ;0128        ;0128									;redlight_256		 						;NEED_BAC														 		;actorData/transporter/rescue_pod/rescue_pod						                    ;unused0 ;unused1 ;unused2 ;unused3 ;unused4;000						;000							;false
 
+tags; persistent
+
 #condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;true-dialogue-id; true-dialogue-file;false-sprite-status;false-sensor-status;false-dialogue-id;false-dialogue_file;params
 condition	;NOTREADY								;*															;hasItem ;*																	;*																	;OVERRIDE								;*																		;*																		;*						 											;NEED_BAC 								;*																		;electric;BACTERIA_BASE
 

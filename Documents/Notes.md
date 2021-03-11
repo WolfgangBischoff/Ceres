@@ -4,6 +4,16 @@
 ####Bug
        
 #### Main Quest
+* Test: Supervisor sollte stehen bleiben, beim reden, nicht mir control interferieren
+* Night shift should be more clear, maybe message before fade in
+* Broken capsule sollte nicht einfach verschlossen sein
+* Beschreibung für StasusCapsules
+* Stamp nicht sammelbar
+* Beschriftung Inkubator, klarer Bacterien erklären
+* Tür zur Docking Bay öffnen
+* anreise tag leer, keine anleitung
+* change text of pod at arrival day, add people
+* door is missing on arrival day
 
 #### Set item mechanic (provide Service)
 * sprite an Pos adden via Key
@@ -22,10 +32,12 @@
 #### Various
 * first stranger sound
 * Tooltip is rendered over Other Overlays
-* StatusInfo over sprite on key + ExclamationMark
+* Test: StatusInfo over sprite on key + ExclamationMark
 * "Rumors"/Random dialogue
 * Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
 * sprite stop script if talking
+* Test: Coin Game Ende bei Gewinn gleich raus, bei Verlust neustart
+* Test: Dialogoption sollte weg sein bis retrigger
 
 #### Stealth mechanic
 * split inRange area into several parts
@@ -41,6 +53,8 @@
 * Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
 * Space suit: front helmrahmen fehlt
 * Manual with Incubator info
+* Test: Augenhöhle seltsam
+* Test: nur mehr dicke wände
     
     => Level changes with time
             While Map load set global actors according to time, date, variables defined in actor file

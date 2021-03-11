@@ -25,7 +25,7 @@
         <option nextDialogue="PROOF">Do you have proof?</option>
     </dialogue>
     <dialogue id="PROOF" type="normal" dialogueId="PROOF">
-        <line>Check the %%GRfreight notes%%, or open the freight capsules with the %%GRcontrol terminal%%.</line>
+        <line>Check the %%GRcontrol terminal%%, there you should find what you are looking for.. come back to me once you found your proofs..</line>
         <line>I will stay here, but please hurry, my family is still %%RDfreezing%%.</line>
         <spritechange sprite_id="contro" dialogueId="INTRO_PROOF"/>
     </dialogue>

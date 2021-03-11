@@ -11,11 +11,11 @@
         <option nextDialogue="NO_BACTERY">[Check Console]</option>
     </dialogue>
     <dialogue id="NO_BACTERY" type="normal">
-        <line>The launch control must be overridden, you need %%VTelectric bacteria%%!</line>
+        <line>The rescue pod must be overridden, you need %%VTelectric bacteria%%!</line>
     </dialogue>
 
     <dialogue id="OVERRIDE" type="decision" fadeout="true">
-        <option nextDialogue="RELEASE">[Override Console]</option>
+        <option nextDialogue="RELEASE">[Override pod]</option>
     </dialogue>
     <dialogue id="RELEASE" type="normal" dialogueId="READY" spritestatus="READY" nextDialogue="RELEASE_1">
         <line>Krrz... Bzzt...</line>
@@ -28,7 +28,7 @@
         <option>[Leave]</option>
         <option nextDialogue="LAUNCH">[Launch rescue pod]</option>
     </dialogue>
-    <dialogue id="LAUNCH" fadeout="true" type="normal" nextDialogue="LAUNCH_0">
+    <dialogue id="LAUNCH" fadeout="true" type="normal" nextDialogue="LAUNCH_0" variablename="RESCUE_POD_QUEST_STATUS" set="done">
         <line>3... 2... 1... launch</line>
     </dialogue>
     <dialogue id="LAUNCH_0"  type="normal" nextDialogue="LAUNCH_1" spritestatus="RELEASED">

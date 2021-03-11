@@ -11,26 +11,27 @@
         </option>
         <option>[back]</option>
     </dialogue>
+    <dialogue id="decision_nextDay" type="technical" daychange="" dialogueId="day2"/>
 
     <dialogue id="day2" type="normal" nextDialogue="day2_decision">
         <line>You can rest if there is no work left...</line>
     </dialogue>
-
     <dialogue id="day2_decision" type="decision">
         <option nextDialogue="start_night_shift" type="boolean" variablename="METEROIT_DAMAGE_ANALYZED"
-                visibleIf="done">Rest till night shift.
+                visibleIf="done" fadeout="true">Rest till night shift.
         </option>
-
         <option>[back]</option>
     </dialogue>
-
-    <dialogue id="decision_nextDay" type="technical" daychange="" dialogueId="day2"/>
-
     <dialogue id="start_night_shift" type="normal" levelchange="transporter/transporter" spawnID="ladder"
               timechange="18" invalidstages=""
               variablename="STRANGER_APPEARANCE_QUEST" set="started">
         <spritechange sprite_id="player" status="default"/>
     </dialogue>
+
+
+
+
+
 </root>
 
 

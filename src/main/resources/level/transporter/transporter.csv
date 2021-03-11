@@ -79,7 +79,7 @@ FCendR				                 ;FCend												                                 ;i
 FChs_0				                 ;hull													                                 ;img/walls/freightcapsule/hull_0																																			    ;true					              ;1												               ;0			     ;0												;0				 ;0				 ;0										;0											;000									 	;034									 	;064									;094										;none 						         ;none							          ;none									                                      ;unused0;unused1;unused2;unused3;unused4
 FCwn_0				                 ;wall													                                 ;img/walls/freightcapsule/wall_0																																			    ;true					              ;1												               ;0			     ;0												;0				 ;0				 ;0										;0											;000									 	;000									 	;000									;000										;none 						         ;none							          ;none									                                      ;unused0;unused1;unused2;unused3;unused4
 FCf__0				                 ;floor												                                 ;img/walls/freightcapsule/floor_0																																		    ;false				              ;0												               ;0			     ;0												;0				 ;0				 ;0										;0											;000									 	;000									 	;000									;000										;none 						         ;none							          ;none									                                      ;unused0;unused1;unused2;unused3;unused4
-staseC																					;stase																																													;actorData/machine/stasis_capsule/capsule																							       ;true																		 ;1																						     ;0							 ;0												;0				 ;0				 ;0										;0											;000									 	;000									 	;000									;000										;bluelight_256 						;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
+staseC																					;stase																																													;actorData/machine/stasis_capsule/capsule																							       ;true																		 ;1																						     ;0							 ;0												;0				 ;0				 ;0										;0											;000									 	;000									 	;000									;000										;bluelight_256 						;STASIS 														;dialogue_files/transporter_decks																		 ;unused0;unused1;unused2;unused3;unused4
 batt__																					;battery																																											;actorData/machine/stasis_capsule/battery/battery_192_64_anim3		       ;true																		 ;1																						     ;2							 ;3												;3				 ;1				 ;064								;128									;000									 	;000									 	;000									;000										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
 pipe_l																					;pipe																																														;actorData/machine/stasis_capsule/battery/corner_left											       ;false																	 ;0																						     ;0							 ;0												;0				 ;0				 ;0										;0											;000									 	;000									 	;000									;000										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
 pipe_r																					;pipe																																														;actorData/machine/stasis_capsule/battery/corner_right										       ;false																	 ;0																						     ;0							 ;0												;0				 ;0				 ;0										;0											;000									 	;000									 	;000									;000										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
@@ -117,6 +117,8 @@ shelf_				                 ;shelf																					          		            ;i
 shelfV				                 ;shelf																					          		            ;img/furniture/storage/storage_shelf_vertical																										;true					    				      ;1																	          ;0			     ;0												;0				 ;0				 ;000								;000									;000											;0080									 ;064									;0100									;none 						         ;SHELF_FLUIDS									;dialogue_files/transporter_decks																			;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 qube__				                 ;qube																						          		            ;img/furniture/table/qube																																														;true					    				      ;1																	          ;0			     ;0												;0				 ;0				 ;000								;000									;000											;0020									 ;064									;0080									;none 						         ;none																	;none																																															;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
+flatBx																					;greenBox																																										;actorData/storages/box_flat/green								   																										;true				;1												;000	;000										;000	;000	;000								;000									;005											;064	 									;118									;100										;none						;flat_box_1;dialogue_files/transporter_decks						;unused;unused;unused;unused;unused;000						;000							;false
+
 
 ACTORS:
 #code 					;actorFileN																																								;IngameName															;sprite-status						;sensor-status										;direction
@@ -135,12 +137,6 @@ metro3					;actorData/transporter/metroid/metroid3												;metroid										
 
 #control center
 contro					;actorData/computer/control/control																;control terminal									;default												;default																;undefined
-
-#spaceway
-#trigge					;actorData/floor/trigger																											;Trigger																		;20x64_off										;readyToFire_20									;undefined
-#roof__					;img/walls/spaceway/roof																											;roof																					;on																	;waitForMonitor									;west
-#roof1_					;img/walls/spaceway/roof																											;roof																					;on2																;waitForMonitor									;west
-#roofw_					;img/walls/spaceway/roof														             ;roof																					;full_win 						    ;waitForMonitor				     ;west
 
 #freightcapsule
 FCtr_0					                ;actorData/floor/trigger																											;Trigger																		                                             ;12x5_yellow									   ;readyToFire_12x5							     ;undefined
@@ -162,7 +158,7 @@ smalBx					                ;actorData/storages/boxSmall/prop																		;g
 largeB					                ;actorData/storages/greenBoxLarge/largeBox									;green Box											;default													   ;default																     ;none
 largeC					                ;actorData/storages/greenBoxLarge/largeBox									;green Box											;cut																	   ;default																     ;none
 bxCart					                ;actorData/storages/greenBoxLarge/largeBox									;green Box											;crates														   ;default																     ;none
-flatBx					                ;actorData/storages/box_flat/box_flat														;green flat Box						;default													   ;default																     ;none
+#flatBx					                ;actorData/storages/box_flat/box_flat														;green flat Box						;default													   ;default																     ;none
 
 #collectibles
 algaeS					                ;actorData/collectibles/food/food																		;Algae Stew				 					;algaeStew													 ;default																     ;undefined
@@ -173,12 +169,6 @@ stamp0					                ;actorData/collectibles/stamp/stamp																;1
 ACTORGROUPS:
 #level change
 #System-Name														;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
-#dockingBay															 ;levelchange															     ;northDoor	        ;exit__
-
-#spaceway
-#triggerRoof											 ;transitionOnChange													;SW_roof											;trigge
-#SW_roof																;none																											;none														;______ ;roof1_ ;roofw_
-
 #freightcapsule
 trigger_FC_0											;transitionOnChange													;FC_roof_0									;FCtr_0
 FC_roof_0														;none																											;none														;FCr__0
@@ -196,7 +186,7 @@ transporter_air_system;airVeR;ventCo
 
 POSITION:
 pda__0; 2240;280;on control terminal
-stamp0; 1200;2330;on control terminal
+stamp0; 1290;2300;on control terminal
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision

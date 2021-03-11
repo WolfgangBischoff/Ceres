@@ -1,10 +1,6 @@
 
 
 <root name = "actorName">
-    <dialogue id="none" type="normal" nextDialogue="INIT_DECISION">
-        <line>Lorem Ipsum</line>
-        <line>Dolorem</line>
-    </dialogue>
 
     <dialogue id="INTRO_CAPSULE" type="decision">
         <option nextDialogue="GOTO_CAPSULE" type="player" variablename="spritestatus" visibleIf="spacesuit">[Enter the Capsule]</option>
@@ -18,6 +14,11 @@
         <option>[Leave]</option>
     </dialogue>
     <dialogue id="EXIT_CAPSULE" type="normal" levelchange="transporter/transporter" spawnID="meteor_capsule"/>
+
+    <dialogue id="BROKEN" type="normal">
+        <line>The capsule is %%RDdamaged%%, you should not go into it now.</line>
+    </dialogue>
+
 
 </root>
 
