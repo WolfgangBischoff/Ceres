@@ -30,6 +30,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Scale;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -787,7 +788,6 @@ public class WorldView
         root.getChildren().add(blackOverlayCanvas);
         root.getChildren().add(hudCanvas);
         gc.translate(camX, camY);
-
     }
 
     public void calcBlackOverlay(long currentNanoTime)

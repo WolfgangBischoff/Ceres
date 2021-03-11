@@ -5,14 +5,15 @@ import Core.Utils.ConsoleCommandInterpreter;
 import Core.WorldView.WorldView;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import static Core.Configs.Config.DEBUG_CONSOLE;
-import static Core.Configs.Config.DEBUG_FPS;
+import static Core.Configs.Config.*;
 
 public class Main extends Application
 {
@@ -32,6 +33,7 @@ public class Main extends Application
         gameWindowController.setTitle("Game Window");
         gameWindowController.createNextScene(WorldView.getSingleton());
         gameWindowController.showWindow();
+        System.out.println("Main");
 
         if (DEBUG_CONSOLE)
         {

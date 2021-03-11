@@ -20,7 +20,6 @@
 * bacteria cultures can be used in incubators (bottleneck)
 
 #### Various
-* Enable fullscreen mode, check higher resolution and zoom
 * first stranger sound
 * Tooltip is rendered over Other Overlays
 * StatusInfo over sprite on key + ExclamationMark

@@ -4,9 +4,14 @@ import Core.Configs.Config;
 import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.Pane;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+
+import static Core.Configs.Config.*;
 
 
 public class GameWindow extends Stage
@@ -38,7 +43,26 @@ public class GameWindow extends Stage
     {
         String methodName = "createNextScene()";
         this.currentView = controller;
-        Scene gameScene = new Scene(controller.getRoot(), Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
+
+        //https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size
+        Pane root = new Pane();
+        Pane controllerPane = controller.getRoot();
+        root.getChildren().add(controllerPane);
+        Scale scale = new Scale(1, 1, 0, 0);
+        scale.xProperty().bind(root.widthProperty().divide(CAMERA_WIDTH));
+        scale.yProperty().bind(root.heightProperty().divide(CAMERA_HEIGHT));
+        root.getTransforms().add(scale);
+        Scene gameScene;
+        if(GAME_WINDOW_FULL_SCREEN)
+        {
+            gameScene = new Scene(root);
+            gameStage.setFullScreen(true);
+            //gameStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+            gameStage.setFullScreenExitHint("");
+        }
+        else
+            gameScene = new Scene(root, GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
+        gameStage.setScene(gameScene);
 
         gameScene.setOnKeyPressed(
                 e ->
@@ -77,7 +101,7 @@ public class GameWindow extends Stage
             mouseDragged = false;
         });
 
-        gameStage.setScene(gameScene);
+
     }
 
     public void update(Long elapsedTime)

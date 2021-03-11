@@ -1,11 +1,12 @@
 
 
-
+##### 11 03 21
+* Enable fullscreen mode, check higher resolution and zoom
 ##### 10 03 21
 * fill capsule 
 * crewdeck lift should work arrival day
 * set ARRIVEL variable => load docking bay access
-
+* added sprite
 ##### 09 03 21
 * fadeIn after Level load
 * invalidate stages moved
