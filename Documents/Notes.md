@@ -152,42 +152,10 @@ Mechanics:
 - espionage/desinformation via Alexa devices
 - Why are people poor? Donations from rich are stupid. System is not fair, we had never a change
 
-QUEST 1:
 
-#### First day
-Staff: 2 technicians, doctor, traveller, tenderer, guard, blind passenger
-#####Quest from sister to introduce biotec
-* create energy bactery stem
-
-#####Air System Quest
-* In the morning after toilet you technician collegue tells you to go to you sister the medic. He also hates Mondays
-* Sister: Mum and Dad sent the usual weird words, talk about low rente but we should stay cool. I am running out of money, didnt expected that the biosystem works that well. Goto trader
-* Trader: Repair Air System, then go to bed.
-* Meteorit Day: notTIME
-    Msg of sister: meet at window
-    After impact you get a space suit to check capsule
-    There is a crate with eyes that dissapear onRange
-    Cannot repair hull breach, loosing air, life systems failing => trader tells you we are insured, just leave it as it is => restart main energy
-    Go to Rest before night shift
-#### Meteorit Night:
-#####You spawn at the control terminal, there are noises from the storage:
-* you find the stranger, he tells you his story, fam freezes to death
-* I have to tell the trader, He already knows, just check the freight log yourself, confirmation
-* check the rescue pods, you need override code
-#####Sisters spawns after talking to capsule
-* ask sister for help => override bacteria
-* Send them to Ceres
-* goto bed and leave ship
-
-
-QUEST 2:
-You sleep in a container, you have nothing, start an existance by quests and steal, you are a immigrant
-    => you need a capsule subscription, food
-    => Steal every day but learn how station works, then better position
-    => Find secret place to store goods
-
-
-
+Main Quest:
+Ceres is fucked up => Kaper SChiff => Random Asteriod? => Eigene Crew => Ausbau
+=> Beeinglussung von Ceres (Leaks, Unterstützung, stolen Knowledge, Arbeitskampf)
 
 Character (Who are they, dreams, personality, history)
 
