@@ -5,6 +5,7 @@ import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
@@ -83,24 +84,14 @@ public class GameWindow extends Stage
         gameScene.setOnMouseMoved(event ->
         {
             mouseMoved = true;
-            screenratioX = CAMERA_WIDTH / root.getWidth();
-            screenratioY = CAMERA_HEIGHT / root.getHeight();
-            double x = event.getX() * screenratioX;
-            double y = event.getY() * screenratioY;
-            //System.out.println(CLASSNAME + event.getX() + " " + event.getY() + " " + x + " " + y);
-            mousePosition = new Point2D(x, y);
+            setMousePosition(root, event);
         });
 
         gameScene.setOnMouseDragged(event ->
         {
             mouseDragged = true;
             mouseMoved = true;
-            screenratioX = CAMERA_WIDTH / root.getWidth();
-            screenratioY = CAMERA_HEIGHT / root.getHeight();
-            double x = event.getX() * screenratioX;
-            double y = event.getY() * screenratioY;
-            //System.out.println(CLASSNAME + event.getX() + " " + event.getY() + " " + x + " " + y);
-            mousePosition = new Point2D(x, y);
+            setMousePosition(root, event);
         });
         gameScene.setOnMousePressed(pressed ->
         {
@@ -114,6 +105,15 @@ public class GameWindow extends Stage
         });
 
 
+    }
+
+    private void setMousePosition(Pane root, MouseEvent event)
+    {
+        screenratioX = CAMERA_WIDTH / root.getWidth();
+        screenratioY = CAMERA_HEIGHT / root.getHeight();
+        double x = event.getX() * screenratioX;
+        double y = event.getY() * screenratioY;
+        mousePosition = new Point2D(x, y);
     }
 
     public void update(Long elapsedTime)
