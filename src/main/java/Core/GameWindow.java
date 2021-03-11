@@ -26,6 +26,7 @@ public class GameWindow extends Stage
     Point2D mousePosition = new Point2D(0, 0); //To avoid NullPointerException of mouse was not moved at first
     boolean mouseMoved;
     boolean mouseDragged;
+    double screenratioX = 1, screenratioY = 1;
 
     private GameWindow()
     {
@@ -64,6 +65,7 @@ public class GameWindow extends Stage
             gameScene = new Scene(root, CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gameStage.setScene(gameScene);
 
+
         gameScene.setOnKeyPressed(
                 e ->
                 {
@@ -81,14 +83,24 @@ public class GameWindow extends Stage
         gameScene.setOnMouseMoved(event ->
         {
             mouseMoved = true;
-            mousePosition = new Point2D(event.getX(), event.getY());
+            screenratioX = CAMERA_WIDTH / root.getWidth();
+            screenratioY = CAMERA_HEIGHT / root.getHeight();
+            double x = event.getX() * screenratioX;
+            double y = event.getY() * screenratioY;
+            //System.out.println(CLASSNAME + event.getX() + " " + event.getY() + " " + x + " " + y);
+            mousePosition = new Point2D(x, y);
         });
 
         gameScene.setOnMouseDragged(event ->
         {
             mouseDragged = true;
             mouseMoved = true;
-            mousePosition = new Point2D(event.getX(), event.getY());
+            screenratioX = CAMERA_WIDTH / root.getWidth();
+            screenratioY = CAMERA_HEIGHT / root.getHeight();
+            double x = event.getX() * screenratioX;
+            double y = event.getY() * screenratioY;
+            //System.out.println(CLASSNAME + event.getX() + " " + event.getY() + " " + x + " " + y);
+            mousePosition = new Point2D(x, y);
         });
         gameScene.setOnMousePressed(pressed ->
         {

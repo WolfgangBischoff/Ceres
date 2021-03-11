@@ -598,16 +598,13 @@ public class WorldView
     private void processMouse(Long currentNanoTime)
     {
         String methodName = "processMouse() ";
-        double screenWidth = GameWindow.getSingleton().getScreenWidth();
-        double screenHeight = GameWindow.getSingleton().getScreenHeight();
         Point2D mousePosition = GameWindow.getSingleton().getMousePosition();
-        Point2D mousePositionRelativeToCamera = new Point2D(mousePosition.getX() - (screenWidth - Config.CAMERA_WIDTH) / 2, mousePosition.getY() - (screenHeight - Config.CAMERA_HEIGHT) / 2);
         boolean isMouseClicked = GameWindow.getSingleton().isMouseClicked();
         boolean isMouseDragged = GameWindow.getSingleton().isMouseDragged();
 
         Set<Sprite> mouseHoveredSprites = new HashSet<>();
         for (Sprite blocker : passiveCollisionRelevantSpritesLayer)
-            if (blocker.intersectsRelativeToWorldView(mousePositionRelativeToCamera))
+            if (blocker.intersectsRelativeToWorldView(mousePosition))
                 mouseHoveredSprites.add(blocker);
 
         switch (WorldViewController.getWorldViewStatus())
@@ -618,22 +615,22 @@ public class WorldView
                         clicked.onClick(currentNanoTime);//Wraps onInteraction
                 break;
             case COIN_GAME:
-                coinGame.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+                coinGame.processMouse(mousePosition, isMouseClicked, currentNanoTime);
                 break;
             case DAY_SUMMARY:
-                daySummaryScreenController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+                daySummaryScreenController.processMouse(mousePosition, isMouseClicked, currentNanoTime);
                 break;
             case PERSONALITY:
-                personalityScreenController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+                personalityScreenController.processMouse(mousePosition, isMouseClicked, currentNanoTime);
                 break;
             case TEXTBOX:
-                textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
+                textbox.processMouse(mousePosition, isMouseClicked);
                 break;
             case INVENTORY:
             case INVENTORY_EXCHANGE:
             case INVENTORY_SHOP:
             case INCUBATOR:
-                inventoryController.processMouse(mousePositionRelativeToCamera, isMouseClicked, isMouseDragged, currentNanoTime);
+                inventoryController.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
                 break;
             default:
                 System.out.println(CLASSNAME + methodName + "mouseinput undefined for: " + WorldViewController.getWorldViewStatus());
@@ -641,12 +638,12 @@ public class WorldView
         }
 
         for (Sprite active : activeSpritesLayer)
-            if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera) && DEBUG_MOUSE_ANALYSIS && active.getActor() != null && isMouseClicked)
+            if (active.intersectsRelativeToWorldView(mousePosition) && DEBUG_MOUSE_ANALYSIS && active.getActor() != null && isMouseClicked)
             {
                 Actor actor = active.getActor();
                 System.out.println(actor.getActorInGameName() + ": " + actor.getSensorStatus().getStatusName() + " Sprite: " + actor.getGeneralStatus());
             }
-        Point2D mouseWorldPosition = new Point2D(mousePositionRelativeToCamera.getX() + camX, mousePositionRelativeToCamera.getY() + camY);
+        Point2D mouseWorldPosition = new Point2D(mousePosition.getX() + camX, mousePosition.getY() + camY);
         if (DEBUG_MOUSE_ANALYSIS && isMouseClicked)
             System.out.println(CLASSNAME + methodName + "Clicked on tile X/Y " + (int) mouseWorldPosition.getX() / 64 + "/" + (int) mouseWorldPosition.getY() / 64 + ", exact: " + Utilities.roundTwoDigits(mouseWorldPosition.getX()) + "/" + Utilities.roundTwoDigits(mouseWorldPosition.getY()));
 

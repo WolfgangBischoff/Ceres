@@ -2,6 +2,7 @@ package Core.Menus.Inventory;
 
 import Core.*;
 import Core.Enums.CollectableType;
+import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
@@ -10,6 +11,7 @@ import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.TextAlignment;
 
 import java.util.HashSet;
@@ -189,6 +191,13 @@ public class InventoryOverlay implements DragAndDropOverlay
 
         }
 
+        if(false)
+        {//Mouse visible
+            Point2D m = GameWindow.getSingleton().getMousePosition();
+            Circle mouseClickSpace = new Circle(m.getX(), m.getY(), 10);
+            gc.fillOval( mouseClickSpace.getCenterX() - mouseClickSpace.getRadius(), mouseClickSpace.getCenterY() - mouseClickSpace.getRadius(), mouseClickSpace.getRadius() * 2, mouseClickSpace.getRadius() * 2);
+        }
+
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, boolean isMouseDragged, Long currentNanoTime)
@@ -203,7 +212,7 @@ public class InventoryOverlay implements DragAndDropOverlay
                     tooltipElement = mouseElements.get(i);
             }
         }
-        //System.out.println(CLASSNAME + actor.getActorInGameName() + " " + hoveredElement + " " + isMouseDragged);
+        //System.out.println(CLASSNAME + mousePosition.getX() + " " + mousePosition.getY());
 
 
         if ((GameWindow.getSingleton().isMouseMoved()) && hoveredElement != null)//Set highlight if mouse moved
@@ -216,6 +225,7 @@ public class InventoryOverlay implements DragAndDropOverlay
         {
             activateHighlightedOption();
         }
+
     }
 
     public void removeItem(Collectible collectible)
