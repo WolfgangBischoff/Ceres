@@ -86,8 +86,8 @@ player					                     ;actorData/player																								       
 elevSc					                     ;actorData/doors/updown/elevator/elevator										;main elevator												   ;toFreightDeck						;default																;undefined
 ladder																										;actorData/doors/updown/ladder/transporter_ladder		;ladder																						;blockedLadder						;default																;undefined
 
-autoDL					                     ;actorData/doors/vertical/autoBulkheadVertical					;bulkhead vertical								   ;on																	;LOCKED																	;west
-autoDo					                     ;actorData/doors/vertical/autoBulkheadVertical					;bulkhead vertical								   ;on																	;UNLOCKED															;west
+autoDL					                     ;actorData/doors/vertical/autoBulkheadVertical_persistent					;bulkhead vertical								   ;on																	;LOCKED																	;west
+autoDo					                     ;actorData/doors/vertical/autoBulkheadVertical_persistent					;bulkhead vertical								   ;on																	;UNLOCKED															;west
 doorHo					                     ;actorData/doors/horizontal/automatedDoor										;bulkhead	horizontal						   ;on																	;VARIABLE_UNLOCKED						;south
 cleanB					                     ;actorData/robot/cleaningBot/cleaningBot											;Cleaning Bot													   ;default												;default																;west
 steamS					                     ;actorData/bath/steam_shower/steam_shower										;shower																			   ;off																;default																;undefined

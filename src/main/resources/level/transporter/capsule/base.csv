@@ -40,7 +40,7 @@ bxCart					;actorData/storages/greenBoxLarge/largeBox									;green Box								
 flatBx					;actorData/storages/box_flat/box_flat														;green flat Box											;default												;default																;none
 FCtr_0					;actorData/floor/trigger																											;Trigger																		;12x5_yellow								;readyToFire_12x5							;undefined
 FCr__0					;img/walls/freightcapsule/roof											;roofFC																			;visible												;waitForMonitor									;none
-capsuD					;actorData/doors/vertical/autoBulkheadVertical					;Capsule Bulkhead									;capsuleExit								;textbox																;undefined
+capsuD					;actorData/doors/vertical/autoBulkheadVertical_persistent					;Capsule Bulkhead									;capsuleExit								;textbox																;undefined
 meHole					;actorData/quest/main/meteorhole/meteor_hole							;Meteor Hole														;default												;default																;undefined
 
 ACTORGROUPS:

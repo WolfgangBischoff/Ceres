@@ -295,7 +295,10 @@ public class WorldView
         //remove persistent actors, just not persistent should remain or actorless sprites
         tmp_activeSpritesLayer = tmp_activeSpritesLayer.stream()
                 .filter(sprite ->
-                        sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))
+                        sprite.getActor() == null || //just a tile
+                                !sprite.getActor().tags.contains(ActorTag.PERSISTENT)
+              //  || (sprite.getActor().tags.contains(ActorTag.PERSISTENT) && !activeSpritesLayer.contains(sprite))//persisten
+                        )
                 .collect(Collectors.toList());
         tmp_bottomLayer = tmp_bottomLayer.stream()
                 .filter(sprite ->

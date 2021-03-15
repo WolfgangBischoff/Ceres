@@ -39,6 +39,7 @@
 * Test: Dialogoption sollte weg sein bis retrigger
 * Actor that listens to variable and changes dialogue if set
 * Blinklicht
+* Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können
 
 #### Stealth mechanic
 * split inRange area into several parts

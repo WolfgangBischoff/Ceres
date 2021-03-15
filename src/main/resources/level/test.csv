@@ -85,7 +85,7 @@ boge_4				;bogenhanf				;img/plants/plant_64_128_large	 											;true					;1 
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status	;direction
 player					;actorData/player																																		;Revolutionary												;default												;default							;WEST
-doorVe					;actorData/doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;levelchange			;west
+doorVe					;actorData/doors/vertical/autoBulkheadVertical_persistent					;vertical bulkhead								;on																	;levelchange			;west
 
 
 Actorgroups:
