@@ -8,12 +8,11 @@
         <line>At least now he doesn't have to lift as hard as in that shitty job. They told me we shouldn't worry.</line>
         <line>Anyway, I got this parcel stamp before we left earth, wanna have it? Just ask my %%GRintroverted%% me friendly.</line>
     </dialogue>
-
-    <dialogue id="GAME_TUTORIAL_1" type="technical" coingame="tutorial_1" success="GAME_TUTORIAL_1_WON" defeat="GAME_TUTORIAL_1_LOST" dialogueId="intro"/>
-    <dialogue id="GAME_TUTORIAL_1_WON" type="normal" item_actor="actorData/collectibles/stamp/stamp" item_name="Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2">
+    <dialogue id="GAME_TUTORIAL_1" type="technical" coingame="tutorial_1" success="GAME_TUTORIAL_1_WON" defeat="GAME_TUTORIAL_1_LOST"/>
+    <dialogue id="GAME_TUTORIAL_1_WON" type="normal" item_actor="actorData/collectibles/stamp/stamp" item_name="Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2" dialogueId="intro_2">
         <line>Haha nice, here you have the little treasure!</line>
     </dialogue>
-    <dialogue id="GAME_TUTORIAL_1_LOST" type="normal" item_actor="actorData/collectibles/stamp/stamp" item_name="Early Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2">
+    <dialogue id="GAME_TUTORIAL_1_LOST" type="normal" item_actor="actorData/collectibles/stamp/stamp" item_name="Early Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2" dialogueId="intro_2">
         <line>Hmm ok... anyway...</line>
     </dialogue>
 
@@ -22,10 +21,10 @@
         <line>I quiet "please" for my %%GRintroverted%% self is enough.. you know I am a sensitive, %%GRfeeling%% person..</line>
     </dialogue>
     <dialogue id="GAME_TUTORIAL_2" type="technical" coingame="tutorial_2" success="GAME_TUTORIAL_2_WON" defeat="GAME_TUTORIAL_2_LOST"/>
-    <dialogue id="GAME_TUTORIAL_2_WON" type="normal" item_actor="actorData/collectibles/food/food" item_name="Cornuts" item_status="cornuts" nextDialogue="GOTO_TRADER">
+    <dialogue id="GAME_TUTORIAL_2_WON" type="normal" item_actor="actorData/collectibles/food/food" item_name="Cornuts" item_status="cornuts" nextDialogue="GOTO_TRADER" dialogueId="GOTO_TRADER">
         <line>Enjoy :-)</line>
     </dialogue>
-    <dialogue id="GAME_TUTORIAL_2_LOST" type="normal" nextDialogue="intro_2">
+    <dialogue id="GAME_TUTORIAL_2_LOST" type="normal" nextDialogue="intro_2" dialogueId="intro_2">
         <line>I think you should know me better..</line>
     </dialogue>
     <dialogue id="GOTO_TRADER" type = "normal" dialogueId="GOTO_TRADER">
@@ -65,9 +64,11 @@
     <dialogue id="BUMP" type="normal" bump=""  nextDialogue="METEOR_GOTO_TRADER" dialogueId="METEORIT" worldlight="night">
         <line>%%RDSomething hit the ship!%%</line>
         <spritechange sprite_id="tender" dialogueId="METEORIT"/>
+        <spritechange sprite_id="guard_" dialogueId="METEORIT"/>
         <spritechange sprite_id="contro" status="impact" dialogueId="impacted"/>
         <spritechange sprite_id="reacto" dialogueId="off"/>
         <spritechange sprite_id="elevSc" dialogueId="NO_ENERGY"/>
+        <spritechange sprite_id="redLgt" status="default"/>
     </dialogue>
     <dialogue id="METEOR_GOTO_TRADER" type="normal" variablename="METEROIT_HIT" set="true" bump="" >
         <line>Hurry! Go to the %%RDtrader%%, we have to act quickly!</line>
@@ -117,8 +118,14 @@
     <dialogue id="AFTER_LAUNCH_0" type="decision"  variablename="ARRIVED_CERES" set="true">
         <option nextDialogue="ARRIVAL_DAY">Correct, lets meet tomorrow once we reached %%VTCeres%%.</option>
         <spritechange sprite_id="elevSc" dialogueId="INIT-toFreightDeck"/>
+        <spritechange sprite_id="recPoL" dialogueId="ARRIVAL_DAY"/>
     </dialogue>
     <dialogue id="ARRIVAL_DAY" type="normal" levelchange="crewdeck/crewdeck" invalidstages="" spawnID="default" timechange="30" />
+
+    <dialogue id="INIT_AFTER_ARRIVAL" type="normal">
+        <line>Till now no guard asked me what happened in the night. I am not sure if they suspect us..</line>
+        <line>Leave the ship %%GRon the left exit of the freight deck%%, hopefully there will be no problem..</line>
+    </dialogue>
 
 
 </root>

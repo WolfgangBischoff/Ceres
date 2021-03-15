@@ -1,5 +1,6 @@
 
-
+##### 15 03 21
+* test fixes
 ##### 11 03 21
 * Enable fullscreen mode, check higher resolution and zoom
 ##### 10 03 21

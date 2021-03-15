@@ -33,7 +33,6 @@ public class Main extends Application
         gameWindowController.setTitle("Game Window");
         gameWindowController.createNextScene(WorldView.getSingleton());
         gameWindowController.showWindow();
-        System.out.println("Main");
 
         if (DEBUG_CONSOLE)
         {

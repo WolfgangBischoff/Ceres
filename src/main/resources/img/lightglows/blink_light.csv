@@ -1,0 +1,21 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+#tags; automated_door, persistent
+#collectible_data; TYPE (food, quest, ...); base_value
+#suspicious_value; 5
+#personality;initCooperation;trait1, trait1-cooperationThreshold,trai1-knowledgeTag; trait2 ...
+#personality;005;INTROVERSION,1,none;SENSING,1,none;THINKING,9,none;PERCEIVING,12,none
+
+
+#sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+sensorStatus	;nothing																			;none																	    ;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+
+tags; persistent
+
+#DOESNT BLINK
+#status to image
+#status 																																;name   																		;spritename  																																																														;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning 																																										;dialogueID															;dialogueFile																																					;unused		;unused		;unused		;unused		;unused		;duration 	;velocity  ;AnimationEnds
+default																																	;spriteName	         					;img/lightglows/transparent_128																																												;false			;1									   ;002	;002										;002	;001	;128								;128							  ;000							    ;000	 									;000							  ;000										;red_blink_light_128																				 												;none					 															;dialogueFile																																					;unused		;unused		;unused		;unused		;unused		;000							;000							;false
+transparent																													;spriteName	         					;img/lightglows/transparent_128																																												;false			;1									   ;000	;000										;000	;000	;000								;000							  ;000							    ;000	 									;000							  ;000										;none					 																																										;none					 															;dialogueFile																																					;unused		;unused		;unused		;unused		;unused		;000							;000							;false

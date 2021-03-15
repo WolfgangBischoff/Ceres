@@ -37,6 +37,8 @@
 * sprite stop script if talking
 * Test: Coin Game Ende bei Gewinn gleich raus, bei Verlust neustart
 * Test: Dialogoption sollte weg sein bis retrigger
+* Actor that listens to variable and changes dialogue if set
+* Blinklicht
 
 #### Stealth mechanic
 * split inRange area into several parts

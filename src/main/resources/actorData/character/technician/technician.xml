@@ -51,5 +51,9 @@
         <line>[You could not convince him, maybe you should talk more to get more familiar]</line>
     </dialogue>
 
+    <dialogue id="AFTER_ARRIVAL" type = "normal">
+        <line>I have to do some analysis before I can leave the vessel..</line>
+    </dialogue>
+
 </root>
 

@@ -1,6 +1,6 @@
 
 log:
-beforeAirQuest laoding
+transporter: beforeAirQuest loading
 
 global_system_actor:
 character             ;	medic_,default,north,,,intro

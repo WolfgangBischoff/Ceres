@@ -47,6 +47,7 @@
             %%GR..Done%%
         </line>
         <spritechange sprite_id="autoDo" sensorstatus="UNLOCKED"/>
+        <spritechange sprite_id="leftDo" sensorstatus="UNLOCKED"/>
     </dialogue>
 
 </root>

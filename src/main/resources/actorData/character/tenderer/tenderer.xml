@@ -106,9 +106,13 @@
         <line>Because of the hull breach, %%RD24-hour monitoring%% must be ensured. You are the most suitable, so please prepare for a board time night shift</line>
         <spritechange sprite_id="medic_" dialogueId="AFTER_ENERGY_RESTORED"/>
     </dialogue>
-
     <dialogue id="GOTO_BED_NIGHTSHIFT" type="normal">
         <line>You should rest now to take over the watch during the night.</line>
+    </dialogue>
+
+    <dialogue id="AFTER_ARRIVAL" type="normal">
+        <line>Seems we had a malfunction at a rescue pod. Do you know something about it?</line>
+        <spritechange sprite_id="leftDo" sensorstatus="UNLOCKED"/>
     </dialogue>
 
 </root>

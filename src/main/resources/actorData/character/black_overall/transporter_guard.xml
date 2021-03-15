@@ -7,5 +7,18 @@
         </line>
     </dialogue>
 
+    <dialogue id="AFTER_AIR_QUEST" type="normal">
+        <line>
+            I am glad that the air quality increased recently.
+        </line>
+    </dialogue>
+    <dialogue id="METEORIT" type="normal">
+        <line>Fuck, what happened? You should find something in the %%RDcontrol room%%!</line>
+    </dialogue>
+
+    <dialogue id="AFTER_ARRIVAL" type="normal">
+        <line>We finally %%VTarrived Ceres%%, please leave the vessel and dont forget your personal belongings.</line>
+    </dialogue>
+
 </root>
 

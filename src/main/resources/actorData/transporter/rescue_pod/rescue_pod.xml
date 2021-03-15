@@ -39,6 +39,10 @@
         <spritechange sprite_id="medic_" dialogueId="AFTER_LAUNCH"/>
     </dialogue>
 
+    <dialogue id="ARRIVAL_DAY" type="normal" >
+        <line>I wonder if the %%GRstranger%% made it...</line>
+    </dialogue>
+
 </root>
 
 
