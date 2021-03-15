@@ -1,6 +1,15 @@
 
 ##### 15 03 21
 * test fixes
+* Night shift should be more clear, maybe message before fade in
+* Broken capsule sollte nicht einfach verschlossen sein
+* Beschreibung für StasusCapsules
+* Stamp nicht sammelbar
+* Beschriftung Inkubator, klarer Bacterien erklären
+* Tür zur Docking Bay öffnen
+* anreise tag leer, keine anleitung
+* change text of pod at arrival day, add people
+* door is missing on arrival day
 ##### 11 03 21
 * Enable fullscreen mode, check higher resolution and zoom
 ##### 10 03 21

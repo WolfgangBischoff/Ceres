@@ -296,7 +296,7 @@ public class WorldView
         tmp_activeSpritesLayer = tmp_activeSpritesLayer.stream()
                 .filter(sprite ->
                         sprite.getActor() == null || //just a tile
-                                !sprite.getActor().tags.contains(ActorTag.PERSISTENT)
+                                !sprite.getActor().tags.contains(ActorTag.PERSISTENT) // Wenn du den Tag hast, wirst du nicht neu geladen
               //  || (sprite.getActor().tags.contains(ActorTag.PERSISTENT) && !activeSpritesLayer.contains(sprite))//persisten
                         )
                 .collect(Collectors.toList());

@@ -4,15 +4,6 @@
 ####Bug
        
 #### Main Quest
-* Night shift should be more clear, maybe message before fade in
-* Broken capsule sollte nicht einfach verschlossen sein
-* Beschreibung für StasusCapsules
-* Stamp nicht sammelbar
-* Beschriftung Inkubator, klarer Bacterien erklären
-* Tür zur Docking Bay öffnen
-* anreise tag leer, keine anleitung
-* change text of pod at arrival day, add people
-* door is missing on arrival day
 
 #### Set item mechanic (provide Service)
 * sprite an Pos adden via Key
@@ -40,7 +31,7 @@
 * Actor that listens to variable and changes dialogue if set
 * Blinklicht
 * Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können
-
+    * Includes sollten gespeichert werden (Teil von LevelState?), bei initial geladenen werden auch persistente hinzugefügt
 #### Stealth mechanic
 * split inRange area into several parts
 * every part will be blocked by bocker sprites
