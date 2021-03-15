@@ -28,6 +28,10 @@
         <spritechange sprite_id="player" status="default"/>
     </dialogue>
 
+    <dialogue id="CANT_SLEEP_NOW" type="normal" >
+        <line>You cannot sleep now..</line>
+    </dialogue>
+
 
 
 

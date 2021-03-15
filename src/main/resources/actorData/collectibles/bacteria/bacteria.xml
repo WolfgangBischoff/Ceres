@@ -3,7 +3,7 @@
 
 <root name = "actorName">
     <dialogue id="electric" type="normal">
-        <line>The bacteria glow with electricity.</line>
+        <line>With this bacteria you can overload some devices and trick security protocols. It glows bursting with electricity.</line>
     </dialogue>
 
 </root>

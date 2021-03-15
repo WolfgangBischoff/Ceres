@@ -4,7 +4,6 @@
 ####Bug
        
 #### Main Quest
-* Test: Supervisor sollte stehen bleiben, beim reden, nicht mir control interferieren
 * Night shift should be more clear, maybe message before fade in
 * Broken capsule sollte nicht einfach verschlossen sein
 * Beschreibung für StasusCapsules

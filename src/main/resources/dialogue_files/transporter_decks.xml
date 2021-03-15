@@ -110,14 +110,14 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>These standard containers are used for supplies from earth, but there also reused on Ceres.</line>
     </dialogue>
 
-    <dialogue id="NOISES" type="normal" nextDialogue="NOISES_1" fadeout="true">
-        <line>The night shift begins...</line>
+    <dialogue id="NOISES" type="normal" nextDialogue="NOISES_1">
+        <line>.. after a short sleep your %%RDnight shift%% begins...</line>
         <line>Working at night sucks, but someone has to take care that the machines run after the meteoroid impact.</line>
-        <line>Bang! Ksshh!</line>
+        <line>%%RDBang! Ksshh!%%</line>
         <spritechange sprite_id="elevSc" dialogueId="NOISES"/>
         <spritechange sprite_id="capsuD" dialogueId="BROKEN"/>
     </dialogue>
-    <dialogue id="NOISES_1" type="normal" fadeout="false" >
+    <dialogue id="NOISES_1" type="normal" >
         <line>%%RDWhat was that?%% There are strange noises..</line>
     </dialogue>
 

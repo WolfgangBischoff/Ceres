@@ -13,6 +13,8 @@ personality    ;03                                   ;INTROVERSION,3,none       
 
 script               ;actorData/character/tenderer/behavior_idle
 
+tags; TURNS_DIRECTION_ONINTERACTION
+
 #status to image
 #status 															;name   																;spritename  																																																													;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID 			;dialogueID																																										;unused;unused ;unused ;unused;unused					;duration ;velocity  ;AnimationEnds
 day0-NORTH													;trader																	;actorData/character/tenderer/brightGreen_man_back_a2_standing												;true				;1												;1			;2												;02			;01	;64									;128									;010											;084											;044									;044										;none      ;day0			    			;actorData/character/tenderer/tenderer															;unused;unused	;unused	;unused;unused					;0        ;300							;false

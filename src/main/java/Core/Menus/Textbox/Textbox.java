@@ -70,16 +70,17 @@ public class Textbox
         characterButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/characterMenuButtonTR.png");
     }
 
-    public void startConversation(Actor actorParam)
+    public void startConversation(Actor dialogueActor)
     {
         String methodName = "startConversation() ";
         init();
-        actorOfDialogue = actorParam;
+        actorOfDialogue = dialogueActor;
         dialogueFileRoot = Utilities.readXMLFile(actorOfDialogue.getSpriteList().get(0).getDialogueFileName());
         readDialogue = readDialogue(actorOfDialogue.getSpriteList().get(0).getInitDialogueId());
 
         if (actorOfDialogue.getPersonalityContainer() != null)
             actorOfDialogue.getPersonalityContainer().incrementNumberOfInteraction();
+
     }
 
     public void startConversation(String dialogueFile, String dialogueId)

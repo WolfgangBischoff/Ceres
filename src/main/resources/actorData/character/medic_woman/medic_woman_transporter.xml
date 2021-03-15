@@ -85,6 +85,7 @@
         <line>Hey?! I just wanted to look after you while you are on the night shift.. Shouldn't you be in the control room?</line>
         <line>Or is something wrong with the %%VTrescue pods%%?</line>
         <spritechange sprite_id="elevSc" dialogueId="CHECK_LOCAL"/>
+        <spritechange sprite_id="bed_Bi" dialogueId="CANT_SLEEP_NOW"/>
     </dialogue>
     <dialogue id="RESCUE_POD_0" type="decision" >
         <option nextDialogue="RESCUE_POD_1">&gt;We have a blind passenger.. to be precise a lot of..&lt;</option>

@@ -51,7 +51,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
 
     private void init()
     {
-        MouseElement convertBtn = new MouseElement(new Rectangle2D(SCREEN_POSITION.getX() + 150, SCREEN_POSITION.getY() + 300, 150, 64), CONVERT_BUTTON_ID, CLICK);
+        MouseElement convertBtn = new MouseElement(new Rectangle2D(SCREEN_POSITION.getX() + 110, SCREEN_POSITION.getY() + 300, 150, 64), CONVERT_BUTTON_ID, CLICK);
         mouseElements.add(convertBtn);
 
         Rectangle2D base_input = new Rectangle2D(SCREEN_POSITION.getX() + 100, SCREEN_POSITION.getY() + 200, 64, 64);
@@ -88,6 +88,8 @@ public class IncubatorOverlay implements DragAndDropOverlay
         gc.setFont(FONT_ESTROG_20);
         gc.setFill(COLOR_FONT);
         gc.fillText("Incubator", SCREEN_POSITION.getX() + WIDTH - dateLength, SCREEN_POSITION.getY() + offsetYFirstLine);
+        gc.fillText("Input", SCREEN_POSITION.getX() + 100, SCREEN_POSITION.getY() + 190);
+        gc.fillText("Output", SCREEN_POSITION.getX() + 200, SCREEN_POSITION.getY() + 190);
 
         //Decoration
         gc.drawImage(cornerTopLeft, SCREEN_POSITION.getX(), SCREEN_POSITION.getY());

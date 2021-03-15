@@ -158,7 +158,6 @@ smalBx					                ;actorData/storages/boxSmall/prop																		;g
 largeB					                ;actorData/storages/greenBoxLarge/largeBox									;green Box											;default													   ;default																     ;none
 largeC					                ;actorData/storages/greenBoxLarge/largeBox									;green Box											;cut																	   ;default																     ;none
 bxCart					                ;actorData/storages/greenBoxLarge/largeBox									;green Box											;crates														   ;default																     ;none
-#flatBx					                ;actorData/storages/box_flat/box_flat														;green flat Box						;default													   ;default																     ;none
 
 #collectibles
 algaeS					                ;actorData/collectibles/food/food																		;Algae Stew				 					;algaeStew													 ;default																     ;undefined
@@ -186,7 +185,7 @@ transporter_air_system;airVeR;ventCo
 
 POSITION:
 pda__0; 2240;280;on control terminal
-stamp0; 1290;2300;on control terminal
+stamp0; 1150;2500;on control terminal
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
