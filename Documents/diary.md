@@ -1,4 +1,6 @@
 
+##### 16 03 21
+* added biocomputing stamp
 ##### 15 03 21
 * test fixes
 * Night shift should be more clear, maybe message before fade in

@@ -10,6 +10,10 @@
         <line>10th anniversary of the official launch of the Global Standard Currency.</line>
     </dialogue>
 
+    <dialogue id="biocomputing" type="normal">
+        <line>Technologies of the 22nd century: Biocomputers</line>
+    </dialogue>
+
 </root>
 
 
