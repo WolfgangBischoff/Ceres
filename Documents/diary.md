@@ -1,4 +1,6 @@
 
+##### 22 03 21
+* Tooltip is rendered over Other Overlays
 ##### 16 03 21
 * added biocomputing stamp
 ##### 15 03 21

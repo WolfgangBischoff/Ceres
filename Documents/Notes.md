@@ -21,7 +21,6 @@
 
 #### Various
 * first stranger sound
-* Tooltip is rendered over Other Overlays
 * Test: StatusInfo over sprite on key + ExclamationMark
 * "Rumors"/Random dialogue
 * Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
@@ -32,6 +31,7 @@
 * Blinklicht
 * Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können
     * Includes sollten gespeichert werden (Teil von LevelState?), bei initial geladenen werden auch persistente hinzugefügt
+    
 #### Stealth mechanic
 * split inRange area into several parts
 * every part will be blocked by bocker sprites
@@ -63,7 +63,7 @@
 
 # Ideas
 ##Basemechanics
-### Transform Station to better place to live
+### Transform your Transporter to better place to live
 * Build Support Infrastructure (predefinded place or semi free)
 * Maintain Service by inputs to increase revolutionary spirit
 * Propaganda actions also increase revSpirit
@@ -78,6 +78,9 @@
 * Food -> Eat during game (if not eaten for days, dies)
 * Air -> needed for space suit
 * Entertainment -> maybe useless but nice value
+
+###Mining in crypto vulcano
+* randomly generated
 
 ##Contents
 - Biocomputer
@@ -104,10 +107,7 @@ Goals and Quest:
           Find Human Embryos frozen
           Give him for money
 Mechanics:
-   
-    - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
-
-    With high attention meter place have surveilance
+    With high attention meter place has surveilance
     - get money from Companies for doing Quest (money changes if workers are unionized, work is more rentable if much union)
     - steal
     - sabotage to increase chaos, create work or change behavior

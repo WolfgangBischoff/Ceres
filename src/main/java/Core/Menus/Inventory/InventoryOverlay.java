@@ -37,7 +37,7 @@ public class InventoryOverlay implements DragAndDropOverlay
     private Actor actor;
     private MouseElementsContainer mouseElements = new MouseElementsContainer();
     private MouseElement highlightedElement = null;
-    private MouseElement tooltipElement = null;
+    //private MouseElement tooltipElement = null;
     private Point2D SCREEN_POSITION;
 
     public InventoryOverlay(Actor actor, Point2D SCREEN_POSITION, InventoryController controller)
@@ -162,34 +162,32 @@ public class InventoryOverlay implements DragAndDropOverlay
         gc.drawImage(cancelButton, cancelButtonRect.getMinX(), cancelButtonRect.getMinY());
 
         //Tooltip
-        Collectible tooltippedCollectible = null;
-        if (mouseElements.indexOf(tooltipElement) >= 0 && mouseElements.indexOf(tooltipElement) < actor.getInventory().itemsList.size())
-            tooltippedCollectible = actor.getInventory().itemsList.get(mouseElements.indexOf(tooltipElement));
-        if (tooltipElement != null && tooltippedCollectible != null) {
-            int tooltipWidth = 300;
-            List<String> lines = Utilities.wrapText(tooltippedCollectible.getDescription(), FONT_ORBITRON_12, tooltipWidth);
-
-            double collectibleHeadlineHeight = (FONT_ORBITRON_20.getSize() * 1.5);
-            double tooltipHeight = collectibleHeadlineHeight + (FONT_ORBITRON_12.getSize() * lines.size() + 3);
-            gc.setFill(COLOR_GREEN);
-            gc.fillRect(tooltipElement.position.getMinX() + 50, tooltipElement.position.getMinY() + 50, tooltipWidth, tooltipHeight);
-            gc.setFill(COLOR_BACKGROUND_GREY);
-            gc.fillRect(tooltipElement.position.getMinX() + 50 + 2, tooltipElement.position.getMinY() + 50 + 2, tooltipWidth - 4, tooltipHeight - 4);
-
-            gc.setFill(font);
-            gc.setFont(FONT_ORBITRON_20);
-            gc.fillText(tooltippedCollectible.getIngameName(),
-                    tooltipElement.position.getMinX() + 50 + 5,
-                    tooltipElement.position.getMinY() + 50 + gc.getFont().getSize() + 3);
-            gc.setFont(FONT_ORBITRON_12);
-
-            for (int l = 0; l < lines.size(); l++) {
-                gc.fillText(lines.get(l),
-                        tooltipElement.position.getMinX() + 50 + 5,
-                        tooltipElement.position.getMinY() + 55 + collectibleHeadlineHeight + FONT_ORBITRON_12.getSize() * l + 3);
-            }
-
-        }
+        //Collectible tooltippedCollectible = null;
+        //if (tooltipElement != null && tooltippedCollectible != null) {
+        //    int tooltipWidth = 300;
+        //    List<String> lines = Utilities.wrapText(tooltippedCollectible.getDescription(), FONT_ORBITRON_12, tooltipWidth);
+//
+        //    double collectibleHeadlineHeight = (FONT_ORBITRON_20.getSize() * 1.5);
+        //    double tooltipHeight = collectibleHeadlineHeight + (FONT_ORBITRON_12.getSize() * lines.size() + 3);
+        //    gc.setFill(COLOR_GREEN);
+        //    gc.fillRect(tooltipElement.position.getMinX() + 50, tooltipElement.position.getMinY() + 50, tooltipWidth, tooltipHeight);
+        //    gc.setFill(COLOR_BACKGROUND_GREY);
+        //    gc.fillRect(tooltipElement.position.getMinX() + 50 + 2, tooltipElement.position.getMinY() + 50 + 2, tooltipWidth - 4, tooltipHeight - 4);
+//
+        //    gc.setFill(font);
+        //    gc.setFont(FONT_ORBITRON_20);
+        //    gc.fillText(tooltippedCollectible.getIngameName(),
+        //            tooltipElement.position.getMinX() + 50 + 5,
+        //            tooltipElement.position.getMinY() + 50 + gc.getFont().getSize() + 3);
+        //    gc.setFont(FONT_ORBITRON_12);
+//
+        //    for (int l = 0; l < lines.size(); l++) {
+        //        gc.fillText(lines.get(l),
+        //                tooltipElement.position.getMinX() + 50 + 5,
+        //                tooltipElement.position.getMinY() + 55 + collectibleHeadlineHeight + FONT_ORBITRON_12.getSize() * l + 3);
+        //    }
+//
+        //}
 
         if(false)
         {//Mouse visible
@@ -204,15 +202,22 @@ public class InventoryOverlay implements DragAndDropOverlay
     {
         String methodName = "processMouse(Point2D, boolean) ";
         MouseElement hoveredElement = null;
-        tooltipElement = null;
         for (int i = 0; i < mouseElements.size(); i++) {
             if (mouseElements.get(i).getPosition().contains(mousePosition)) {
                 hoveredElement = mouseElements.get(i);
                 if (hoveredElement == highlightedElement)
-                    tooltipElement = mouseElements.get(i);
+                {
+                    MouseElement tooltipElement = mouseElements.get(i);
+                    controller.setTooltipElement(tooltipElement);
+                    if (mouseElements.indexOf(tooltipElement) >= 0 && mouseElements.indexOf(tooltipElement) < actor.getInventory().itemsList.size())
+                    {
+                        controller.setTooltippedCollectible(actor.getInventory().itemsList.get(mouseElements.indexOf(tooltipElement)));
+                    }
+                }
             }
         }
         //System.out.println(CLASSNAME + mousePosition.getX() + " " + mousePosition.getY());
+
 
 
         if ((GameWindow.getSingleton().isMouseMoved()) && hoveredElement != null)//Set highlight if mouse moved

@@ -1,7 +1,9 @@
 package Core.Menus.Inventory;
 
 import Core.Actor;
+import Core.Collectible;
 import Core.Configs.Config;
+import Core.Utilities;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -9,8 +11,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
 
-import static Core.Configs.Config.EXCHANGE_INVENTORY_POSITION;
-import static Core.Configs.Config.INCUBATOR_POSITION;
+import java.util.List;
+
+import static Core.Configs.Config.*;
+import static Core.Configs.Config.FONT_ORBITRON_12;
 import static Core.WorldView.WorldViewStatus.*;
 
 public class InventoryController
@@ -27,6 +31,8 @@ public class InventoryController
     Point2D exchangeInventoryPosition = EXCHANGE_INVENTORY_POSITION;
     Point2D shopInterfacePosition = EXCHANGE_INVENTORY_POSITION;
     private DragAndDropItem dragAndDropItem;
+    MouseElement tooltipElement = null;
+    Collectible tooltippedCollectible = null;
 
     public InventoryController()
     {
@@ -66,11 +72,41 @@ public class InventoryController
         if (dragAndDropItem != null)
             gc.drawImage(dragAndDropItem.collectible.getImage(), dragAndDropItem.screenPosition.getX(), dragAndDropItem.screenPosition.getY());
 
+        if (tooltipElement != null && tooltippedCollectible != null) {
+            int tooltipWidth = 300;
+            List<String> lines = Utilities.wrapText(tooltippedCollectible.getDescription(), FONT_ORBITRON_12, tooltipWidth);
+
+            double collectibleHeadlineHeight = (FONT_ORBITRON_20.getSize() * 1.5);
+            double tooltipHeight = collectibleHeadlineHeight + (FONT_ORBITRON_12.getSize() * lines.size() + 3);
+            gc.setFill(COLOR_GREEN);
+            gc.fillRect(tooltipElement.position.getMinX() + 50, tooltipElement.position.getMinY() + 50, tooltipWidth, tooltipHeight);
+            gc.setFill(COLOR_BACKGROUND_GREY);
+            gc.fillRect(tooltipElement.position.getMinX() + 50 + 2, tooltipElement.position.getMinY() + 50 + 2, tooltipWidth - 4, tooltipHeight - 4);
+
+            gc.setFill(COLOR_FONT);
+            gc.setFont(FONT_ORBITRON_20);
+            gc.fillText(tooltippedCollectible.getIngameName(),
+                    tooltipElement.position.getMinX() + 50 + 5,
+                    tooltipElement.position.getMinY() + 50 + gc.getFont().getSize() + 3);
+            gc.setFont(FONT_ORBITRON_12);
+
+            for (int l = 0; l < lines.size(); l++) {
+                gc.fillText(lines.get(l),
+                        tooltipElement.position.getMinX() + 50 + 5,
+                        tooltipElement.position.getMinY() + 55 + collectibleHeadlineHeight + FONT_ORBITRON_12.getSize() * l + 3);
+            }
+
+        }
+
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, boolean isMouseDragged, Long currentNanoTime)
     {
         String methodName = "processMouse() ";
+        tooltipElement = null;
+        tooltippedCollectible = null;
+
+
         boolean hoversOverlayPlayer = playerInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean hoversOverlayOther = otherInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean hoversOverlayShop = shopOverlay.getSCREEN_AREA().contains(mousePosition);
@@ -134,4 +170,23 @@ public class InventoryController
         this.dragAndDropItem = dragAndDropItem;
     }
 
+    public Collectible getTooltippedCollectible()
+    {
+        return tooltippedCollectible;
+    }
+
+    public void setTooltippedCollectible(Collectible tooltippedCollectible)
+    {
+        this.tooltippedCollectible = tooltippedCollectible;
+    }
+
+    public MouseElement getTooltipElement()
+    {
+        return tooltipElement;
+    }
+
+    public void setTooltipElement(MouseElement tooltipElement)
+    {
+        this.tooltipElement = tooltipElement;
+    }
 }
