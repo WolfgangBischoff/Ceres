@@ -37,7 +37,6 @@ public class InventoryOverlay implements DragAndDropOverlay
     private Actor actor;
     private MouseElementsContainer mouseElements = new MouseElementsContainer();
     private MouseElement highlightedElement = null;
-    //private MouseElement tooltipElement = null;
     private Point2D SCREEN_POSITION;
 
     public InventoryOverlay(Actor actor, Point2D SCREEN_POSITION, InventoryController controller)
@@ -80,8 +79,8 @@ public class InventoryOverlay implements DragAndDropOverlay
                 //Rectangle
                 int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
                 Rectangle2D rectangle2D = new Rectangle2D(SCREEN_POSITION.getX() + slotX + 2, SCREEN_POSITION.getY() + slotY + 2, itemTileWidth - 4, itemTileWidth - 4);
-                MouseElement convertBtn = new MouseElement(rectangle2D, Integer.valueOf(slotNumber).toString(), clickAndDrag);
-                mouseElements.add(convertBtn);
+                MouseElement slot = new MouseElement(rectangle2D, Integer.valueOf(slotNumber).toString(), clickAndDrag);
+                mouseElements.add(slot);
                 slotNumber++;
             }
         }
@@ -255,7 +254,6 @@ public class InventoryOverlay implements DragAndDropOverlay
         int itemIdx = mouseElements.indexOf(highlightedElement);
         if (actor.getInventory().itemsList.size() > itemIdx && itemIdx >= 0)
             collectible = actor.getInventory().itemsList.get(itemIdx);
-
 
         if (WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE) {
             switch (highlightedElement.identifier) {

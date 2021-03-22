@@ -12,37 +12,64 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static Core.Configs.Config.*;
+import static Core.Menus.Inventory.MouseInteractionType.CLICK;
 
 public class ShopOverlay
 {
     private static final String CLASSNAME = "InventoryOverlay/";
-    private Canvas menuCanvas;
-    private GraphicsContext menuGc;
-    private WritableImage menuImage;
     private Actor actor;
-    private List<String> interfaceElements_list = new ArrayList<>();
-    private List<Rectangle2D> interfaceElements_Rectangles = new ArrayList<>();
-    private Integer highlightedElement = 0;
     private static final int WIDTH = INVENTORY_WIDTH;
     private static final int HEIGHT = INVENTORY_HEIGHT;
     private Point2D SCREEN_POSITION;
     private final Rectangle2D SCREEN_AREA;
+    private MouseElementsContainer mouseElements = new MouseElementsContainer();
+    private MouseElement highlightedElement = null;
+    private final InventoryController controller;
 
     Image cornerTopLeft;
     Image cornerBtmRight;
 
     public ShopOverlay(Actor actor, Point2D SCREEN_POSITION, InventoryController controller)
     {
-        menuCanvas = new Canvas(WIDTH, HEIGHT);
-        menuGc = menuCanvas.getGraphicsContext2D();
         this.actor = actor;
+        this.controller = controller;
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         this.SCREEN_POSITION = SCREEN_POSITION;
         SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
+        init();
+    }
+
+    private void init()
+    {
+        //Item Slots
+        Set<MouseInteractionType> click = new HashSet<>();
+        click.add(CLICK);
+        int itemTileWidth = 192;
+        int itemTileHeight = 64;
+        int numberColumns = 2;
+        int numberRows = 5;
+        int spaceBetweenTiles = 10;
+        int initialOffsetX = (WIDTH - (numberColumns * itemTileWidth + (numberColumns - 1) * spaceBetweenTiles)) / 2; //Centered
+        int initialOffsetY = 120 + 75;
+        int slotNumber = 0;
+        for (int y = 0; y < numberRows; y++)
+        {
+            int slotY = y * (itemTileHeight + spaceBetweenTiles) + initialOffsetY;
+            for (int i = 0; i < numberColumns; i++)
+            {
+                int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
+                Rectangle2D rectangle2D = new Rectangle2D(SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY, itemTileWidth, itemTileHeight);
+                MouseElement slot = new MouseElement(rectangle2D, Integer.valueOf(slotNumber).toString(), click );
+                mouseElements.add(slot);
+                slotNumber++;
+            }
+        }
     }
 
     public void render(GraphicsContext gc) throws NullPointerException
@@ -51,8 +78,6 @@ public class ShopOverlay
         gc.setFont(FONT_ORBITRON_12);
         Color marking = COLOR_MARKING;
         Color font = COLOR_FONT;
-        interfaceElements_Rectangles.clear();
-        interfaceElements_list.clear();
 
         //Background
         gc.setGlobalAlpha(0.8);
@@ -76,21 +101,18 @@ public class ShopOverlay
             int slotY = y * (itemTileHeight + spaceBetweenTiles) + initialOffsetY;
             for (int i = 0; i < numberColumns; i++)
             {
-                //Rectangle
+                Rectangle2D currentRect = mouseElements.get(slotNumber).position;
                 int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
                 gc.setFill(font);
-                gc.fillRect(SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY, itemTileWidth, itemTileHeight);
-                gc.setFill(marking);
-                Rectangle2D rectangle2D = new Rectangle2D(slotX + 2, slotY + 2, itemTileWidth - 4, itemTileHeight - 4);
-                interfaceElements_Rectangles.add(rectangle2D);
-                interfaceElements_list.add(Integer.valueOf(slotNumber).toString());
+                gc.fillRect(currentRect.getMinX(), currentRect.getMinY(), currentRect.getWidth(), currentRect.getHeight());
 
                 //Highlighting
-                if (highlightedElement == slotNumber)
+                if (mouseElements.indexOf(highlightedElement) == slotNumber)
                     gc.setFill(font);
                 else
                     gc.setFill(marking);
-                gc.fillRect(SCREEN_POSITION.getX() + rectangle2D.getMinX(), SCREEN_POSITION.getY() +  rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
+                gc.fillRect(currentRect.getMinX() +2, currentRect.getMinY() +2, currentRect.getWidth()-4, currentRect.getHeight()-4);
+
                 slotNumber++;
 
                 //Item slot images
@@ -122,20 +144,21 @@ public class ShopOverlay
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
         String methodName = "processMouse(Point2D, boolean) ";
-        Rectangle2D posRelativeToWorldview = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
-
-        //Calculate Mouse Position relative to Discussion
-        Point2D relativeMousePosition;
-        if (posRelativeToWorldview.contains(mousePosition))
-            relativeMousePosition = new Point2D(mousePosition.getX() - SCREEN_POSITION.getX(), mousePosition.getY() - SCREEN_POSITION.getY());
-        else relativeMousePosition = null;
-
-        Integer hoveredElement = null;
-        for (int i = 0; i < interfaceElements_Rectangles.size(); i++)
+        MouseElement hoveredElement = null;
+        for (int i = 0; i < mouseElements.size(); i++)
         {
-            if (interfaceElements_Rectangles.get(i).contains(relativeMousePosition))
+            if (mouseElements.get(i).getPosition().contains(mousePosition))
             {
-                hoveredElement = interfaceElements_list.indexOf(Integer.toString(i));
+                hoveredElement = mouseElements.get(i);
+                if (hoveredElement == highlightedElement)
+                {
+                    MouseElement tooltipElement = mouseElements.get(i);
+                    controller.setTooltipElement(tooltipElement);
+                    if (mouseElements.indexOf(tooltipElement) >= 0 && mouseElements.indexOf(tooltipElement) < actor.getInventory().itemsList.size())
+                    {
+                        controller.setTooltippedCollectible(actor.getInventory().itemsList.get(mouseElements.indexOf(tooltipElement)));
+                    }
+                }
             }
         }
 
@@ -157,8 +180,10 @@ public class ShopOverlay
         String methodName = "activateHighlightedOption() ";
         Collectible collectible = null;
         Actor player = WorldView.getPlayer().getActor();
-        if (actor.getInventory().size() > highlightedElement && highlightedElement >= 0)
-            collectible = actor.getInventory().itemsList.get(highlightedElement);
+        int itemIdx = mouseElements.indexOf(highlightedElement);
+        if (actor.getInventory().size() > itemIdx && itemIdx >= 0)
+            collectible = actor.getInventory().itemsList.get(itemIdx);
+
         if (player == actor)//Playerinventory
         {
             System.out.println(CLASSNAME + methodName + "should not happen");
@@ -179,12 +204,9 @@ public class ShopOverlay
 
     }
 
-    public void setHighlightedElement(Integer highlightedElement)
+    public void setHighlightedElement(MouseElement highlightedElement)
     {
         String methodName = "setHighlightedElement() ";
-        boolean debug = false;
-        if (debug && !this.highlightedElement.equals(highlightedElement))
-            System.out.println(CLASSNAME + methodName + highlightedElement + " " + interfaceElements_list.get(highlightedElement));
         this.highlightedElement = highlightedElement;
     }
 
@@ -198,35 +220,11 @@ public class ShopOverlay
         return HEIGHT;
     }
 
-    public void setMenuCanvas(Canvas menuCanvas)
-    {
-        this.menuCanvas = menuCanvas;
-    }
-
-    public void setMenuGc(GraphicsContext menuGc)
-    {
-        this.menuGc = menuGc;
-    }
-
-    public void setMenuImage(WritableImage menuImage)
-    {
-        this.menuImage = menuImage;
-    }
-
     public void setActor(Actor actor)
     {
         this.actor = actor;
     }
 
-    public void setInterfaceElements_list(List<String> interfaceElements_list)
-    {
-        this.interfaceElements_list = interfaceElements_list;
-    }
-
-    public void setInterfaceElements_Rectangles(List<Rectangle2D> interfaceElements_Rectangles)
-    {
-        this.interfaceElements_Rectangles = interfaceElements_Rectangles;
-    }
 
     public void setSCREEN_POSITION(Point2D SCREEN_POSITION)
     {
