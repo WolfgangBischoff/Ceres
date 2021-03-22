@@ -5,7 +5,7 @@
        
 #### Main Quest
 
-#### Set item mechanic (provide Service)
+#### Set/Upgrade item mechanic (provide Service)
 * sprite an Pos adden via Key
 * Sprite von Menu und maus adden
 * Zeit & Resourcenkosten
@@ -46,7 +46,6 @@
 * Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
 * Space suit: front helmrahmen fehlt
 * Manual with Incubator info
-* Test: Augenhöhle seltsam
 * Test: nur mehr dicke wände
     
     => Level changes with time
@@ -57,10 +56,7 @@
     - Create Questlog
     
 
-##Improvements from tests   
-
     
-
 # Ideas
 ##Basemechanics
 ### Transform your Transporter to better place to live
@@ -82,30 +78,19 @@
 ###Mining in crypto vulcano
 * randomly generated
 
+###Containering and Looting
+* getting tips from rumors for events
+
+###Social
+* go to cafes and talk to people, befriend them
+* everyday other people there
+* meet entertainers and use their influence
+
 ##Contents
 - Biocomputer
 - People are created by bioengeneering, sexuality is fluent
-Goals and Quest:
-    - Main Quest
-        - Three/n companies with flaws, infiltrate and organize Protest
-        - Everything is worse after
-        - Prepare Revolution by become independent, destroy and communify companies
-        - CereX remains, tries to cut energy, water and heat
-        - During fighting the slaves on the Colony ship are found.
-        - End battle
-    - Entertainer zum kennenlernen und propagandistish nutzen
-    - get a robot begleiter
-    - Go to work as freelancer (there are always quests, you decide if you are a good worker)
-          Setting: Mineral Mining, Plant Growing, Alloy Melting, Cook Serve Delicious
-          Je mehr Jobs erledigt desto mehr steigt zugang; dann können firmen zerstört werden
-    - Repair personal bot
-        Actor System with Fitting Software, Model, Batterie finden, ... ;if all are correct robot repaired
-
-    - Side Quest
-          Traveller of Genetics company: Can I trust you? Have a job! tell you that keycard..
-          Get Keycard from security capsule
-          Find Human Embryos frozen
-          Give him for money
+- get a robot begleiter, Robot Avatars, remote control
+- Cook Serve delicious
 Mechanics:
     With high attention meter place has surveilance
     - get money from Companies for doing Quest (money changes if workers are unionized, work is more rentable if much union)
@@ -128,7 +113,7 @@ Mechanics:
     - Earth Defenders want to save earth, bad conditions are needed to fulfill production, no risk acceptable
     - Red Faction wants better conditions, egoistic, risk is ok. Earth supply may jeopardized
     - Indepence/Union movement wants Earth to pay, bit more equal but Feudal
-- Robot Avatars, remote control
+
 - Tragik der Allmende
 - Verteilungslogik: Egalitär, Utilitaristisch
 - Die die seit sie geboren wurden niemals Mangel an etwas hatten, hasste ich immer
@@ -215,13 +200,6 @@ Lore (Info not related to Plot, History, descriptions)
             - Protest: Some products are cheaper, but more people are waiting
             - Revolution: Gesundheitssystem heilt und ist nicht mehr überlastet, jeder wird behandelt
 
-------------------------------------------
------ COLLECTIBLES -----------------------
-------------------------------------------
-SpaceStamps with Social and goods delivery
-Old Earth artefacts by exploration
-Plants züchten
-Wohnkapsel ist erweiterbares Raumschiff
 
 ------------------------------------------
 ----- INSPIRATION ------------------------
