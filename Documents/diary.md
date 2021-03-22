@@ -2,6 +2,7 @@
 ##### 22 03 21
 * Tooltip is rendered over Other Overlays
 * Test: Augenhöhle seltsam
+* new medic sprites
 ##### 16 03 21
 * added biocomputing stamp
 ##### 15 03 21
