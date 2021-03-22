@@ -45,23 +45,23 @@ public class ShopOverlay
         SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
     }
 
-    private void draw() throws NullPointerException
+    public void render(GraphicsContext gc) throws NullPointerException
     {
-        String methodName = "draw() ";
-        menuGc.clearRect(0, 0, WIDTH, HEIGHT);
+        String methodName = "render() ";
+        gc.setFont(FONT_ORBITRON_12);
         Color marking = COLOR_MARKING;
         Color font = COLOR_FONT;
         interfaceElements_Rectangles.clear();
         interfaceElements_list.clear();
 
         //Background
-        menuGc.setGlobalAlpha(0.8);
-        menuGc.setFill(COLOR_BACKGROUND_BLUE);
+        gc.setGlobalAlpha(0.8);
+        gc.setFill(COLOR_BACKGROUND_BLUE);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
-        menuGc.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
+        gc.fillRect(SCREEN_POSITION.getX() + backgroundOffsetX, SCREEN_POSITION.getY() + backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
 
         //Item Slots
-        menuGc.setGlobalAlpha(1);
+        gc.setGlobalAlpha(1);
         int itemTileWidth = 192;
         int itemTileHeight = 64;
         int numberColumns = 2;
@@ -78,19 +78,19 @@ public class ShopOverlay
             {
                 //Rectangle
                 int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
-                menuGc.setFill(font);
-                menuGc.fillRect(slotX, slotY, itemTileWidth, itemTileHeight);
-                menuGc.setFill(marking);
+                gc.setFill(font);
+                gc.fillRect(SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY, itemTileWidth, itemTileHeight);
+                gc.setFill(marking);
                 Rectangle2D rectangle2D = new Rectangle2D(slotX + 2, slotY + 2, itemTileWidth - 4, itemTileHeight - 4);
                 interfaceElements_Rectangles.add(rectangle2D);
                 interfaceElements_list.add(Integer.valueOf(slotNumber).toString());
 
                 //Highlighting
                 if (highlightedElement == slotNumber)
-                    menuGc.setFill(font);
+                    gc.setFill(font);
                 else
-                    menuGc.setFill(marking);
-                menuGc.fillRect(rectangle2D.getMinX(), rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
+                    gc.setFill(marking);
+                gc.fillRect(SCREEN_POSITION.getX() + rectangle2D.getMinX(), SCREEN_POSITION.getY() +  rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
                 slotNumber++;
 
                 //Item slot images
@@ -99,35 +99,24 @@ public class ShopOverlay
                     current = actor.getInventory().itemsList.get(itemSlotNumber);
                 if (current != null)
                 {
-                    menuGc.drawImage(current.getImage(), slotX, slotY);
-                    menuGc.setFill(COLOR_RED);
-                    menuGc.fillText(current.getIngameName() + " Price: " + current.getBaseValue(), slotX + 60, slotY + 32);
+                    gc.drawImage(current.getImage(), SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY);
+                    gc.setFill(COLOR_RED);
+                    gc.fillText(current.getIngameName(), SCREEN_POSITION.getX() + slotX + 60, SCREEN_POSITION.getY() + slotY + 32);
+                    gc.fillText( "GSC: " + current.getBaseValue(), SCREEN_POSITION.getX() + slotX + 60, SCREEN_POSITION.getY() + slotY + 32 + gc.getFont().getSize() + 3);
                 }
                 itemSlotNumber++;
             }
         }
 
         //Text
-        int offsetYFirstLine = 60;
-        int dateLength = 200;
-        menuGc.setFill(font);
-        menuGc.fillText("Inventory of " + actor.getActorInGameName(), initialOffsetX, offsetYFirstLine);
-        menuGc.fillText("Shop", WIDTH - dateLength, offsetYFirstLine);
+        gc.setFill(font);
+        gc.setFont(FONT_ESTROG_20);
+        gc.fillText(actor.getActorInGameName() + " Shop", SCREEN_POSITION.getX() + initialOffsetX, SCREEN_POSITION.getY() + 70);
 
         //Decoration
-        menuGc.drawImage(cornerTopLeft, 0, 0);
-        menuGc.drawImage(cornerBtmRight, WIDTH - cornerBtmRight.getWidth(), HEIGHT - cornerBtmRight.getHeight());
+        gc.drawImage(cornerTopLeft, SCREEN_POSITION.getX(), SCREEN_POSITION.getY() );
+        gc.drawImage(cornerBtmRight, SCREEN_POSITION.getX() + WIDTH - cornerBtmRight.getWidth(), SCREEN_POSITION.getY() + HEIGHT - cornerBtmRight.getHeight());
 
-        SnapshotParameters transparency = new SnapshotParameters();
-        transparency.setFill(Color.TRANSPARENT);
-        menuImage = menuCanvas.snapshot(transparency, null);
-
-    }
-
-    public WritableImage getMenuImage()
-    {
-        draw();
-        return menuImage;
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
