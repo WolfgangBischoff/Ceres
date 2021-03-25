@@ -161,7 +161,7 @@ public class Sprite
                 continue;
 
             //Calculate Interaction Area
-            if (interact || actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING || getName().equalsIgnoreCase("player"))
+            if (interact || actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING || WorldView.getPlayer() == this)
                 interactionArea = calcInteractionRectangle();
 
             //Interact within interaction area
