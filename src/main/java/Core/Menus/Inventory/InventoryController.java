@@ -16,6 +16,7 @@ import java.util.List;
 import static Core.Configs.Config.*;
 import static Core.Configs.Config.FONT_ORBITRON_12;
 import static Core.WorldView.WorldViewStatus.*;
+import static java.lang.Math.max;
 
 public class InventoryController
 {
@@ -72,31 +73,34 @@ public class InventoryController
             gc.drawImage(dragAndDropItem.collectible.getImage(), dragAndDropItem.screenPosition.getX(), dragAndDropItem.screenPosition.getY());
 
         if (tooltipElement != null && tooltippedCollectible != null) {
-            int tooltipWidth = 300;
-            List<String> lines = Utilities.wrapText(tooltippedCollectible.getDescription(), FONT_ORBITRON_12, tooltipWidth);
-
-            double collectibleHeadlineHeight = (FONT_ORBITRON_20.getSize() * 1.5);
-            double tooltipHeight = collectibleHeadlineHeight + (FONT_ORBITRON_12.getSize() * lines.size() + 3);
-            gc.setFill(COLOR_GREEN);
-            gc.fillRect(tooltipElement.position.getMinX() + 50, tooltipElement.position.getMinY() + 50, tooltipWidth, tooltipHeight);
-            gc.setFill(COLOR_BACKGROUND_GREY);
-            gc.fillRect(tooltipElement.position.getMinX() + 50 + 2, tooltipElement.position.getMinY() + 50 + 2, tooltipWidth - 4, tooltipHeight - 4);
-
-            gc.setFill(COLOR_FONT);
-            gc.setFont(FONT_ORBITRON_20);
-            gc.fillText(tooltippedCollectible.getIngameName(),
-                    tooltipElement.position.getMinX() + 50 + 5,
-                    tooltipElement.position.getMinY() + 50 + gc.getFont().getSize() + 3);
-            gc.setFont(FONT_ORBITRON_12);
-
-            for (int l = 0; l < lines.size(); l++) {
-                gc.fillText(lines.get(l),
-                        tooltipElement.position.getMinX() + 50 + 5,
-                        tooltipElement.position.getMinY() + 55 + collectibleHeadlineHeight + FONT_ORBITRON_12.getSize() * l + 3);
-            }
-
+            drawTooltip(gc);
         }
 
+    }
+
+    private void drawTooltip(GraphicsContext gc)
+    {
+        double tooltipWidth = max(300, Utilities.calcStringWidth(FONT_ORBITRON_20, tooltippedCollectible.getIngameName() + 2));
+        List<String> lines = Utilities.wrapText(tooltippedCollectible.getDescription(), FONT_ORBITRON_12, tooltipWidth);
+
+        double collectibleHeadlineHeight = (FONT_ORBITRON_20.getSize() * 1.5);
+        double tooltipHeight = collectibleHeadlineHeight + (FONT_ORBITRON_12.getSize() * lines.size() + 3);
+        gc.setFill(COLOR_GREEN);
+        gc.fillRect(tooltipElement.position.getMinX() + 50, tooltipElement.position.getMinY() + 50, tooltipWidth, tooltipHeight);
+        gc.setFill(COLOR_BACKGROUND_GREY);
+        gc.fillRect(tooltipElement.position.getMinX() + 50 + 2, tooltipElement.position.getMinY() + 50 + 2, tooltipWidth - 4, tooltipHeight - 4);
+
+        gc.setFill(COLOR_FONT);
+        gc.setFont(FONT_ORBITRON_20);
+        gc.fillText(tooltippedCollectible.getIngameName(),
+                tooltipElement.position.getMinX() + 50 + 5,
+                tooltipElement.position.getMinY() + 50 + gc.getFont().getSize() + 3);
+        gc.setFont(FONT_ORBITRON_12);
+        for (int l = 0; l < lines.size(); l++) {
+            gc.fillText(lines.get(l),
+                    tooltipElement.position.getMinX() + 50 + 5,
+                    tooltipElement.position.getMinY() + 55 + collectibleHeadlineHeight + FONT_ORBITRON_12.getSize() * l + 3);
+        }
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, boolean isMouseDragged, Long currentNanoTime)

@@ -21,7 +21,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.*;
 
-import static Core.Configs.Config.FONT_ORBITRON_12;
 import static Core.Configs.Config.REGEX_LINEBREAK;
 
 public class Utilities
@@ -191,9 +190,7 @@ public class Utilities
         {
             fits = checkIfTooLong;
             checkIfTooLong = fits + words[i];
-            Text text = new Text(checkIfTooLong);
-            text.setFont(font);
-            double width = text.getBoundsInLocal().getWidth();
+            double width = calcStringWidth(font, checkIfTooLong);
             if (width > lineWidth || checkIfTooLong.contains(REGEX_LINEBREAK))
             {
                 if(checkIfTooLong.contains(REGEX_LINEBREAK))
@@ -212,6 +209,14 @@ public class Utilities
         if(!checkIfTooLong.equals(""))
             lines.add(checkIfTooLong);
         return lines;
+    }
+
+    public static double calcStringWidth(Font font, String toCheck)
+    {
+        Text text = new Text(toCheck);
+        text.setFont(font);
+        double width = text.getBoundsInLocal().getWidth();
+        return width;
     }
 
 }

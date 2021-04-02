@@ -24,6 +24,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/java/Core/Menus/Inventory/InventoryController.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/java/Core/Utilities.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/java/res/actorData/_actorfile_pattern.csv">
           <value>
             <Attribute>
@@ -154,6 +168,34 @@
           <value>
             <Attribute>
               <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/collectibles/food/food.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/collectibles/key/keycard.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/collectibles/reader/reader.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/computer/infoTerminal/info.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
             </Attribute>
           </value>
         </entry>
