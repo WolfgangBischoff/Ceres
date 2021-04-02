@@ -2,6 +2,7 @@ package Core;
 
 import Core.Utils.Console;
 import Core.Utils.ConsoleCommandInterpreter;
+import Core.Utils.FXUtils;
 import Core.WorldView.WorldView;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -57,11 +58,14 @@ public class Main extends Application
                 Long startUpdate = currentNanoTime;
                 gameWindowController.update(currentNanoTime);
                 updateTime = System.nanoTime() - startUpdate;
+                FXUtils.addData("Update: " + updateTime / 1000000 + "\n\t");
                 Long startRender = currentNanoTime;
                 gameWindowController.render(currentNanoTime);
                 renderTime = System.nanoTime() - startRender;
-                if (DEBUG_FPS)
-                    System.out.println("Update: " + updateTime / 1000000 + " Render: " + renderTime / 1000000); //<10 is good
+                FXUtils.addData("Render: " + renderTime / 1000000);
+                if (DEBUG_FPS) {
+                    System.out.println("FPS: " + FXUtils.getData()); //<5 is good
+                }
             }
         }.start();
     }

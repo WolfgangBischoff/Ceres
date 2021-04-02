@@ -31,7 +31,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/java/Core/Sprite/Sprite.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/java/Core/Utilities.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/java/Core/WorldView/WorldView.java">
           <value>
             <Attribute>
               <option name="separator" value=";" />
@@ -227,6 +241,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/resources/actorData/furniture/diffuser/diffuser.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/machine/lever.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/resources/actorData/player.csv">
           <value>
             <Attribute>
@@ -238,6 +266,20 @@
           <value>
             <Attribute>
               <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/robot/ufo.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/statusScreen/statusScreen.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
             </Attribute>
           </value>
         </entry>

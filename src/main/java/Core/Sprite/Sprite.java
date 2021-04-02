@@ -6,6 +6,7 @@ import Core.Enums.ActorTag;
 import Core.Enums.Direction;
 import Core.GameWindow;
 import Core.Utilities;
+import Core.Utils.FXUtils;
 import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -138,30 +139,33 @@ public class Sprite
         }
     }
 
-    public void update(Long currentNanoTime)
+    public void update(Long updateTime)
     {
         String methodName = "update() ";
-
-        double time = min(((currentNanoTime - lastUpdated) / 1000000000.0), DEBUG_LAG_TIME_MAX);
-        double elapsedTimeSinceLastInteraction = (currentNanoTime - actor.getLastInteraction()) / 1000000000.0;
+        long methodStartTime = System.nanoTime();
+        double time = min(((updateTime - lastUpdated) / 1000000000.0), DEBUG_LAG_TIME_MAX);
+        double elapsedTimeSinceLastInteraction = (updateTime - actor.getLastInteraction()) / 1000000000.0;
         List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
         double velocityX = actor.getCurrentVelocityX();
         double velocityY = actor.getCurrentVelocityY();
         Rectangle2D plannedPosition = new Rectangle2D(position.getX() + hitBoxOffsetX + velocityX * time, position.getY() + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
-        Pair<Double, Double> dodgeVelocities = new Pair<>(0d, 0d);
 
         String initGeneralStatusFrame = "";
         if (actor != null)
             initGeneralStatusFrame = actor.getGeneralStatus();
 
+
+
+
+
         for (Sprite otherSprite : activeSprites) {
             if (otherSprite == this ||
-                    otherSprite.actor == actor //if actor has multiple sprites they are usually congruent
+                    otherSprite.actor == actor
             )
                 continue;
 
             //Calculate Interaction Area
-            if (interact || actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING || getName().equalsIgnoreCase("player"))
+            if (interact || actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING || WorldView.getPlayer() == this)
                 interactionArea = calcInteractionRectangle();
 
             //Interact within interaction area
@@ -172,37 +176,35 @@ public class Sprite
                 if (otherSprite.actor != null &&
                         (otherSprite.actor.getSensorStatus().getOnInteraction_TriggerSprite() != NOTHING
                                 || otherSprite.actor.getSensorStatus().getOnInteraction_TriggerSensor() != NOTHING)) {
-                    otherSprite.actor.onInteraction(this, currentNanoTime);
-                    actor.setLastInteraction(currentNanoTime);
+                    otherSprite.actor.onInteraction(this, updateTime);
+                    actor.setLastInteraction(updateTime);
                     interact = false;
                 }
                 else if (otherSprite.actor == null &&//just use this for deco-sprites
                         !(otherSprite.dialogueFileName.equals("dialogueFile") || otherSprite.dialogueFileName.equals("none"))) {
-                    WorldView.startConversation(otherSprite.dialogueFileName, otherSprite.initDialogueId, currentNanoTime);
+                    WorldView.startConversation(otherSprite.dialogueFileName, otherSprite.initDialogueId, updateTime);
                     interact = false;
                 }
             }
 
             //In range
-            if (otherSprite.actor != null
-                    && actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING
-                    && otherSprite.getBoundary().intersects(interactionArea)) {
-                actor.onInRange(otherSprite, currentNanoTime);
-            }
-
-            //Intersect
-            if (intersects(otherSprite) && (actor.getSensorStatus().getOnIntersection_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnIntersection_TriggerSensor() != NOTHING)) {
-                actor.onIntersection(otherSprite, currentNanoTime);
-            }
+             if (otherSprite.actor != null
+                     && actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING
+                     && otherSprite.getBoundary().intersects(interactionArea)) {
+                 actor.onInRange(otherSprite, updateTime);
+             }
+             //Intersect
+             if (intersects(otherSprite) && (actor.getSensorStatus().getOnIntersection_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnIntersection_TriggerSensor() != NOTHING)) {
+                 actor.onIntersection(otherSprite, updateTime);
+             }
         }
-
 
         //check if status was changed from other triggers, just if not do OnUpdate
         if (actor != null && initGeneralStatusFrame.equals(actor.getGeneralStatus())) {
             if (actor.getSensorStatus().getOnUpdate_TriggerSprite() != NOTHING && !actor.getSensorStatus().getOnUpdateToStatusSprite().equals(actor.getGeneralStatus()))
-                actor.onUpdate(currentNanoTime);
+                actor.onUpdate(updateTime);
             if (actor.getSensorStatus().getOnUpdate_TriggerSensor() != NOTHING && !actor.getSensorStatus().getOnUpdate_StatusSensor().equals(actor.getSensorStatus().getStatusName()))
-                actor.onUpdate(currentNanoTime);
+                actor.onUpdate(updateTime);
         }
 
         if (!((DEBUG_NO_WALL && this == WorldView.getPlayer()) ||
@@ -221,8 +223,9 @@ public class Sprite
         }
         position = position.add(velocityX * time, velocityY * time);
         interact = false;
-        lastUpdated = currentNanoTime;
-
+        lastUpdated = updateTime;
+        //long totalTime = System.nanoTime() - methodStartTime;
+        //FXUtils.addData(getName() + ":" + totalTime / 1000);
     }
 
     private boolean isBlockedBy(Sprite otherSprite, Rectangle2D plannedPosition)
@@ -230,7 +233,6 @@ public class Sprite
         if (otherSprite == this)
             return false;
         return otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition);
-        //           || !worldBorders.contains(position.getX() + velocityX * time, position.getY() + velocityY * time
     }
 
     private boolean isBlockedByOtherSprites(double deltaX, double deltaY)

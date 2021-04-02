@@ -2,11 +2,15 @@ package Core.Utils;
 
 import javafx.animation.AnimationTimer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FXUtils
 {
     private static long lastUpdate = 0;
     private static int index = 0;
     private static double[] frameRates = new double[100];
+    private static List<String> measurements = new ArrayList<>();
 
     static
     {
@@ -54,5 +58,18 @@ public class FXUtils
         }
 
         return total / frameRates.length;
+    }
+
+    public static String getData()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        measurements.forEach(s -> stringBuilder.append(s ).append(" "));
+        measurements.clear();
+        return stringBuilder.toString();
+    }
+
+    public static void addData(String s)
+    {
+        measurements.add(s);
     }
 }

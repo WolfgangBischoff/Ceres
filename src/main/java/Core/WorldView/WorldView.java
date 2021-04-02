@@ -19,6 +19,7 @@ import Core.Menus.StatusOverlay.VariableStatusOverlay;
 import Core.Menus.Textbox.Textbox;
 import Core.Sprite.Sprite;
 import Core.Sprite.SpriteComparator;
+import Core.Utils.FXUtils;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -480,13 +481,10 @@ public class WorldView
 
         processMouse(currentNanoTime);
 
-        long inputStartTime = System.nanoTime();
-        //Update Sprites
-        player.update(currentNanoTime);
+        long inputEndTime = System.nanoTime();
+        //player.update(currentNanoTime);
         for (Sprite active : activeSpritesLayer)
             active.update(currentNanoTime);
-        long spritesStartTime = System.nanoTime();
-        //Remove Sprites
         for (Sprite sprite : toRemove)
         {
             WorldView.bottomLayer.remove(sprite);
@@ -497,16 +495,20 @@ public class WorldView
             WorldView.passiveCollisionRelevantSpritesLayer.remove(sprite);
         }
         toRemove.clear();
+        long spritesEndTime = System.nanoTime();
 
         calcCameraPosition();
 
         GameVariables.getClock().tryIncrementTime(currentNanoTime);
         GameVariables.updateHunger(currentNanoTime);
+        long hudEndTime = System.nanoTime();
 
-        long ClockHungerStartTime = System.nanoTime();
-        long timeInput = inputStartTime - updateStartTime;
-        long timeSprites = spritesStartTime - updateStartTime - timeInput;
-        long hudTime = ClockHungerStartTime - updateStartTime - timeInput - timeSprites;
+        long timeInput = inputEndTime - updateStartTime;
+        long timeSprites = spritesEndTime - updateStartTime - timeInput;
+        long hudTime = hudEndTime - updateStartTime - timeInput - timeSprites;
+        FXUtils.addData("Input: " + timeInput / 1000000);
+        FXUtils.addData("Sprites: " + timeSprites / 1000000);
+        FXUtils.addData("Hud: " + hudTime / 1000000);
         //System.out.println("inputTime: " + timeInput + " sprites: " + timeSprites + " hud: " + hudTime);
     }
 
