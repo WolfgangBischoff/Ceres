@@ -140,8 +140,7 @@ public class Textbox
                         String newDialogueFile = changeDirective.getAttribute(TEXTBOX_ATTRIBUTE_DIALOGUE_FILE);
                         List<Actor> actorToChange = WorldView.getSingleton().getSpritesByName(id);
 
-                        for(Actor a : actorToChange)
-                        {
+                        for (Actor a : actorToChange) {
                             if (!newStatus.isEmpty())
                                 a.setGeneralStatus(newStatus);
                             if (!newDialogueId.isEmpty())
@@ -325,8 +324,8 @@ public class Textbox
         gc.setTextBaseline(VPos.TOP);
 
         double elapsedTimeSinceLastInteraction = (GameWindow.getCurrentNanoRenderTimeGameWindow() - lastTimeNewLetterRendered) / 1000000000.0;
-        if (elapsedTimeSinceLastInteraction > 0.005) {
-            maxLettersIdxRendered++;
+        if (elapsedTimeSinceLastInteraction > 0.01) {
+            maxLettersIdxRendered += 2;
             lastTimeNewLetterRendered = GameWindow.getCurrentNanoRenderTimeGameWindow();
         }
 
