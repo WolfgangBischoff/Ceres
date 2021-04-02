@@ -119,13 +119,15 @@ public class CoinArea
         for (int i = 0; i < visibleCoinsList.size(); i++)
         {
             CharacterCoin coin = visibleCoinsList.get(i);
+            coin.move(currentNanoTime - gameStartTime);
             Circle circle = coin.collisionCircle;
             double elapsedTimeSinceSpawn = ((currentNanoTime - gameStartTime) / 1000000000.0) - coin.time_spawn;
-            coin.move(currentNanoTime - gameStartTime);
 
+            if(circle.getCenterX() > 954)
+                System.out.println(coin.time_spawn + ": " + circle.getCenterX());
             //Check if is visible
-            if (!SCREEN_AREA.
-                    intersects(circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius(), circle.getCenterX() + circle.getRadius(), circle.getCenterY() + circle.getRadius())
+            if (!SCREEN_AREA.contains(new Point2D(SCREEN_POSITION.getX() + circle.getCenterX(), SCREEN_POSITION.getY() +circle.getCenterY()))
+                   // intersects(SCREEN_POSITION.getX() + circle.getCenterX() - circle.getRadius(), SCREEN_POSITION.getY() +circle.getCenterY() - circle.getRadius(), circle.getCenterX() + circle.getRadius(), circle.getCenterY() + circle.getRadius())
                     || elapsedTimeSinceSpawn > coin.time_max
             )
             {
@@ -227,6 +229,8 @@ public class CoinArea
         gc.setFill(BLACK);
         gc.fillRect(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
 
+
+
         gc.setStroke(font);
         int xInterval = 50, yInterval = 50;
         for (int x = 0; x <= WIDTH; x += xInterval)
@@ -234,9 +238,10 @@ public class CoinArea
         for (int y = 0; y <= HEIGHT; y += yInterval)
             gc.strokeLine(SCREEN_POSITION.getX(), SCREEN_POSITION.getY() + y, SCREEN_POSITION.getX() + WIDTH, SCREEN_POSITION.getY() + y);
 
-        //update(currentNanoTime);
+        gc.setStroke(Color.RED);
+        gc.strokeRect(SCREEN_AREA.getMinX(), SCREEN_AREA.getMinY(), SCREEN_AREA.getWidth(), SCREEN_AREA.getHeight());
+
         gc.setGlobalAlpha(1);
-        gc.setFill(COLOR_MARKING);
         for (int i = 0; i < visibleCoinsList.size(); i++)
         {
             CharacterCoin coin = visibleCoinsList.get(i);
@@ -244,7 +249,7 @@ public class CoinArea
             shapeList.add(circle);
             gc.drawImage(coin.image, SCREEN_POSITION.getX() + circle.getCenterX() - circle.getRadius(), SCREEN_POSITION.getY() + circle.getCenterY() - circle.getRadius());
         }
-
+        gc.setFill(COLOR_MARKING);
         gc.fillOval(SCREEN_POSITION.getX() + mouseClickSpace.getCenterX() - mouseClickSpace.getRadius(), SCREEN_POSITION.getY() + mouseClickSpace.getCenterY() - mouseClickSpace.getRadius(), mouseClickSpace.getRadius() * 2, mouseClickSpace.getRadius() * 2);
 
         if (isFinished)
@@ -272,6 +277,7 @@ public class CoinArea
             }
 
         }
+
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)

@@ -1,6 +1,7 @@
 ##### 02 04 21
 * performance improvement and FPS measurement
 * Test: Coin Game Ende bei Gewinn gleich raus, bei Verlust neustart
+* bugfix: coin outside area
 ##### 22 03 21
 * Tooltip is rendered over Other Overlays
 * Test: Augenhöhle seltsam
