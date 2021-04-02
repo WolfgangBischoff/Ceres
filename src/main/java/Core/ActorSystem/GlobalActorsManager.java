@@ -1,10 +1,11 @@
 package Core.ActorSystem;
 
-import Core.*;
+import Core.Actor;
 import Core.Configs.Config;
 import Core.Enums.Direction;
 import Core.Sprite.Sprite;
 import Core.Sprite.SpriteData;
+import Core.Utilities;
 
 import java.util.*;
 
@@ -25,8 +26,7 @@ public class GlobalActorsManager
         keywords.add(KEYWORD_ACTORS);
         keywords.add(KEYWORD_GROUPS);
 
-        if(!loadedSystems.contains(path))
-        {
+        if (!loadedSystems.contains(path)) {
             var lines = Utilities.readAllLineFromTxt("global_systems/" + path + Config.CSV_POSTFIX);
             parse(lines);
             loadedSystems.add(path);
@@ -40,8 +40,7 @@ public class GlobalActorsManager
         String readStatus = null;
         List<String> createdActorGroupsId = new ArrayList<>();
         for (String[] lineData : file) {
-            if (keywords.contains(lineData[0].toLowerCase()))
-            {
+            if (keywords.contains(lineData[0].toLowerCase())) {
                 readStatus = lineData[0].toLowerCase();
                 continue;
             }
@@ -53,8 +52,7 @@ public class GlobalActorsManager
 
                 actor.updateCompoundStatus();
                 List<SpriteData> spriteDataList = actor.getSpriteDataMap().get(actor.getCompoundStatus());
-                for (int j = 0; j < spriteDataList.size(); j++)
-                {
+                for (int j = 0; j < spriteDataList.size(); j++) {
                     Sprite actorSprite;
                     SpriteData spriteData = spriteDataList.get(j);
                     actorSprite = Sprite.createSprite(spriteData, 0, 0);
@@ -79,22 +77,19 @@ public class GlobalActorsManager
 
                 //add actors to groups
                 String actorId = null;
-                try{
-                    for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++)
-                    {
+                try {
+                    for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++) {
                         actorId = lineData[membersIdx];
                         Actor actor = actorsIdsMap.get(actorId);
                         globalActorMonitor.addActorToActorSystem(lineData[groupName_Idx], actor);
                         actor.getMemberActorGroups().add(lineData[groupName_Idx]);
                     }
-                }
-                catch (NullPointerException e)
-                {
+                } catch (NullPointerException e) {
                     throw new NullPointerException("Cannot find " + actorId + " in " + actorsIdsMap);
                 }
             }
         }
-        for(String groupId : createdActorGroupsId)
+        for (String groupId : createdActorGroupsId)
             globalActorMonitor.sendSignalFrom(groupId);//init new groups to init world variables
     }
 
@@ -102,7 +97,7 @@ public class GlobalActorsManager
     {
         String methodName = "getGlobalActors() ";
         Map<String, Actor> globalActors = new HashMap<>();
-        int idIdx = 0, spriteStatusIdx = 1, directionIdx = 2, sensorStatusIdx = 3, dialogueFileIdx = 4, dialogueIdIdx = 5;
+        int idIdx = 0, spriteStatusIdx = 1, directionIdx = 2, sensorStatusIdx = 3, dialogueFileIdx = 4, dialogueIdIdx = 5, scriptIdx = 6;
         actorData.forEach(id ->
         {
             String[] detailData = id.split(",");
@@ -112,7 +107,7 @@ public class GlobalActorsManager
                 if (!detailData[i].trim().isEmpty())
                     switch (i) {
                         case 0:
-                            actorId = detailData[idIdx];
+                            actorId = detailData[idIdx].trim();
                             break;
                         case 1:
                             actorsIdsMap.get(actorId).setGeneralStatus(detailData[spriteStatusIdx].trim());
@@ -128,6 +123,9 @@ public class GlobalActorsManager
                             break;
                         case 5:
                             actorsIdsMap.get(actorId).setDialogueId(detailData[dialogueIdIdx].trim());
+                            break;
+                        case 6:
+                            actorsIdsMap.get(actorId).setScript(detailData[scriptIdx].trim());
                             break;
                     }
             }

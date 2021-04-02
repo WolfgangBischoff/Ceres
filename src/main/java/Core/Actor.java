@@ -182,7 +182,7 @@ public class Actor
                 numeric_generic_attributes.put(linedata[0], Double.parseDouble(linedata[1]));
                 break;
             case SCRIPT_ACTOR:
-                script = readScript(linedata);
+                setScript(linedata[1]);
                 break;
             default:
                 throw new RuntimeException("Keyword unknown: " + keyword);
@@ -191,9 +191,14 @@ public class Actor
         return true;
     }
 
-    private Script readScript(String[] linedata)
+    private Script readScript(String path)
     {
-        return new Script(Utilities.readXMLFile(linedata[1]));
+        return new Script(Utilities.readXMLFile(path));
+    }
+
+    public void setScript(String path)
+    {
+        script = readScript(path);
     }
 
     private PersonalityContainer readPersonality(String[] linedata)

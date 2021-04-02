@@ -31,9 +31,9 @@ triggerRoof											 ;transitionOnChange													;SW_roof											;trigg
 SW_roof																;none																											;none														;roof__ ;roof1_ ;roofw_
 
 global_system_actor:
-#character           ;mapId ,spStatus   	,direction 	,sensStatus	,dialogFile	,dialogueID
-character            ;tender,default					,south						,											,											,AFTER_ARRIVAL
-character           	;techni,default,north,,actorData/character/technician/technician,AFTER_ARRIVAL
+#character           ;mapId ,spStatus   ,direction	 ,sensStatus					,dialogFile																															,dialogueID 												,scriptPath
+character            ;tender,default				,south						,default								,																																									,AFTER_ARRIVAL										,
+character           	;techni,default				,north						,															,actorData/character/technician/technician,AFTER_ARRIVAL										,
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision

@@ -198,7 +198,7 @@ public class WorldLoader
         GlobalActorsManager.loadGlobalSystem(linedata[0]);
         List<String> actorIds = Arrays.asList(linedata).subList(1, linedata.length);
         globalActorsMap.putAll(GlobalActorsManager.getGlobalActorsWithStatus(actorIds));
-        loadedTileIdsSet.addAll(actorIds.stream().map(string -> string.split(",")[0]).collect(Collectors.toList()));//remove additional status data. eg: medic_,windo
+        loadedTileIdsSet.addAll(actorIds.stream().map(string -> string.split(",")[0].trim()).collect(Collectors.toList()));//remove additional status data. eg: medic_,windo
     }
 
     private void readPosition(String[] lineData)
@@ -285,7 +285,6 @@ public class WorldLoader
     private void readSpawnPoint(String[] lineData)
     {
         String methodName = "readSpawnPoint()";
-        boolean debug = true;
         int spawnIdIdx = 0;
         int spawnXId = 1;
         int spawnYId = 2;

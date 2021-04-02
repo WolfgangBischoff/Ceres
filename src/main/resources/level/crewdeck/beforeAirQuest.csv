@@ -7,9 +7,9 @@ tiledefinition:
 floTol				                      ;open floor				                          ;img/floor/greyFloor_open_tools																																		;true		          	  ;1									             ;0		      ;0												;0			  ;0			  ;000								;000									;000											;000										  ;000									;000										;none 					          ;tools_floor;dialogue_files/transporter_decks					;unused0	;unused1	;unused2	;unused3	;unused4
 
 global_system_actor:
-#character           ;mapId ,spStatus   , direction , sensStatus, dialogFile, dialogueID
-character           ;techni,default,south,,actorData/character/technician/technician,INTRO_TO_MEDIC
-character           ;guard_,,south,,,
+#character           ;mapId ,spStatus   ,direction 	,sensStatus ,dialogFile 																														,dialogueID 						,scriptPath
+character           	;techni	,default				,south						,											,actorData/character/technician/technician,INTRO_TO_MEDIC		,
+character           	;guard_	,											,south						,											,																																									,																,
 
 
 layer:

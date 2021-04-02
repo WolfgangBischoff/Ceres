@@ -143,6 +143,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/resources/actorData/character/tenderer/tenderer.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/resources/actorData/collectibles/bacteria/bacteria_crafted.csv">
           <value>
             <Attribute>
@@ -175,6 +182,13 @@
           <value>
             <Attribute>
               <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/player.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
             </Attribute>
           </value>
         </entry>
@@ -227,6 +241,27 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/resources/level/crewdeck/afterAirQuest.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/level/crewdeck/after_arrival_crewdeck.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/level/crewdeck/beforeAirQuest.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/resources/level/crewdeck/crewdeck.csv">
           <value>
             <Attribute>
@@ -256,6 +291,34 @@
           </value>
         </entry>
         <entry key="/src/main/resources/level/test.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/level/transporter/afterAirQuest.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/level/transporter/after_arrival.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/level/transporter/beforeAirQuest.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/level/transporter/before_arrival.csv">
           <value>
             <Attribute>
               <option name="separator" value=";" />
