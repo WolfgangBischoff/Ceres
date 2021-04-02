@@ -90,6 +90,10 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>A stasis chamber, what poor guy could that be?</line>
     </dialogue>
 
+    <dialogue id="chartdata" type="normal">
+        <line>Current data from stock markets. Strange, I expected data about the ship..</line>
+    </dialogue>
+
     <dialogue id="SHELF_FLUIDS" type="normal">
         <line>A shelf with canisters, I have no idea what's inside.</line>
     </dialogue>

@@ -21,12 +21,12 @@
         <line>Krrz... Bzzt...</line>
         <line>It worked, they can %%GRenter the pod%%!</line>
     </dialogue>
-    <dialogue id="RELEASE_1" type="normal" fadeout="false">
+    <dialogue id="RELEASE_1" type="normal" fadeout="false" nextDialogue="READY">
         <line>Ready for Launch!</line>
     </dialogue>
     <dialogue id="READY" type="decision">
-        <option>[Leave]</option>
         <option nextDialogue="LAUNCH">[Launch rescue pod]</option>
+        <option>[Leave]</option>
     </dialogue>
     <dialogue id="LAUNCH" fadeout="true" type="normal" nextDialogue="LAUNCH_0" variablename="RESCUE_POD_QUEST_STATUS" set="done">
         <line>3... 2... 1... launch</line>

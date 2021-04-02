@@ -116,7 +116,7 @@
     </dialogue>
     <dialogue id="AFTER_ARRIVAL_1" type="decision">
         <option nextDialogue="AFTER_ARRIVAL_2" >
-            I guess it just was a power peak, don't worry too much about it.
+            Looks like a random power peak, don't worry too much.
         </option>
     </dialogue>
     <dialogue id="AFTER_ARRIVAL_2" type="normal" dialogueId="AFTER_ARRIVAL_2">
