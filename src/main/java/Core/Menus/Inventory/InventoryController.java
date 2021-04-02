@@ -10,6 +10,7 @@ import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
+import javafx.scene.shape.Rectangle;
 
 import java.util.List;
 
@@ -85,21 +86,22 @@ public class InventoryController
 
         double collectibleHeadlineHeight = (FONT_ORBITRON_20.getSize() * 1.5);
         double tooltipHeight = collectibleHeadlineHeight + (FONT_ORBITRON_12.getSize() * lines.size() + 3);
+        Rectangle tooltipRect = (Rectangle) tooltipElement.getPosition();
         gc.setFill(COLOR_GREEN);
-        gc.fillRect(tooltipElement.position.getMinX() + 50, tooltipElement.position.getMinY() + 50, tooltipWidth, tooltipHeight);
+        gc.fillRect(tooltipRect.getX() + 50, tooltipRect.getY() + 50, tooltipWidth, tooltipHeight);
         gc.setFill(COLOR_BACKGROUND_GREY);
-        gc.fillRect(tooltipElement.position.getMinX() + 50 + 2, tooltipElement.position.getMinY() + 50 + 2, tooltipWidth - 4, tooltipHeight - 4);
+        gc.fillRect(tooltipRect.getX()  + 50 + 2, tooltipRect.getY() + 50 + 2, tooltipWidth - 4, tooltipHeight - 4);
 
         gc.setFill(COLOR_FONT);
         gc.setFont(FONT_ORBITRON_20);
         gc.fillText(tooltippedCollectible.getIngameName(),
-                tooltipElement.position.getMinX() + 50 + 5,
-                tooltipElement.position.getMinY() + 50 + gc.getFont().getSize() + 3);
+                tooltipRect.getX()  + 50 + 5,
+                tooltipRect.getY() + 50 + gc.getFont().getSize() + 3);
         gc.setFont(FONT_ORBITRON_12);
         for (int l = 0; l < lines.size(); l++) {
             gc.fillText(lines.get(l),
-                    tooltipElement.position.getMinX() + 50 + 5,
-                    tooltipElement.position.getMinY() + 55 + collectibleHeadlineHeight + FONT_ORBITRON_12.getSize() * l + 3);
+                    tooltipRect.getX()  + 50 + 5,
+                    tooltipRect.getY() + 55 + collectibleHeadlineHeight + FONT_ORBITRON_12.getSize() * l + 3);
         }
     }
 

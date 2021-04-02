@@ -1,6 +1,8 @@
 package Core.Menus.CoinGame;
 
 import Core.Actor;
+import Core.Menus.Inventory.MouseElement;
+import Core.Menus.Inventory.MouseElementsContainer;
 import Core.Utilities;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
@@ -9,13 +11,13 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.util.List;
 import java.util.Map;
 
 import static Core.Configs.Config.*;
+import static Core.Menus.Inventory.MouseInteractionType.CLICK;
 
 public class CoinGame
 {
@@ -24,7 +26,10 @@ public class CoinGame
     private final Image cornerTopLeft, cornerBtmRight, finishedButton;
     private final Integer WIDTH = COINGAME_WIDTH, HEIGHT = COINGAME_HEIGHT;
     private final Point2D SCREEN_POSITION = COINGAME_POSITION;
-    private Circle exitButton = new Circle(COIN_AREA_WIDTH + 135, 400, 75);
+    private final MouseElementsContainer mouseElements = new MouseElementsContainer();
+    private MouseElement highlightedElement = null;
+    final String CHECKMARK_BUTTON_ID = "CHECKMARK";
+    //private Circle checkMarkButton = new Circle(COIN_AREA_WIDTH + 135, 400, 75);
 
     public CoinGame(String gameIdentifier, Actor actorOfDiscussion)
     {
@@ -32,6 +37,13 @@ public class CoinGame
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         finishedButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "interface/coinGame/finished.png");
+        init();
+    }
+
+    private void init()
+    {
+        Circle checkMarkButton = new Circle(SCREEN_POSITION.getX() + COIN_AREA_WIDTH +135, SCREEN_POSITION.getY() + 400, 75);
+        mouseElements.add(new MouseElement(checkMarkButton, CHECKMARK_BUTTON_ID, CLICK));
     }
 
     public void render(GraphicsContext gc, Long currentNanoTime)
@@ -78,23 +90,19 @@ public class CoinGame
         gc.fillText(Utilities.roundTwoDigits(residualTime), SCREEN_POSITION.getX() + COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + textCenterOffset,
                 SCREEN_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET + 230);
 
-        //gc.setFill(Color.RED);
-        gc.drawImage(finishedButton, SCREEN_POSITION.getX() + exitButton.getCenterX() - exitButton.getRadius(), SCREEN_POSITION.getY() + exitButton.getCenterY() - exitButton.getRadius());
+        Circle checkMarkButton = (Circle) mouseElements.get(CHECKMARK_BUTTON_ID).getPosition();
+        gc.drawImage(finishedButton, checkMarkButton.getCenterX() - checkMarkButton.getRadius(), checkMarkButton.getCenterY() - checkMarkButton.getRadius());
         gc.setFont(FONT_ESTROG_30_DEFAULT);
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
         String methodName = "processMouse() ";
-        Point2D overlayPosition = SCREEN_POSITION;
-        Rectangle2D posRelativeToWorldview = new Rectangle2D(overlayPosition.getX(), overlayPosition.getY(), WIDTH, HEIGHT);
-        Point2D mousePosRelativeToOverlay;
-        if (posRelativeToWorldview.contains(mousePosition))
-            mousePosRelativeToOverlay = new Point2D(mousePosition.getX() - overlayPosition.getX(), mousePosition.getY() - overlayPosition.getY());
-        else mousePosRelativeToOverlay = null;
+        Circle checkMarkButton = (Circle) mouseElements.get(CHECKMARK_BUTTON_ID).getPosition();
 
+        //End CoinGame
         if (isMouseClicked && coinArea.isFinished &&
-                (mousePosRelativeToOverlay != null && exitButton.contains(mousePosRelativeToOverlay)
+                ( checkMarkButton.contains(mousePosition)
                         || CoinArea.getScreenArea().contains(mousePosition)))
         {
             WorldView.getTextbox().nextMessage(currentNanoTime);
@@ -104,7 +112,7 @@ public class CoinGame
         {
             coinArea.processMouse(mousePosition, isMouseClicked, currentNanoTime);
         }
-        else if (isMouseClicked && mousePosRelativeToOverlay != null && exitButton.contains(mousePosRelativeToOverlay))
+        else if (isMouseClicked && checkMarkButton.contains(mousePosition))
         {
                 getCoinArea().coinsList.forEach(
                         coin ->
@@ -114,9 +122,6 @@ public class CoinGame
                         });
                 getCoinArea().visibleCoinsList.clear();
                 getCoinArea().setMaxGameTime(-1);
-
-
-
         }
 
     }

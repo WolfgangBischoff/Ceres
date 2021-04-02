@@ -249,13 +249,13 @@ public class CoinArea
             gc.setTextBaseline(VPos.CENTER);
 
             float achievedPercentageOfMinWinThreshold = (float) totalResult / winThreshold;
-            String hintMsg = "";
+            String hintMsg;
             if (achievedPercentageOfMinWinThreshold >= 0.7)
-                hintMsg = "You were close to success..";
+                hintMsg = "Close to success..";
             else if (achievedPercentageOfMinWinThreshold >= 0.5)
-                hintMsg = "You were not close to success..";
-            else if (achievedPercentageOfMinWinThreshold >= 0.0)
-                hintMsg = "You were far away from success..";
+                hintMsg = "This went ok, maybe next time..";
+            else
+                hintMsg = "This went wrong..";
 
             if (totalResult >= winThreshold)
                 gc.fillText("Success!", SCREEN_POSITION.getX() + WIDTH / 2.0, SCREEN_POSITION.getY() + HEIGHT / 2.0 + gc.getFont().getSize());

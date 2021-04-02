@@ -10,6 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -64,7 +65,7 @@ public class ShopOverlay
             for (int i = 0; i < numberColumns; i++)
             {
                 int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
-                Rectangle2D rectangle2D = new Rectangle2D(SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY, itemTileWidth, itemTileHeight);
+                Rectangle rectangle2D = new Rectangle(SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY, itemTileWidth, itemTileHeight);
                 MouseElement slot = new MouseElement(rectangle2D, Integer.valueOf(slotNumber).toString(), click );
                 mouseElements.add(slot);
                 slotNumber++;
@@ -101,17 +102,17 @@ public class ShopOverlay
             int slotY = y * (itemTileHeight + spaceBetweenTiles) + initialOffsetY;
             for (int i = 0; i < numberColumns; i++)
             {
-                Rectangle2D currentRect = mouseElements.get(slotNumber).position;
+                Rectangle currentRect = (Rectangle) mouseElements.get(slotNumber).position;
                 int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
                 gc.setFill(font);
-                gc.fillRect(currentRect.getMinX(), currentRect.getMinY(), currentRect.getWidth(), currentRect.getHeight());
+                gc.fillRect(currentRect.getX(), currentRect.getY(), currentRect.getWidth(), currentRect.getHeight());
 
                 //Highlighting
                 if (mouseElements.indexOf(highlightedElement) == slotNumber)
                     gc.setFill(font);
                 else
                     gc.setFill(marking);
-                gc.fillRect(currentRect.getMinX() +2, currentRect.getMinY() +2, currentRect.getWidth()-4, currentRect.getHeight()-4);
+                gc.fillRect(currentRect.getX() +2, currentRect.getY() +2, currentRect.getWidth()-4, currentRect.getHeight()-4);
 
                 slotNumber++;
 

@@ -24,7 +24,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/java/Core/Menus/CoinGame/CoinGame.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/java/Core/Menus/Inventory/InventoryController.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/java/Core/Menus/Inventory/ShopOverlay.java">
           <value>
             <Attribute>
               <option name="separator" value=";" />

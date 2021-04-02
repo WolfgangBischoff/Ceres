@@ -24,7 +24,6 @@
 * Test: StatusInfo over sprite on key + ExclamationMark
 * "Rumors"/Random dialogue
 * Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
-* sprite stop script if talking
 * Test: Coin Game Ende bei Gewinn gleich raus, bei Verlust neustart
 * Test: Dialogoption sollte weg sein bis retrigger
 * Actor that listens to variable and changes dialogue if set
