@@ -152,21 +152,18 @@ public class Sprite
 
         String initGeneralStatusFrame = "";
         if (actor != null)
+        {
             initGeneralStatusFrame = actor.getGeneralStatus();
-
-
-
-
+            //Calculate Interaction Area
+            if (interact || actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING || WorldView.getPlayer() == this)
+                interactionArea = calcInteractionRectangle();
+        }
 
         for (Sprite otherSprite : activeSprites) {
             if (otherSprite == this ||
                     otherSprite.actor == actor
             )
                 continue;
-
-            //Calculate Interaction Area
-            if (interact || actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING || WorldView.getPlayer() == this)
-                interactionArea = calcInteractionRectangle();
 
             //Interact within interaction area
             if (interact
@@ -194,7 +191,7 @@ public class Sprite
                  actor.onInRange(otherSprite, updateTime);
              }
              //Intersect
-             if (intersects(otherSprite) && (actor.getSensorStatus().getOnIntersection_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnIntersection_TriggerSensor() != NOTHING)) {
+             if ((actor.getSensorStatus().getOnIntersection_TriggerSprite() != NOTHING || actor.getSensorStatus().getOnIntersection_TriggerSensor() != NOTHING) && intersects(otherSprite)) {
                  actor.onIntersection(otherSprite, updateTime);
              }
         }
