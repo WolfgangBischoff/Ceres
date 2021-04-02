@@ -419,12 +419,12 @@ public class WorldView
         System.out.println(CLASSNAME + methodName);
     }
 
-    public void update(Long currentNanoTime)
+    public void update(Long currentUpdateTime)
     {
         String methodName = "update(Long) ";
         long updateStartTime = System.nanoTime();
         ArrayList<String> input = GameWindow.getInput();
-        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastTimeMenuWasOpened) / 1000000000.0;
+        double elapsedTimeSinceLastInteraction = (currentUpdateTime - lastTimeMenuWasOpened) / 1000000000.0;
 
         updateAccordingToTime();
 
@@ -439,12 +439,12 @@ public class WorldView
                 shadowColor = COLOR_EMERGENCY_LIGHT;
             else
                 shadowColor = null;
-            lastTimeMenuWasOpened = currentNanoTime;
+            lastTimeMenuWasOpened = currentUpdateTime;
         }
         if (input.contains("I") && elapsedTimeSinceLastInteraction > 1)
         {
             isFadedOut = !isFadedOut;
-            lastTimeMenuWasOpened = currentNanoTime;
+            lastTimeMenuWasOpened = currentUpdateTime;
         }
 
 
@@ -454,24 +454,25 @@ public class WorldView
         switch (WorldViewController.getWorldViewStatus())
         {
             case WORLD:
-                processInputAsMovement(input, currentNanoTime);
+                processInputAsMovement(input, currentUpdateTime);
                 break;
             case TEXTBOX:
-                textbox.processKey(input, currentNanoTime);
+                textbox.processKey(input, currentUpdateTime);
                 break;
             case PERSONALITY:
-                personalityScreenController.processKey(input, currentNanoTime);
+                personalityScreenController.processKey(input, currentUpdateTime);
                 break;
             case DAY_SUMMARY:
-                daySummaryScreenController.processKey(input, currentNanoTime);
+                daySummaryScreenController.processKey(input, currentUpdateTime);
                 break;
             case INVENTORY:
             case INVENTORY_EXCHANGE:
             case INVENTORY_SHOP:
                 if (input.contains(KEYBOARD_INVENTORY) || input.contains(KEYBOARD_INTERACT) || input.contains(KEYBOARD_ESCAPE))
-                    toggleInventory(currentNanoTime);
+                    toggleInventory(currentUpdateTime);
                 break;
             case COIN_GAME://No keyboard input so far
+                coinGame.update(currentUpdateTime);
                 break;
             case INCUBATOR:
                 break;
@@ -479,12 +480,12 @@ public class WorldView
                 System.out.println(CLASSNAME + methodName + "Undefined WorldViewStatus: " + WorldViewController.getWorldViewStatus());
         }
 
-        processMouse(currentNanoTime);
+        processMouse(currentUpdateTime);
 
         long inputEndTime = System.nanoTime();
         //player.update(currentNanoTime);
         for (Sprite active : activeSpritesLayer)
-            active.update(currentNanoTime);
+            active.update(currentUpdateTime);
         for (Sprite sprite : toRemove)
         {
             WorldView.bottomLayer.remove(sprite);
@@ -499,8 +500,8 @@ public class WorldView
 
         calcCameraPosition();
 
-        GameVariables.getClock().tryIncrementTime(currentNanoTime);
-        GameVariables.updateHunger(currentNanoTime);
+        GameVariables.getClock().tryIncrementTime(currentUpdateTime);
+        GameVariables.updateHunger(currentUpdateTime);
         long hudEndTime = System.nanoTime();
 
         long timeInput = inputEndTime - updateStartTime;

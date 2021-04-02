@@ -46,6 +46,8 @@ public class CoinArea
     Element xmlRoot;
     Long gameStartTime;
     boolean isFinished = false;
+    boolean isWon = false;
+    long isFinishedTime = 0;
     Map<CoinType, Integer> clickedCoins = new HashMap<>();
     String gameFileName;
     Actor actorOfDiscussion;
@@ -143,7 +145,7 @@ public class CoinArea
             activeBuffs.remove(key);
         });
 
-        if (removedCoinsList.size() == coinsList.size())
+        if (removedCoinsList.size() == coinsList.size() && !isFinished)
         {
             //Get number of clicked coins
             PersonalityContainer personality = actorOfDiscussion.getPersonalityContainer();
@@ -200,10 +202,14 @@ public class CoinArea
 
             totalResult = motivationResult + focusResult + decisionResult + lifestyleResult + machineCompute + machineManagement + machineInterface + machineNetwork;
             if (totalResult >= winThreshold)
+            {
                 WorldView.getTextbox().setNextDialogueFromDiscussionResult(true);
+                isWon = true;
+            }
             else
                 WorldView.getTextbox().setNextDialogueFromDiscussionResult(false);
             isFinished = true;
+            isFinishedTime = currentNanoTime;
         }
     }
 
@@ -228,7 +234,7 @@ public class CoinArea
         for (int y = 0; y <= HEIGHT; y += yInterval)
             gc.strokeLine(SCREEN_POSITION.getX(), SCREEN_POSITION.getY() + y, SCREEN_POSITION.getX() + WIDTH, SCREEN_POSITION.getY() + y);
 
-        update(currentNanoTime);
+        //update(currentNanoTime);
         gc.setGlobalAlpha(1);
         gc.setFill(COLOR_MARKING);
         for (int i = 0; i < visibleCoinsList.size(); i++)
@@ -260,7 +266,10 @@ public class CoinArea
             if (totalResult >= winThreshold)
                 gc.fillText("Success!", SCREEN_POSITION.getX() + WIDTH / 2.0, SCREEN_POSITION.getY() + HEIGHT / 2.0 + gc.getFont().getSize());
             else
+            {
                 gc.fillText(hintMsg, SCREEN_POSITION.getX() + WIDTH / 2.0, SCREEN_POSITION.getY() + HEIGHT / 2.0 + gc.getFont().getSize());
+                gc.fillText("Click here to restart!", SCREEN_POSITION.getX() + WIDTH / 2.0, SCREEN_POSITION.getY() + HEIGHT / 2.0 + gc.getFont().getSize() * 2 + 10);
+            }
 
         }
     }

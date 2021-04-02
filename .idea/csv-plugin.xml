@@ -255,6 +255,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/resources/actorData/floor/trigger.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/resources/actorData/furniture/diffuser/diffuser.csv">
           <value>
             <Attribute>
