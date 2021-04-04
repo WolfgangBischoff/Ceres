@@ -34,7 +34,6 @@
 * Show money in Shop view
 * Coin Game
     * Test: Game ends if no correct coins are left
-    * Test: More detailed desc, not push same color
    
 #### Stealth mechanic
 * split inRange area into several parts
