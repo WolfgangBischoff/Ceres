@@ -145,7 +145,7 @@ public class Sprite
         long methodStartTime = System.nanoTime();
         double time = min(((updateTime - lastUpdated) / 1000000000.0), DEBUG_LAG_TIME_MAX);
         double elapsedTimeSinceLastInteraction = (updateTime - actor.getLastInteraction()) / 1000000000.0;
-        List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
+        List<Sprite> passiveCollisionRelevantSpritesLayer = WorldView.getPassiveCollisionRelevantSpritesLayer();
         double velocityX = actor.getCurrentVelocityX();
         double velocityY = actor.getCurrentVelocityY();
         Rectangle2D plannedPosition = new Rectangle2D(position.getX() + hitBoxOffsetX + velocityX * time, position.getY() + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
@@ -159,7 +159,7 @@ public class Sprite
                 interactionArea = calcInteractionRectangle();
         }
 
-        for (Sprite otherSprite : activeSprites) {
+        for (Sprite otherSprite : passiveCollisionRelevantSpritesLayer) {
             if (otherSprite == this ||
                     otherSprite.actor == actor
             )

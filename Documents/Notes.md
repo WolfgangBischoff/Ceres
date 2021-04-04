@@ -19,6 +19,14 @@
 * bases can be mixed, mutated over time
 * bacteria cultures can be used in incubators (bottleneck)
 
+#### Engine
+* Vllt activeSprites teilen um performance zu verbessern
+    - actorlist statt sprite list die duplikate entfernt
+    - onUpdate, inRange, intersection sollten alle actors durchsuchen
+    - oninteraction ist passiv
+* Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können
+    * Includes sollten gespeichert werden (Teil von LevelState?), bei initial geladenen werden auch persistente hinzugefügt
+
 #### Various
 * first stranger sound
 * Test: StatusInfo over sprite on key + ExclamationMark
@@ -27,8 +35,6 @@
 * Test: Dialogoption sollte weg sein bis retrigger
 * Actor that listens to variable and changes dialogue if set
 * Blinklicht
-* Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können
-    * Includes sollten gespeichert werden (Teil von LevelState?), bei initial geladenen werden auch persistente hinzugefügt
 * Show money in Shop view
 * Coin Game
     * Test: Animation Finish Button
