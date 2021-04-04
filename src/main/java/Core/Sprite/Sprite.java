@@ -55,10 +55,10 @@ public class Sprite
     private String initDialogueId = "none";
 
 
-    public Sprite(String imagename)
+    public Sprite(String path)
     {
         animated = false;
-        setImage(imagename);
+        setImage(path);
         frameWidth = basewidth;
         frameHeight = baseheight;
         hitBoxWidth = frameWidth;
@@ -344,12 +344,12 @@ public class Sprite
         return s.getBoundary().intersects(this.getBoundary());
     }
 
-    public void render(GraphicsContext gc, Long now)
+    public void render(GraphicsContext gc, Long renderTime)
     {
         String methodName = "render()";
 
         if (getAnimated()) {
-            renderAnimated(gc, now);
+            renderAnimated(gc, renderTime);
         }
         else {
             renderSimple(gc);

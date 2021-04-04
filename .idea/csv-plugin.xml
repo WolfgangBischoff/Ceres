@@ -325,6 +325,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/resources/actorData/machine/desinfection/desinfect.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/resources/actorData/machine/lever.csv">
           <value>
             <Attribute>

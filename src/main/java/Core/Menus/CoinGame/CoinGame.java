@@ -3,6 +3,7 @@ package Core.Menus.CoinGame;
 import Core.Actor;
 import Core.Menus.Inventory.MouseElement;
 import Core.Menus.Inventory.MouseElementsContainer;
+import Core.Sprite.Sprite;
 import Core.Utilities;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
@@ -23,12 +24,13 @@ public class CoinGame
     static CoinArea coinArea;
     private static String CLASSNAME = "CoinGame/";
     final String CHECKMARK_BUTTON_ID = "CHECKMARK";
-    private final Image cornerTopLeft, cornerBtmRight, finishedButton;
+    private final Image cornerTopLeft, cornerBtmRight;
     private final Integer WIDTH = COINGAME_WIDTH, HEIGHT = COINGAME_HEIGHT;
     private final Point2D SCREEN_POSITION = COINGAME_POSITION;
     private final MouseElementsContainer mouseElements = new MouseElementsContainer();
     String gameIdentifier;
     Actor actorOfDiscussion;
+    private Sprite finishedButton, finishedButtonDefault, finishedButtonHovered, finishedButtonEndHovered, finishedButtonEnd;
     private MouseElement highlightedElement = null;
 
     public CoinGame(String gameIdentifier, Actor actorOfDiscussion)
@@ -38,7 +40,6 @@ public class CoinGame
         coinArea = new CoinArea(gameIdentifier, actorOfDiscussion);
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
-        finishedButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "interface/coinGame/finished.png");
         init();
     }
 
@@ -51,6 +52,17 @@ public class CoinGame
     {
         Circle checkMarkButton = new Circle(SCREEN_POSITION.getX() + COIN_AREA_WIDTH + 135, SCREEN_POSITION.getY() + 400, 75);
         mouseElements.add(new MouseElement(checkMarkButton, CHECKMARK_BUTTON_ID, CLICK));
+        finishedButtonDefault = new Sprite(IMAGE_DIRECTORY_PATH + "interface/coinGame/finishedButton", 1d, 2, 2, 1, 150, 150);
+        finishedButtonDefault.setPosition(checkMarkButton.getCenterX() - checkMarkButton.getRadius(), checkMarkButton.getCenterY() - checkMarkButton.getRadius());
+        finishedButtonEnd = new Sprite(IMAGE_DIRECTORY_PATH + "interface/coinGame/finishedButton_end", 1d, 2, 2, 1, 150, 150);
+        finishedButtonEnd.setPosition(checkMarkButton.getCenterX() - checkMarkButton.getRadius(), checkMarkButton.getCenterY() - checkMarkButton.getRadius());
+        finishedButtonHovered = new Sprite(IMAGE_DIRECTORY_PATH + "interface/coinGame/finishedButton_hovered");
+        finishedButtonHovered.setPosition(checkMarkButton.getCenterX() - checkMarkButton.getRadius(), checkMarkButton.getCenterY() - checkMarkButton.getRadius());
+        finishedButtonEndHovered = new Sprite(IMAGE_DIRECTORY_PATH + "interface/coinGame/finishedButton_end_hovered");
+        finishedButtonEndHovered.setPosition(checkMarkButton.getCenterX() - checkMarkButton.getRadius(), checkMarkButton.getCenterY() - checkMarkButton.getRadius());
+
+
+        finishedButton = finishedButtonDefault;
     }
 
     public void update(long updateTime)
@@ -106,10 +118,7 @@ public class CoinGame
         gc.fillText(Utilities.roundTwoDigits(residualTime), SCREEN_POSITION.getX() + COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + textCenterOffset,
                 SCREEN_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET + 230);
 
-        Circle checkMarkButton = (Circle) mouseElements.get(CHECKMARK_BUTTON_ID).getPosition();
-        gc.drawImage(finishedButton, checkMarkButton.getCenterX() - checkMarkButton.getRadius(), checkMarkButton.getCenterY() - checkMarkButton.getRadius());
-        if(coinArea.isFinished)
-            gc.fillText("End", checkMarkButton.getCenterX() - checkMarkButton.getRadius(), checkMarkButton.getCenterY() - checkMarkButton.getRadius());
+        finishedButton.render(gc, currentNanoTime);
         gc.setFont(FONT_ESTROG_30_DEFAULT);
     }
 
@@ -118,6 +127,19 @@ public class CoinGame
         String methodName = "processMouse() ";
         Circle checkMarkButton = (Circle) mouseElements.get(CHECKMARK_BUTTON_ID).getPosition();
 
+        //Button Image
+        if (checkMarkButton.contains(mousePosition) && !coinArea.isFinished) {
+            finishedButton = finishedButtonHovered;
+        }
+        else if (checkMarkButton.contains(mousePosition)) {
+            finishedButton = finishedButtonEndHovered;
+        }
+        else if (coinArea.isFinished)
+            finishedButton = finishedButtonEnd;
+        else
+            finishedButton = finishedButtonDefault;
+
+        //Button Logic
         if (isMouseClicked && coinArea.isFinished
                 && (coinArea.isWon || checkMarkButton.contains(mousePosition))
         )//End CoinGame

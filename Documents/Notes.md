@@ -33,7 +33,6 @@
 * Blinklicht
 * Show money in Shop view
 * Coin Game
-    * Test: Animation Finish Button
     * Test: Game ends if no correct coins are left
     * Test: More detailed desc, not push same color
    
