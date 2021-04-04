@@ -127,8 +127,7 @@ public class CoinArea
                 System.out.println(coin.time_spawn + ": " + circle.getCenterX());
             //Check if is visible
             if (!SCREEN_AREA.contains(new Point2D(SCREEN_POSITION.getX() + circle.getCenterX(), SCREEN_POSITION.getY() +circle.getCenterY()))
-                   // intersects(SCREEN_POSITION.getX() + circle.getCenterX() - circle.getRadius(), SCREEN_POSITION.getY() +circle.getCenterY() - circle.getRadius(), circle.getCenterX() + circle.getRadius(), circle.getCenterY() + circle.getRadius())
-                    || elapsedTimeSinceSpawn > coin.time_max
+                   || elapsedTimeSinceSpawn > coin.time_max
             )
             {
                 removedCoinsList.add(coin);
