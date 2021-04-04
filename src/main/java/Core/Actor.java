@@ -807,6 +807,18 @@ public class Actor
         updateCompoundStatus();
     }
 
+    public boolean isActiveActor()
+    {
+        return
+                (sensorStatus.onInRange_TriggerSensor != NOTHING
+                || sensorStatus.onInRange_TriggerSprite != NOTHING
+                || sensorStatus.onIntersection_TriggerSensor != NOTHING
+                || sensorStatus.onIntersection_TriggerSprite != NOTHING
+                || sensorStatus.onUpdate_TriggerSensor != NOTHING
+                || sensorStatus.onUpdate_TriggerSprite != NOTHING
+                || getSpriteList().get(0).getName().equalsIgnoreCase("player"));
+    }
+
     public boolean isMoving()
     {
         return currentVelocityX != 0 || currentVelocityY != 0;
@@ -1001,13 +1013,9 @@ public class Actor
     public void setSensorStatus(String sensorStatusString)
     {
         String methodName = "setSensorStatus(String) ";
-        boolean debug = false;
-
         if (sensorStatusMap.get(sensorStatusString) == null)
             throw new RuntimeException("Sensor Status not defined: " + sensorStatusString + " at actor " + actorFileName + " known status: " + sensorStatusMap);
 
-        if (debug)
-            System.out.println(CLASSNAME + methodName + "set sensor from " + sensorStatus.statusName + " to " + sensorStatusString);
         if (sensorStatusMap.get(sensorStatusString) != sensorStatus)
             this.sensorStatus = sensorStatusMap.get(sensorStatusString);
     }

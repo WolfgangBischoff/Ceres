@@ -1,3 +1,8 @@
+##### 04 04 21
+* Vllt activeSprites teilen um performance zu verbessern
+  - actorlist statt sprite list die duplikate entfernt
+  - onUpdate, inRange, intersection sollten alle actors durchsuchen
+  - oninteraction ist passiv
 ##### 02 04 21
 * performance improvement and FPS measurement
 * Test: Coin Game Ende bei Gewinn gleich raus, bei Verlust neustart

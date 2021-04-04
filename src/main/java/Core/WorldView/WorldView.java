@@ -31,7 +31,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Scale;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -73,7 +72,8 @@ public class WorldView
     static ClockOverlay boardTimeOverlay;
     //Message Overlay
     static CentralMessageOverlay centralMessageOverlay = new CentralMessageOverlay();
-    static List<Sprite> activeSpritesLayer = new ArrayList<>();
+    static List<Actor> actorList = new ArrayList<>();
+    static List<Sprite> actorSpritesLayer = new ArrayList<>();
     static List<Sprite> passiveCollisionRelevantSpritesLayer = new ArrayList<>();
     static List<Sprite> passiveSpritesLayer = new ArrayList<>();
     static List<Sprite> bottomLayer = new ArrayList<>();
@@ -227,17 +227,17 @@ public class WorldView
         if(!invalidateSavedStages)
             saveStage();
         else
-            GameVariables.getLevelData().forEach((stagename, stage) -> stage.setValid(false));
+            GameVariables.getLevelData().forEach((stageName, stage) -> stage.setValid(false));
         loadStage(levelName, spawnId);
     }
 
     private void saveStage()
     {
         String levelNameToSave = this.levelName;
-        activeSpritesLayer.remove(player);
+        actorSpritesLayer.remove(player);
         middleLayer.remove(player); //Player Layer
         GameVariables.setPlayer(player);
-        GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.gameDateTime().getDays(), borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, upperLayer, shadowColor, spawnPointsMap, GameVariables.getClock().getTimeMode()));
+        GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.gameDateTime().getDays(), borders, actorSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, upperLayer, shadowColor, spawnPointsMap, GameVariables.getClock().getTimeMode(), actorList));
     }
 
     public void loadStage(String levelName, String spawnId)
@@ -270,8 +270,9 @@ public class WorldView
     private void clearLevel()
     {
         //Not clear(), lists are copied to LevelState
+        actorList = new ArrayList<>();
         passiveSpritesLayer = new ArrayList<>();
-        activeSpritesLayer = new ArrayList<>();
+        actorSpritesLayer = new ArrayList<>();
         bottomLayer = new ArrayList<>();
         middleLayer = new ArrayList<>();
         upperLayer = new ArrayList<>();
@@ -287,14 +288,15 @@ public class WorldView
         WorldLoader worldLoader = new WorldLoader();
         worldLoader.load(levelName, spawnId);
         List<Sprite> tmp_passiveSpritesLayer = worldLoader.getPassivLayer();
-        List<Sprite> tmp_activeSpritesLayer = worldLoader.getActiveLayer();
+        List<Sprite> tmp_actorSpritesLayer = worldLoader.getActorSprites();
         List<Sprite> tmp_bottomLayer = worldLoader.getBttmLayer();
         List<Sprite> tmp_middleLayer = worldLoader.getMediumLayer();
         List<Sprite> tmp_upperLayer = worldLoader.getUpperLayer();
         List<Sprite> tmp_topLayer = worldLoader.getTopLayer();
+        List<Actor> tmp_actors = worldLoader.getActorsList();
 
         //remove persistent actors, just not persistent should remain or actorless sprites
-        tmp_activeSpritesLayer = tmp_activeSpritesLayer.stream()
+        tmp_actorSpritesLayer = tmp_actorSpritesLayer.stream()
                 .filter(sprite ->
                         sprite.getActor() == null || //just a tile
                                 !sprite.getActor().tags.contains(ActorTag.PERSISTENT) // Wenn du den Tag hast, wirst du nicht neu geladen
@@ -318,13 +320,20 @@ public class WorldView
                         sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))
                 .collect(Collectors.toList());
 
+        tmp_actors = tmp_actors.stream()
+                .filter(actor ->
+                        !actor.tags.contains(ActorTag.PERSISTENT))
+                .collect(Collectors.toList());
+        var persistentActors = levelState.getactorList().stream().filter(a -> a.tags.contains(ActorTag.PERSISTENT)).collect(Collectors.toList());
+        tmp_actors.addAll(persistentActors);
+
         //add persistent actors from state
-        for (Sprite activeSprite : levelState.getActiveSpritesLayer())
+        for (Sprite activeSprite : levelState.getActorSpritesLayer())
         {
             if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT))
             {
                 //System.out.println(CLASSNAME + methodName + activeSprite.getActor().getActorInGameName());
-                tmp_activeSpritesLayer.add(activeSprite);
+                tmp_actorSpritesLayer.add(activeSprite);
                 switch (activeSprite.getLayer())
                 {
                     case 0:
@@ -346,7 +355,8 @@ public class WorldView
         }
 
         passiveSpritesLayer = tmp_passiveSpritesLayer;
-        activeSpritesLayer = tmp_activeSpritesLayer;
+        actorSpritesLayer = tmp_actorSpritesLayer;
+        actorList = tmp_actors;
         bottomLayer = tmp_bottomLayer;
         middleLayer = tmp_middleLayer;
         upperLayer = tmp_upperLayer;
@@ -358,7 +368,7 @@ public class WorldView
         player.getActor().setDirection(spawnData.getDirection());
         player.setPosition(spawnData.getX() * 64, spawnData.getY() * 64);
         middleLayer.add(player); //assumption player on layer 1
-        activeSpritesLayer.add(player);
+        actorSpritesLayer.add(player);
 
         passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
         passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
@@ -376,11 +386,12 @@ public class WorldView
         worldLoader.load(levelName, spawnId);
         player = worldLoader.getPlayer();
         passiveSpritesLayer = worldLoader.getPassivLayer(); //No collision just render
-        activeSpritesLayer = worldLoader.getActiveLayer();
+        actorSpritesLayer = worldLoader.getActorSprites();
         bottomLayer = worldLoader.getBttmLayer(); //Render height
         middleLayer = worldLoader.getMediumLayer();
         upperLayer = worldLoader.getUpperLayer();
         topLayer = worldLoader.getTopLayer();
+        actorList = worldLoader.getActorsList();
         passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
         passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
         passiveCollisionRelevantSpritesLayer.addAll(upperLayer);
@@ -394,8 +405,9 @@ public class WorldView
     private void loadFromLevelDailyState(LevelState levelState, String spawnId)
     {
         String methodName = "loadFromLevelDailyState() ";
+        actorList = levelState.getactorList();
         passiveSpritesLayer = levelState.getPassiveSpritesLayer(); //No collision just render
-        activeSpritesLayer = levelState.getActiveSpritesLayer();
+        actorSpritesLayer = levelState.getActorSpritesLayer();
         bottomLayer = levelState.getBottomLayer(); //Render height
         middleLayer = levelState.getMiddleLayer();
         upperLayer = levelState.getTopLayer();
@@ -410,7 +422,7 @@ public class WorldView
         player.getActor().setDirection(spawnData.getDirection());
         player.setPosition(spawnData.getX() * 64, spawnData.getY() * 64);
         middleLayer.add(player); //assumption player on layer 1
-        activeSpritesLayer.add(player);
+        actorSpritesLayer.add(player);
 
         passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
         passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
@@ -483,15 +495,15 @@ public class WorldView
         processMouse(currentUpdateTime);
 
         long inputEndTime = System.nanoTime();
-        //player.update(currentNanoTime);
-        for (Sprite active : activeSpritesLayer)
+        List<Sprite> spritesOfActiveActor = actorList.stream().filter(a -> a.isActiveActor()).map(actor -> actor.getSpriteList()).collect(Collectors.toList()).stream().flatMap(List::stream).collect(Collectors.toList());
+        for (Sprite active : spritesOfActiveActor)
             active.update(currentUpdateTime);
         for (Sprite sprite : toRemove)
         {
             WorldView.bottomLayer.remove(sprite);
             WorldView.middleLayer.remove(sprite);
             WorldView.upperLayer.remove(sprite);
-            WorldView.activeSpritesLayer.remove(sprite);
+            WorldView.actorSpritesLayer.remove(sprite);
             WorldView.passiveSpritesLayer.remove(sprite);
             WorldView.passiveCollisionRelevantSpritesLayer.remove(sprite);
         }
@@ -643,7 +655,7 @@ public class WorldView
 
         }
 
-        for (Sprite active : activeSpritesLayer)
+        for (Sprite active : actorSpritesLayer)
             if (active.intersectsRelativeToWorldView(mousePosition) && DEBUG_MOUSE_ANALYSIS && active.getActor() != null && isMouseClicked)
             {
                 Actor actor = active.getActor();
@@ -849,7 +861,7 @@ public class WorldView
     {
         String methodName = "getSpriteByName() ";
         List<Actor> re = new ArrayList<>();
-        for (Sprite sprite : activeSpritesLayer)
+        for (Sprite sprite : actorSpritesLayer)
         {
             if (sprite.getActor().getActorId().equals(id))
                 re.add(sprite.getActor());
