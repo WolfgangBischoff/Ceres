@@ -10,12 +10,10 @@ default		;19		;3				;south
 eastDoor	;18		;12			;west
 
 tiledefinition:
-#layer: 0 => behind ;1 => middle ;2 => in front
-#code     ;name        ;spritename                     ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
-#Floor
-metalU    ;darkMetal			;img/floor/darkMetalUpper;						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-metal_    ;darkMetal			;img/floor/darkMetal;											false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-metalL    ;darkMetal			;img/floor/darkMetalLower;						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+#code     ;name        											;spritename                  ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY	 ;hitBoxWidth;hitBoxHeight ;lightning  ;dialogueId ;dialogueFile ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+metalU    ;darkMetal														;img/floor/darkMetalUpper				;false				;0            ;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0              ;0          ;0            ;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+metal_    ;darkMetal														;img/floor/darkMetal									;false				;0            ;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0              ;0          ;0            ;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+metalL    ;darkMetal														;img/floor/darkMetalLower				;false				;0            ;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0              ;0          ;0            ;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 carpe0    ;carpet						;img/floor/carpet0;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 carpe1    ;carpet						;img/floor/carpet1 ;																					false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 slab__    ;carpet						;img/floor/slab;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4

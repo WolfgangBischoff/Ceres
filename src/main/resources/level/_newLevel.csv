@@ -13,7 +13,7 @@ default		;20		;20			;south
 
 
 tiledefinition:
-#File name convention: inner if wall around player + direction ;outer if player can go around wall + direction of corner
+#File name convention: inner (hülle) if wall around player + direction ;outer if player can go around wall (säule) + direction of corner
 #Naming: FChs_0  ShortName-[wall-hull-roof-floor]-[direction]-[number]
 #layer: 0 => on floor ;1 => player hight ;2 => above player;3 => above roof
 #Floor
