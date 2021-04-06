@@ -1,37 +1,78 @@
 package Core.Menus.CoinGame;
 
 import Core.Actor;
+import Core.Menus.Inventory.MouseElement;
+import Core.Menus.Inventory.MouseElementsContainer;
+import Core.Sprite.Sprite;
 import Core.Utilities;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.util.List;
 import java.util.Map;
 
 import static Core.Configs.Config.*;
+import static Core.Menus.Inventory.MouseInteractionType.CLICK;
 
 public class CoinGame
 {
-    private static String CLASSNAME = "CoinGame/";
     static CoinArea coinArea;
-    private final Image cornerTopLeft, cornerBtmRight, finishedButton;
+    private static String CLASSNAME = "CoinGame/";
+    final String CHECKMARK_BUTTON_ID = "CHECKMARK";
+    private final Image cornerTopLeft, cornerBtmRight;
     private final Integer WIDTH = COINGAME_WIDTH, HEIGHT = COINGAME_HEIGHT;
     private final Point2D SCREEN_POSITION = COINGAME_POSITION;
-    private Circle exitButton = new Circle(COIN_AREA_WIDTH + 135, 400, 75);
+    private final MouseElementsContainer mouseElements = new MouseElementsContainer();
+    String gameIdentifier;
+    Actor actorOfDiscussion;
+    private Sprite finishedButton, finishedButtonDefault, finishedButtonHovered, finishedButtonEndHovered, finishedButtonEnd;
+    private MouseElement highlightedElement = null;
 
     public CoinGame(String gameIdentifier, Actor actorOfDiscussion)
     {
+        this.gameIdentifier = gameIdentifier;
+        this.actorOfDiscussion = actorOfDiscussion;
         coinArea = new CoinArea(gameIdentifier, actorOfDiscussion);
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
-        finishedButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "interface/coinGame/finished.png");
+        init();
+    }
+
+    public static CoinArea getCoinArea()
+    {
+        return coinArea;
+    }
+
+    private void init()
+    {
+        Circle checkMarkButton = new Circle(SCREEN_POSITION.getX() + COIN_AREA_WIDTH + 135, SCREEN_POSITION.getY() + 400, 75);
+        mouseElements.add(new MouseElement(checkMarkButton, CHECKMARK_BUTTON_ID, CLICK));
+        finishedButtonDefault = new Sprite(IMAGE_DIRECTORY_PATH + "interface/coinGame/finishedButton", 1d, 2, 2, 1, 150, 150);
+        finishedButtonDefault.setPosition(checkMarkButton.getCenterX() - checkMarkButton.getRadius(), checkMarkButton.getCenterY() - checkMarkButton.getRadius());
+        finishedButtonEnd = new Sprite(IMAGE_DIRECTORY_PATH + "interface/coinGame/finishedButton_end", 1d, 2, 2, 1, 150, 150);
+        finishedButtonEnd.setPosition(checkMarkButton.getCenterX() - checkMarkButton.getRadius(), checkMarkButton.getCenterY() - checkMarkButton.getRadius());
+        finishedButtonHovered = new Sprite(IMAGE_DIRECTORY_PATH + "interface/coinGame/finishedButton_hovered");
+        finishedButtonHovered.setPosition(checkMarkButton.getCenterX() - checkMarkButton.getRadius(), checkMarkButton.getCenterY() - checkMarkButton.getRadius());
+        finishedButtonEndHovered = new Sprite(IMAGE_DIRECTORY_PATH + "interface/coinGame/finishedButton_end_hovered");
+        finishedButtonEndHovered.setPosition(checkMarkButton.getCenterX() - checkMarkButton.getRadius(), checkMarkButton.getCenterY() - checkMarkButton.getRadius());
+
+
+        finishedButton = finishedButtonDefault;
+    }
+
+    public void update(long updateTime)
+    {
+        coinArea.update(updateTime);
+        double elapsedTimeSinceGameFinished = ((updateTime - coinArea.isFinishedTime) / 1000000000.0);
+        if (coinArea.isWon && elapsedTimeSinceGameFinished > 1.5) {
+            closeCoinGame(updateTime);
+        }
+
     }
 
     public void render(GraphicsContext gc, Long currentNanoTime)
@@ -56,7 +97,6 @@ public class CoinGame
             gc.fillText("None", SCREEN_POSITION.getX() + COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + textCenterOffset,
                     SCREEN_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET + 60);
         for (Map.Entry<String, CharacterCoinBuff> entry : coinArea.getActiveBuffs().entrySet()) {
-            String key = entry.getKey();
             CharacterCoinBuff value = entry.getValue();
             gc.fillText(value.getName(), SCREEN_POSITION.getX() + COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + textCenterOffset,
                     SCREEN_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET + 65 + numberBuffs * (gc.getFont().getSize() + 5));
@@ -78,51 +118,58 @@ public class CoinGame
         gc.fillText(Utilities.roundTwoDigits(residualTime), SCREEN_POSITION.getX() + COIN_AREA_WIDTH + COIN_AREA_WIDTH_OFFSET + textCenterOffset,
                 SCREEN_POSITION.getY() + COIN_AREA_HEIGHT_OFFSET + 230);
 
-        //gc.setFill(Color.RED);
-        gc.drawImage(finishedButton, SCREEN_POSITION.getX() + exitButton.getCenterX() - exitButton.getRadius(), SCREEN_POSITION.getY() + exitButton.getCenterY() - exitButton.getRadius());
+        finishedButton.render(gc, currentNanoTime);
         gc.setFont(FONT_ESTROG_30_DEFAULT);
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
         String methodName = "processMouse() ";
-        Point2D overlayPosition = SCREEN_POSITION;
-        Rectangle2D posRelativeToWorldview = new Rectangle2D(overlayPosition.getX(), overlayPosition.getY(), WIDTH, HEIGHT);
-        Point2D mousePosRelativeToOverlay;
-        if (posRelativeToWorldview.contains(mousePosition))
-            mousePosRelativeToOverlay = new Point2D(mousePosition.getX() - overlayPosition.getX(), mousePosition.getY() - overlayPosition.getY());
-        else mousePosRelativeToOverlay = null;
+        Circle checkMarkButton = (Circle) mouseElements.get(CHECKMARK_BUTTON_ID).getPosition();
 
-        if (isMouseClicked && coinArea.isFinished &&
-                (mousePosRelativeToOverlay != null && exitButton.contains(mousePosRelativeToOverlay)
-                        || CoinArea.getScreenArea().contains(mousePosition)))
-        {
-            WorldView.getTextbox().nextMessage(currentNanoTime);
-            WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
+        //Button Image
+        if (checkMarkButton.contains(mousePosition) && !coinArea.isFinished) {
+            finishedButton = finishedButtonHovered;
         }
-        else if (CoinArea.getScreenArea().contains(mousePosition))
+        else if (checkMarkButton.contains(mousePosition)) {
+            finishedButton = finishedButtonEndHovered;
+        }
+        else if (coinArea.isFinished)
+            finishedButton = finishedButtonEnd;
+        else
+            finishedButton = finishedButtonDefault;
+
+        //Button Logic
+        if (isMouseClicked && coinArea.isFinished
+                && (coinArea.isWon || checkMarkButton.contains(mousePosition))
+        )//End CoinGame
         {
+            closeCoinGame(currentNanoTime);
+        }
+        else if (isMouseClicked && coinArea.isFinished && CoinArea.getScreenArea().contains(mousePosition))//Restart Game
+        {
+            coinArea = new CoinArea(gameIdentifier, actorOfDiscussion);
+        }
+        else if (isMouseClicked && checkMarkButton.contains(mousePosition)) //End game earlier
+        {
+            getCoinArea().coinsList.forEach(
+                    coin ->
+                    {
+                        if (!getCoinArea().removedCoinsList.contains(coin))
+                            getCoinArea().removedCoinsList.add(coin);
+                    });
+            getCoinArea().visibleCoinsList.clear();
+            getCoinArea().setMaxGameTime(-1);
+        }
+        else if (CoinArea.getScreenArea().contains(mousePosition)) {
             coinArea.processMouse(mousePosition, isMouseClicked, currentNanoTime);
-        }
-        else if (isMouseClicked && mousePosRelativeToOverlay != null && exitButton.contains(mousePosRelativeToOverlay))
-        {
-                getCoinArea().coinsList.forEach(
-                        coin ->
-                        {
-                            if (!getCoinArea().removedCoinsList.contains(coin))
-                                getCoinArea().removedCoinsList.add(coin);
-                        });
-                getCoinArea().visibleCoinsList.clear();
-                getCoinArea().setMaxGameTime(-1);
-
-
-
         }
 
     }
 
-    public static CoinArea getCoinArea()
+    private void closeCoinGame(Long currentNanoTime)
     {
-        return coinArea;
+        WorldView.getTextbox().nextMessage(currentNanoTime);
+        WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
     }
 }

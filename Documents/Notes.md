@@ -19,19 +19,22 @@
 * bases can be mixed, mutated over time
 * bacteria cultures can be used in incubators (bottleneck)
 
+#### Engine
+* Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können
+    * Includes sollten gespeichert werden (Teil von LevelState?), bei initial geladenen werden auch persistente hinzugefügt
+
 #### Various
 * first stranger sound
 * Test: StatusInfo over sprite on key + ExclamationMark
 * "Rumors"/Random dialogue
 * Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
-* sprite stop script if talking
-* Test: Coin Game Ende bei Gewinn gleich raus, bei Verlust neustart
 * Test: Dialogoption sollte weg sein bis retrigger
 * Actor that listens to variable and changes dialogue if set
 * Blinklicht
-* Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können
-    * Includes sollten gespeichert werden (Teil von LevelState?), bei initial geladenen werden auch persistente hinzugefügt
-    
+* Show money in Shop view
+* Coin Game
+    * Test: Game ends if no correct coins are left
+   
 #### Stealth mechanic
 * split inRange area into several parts
 * every part will be blocked by bocker sprites
@@ -47,6 +50,8 @@
 * Space suit: front helmrahmen fehlt
 * Manual with Incubator info
 * Test: nur mehr dicke wände
+* test: Air hub deutlicherer sprite das kaputt
+* Incubator Button and bacteria
     
     => Level changes with time
             While Map load set global actors according to time, date, variables defined in actor file

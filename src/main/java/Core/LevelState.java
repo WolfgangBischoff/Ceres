@@ -12,11 +12,11 @@ import java.util.Map;
 public class LevelState
 {
     final private static String CLASSNAME = "LevelState/";
-
     String levelName;
     long day;
     private Rectangle2D borders;
-    private List<Sprite> activeSpritesLayer;
+    private List<Actor> actorList;
+    private List<Sprite> actorSpritesLayer;
     private List<Sprite> passiveSpritesLayer;
     private List<Sprite> bottomLayer;
     private List<Sprite> middleLayer;
@@ -26,12 +26,12 @@ public class LevelState
     private TimeMode timeMode;
     private boolean isValid = true;
 
-    public LevelState(String levelName, long day, Rectangle2D borders, List<Sprite> activeSpritesLayer, List<Sprite> passiveSpritesLayer, List<Sprite> bottomLayer, List<Sprite> middleLayer, List<Sprite> topLayer, Color shadowColor, Map<String, WorldLoader.SpawnData> spawnPointsMap, TimeMode timeMode)
+    public LevelState(String levelName, long day, Rectangle2D borders, List<Sprite> activeSpritesLayer, List<Sprite> passiveSpritesLayer, List<Sprite> bottomLayer, List<Sprite> middleLayer, List<Sprite> topLayer, Color shadowColor, Map<String, WorldLoader.SpawnData> spawnPointsMap, TimeMode timeMode, List<Actor> activeActors)
     {
         this.levelName = levelName;
         this.day = day;
         this.borders = borders;
-        this.activeSpritesLayer = activeSpritesLayer;
+        this.actorSpritesLayer = activeSpritesLayer;
         this.passiveSpritesLayer = passiveSpritesLayer;
         this.bottomLayer = bottomLayer;
         this.middleLayer = middleLayer;
@@ -39,6 +39,7 @@ public class LevelState
         this.shadowColor = shadowColor;
         this.spawnPointsMap = new HashMap<>(spawnPointsMap);
         this.timeMode = timeMode;
+        this.actorList = activeActors;
     }
 
     @Override
@@ -72,9 +73,9 @@ public class LevelState
         return borders;
     }
 
-    public List<Sprite> getActiveSpritesLayer()
+    public List<Sprite> getActorSpritesLayer()
     {
-        return activeSpritesLayer;
+        return actorSpritesLayer;
     }
 
 
@@ -121,5 +122,10 @@ public class LevelState
     public void setValid(boolean valid)
     {
         isValid = valid;
+    }
+
+    public List<Actor> getactorList()
+    {
+        return actorList;
     }
 }

@@ -1,6 +1,8 @@
 package Core.Menus.Inventory;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -8,18 +10,18 @@ import java.util.Set;
 
 public class MouseElement
 {
-    Rectangle2D position;
+    Shape position;
     String identifier;
     Set<MouseInteractionType> reactiveTypes;
 
-    public MouseElement(Rectangle2D position, String identifier, Set<MouseInteractionType> reactiveTypes)
+    public MouseElement(Shape position, String identifier, Set<MouseInteractionType> reactiveTypes)
     {
         this.position = position;
         this.identifier = identifier;
         this.reactiveTypes = reactiveTypes;
     }
 
-    public MouseElement(Rectangle2D position, String identifier, MouseInteractionType reactiveTypes)
+    public MouseElement(Shape position, String identifier, MouseInteractionType reactiveTypes)
     {
         this.position = position;
         this.identifier = identifier;
@@ -27,7 +29,7 @@ public class MouseElement
         this.reactiveTypes.add(reactiveTypes);
     }
 
-    public Rectangle2D getPosition()
+    public Shape getPosition()
     {
         return position;
     }

@@ -27,7 +27,8 @@ public class WorldLoader
     Sprite player;
     Color shadowColor;
     List<Sprite> passivLayer = new ArrayList<>();
-    List<Sprite> activeLayer = new ArrayList<>();
+    List<Sprite> actorSprites = new ArrayList<>();
+    List<Actor> actorsList = new ArrayList<>();
     List<Sprite> bttmLayer = new ArrayList<>();
     List<Sprite> mediumLayer = new ArrayList<>();
     List<Sprite> upperLayer = new ArrayList<>();
@@ -198,7 +199,7 @@ public class WorldLoader
         GlobalActorsManager.loadGlobalSystem(linedata[0]);
         List<String> actorIds = Arrays.asList(linedata).subList(1, linedata.length);
         globalActorsMap.putAll(GlobalActorsManager.getGlobalActorsWithStatus(actorIds));
-        loadedTileIdsSet.addAll(actorIds.stream().map(string -> string.split(",")[0]).collect(Collectors.toList()));//remove additional status data. eg: medic_,windo
+        loadedTileIdsSet.addAll(actorIds.stream().map(string -> string.split(",")[0].trim()).collect(Collectors.toList()));//remove additional status data. eg: medic_,windo
     }
 
     private void readPosition(String[] lineData)
@@ -209,7 +210,9 @@ public class WorldLoader
         int yPos = Integer.parseInt(lineData[2]);
         Actor actor = createActor(actorId, 0, 0);
 
-        activeLayer.addAll(actor.spriteList);
+        actorSprites.addAll(actor.spriteList);
+        actorsList.add(actor);
+
         List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
 
         for (int j = 0; j < spriteDataList.size(); j++)
@@ -285,7 +288,6 @@ public class WorldLoader
     private void readSpawnPoint(String[] lineData)
     {
         String methodName = "readSpawnPoint()";
-        boolean debug = true;
         int spawnIdIdx = 0;
         int spawnXId = 1;
         int spawnYId = 2;
@@ -410,7 +412,8 @@ public class WorldLoader
             else if (actorDataMap.containsKey(lineData[currentHorizontalTile]))
             {
                 Actor actor = createActor(lineData[currentHorizontalTile]);
-                activeLayer.addAll(actor.spriteList);
+                actorSprites.addAll(actor.spriteList);
+                actorsList.add(actor);
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
                 for (int j = 0; j < spriteDataList.size(); j++)
                     addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
@@ -424,7 +427,8 @@ public class WorldLoader
                     sprite.setPosition(currentHorizontalTile * 64, currentVerticalTile * 64);
                 });
 
-                activeLayer.addAll(actor.spriteList);
+                actorSprites.addAll(actor.spriteList);
+                actorsList.add(actor);
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
                 for (int j = 0; j < spriteDataList.size(); j++)
                     addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
@@ -481,7 +485,6 @@ public class WorldLoader
             actorSprite.setActor(actor);
             actorSprite.setAnimationEnds(spriteData.animationEnds);
             actor.setVelocity(spriteData.velocity);//Set as often as Sprites exist?
-            //actor.dialogueStatusID = spriteData.dialogueID;
             actor.addSprite(actorSprite);
         }
         return actor;
@@ -529,7 +532,8 @@ public class WorldLoader
 
 
         actor.setDirection(playerSpawn.direction);
-        activeLayer.addAll(actor.spriteList);
+        actorSprites.addAll(actor.spriteList);
+        actorsList.add(actor);
         List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
         for (int j = 0; j < spriteDataList.size(); j++)
         {
@@ -585,9 +589,9 @@ public class WorldLoader
         return spawnId;
     }
 
-    public List<Sprite> getActiveLayer()
+    public List<Sprite> getActorSprites()
     {
-        return activeLayer;
+        return actorSprites;
     }
 
     public Set<String> getLoadedTileIdsSet()
@@ -724,4 +728,26 @@ public class WorldLoader
                     '}';
         }
     }
+
+    public List<Actor> getActorsList()
+    {
+        return actorsList;
+    }
+
+    //public void addActiveActorChecked(Actor actor)
+    //{
+    //    if(actor.sensorStatus.onInRange_TriggerSensor != NOTHING
+    //    || actor.sensorStatus.onInRange_TriggerSprite != NOTHING
+    //    || actor.sensorStatus.onIntersection_TriggerSensor != NOTHING
+    //    || actor.sensorStatus.onIntersection_TriggerSprite != NOTHING
+    //    || actor.sensorStatus.onUpdate_TriggerSensor != NOTHING
+    //    || actor.sensorStatus.onUpdate_TriggerSprite != NOTHING
+    //    || actor.getSpriteList().get(0).getName().equalsIgnoreCase("player")
+    //    )
+    //    activeActors.add(actor);
+    //    else
+    //        System.out.println(CLASSNAME + actor.getActorInGameName());
+    //}
+
+
 }

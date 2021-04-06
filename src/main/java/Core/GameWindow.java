@@ -17,8 +17,8 @@ import static Core.Configs.Config.*;
 
 public class GameWindow extends Stage
 {
-    public static ArrayList<String> input = new ArrayList<>();
     private static final String CLASSNAME = "GameWindow/";
+    public static ArrayList<String> input = new ArrayList<>();
     private static GameWindow singleton;
     private static long currentNanoRenderTimeGameWindow = 0L;
     private final Stage gameStage;
@@ -41,6 +41,21 @@ public class GameWindow extends Stage
         return singleton;
     }
 
+    public static ArrayList<String> getInput()
+    {
+        return input;
+    }
+
+    public static String getCLASSNAME()
+    {
+        return CLASSNAME;
+    }
+
+    public static long getCurrentNanoRenderTimeGameWindow()
+    {
+        return currentNanoRenderTimeGameWindow;
+    }
+
     public void createNextScene(WorldView controller)
     {
         String methodName = "createNextScene()";
@@ -55,11 +70,11 @@ public class GameWindow extends Stage
         scale.yProperty().bind(root.heightProperty().divide(CAMERA_HEIGHT));
         root.getTransforms().add(scale);
         Scene gameScene;
-        if(GAME_WINDOW_FULL_SCREEN)
-        {
+        if (GAME_WINDOW_FULL_SCREEN) {
             gameScene = new Scene(root);
             gameStage.setFullScreen(true);
-            //gameStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+            if (!GAME_WINDOW_FULL_SCREEN_DISABLE_EXIT)
+                gameStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             gameStage.setFullScreenExitHint("");
         }
         else
@@ -127,7 +142,6 @@ public class GameWindow extends Stage
         currentView.render(currentNanoTime);
     }
 
-
     public double getScreenWidth()
     {
         return gameStage.getScene().getWidth();
@@ -148,14 +162,14 @@ public class GameWindow extends Stage
         return currentNanoRenderTimeGameWindow;
     }
 
-    public static ArrayList<String> getInput()
-    {
-        return input;
-    }
-
     public boolean isMouseClicked()
     {
         return mouseClicked;
+    }
+
+    public void setMouseClicked(boolean mouseClicked)
+    {
+        this.mouseClicked = mouseClicked;
     }
 
     public Point2D getMousePosition()
@@ -173,24 +187,9 @@ public class GameWindow extends Stage
         this.mouseMoved = mouseMoved;
     }
 
-    public static String getCLASSNAME()
-    {
-        return CLASSNAME;
-    }
-
-    public static long getCurrentNanoRenderTimeGameWindow()
-    {
-        return currentNanoRenderTimeGameWindow;
-    }
-
     public boolean isMouseDragged()
     {
         return mouseDragged;
-    }
-
-    public void setMouseClicked(boolean mouseClicked)
-    {
-        this.mouseClicked = mouseClicked;
     }
 
 }

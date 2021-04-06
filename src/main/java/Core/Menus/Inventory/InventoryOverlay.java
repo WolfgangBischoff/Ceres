@@ -12,6 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 
 import java.util.HashSet;
@@ -35,7 +36,7 @@ public class InventoryOverlay implements DragAndDropOverlay
     Image cornerBtmRight;
     Image cancelButton;
     private Actor actor;
-    private MouseElementsContainer mouseElements = new MouseElementsContainer();
+    private final MouseElementsContainer mouseElements = new MouseElementsContainer();
     private MouseElement highlightedElement = null;
     private Point2D SCREEN_POSITION;
 
@@ -78,14 +79,14 @@ public class InventoryOverlay implements DragAndDropOverlay
             for (int i = 0; i < numberColumns; i++) {
                 //Rectangle
                 int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
-                Rectangle2D rectangle2D = new Rectangle2D(SCREEN_POSITION.getX() + slotX + 2, SCREEN_POSITION.getY() + slotY + 2, itemTileWidth - 4, itemTileWidth - 4);
+                Rectangle rectangle2D = new Rectangle(SCREEN_POSITION.getX() + slotX + 2, SCREEN_POSITION.getY() + slotY + 2, itemTileWidth - 4, itemTileWidth - 4);
                 MouseElement slot = new MouseElement(rectangle2D, Integer.valueOf(slotNumber).toString(), clickAndDrag);
                 mouseElements.add(slot);
                 slotNumber++;
             }
         }
 
-        Rectangle2D cancelButtonRect = new Rectangle2D(SCREEN_POSITION.getX() + WIDTH - cancelButton.getWidth(), SCREEN_POSITION.getY(), 64, 64);
+        Rectangle cancelButtonRect = new Rectangle(SCREEN_POSITION.getX() + WIDTH - cancelButton.getWidth(), SCREEN_POSITION.getY(), 64, 64);
         mouseElements.add(new MouseElement(cancelButtonRect, CANCEL_BUTTON_ID, CLICK));
     }
 
@@ -114,11 +115,11 @@ public class InventoryOverlay implements DragAndDropOverlay
         int slotNumber = 0;
         for (int y = 0; y < numberRows; y++) {
             for (int i = 0; i < numberColumns; i++) {
-                Rectangle2D currentRect = mouseElements.get(slotNumber).position;
+                Rectangle currentRect = (Rectangle) mouseElements.get(slotNumber).position;
                 gc.setFill(font);
-                gc.fillRect(currentRect.getMinX(), currentRect.getMinY(), currentRect.getWidth(), currentRect.getHeight());
+                gc.fillRect(currentRect.getX(), currentRect.getY(), currentRect.getWidth(), currentRect.getHeight());
                 gc.setFill(marking);
-                Rectangle2D rectangle2D = new Rectangle2D(currentRect.getMinX() + 2, currentRect.getMinY() + 2, currentRect.getWidth() - 4, currentRect.getHeight() - 4);
+                Rectangle2D rectangle2D = new Rectangle2D(currentRect.getX() + 2, currentRect.getY() + 2, currentRect.getWidth() - 4, currentRect.getHeight() - 4);
 
                 //Highlighting
                 if (mouseElements.indexOf(highlightedElement) == slotNumber)
@@ -133,13 +134,13 @@ public class InventoryOverlay implements DragAndDropOverlay
                 if (itemSlotNumber < actor.getInventory().itemsList.size())
                     current = actor.getInventory().itemsList.get(itemSlotNumber);
                 if (current != null) {
-                    gc.drawImage(current.getImage(), currentRect.getMinX() -2, currentRect.getMinY()-2);
+                    gc.drawImage(current.getImage(), currentRect.getX() -2, currentRect.getY()-2);
                     //Stolen sign
                     if (GameVariables.getStolenCollectibles().contains(current)) {
                         gc.setFill(darkRed);
-                        gc.fillOval(currentRect.getMinX() + 44, currentRect.getMinY() + 44, 16, 16);
+                        gc.fillOval(currentRect.getX() + 44, currentRect.getY() + 44, 16, 16);
                         gc.setFill(COLOR_RED);
-                        gc.fillOval(currentRect.getMinX() + 46, currentRect.getMinY() + 46, 12, 12);
+                        gc.fillOval(currentRect.getX() + 46, currentRect.getY() + 46, 12, 12);
                     }
                 }
                 itemSlotNumber++;
@@ -157,8 +158,8 @@ public class InventoryOverlay implements DragAndDropOverlay
         //Decoration
         gc.drawImage(cornerTopLeft, SCREEN_POSITION.getX(), SCREEN_POSITION.getY());
         gc.drawImage(cornerBtmRight, SCREEN_POSITION.getX() + WIDTH - cornerBtmRight.getWidth(), SCREEN_POSITION.getY() + HEIGHT - cornerBtmRight.getHeight());
-        Rectangle2D cancelButtonRect = mouseElements.get(CANCEL_BUTTON_ID).position;
-        gc.drawImage(cancelButton, cancelButtonRect.getMinX(), cancelButtonRect.getMinY());
+        Rectangle cancelButtonRect = (Rectangle) mouseElements.get(CANCEL_BUTTON_ID).position;
+        gc.drawImage(cancelButton, cancelButtonRect.getX(), cancelButtonRect.getY());
 
         if(false)
         {//Mouse visible

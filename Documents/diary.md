@@ -1,4 +1,16 @@
-
+##### 05 04 21
+* level build
+##### 04 04 21
+* Vllt activeSprites teilen um performance zu verbessern
+  - actorlist statt sprite list die duplikate entfernt
+  - onUpdate, inRange, intersection sollten alle actors durchsuchen
+  - oninteraction ist passiv
+* Test: More detailed desc, not push same color
+* added anitmated finish button
+##### 02 04 21
+* performance improvement and FPS measurement
+* Test: Coin Game Ende bei Gewinn gleich raus, bei Verlust neustart
+* bugfix: coin outside area
 ##### 22 03 21
 * Tooltip is rendered over Other Overlays
 * Test: Augenhöhle seltsam

@@ -11,6 +11,8 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import static Core.Configs.Config.*;
 import static Core.Menus.Inventory.MouseInteractionType.CLICK;
@@ -51,16 +53,16 @@ public class IncubatorOverlay implements DragAndDropOverlay
 
     private void init()
     {
-        MouseElement convertBtn = new MouseElement(new Rectangle2D(SCREEN_POSITION.getX() + 110, SCREEN_POSITION.getY() + 300, 150, 64), CONVERT_BUTTON_ID, CLICK);
+        MouseElement convertBtn = new MouseElement(new Rectangle(SCREEN_POSITION.getX() + 110, SCREEN_POSITION.getY() + 300, 150, 64), CONVERT_BUTTON_ID, CLICK);
         mouseElements.add(convertBtn);
 
-        Rectangle2D base_input = new Rectangle2D(SCREEN_POSITION.getX() + 100, SCREEN_POSITION.getY() + 200, 64, 64);
+        Rectangle base_input = new Rectangle(SCREEN_POSITION.getX() + 100, SCREEN_POSITION.getY() + 200, 64, 64);
         mouseElements.add(new MouseElement(base_input, BASE_INPUT_SLOT, DRAG));
 
-        Rectangle2D base_output = new Rectangle2D(SCREEN_POSITION.getX() + 200, SCREEN_POSITION.getY() + 200, 64, 64);
+        Rectangle base_output = new Rectangle(SCREEN_POSITION.getX() + 200, SCREEN_POSITION.getY() + 200, 64, 64);
         mouseElements.add(new MouseElement(base_output, BASE_OUTPUT_SLOT, DRAG));
 
-        Rectangle2D cancelButtonRect = new Rectangle2D(SCREEN_POSITION.getX() + WIDTH - cancelButton.getWidth(), SCREEN_POSITION.getY(), 64, 64);
+        Rectangle cancelButtonRect = new Rectangle(SCREEN_POSITION.getX() + WIDTH - cancelButton.getWidth(), SCREEN_POSITION.getY(), 64, 64);
         mouseElements.add(new MouseElement(cancelButtonRect, CANCEL_BUTTON_ID, CLICK));
     }
 
@@ -78,8 +80,8 @@ public class IncubatorOverlay implements DragAndDropOverlay
         drawItemSlot(gc, BASE_INPUT_SLOT);
         drawItemSlot(gc, BASE_OUTPUT_SLOT);
 
-        Rectangle2D convertButtonRect = mouseElements.get(CONVERT_BUTTON_ID).position;
-        gc.drawImage(convertButton, convertButtonRect.getMinX(), convertButtonRect.getMinY());
+        Rectangle convertButtonRect = (Rectangle)mouseElements.get(CONVERT_BUTTON_ID).position;
+        gc.drawImage(convertButton, convertButtonRect.getX(), convertButtonRect.getY());
 
 
         //Text
@@ -94,8 +96,8 @@ public class IncubatorOverlay implements DragAndDropOverlay
         //Decoration
         gc.drawImage(cornerTopLeft, SCREEN_POSITION.getX(), SCREEN_POSITION.getY());
         gc.drawImage(cornerBtmRight, SCREEN_POSITION.getX() + WIDTH - cornerBtmRight.getWidth(), SCREEN_POSITION.getY() + HEIGHT - cornerBtmRight.getHeight());
-        Rectangle2D cancelButtonRect = mouseElements.get(CANCEL_BUTTON_ID).position;
-        gc.drawImage(cancelButton, cancelButtonRect.getMinX(), cancelButtonRect.getMinY());
+        Rectangle cancelButtonRect = (Rectangle) mouseElements.get(CANCEL_BUTTON_ID).position;
+        gc.drawImage(cancelButton, cancelButtonRect.getX(), cancelButtonRect.getY());
 
     }
 
@@ -103,14 +105,14 @@ public class IncubatorOverlay implements DragAndDropOverlay
     {
         MouseElement mouseElement = mouseElements.get(itemslotName);
         int inventoryIdx = mouseElements.indexOf(mouseElement);
-        Rectangle2D rectangle2D = mouseElement.position;
+        Rectangle rectangle2D = (Rectangle) mouseElement.position;
 
         gc.setFill(COLOR_FONT);
-        gc.fillRect(rectangle2D.getMinX(), rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
+        gc.fillRect(rectangle2D.getX(), rectangle2D.getY(), rectangle2D.getWidth(), rectangle2D.getHeight());
         gc.setFill(highlightedElement == mouseElement ? COLOR_FONT : COLOR_MARKING);
-        gc.fillRect(rectangle2D.getMinX() + 2, rectangle2D.getMinY() + 2, rectangle2D.getWidth() - 4, rectangle2D.getHeight() - 4);
+        gc.fillRect(rectangle2D.getX() + 2, rectangle2D.getY() + 2, rectangle2D.getWidth() - 4, rectangle2D.getHeight() - 4);
         if (actor.getInventory().itemsList.get(inventoryIdx) != null)
-            gc.drawImage(actor.getInventory().itemsList.get(inventoryIdx).getImage(), rectangle2D.getMinX(), rectangle2D.getMinY());
+            gc.drawImage(actor.getInventory().itemsList.get(inventoryIdx).getImage(), rectangle2D.getX(), rectangle2D.getY());
     }
 
 

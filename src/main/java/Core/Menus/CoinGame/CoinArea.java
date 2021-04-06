@@ -46,6 +46,8 @@ public class CoinArea
     Element xmlRoot;
     Long gameStartTime;
     boolean isFinished = false;
+    boolean isWon = false;
+    long isFinishedTime = 0;
     Map<CoinType, Integer> clickedCoins = new HashMap<>();
     String gameFileName;
     Actor actorOfDiscussion;
@@ -117,14 +119,15 @@ public class CoinArea
         for (int i = 0; i < visibleCoinsList.size(); i++)
         {
             CharacterCoin coin = visibleCoinsList.get(i);
+            coin.move(currentNanoTime - gameStartTime);
             Circle circle = coin.collisionCircle;
             double elapsedTimeSinceSpawn = ((currentNanoTime - gameStartTime) / 1000000000.0) - coin.time_spawn;
-            coin.move(currentNanoTime - gameStartTime);
 
+            if(circle.getCenterX() > 954)
+                System.out.println(coin.time_spawn + ": " + circle.getCenterX());
             //Check if is visible
-            if (!SCREEN_AREA.
-                    intersects(circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius(), circle.getCenterX() + circle.getRadius(), circle.getCenterY() + circle.getRadius())
-                    || elapsedTimeSinceSpawn > coin.time_max
+            if (!SCREEN_AREA.contains(new Point2D(SCREEN_POSITION.getX() + circle.getCenterX(), SCREEN_POSITION.getY() +circle.getCenterY()))
+                   || elapsedTimeSinceSpawn > coin.time_max
             )
             {
                 removedCoinsList.add(coin);
@@ -143,7 +146,7 @@ public class CoinArea
             activeBuffs.remove(key);
         });
 
-        if (removedCoinsList.size() == coinsList.size())
+        if (removedCoinsList.size() == coinsList.size() && !isFinished)
         {
             //Get number of clicked coins
             PersonalityContainer personality = actorOfDiscussion.getPersonalityContainer();
@@ -200,10 +203,14 @@ public class CoinArea
 
             totalResult = motivationResult + focusResult + decisionResult + lifestyleResult + machineCompute + machineManagement + machineInterface + machineNetwork;
             if (totalResult >= winThreshold)
+            {
                 WorldView.getTextbox().setNextDialogueFromDiscussionResult(true);
+                isWon = true;
+            }
             else
                 WorldView.getTextbox().setNextDialogueFromDiscussionResult(false);
             isFinished = true;
+            isFinishedTime = currentNanoTime;
         }
     }
 
@@ -221,6 +228,8 @@ public class CoinArea
         gc.setFill(BLACK);
         gc.fillRect(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
 
+
+
         gc.setStroke(font);
         int xInterval = 50, yInterval = 50;
         for (int x = 0; x <= WIDTH; x += xInterval)
@@ -228,9 +237,10 @@ public class CoinArea
         for (int y = 0; y <= HEIGHT; y += yInterval)
             gc.strokeLine(SCREEN_POSITION.getX(), SCREEN_POSITION.getY() + y, SCREEN_POSITION.getX() + WIDTH, SCREEN_POSITION.getY() + y);
 
-        update(currentNanoTime);
+        gc.setStroke(Color.RED);
+        gc.strokeRect(SCREEN_AREA.getMinX(), SCREEN_AREA.getMinY(), SCREEN_AREA.getWidth(), SCREEN_AREA.getHeight());
+
         gc.setGlobalAlpha(1);
-        gc.setFill(COLOR_MARKING);
         for (int i = 0; i < visibleCoinsList.size(); i++)
         {
             CharacterCoin coin = visibleCoinsList.get(i);
@@ -238,7 +248,7 @@ public class CoinArea
             shapeList.add(circle);
             gc.drawImage(coin.image, SCREEN_POSITION.getX() + circle.getCenterX() - circle.getRadius(), SCREEN_POSITION.getY() + circle.getCenterY() - circle.getRadius());
         }
-
+        gc.setFill(COLOR_MARKING);
         gc.fillOval(SCREEN_POSITION.getX() + mouseClickSpace.getCenterX() - mouseClickSpace.getRadius(), SCREEN_POSITION.getY() + mouseClickSpace.getCenterY() - mouseClickSpace.getRadius(), mouseClickSpace.getRadius() * 2, mouseClickSpace.getRadius() * 2);
 
         if (isFinished)
@@ -249,20 +259,24 @@ public class CoinArea
             gc.setTextBaseline(VPos.CENTER);
 
             float achievedPercentageOfMinWinThreshold = (float) totalResult / winThreshold;
-            String hintMsg = "";
+            String hintMsg;
             if (achievedPercentageOfMinWinThreshold >= 0.7)
-                hintMsg = "You were close to success..";
+                hintMsg = "Close to success..";
             else if (achievedPercentageOfMinWinThreshold >= 0.5)
-                hintMsg = "You were not close to success..";
-            else if (achievedPercentageOfMinWinThreshold >= 0.0)
-                hintMsg = "You were far away from success..";
+                hintMsg = "This went ok, maybe next time..";
+            else
+                hintMsg = "This went wrong..";
 
             if (totalResult >= winThreshold)
                 gc.fillText("Success!", SCREEN_POSITION.getX() + WIDTH / 2.0, SCREEN_POSITION.getY() + HEIGHT / 2.0 + gc.getFont().getSize());
             else
+            {
                 gc.fillText(hintMsg, SCREEN_POSITION.getX() + WIDTH / 2.0, SCREEN_POSITION.getY() + HEIGHT / 2.0 + gc.getFont().getSize());
+                gc.fillText("Click here to restart!", SCREEN_POSITION.getX() + WIDTH / 2.0, SCREEN_POSITION.getY() + HEIGHT / 2.0 + gc.getFont().getSize() * 2 + 10);
+            }
 
         }
+
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)

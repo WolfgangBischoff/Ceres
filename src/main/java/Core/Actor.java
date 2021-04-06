@@ -182,7 +182,7 @@ public class Actor
                 numeric_generic_attributes.put(linedata[0], Double.parseDouble(linedata[1]));
                 break;
             case SCRIPT_ACTOR:
-                script = readScript(linedata);
+                setScript(linedata[1]);
                 break;
             default:
                 throw new RuntimeException("Keyword unknown: " + keyword);
@@ -191,9 +191,14 @@ public class Actor
         return true;
     }
 
-    private Script readScript(String[] linedata)
+    private Script readScript(String path)
     {
-        return new Script(Utilities.readXMLFile(linedata[1]));
+        return new Script(Utilities.readXMLFile(path));
+    }
+
+    public void setScript(String path)
+    {
+        script = readScript(path);
     }
 
     private PersonalityContainer readPersonality(String[] linedata)
@@ -802,6 +807,18 @@ public class Actor
         updateCompoundStatus();
     }
 
+    public boolean isActiveActor()
+    {
+        return
+                (sensorStatus.onInRange_TriggerSensor != NOTHING
+                || sensorStatus.onInRange_TriggerSprite != NOTHING
+                || sensorStatus.onIntersection_TriggerSensor != NOTHING
+                || sensorStatus.onIntersection_TriggerSprite != NOTHING
+                || sensorStatus.onUpdate_TriggerSensor != NOTHING
+                || sensorStatus.onUpdate_TriggerSprite != NOTHING
+                || getSpriteList().get(0).getName().equalsIgnoreCase("player"));
+    }
+
     public boolean isMoving()
     {
         return currentVelocityX != 0 || currentVelocityY != 0;
@@ -996,13 +1013,9 @@ public class Actor
     public void setSensorStatus(String sensorStatusString)
     {
         String methodName = "setSensorStatus(String) ";
-        boolean debug = false;
-
         if (sensorStatusMap.get(sensorStatusString) == null)
             throw new RuntimeException("Sensor Status not defined: " + sensorStatusString + " at actor " + actorFileName + " known status: " + sensorStatusMap);
 
-        if (debug)
-            System.out.println(CLASSNAME + methodName + "set sensor from " + sensorStatus.statusName + " to " + sensorStatusString);
         if (sensorStatusMap.get(sensorStatusString) != sensorStatus)
             this.sensorStatus = sensorStatusMap.get(sensorStatusString);
     }

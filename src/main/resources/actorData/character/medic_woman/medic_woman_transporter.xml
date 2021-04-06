@@ -4,9 +4,8 @@
 
     <dialogue id="intro" type = "normal" variablename="TRANSPORTER_AIR_SYSTEM_QUEST_TALKED_TO_SISTER" set="true" nextDialogue="GAME_TUTORIAL_1">
         <line>Good morning sleepyhead! Well, hopefully you won't oversleep our arrival on %%GDCeres%% ;-)</line>
-        <line>Mum and dad sent me a message. %%RDDads job was cut%%, but he looks for new opportunities.</line>
-        <line>At least now he doesn't have to lift as hard as in that shitty job. They told me we shouldn't worry.</line>
-        <line>Anyway, I got this parcel stamp before we left earth, wanna have it? Just ask my %%GRintroverted%% me friendly.</line>
+        <line>Mum and dad sent me a message. %%RDDads job was cut%%, but he looks for new opportunities. They told me we shouldn't worry.</line>
+        <line>Anyway, I got this parcel stamp before we left earth, wanna have it? Just ask my %%GRintroverted%% me friendly. %%RDNever%% address different characteristics of the %%RDsame color%%!</line>
     </dialogue>
     <dialogue id="GAME_TUTORIAL_1" type="technical" coingame="tutorial_1" success="GAME_TUTORIAL_1_WON" defeat="GAME_TUTORIAL_1_LOST"/>
     <dialogue id="GAME_TUTORIAL_1_WON" type="normal" item_actor="actorData/collectibles/stamp/stamp" item_name="Space Exploration" item_status="early_space_exploration" nextDialogue="intro_2" dialogueId="intro_2">

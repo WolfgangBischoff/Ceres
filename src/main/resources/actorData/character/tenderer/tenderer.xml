@@ -110,9 +110,17 @@
         <line>You should rest now to take over the watch during the night.</line>
     </dialogue>
 
-    <dialogue id="AFTER_ARRIVAL" type="normal">
+    <dialogue id="AFTER_ARRIVAL" type="normal" nextDialogue="AFTER_ARRIVAL_1">
         <line>Seems we had a malfunction at a rescue pod. Do you know something about it?</line>
         <spritechange sprite_id="leftDo" sensorstatus="UNLOCKED"/>
+    </dialogue>
+    <dialogue id="AFTER_ARRIVAL_1" type="decision">
+        <option nextDialogue="AFTER_ARRIVAL_2" >
+            Looks like a random power peak, don't worry too much.
+        </option>
+    </dialogue>
+    <dialogue id="AFTER_ARRIVAL_2" type="normal" dialogueId="AFTER_ARRIVAL_2">
+        <line>Understood, I will check your report; never heard of such an issue before.</line>
     </dialogue>
 
 </root>

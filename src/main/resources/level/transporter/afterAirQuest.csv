@@ -6,10 +6,10 @@ tiledefinition:
 ceres_               ;ceres							                        ;img/ceres/ceres_blocksize_2																;false				;0											;0			   ;0												;0				  ;0				  ;0										;0											;0													;0													;0										;0												;none						;none							;none									;unused0;unused1;unused2;unused3;unused4
 
 global_system_actor:
-#character           ;mapId ,spStatus   , direction , sensStatus, dialogFile, dialogueID
-character            ;medic_,default,north,,,WINDOW_INTRO
-character            ;tender,,south,,,,
-character            ;guard_,,south,,,AFTER_AIR_QUEST
+#character           ;mapId ,spStatus   ,direction	 ,sensStatus					,dialogFile																															,dialogueID 												,scriptPath
+character            ;medic_,default				,north						,															,																																									,WINDOW_INTRO											,
+character            ;tender,											,south						,script									,																																									,																							,
+character            ;guard_,											,south						,															,																																									,AFTER_AIR_QUEST								,
 
 layer:
 #			;001			 ;002			 ;003			 ;004			 ;005				;006			 ;007				;008				;009			 ;010			 ;011			 ;012			 ;013			 ;014			 ;015			 ;016			 ;017			 ;018				;019				;020				;021				;022				;023				;024				;025				;026				;027				;028				;029				;030				;031				;032   ;033   ;034   ;035   ;036   ;037   ;038   ;039   ;040				;
