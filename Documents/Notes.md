@@ -239,7 +239,9 @@ Lupin
 - Windows Recorder: Win + G
 - Ctrl + Alt + </>: Jump to code parts
 - Ctrl + (numblock)/: Comment line
-- jar xf .\Ceres-1.0-SNAPSHOT.jar => To unzip jars
+- jar xf .\Ceres-1.0-SNAPSHOT.jar => To unzip jars and check paths
 - Create Executable by
     gradle->tasks->distribution->installDist
-    In A:\IdeaProjects\Ceres\build\install\Ceres\bin use Ceres.bat
+    In A:\IdeaProjects\Ceres\build\install\Ceres\bin use Ceres.bat (GitShell, JAVA_HOME must be set to JDK-11)
+    JAVA_HOME example: A:\Java\jdk-11
+    https://sourceforge.net/projects/openjdk11/
