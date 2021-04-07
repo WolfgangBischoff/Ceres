@@ -58,9 +58,7 @@
 *       Set Actor script according to time
 * 
 
-    
 
-    
 # Ideas
 ##Basemechanics
 ### Transform your Transporter to better place to live
@@ -148,9 +146,9 @@ Spiritual Mission:
     Drugs, secret cult
 
 
-------------------------------------------
------ Lore & World -----------------------
-------------------------------------------
+
+### Lore & World
+
 Lore (Info not related to Plot, History, descriptions)
     Third Class
         => Earth damaged, people want to live in space and station, Ceres is base for asteriod belt mining
