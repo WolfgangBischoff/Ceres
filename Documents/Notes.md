@@ -34,7 +34,9 @@
 * Show money in Shop view
 * Coin Game
     * Test: Game ends if no correct coins are left
-   
+* Cooperation value just increases two time a day
+* Create Questlog 
+
 #### Stealth mechanic
 * split inRange area into several parts
 * every part will be blocked by bocker sprites
@@ -51,12 +53,11 @@
 * test: Air hub deutlicherer sprite das kaputt
 * Incubator Button and bacteria
     
-    => Level changes with time
-            While Map load set global actors according to time, date, variables defined in actor file
-            Set Actor script according to time
-  
-    - Cooperation value just increases two time a day
-    - Create Questlog
+*  Level changes with time
+*       While Map load set global actors according to time, date, variables defined in actor file
+*       Set Actor script according to time
+* 
+
     
 
     
