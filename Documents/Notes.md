@@ -47,7 +47,6 @@
 * stranger sprite with air mask and gloves  
 * Docking Bay: space elevator rope, bodenmarkierung lift    
 * Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
-* Manual with Incubator info
 * Test: nur mehr dicke wände
 * test: Air hub deutlicherer sprite das kaputt
 * Incubator Button and bacteria
