@@ -51,7 +51,6 @@
 * Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
 * Test: nur mehr dicke wände
 * test: Air hub deutlicherer sprite das kaputt
-* Incubator Button and bacteria
     
 *  Level changes with time
 *       While Map load set global actors according to time, date, variables defined in actor file

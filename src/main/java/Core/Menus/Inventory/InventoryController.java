@@ -51,7 +51,7 @@ public class InventoryController
         InventoryController.exchangeInventoryActor = exchangeInventoryActor;
     }
 
-    public void render(GraphicsContext gc)
+    public void render(GraphicsContext gc, long currentRenderTime)
     {
         String methodName = "render() ";
         playerInventoryOverlay.render(gc);
@@ -68,7 +68,7 @@ public class InventoryController
         }
         else if (WorldViewController.getWorldViewStatus() == INCUBATOR) {
             incubatorOverlay.setActor(exchangeInventoryActor);
-            incubatorOverlay.render(gc);
+            incubatorOverlay.render(gc, currentRenderTime);
         }
         if (dragAndDropItem != null)
             gc.drawImage(dragAndDropItem.collectible.getImage(), dragAndDropItem.screenPosition.getX(), dragAndDropItem.screenPosition.getY());

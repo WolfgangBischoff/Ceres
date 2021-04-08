@@ -766,7 +766,7 @@ public class WorldView
             case INVENTORY_EXCHANGE:
             case INVENTORY_SHOP:
             case INCUBATOR:
-                inventoryController.render(hudCanvas.getGraphicsContext2D());
+                inventoryController.render(hudCanvas.getGraphicsContext2D(), currentNanoTime);
                 break;
             case PERSONALITY:
                 WritableImage personalityScreenOverlay = personalityScreenController.getWritableImage();

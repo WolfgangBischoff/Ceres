@@ -4,6 +4,7 @@ import Core.Actor;
 import Core.Collectible;
 import Core.Enums.CollectableType;
 import Core.GameWindow;
+import Core.Sprite.Sprite;
 import Core.Utilities;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -29,7 +30,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
     final String CANCEL_BUTTON_ID = "CANCEL";
     Image cornerTopLeft;
     Image cornerBtmRight;
-    Image convertButton;
+    Sprite convertButton;
     Image cancelButton;
     private final InventoryController controller;
     private final MouseElementsContainer mouseElements = new MouseElementsContainer();
@@ -42,7 +43,6 @@ public class IncubatorOverlay implements DragAndDropOverlay
     {
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
-        convertButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "interface/incubator/convert_button.png");
         cancelButton = Utilities.readImage(IMAGE_DIRECTORY_PATH + "interface/cancelButton.png");
         this.SCREEN_POSITION = SCREEN_POSITION;
         SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
@@ -53,8 +53,11 @@ public class IncubatorOverlay implements DragAndDropOverlay
 
     private void init()
     {
-        MouseElement convertBtn = new MouseElement(new Rectangle(SCREEN_POSITION.getX() + 110, SCREEN_POSITION.getY() + 300, 150, 64), CONVERT_BUTTON_ID, CLICK);
+        Rectangle convertButtonRect = new Rectangle(SCREEN_POSITION.getX() + 110, SCREEN_POSITION.getY() + 300, 150, 64);
+        MouseElement convertBtn = new MouseElement(convertButtonRect, CONVERT_BUTTON_ID, CLICK);
         mouseElements.add(convertBtn);
+        convertButton = new Sprite(IMAGE_DIRECTORY_PATH + "interface/incubator/convert_button", 6.0, 4, 4, 1, 150,64);
+        convertButton.setPosition(convertButtonRect.getX(), convertButtonRect.getY());
 
         Rectangle base_input = new Rectangle(SCREEN_POSITION.getX() + 100, SCREEN_POSITION.getY() + 200, 64, 64);
         mouseElements.add(new MouseElement(base_input, BASE_INPUT_SLOT, DRAG));
@@ -66,7 +69,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
         mouseElements.add(new MouseElement(cancelButtonRect, CANCEL_BUTTON_ID, CLICK));
     }
 
-    public void render(GraphicsContext gc) throws NullPointerException
+    public void render(GraphicsContext gc, long currentRenderTime) throws NullPointerException
     {
         String methodName = "render() ";
 
@@ -81,8 +84,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
         drawItemSlot(gc, BASE_OUTPUT_SLOT);
 
         Rectangle convertButtonRect = (Rectangle)mouseElements.get(CONVERT_BUTTON_ID).position;
-        gc.drawImage(convertButton, convertButtonRect.getX(), convertButtonRect.getY());
-
+        convertButton.render(gc, currentRenderTime);
 
         //Text
         int offsetYFirstLine = 60;

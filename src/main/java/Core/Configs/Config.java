@@ -20,8 +20,8 @@ public class Config
     public static final boolean GAME_WINDOW_FULL_SCREEN_DISABLE_EXIT = false;
     //public static final String FIRST_LEVEL = "transporter/transporter";
     //public static final String FIRST_LEVEL = "dockingBay";
-    //public static final String FIRST_LEVEL = "crewdeck/crewdeck";
-    public static final String FIRST_LEVEL = "living_quarter/air_lock";
+    public static final String FIRST_LEVEL = "crewdeck/crewdeck";
+    //public static final String FIRST_LEVEL = "living_quarter/air_lock";
     public static double CAMERA_WIDTH = 1280;//1600;
     public static double CAMERA_HEIGHT = 800;//1024;
     public static final Font FONT_ESTROG_30_DEFAULT = Utilities.readFont("font/estrog__.ttf", 30);
