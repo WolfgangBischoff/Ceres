@@ -4,11 +4,17 @@
 ####Bug
        
 #### Main Quest
+* Introduction to Ceres and you room
+* No work because tenderer queue full => exlpore area to find food
+* Investigation starts (mail at morning)
+* answer questions at administration
+* Get help of resistance on return
+* in night: transporter repaired; reenter with false flag clothes; start machine and capture
 
 #### Set/Upgrade item mechanic (provide Service)
 * sprite an Pos adden via Key
 * Sprite von Menu und maus adden
-* Zeit & Resourcenkosten
+* Zeit & Resourcenkostenme
 * Position check
 * Different Sprites           
            
@@ -76,7 +82,7 @@
 * Air -> needed for space suit
 * Entertainment -> maybe useless but nice value
 
-###Mining in crypto vulcano
+###Mining in crypto vulcano or asteroid
 * randomly generated
 
 ###Containering and Looting
