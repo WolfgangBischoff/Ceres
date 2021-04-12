@@ -1,3 +1,5 @@
+##### 12 04 21
+* added sprites medic
 ##### 08 04 21
 * Incubator Button and bacteria
 ##### 07 04 21
