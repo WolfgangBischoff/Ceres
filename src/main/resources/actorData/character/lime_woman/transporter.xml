@@ -1,0 +1,46 @@
+
+
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision/discussion
+spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
+
+    <dialogue id="welcome" type="normal" spritestatus="transition">
+        <line>Shown message</line>
+        <line>Shown message 2</line>
+        <nextDialogue>nextDialogueID</nextDialogue>
+    </dialogue>
+
+    <dialogue id="info" type="decision" spritestatus="transition">
+        <option>
+            <line>Optiontext1</line>
+            <nextDialogue>option1ID</nextDialogue>
+        </option>
+
+        <option>
+            <line>Optiontext1, Nothing happens</line>
+        </option>
+    </dialogue>
+
+     <dialogue id="DECISION-DISCUSSION" type="technical" coingame="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
+
+"   &quot;
+'   &apos;
+<   &lt;
+>   &gt;
+&   &amp;
+<-->
+
+<root name = "actorName">
+    <dialogue id="INTRO" type="normal" >
+        <line>I think I should not be here, but the guard is on the crew deck.</line>
+        <line>"What you don't know won't hurt you", I guess.</line>
+        <line>I am exited how life on %%VTCeres%% will be.</line>
+    </dialogue>
+
+</root>
+
+
