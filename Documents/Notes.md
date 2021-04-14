@@ -4,6 +4,7 @@
 ####Bug
        
 #### Main Quest
+Level: Mittelgang von Monrail, auf Seiten Administration und Life, viele Wohnungen, Handelsplatz, gemeinschaftplatz mit Müll
 * Introduction to Ceres and you room
 * No work because tenderer queue full => exlpore area to find food
 * Investigation starts (mail at morning)
