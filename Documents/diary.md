@@ -1,4 +1,5 @@
 ##### 12 04 21
+* added a
 * added sprites medic and traveler
 ##### 08 04 21
 * Incubator Button and bacteria
@@ -11,8 +12,7 @@
   - actorlist statt sprite list die duplikate entfernt
   - onUpdate, inRange, intersection sollten alle actors durchsuchen
   - oninteraction ist passiv
-* Test: More detailed desc, not push same color
-* added anitmated finish button
+* Test: More detailed desc, not push same colornitmated finish button
 ##### 02 04 21
 * performance improvement and FPS measurement
 * Test: Coin Game Ende bei Gewinn gleich raus, bei Verlust neustart
