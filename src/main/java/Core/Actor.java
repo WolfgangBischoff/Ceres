@@ -551,13 +551,21 @@ public class Actor
             StringBuilder stringBuilder = new StringBuilder();
             for (Map.Entry<String, List<SpriteData>> entry : spriteDataMap.entrySet())
                 stringBuilder.append("\t").append(entry.getKey()).append("\n");
-            throw new RuntimeException(compoundStatus + " not found in for \n" + actorFileName + "\n" + stringBuilder.toString());
+            applySpriteData(List.of(new SpriteData("error", "img/void_64_64", false,
+                    0.0,0,0,0,0,0,2,0,0,0,0,"none","none", "none")));
+            //throw new RuntimeException(compoundStatus + " not found in for \n" + actorFileName + "\n" + stringBuilder.toString());
         }
 
         if (spriteList.isEmpty())//Before Actor is initialized
             return;
 
         //For all Sprites of the actor onUpdate to new Status
+        applySpriteData(targetSpriteData);
+
+    }
+
+    public void applySpriteData(List<SpriteData> targetSpriteData)
+    {
         for (int i = 0; i < spriteList.size(); i++)
         {
             SpriteData ts = targetSpriteData.get(i);
@@ -570,7 +578,6 @@ public class Actor
             if (WorldView.getBottomLayer().contains(toChange) || WorldView.getMiddleLayer().contains(toChange) || WorldView.getUpperLayer().contains(toChange))
                 changeLayer(toChange, ts.heightLayer);//Change layer if sprite in current stage, not on other map (global system) but sprite change triggered by StageMonitor
         }
-
     }
 
     private void evaluateTargetStatus(String targetStatusField)
