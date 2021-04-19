@@ -6,11 +6,13 @@
 #### Main Quest
 Level: Mittelgang von Monrail, auf Seiten Administration und Life, viele Wohnungen, Handelsplatz, gemeinschaftplatz mit Müll
 * Introduction to Ceres and you room
-* No work because tenderer queue full => exlpore area to find food
+* Find work at mining company
 * Investigation starts (mail at morning)
-* answer questions at administration
-* Get help of resistance on return
-* in night: transporter repaired; reenter with false flag clothes; start machine and capture
+* Get help of resistance (somebody blocks the way) => come in the night to place
+* augen verdunkelt, base is shown with team, its not safe here, we need a base
+* plan: Go into ship at night, bekannter guard wird abgelenkt von guy1, du gehst als techniker in die air control und verursachst alarm, guard flieht 
+* go into transporter and start engine at control terminal
+* smuggler docks shuttle
 
 #### Set/Upgrade item mechanic (provide Service)
 * sprite an Pos adden via Key
@@ -75,6 +77,13 @@ Level: Mittelgang von Monrail, auf Seiten Administration und Life, viele Wohnung
 * Delegate mtx to other people
 * Bonus for good service in an area, endgame if all areas are maintained
 
+###Work for companies
+* destroy them from inside (Tagelöhner) and get resources
+* kartenbasierten mechaniken
+* mining (crypto vulcano or asteroid)
+* Medicine (cook serve delocious)
+* puzzle; suchen im dunkeln
+
 ###Daily needs
 * Sleep -> based on time like in StardewVallay, but maybe no defined end time. Some areas dont have time
 * board time and ceres time are different, ceres night/day changes world
@@ -83,9 +92,6 @@ Level: Mittelgang von Monrail, auf Seiten Administration und Life, viele Wohnung
 * Air -> needed for space suit
 * Entertainment -> maybe useless but nice value
 
-###Mining in crypto vulcano or asteroid
-* randomly generated
-
 ###Containering and Looting
 * getting tips from rumors for events
 
@@ -93,6 +99,12 @@ Level: Mittelgang von Monrail, auf Seiten Administration und Life, viele Wohnung
 * go to cafes and talk to people, befriend them
 * everyday other people there
 * meet entertainers and use their influence
+* storyrelevant characters that can be recruited => assign to activieties 
+* Dossiers in INFO, background story
+
+### stability / Gesetzlosigkeit
+* resultat von propaganda / missions in sector
+* mehr polizei, aber unruhe
 
 ##Contents
 - Biocomputer
