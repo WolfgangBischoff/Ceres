@@ -1,5 +1,6 @@
 ##### 19 04 21
 * consoel levelchange
+* added sprite
 ##### 12 04 21
 * added a
 * added sprites medic and traveler
