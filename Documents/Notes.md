@@ -84,6 +84,10 @@ Level: Mittelgang von Monrail, auf Seiten Administration und Life, viele Wohnung
 * Medicine (cook serve delocious)
 * puzzle; suchen im dunkeln
 
+###Random Under-Station
+* area without guards, but dangerous
+* randomly generated to loot
+
 ###Daily needs
 * Sleep -> based on time like in StardewVallay, but maybe no defined end time. Some areas dont have time
 * board time and ceres time are different, ceres night/day changes world
