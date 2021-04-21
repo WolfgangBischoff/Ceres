@@ -1,0 +1,19 @@
+
+
+<root name="actorName">
+
+    <dialogue id="bed" type="normal">
+        <line>A real bed, much better as a capsule on a ship.</line>
+    </dialogue>
+
+    <dialogue id="bath" type="normal">
+        <line>Wow, I bath just for one person, better as at home.</line>
+    </dialogue>
+
+    <dialogue id="closet" type="normal">
+        <line>Some room for personal stuff.</line>
+    </dialogue>
+
+</root>
+
+

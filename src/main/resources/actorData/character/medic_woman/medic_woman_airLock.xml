@@ -1,0 +1,15 @@
+
+
+<root name="medic">
+
+
+    <dialogue id="INTRO_AIRLOCK" type = "normal">
+        <line>I can't believe that we made it to Ceres! %%VTPanchaia station%% looks as beautiful as on the pictures.</line>
+        <line>.. and the CereX guys didn't even notes our little adventure.</line>
+        <line>Anyway, I think you should check out your room; the rent is paid in advance, but we should look for a job soon.</line>
+        <line>Talk to me again, if you want to look for a job.</line>
+    </dialogue>
+
+
+</root>
+

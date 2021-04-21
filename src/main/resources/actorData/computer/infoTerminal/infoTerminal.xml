@@ -8,7 +8,7 @@
     <dialogue id="welcome" type="normal" spritestatus="transition" nextDialogue="info">
         <line>Welcome to Pancheia Station!</line>
         <line>Valuable experiences and extensions for you CV await you.</line>
-        <line>Your access level is Third Class, have a nice day!</line>
+        <line>Your access level is second Class, have a nice day!</line>
     </dialogue>
 
     <dialogue id="info" type="decision" spritestatus="transition">
