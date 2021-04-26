@@ -1,0 +1,14 @@
+
+
+
+
+transition; on; off
+transition; off; on
+
+#sensorStatus;sensorStatusName	;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+sensorStatus	;manualDoor   		  ;persistent											    ;transition 													;none 																			;none 																		;none																;none																;none 																;none 														;persistent															;off																							;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+
+#status to image
+#status 											;name 					  				;spritename  																																							;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID								;dialogueFile																;unused;unused;unused;unused;unused ;duration ;velocity  ;AnimationEnds
+ON																	;door												;actorData/doors/horizontal/simple64/door64_close			;true		 	;1												;0			;0												;0			;0			;0										;0											;0000 									;0094										;0064								;0034									;none						;door_locked							;dialogue_files/descriptions ;unused;unused;unused;unused;unused ;0								;0									;false
+OFF																;door												;actorData/doors/horizontal/simple64/door64_open 			;false			;1												;0			;0												;0			;0			;0										;0											;0000										;0094										;0064								;0034									;none						;none														;dialogueFile																;unused;unused;unused;unused;unused ;3								;0									;false

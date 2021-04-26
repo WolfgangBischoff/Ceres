@@ -1,0 +1,23 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+#tags; automated_door, persistent
+#collectible_data; TYPE (food, quest, ...); base_value
+#suspicious_value; 5
+#personality;initCooperation;trait1, trait1-cooperationThreshold,trai1-knowledgeTag; trait2 ...
+#personality;005;INTROVERSION,1,none;SENSING,1,none;THINKING,9,none;PERCEIVING,12,none
+
+
+#sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+#sensorStatus	;nothing																			;none																	    ;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+sensorStatus		;textbox																			;textbox														    ;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+#sensorStatus	;script																				;textbox														    ;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;SCRIPT													;none														;none 														;none 													;none																;none 															;none																;none
+#sensorStatus	;initTxtInRange												;textbox														    ;none  	 																;none 																			;none 																		;textbox													;none																;persistent											;textbox												;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+
+#status to image
+#status 																																;name   																		;spritename  																																																														;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning 												;dialogueID															;dialogueFile																																					;unused		;unused		;unused		;unused		;unused		;duration 	;velocity  ;AnimationEnds
+default																																	;security																	;actorData/security/securityPost/securityPost																														;false			;1												;0			;0												;0			;0			;0										;0											;000											;064											;128									;064										;whitelight_256 		   		;INIT					              		;actorData/security/securityPost/security        	;unused0 ;unused1 ;unused2 ;unused3 ;unused4		;000							;000							;false
+
+#condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;true-dialogue-id; true-dialogue-file; false-sprite-status;false-sensor-status;false-dialogue-id;false-dialogue_file;params
+#condition	;locked										;*															;hasItem ;unlocked										;inventory									;*															;*																		;locked													;*						 											;*																	;*																		;green ;key ;red; key

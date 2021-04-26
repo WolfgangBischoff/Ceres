@@ -58,6 +58,11 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 
     <dialogue id="LEVEL_" type="normal" levelchange="crewdeck/crewdeck" spawnID="default"/>
 
+    <dialogue id="POWER_RESTORED" type="normal" spritestatus="on" worldlight="day" dialogueId="on" variablename="METEROIT_DAMAGE_ANALYZED" set="restored">
+        <line>Engine restarts</line>
+        <spritechange sprite_id="elevSc" dialogueId="INIT-toCrewDeck"/>
+    </dialogue>
+
 </root>
 
 

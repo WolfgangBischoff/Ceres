@@ -4,14 +4,15 @@
 ####Bug
        
 #### Main Quest
-Level: Mittelgang von Monrail, auf Seiten Administration und Life, viele Wohnungen, Handelsplatz, gemeinschaftplatz mit Müll
+Level: Mittelgang von Monrail, auf Seiten Administration und Life, viele Wohnungen, gemeinschaftplatz mit Müll und Resistance
 * Introduction to Ceres and you room
-* Find work at mining company
+* Find work at bioTech company (With biocomputer, special furntiture)
+    Collect Food, create Cell => Form some bacteria
 * Investigation starts (mail at morning)
 * Get help of resistance (somebody blocks the way) => come in the night to place
 * augen verdunkelt, base is shown with team, its not safe here, we need a base
-* plan: Go into ship at night, bekannter guard wird abgelenkt von guy1, du gehst als techniker in die air control und verursachst alarm, guard flieht 
-* go into transporter and start engine at control terminal
+* plan: We have a ship with no fuel => go to work and steal fuel bacteria / fuel => bring to resistance & and fly to ship
+* start engine and flee
 * smuggler docks shuttle
 
 #### Set/Upgrade item mechanic (provide Service)
