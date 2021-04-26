@@ -4,7 +4,7 @@
 ####Bug
        
 #### Main Quest
-Level: Mittelgang von Monrail, auf Seiten Administration und Life, viele Wohnungen, gemeinschaftplatz mit Müll und Resistance
+Level: Mittelgang von Monrail, auf Seiten Administration und Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistance
 * Introduction to Ceres and you room
 * Find work at bioTech company (With biocomputer, special furntiture)
     Collect Food, create Cell => Form some bacteria

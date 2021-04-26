@@ -1,0 +1,18 @@
+
+
+
+<root name = "actorName">
+    <dialogue id="INIT_LEVELCHANGE" type="normal" nextDialogue="INIT_DECISION">
+        <line>Where do you want to go?</line>
+    </dialogue>
+
+    <dialogue id="INIT_DECISION" type="decision" spritestatus="transition">
+        <option>Back</option>
+        <option nextDialogue="LEVEL_DOCKINGBAY">Docking Bay</option>
+    </dialogue>
+
+    <dialogue id="LEVEL_DOCKINGBAY" type="normal" levelchange="dockingBay" spawnID="elevator"/>
+
+</root>
+
+
