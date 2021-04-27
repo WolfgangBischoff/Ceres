@@ -73,7 +73,7 @@ public class GameWindow extends Stage
         if (GAME_WINDOW_FULL_SCREEN) {
             gameScene = new Scene(root);
             gameStage.setFullScreen(true);
-            if (!GAME_WINDOW_FULL_SCREEN_DISABLE_EXIT)
+            if (GAME_WINDOW_FULL_SCREEN_DISABLE_EXIT)
                 gameStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             gameStage.setFullScreenExitHint("");
         }

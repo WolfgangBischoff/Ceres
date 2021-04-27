@@ -11,10 +11,10 @@ public class Config
     //General
     public static final Boolean DEBUG_ACTORS = false;
     public static final Boolean DEBUG_BLOCKER = true;
-    public static final Boolean DEBUG_NO_WALL = false;
-    public static final Boolean DEBUG_MOUSE_ANALYSIS = true;
+    public static final Boolean DEBUG_NO_WALL = true;
+    public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
     public static final Boolean DEBUG_ALL_TEXT_OPTIONS_VISIBLE = false;
-    public static final Boolean DEBUG_CONSOLE = true;
+    public static final Boolean DEBUG_CONSOLE = false;
     public static final Boolean DEBUG_FPS = false;
     public static final boolean GAME_WINDOW_FULL_SCREEN = false;
     public static final boolean GAME_WINDOW_FULL_SCREEN_DISABLE_EXIT = false;
