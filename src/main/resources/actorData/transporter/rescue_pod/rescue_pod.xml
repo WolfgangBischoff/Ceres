@@ -18,8 +18,9 @@
         <option nextDialogue="RELEASE">[Override pod]</option>
     </dialogue>
     <dialogue id="RELEASE" type="normal" dialogueId="READY" spritestatus="READY" nextDialogue="RELEASE_1">
+        <line>The bacteria is invading the machine..</line>
         <line>Krrz... Bzzt...</line>
-        <line>It worked, they can %%GRenter the pod%%!</line>
+        <line>It worked, the strangers can %%GRenter the pod%%!</line>
     </dialogue>
     <dialogue id="RELEASE_1" type="normal" fadeout="false" nextDialogue="READY">
         <line>Ready for Launch!</line>

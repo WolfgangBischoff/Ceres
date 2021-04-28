@@ -68,6 +68,7 @@
         <spritechange sprite_id="reacto" dialogueId="off"/>
         <spritechange sprite_id="elevSc" dialogueId="NO_ENERGY"/>
         <spritechange sprite_id="redLgt" status="default"/>
+        <spritechange sprite_id="travel" dialogueId="METROID"/>
     </dialogue>
     <dialogue id="METEOR_GOTO_TRADER" type="normal" variablename="METEROIT_HIT" set="true" bump="" >
         <line>Hurry! Go to the %%RDtrader%%, we have to act quickly!</line>
