@@ -1,5 +1,6 @@
 ##### 28 04 21
 * Test: nur mehr dicke wände
+* added sprite
 ##### 27 04 21
 * level build
 ##### 26 04 21
