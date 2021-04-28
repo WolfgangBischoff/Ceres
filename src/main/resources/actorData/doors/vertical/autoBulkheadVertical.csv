@@ -12,14 +12,9 @@ sensorStatus	;levelchange						;persistent												;on	     												;none
 sensorStatus	;textbox										;textbox															;none			 												;none										;none																;none														;none												;none										;none												;none																			;none																	;none										;none																	;none																	;none											;none													;none											;none														;none														;none															;none
 
 #InteractionArea; Distance; Width; OffsetX; OffsetY
-interactionArea; 						250;				60;							150;				000
+interactionArea; 						250;				80;							150;				-10
 
 
 #status to image
 #status 											;name 					  				;spritename  																																													;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID 							;dialogueFile																					;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds
-#ON-west												;automatedDoorV		;actorData/doors/vertical/autoDoorVertical_close					 				;true				;1												;0			;0												;0			;0			;0										;0											;0													;128											;64							 		;64											;none						;door_locked							;dialogue_files/descriptions						;unused;unused;unused;unused;unused;0								;0									;false
-#ON-west												;automatedDoorV		;actorData/doors/vertical/autoDoorVertical_close					 				;true				;1												;0			;0												;0			;0			;0										;0											;0													;128											;64							 		;64											;none						;door_locked							;dialogue_files/descriptions						;unused;unused;unused;unused;unused;0								;0									;false
-#OFF-west											;automatedDoorV		;actorData/doors/vertical/open					 																						;false			;1												;0			;0												;0			;0			;0										;0											;0													;128											;64							 		;64											;none						;none						 							;dialogueFile																					;unused;unused;unused;unused;unused;0								;0									;false
-#OFF-west											;automatedDoorV		;actorData/doors/vertical/bttm_open					 																	;false			;2												;0			;0												;0			;0			;0										;0											;0													;128											;64							 		;64											;none						;none						 							;dialogueFile																					;unused;unused;unused;unused;unused;0								;0									;false
-
-ON																	;automatedDoorDockingBay		;actorData/doors/vertical/autoDoorVertical_close										;true				;1												;0			;0												;0			;0			;0										;0											;0													;128											;64							 		;64											;none						;door_locked							;dialogue_files/descriptions						;unused;unused;unused;unused;unused;0								;0									;false
+ON																	;automatedDoorDockingBay		;actorData/doors/vertical/autoDoorVertical_close		;true				;1												;0			;0												;0			;0			;0										;0											;0													;128											;64							 		;0128									;none						;door_locked							;dialogue_files/descriptions						;unused;unused;unused;unused;unused;0								;0									;false

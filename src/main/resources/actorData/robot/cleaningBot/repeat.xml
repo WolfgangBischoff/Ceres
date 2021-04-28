@@ -3,10 +3,10 @@
 
 <root type="repeat">
     <route>
-        <point x="25" y="38"/>
-        <point x="33" y="38"/>
-        <point x="33" y="41"/>
-        <point x="25" y="41"/>
+        <point x="25" y="40"/>
+        <point x="33" y="40"/>
+        <point x="33" y="43"/>
+        <point x="25" y="43"/>
     </route>
 
 </root>

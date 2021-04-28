@@ -59,7 +59,6 @@ Level: Mittelgang von Monrail, auf Seiten Administration und Lift, viele Wohnung
 * stranger sprite with air mask and gloves  
 * Docking Bay: space elevator rope, bodenmarkierung lift    
 * Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
-* Test: nur mehr dicke wände
 * test: Air hub deutlicherer sprite das kaputt
     
 *  Level changes with time
