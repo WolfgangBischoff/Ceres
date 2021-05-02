@@ -4,7 +4,7 @@
 ####Bug
        
 #### Main Quest
-Level: Mittelgang von Monrail, auf Seiten Administration und Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistance
+Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistance
 * Introduction to Ceres and you room
 * Find work at bioTech company (With biocomputer, special furntiture)
     Collect Food, create Cell => Form some bacteria
@@ -14,6 +14,12 @@ Level: Mittelgang von Monrail, auf Seiten Administration und Lift, viele Wohnung
 * plan: We have a ship with no fuel => go to work and steal fuel bacteria / fuel => bring to resistance & and fly to ship
 * start engine and flee
 * smuggler docks shuttle
+
+#### Crafting mechanic
+* Food -> Nährboden
+* Set and ernte bacteria on Map Nährboden (übergabe als ausgerüstetes Item?)
+* Bacteria spreads on time (Sichtbare Verbindung, Felder checken position)
+* Bacteria Resource can be put into splicer to craft
 
 #### Set/Upgrade item mechanic (provide Service)
 * sprite an Pos adden via Key
