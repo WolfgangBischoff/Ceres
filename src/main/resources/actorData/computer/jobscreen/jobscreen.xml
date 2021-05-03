@@ -1,0 +1,14 @@
+
+
+<root name = "jobscreen">
+
+    <dialogue id="INIT_JOB" type="normal" nextDialogue="JOB_DECISION">
+        <line>Check out work opportunities on your deck!</line>
+    </dialogue>
+    <dialogue id="JOB_DECISION" type="normal" >
+        <line>Biotech</line>
+    </dialogue>
+
+</root>
+
+
