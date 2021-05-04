@@ -10,8 +10,8 @@ public class Config
 {
     //General
     public static final Boolean DEBUG_ACTORS = false;
-    public static final Boolean DEBUG_BLOCKER = true;
-    public static final Boolean DEBUG_NO_WALL = true;
+    public static final Boolean DEBUG_BLOCKER = false;
+    public static final Boolean DEBUG_NO_WALL = false;
     public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
     public static final Boolean DEBUG_ALL_TEXT_OPTIONS_VISIBLE = false;
     public static final Boolean DEBUG_CONSOLE = false;
@@ -19,9 +19,9 @@ public class Config
     public static final boolean GAME_WINDOW_FULL_SCREEN = false;
     public static final boolean GAME_WINDOW_FULL_SCREEN_DISABLE_EXIT = false;
     //public static final String FIRST_LEVEL = "transporter/transporter";
-    //public static final String FIRST_LEVEL = "dockingBay";
+    public static final String FIRST_LEVEL = "dockingBay";
     //public static final String FIRST_LEVEL = "crewdeck/crewdeck";
-    public static final String FIRST_LEVEL = "living_quarter/air_lock";
+    //public static final String FIRST_LEVEL = "living_quarter/air_lock";
     public static double CAMERA_WIDTH = 1280;//1600;
     public static double CAMERA_HEIGHT = 800;//1024;
     public static final Font FONT_ESTROG_30_DEFAULT = Utilities.readFont("font/estrog__.ttf", 30);
