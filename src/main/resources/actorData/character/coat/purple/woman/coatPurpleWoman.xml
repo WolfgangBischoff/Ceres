@@ -1,0 +1,11 @@
+
+
+
+<root name = "actorName">
+    <dialogue id="INIT" type="normal">
+        <line>I am good worker, so I got a contract for several months.</line>
+    </dialogue>
+
+</root>
+
+

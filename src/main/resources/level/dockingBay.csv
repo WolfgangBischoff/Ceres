@@ -81,19 +81,20 @@ bench_				;bench							;img/furniture/bench																									;true					;1
 wasteB				;wastebin				;img/furniture/wasteBin																						;true					;0												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;000           ;000									;000          ;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 actors:
-#code 					;actorFileN																																								;IngameName															;sprite-status						;sensor-status	;direction
-player					;actorData/player																																		;Revolutionary												;default												;default							;north
-infoWe					;actorData/computer/infoTerminal/info														;info terminal												;off																;default							;undefined
-auDoor					;actorData/doors/horizontal/automatedDoor										;horizontal bulkhead						;on																	;UNLOCKED						;south
-glasDo					;actorData/doors/horizontal/glass/glassLock								;horizontal glasdoor						;on																	;UNLOCKED						;south
+#code 					;actorFileN																																																			;IngameName															;sprite-status						;sensor-status	;direction
+player					;actorData/player																																													;Revolutionary												;default												;default							;north
+travel					;actorData/character/lime_woman/lime_woman																				;Traveller														  ;default												;script								;south
+infoWe					;actorData/computer/infoTerminal/info																									;info terminal												;off																;default							;undefined
+auDoor					;actorData/doors/horizontal/automatedDoor																					;horizontal bulkhead						;on																	;UNLOCKED						;south
+glasDo					;actorData/doors/horizontal/glass/glassLock																			;horizontal glasdoor						;on																	;UNLOCKED						;south
 doorVe					;actorData/doors/vertical/autoBulkheadVertical_persistent					;vertical bulkhead								;on																	;LOCKED								;west
 dooVOp					;actorData/doors/vertical/autoBulkheadVertical_persistent					;vertical bulkhead								;on																	;UNLOCKED						;west
-doorLe					;actorData/doors/horizontal/automatedDoor										;level bulkhead											;on																	;levelchange			;south
-ele_di					;actorData/doors/updown/elevator/elevator										;space elevator											;toCeres												;default							;undefined
-diff__					;actorData/furniture/diffuser/diffuser													;big diffuser													;rose															;default							;undefined
-crate_					;actorData/storages/boxSmall/prop																		;green box																;default												;default							;undefined
-lever_					;actorData/machine/lever																											;lever																				;off																;default							;undefined
-ufo___					;actorData/robot/ufo																															;ufo																						;default												;default							;undefined
+doorLe					;actorData/doors/horizontal/automatedDoor																					;level bulkhead											;on																	;levelchange			;south
+ele_di					;actorData/doors/updown/elevator/elevator																					;space elevator											;toCeres												;default							;undefined
+diff__					;actorData/furniture/diffuser/diffuser																								;big diffuser													;rose															;default							;undefined
+crate_					;actorData/storages/boxSmall/prop																													;green box																;default												;default							;undefined
+lever_					;actorData/machine/lever																																						;lever																				;off																;default							;undefined
+ufo___					;actorData/robot/ufo																																										;ufo																						;default												;default							;undefined
 
 #Desinfection
 desinf					;actorData/machine/desinfection/desinfect										;Desinfection													;on																	;ON     															;west
@@ -174,7 +175,7 @@ layer:
 011 ;back_e; ______; ______; bck_nw; bck_ne; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; bck_nw; bck_ne; ______; ______; ______; back_w; ______; ______; back_e; airCon; ______; ______; ______; back_w
 012 ;back_e; airPip; ______; fro_sw; fro_se; ______; ______; ______; ______; trigge; ______; ______; ______; ______; ______; fro_sw; fro_se; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
 013 ;back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; lever_; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
-014 ;back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
+014 ;back_e; ______; ______; ______; ______; travel; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
 015 ;back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; diff__; ______; ______; ______; fro_sw; mtxFS1; mtxFS1; fro_se; ______; ______; ______; ______; back_w
 016 ;back_e; bench_; ______; bench_; ______; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
 017 ;back_e; ______; ______; ______; ______; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
