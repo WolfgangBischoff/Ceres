@@ -33,7 +33,7 @@ public class Collectible
     public static Collectible createCollectible(String actorfilepath, String v2IngameName, String spriteStatus)
     {
         Actor collectibleActor = new Actor(actorfilepath, v2IngameName, spriteStatus, "default", Direction.UNDEFINED);
-        Collectible collectible = new Collectible(spriteStatus, CollectableType.getType(collectibleActor.getCollectable_type()), collectibleActor.actorInGameName, (collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
+        Collectible collectible = new Collectible(spriteStatus, CollectableType.getType(collectibleActor.getCollectable_type()), collectibleActor.actorInGameName, (collectibleActor.getGenericDoubleAttributes().get("base_value").intValue()));
         collectible.image = Utilities.readImage(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).spriteName + PNG_POSTFIX);
 
         String path = collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).dialogieFile;

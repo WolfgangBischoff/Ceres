@@ -1,6 +1,7 @@
 package Core;
 
 import Core.Configs.GenericVariablesManager;
+import Core.Enums.ActorTag;
 import Core.Enums.Knowledge;
 import Core.GameTime.Clock;
 import Core.GameTime.DateTime;
@@ -10,6 +11,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static Core.Configs.Config.*;
 
@@ -25,6 +27,7 @@ public class GameVariables
     static Integer health = INIT_HEALTH;
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
     static private Clock clock;
+    static private DateTime lastTimeTickUpdated;
     static private GenericVariablesManager booleanWorldVariables = new GenericVariablesManager();
 
     //Game State persistent over days
@@ -73,21 +76,27 @@ public class GameVariables
 
     public static void incrementDay()
     {
-        String methodName = "incrementDay() ";
         playerMaM_dayStart = playerMaM_duringDay.getValue();
         clock.skipToNextDay();
-        //System.out.println(CLASSNAME + methodName + clock.getCurrentGameTime() + " MaM-Start: " + playerMaM_dayStart);
     }
 
-    public static void updateHunger(Long currentNanoTime)
+    public static void updateFromTime(Long currentNanoTime, List<Actor> actorList)
     {
-        String methodName = "updateHunger() ";
+        //Hunger
         int intervalsForHunger = 9;// 12hours = 43 200 ticks
         if (lastTimeHungerFromTime + intervalsForHunger < clock.getTotalTimeTicks()) {
             addHunger(-1);
             lastTimeHungerFromTime = clock.getTotalTimeTicks();
-            //System.out.println(CLASSNAME + methodName + playerHunger.getValue() + " " + clock.getFormattedTime());
         }
+
+        //Other Actors
+        applyTime(currentNanoTime, actorList.stream().filter(a -> a.hasTag(ActorTag.APPLY_TIME)).collect(Collectors.toList()));
+    }
+
+    private static void applyTime(Long currentNanoTime, List<Actor> timeDependentActors)
+    {
+        DateTime current = clock.getCurrentGameTime();
+        timeDependentActors.forEach(a -> a.actAccordingToScript(currentNanoTime));
     }
 
     public static void addHunger(int delta)

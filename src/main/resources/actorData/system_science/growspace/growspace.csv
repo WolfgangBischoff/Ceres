@@ -1,0 +1,21 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+#condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
+#tags; automated_door, persistent
+#collectible_data; TYPE (food, quest, ...); base_value
+#suspicious_value; 5
+#personality;initCooperation;trait1, trait1-cooperationThreshold,trai1-knowledgeTag; trait2 ...
+#personality;005;INTROVERSION,1,none;SENSING,1,none;THINKING,9,none;PERCEIVING,12,none
+
+tags																						;APPLY_TIME
+script               					;actorData/system_science/growspace/script_grow
+
+#sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+sensorStatus	;monitor																			;textbox														    ;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+
+#status to image
+#status 																																;name   																		;spritename  																																																														;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning 												;dialogueID															;dialogueFile																																					;unused		;unused		;unused		;unused		;unused		;duration 	;velocity  ;AnimationEnds
+empty																																			;growspace								        ;actorData/system_science/growspace/							    		   														;false				;2 											;000 ;000          ;000 ;000 ;000        ;000         ;020           ;064           ;088         ;040										;greenlight256 		  				;INIT						              	;actorData/system_science/growspace/growspace													    ;unused0 ;unused1 ;unused2 ;unused3 ;unused4 ;0000						;0000						;false
+

@@ -1,3 +1,6 @@
+
+##### 06 05 21
+* first grow script
 ##### 28 04 21
 * Test: nur mehr dicke wände
 * added sprite

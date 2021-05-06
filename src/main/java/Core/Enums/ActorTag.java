@@ -6,11 +6,13 @@ public enum ActorTag
     BECOME_TRANSPARENT, DETECTS_PLAYER, PLAYER,
     PERSISTENT, //is loaded on the next day from LevelState
     TURNS_DIRECTION_ONINTERACTION,
+    APPLY_TIME,
     NO_COLLISION;
 
     public static ActorTag getType(String type)
     {
-        switch (type.toUpperCase()) {
+        switch (type.toUpperCase())
+        {
             case "AUTOMATED_DOOR_RELEVANT":
                 return AUTOMATED_DOOR_DETECTABLE;
             case "AUTOMATED_DOOR":
@@ -27,6 +29,8 @@ public enum ActorTag
                 return TURNS_DIRECTION_ONINTERACTION;
             case "NO_COLLISION":
                 return NO_COLLISION;
+            case "APPLY_TIME":
+                return APPLY_TIME;
             default:
                 throw new RuntimeException("ActorType unknown: " + type);
         }

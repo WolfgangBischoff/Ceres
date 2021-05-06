@@ -274,8 +274,8 @@ public class Textbox
         {
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
             if (actorOfDialogue != null && actorOfDialogue.tags.contains(TURNS_DIRECTION_ONINTERACTION)) {
-                actorOfDialogue.setDirection(Direction.of(actorOfDialogue.getNumeric_generic_attributes().get("previousDirection").intValue()));
-                actorOfDialogue.getNumeric_generic_attributes().remove("previousDirection");
+                actorOfDialogue.setDirection(Direction.of(actorOfDialogue.getGenericDoubleAttributes().get("previousDirection").intValue()));
+                actorOfDialogue.getGenericDoubleAttributes().remove("previousDirection");
             }
         }
         playerActor.setLastInteraction(currentNanoTime);

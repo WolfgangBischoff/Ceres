@@ -4,6 +4,7 @@ package Core;
 import Core.ActorSystem.ActorMonitor;
 import Core.Configs.Config;
 import Core.Enums.*;
+import Core.GameTime.DateTime;
 import Core.Menus.CoinGame.CoinType;
 import Core.Menus.Inventory.Inventory;
 import Core.Menus.Inventory.InventoryController;
@@ -49,7 +50,8 @@ public class Actor
     List<String> memberActorGroups = new ArrayList<>();
     Inventory inventory;
     PersonalityContainer personalityContainer;
-    Map<String, Double> numeric_generic_attributes = new HashMap<>();
+    Map<String, Double> genericDoubleAttributes = new HashMap<>();
+    private Map<String, DateTime> genericDateTimeAttributes = new HashMap<>();
     Script script;
     private Direction direction;
     private double currentVelocityX;
@@ -160,7 +162,7 @@ public class Actor
                 break;
             case COLLECTIBLE_DATA_ACTOR:
                 collectable_type = linedata[1];
-                getNumeric_generic_attributes().put("base_value", Double.parseDouble(linedata[2]));
+                getGenericDoubleAttributes().put("base_value", Double.parseDouble(linedata[2]));
                 break;
             case CONTAINS_COLLECTIBLE_ACTOR:
                 Collectible collectible = Collectible.createCollectible(linedata[1], linedata[2], linedata[3]);
@@ -179,7 +181,7 @@ public class Actor
                 personalityContainer = readPersonality(linedata);
                 break;
             case SUSPICIOUS_VALUE_ACTOR:
-                numeric_generic_attributes.put(linedata[0], Double.parseDouble(linedata[1]));
+                genericDoubleAttributes.put(linedata[0], Double.parseDouble(linedata[1]));
                 break;
             case SCRIPT_ACTOR:
                 setScript(linedata[1]);
@@ -445,12 +447,11 @@ public class Actor
     public void onMonitorSignal(String newCompoundStatus, String newSensorStatue, String newDialogueId, String newDialogueFile)
     {
         String methodName = "onMonitorSignal() ";
-        if (sensorStatus.onMonitorSignal_TriggerSprite == null)
-            System.out.println(CLASSNAME + methodName + "OnMonitorSignal not set");
-
+        if (sensorStatus.onMonitorSignal_TriggerSprite != null)
+            evaluateTriggerTypeSprite(sensorStatus.onMonitorSignal_TriggerSprite, newCompoundStatus, null);
         if (newDialogueId != null)
             setDialogueId(newDialogueId);
-        evaluateTriggerTypeSprite(sensorStatus.onMonitorSignal_TriggerSprite, newCompoundStatus, null);
+
     }
 
     public void onTextboxSignal(String newCompoundStatus)
@@ -632,7 +633,7 @@ public class Actor
                 collect(activeActor);
                 break;
             case SCRIPT:
-                actAccordingToScript();
+                actAccordingToScript(GameWindow.getCurrentNanoRenderTimeGameWindow());
                 break;
             case INVENTORY_SHOP:
                 WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY_SHOP);
@@ -651,7 +652,7 @@ public class Actor
         }
     }
 
-    private void actAccordingToScript()
+    public void actAccordingToScript(Long currentNanoTime)
     {
 
         String methodName = "actAccordingToScript() ";
@@ -672,9 +673,9 @@ public class Actor
         if (wasCollected)
         {
             //check if Management-Attention-Meter is affected for Player
-            if (collectingActor.tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(SUSPICIOUS_VALUE_ACTOR))
+            if (collectingActor.tags.contains(ActorTag.PLAYER) && genericDoubleAttributes.containsKey(SUSPICIOUS_VALUE_ACTOR))
             {
-                int suspicious_value = numeric_generic_attributes.get(SUSPICIOUS_VALUE_ACTOR).intValue();
+                int suspicious_value = genericDoubleAttributes.get(SUSPICIOUS_VALUE_ACTOR).intValue();
                 GameVariables.addPlayerMAM_duringDay(suspicious_value);
                 GameVariables.addStolenCollectible(collected);
             }
@@ -733,11 +734,16 @@ public class Actor
             WorldView.getTextbox().startConversation(this);
             if (tags.contains(TURNS_DIRECTION_ONINTERACTION))
             {
-                numeric_generic_attributes.put("previousDirection", Double.valueOf(direction.getValue()));
+                genericDoubleAttributes.put("previousDirection", Double.valueOf(direction.getValue()));
                 setDirection(activeActor.direction.getOpposite());
             }
         }
         WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
+    }
+
+    public boolean hasTag(ActorTag tag)
+    {
+        return tags.contains(tag);
     }
 
     private void transitionGeneralStatus()
@@ -1042,14 +1048,14 @@ public class Actor
         this.tags = tags;
     }
 
-    public Map<String, Double> getNumeric_generic_attributes()
+    public Map<String, Double> getGenericDoubleAttributes()
     {
-        return numeric_generic_attributes;
+        return genericDoubleAttributes;
     }
 
-    public void setNumeric_generic_attributes(Map<String, Double> numeric_generic_attributes)
+    public void setGenericDoubleAttributes(Map<String, Double> genericDoubleAttributes)
     {
-        this.numeric_generic_attributes = numeric_generic_attributes;
+        this.genericDoubleAttributes = genericDoubleAttributes;
     }
 
     public void setStageMonitor(ActorMonitor actorMonitor)
@@ -1072,5 +1078,13 @@ public class Actor
         this.textbox_analysis_group_name = textbox_analysis_group_name;
     }
 
+    public DateTime getGenericDateTimeAttribute(String id)
+    {
+        return genericDateTimeAttributes.get(id);
+    }
 
+    public void setGenericDateTimeAttribute(String id, DateTime datetime)
+    {
+        genericDateTimeAttributes.put(id,datetime);
+    }
 }

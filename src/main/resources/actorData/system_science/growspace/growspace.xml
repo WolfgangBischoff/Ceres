@@ -1,0 +1,10 @@
+
+<root name = "growspace">
+
+    <dialogue id="INIT" type="normal" >
+        <line>This is a growspace.</line>
+    </dialogue>
+
+</root>
+
+

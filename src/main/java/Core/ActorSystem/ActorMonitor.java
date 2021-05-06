@@ -51,7 +51,6 @@ public class ActorMonitor
 
     public void sendSignalFrom(List<String> notifyingGroupsList)
     {
-        String methodName = "sendSignalFrom(List<String>) ";
         //Notify all groups of the notifying Actor
         for (int i = 0; i < notifyingGroupsList.size(); i++)
         {

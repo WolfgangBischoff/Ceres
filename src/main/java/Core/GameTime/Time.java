@@ -2,7 +2,7 @@ package Core.GameTime;
 
 import java.text.DecimalFormat;
 
-public class Time
+public class Time implements Comparable
 {
     Long minutes;
     Long fiveMinutes;
@@ -13,6 +13,26 @@ public class Time
         this.hours = hours;
         this.minutes = minutes;
         fiveMinutes = minutes / 5;
+    }
+
+    public Time add(int hours)
+    {
+        return new Time(this.hours + hours, this.minutes);
+    }
+
+    public static boolean isWithin(Time minRange, Time maxRange, Time now)
+    {
+        TimeComparator comparator = new TimeComparator();
+        if (comparator.compare(minRange, maxRange) > 1)
+            throw new RuntimeException("Min is less than max");
+
+        if ((comparator.compare(minRange, now) == 0 || comparator.compare(minRange, now) < 0)
+                && (comparator.compare(maxRange, now) == 0 || comparator.compare(maxRange, now) > 0))
+        {
+            return true;//within interval
+        }
+        else
+            return false;
     }
 
     public Long ticks()
@@ -29,20 +49,6 @@ public class Time
         return hourFormatted + ":" + minutesFormatted;
     }
 
-    public static boolean isWithin(Time minRange, Time maxRange, Time now)
-    {
-        TimeComparator comparator = new TimeComparator();
-        if (comparator.compare(minRange, maxRange) > 1)
-            throw new RuntimeException("Min is less than max");
-
-        if ((comparator.compare(minRange, now) == 0 || comparator.compare(minRange, now) < 0)
-                && (comparator.compare(maxRange, now) == 0 || comparator.compare(maxRange, now) > 0)) {
-            return true;//within interval
-        }
-        else
-            return false;
-    }
-
     public Long getMinutes()
     {
         return minutes;
@@ -56,5 +62,20 @@ public class Time
     public Long getHours()
     {
         return hours;
+    }
+
+    @Override
+    public int compareTo(Object o)
+    {
+        if (o instanceof Time)
+        {
+            Time other = (Time) o;
+            if (hours.compareTo(other.hours) != 0)
+                return hours.compareTo(other.hours);
+            else
+                return minutes.compareTo(other.minutes);
+        }
+        return 0;
+
     }
 }

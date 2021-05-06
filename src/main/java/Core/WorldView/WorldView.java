@@ -495,7 +495,7 @@ public class WorldView
         processMouse(currentUpdateTime);
 
         long inputEndTime = System.nanoTime();
-        List<Sprite> spritesOfActiveActor = actorList.stream().filter(a -> a.isActiveActor()).map(actor -> actor.getSpriteList()).collect(Collectors.toList()).stream().flatMap(List::stream).collect(Collectors.toList());
+        List<Sprite> spritesOfActiveActor = actorList.stream().filter(Actor::isActiveActor).map(Actor::getSpriteList).collect(Collectors.toList()).stream().flatMap(List::stream).collect(Collectors.toList());//Maybe a predefined list?
         for (Sprite active : spritesOfActiveActor)
             active.update(currentUpdateTime);
         for (Sprite sprite : toRemove)
@@ -513,7 +513,7 @@ public class WorldView
         calcCameraPosition();
 
         GameVariables.getClock().tryIncrementTime(currentUpdateTime);
-        GameVariables.updateHunger(currentUpdateTime);
+        GameVariables.updateFromTime(currentUpdateTime, actorList);
         long hudEndTime = System.nanoTime();
 
         long timeInput = inputEndTime - updateStartTime;

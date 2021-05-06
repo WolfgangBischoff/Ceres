@@ -1,19 +1,18 @@
 package Core;
 
 import Core.Enums.Direction;
+import Core.GameTime.DateTime;
 import javafx.geometry.Point2D;
 import org.w3c.dom.Element;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-
 import static Core.Utilities.randomDirection;
-import static java.lang.Math.min;
 
 enum ScriptType
 {
-    ROUTE, REPEAT, IDLE, SCHEDULE, REACT;
+    ROUTE, REPEAT, IDLE, GROW;
 
     public static ScriptType of(String s)
     {
@@ -25,8 +24,8 @@ enum ScriptType
                 return REPEAT;
             case "IDLE":
                 return IDLE;
-            //case "SCHEDULE": return SCHEDULE;
-            //case "REACT": return REACT;
+            case "GROW":
+                return GROW;
             default:
                 throw new RuntimeException("ScriptType unkown: " + s);
         }
@@ -35,18 +34,18 @@ enum ScriptType
 
 class RoutePoint2D
 {
-    String option;
+    String parameter;
     Point2D target;
 
-    public RoutePoint2D(double x, double y, String option)
+    public RoutePoint2D(double x, double y, String parameter)
     {
-        this.option = option;
+        this.parameter = parameter;
         this.target = new Point2D(x, y);
     }
 
     public RoutePoint2D(double x, double y)
     {
-        this.option = "not set";
+        this.parameter = "not set";
         this.target = new Point2D(x, y);
     }
 }
@@ -54,7 +53,7 @@ class RoutePoint2D
 public class Script
 {
     String CLASSNAME = "Script/";
-    String OPTION_ATTRIBUTE = "option";
+    String PARAMETER_ATTRIBUTE = "option";
 
     int IDLE_WAITING_TIME = 3;
     int IDLE_MOVE_TIME = 2;
@@ -70,12 +69,14 @@ public class Script
     {
         type = ScriptType.of(xmlFile.getAttribute("type"));
         var routePoints = xmlFile.getElementsByTagName("point");
-        for (int i = 0; i < routePoints.getLength(); i++) {
+        for (int i = 0; i < routePoints.getLength(); i++)
+        {
             Element routePoint = (Element) routePoints.item(i);
             int x = Integer.parseInt((routePoint.getAttribute("x")));
             int y = Integer.parseInt((routePoint.getAttribute("y")));
-            if ((routePoint.hasAttribute(OPTION_ATTRIBUTE))) {
-                route.add(new RoutePoint2D(x, y, routePoint.getAttribute(OPTION_ATTRIBUTE)));
+            if ((routePoint.hasAttribute(PARAMETER_ATTRIBUTE)))
+            {
+                route.add(new RoutePoint2D(x, y, routePoint.getAttribute(PARAMETER_ATTRIBUTE)));
             }
             else
                 route.add(new RoutePoint2D(x, y));
@@ -95,6 +96,9 @@ public class Script
             case IDLE:
                 idle(actor);
                 break;
+            case GROW:
+                grow(actor);
+                break;
         }
     }
 
@@ -106,22 +110,26 @@ public class Script
         double elapsedTimeLastStatusChange = (currentTime - lastStatusChangeTime) / 1000000000.0;
         double IDLE_VELOCITY = 60;
 
-        if (executionStatus.equals("MOVE") && elapsedTimeLastStatusChange > IDLE_MOVE_TIME) {
+        if (executionStatus.equals("MOVE") && elapsedTimeLastStatusChange > IDLE_MOVE_TIME)
+        {
             lastStatusChangeTime = currentTime;
             executionStatus = "WAIT";
         }
-        else if (executionStatus.equals("WAIT") && elapsedTimeLastStatusChange > IDLE_WAITING_TIME) {
+        else if (executionStatus.equals("WAIT") && elapsedTimeLastStatusChange > IDLE_WAITING_TIME)
+        {
             lastStatusChangeTime = currentTime;
             executionStatus = "MOVE";
         }
 
         if (executionStatus.equals("MOVE"))
         {
-            if (randomDirection == null) {
+            if (randomDirection == null)
+            {
                 randomDirection = randomDirection();
             }
             if (!actor.spriteList.get(0).isBlockedByOtherSprites(randomDirection, IDLE_VELOCITY * time))
-                switch (randomDirection) {
+                switch (randomDirection)
+                {
                     case EAST:
                         actor.setVelocity(IDLE_VELOCITY, 0);
                         break;
@@ -138,10 +146,12 @@ public class Script
             else
                 actor.setVelocity(0, 0);
         }
-        else {
+        else
+        {
             executionStatus = "WAIT";
             actor.setVelocity(0, 0);
-            if (randomDirection != null) {
+            if (randomDirection != null)
+            {
                 randomDirection = null;
             }
         }
@@ -156,9 +166,21 @@ public class Script
         if (route.isEmpty())
             return;
         Point2D target = route.peek().target;
-        boolean reachedTarget = moveUnchecked(actor, target, route.peek().option);
+        boolean reachedTarget = moveUnchecked(actor, target, route.peek().parameter);
         if (reachedTarget)
             route.add(route.remove());
+    }
+
+    private void grow(Actor actor)
+    {
+        String BUILDTIME = "buildtime";
+        DateTime current = GameVariables.getClock().getCurrentGameTime();
+        if (actor.getGenericDateTimeAttribute(BUILDTIME) == null)
+            actor.setGenericDateTimeAttribute(BUILDTIME, current);
+        if (current.compareTo(actor.getGenericDateTimeAttribute(BUILDTIME).add(0,1)) == -1)
+            System.out.println("not grow");
+        else
+            System.out.println("grow");
     }
 
     private void route(Actor actor)
@@ -167,13 +189,13 @@ public class Script
         if (route.isEmpty())
             return;
         Point2D target = route.peek().target;
-        boolean reachedTarget = moveUnchecked(actor, target, route.peek().option);
+        boolean reachedTarget = moveUnchecked(actor, target, route.peek().parameter);
         if (reachedTarget)
             route.remove(target);
 //        System.out.println(CLASSNAME + methodName + target.getX() + " " + target.getY());
     }
 
-    private boolean moveUnchecked(Actor actor, Point2D target, String option)
+    private boolean moveUnchecked(Actor actor, Point2D target, String parameter)
     {
         Point2D currentPos = new Point2D(actor.spriteList.get(0).getX(), actor.spriteList.get(0).getY());
         double deltaX = target.getX() * 64 - currentPos.getX();
@@ -193,12 +215,14 @@ public class Script
         double addedVelocityY = 0d;
         //System.out.println("Angel: " + angle + "X: " + velX + " Y: " + velY);
 
-        if (option.equals("warp")) {
+        if (parameter.equals("warp"))
+        {
             actor.spriteList.forEach(s -> s.setPosition(target.getX() * 64, target.getY() * 64));
             return true;
         }
 
-        if (Math.abs(deltaX) > moveThreshold) {
+        if (Math.abs(deltaX) > moveThreshold)
+        {
             addedVelocityX = Math.cos(angle_rad) * hypotenuse;
         }
         else xreached = true;
