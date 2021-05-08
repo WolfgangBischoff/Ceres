@@ -49,9 +49,9 @@ public class DateTime implements Comparable
         return dayTime;
     }
 
-    public DateTime add(int days, int hours)
+    public DateTime add(int days, int hours, int minutes)
     {
-        return new DateTime(this.days + days, this.dayTime.add(hours));
+        return new DateTime(this.days + days, this.dayTime.add(hours, minutes));
     }
 
     @Override

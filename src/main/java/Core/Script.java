@@ -177,14 +177,12 @@ public class Script
         DateTime current = GameVariables.getClock().getCurrentGameTime();
         if (actor.getGenericDateTimeAttribute(BUILDTIME) == null)
             actor.setGenericDateTimeAttribute(BUILDTIME, current);
-        if (current.compareTo(actor.getGenericDateTimeAttribute(BUILDTIME).add(0,1)) == -1)
+        if (current.compareTo(actor.getGenericDateTimeAttribute(BUILDTIME).add(0,0, 20)) == -1)
         {
             actor.setGeneralStatus("empty");
-            //System.out.println("empty");
         }
         else
         {
-            //System.out.println("fuel");
             actor.setGeneralStatus("fuel");
         }
 
