@@ -966,6 +966,7 @@ public class Actor
     public void setGeneralStatus(String generalStatus)
     {
         this.generalStatus = generalStatus;
+        updateCompoundStatus();
     }
 
     public String getCompoundStatus()

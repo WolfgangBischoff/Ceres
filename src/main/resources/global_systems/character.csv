@@ -7,3 +7,4 @@ techni					;actorData/character/technician/technician									;Luca Grethart				
 tender					;actorData/character/tenderer/tenderer													;Julius Soulles											;day0															;default																;south
 strang					;actorData/character/stranger/stranger													;Stranger																	;default												;default																;south
 guard_					;actorData/character/black_overall/black_overall			;Guard																				;default												;default																;south
+travel					;actorData/character/lime_woman/lime_woman									;Traveller Alina 							  ;default												;script																	;south

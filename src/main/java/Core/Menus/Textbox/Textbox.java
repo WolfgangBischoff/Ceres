@@ -149,7 +149,7 @@ public class Textbox
                                 a.setDialogueFile(newDialogueFile);
                             if (!newSensorStatus.isEmpty())
                                 a.setSensorStatus(newSensorStatus);
-                            a.updateCompoundStatus();
+                            //a.updateCompoundStatus();
                         }
 
                     }

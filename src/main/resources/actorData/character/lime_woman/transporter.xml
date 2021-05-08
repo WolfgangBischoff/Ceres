@@ -11,6 +11,10 @@
         <line>Oh my god, what happened?</line>
     </dialogue>
 
+    <dialogue id="INIT_ARRIVAL" type="normal" >
+        <line>I am glad we arrived safely, can you imagine that we are now in the asteriod belt?</line>
+    </dialogue>
+
 </root>
 
 

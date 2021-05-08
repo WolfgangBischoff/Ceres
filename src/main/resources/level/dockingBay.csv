@@ -83,7 +83,6 @@ wasteB				;wastebin				;img/furniture/wasteBin																						;true					;0
 actors:
 #code 					;actorFileN																																																			;IngameName															;sprite-status						;sensor-status	;direction
 player					;actorData/player																																													;Revolutionary												;default												;default							;north
-travel					;actorData/character/lime_woman/lime_woman																				;Traveller														  ;default												;script								;south
 infoWe					;actorData/computer/infoTerminal/info																									;info terminal												;off																;default							;undefined
 auDoor					;actorData/doors/horizontal/automatedDoor																					;horizontal bulkhead						;on																	;UNLOCKED						;south
 glasDo					;actorData/doors/horizontal/glass/glassLock																			;horizontal glasdoor						;on																	;UNLOCKED						;south
@@ -108,6 +107,10 @@ screeA					;actorData/statusScreen/statusScreen															;Status Screen				
 airVeR					;actorData/airSystem/airVent/airVent															;Right ventilation								;off																;default							;undefined
 airVeL					;actorData/airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;default							;undefined
 airCon					;actorData/airSystem/hub/airControl																;Air hub																		;off																;default							;undefined
+
+global_system_actor:
+#character           ;mapId ,spStatus   ,direction ,sensStatus ,dialogFile                               ,dialogueID
+character           	;travel,default				,south     ,           ,																																									,INIT_ARRIVAL
 
 Actorgroups:
 #System-Name					;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)

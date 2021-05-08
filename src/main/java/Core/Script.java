@@ -53,7 +53,7 @@ class RoutePoint2D
 public class Script
 {
     String CLASSNAME = "Script/";
-    String PARAMETER_ATTRIBUTE = "option";
+    String PARAMETER_ATTRIBUTE = "parameter";
 
     int IDLE_WAITING_TIME = 3;
     int IDLE_MOVE_TIME = 2;
@@ -178,9 +178,16 @@ public class Script
         if (actor.getGenericDateTimeAttribute(BUILDTIME) == null)
             actor.setGenericDateTimeAttribute(BUILDTIME, current);
         if (current.compareTo(actor.getGenericDateTimeAttribute(BUILDTIME).add(0,1)) == -1)
-            System.out.println("not grow");
+        {
+            actor.setGeneralStatus("empty");
+            //System.out.println("empty");
+        }
         else
-            System.out.println("grow");
+        {
+            //System.out.println("fuel");
+            actor.setGeneralStatus("fuel");
+        }
+
     }
 
     private void route(Actor actor)
