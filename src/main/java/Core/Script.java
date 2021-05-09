@@ -174,16 +174,20 @@ public class Script
     private void grow(Actor actor)
     {
         String BUILDTIME = "buildtime";
-        DateTime current = GameVariables.getClock().getCurrentGameTime();
-        if (actor.getGenericDateTimeAttribute(BUILDTIME) == null)
-            actor.setGenericDateTimeAttribute(BUILDTIME, current);
-        if (current.compareTo(actor.getGenericDateTimeAttribute(BUILDTIME).add(0,0, 20)) == -1)
+
+        if(actor.getGeneralStatus().equals("empty"))
         {
-            actor.setGeneralStatus("empty");
+            actor.setGenericDateTimeAttribute(BUILDTIME, null);
         }
         else
         {
-            actor.setGeneralStatus("fuel");
+            DateTime current = GameVariables.getClock().getCurrentGameTime();
+            if (actor.getGenericDateTimeAttribute(BUILDTIME) == null)
+                actor.setGenericDateTimeAttribute(BUILDTIME, current);
+            if (actor.getGeneralStatus().equals("fuel_seed") && current.compareTo(actor.getGenericDateTimeAttribute(BUILDTIME).add(0,0, 20)) == 1)
+            {
+                actor.setGeneralStatus("fuel");
+            }
         }
 
     }

@@ -554,7 +554,6 @@ public class Actor
                 stringBuilder.append("\t").append(entry.getKey()).append("\n");
             applySpriteData(List.of(new SpriteData("error", "img/void_64_64", false,
                     0.0,0,0,0,0,0,2,0,0,0,0,"none","none", "none")));
-            //throw new RuntimeException(compoundStatus + " not found in for \n" + actorFileName + "\n" + stringBuilder.toString());
         }
 
         if (spriteList.isEmpty())//Before Actor is initialized
@@ -589,7 +588,10 @@ public class Actor
         if (targetStatusField.toLowerCase().equals(Config.KEYWORD_transition))
             transitionGeneralStatus();
         else
+        {
             generalStatus = targetStatusField.toLowerCase();
+            //setGeneralStatus(targetStatusField.toLowerCase());
+        }
 
         //Check if status is valid dependent on influencing system
         String influencedOfGroup = actorMonitor.isDependentOnGroup(memberActorGroups);
