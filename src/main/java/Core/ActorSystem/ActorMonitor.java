@@ -186,19 +186,17 @@ public class ActorMonitor
         }
     }
 
-    //for Actors to double check their status changes
-    public boolean checkIfStatusIsValid(String influencedStatus, String influencingSystemId)
+    public String correctSpriteStatusFromInfluencingGroup(String influencedStatus, String influencingSystemId)
     {
-        String methodName = "checkIfStatusIsValid(String, String) ";
         ActorGroup influencingSystem = groupIdToActorGroupMap.get(influencingSystemId);
         String logic = groupToLogicMap.get(influencingSystemId);
 
         if (logic.equals("isBaseSystem"))
         {
             String influencingSystemStatus = influencingSystem.areAllMembersStatusOn().toString();
-            return apply_baseSystemLogic_single(influencingSystemStatus, influencedStatus).equals(influencedStatus);
+            return apply_baseSystemLogic_single(influencingSystemStatus, influencedStatus);
         }
-        return true;
+        return influencedStatus;
     }
 
     public Map<String, String> getGroupToLogicMap()

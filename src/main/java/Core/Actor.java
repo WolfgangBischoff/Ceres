@@ -348,7 +348,6 @@ public class Actor
     {
         //No lastInteraction time update, just resets if not used. like a automatic door
         String methodName = "onUpdate(Long) ";
-        //double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastAutomaticInteraction) / 1000000000.0;
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS)
         {
@@ -456,7 +455,6 @@ public class Actor
 
     public void onTextboxSignal(String newCompoundStatus)
     {
-        String methodName = "onTextboxSignal() ";
         evaluateTriggerTypeSprite(sensorStatus.onTextBoxSignal_SpriteTrigger, newCompoundStatus, null);
     }
 
@@ -524,7 +522,6 @@ public class Actor
 
     private void changeLayer(Sprite sprite, int targetLayer)
     {
-        String methodName = "changeLayer() ";
         WorldView.getBottomLayer().remove(sprite);
         WorldView.getMiddleLayer().remove(sprite);
         WorldView.getUpperLayer().remove(sprite);
@@ -544,7 +541,6 @@ public class Actor
 
     private void changeSprites()
     {
-        String methodName = "changeSprites() ";
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
         if (targetSpriteData == null)
@@ -582,23 +578,24 @@ public class Actor
 
     private void evaluateTargetStatus(String targetStatusField)
     {
-        String methodName = "evaluateTargetStatus(String) ";
-
-        //Do lookup (status is toggled from definition of actorfile)
+        String targetStatusChecked = "";
         if (targetStatusField.toLowerCase().equals(Config.KEYWORD_transition))
-            transitionGeneralStatus();
+            targetStatusChecked = lookupSpriteStatusTransition();
         else
         {
-            generalStatus = targetStatusField.toLowerCase();
-            //setGeneralStatus(targetStatusField.toLowerCase());
+            targetStatusChecked = targetStatusField.toLowerCase();
         }
 
-        //Check if status is valid dependent on influencing system
+        //Correct new status and dialogue if system is dependent
         String influencedOfGroup = actorMonitor.isDependentOnGroup(memberActorGroups);
-        if (influencedOfGroup != null && !actorMonitor.checkIfStatusIsValid(generalStatus, influencedOfGroup))
-            actorMonitor.sendSignalFrom(influencedOfGroup);//If not, trigger system to refresh
+        if (influencedOfGroup != null)
+        {
+            targetStatusChecked = actorMonitor.correctSpriteStatusFromInfluencingGroup(targetStatusChecked, influencedOfGroup);
+            setDialogueFile(spriteDataMap.get(createCompoundStatus(targetStatusChecked)).get(0).dialogieFile);
+            setDialogueId(spriteDataMap.get(createCompoundStatus(targetStatusChecked)).get(0).dialogueID);
+        }
 
-        updateCompoundStatus();
+        setSpriteStatus(targetStatusChecked);
     }
 
     //React on outside sensor
@@ -656,8 +653,6 @@ public class Actor
 
     public void actAccordingToScript(Long currentNanoTime)
     {
-
-        String methodName = "actAccordingToScript() ";
         if (WorldViewController.getWorldViewStatus() == WORLD)
         {
             script.update(this);
@@ -697,8 +692,7 @@ public class Actor
         PauseTransition delay = new PauseTransition(Duration.millis(animationDuration * 1000));
         delay.setOnFinished(t ->
         {
-            transitionGeneralStatus();
-            updateCompoundStatus();
+            setSpriteStatus(lookupSpriteStatusTransition());
         });
 
         delay.play();
@@ -706,7 +700,6 @@ public class Actor
 
     public void activateText(Actor activeActor)
     {
-        String methodName = "activateText() ";
         if (sensorStatus.onInteraction_TriggerSprite.equals(TriggerType.TEXTBOX_ANALYSIS))
         {
             String analyzedGroupName = null;
@@ -748,30 +741,24 @@ public class Actor
         return tags.contains(tag);
     }
 
-    private void transitionGeneralStatus()
+    private String lookupSpriteStatusTransition()
     {
-        String methodName = "transitionGeneralStatus() ";
         if (statusTransitions.containsKey(generalStatus))
         {
-            generalStatus = statusTransitions.get(generalStatus);
+            return statusTransitions.get(generalStatus);
         }
         else
-            System.out.println(CLASSNAME + methodName + "No status transition found for " + actorFileName + " " + generalStatus + " in " + statusTransitions);
+        {
+            System.out.println(CLASSNAME + "No status transition found for " + actorFileName + " " + generalStatus + " in " + statusTransitions);
+            return generalStatus;
+        }
     }
 
     public void updateCompoundStatus()
     {
-        String methodName = "updateCompoundStatus() ";
         String oldCompoundStatus = compoundStatus;
-        String newStatusString = generalStatus;
-
-
-        //GeneralStatus - [DIRECTION] - [MOVING]
-        if (!(direction == Direction.UNDEFINED))
-            newStatusString = newStatusString + "-" + direction.toString().toLowerCase();
-        if (isMoving())
-            newStatusString = newStatusString + "-moving";
-        compoundStatus = newStatusString;
+        String spriteStatus = generalStatus;
+        compoundStatus = createCompoundStatus(spriteStatus);
 
         if (!(oldCompoundStatus.equals(compoundStatus)))
             changeSprites();
@@ -779,6 +766,16 @@ public class Actor
         //If is part of a group
         if (actorMonitor != null)
             actorMonitor.sendSignalFrom(memberActorGroups);
+    }
+
+    private String createCompoundStatus(String spriteStatus)
+    {
+        //GeneralStatus - [DIRECTION] - [MOVING]
+        if (!(direction == Direction.UNDEFINED))
+            spriteStatus = spriteStatus + "-" + direction.toString().toLowerCase();
+        if (isMoving())
+            spriteStatus = spriteStatus + "-moving";
+        return spriteStatus;
     }
 
     @Override
@@ -965,7 +962,7 @@ public class Actor
         return generalStatus;
     }
 
-    public void setGeneralStatus(String generalStatus)
+    public void setSpriteStatus(String generalStatus)
     {
         this.generalStatus = generalStatus;
         updateCompoundStatus();

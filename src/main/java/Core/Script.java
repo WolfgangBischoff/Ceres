@@ -186,7 +186,7 @@ public class Script
                 actor.setGenericDateTimeAttribute(BUILDTIME, current);
             if (actor.getGeneralStatus().equals("fuel_seed") && current.compareTo(actor.getGenericDateTimeAttribute(BUILDTIME).add(0,0, 20)) == 1)
             {
-                actor.setGeneralStatus("fuel");
+                actor.setSpriteStatus("fuel");
             }
         }
 

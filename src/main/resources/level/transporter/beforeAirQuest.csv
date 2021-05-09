@@ -3,9 +3,9 @@ log:
 transporter: beforeAirQuest loading
 
 global_system_actor:
-#character           	;mapId ,spStatus   ,direction	 ,sensStatus					,dialogFile	,dialogueID,scriptPath
-character             ;medic_,default				,north						,															,											,intro					,
-character             ;tender,day0							,south						,script									,											,										,
+#character           	;mapId ,spStatus   ,direction	 ,sensStatus					,dialogFile	                                                       ,dialogueID,scriptPath
+character             ;medic_,default				,north						,															,actorData/character/medic_woman/medic_woman_transporter											,intro					,
+character             ;tender,day0							,south						,script									,											                                                       ,										,
 
 
 

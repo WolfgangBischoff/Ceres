@@ -110,7 +110,7 @@ public class GlobalActorsManager
                             actorId = detailData[idIdx].trim();
                             break;
                         case 1:
-                            actorsIdsMap.get(actorId).setGeneralStatus(detailData[spriteStatusIdx].trim());
+                            actorsIdsMap.get(actorId).setSpriteStatus(detailData[spriteStatusIdx].trim());
                             break;
                         case 2:
                             actorsIdsMap.get(actorId).setDirection(Direction.of(detailData[directionIdx].trim()));

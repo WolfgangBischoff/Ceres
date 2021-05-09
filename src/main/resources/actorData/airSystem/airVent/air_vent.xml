@@ -1,9 +1,6 @@
 
 
 <root name="air_vent">
-    <dialogue id="none" type="normal">
-        <line>air_vent No message defined</line>
-    </dialogue>
 
     <dialogue id="analysis-init-on" type="normal">
         <line> is at full capacity</line>
@@ -36,7 +33,7 @@
         <option>[Go away]</option>
     </dialogue>
 
-    <dialogue id="cleanDec-cleaned" type="normal" spritestatus="on" dialogueId="init-on">
+    <dialogue id="cleanDec-cleaned" type="normal" spritestatus="on" >
         <line>The vent is clean now.</line>
     </dialogue>
 </root>

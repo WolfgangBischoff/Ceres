@@ -142,14 +142,13 @@ public class Textbox
 
                         for (Actor a : actorToChange) {
                             if (!newStatus.isEmpty())
-                                a.setGeneralStatus(newStatus);
+                                a.setSpriteStatus(newStatus);
                             if (!newDialogueId.isEmpty())
                                 a.setDialogueId(newDialogueId);
                             if (!newDialogueFile.isEmpty())
                                 a.setDialogueFile(newDialogueFile);
                             if (!newSensorStatus.isEmpty())
                                 a.setSensorStatus(newSensorStatus);
-                            //a.updateCompoundStatus();
                         }
 
                     }
@@ -354,10 +353,9 @@ public class Textbox
             nextDialogueID = readDialogue.getOption(TEXTBOX_ATTRIBUTE_DEFEAT).nextDialogue;
     }
 
-    private void changeActorStatus(String toGeneralStatus)
+    private void changeActorStatus(String toSpriteStatus)
     {
-        String methodName = "changeActorStatus(String) ";
-        if (!actorOfDialogue.getGeneralStatus().equals(toGeneralStatus))
-            actorOfDialogue.onTextboxSignal(toGeneralStatus);
+        if (!actorOfDialogue.getGeneralStatus().equals(toSpriteStatus))
+            actorOfDialogue.onTextboxSignal(toSpriteStatus);
     }
 }
