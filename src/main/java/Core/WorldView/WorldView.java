@@ -222,9 +222,35 @@ public class WorldView
         return camY;
     }
 
+    public static void addToLayer(Sprite sprite)
+    {
+        getBottomLayer().remove(sprite);
+        getMiddleLayer().remove(sprite);
+        getUpperLayer().remove(sprite);
+        if (sprite.getActor() != null && !actorList.contains(sprite.getActor()))
+            actorList.add(sprite.getActor());
+        switch (sprite.getLayer())
+        {
+            case 0:
+                getBottomLayer().add(sprite);
+                break;
+            case 1:
+                getMiddleLayer().add(sprite);
+                break;
+            case 2:
+                getUpperLayer().add(sprite);
+                break;
+        }
+    }
+
+    public static boolean isSpriteLoaded(Sprite sprite)
+    {
+        return bottomLayer.contains(sprite) || middleLayer.contains(sprite) || upperLayer.contains(sprite) || topLayer.contains(sprite);
+    }
+
     public void changeStage(String levelName, String spawnId, boolean invalidateSavedStages)
     {
-        if(!invalidateSavedStages)
+        if (!invalidateSavedStages)
             saveStage();
         else
             GameVariables.getLevelData().forEach((stageName, stage) -> stage.setValid(false));
@@ -298,10 +324,10 @@ public class WorldView
         //remove persistent actors, just not persistent should remain or actorless sprites
         tmp_actorSpritesLayer = tmp_actorSpritesLayer.stream()
                 .filter(sprite ->
-                        sprite.getActor() == null || //just a tile
-                                !sprite.getActor().tags.contains(ActorTag.PERSISTENT) // Wenn du den Tag hast, wirst du nicht neu geladen
-              //  || (sprite.getActor().tags.contains(ActorTag.PERSISTENT) && !activeSpritesLayer.contains(sprite))//persisten
-                        )
+                                sprite.getActor() == null || //just a tile
+                                        !sprite.getActor().tags.contains(ActorTag.PERSISTENT) // Wenn du den Tag hast, wirst du nicht neu geladen
+                        //  || (sprite.getActor().tags.contains(ActorTag.PERSISTENT) && !activeSpritesLayer.contains(sprite))//persisten
+                )
                 .collect(Collectors.toList());
         tmp_bottomLayer = tmp_bottomLayer.stream()
                 .filter(sprite ->
@@ -540,7 +566,7 @@ public class WorldView
         else
             setShadowColor(COLOR_NIGHT_LIGHT);
 
-        //TODO update Actors
+        //TODO update Actors that are time dependent
     }
 
     private void toggleInventory(Long currentNanoTime)

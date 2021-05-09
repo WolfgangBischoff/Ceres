@@ -34,12 +34,12 @@ public class SpriteData
 
     public String name, spriteName, lightningSprite, dialogueID, dialogieFile;
     public Boolean blocking, animationEnds = false;
-    public Integer totalFrames, cols, rows, frameWidth, frameHeight, heightLayer, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, velocity;
+    public Integer totalFrames, cols, rows, frameWidth, frameHeight, renderLayer, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, velocity;
     public Double animationDuration, fps;
 
 
     public SpriteData(String name, String spriteName, Boolean blocking, Double fps,
-                      Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer heightLayer,
+                      Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer renderLayer,
                       Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight, String lightningSprite
             , String dialogueID, String dialogieFile
     )
@@ -53,7 +53,7 @@ public class SpriteData
         this.rows = rows;
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
-        this.heightLayer = heightLayer;
+        this.renderLayer = renderLayer;
         this.hitboxOffsetX = hitboxOffsetX;
         this.hitboxOffsetY = hitboxOffsetY;
         this.hitboxWidth = hitboxWidth;

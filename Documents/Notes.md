@@ -18,7 +18,6 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 #### Crafting mechanic
 * Food -> Nährboden
 * Set and ernte bacteria on Map Nährboden (übergabe als ausgerüstetes Item?)
-    * interact => set bacteria
     * interact => info, option to remove bacteria
     * grown => set empty, item placed
 * Bacteria spreads on time (Sichtbare Verbindung, Felder checken position)

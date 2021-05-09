@@ -2,6 +2,7 @@ package Core;
 
 import Core.Enums.Direction;
 import Core.GameTime.DateTime;
+import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import org.w3c.dom.Element;
 
@@ -187,6 +188,7 @@ public class Script
             if (actor.getGeneralStatus().equals("fuel_seed") && current.compareTo(actor.getGenericDateTimeAttribute(BUILDTIME).add(0,0, 20)) == 1)
             {
                 actor.setSpriteStatus("fuel");
+                actor.setSensorStatus("readyToHarvest");
             }
         }
 

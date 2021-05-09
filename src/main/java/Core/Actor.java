@@ -22,8 +22,9 @@ import java.util.*;
 import static Core.Configs.Config.*;
 import static Core.Enums.ActorTag.*;
 import static Core.Enums.Direction.*;
-import static Core.Enums.TriggerType.PERSISTENT;
 import static Core.Enums.TriggerType.*;
+import static Core.WorldView.WorldView.addToLayer;
+import static Core.WorldView.WorldView.isSpriteLoaded;
 import static Core.WorldView.WorldViewStatus.WORLD;
 
 public class Actor
@@ -51,8 +52,8 @@ public class Actor
     Inventory inventory;
     PersonalityContainer personalityContainer;
     Map<String, Double> genericDoubleAttributes = new HashMap<>();
-    private Map<String, DateTime> genericDateTimeAttributes = new HashMap<>();
     Script script;
+    private Map<String, DateTime> genericDateTimeAttributes = new HashMap<>();
     private Direction direction;
     private double currentVelocityX;
     private double currentVelocityY;
@@ -419,7 +420,6 @@ public class Actor
 
     public void onInteraction(Sprite activeSprite, Long currentNanoTime)
     {
-        String methodName = "onInteraction(Sprite, Long) ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
@@ -432,6 +432,7 @@ public class Actor
 
             //react
             evaluateTriggerTypeSprite(sensorStatus.onInteraction_TriggerSprite, sensorStatus.onInteractionToStatusSprite, activeSprite.getActor());
+            evaluateTriggerTypeSensor(sensorStatus.onInteraction_TriggerSensor, sensorStatus.onInteraction_StatusSensor);
             setLastInteraction(currentNanoTime);
         }
     }
@@ -514,27 +515,23 @@ public class Actor
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS && sensorStatus.onInRange_TriggerSensor != NOTHING)
         {
-            if (sensorStatus.onInRange_TriggerSensor == PERSISTENT)//TODO should be like evaluateTriggerType for sensorStaus
-                setSensorStatus(sensorStatusMap.get(sensorStatus.onInRangeToStatusSensorStatus));
+            evaluateTriggerTypeSensor(sensorStatus.onInRange_TriggerSensor, sensorStatus.onInRangeToStatusSensorStatus);
+            //if (sensorStatus.onInRange_TriggerSensor == PERSISTENT)//TODO should be like evaluateTriggerType for sensorStaus
+            //    setSensorStatus(sensorStatusMap.get(sensorStatus.onInRangeToStatusSensorStatus));
             lastAutomaticInteraction = currentNanoTime;
         }
     }
 
-    private void changeLayer(Sprite sprite, int targetLayer)
+    private void evaluateTriggerTypeSensor(TriggerType triggerType, String triggerSensorStatus)
     {
-        WorldView.getBottomLayer().remove(sprite);
-        WorldView.getMiddleLayer().remove(sprite);
-        WorldView.getUpperLayer().remove(sprite);
-        switch (targetLayer)
+        switch (triggerType)
         {
-            case 0:
-                WorldView.getBottomLayer().add(sprite);
+            case PERSISTENT_HARVEST:
+                setSensorStatus(triggerSensorStatus);
+                harvest();
                 break;
-            case 1:
-                WorldView.getMiddleLayer().add(sprite);
-                break;
-            case 2:
-                WorldView.getUpperLayer().add(sprite);
+            case PERSISTENT:
+                setSensorStatus(triggerSensorStatus);
                 break;
         }
     }
@@ -549,7 +546,7 @@ public class Actor
             for (Map.Entry<String, List<SpriteData>> entry : spriteDataMap.entrySet())
                 stringBuilder.append("\t").append(entry.getKey()).append("\n");
             applySpriteData(List.of(new SpriteData("error", "img/void_64_64", false,
-                    0.0,0,0,0,0,0,2,0,0,0,0,"none","none", "none")));
+                    0.0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, "none", "none", "none")));
         }
 
         if (spriteList.isEmpty())//Before Actor is initialized
@@ -557,7 +554,6 @@ public class Actor
 
         //For all Sprites of the actor onUpdate to new Status
         applySpriteData(targetSpriteData);
-
     }
 
     public void applySpriteData(List<SpriteData> targetSpriteData)
@@ -570,9 +566,9 @@ public class Actor
             toChange.setBlocker(ts.blocking);
             toChange.setLightningSpriteName(ts.lightningSprite);
             toChange.setAnimationEnds(ts.animationEnds);
-            toChange.setLayer(ts.heightLayer);
-            if (WorldView.getBottomLayer().contains(toChange) || WorldView.getMiddleLayer().contains(toChange) || WorldView.getUpperLayer().contains(toChange))
-                changeLayer(toChange, ts.heightLayer);//Change layer if sprite in current stage, not on other map (global system) but sprite change triggered by StageMonitor
+            toChange.setLayer(ts.renderLayer);
+            if (isSpriteLoaded(toChange))
+                addToLayer(toChange);//Change layer if sprite in current stage, not on other map (global system) but sprite change triggered by StageMonitor
         }
     }
 
@@ -658,7 +654,7 @@ public class Actor
             script.update(this);
         }
         else
-            setVelocity(0,0);
+            setVelocity(0, 0);
     }
 
     private void collect(Actor collectingActor)
@@ -678,6 +674,28 @@ public class Actor
             }
             WorldView.getToRemove().addAll(spriteList);
         }
+    }
+
+    private void harvest()
+    {
+        System.out.println(this.toString());
+//TODO harvest should be after sprite change because it need status data
+        //Collectible collected = Collectible.createCollectible("actorData/collectibles/bacteria/bacteria_crafted", generalStatus, generalStatus);
+        //collected.image = spriteList.get(0).getBaseimage();
+
+
+        /*
+        Collectible collectible = Collectible.createCollectible(
+                currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_ACTOR)
+                , currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_NAME)
+                , currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_STATUS));
+        if (WorldView.getPlayer().getActor().getInventory().addItemNextSlot(collectible))
+            CentralMessageOverlay.showMsg("New " + collectible.getIngameName() + "!");
+        else
+            System.out.println(CLASSNAME + "TODO Item could not be added to Inventory");
+
+         */
+
     }
 
     private void playTimedStatus()
@@ -823,12 +841,12 @@ public class Actor
     {
         return
                 (sensorStatus.onInRange_TriggerSensor != NOTHING
-                || sensorStatus.onInRange_TriggerSprite != NOTHING
-                || sensorStatus.onIntersection_TriggerSensor != NOTHING
-                || sensorStatus.onIntersection_TriggerSprite != NOTHING
-                || sensorStatus.onUpdate_TriggerSensor != NOTHING
-                || sensorStatus.onUpdate_TriggerSprite != NOTHING
-                || getSpriteList().get(0).getName().equalsIgnoreCase("player"));
+                        || sensorStatus.onInRange_TriggerSprite != NOTHING
+                        || sensorStatus.onIntersection_TriggerSensor != NOTHING
+                        || sensorStatus.onIntersection_TriggerSprite != NOTHING
+                        || sensorStatus.onUpdate_TriggerSensor != NOTHING
+                        || sensorStatus.onUpdate_TriggerSprite != NOTHING
+                        || getSpriteList().get(0).getName().equalsIgnoreCase("player"));
     }
 
     public boolean isMoving()
@@ -1085,6 +1103,6 @@ public class Actor
 
     public void setGenericDateTimeAttribute(String id, DateTime datetime)
     {
-        genericDateTimeAttributes.put(id,datetime);
+        genericDateTimeAttributes.put(id, datetime);
     }
 }

@@ -218,7 +218,7 @@ public class WorldLoader
         for (int j = 0; j < spriteDataList.size(); j++)
         {
             actor.spriteList.get(j).setPosition(xPos, yPos);
-            addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
+            addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).renderLayer);
             loadedTileIdsSet.remove(actorId);//Check for ununsed Definitions
             //System.out.println(CLASSNAME + methodName + actor.spriteList.get(j).getPositionX() +" "+ actor.spriteList.get(j).getPositionY());
         }
@@ -406,7 +406,7 @@ public class WorldLoader
                 if (isPassiv)
                     passivLayer.add(ca);
                 else
-                    addToCollisionLayer(ca, tile.heightLayer);
+                    addToCollisionLayer(ca, tile.renderLayer);
             }
             //Is Actor that is just relevant on this stage
             else if (actorDataMap.containsKey(lineData[currentHorizontalTile]))
@@ -416,7 +416,7 @@ public class WorldLoader
                 actorsList.add(actor);
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
                 for (int j = 0; j < spriteDataList.size(); j++)
-                    addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
+                    addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).renderLayer);
             }
             //Is Actor of global System
             else if (globalActorsMap.containsKey(lineData[currentHorizontalTile]))
@@ -431,7 +431,7 @@ public class WorldLoader
                 actorsList.add(actor);
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
                 for (int j = 0; j < spriteDataList.size(); j++)
-                    addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
+                    addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).renderLayer);
             }
             else if (isPassiv && lineData[currentHorizontalTile].equals(MAPDEFINITION_EMPTY))
             {
@@ -538,7 +538,7 @@ public class WorldLoader
         for (int j = 0; j < spriteDataList.size(); j++)
         {
             //System.out.println(CLASSNAME + methodName + actor.spriteList.get(j) +" layer: "+ spriteDataList.get(j).heightLayer + " size " + spriteDataList.size());
-            addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
+            addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).renderLayer);
         }
 
         player = actor.spriteList.get(0);
