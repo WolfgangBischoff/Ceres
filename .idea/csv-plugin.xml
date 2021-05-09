@@ -206,6 +206,27 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/resources/actorData/character/coat/purple/woman/coatPurpleWoman.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/character/hedgehog/hedge.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/character/lime_woman/lime_woman.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/resources/actorData/character/medic_woman/medic_woman.csv">
           <value>
             <Attribute>
@@ -221,6 +242,13 @@
           </value>
         </entry>
         <entry key="/src/main/resources/actorData/character/stranger/stranger.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/character/technician/technician.csv">
           <value>
             <Attribute>
               <option name="separator" value="&#9;" />
@@ -244,11 +272,18 @@
         <entry key="/src/main/resources/actorData/collectibles/food/food.csv">
           <value>
             <Attribute>
-              <option name="separator" value="&#9;" />
+              <option name="separator" value=";" />
             </Attribute>
           </value>
         </entry>
         <entry key="/src/main/resources/actorData/collectibles/key/keycard.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/collectibles/money/money.csv">
           <value>
             <Attribute>
               <option name="separator" value="&#9;" />
@@ -259,6 +294,13 @@
           <value>
             <Attribute>
               <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/collectibles/stamp/stamp.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
             </Attribute>
           </value>
         </entry>
@@ -339,10 +381,17 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/src/main/resources/actorData/player.csv">
+        <entry key="/src/main/resources/actorData/pc.csv">
           <value>
             <Attribute>
               <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/player.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
             </Attribute>
           </value>
         </entry>
@@ -354,6 +403,13 @@
           </value>
         </entry>
         <entry key="/src/main/resources/actorData/robot/ufo.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/robotArm.csv">
           <value>
             <Attribute>
               <option name="separator" value="&#9;" />
@@ -378,6 +434,27 @@
           <value>
             <Attribute>
               <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/system_science/growspace/growspace.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/system_science/incubator/incubator.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/actorData/system_vendor/smile/smile.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
             </Attribute>
           </value>
         </entry>

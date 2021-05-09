@@ -152,7 +152,6 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_SENSOR_STATUS = "sensorstatus";
     public static final String TEXTBOX_ATTRIBUTE_TYPE = "type";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_ACTOR = "item_actor";
-    public static final String TEXTBOX_ATTRIBUTE_ITEM_NAME = "item_name";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_STATUS = "item_status";
     public static final String TEXTBOX_ATTRIBUTE_SUCCESS = "success";
     public static final String TEXTBOX_ATTRIBUTE_DEFEAT = "defeat";

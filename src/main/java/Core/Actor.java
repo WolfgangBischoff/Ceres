@@ -5,6 +5,7 @@ import Core.ActorSystem.ActorMonitor;
 import Core.Configs.Config;
 import Core.Enums.*;
 import Core.GameTime.DateTime;
+import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.Menus.CoinGame.CoinType;
 import Core.Menus.Inventory.Inventory;
 import Core.Menus.Inventory.InventoryController;
@@ -166,7 +167,7 @@ public class Actor
                 getGenericDoubleAttributes().put("base_value", Double.parseDouble(linedata[2]));
                 break;
             case CONTAINS_COLLECTIBLE_ACTOR:
-                Collectible collectible = Collectible.createCollectible(linedata[1], linedata[2], linedata[3]);
+                Collectible collectible = Collectible.createCollectible(linedata[1], linedata[2]);
                 inventory.addItemNextSlot(collectible);
                 break;
             case KEYWORD_sensorStatus:
@@ -526,10 +527,6 @@ public class Actor
     {
         switch (triggerType)
         {
-            case PERSISTENT_HARVEST:
-                setSensorStatus(triggerSensorStatus);
-                harvest();
-                break;
             case PERSISTENT:
                 setSensorStatus(triggerSensorStatus);
                 break;
@@ -572,10 +569,10 @@ public class Actor
         }
     }
 
-    private void evaluateTargetStatus(String targetStatusField)
+    private void applySpriteStatus(String targetStatusField)
     {
         String targetStatusChecked = "";
-        if (targetStatusField.toLowerCase().equals(Config.KEYWORD_transition))
+        if (targetStatusField.equalsIgnoreCase(Config.KEYWORD_transition))
             targetStatusChecked = lookupSpriteStatusTransition();
         else
         {
@@ -604,19 +601,23 @@ public class Actor
                 System.out.println(CLASSNAME + methodName + actorInGameName + " triggered without trigger type");
                 return;
             case PERSISTENT:
-                evaluateTargetStatus(targetStatusField);
+                applySpriteStatus(targetStatusField);
                 break;
             case PERSISTENT_TEXT:
-                evaluateTargetStatus(targetStatusField);
+                applySpriteStatus(targetStatusField);
                 activateText(activeActor);
                 break;
+            case PERSISTENT_HARVEST:
+                harvest();
+                applySpriteStatus(targetStatusField);
+                break;
             case TIMED_TEXT:
-                evaluateTargetStatus(targetStatusField);
+                applySpriteStatus(targetStatusField);
                 playTimedStatus();
                 activateText(activeActor);
                 break;
             case TIMED:
-                evaluateTargetStatus(targetStatusField);
+                applySpriteStatus(targetStatusField);
                 playTimedStatus();
                 break;
             case TEXTBOX:
@@ -659,7 +660,7 @@ public class Actor
 
     private void collect(Actor collectingActor)
     {
-        Collectible collected = Collectible.createCollectible(actorFileName, actorInGameName, generalStatus);
+        Collectible collected = Collectible.createCollectible(actorFileName, generalStatus);
         collected.image = spriteList.get(0).getBaseimage();
         boolean wasCollected = collectingActor.inventory.addItemNextSlot(collected);
 
@@ -678,24 +679,9 @@ public class Actor
 
     private void harvest()
     {
-        System.out.println(this.toString());
-//TODO harvest should be after sprite change because it need status data
-        //Collectible collected = Collectible.createCollectible("actorData/collectibles/bacteria/bacteria_crafted", generalStatus, generalStatus);
-        //collected.image = spriteList.get(0).getBaseimage();
-
-
-        /*
-        Collectible collectible = Collectible.createCollectible(
-                currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_ACTOR)
-                , currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_NAME)
-                , currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_STATUS));
-        if (WorldView.getPlayer().getActor().getInventory().addItemNextSlot(collectible))
-            CentralMessageOverlay.showMsg("New " + collectible.getIngameName() + "!");
-        else
-            System.out.println(CLASSNAME + "TODO Item could not be added to Inventory");
-
-         */
-
+        Collectible collected = Collectible.createCollectible("actorData/collectibles/bacteria/bacteria_crafted",  generalStatus);
+        if (WorldView.getPlayer().getActor().getInventory().addItemNextSlot(collected))
+            CentralMessageOverlay.showMsg("New " + collected.getIngameName() + "!");
     }
 
     private void playTimedStatus()

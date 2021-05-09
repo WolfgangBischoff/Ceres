@@ -19,7 +19,6 @@ unlocked 		;greenBox			;actorData/storages/boxSmall/greenBox_64_64							    			
 #condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;true-dialogue-id; true-dialogue-file; false-sprite-status;false-sensor-status;false-dialogue-id;false-dialogue_file;params
 condition	;locked										;*															;hasItem ;unlocked										;inventory									;*															;*																		;locked													;*						 											;*																	;*																		;green ;key ;red; key
 
-#contains_collectible ;actor file path																										;IngameName							;SpriteStatus;AMOUNT
-contains_collectible 	;actorData/collectibles/food/food									;Algae Stew							;algaeStew			;15
-contains_collectible 	;actorData/collectibles/food/food									;Asia Star Bento		;asiaStar				;3
-#contains_collectible 	;actorData/collectibles/bacteria/bacteria_crafted	;debug Elel							;electric_base				;3
+#contains_collectible ;actor file path																										;SpriteStatus;AMOUNT
+contains_collectible 	;actorData/collectibles/food/food									;algaeStew			;15
+contains_collectible 	;actorData/collectibles/food/food									;asiaStar				;3

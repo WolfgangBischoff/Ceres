@@ -103,7 +103,6 @@ public class Dialogue
                 {
                     Collectible collectible = Collectible.createCollectible(
                             currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_ACTOR)
-                            , currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_NAME)
                             , currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_STATUS));
                     if (WorldView.getPlayer().getActor().getInventory().addItemNextSlot(collectible))
                         CentralMessageOverlay.showMsg("New " + collectible.getIngameName() + "!");

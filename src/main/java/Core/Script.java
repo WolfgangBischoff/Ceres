@@ -185,7 +185,7 @@ public class Script
             DateTime current = GameVariables.getClock().getCurrentGameTime();
             if (actor.getGenericDateTimeAttribute(BUILDTIME) == null)
                 actor.setGenericDateTimeAttribute(BUILDTIME, current);
-            if (actor.getGeneralStatus().equals("fuel_seed") && current.compareTo(actor.getGenericDateTimeAttribute(BUILDTIME).add(0,0, 20)) == 1)
+            if (actor.getGeneralStatus().equals("fuel_seed") && current.compareTo(actor.getGenericDateTimeAttribute(BUILDTIME).add(0,0, 10)) == 1)
             {
                 actor.setSpriteStatus("fuel");
                 actor.setSensorStatus("readyToHarvest");
