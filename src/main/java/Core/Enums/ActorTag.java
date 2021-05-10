@@ -7,6 +7,7 @@ public enum ActorTag
     PERSISTENT, //is loaded on the next day from LevelState
     TURNS_DIRECTION_ONINTERACTION,
     APPLY_TIME,
+    GROWPLACE,
     NO_COLLISION;
 
     public static ActorTag getType(String type)
@@ -31,6 +32,8 @@ public enum ActorTag
                 return NO_COLLISION;
             case "APPLY_TIME":
                 return APPLY_TIME;
+            case "GROWPLACE":
+                return GROWPLACE;
             default:
                 throw new RuntimeException("ActorType unknown: " + type);
         }

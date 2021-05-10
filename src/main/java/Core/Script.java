@@ -97,9 +97,6 @@ public class Script
             case IDLE:
                 idle(actor);
                 break;
-            case GROW:
-                grow(actor);
-                break;
         }
     }
 
@@ -170,28 +167,6 @@ public class Script
         boolean reachedTarget = moveUnchecked(actor, target, route.peek().parameter);
         if (reachedTarget)
             route.add(route.remove());
-    }
-
-    private void grow(Actor actor)
-    {
-        String BUILDTIME = "buildtime";
-
-        if(actor.getGeneralStatus().equals("empty"))
-        {
-            actor.setGenericDateTimeAttribute(BUILDTIME, null);
-        }
-        else
-        {
-            DateTime current = GameVariables.getClock().getCurrentGameTime();
-            if (actor.getGenericDateTimeAttribute(BUILDTIME) == null)
-                actor.setGenericDateTimeAttribute(BUILDTIME, current);
-            if (actor.getGeneralStatus().equals("fuel_seed") && current.compareTo(actor.getGenericDateTimeAttribute(BUILDTIME).add(0,0, 10)) == 1)
-            {
-                actor.setSpriteStatus("fuel");
-                actor.setSensorStatus("readyToHarvest");
-            }
-        }
-
     }
 
     private void route(Actor actor)

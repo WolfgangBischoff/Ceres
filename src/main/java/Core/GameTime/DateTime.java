@@ -13,6 +13,12 @@ public class DateTime implements Comparable
         this.dayTime = dayTime;
     }
 
+    public DateTime(long ticks)
+    {
+        this.days = ticks / 1440;
+        dayTime = new Time(ticks % 1440);
+    }
+
     public static boolean isWithin(DateTime minRange, DateTime maxRange, DateTime now)
     {
         DateTimeComparator comparator = new DateTimeComparator();
@@ -52,6 +58,17 @@ public class DateTime implements Comparable
     public DateTime add(int days, int hours, int minutes)
     {
         return new DateTime(this.days + days, this.dayTime.add(hours, minutes));
+    }
+
+    public Long ticks()
+    {
+        return days * 1440 + dayTime.ticks();
+    }
+
+    public DateTime add(int minutes)
+    {
+        long newTimeInTicks = ticks() + minutes;
+        return new DateTime(newTimeInTicks);
     }
 
     @Override

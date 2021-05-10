@@ -658,6 +658,16 @@ public class Actor
             setVelocity(0, 0);
     }
 
+    public void actAccordingToApplyTimeTag(Long currentNanoTime)
+    {
+        if (WorldViewController.getWorldViewStatus() == WORLD)
+        {
+            if(hasTag(GROWPLACE))
+                GrowManager.get().grow(this);
+        }
+    }
+
+
     private void collect(Actor collectingActor)
     {
         Collectible collected = Collectible.createCollectible(actorFileName, generalStatus);

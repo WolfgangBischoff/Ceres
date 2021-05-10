@@ -15,6 +15,13 @@ public class Time implements Comparable
         fiveMinutes = minutes / 5;
     }
 
+    public Time(long ticks)
+    {
+        this.hours = ticks / 60;
+        this.minutes = ticks % 60;
+        fiveMinutes = ticks % 60 / 5;
+    }
+
     public Time add(int hours, int minutes)
     {
         return new Time(this.hours + hours, this.minutes + minutes);

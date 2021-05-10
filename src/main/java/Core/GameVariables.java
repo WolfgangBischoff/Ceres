@@ -96,7 +96,7 @@ public class GameVariables
     private static void applyTime(Long currentNanoTime, List<Actor> timeDependentActors)
     {
         DateTime current = clock.getCurrentGameTime();
-        timeDependentActors.forEach(a -> a.actAccordingToScript(currentNanoTime));
+        timeDependentActors.forEach(a -> a.actAccordingToApplyTimeTag(currentNanoTime));
     }
 
     public static void addHunger(int delta)

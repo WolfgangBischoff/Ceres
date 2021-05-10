@@ -16,10 +16,9 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * smuggler docks shuttle
 
 #### Crafting mechanic
-* Food -> Nährboden
-* Set and ernte bacteria on Map Nährboden
-    * interact => übergabe als ausgerüstetes Item
+* Food, Bacteria vom ausgerüstetes Item -> Nährboden
 * Bacteria spreads on time (Sichtbare Verbindung, Felder checken position)
+* While Spreading, new bacteria can be created
 * Bacteria Resource can be put into splicer to craft
 
 #### Set/Upgrade item mechanic (provide Service)
