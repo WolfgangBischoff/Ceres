@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.util.Objects;
+
 import static Core.Configs.Config.*;
 
 public class Collectible
@@ -99,4 +101,16 @@ public class Collectible
     {
         return id;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (!(o instanceof Collectible)) return false;
+        Collectible that = (Collectible) o;
+        return Objects.equals(getIngameName(), that.getIngameName()) &&
+                Objects.equals(getTechnicalName(), that.getTechnicalName()) &&
+                getType() == that.getType();
+    }
+
 }

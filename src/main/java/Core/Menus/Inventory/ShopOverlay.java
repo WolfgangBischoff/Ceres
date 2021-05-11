@@ -117,10 +117,10 @@ public class ShopOverlay
                 slotNumber++;
 
                 //Item slot images
-                Collectible current = null;
+                CollectibleStack current = CollectibleStack.empty();
                 if (itemSlotNumber < actor.getInventory().itemsList.size())
                     current = actor.getInventory().itemsList.get(itemSlotNumber);
-                if (current != null)
+                if (!current.isEmpty())
                 {
                     gc.drawImage(current.getImage(), SCREEN_POSITION.getX() + slotX, SCREEN_POSITION.getY() + slotY);
                     gc.setFill(COLOR_RED);
@@ -179,7 +179,7 @@ public class ShopOverlay
     private void activateHighlightedOption(Long currentNanoTime)
     {
         String methodName = "activateHighlightedOption() ";
-        Collectible collectible = null;
+        CollectibleStack collectible = null;
         Actor player = WorldView.getPlayer().getActor();
         int itemIdx = mouseElements.indexOf(highlightedElement);
         if (actor.getInventory().size() > itemIdx && itemIdx >= 0)

@@ -27,17 +27,11 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Zeit & Resourcenkostenme
 * Position check
 * Different Sprites           
-           
-#### Grow Plant / Genes
-* workenbench/breeder that uses base bacteria and genes
-* air bacteria, food, material, social buff, computers?
-* bases need organic matter to grow, can be spliced for improvements
-* bases can be mixed, mutated over time
-* bacteria cultures can be used in incubators (bottleneck)
 
 #### Engine
 * Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können
     * Includes sollten gespeichert werden (Teil von LevelState?), bei initial geladenen werden auch persistente hinzugefügt
+* Inventory soll CollectibleStack nutzen um zu stapeln, teilen und benutzen sinnvoll
 
 #### Various
 * first stranger sound
@@ -46,19 +40,15 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Textbox Show Name of Person/Sprite eg. Julian Soulles : Trader and img defined in xml
 * Test: Dialogoption sollte weg sein bis retrigger
 * Actor that listens to variable and changes dialogue if set
-* Blinklicht
 * Show money in Shop view
 * Coin Game
     * Test: Game ends if no correct coins are left
 * Cooperation value just increases two time a day
 * Create Questlog 
 
-#### Stealth mechanic
-* split inRange area into several parts
-* every part will be blocked by bocker sprites
-* in range player interaction
-
 ####Sprites  
+* einrahmen der meldung bei items
+* electricLockpic sprite + bacteria fuella
 * Ship: rename sleep capsules
 * Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
 * Hammer and Sickle modern, Säulen, Tank

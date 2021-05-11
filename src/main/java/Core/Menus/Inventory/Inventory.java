@@ -2,6 +2,7 @@ package Core.Menus.Inventory;
 
 import Core.Actor;
 import Core.Collectible;
+import Core.CollectibleStack;
 import Core.Enums.CollectableType;
 
 import java.util.ArrayList;
@@ -11,31 +12,31 @@ public class Inventory
 {
     private static final String CLASSNAME = "Inventory/";
     private final Integer MAX_IDX_ITEMS = 30;
-    List<Collectible> itemsList = new ArrayList<>();
+    List<CollectibleStack> itemsList = new ArrayList<>();
     Actor owner;
 
     public Inventory(Actor owner)
     {
         this.owner = owner;
         for (int i = 0; i < MAX_IDX_ITEMS; i++)
-            itemsList.add(null);
+            itemsList.add(CollectibleStack.empty());
     }
 
     public boolean hasItemOfType(String technicalName, CollectableType type)
     {
-        for (Collectible c : itemsList)
+        for (CollectibleStack c : itemsList)
             if (c != null && c.getType() == type && c.getTechnicalName().equals(technicalName))
                 return true;
         return false;
     }
 
-    public void addItemIdx(Collectible collectible, int idx)
+    public void addItemIdx(CollectibleStack collectible, int idx)
     {
         if (idx < MAX_IDX_ITEMS)
-            itemsList.set(idx, collectible);
+            itemsList.get(idx).add(collectible);
     }
 
-    public boolean addItemNextSlot(Collectible collectible)
+    public boolean addItemNextSlot(CollectibleStack collectible)
     {
         if (hasFreeSlot())
         {
@@ -45,18 +46,19 @@ public class Inventory
         return false;
     }
 
-    public void removeItem(Collectible collectible)
+    public void removeItem(CollectibleStack collectible)
     {
-        removeItem(itemsList.indexOf(collectible));
+        if(!collectible.isEmpty())
+            removeItem(itemsList.indexOf(collectible));
     }
 
     public void removeItem(int idx)
     {
         if (idx >= 0)
-            itemsList.set(idx, null);
+            itemsList.set(idx, CollectibleStack.empty());
     }
 
-    public Collectible getItem(int idx)
+    public CollectibleStack getItem(int idx)
     {
         return itemsList.get(idx);
     }
@@ -66,7 +68,7 @@ public class Inventory
         return itemsList.contains(toCheck);
     }
 
-    public void removeAll(List<Collectible> collectibles)
+    public void removeAll(List<CollectibleStack> collectibles)
     {
         itemsList.removeAll(collectibles);
     }
@@ -79,7 +81,7 @@ public class Inventory
                 ;
     }
 
-    public List<Collectible> getItemsList()
+    public List<CollectibleStack> getItemsList()
     {
         return itemsList;
     }
@@ -93,7 +95,7 @@ public class Inventory
     public boolean hasFreeSlot()
     {
         for (int i = 0; i < MAX_IDX_ITEMS; i++)
-            if (itemsList.get(i) == null)
+            if (itemsList.get(i).isEmpty())
             {
                 return true;
             }
@@ -103,7 +105,7 @@ public class Inventory
     public int nextFreeIdx()
     {
         for (int i = 0; i < itemsList.size(); i++)
-            if (itemsList.get(i) == null)
+            if (itemsList.get(i).isEmpty())
             {
                 return i;
             }

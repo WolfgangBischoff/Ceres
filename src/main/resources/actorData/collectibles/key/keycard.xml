@@ -6,6 +6,10 @@
         <line>The keycard was lost recently, it opens the box in the life support room.</line>
     </dialogue>
 
+    <dialogue id="electric_lockpic" type="normal">
+        <line>This lockpic was formed by bacteria. You can overload some devices and trick security protocols with it.</line>
+    </dialogue>
+
 </root>
 
 

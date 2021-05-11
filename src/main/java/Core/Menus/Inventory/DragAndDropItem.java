@@ -1,16 +1,17 @@
 package Core.Menus.Inventory;
 
 import Core.Collectible;
+import Core.CollectibleStack;
 import javafx.geometry.Point2D;
 
 public class DragAndDropItem
 {
     Point2D screenPosition;
-    Collectible collectible;
+    CollectibleStack collectible;
     Inventory previousInventory;
     int previousIdx;
 
-    public DragAndDropItem(double x, double y, Collectible collectible, Inventory previousInventory, int previousIdx)
+    public DragAndDropItem(double x, double y, CollectibleStack collectible, Inventory previousInventory, int previousIdx)
     {
         this.screenPosition = new Point2D(x, y);
         this.collectible = collectible;

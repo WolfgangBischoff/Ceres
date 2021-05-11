@@ -130,7 +130,7 @@ public class InventoryOverlay implements DragAndDropOverlay
                 slotNumber++;
 
                 //Item slot images
-                Collectible current = null;
+                CollectibleStack current = null;
                 if (itemSlotNumber < actor.getInventory().itemsList.size())
                     current = actor.getInventory().itemsList.get(itemSlotNumber);
                 if (current != null) {
@@ -183,7 +183,7 @@ public class InventoryOverlay implements DragAndDropOverlay
                     controller.setTooltipElement(tooltipElement);
                     if (mouseElements.indexOf(tooltipElement) >= 0 && mouseElements.indexOf(tooltipElement) < actor.getInventory().itemsList.size())
                     {
-                        controller.setTooltippedCollectible(actor.getInventory().itemsList.get(mouseElements.indexOf(tooltipElement)));
+                        controller.setTooltippedCollectible(actor.getInventory().getItem(mouseElements.indexOf(tooltipElement)));
                     }
                 }
             }
@@ -205,7 +205,7 @@ public class InventoryOverlay implements DragAndDropOverlay
 
     }
 
-    public void removeItem(Collectible collectible)
+    public void removeItem(CollectibleStack collectible)
     {
         actor.getInventory().removeItem(collectible);
     }
@@ -213,8 +213,8 @@ public class InventoryOverlay implements DragAndDropOverlay
     public void dropCollectible(DragAndDropItem dropped)
     {
         if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG)) {
-            Collectible collectibleToDrop = dropped.collectible;
-            Collectible collectibleAtTargetSlot = actor.getInventory().getItem(mouseElements.indexOf(highlightedElement));
+            CollectibleStack collectibleToDrop = dropped.collectible;
+            CollectibleStack collectibleAtTargetSlot = actor.getInventory().getItem(mouseElements.indexOf(highlightedElement));
             dropped.previousInventory.addItemIdx(//Swap item if exists
                     collectibleAtTargetSlot,
                     dropped.previousIdx);
@@ -232,9 +232,9 @@ public class InventoryOverlay implements DragAndDropOverlay
     public void dragCollectible(Long currentNanoTime, Point2D mousePosition)
     {
         if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG)) {
-            if (actor.getInventory().itemsList.get(mouseElements.indexOf(highlightedElement)) != null && controller.getDragAndDropItem() == null) {
-                Collectible collectible;
-                collectible = actor.getInventory().itemsList.get(mouseElements.indexOf(highlightedElement));
+            CollectibleStack tocheck = actor.getInventory().getItem(mouseElements.indexOf(highlightedElement));
+            if (!tocheck.isEmpty() && controller.getDragAndDropItem() == null) {
+                CollectibleStack collectible = actor.getInventory().getItem(mouseElements.indexOf(highlightedElement));
                 actor.getInventory().removeItem(collectible);
                 controller.setDragAndDropItem(new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible, actor.getInventory(), mouseElements.indexOf(highlightedElement)));
             }
@@ -251,7 +251,7 @@ public class InventoryOverlay implements DragAndDropOverlay
     private void activateHighlightedOption()
     {
         String methodName = "activateHighlightedOption() ";
-        Collectible collectible = null;
+        CollectibleStack collectible = null;
         int itemIdx = mouseElements.indexOf(highlightedElement);
         if (actor.getInventory().itemsList.size() > itemIdx && itemIdx >= 0)
             collectible = actor.getInventory().itemsList.get(itemIdx);

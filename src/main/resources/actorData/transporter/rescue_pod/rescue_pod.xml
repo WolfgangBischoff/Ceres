@@ -11,7 +11,7 @@
         <option nextDialogue="NO_BACTERY">[Check Console]</option>
     </dialogue>
     <dialogue id="NO_BACTERY" type="normal">
-        <line>The rescue pod must be overridden, you need %%VTelectric bacteria%%!</line>
+        <line>The rescue pod must be overridden, you need an %%VTelectric lockpic%%!</line>
     </dialogue>
 
     <dialogue id="OVERRIDE" type="decision" fadeout="true">

@@ -2,6 +2,7 @@ package Core.Menus.Inventory;
 
 import Core.Actor;
 import Core.Collectible;
+import Core.CollectibleStack;
 import Core.Configs.Config;
 import Core.Utilities;
 import Core.WorldView.WorldView;
@@ -34,7 +35,7 @@ public class InventoryController
     Point2D shopInterfacePosition = EXCHANGE_INVENTORY_POSITION;
     private DragAndDropItem dragAndDropItem;
     MouseElement tooltipElement = null;
-    Collectible tooltippedCollectible = null;
+    CollectibleStack tooltippedCollectible = null;
 
     public InventoryController()
     {
@@ -73,7 +74,7 @@ public class InventoryController
         if (dragAndDropItem != null)
             gc.drawImage(dragAndDropItem.collectible.getImage(), dragAndDropItem.screenPosition.getX(), dragAndDropItem.screenPosition.getY());
 
-        if (tooltipElement != null && tooltippedCollectible != null) {
+        if (tooltipElement != null && !tooltippedCollectible.isEmpty()) {
             drawTooltip(gc);
         }
 
@@ -109,8 +110,7 @@ public class InventoryController
     {
         String methodName = "processMouse() ";
         tooltipElement = null;
-        tooltippedCollectible = null;
-
+        setTooltippedCollectible(CollectibleStack.empty());
 
         boolean hoversOverlayPlayer = playerInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean hoversOverlayOther = otherInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
@@ -175,12 +175,8 @@ public class InventoryController
         this.dragAndDropItem = dragAndDropItem;
     }
 
-    public Collectible getTooltippedCollectible()
-    {
-        return tooltippedCollectible;
-    }
 
-    public void setTooltippedCollectible(Collectible tooltippedCollectible)
+    public void setTooltippedCollectible(CollectibleStack tooltippedCollectible)
     {
         this.tooltippedCollectible = tooltippedCollectible;
     }

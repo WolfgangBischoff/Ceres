@@ -1,6 +1,7 @@
 package Core.Menus.DaySummary;
 
 import Core.Collectible;
+import Core.CollectibleStack;
 import Core.GameVariables;
 import Core.WorldView.WorldView;
 
@@ -15,7 +16,7 @@ public class DaySummary
     static private final String CLASSNAME = "DaySummary ";
     private boolean hasInterrogation = false;
     private boolean isStarving = false;
-    List<Collectible> foundStolenCollectibles = new ArrayList<>();
+    List<CollectibleStack> foundStolenCollectibles = new ArrayList<>();
 
     public DaySummary()
     {
@@ -31,10 +32,10 @@ public class DaySummary
             hasInterrogation = true;
             //Check if stolen items are in the players inventory
             boolean stolenItemWasFound = false;
-            List<Collectible> playerInventory = WorldView.getPlayer().getActor().getInventory().getItemsList();
+            List<CollectibleStack> playerInventory = WorldView.getPlayer().getActor().getInventory().getItemsList();
             for(int i=0; i<playerInventory.size(); i++)
             {
-                Collectible checked = playerInventory.get(i);
+                CollectibleStack checked = playerInventory.get(i);
                 if(GameVariables.getStolenCollectibles().contains(checked))
                 {
                     stolenItemWasFound = true;

@@ -1,0 +1,13 @@
+
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+
+#sensorStatus;sensorStatusName	;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+sensorStatus	;default										;collectable														;none  	 																;none 																			;none																			;none																;none																;none 																;none															;none																					;none																						;none 																				;none																				;none															;none														;none															;none														;none																;none																;none																;none
+
+#collectible_data; TYPE; base_value
+#collectible_data; BACTERIA_BASE; 5
+
+#status to image
+#status 														;name   									;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning;dialogueID					;dialogueFile																																		;unused;unused;unused;unused;unused ;duration ;velocity  ;AnimationEnds
+#electric_lockpic					;electric  						;actorData/collectibles/bacteria/electric_base					;false			;1												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none					;electric							;actorData/collectibles/bacteria/bacteria	;unused;unused;unused;unused;unused	;000						;000							;false

@@ -1,13 +1,10 @@
 package Core.Menus.Textbox;
 
-import Core.Actor;
-import Core.Collectible;
+import Core.*;
 import Core.Enums.Knowledge;
-import Core.GameVariables;
 import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.Menus.CoinGame.CoinGame;
 import Core.Menus.DaySummary.DaySummaryScreenController;
-import Core.Utilities;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -104,7 +101,7 @@ public class Dialogue
                     Collectible collectible = Collectible.createCollectible(
                             currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_ACTOR)
                             , currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_STATUS));
-                    if (WorldView.getPlayer().getActor().getInventory().addItemNextSlot(collectible))
+                    if (WorldView.getPlayer().getActor().getInventory().addItemNextSlot(new CollectibleStack(collectible)))
                         CentralMessageOverlay.showMsg("New " + collectible.getIngameName() + "!");
                     else
                         System.out.println(CLASSNAME + "TODO Item could not be added to Inventory");

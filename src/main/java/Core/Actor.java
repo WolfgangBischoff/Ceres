@@ -168,7 +168,7 @@ public class Actor
                 break;
             case CONTAINS_COLLECTIBLE_ACTOR:
                 Collectible collectible = Collectible.createCollectible(linedata[1], linedata[2]);
-                inventory.addItemNextSlot(collectible);
+                inventory.addItemNextSlot(new CollectibleStack(collectible));
                 break;
             case KEYWORD_sensorStatus:
                 sensorStatusMap.put(linedata[1], readSensorData(linedata));
@@ -672,7 +672,7 @@ public class Actor
     {
         Collectible collected = Collectible.createCollectible(actorFileName, generalStatus);
         collected.image = spriteList.get(0).getBaseimage();
-        boolean wasCollected = collectingActor.inventory.addItemNextSlot(collected);
+        boolean wasCollected = collectingActor.inventory.addItemNextSlot(new CollectibleStack(collected));
 
         if (wasCollected)
         {
@@ -690,7 +690,7 @@ public class Actor
     private void harvest()
     {
         Collectible collected = Collectible.createCollectible("actorData/collectibles/bacteria/bacteria_crafted",  generalStatus);
-        if (WorldView.getPlayer().getActor().getInventory().addItemNextSlot(collected))
+        if (WorldView.getPlayer().getActor().getInventory().addItemNextSlot(new CollectibleStack(collected)))
             CentralMessageOverlay.showMsg("New " + collected.getIngameName() + "!");
     }
 

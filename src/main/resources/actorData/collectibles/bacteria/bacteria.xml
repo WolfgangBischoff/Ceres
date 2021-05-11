@@ -3,10 +3,6 @@
 
 <root name = "actorName">
     <dialogue id="electric" type="normal">
-        <line>With this bacteria you can overload some devices and trick security protocols. It glows bursting with electricity.</line>
-    </dialogue>
-
-    <dialogue id="electric_base" type="normal">
         <line>The bacteria glows bursting with electricity, if you splice it with the right genes it could useful.</line>
     </dialogue>
 

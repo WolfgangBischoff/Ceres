@@ -1,9 +1,6 @@
 package Core.Menus.DaySummary;
 
-import Core.Collectible;
-import Core.GameVariables;
-import Core.GameWindow;
-import Core.Utilities;
+import Core.*;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -132,7 +129,7 @@ public class DaySummaryScreenController
         graphicsContext.fillText(stringBuilder.toString(), mamInformationArea.getMinX() + 5, mamInformationArea.getMinY() + initOffsetY);
         for (int i = 0; i < daySummary.foundStolenCollectibles.size(); i++)
         {
-            Collectible collectible = daySummary.foundStolenCollectibles.get(i);
+            CollectibleStack collectible = daySummary.foundStolenCollectibles.get(i);
             tmpOffsetY += 20 + i * (graphicsContext.getFont().getSize() + spaceY);
             graphicsContext.fillText(collectible.getIngameName(), mamInformationArea.getMinX() + 5,
                     mamInformationArea.getMinY() + initOffsetY + tmpOffsetY);
