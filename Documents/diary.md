@@ -2,6 +2,7 @@
 ##### 05 21
 * interact => set bacteria, info
 * bacteria can rot
+* added collectibeStack
 ##### 06 05 21
 * first grow script
 ##### 28 04 21
