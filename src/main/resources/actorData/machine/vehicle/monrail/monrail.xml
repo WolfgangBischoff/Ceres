@@ -7,8 +7,8 @@
     </dialogue>
 
     <dialogue id="INIT_DECISION" type="decision" spritestatus="transition">
-        <option>Back</option>
         <option nextDialogue="LEVEL_DOCKINGBAY">Docking Bay</option>
+        <option>Back</option>
     </dialogue>
 
     <dialogue id="LEVEL_DOCKINGBAY" type="normal" levelchange="dockingBay" spawnID="elevator"/>

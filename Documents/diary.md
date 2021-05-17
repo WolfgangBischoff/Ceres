@@ -3,6 +3,7 @@
 * interact => set bacteria, info
 * bacteria can rot
 * added collectibeStack
+* added sprites: elevator
 ##### 06 05 21
 * first grow script
 ##### 28 04 21
