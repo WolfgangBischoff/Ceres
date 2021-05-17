@@ -64,23 +64,24 @@ elSign				;elSign      ;img/floor/deco/elevator_marking																					    
 
 
 actors:
-#code 					;actorFileN																																																			;IngameName															;sprite-status						;sensor-status	;direction
-player					;actorData/player																																													;Revolutionary												;default												;default							;north
-hedgeh					;actorData/character/hedgehog/hedge																											;Little Hedgehog										;default												;initTxtInRange;undefined
-purple					;actorData/character/coat/purple/woman/coatPurpleWoman								;purple woman   										;default												;textbox							;south
-smalBx					;actorData/storages/boxSmall/prop																													;green Box																;default											 ;default					  ;none
-box___					;actorData/storages/boxSmall/green_persistent																	;green Box																;locked 									   ;default						 ;none
-boxOpn					;actorData/storages/boxSmall/green_persistent																	;green Box																;unlocked								   ;inventory				 ;none
-securP					;actorData/security/securityPost/security    																	;security post												;default									   ;textbox						 ;none
-monrai					;actorData/machine/vehicle/monrail/monrail   																	;monrail																		;default									   ;textbox						 ;none
-bulkhe					;actorData/doors/horizontal/bulkhead_192/bulkhead													;bulkhead																	;on														   ;textbox						 ;none
-door64					;actorData/doors/horizontal/simple64/simple																			;door																					;on														   ;manualDoor	 		;none
-auDoor					;actorData/doors/horizontal/automatedDoor																					;horizontal bulkhead						;on																	;locked								;south
-doorVe					;actorData/doors/vertical/autoBulkheadVertical_persistent					;vertical bulkhead								;on																	;LOCKED								;west
-jobScr					;actorData/computer/jobscreen/jobscreen																							;job screen															;default												;textbox							;undefined
-ele_di					;actorData/doors/updown/elevator/elevator																					;elevator																	;toBiotech										;default							;undefined
-ele__A					;actorData/doors/updown/elevator/elevator																					;elevator																	;a																		;default							;undefined
-growsp					;actorData/system_science/growspace/growspace																	;growspace																;empty														;readyToSeed			;undefined
+#code 					;actorFileN																																																																					;IngameName															;sprite-status						;sensor-status	;direction
+player					;actorData/player																																																															;Revolutionary												;default												;default							;north
+hedgeh					;actorData/character/hedgehog/hedge																																													;Little Hedgehog										;default												;initTxtInRange;undefined
+purple					;actorData/character/coat/purple/woman/coatPurpleWoman																										;purple woman   										;default												;textbox							;south
+blackm					;actorData/character/schulteranzug/red/blackman/schulteranzugRedBlackman								;red man					   										;default												;textbox							;south
+smalBx					;actorData/storages/boxSmall/prop																																															;green Box																;default											 ;default					  ;none
+box___					;actorData/storages/boxSmall/green_persistent																																			;green Box																;locked 									   ;default						 ;none
+boxOpn					;actorData/storages/boxSmall/green_persistent																																			;green Box																;unlocked								   ;inventory				 ;none
+securP					;actorData/security/securityPost/security    																																			;security post												;default									   ;textbox						 ;none
+monrai					;actorData/machine/vehicle/monrail/monrail   																																			;monrail																		;default									   ;textbox						 ;none
+bulkhe					;actorData/doors/horizontal/bulkhead_192/bulkhead																															;bulkhead																	;on														   ;textbox						 ;none
+door64					;actorData/doors/horizontal/simple64/simple																																					;door																					;on														   ;manualDoor	 		;none
+auDoor					;actorData/doors/horizontal/automatedDoor																																							;horizontal bulkhead						;on																	;locked								;south
+doorVe					;actorData/doors/vertical/autoBulkheadVertical_persistent																							;vertical bulkhead								;on																	;LOCKED								;west
+jobScr					;actorData/computer/jobscreen/jobscreen																																									;job screen															;default												;textbox							;undefined
+ele_di					;actorData/doors/updown/elevator/elevator																																							;elevator																	;toBiotech										;default							;undefined
+ele__A					;actorData/doors/updown/elevator/elevator																																							;elevator																	;a																		;default							;undefined
+growsp					;actorData/system_science/growspace/growspace																																			;growspace																;empty														;readyToSeed			;undefined
 
 Actorgroups:
 #System-Name					;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
@@ -170,7 +171,7 @@ layer:
 011 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;veWall ;bed1__ ;______ ;______ ;______ ;veWall ;bed0__ ;______ ;______ ;______ ;veWall ;bed0__ ;______ ;______ ;______ ;veWall ;bed2__ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 012 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;close2 ;veWall ;______ ;medic_ ;______ ;______ ;veWall ;______ ;______ ;______ ;boxOpn ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 013 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;veWall ;lighte ;______ ;______ ;close1 ;veWall ;______ ;______ ;______ ;close0 ;veWall ;______ ;______ ;______ ;close1 ;veWall ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
-014 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;veWall ;nights ;______ ;______ ;couch_ ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
+014 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;veWall ;nights ;blackm ;______ ;couch_ ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 015 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;hedgeh ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 016 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;couchW ;______ ;veWall ;______ ;______ ;couchR ;______ ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 017 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;wallW_ ;wallNE ;______ ;wallNW ;wallN_ ;______ ;wallNE ;______ ;wallNW ;wallN_ ;______ ;wallNE ;______ ;wallNW ;wallN_ ;______ ;wallNE ;______ ;wallNW ;wallN_ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______

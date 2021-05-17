@@ -48,7 +48,6 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 
 ####Sprites  
 * einrahmen der meldung bei items
-* electricLockpic sprite
 * Ship: rename sleep capsules
 * Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
 * Hammer and Sickle modern, Säulen, Tank
