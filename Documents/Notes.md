@@ -48,12 +48,11 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 
 ####Sprites  
 * einrahmen der meldung bei items
-* electricLockpic sprite + bacteria fuella
+* electricLockpic sprite
 * Ship: rename sleep capsules
 * Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
 * Hammer and Sickle modern, Säulen, Tank
-* stranger sprite with air mask and gloves  
-* Docking Bay: space elevator rope, bodenmarkierung lift    
+* stranger sprite with air mask and gloves     
 * Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
 * test: Air hub deutlicherer sprite das kaputt
     
