@@ -51,14 +51,13 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Ship: rename sleep capsules
 * Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
 * Hammer and Sickle modern, Säulen, Tank
-* stranger sprite with air mask and gloves     
+* stranger bright hair    
 * Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
 * test: Air hub deutlicherer sprite das kaputt
-    
-*  Level changes with time
-*       While Map load set global actors according to time, date, variables defined in actor file
-*       Set Actor script according to time
-* 
+
+* Level changes with time
+*      While Map load set global actors according to time, date, variables defined in actor file
+*      Set Actor script according to time
 
 
 # Ideas

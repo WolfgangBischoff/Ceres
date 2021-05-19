@@ -16,5 +16,6 @@ interactionArea; 						250;				80;							150;				-10
 
 
 #status to image
-#status 											;name 					  				;spritename  																																													;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID 							;dialogueFile																					;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds
+#status 											;name 					  													;spritename  																																					;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID 							;dialogueFile																					;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds
 ON																	;automatedDoorDockingBay		;actorData/doors/vertical/autoDoorVertical_close		;true				;1												;0			;0												;0			;0			;0										;0											;0													;128											;64							 		;0128									;none						;door_locked							;dialogue_files/descriptions						;unused;unused;unused;unused;unused;0								;0									;false
+closed_rightblack 	;bulkhead																	;actorData/doors/vertical/vertical_rightblack   		;true				;2												;0			;0												;0			;0			;0										;0											;0													;128											;64							 		;0128									;none						;door_locked							;dialogue_files/descriptions						;unused;unused;unused;unused;unused;0								;0									;false
