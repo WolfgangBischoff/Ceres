@@ -1,31 +1,5 @@
 
 
-<!--/>
-File Identified by Actor Definition
-First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
-
-id - identifier for lookup of textbox
-type - normal/decision
-spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
-
-    <dialogue id="welcome" type="normal" spritestatus="transition">
-        <line>Shown message</line>
-        <line>Shown message 2</line>
-        <nextDialogue>nextDialogueID</nextDialogue>
-    </dialogue>
-
-    <dialogue id="info" type="decision" spritestatus="transition">
-        <option>
-            <line>Optiontext1</line>
-            <nextDialogue>option1ID</nextDialogue>
-        </option>
-
-        <option>
-            <line>Optiontext1, Nothing happens</line>
-        </option>
-    </dialogue>
-<-->
-
 <root name = "infoTerminal">
     <dialogue id="none" type="normal">
         <line>Diffuser Lorem Ipsum</line>
@@ -60,15 +34,15 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <option>[Go Away]</option>
     </dialogue>
 
-    <dialogue id="pushedButtonRose" type="normal" spritestatus="rose">
+    <dialogue id="pushedButtonRose" type="normal" dialogueId="rose">
         <line>Rose aroma streams from the diffuser</line>
     </dialogue>
 
-    <dialogue id="pushedButtonYlang" type="normal" spritestatus="Ylang">
+    <dialogue id="pushedButtonYlang" type="normal" dialogueId="ylang">
         <line>Ylang-Ylang aroma streams from the diffuser</line>
     </dialogue>
 
-    <dialogue id="pushedButtonThieves" type="normal" spritestatus="thieves">
+    <dialogue id="pushedButtonThieves" type="normal" dialogueId="thieves">
         <line>Thieves aroma streams from the diffuser</line>
     </dialogue>
 
