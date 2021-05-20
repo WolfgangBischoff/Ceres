@@ -12,10 +12,7 @@ import Core.Menus.CoinGame.CoinGame;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Personality.PersonalityScreenController;
-import Core.Menus.StatusOverlay.BarStatusConfig;
-import Core.Menus.StatusOverlay.BarStatusOverlay;
-import Core.Menus.StatusOverlay.ClockOverlay;
-import Core.Menus.StatusOverlay.VariableStatusOverlay;
+import Core.Menus.StatusOverlay.*;
 import Core.Menus.Textbox.Textbox;
 import Core.Sprite.Sprite;
 import Core.Sprite.SpriteComparator;
@@ -44,33 +41,20 @@ public class WorldView
     private static final String CLASSNAME = "WorldView/";
     //Inventory Overlay
     static InventoryController inventoryController;
-    static Point2D inventoryOverlayPosition = new Point2D(0, 0);
     static Long lastTimeMenuWasOpened = 0L;
-    //TextBox Overlay
     static Textbox textbox;
-    static Point2D textBoxPosition = TEXT_BOX_POSITION;
-    //Personality Overlay
     static PersonalityScreenController personalityScreenController;
     static Point2D personalityScreenPosition = PERSONALITY_POSITION;
-    //Discussion Game Overlay
     static CoinGame coinGame;
-    static Point2D discussionGamePosition = COINGAME_POSITION;
-    //DaySummary Overlay
     static DaySummaryScreenController daySummaryScreenController = new DaySummaryScreenController();
     static Point2D daySummaryScreenPosition = DAY_SUMMARY_POSITION;
-    //Management Attention Meter Overlay
     static BarStatusOverlay mamOverlay = new BarStatusOverlay(
             new BarStatusConfig("interface/bars/MaM_bar_400x64.png", null, COLOR_RED,
                     MAM_BAR_WIDTH, MAM_BAR_HEIGHT, 100, GameVariables.getPlayerMaM_duringDayProperty(), MAM_BAR_POSITION));
-    static Point2D mamOverlayPosition = MAM_BAR_POSITION;
-    //Money Overlay
     static VariableStatusOverlay moneyOverlay = new VariableStatusOverlay(MONEY_FIELD_WIDTH, MONEY_FIELD_HEIGHT, GameVariables.playerMoneyProperty(), "interface/bars/money_field_150x64.png", MONEY_POSITION);
-    //Hunger Overlay
     static BarStatusOverlay hungerOverlay = new BarStatusOverlay(new BarStatusConfig("interface/bars/food_bar_400x64.png", null, COLOR_GREEN,
             MAM_BAR_WIDTH, MAM_BAR_HEIGHT, MAX_HUNGER, GameVariables.playerHungerProperty(), HUNGER_BAR_POSITION));
-    //Clock Overlay
     static ClockOverlay boardTimeOverlay;
-    //Message Overlay
     static CentralMessageOverlay centralMessageOverlay = new CentralMessageOverlay();
     static List<Actor> actorList = new ArrayList<>();
     static List<Sprite> actorSpritesLayer = new ArrayList<>();
@@ -855,6 +839,7 @@ public class WorldView
 
     private void renderHUD(Long currentNanoTime)
     {
+        inventoryController.renderQuickInventory(hudCanvas.getGraphicsContext2D());
         hungerOverlay.render(hudCanvas.getGraphicsContext2D());
         mamOverlay.render(hudCanvas.getGraphicsContext2D());
         moneyOverlay.render(hudCanvas.getGraphicsContext2D());

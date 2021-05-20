@@ -6,10 +6,10 @@ import javafx.geometry.Point2D;
 
 public class DragAndDropItem
 {
-    Point2D screenPosition;
-    CollectibleStack collectible;
-    Inventory previousInventory;
-    int previousIdx;
+    public Point2D screenPosition;
+    public CollectibleStack collectible;
+    public Inventory previousInventory;
+    public int previousIdx;
 
     public DragAndDropItem(double x, double y, CollectibleStack collectible, Inventory previousInventory, int previousIdx)
     {

@@ -4,6 +4,7 @@ import Core.Actor;
 import Core.Collectible;
 import Core.CollectibleStack;
 import Core.Configs.Config;
+import Core.Menus.StatusOverlay.CollectibleSlotOverlay;
 import Core.Utilities;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
@@ -28,6 +29,7 @@ public class InventoryController
     static InventoryOverlay otherInventoryOverlay;
     static ShopOverlay shopOverlay;
     static IncubatorOverlay incubatorOverlay;
+    static CollectibleSlotOverlay quickInventory;
     private static final String CLASSNAME = "InventoryController/";
     WritableImage interactionInventoryImage;
     Point2D playerInventoryPosition = Config.INVENTORY_POSITION;
@@ -44,12 +46,19 @@ public class InventoryController
         otherInventoryOverlay = new InventoryOverlay(null, exchangeInventoryPosition, this);
         incubatorOverlay = new IncubatorOverlay(null, INCUBATOR_POSITION, this);
         shopOverlay = new ShopOverlay(null, shopInterfacePosition, this);
+        quickInventory = new CollectibleSlotOverlay(EQUIPPED_COLLECTIBLE_POSITION, this);
     }
 
     public static void setExchangeInventoryActor(Actor exchangeInventoryActor)
     {
         String methodName = "setExchangeInventoryActor() ";
         InventoryController.exchangeInventoryActor = exchangeInventoryActor;
+    }
+
+    public void renderQuickInventory(GraphicsContext hudCanvas)
+    {
+        otherInventoryOverlay.setActor(exchangeInventoryActor);
+        quickInventory.render(hudCanvas);
     }
 
     public void render(GraphicsContext gc, long currentRenderTime)
@@ -116,6 +125,7 @@ public class InventoryController
         boolean hoversOverlayOther = otherInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean hoversOverlayShop = shopOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean hoversOverlayIncubator = incubatorOverlay.getSCREEN_AREA().contains(mousePosition);
+        //boolean hoversOverlayQuickInventory = quickInventory.getSCREEN_AREA().contains(mousePosition);
         DragAndDropOverlay hoveredOverlay = null;
         WorldViewStatus worldViewStatus = WorldViewController.getWorldViewStatus();
         if (playerInventoryOverlay.getSCREEN_AREA().contains(mousePosition))
@@ -124,11 +134,17 @@ public class InventoryController
             hoveredOverlay = otherInventoryOverlay;
         else if (hoversOverlayIncubator && worldViewStatus == INCUBATOR)
             hoveredOverlay = incubatorOverlay;
+       // else if (hoversOverlayQuickInventory)
+       // {
+       //     System.out.println("Hovered Quick Inv");
+       //     hoveredOverlay = quickInventory;
+       // }
 
         if (//Check if a inventory is hovered
                 (hoversOverlayPlayer ||
                         (worldViewStatus == INVENTORY_EXCHANGE && hoversOverlayOther) ||
                         (worldViewStatus == INVENTORY_SHOP && hoversOverlayShop) ||
+                    //    (worldViewStatus == WORLD && hoversOverlayQuickInventory) ||
                         (worldViewStatus == INCUBATOR && hoversOverlayIncubator))) {
 
             if (hoversOverlayPlayer) {
@@ -141,6 +157,8 @@ public class InventoryController
                 shopOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
             else if (worldViewStatus == INCUBATOR)
                 incubatorOverlay.processMouse(mousePosition);
+           // else if (worldViewStatus == WORLD)
+           //     quickInventory.processMouse(mousePosition);
 
             if (hoveredOverlay != null) {
                 if (isMouseDragged && getDragAndDropItem() == null)//Drag Item

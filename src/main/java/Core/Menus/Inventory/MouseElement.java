@@ -10,9 +10,9 @@ import java.util.Set;
 
 public class MouseElement
 {
-    Shape position;
-    String identifier;
-    Set<MouseInteractionType> reactiveTypes;
+    public Shape position;
+    public String identifier;
+    public Set<MouseInteractionType> reactiveTypes;
 
     public MouseElement(Shape position, String identifier, Set<MouseInteractionType> reactiveTypes)
     {
