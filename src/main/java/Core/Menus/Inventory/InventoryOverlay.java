@@ -92,11 +92,9 @@ public class InventoryOverlay implements DragAndDropOverlay
 
     public void render(GraphicsContext gc) throws NullPointerException
     {
-        String methodName = "render() ";
         Color marking = COLOR_MARKING;
         Color font = COLOR_FONT;
         Color darkRed = Color.hsb(0, 0.23, 0.70);
-
 
         //Background
         gc.setGlobalAlpha(0.8);
@@ -190,8 +188,6 @@ public class InventoryOverlay implements DragAndDropOverlay
         }
         //System.out.println(CLASSNAME + mousePosition.getX() + " " + mousePosition.getY());
 
-
-
         if ((GameWindow.getSingleton().isMouseMoved()) && hoveredElement != null)//Set highlight if mouse moved
         {
             setHighlightedElement(hoveredElement);
@@ -251,10 +247,10 @@ public class InventoryOverlay implements DragAndDropOverlay
     private void activateHighlightedOption()
     {
         String methodName = "activateHighlightedOption() ";
-        CollectibleStack collectible = null;
+        CollectibleStack chosenCollectible = null;
         int itemIdx = mouseElements.indexOf(highlightedElement);
         if (actor.getInventory().itemsList.size() > itemIdx && itemIdx >= 0)
-            collectible = actor.getInventory().itemsList.get(itemIdx);
+            chosenCollectible = actor.getInventory().itemsList.get(itemIdx);
 
         if (WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE) {
             switch (highlightedElement.identifier) {
@@ -267,15 +263,15 @@ public class InventoryOverlay implements DragAndDropOverlay
                 default:
             }
 
-            if (collectible != null) {
+            if (chosenCollectible != null) {
                 //check from which inventory to which inventory we exchange
                 if (InventoryController.playerInventoryOverlay == this) {
-                    InventoryController.exchangeInventoryActor.getInventory().addItemNextSlot(collectible);
-                    InventoryController.playerActor.getInventory().removeItem(collectible);
+                    InventoryController.exchangeInventoryActor.getInventory().addItemNextSlot(chosenCollectible);
+                    InventoryController.playerActor.getInventory().removeItem(chosenCollectible);
                 }
                 else if (InventoryController.otherInventoryOverlay == this) {
-                    InventoryController.playerActor.getInventory().addItemNextSlot(collectible);
-                    InventoryController.exchangeInventoryActor.getInventory().removeItem(collectible);
+                    InventoryController.playerActor.getInventory().addItemNextSlot(chosenCollectible);
+                    InventoryController.exchangeInventoryActor.getInventory().removeItem(chosenCollectible);
                 }
             }
 
@@ -296,13 +292,24 @@ public class InventoryOverlay implements DragAndDropOverlay
                 default:
             }
 
-            if (collectible != null
-                    && collectible.getType() == CollectableType.FOOD) {
-                System.out.println(CLASSNAME + methodName + "You ate " + collectible.getIngameName());
-                GameVariables.addHunger(collectible.getBaseValue());
-                actor.getInventory().removeItem(collectible);
-                GameVariables.getStolenCollectibles().remove(collectible);
+            if(chosenCollectible != null && chosenCollectible.isDefined())
+            {
+                controller.setMenuCollectible(chosenCollectible);
+                System.out.println(CLASSNAME + chosenCollectible.getIngameName() + " clicked");
             }
+            else
+            {
+                controller.setMenuCollectible(CollectibleStack.empty());
+            }
+/*
+            if (chosenCollectible != null
+                    && chosenCollectible.getType() == CollectableType.FOOD) {
+                System.out.println(CLASSNAME + methodName + "You ate " + chosenCollectible.getIngameName());
+                GameVariables.addHunger(chosenCollectible.getBaseValue());
+                actor.getInventory().removeItem(chosenCollectible);
+                GameVariables.getStolenCollectibles().remove(chosenCollectible);
+            }
+ */
         }
 
     }

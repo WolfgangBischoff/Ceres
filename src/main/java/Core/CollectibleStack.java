@@ -60,6 +60,11 @@ public class CollectibleStack
         return collectible == null;
     }
 
+    public boolean isDefined()
+    {
+        return !(collectible == null);
+    }
+
     public void remove()
     {
         if (number > 0)

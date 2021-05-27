@@ -16,17 +16,19 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * smuggler docks shuttle
 
 #### Crafting mechanic
-* Food, Bacteria vom ausgerüstetes Item -> Nährboden
+* Food, Bacteria vom aud dem Inventar genutzen Item; verwendet in eigenem Modus-> Nährboden
 * Bacteria spreads on time (Sichtbare Verbindung, Felder checken position)
 * While Spreading, new bacteria can be created
 * Bacteria Resource can be put into splicer to craft
 
-#### Set/Upgrade item mechanic (provide Service)
+#### Set/Interact item mechanic (provide Service)
+* from inventory world interaction mode
 * sprite an Pos adden via Key
 * Sprite von Menu und maus adden
 * Zeit & Resourcenkostenme
 * Position check
-* Different Sprites           
+* Different Sprites
+* remove CollectibleSlotOverlay at lest from sight           
 
 #### Engine
 * Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können
@@ -78,8 +80,10 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * puzzle; suchen im dunkeln
 
 ###Random Under-Station
-* area without guards, but dangerous
-* randomly generated to loot
+* Siege Survival: Gloria Victis
+* Guards that should not see you or enviroment hazards
+* randomly generated to loot and textadventures
+* getting tips from rumors for events
 
 ###Daily needs
 * Sleep -> based on time like in StardewVallay, but maybe no defined end time. Some areas dont have time
@@ -88,9 +92,6 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Food -> Eat during game (if not eaten for days, dies)
 * Air -> needed for space suit
 * Entertainment -> maybe useless but nice value
-
-###Containering and Looting
-* getting tips from rumors for events
 
 ###Social
 * go to cafes and talk to people, befriend them

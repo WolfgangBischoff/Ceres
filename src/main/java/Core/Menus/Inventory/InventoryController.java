@@ -1,7 +1,6 @@
 package Core.Menus.Inventory;
 
 import Core.Actor;
-import Core.Collectible;
 import Core.CollectibleStack;
 import Core.Configs.Config;
 import Core.Menus.StatusOverlay.CollectibleSlotOverlay;
@@ -11,18 +10,18 @@ import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.WritableImage;
 import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static Core.Configs.Config.*;
-import static Core.Configs.Config.FONT_ORBITRON_12;
 import static Core.WorldView.WorldViewStatus.*;
 import static java.lang.Math.max;
 
 public class InventoryController
 {
+    private static final String CLASSNAME = "InventoryController/";
     static Actor exchangeInventoryActor;
     static Actor playerActor;
     static InventoryOverlay playerInventoryOverlay;
@@ -30,14 +29,14 @@ public class InventoryController
     static ShopOverlay shopOverlay;
     static IncubatorOverlay incubatorOverlay;
     static CollectibleSlotOverlay quickInventory;
-    private static final String CLASSNAME = "InventoryController/";
-    WritableImage interactionInventoryImage;
     Point2D playerInventoryPosition = Config.INVENTORY_POSITION;
     Point2D exchangeInventoryPosition = EXCHANGE_INVENTORY_POSITION;
     Point2D shopInterfacePosition = EXCHANGE_INVENTORY_POSITION;
-    private DragAndDropItem dragAndDropItem;
     MouseElement tooltipElement = null;
     CollectibleStack tooltippedCollectible = null;
+    CollectibleStack menuCollectible = CollectibleStack.empty();
+    Rectangle menuCollectiblePosition;
+    private DragAndDropItem dragAndDropItem;
 
     public InventoryController()
     {
@@ -51,7 +50,6 @@ public class InventoryController
 
     public static void setExchangeInventoryActor(Actor exchangeInventoryActor)
     {
-        String methodName = "setExchangeInventoryActor() ";
         InventoryController.exchangeInventoryActor = exchangeInventoryActor;
     }
 
@@ -63,30 +61,56 @@ public class InventoryController
 
     public void render(GraphicsContext gc, long currentRenderTime)
     {
-        String methodName = "render() ";
         playerInventoryOverlay.render(gc);
 
-
-        if (WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE) {
+        if (WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE)
+        {
             otherInventoryOverlay.setActor(exchangeInventoryActor);
             otherInventoryOverlay.render(gc);
 
         }
-        else if (WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_SHOP) {
+        else if (WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_SHOP)
+        {
             shopOverlay.setActor(exchangeInventoryActor);
             shopOverlay.render(gc);
         }
-        else if (WorldViewController.getWorldViewStatus() == INCUBATOR) {
+        else if (WorldViewController.getWorldViewStatus() == INCUBATOR)
+        {
             incubatorOverlay.setActor(exchangeInventoryActor);
             incubatorOverlay.render(gc, currentRenderTime);
         }
         if (dragAndDropItem != null)
             gc.drawImage(dragAndDropItem.collectible.getImage(), dragAndDropItem.screenPosition.getX(), dragAndDropItem.screenPosition.getY());
 
-        if (tooltipElement != null && !tooltippedCollectible.isEmpty()) {
+        if (menuCollectible.isDefined())
+        {
+            drawCollectibleMenu(gc);
+        }
+        else if (tooltipElement != null && tooltippedCollectible.isDefined())
+        {
             drawTooltip(gc);
         }
 
+    }
+
+    private void drawCollectibleMenu(GraphicsContext gc)
+    {
+        List<String> lines = new ArrayList<>();
+        lines.add("USE");
+        lines.add("BACK");
+        Rectangle tooltipRect = menuCollectiblePosition;
+        gc.setFill(COLOR_GREEN);
+        gc.fillRect(tooltipRect.getX(), tooltipRect.getY(), tooltipRect.getWidth(), tooltipRect.getHeight());
+        gc.setFill(COLOR_BACKGROUND_GREY);
+        gc.fillRect(tooltipRect.getX() + 2, tooltipRect.getY() + 2, tooltipRect.getWidth() - 4, tooltipRect.getHeight() - 4);
+        gc.setFill(COLOR_FONT);
+        gc.setFont(FONT_ORBITRON_12);
+        for (int l = 0; l < lines.size(); l++)
+        {
+            gc.fillText(lines.get(l),
+                    tooltipRect.getX() + 5 + 60 * l,
+                    tooltipRect.getY() + 5 + 25 + FONT_ORBITRON_12.getSize());
+        }
     }
 
     private void drawTooltip(GraphicsContext gc)
@@ -100,24 +124,24 @@ public class InventoryController
         gc.setFill(COLOR_GREEN);
         gc.fillRect(tooltipRect.getX() + 50, tooltipRect.getY() + 50, tooltipWidth, tooltipHeight);
         gc.setFill(COLOR_BACKGROUND_GREY);
-        gc.fillRect(tooltipRect.getX()  + 50 + 2, tooltipRect.getY() + 50 + 2, tooltipWidth - 4, tooltipHeight - 4);
+        gc.fillRect(tooltipRect.getX() + 50 + 2, tooltipRect.getY() + 50 + 2, tooltipWidth - 4, tooltipHeight - 4);
 
         gc.setFill(COLOR_FONT);
         gc.setFont(FONT_ORBITRON_20);
         gc.fillText(tooltippedCollectible.getIngameName(),
-                tooltipRect.getX()  + 50 + 5,
+                tooltipRect.getX() + 50 + 5,
                 tooltipRect.getY() + 50 + gc.getFont().getSize() + 3);
         gc.setFont(FONT_ORBITRON_12);
-        for (int l = 0; l < lines.size(); l++) {
+        for (int l = 0; l < lines.size(); l++)
+        {
             gc.fillText(lines.get(l),
-                    tooltipRect.getX()  + 50 + 5,
+                    tooltipRect.getX() + 50 + 5,
                     tooltipRect.getY() + 55 + collectibleHeadlineHeight + FONT_ORBITRON_12.getSize() * l + 3);
         }
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, boolean isMouseDragged, Long currentNanoTime)
     {
-        String methodName = "processMouse() ";
         tooltipElement = null;
         setTooltippedCollectible(CollectibleStack.empty());
 
@@ -125,7 +149,6 @@ public class InventoryController
         boolean hoversOverlayOther = otherInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean hoversOverlayShop = shopOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean hoversOverlayIncubator = incubatorOverlay.getSCREEN_AREA().contains(mousePosition);
-        //boolean hoversOverlayQuickInventory = quickInventory.getSCREEN_AREA().contains(mousePosition);
         DragAndDropOverlay hoveredOverlay = null;
         WorldViewStatus worldViewStatus = WorldViewController.getWorldViewStatus();
         if (playerInventoryOverlay.getSCREEN_AREA().contains(mousePosition))
@@ -134,33 +157,40 @@ public class InventoryController
             hoveredOverlay = otherInventoryOverlay;
         else if (hoversOverlayIncubator && worldViewStatus == INCUBATOR)
             hoveredOverlay = incubatorOverlay;
-       // else if (hoversOverlayQuickInventory)
-       // {
-       //     System.out.println("Hovered Quick Inv");
-       //     hoveredOverlay = quickInventory;
-       // }
 
-        if (//Check if a inventory is hovered
+        if (menuCollectible.isDefined() && menuCollectiblePosition.contains(mousePosition))
+        {
+            System.out.println("hovering menu");
+        }
+        else if (menuCollectible.isDefined() && !menuCollectiblePosition.contains(mousePosition))
+        {
+            //TODO eigenes overlay
+            System.out.println("not hovering menu");
+            if (isMouseClicked)
+                setMenuCollectible(CollectibleStack.empty());
+        }
+        else if (//Check if a inventory is hovered
                 (hoversOverlayPlayer ||
                         (worldViewStatus == INVENTORY_EXCHANGE && hoversOverlayOther) ||
                         (worldViewStatus == INVENTORY_SHOP && hoversOverlayShop) ||
-                    //    (worldViewStatus == WORLD && hoversOverlayQuickInventory) ||
-                        (worldViewStatus == INCUBATOR && hoversOverlayIncubator))) {
+                        (worldViewStatus == INCUBATOR && hoversOverlayIncubator)))
+        {
 
-            if (hoversOverlayPlayer) {
+            if (hoversOverlayPlayer)
+            {
                 playerInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
             }
-            else if (worldViewStatus == INVENTORY_EXCHANGE) {
+            else if (worldViewStatus == INVENTORY_EXCHANGE)
+            {
                 otherInventoryOverlay.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
             }
             else if (worldViewStatus == INVENTORY_SHOP)
                 shopOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
             else if (worldViewStatus == INCUBATOR)
                 incubatorOverlay.processMouse(mousePosition);
-           // else if (worldViewStatus == WORLD)
-           //     quickInventory.processMouse(mousePosition);
 
-            if (hoveredOverlay != null) {
+            if (hoveredOverlay != null)
+            {
                 if (isMouseDragged && getDragAndDropItem() == null)//Drag Item
                 {
                     hoveredOverlay.dragCollectible(currentNanoTime, mousePosition);
@@ -207,5 +237,20 @@ public class InventoryController
     public void setTooltipElement(MouseElement tooltipElement)
     {
         this.tooltipElement = tooltipElement;
+    }
+
+    public CollectibleStack getMenuCollectible()
+    {
+        return menuCollectible;
+    }
+
+    public void setMenuCollectible(CollectibleStack menuCollectible)
+    {
+        this.menuCollectible = menuCollectible;
+        if (menuCollectible.isDefined())
+        {
+            Rectangle itemSlot = (Rectangle) tooltipElement.getPosition();
+            this.menuCollectiblePosition = new Rectangle(itemSlot.getX() + 50, itemSlot.getY() + 50, 120, 50);
+        }
     }
 }
