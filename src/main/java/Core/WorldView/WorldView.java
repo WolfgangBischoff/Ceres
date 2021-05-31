@@ -839,7 +839,6 @@ public class WorldView
 
     private void renderHUD(Long currentNanoTime)
     {
-        inventoryController.renderQuickInventory(hudCanvas.getGraphicsContext2D());
         hungerOverlay.render(hudCanvas.getGraphicsContext2D());
         mamOverlay.render(hudCanvas.getGraphicsContext2D());
         moneyOverlay.render(hudCanvas.getGraphicsContext2D());

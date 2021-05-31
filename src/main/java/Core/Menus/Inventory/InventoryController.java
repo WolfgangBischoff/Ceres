@@ -1,10 +1,9 @@
 package Core.Menus.Inventory;
 
-import Core.Actor;
-import Core.CollectibleStack;
+import Core.*;
 import Core.Configs.Config;
-import Core.Menus.StatusOverlay.CollectibleSlotOverlay;
-import Core.Utilities;
+import Core.Enums.CollectableType;
+import Core.Menus.StatusOverlay.CollectibleMenuOverlay;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -28,7 +27,6 @@ public class InventoryController
     static InventoryOverlay otherInventoryOverlay;
     static ShopOverlay shopOverlay;
     static IncubatorOverlay incubatorOverlay;
-    static CollectibleSlotOverlay quickInventory;
     Point2D playerInventoryPosition = Config.INVENTORY_POSITION;
     Point2D exchangeInventoryPosition = EXCHANGE_INVENTORY_POSITION;
     Point2D shopInterfacePosition = EXCHANGE_INVENTORY_POSITION;
@@ -37,6 +35,7 @@ public class InventoryController
     CollectibleStack menuCollectible = CollectibleStack.empty();
     Rectangle menuCollectiblePosition;
     private DragAndDropItem dragAndDropItem;
+    private CollectibleMenuOverlay collectibleMenu;
 
     public InventoryController()
     {
@@ -45,18 +44,12 @@ public class InventoryController
         otherInventoryOverlay = new InventoryOverlay(null, exchangeInventoryPosition, this);
         incubatorOverlay = new IncubatorOverlay(null, INCUBATOR_POSITION, this);
         shopOverlay = new ShopOverlay(null, shopInterfacePosition, this);
-        quickInventory = new CollectibleSlotOverlay(EQUIPPED_COLLECTIBLE_POSITION, this);
+        collectibleMenu = new CollectibleMenuOverlay( this);
     }
 
     public static void setExchangeInventoryActor(Actor exchangeInventoryActor)
     {
         InventoryController.exchangeInventoryActor = exchangeInventoryActor;
-    }
-
-    public void renderQuickInventory(GraphicsContext hudCanvas)
-    {
-        otherInventoryOverlay.setActor(exchangeInventoryActor);
-        quickInventory.render(hudCanvas);
     }
 
     public void render(GraphicsContext gc, long currentRenderTime)
@@ -84,7 +77,8 @@ public class InventoryController
 
         if (menuCollectible.isDefined())
         {
-            drawCollectibleMenu(gc);
+            collectibleMenu.setSCREEN_AREA(menuCollectiblePosition);
+            collectibleMenu.render(gc);
         }
         else if (tooltipElement != null && tooltippedCollectible.isDefined())
         {
@@ -140,6 +134,18 @@ public class InventoryController
         }
     }
 
+    public void useMenuCollectible()
+    {
+        if (menuCollectible.getType() == CollectableType.FOOD)
+        {
+            System.out.println(CLASSNAME + "You ate " + menuCollectible.getIngameName());
+            GameVariables.addHunger(menuCollectible.getBaseValue());
+            playerActor.getInventory().removeItem(menuCollectible);
+            GameVariables.getStolenCollectibles().remove(menuCollectible);
+            setMenuCollectible(CollectibleStack.empty());
+        }
+    }
+
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, boolean isMouseDragged, Long currentNanoTime)
     {
         tooltipElement = null;
@@ -160,11 +166,43 @@ public class InventoryController
 
         if (menuCollectible.isDefined() && menuCollectiblePosition.contains(mousePosition))
         {
-            System.out.println("hovering menu");
+            int numberButtons = 3;
+            double buttonwith = menuCollectiblePosition.getWidth() / numberButtons;
+            Rectangle leftButton = new Rectangle(menuCollectiblePosition.getX(), menuCollectiblePosition.getY(), buttonwith, menuCollectiblePosition.getHeight());
+            Rectangle middleButton = new Rectangle(menuCollectiblePosition.getX() + buttonwith, menuCollectiblePosition.getY(), buttonwith, menuCollectiblePosition.getHeight());
+            Rectangle rightButton = new Rectangle(menuCollectiblePosition.getX() + buttonwith * 2, menuCollectiblePosition.getY(), buttonwith, menuCollectiblePosition.getHeight());
+
+            collectibleMenu.processMouse(mousePosition, isMouseClicked);
+            /*
+            if (leftButton.contains(mousePosition))
+            {
+                System.out.println("use hovering menu");
+                if (isMouseClicked && menuCollectible.getType() == CollectableType.FOOD)
+                {
+                    System.out.println(CLASSNAME + "You ate " + menuCollectible.getIngameName());
+                    GameVariables.addHunger(menuCollectible.getBaseValue());
+                    playerActor.getInventory().removeItem(menuCollectible);
+                    GameVariables.getStolenCollectibles().remove(menuCollectible);
+                    setMenuCollectible(CollectibleStack.empty());
+                }
+            }
+            else if (isMouseClicked && middleButton.contains(mousePosition))
+            {
+                System.out.println("world hovering menu");
+                setMenuCollectible(CollectibleStack.empty());
+            }
+            else if (isMouseClicked && rightButton.contains(mousePosition))
+            {
+                System.out.println("back hovering menu");
+                setMenuCollectible(CollectibleStack.empty());
+            }
+
+             */
+
+
         }
         else if (menuCollectible.isDefined() && !menuCollectiblePosition.contains(mousePosition))
         {
-            //TODO eigenes overlay
             System.out.println("not hovering menu");
             if (isMouseClicked)
                 setMenuCollectible(CollectibleStack.empty());
@@ -250,7 +288,7 @@ public class InventoryController
         if (menuCollectible.isDefined())
         {
             Rectangle itemSlot = (Rectangle) tooltipElement.getPosition();
-            this.menuCollectiblePosition = new Rectangle(itemSlot.getX() + 50, itemSlot.getY() + 50, 120, 50);
+            this.menuCollectiblePosition = new Rectangle(itemSlot.getX() + 50, itemSlot.getY() + 50, 200, 50);
         }
     }
 }
