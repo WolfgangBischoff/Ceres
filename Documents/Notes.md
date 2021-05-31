@@ -22,13 +22,9 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Bacteria Resource can be put into splicer to craft
 
 #### Set/Interact item mechanic (provide Service)
-* from inventory world interaction mode
-* sprite an Pos adden via Key
-* Sprite von Menu und maus adden
-* Zeit & Resourcenkostenme
+* check why you cann collect placed items. 
 * Position check
-* Different Sprites
-* remove CollectibleSlotOverlay at lest from sight           
+        
 
 #### Engine
 * Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können

@@ -10,5 +10,6 @@ public enum WorldViewStatus
     COIN_GAME,
     PERSONALITY,
     DAY_SUMMARY,
+    COLLECTIBLE_USE,
     INCUBATOR
 }

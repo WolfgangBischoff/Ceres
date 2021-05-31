@@ -12,7 +12,10 @@ import Core.Menus.CoinGame.CoinGame;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Personality.PersonalityScreenController;
-import Core.Menus.StatusOverlay.*;
+import Core.Menus.StatusOverlay.BarStatusConfig;
+import Core.Menus.StatusOverlay.BarStatusOverlay;
+import Core.Menus.StatusOverlay.ClockOverlay;
+import Core.Menus.StatusOverlay.VariableStatusOverlay;
 import Core.Menus.Textbox.Textbox;
 import Core.Sprite.Sprite;
 import Core.Sprite.SpriteComparator;
@@ -33,6 +36,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static Core.Configs.Config.*;
+import static Core.WorldView.WorldViewStatus.INVENTORY;
 import static Core.WorldView.WorldViewStatus.WORLD;
 import static javafx.scene.paint.Color.BLACK;
 
@@ -82,6 +86,7 @@ public class WorldView
     Canvas hudCanvas;
     Map<String, Image> lightsImageMap = new HashMap<>();
     Color shadowColor;
+    Point2D hoveredGrid = new Point2D(0, 0);
 
     Canvas blackOverlayCanvas;
     GraphicsContext blackOverlayGc;
@@ -498,6 +503,13 @@ public class WorldView
                 break;
             case INCUBATOR:
                 break;
+            case COLLECTIBLE_USE:
+                if (input.contains(KEYBOARD_ESCAPE))
+                {
+                    WorldViewController.setWorldViewStatus(WORLD);
+                    inventoryController.setMenuCollectible(CollectibleStack.empty());
+                }
+                break;
             default:
                 System.out.println(CLASSNAME + methodName + "Undefined WorldViewStatus: " + WorldViewController.getWorldViewStatus());
         }
@@ -660,6 +672,9 @@ public class WorldView
             case INCUBATOR:
                 inventoryController.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
                 break;
+            case COLLECTIBLE_USE:
+                mouseWorldInteraction(methodName, mousePosition, isMouseClicked);
+                break;
             default:
                 System.out.println(CLASSNAME + methodName + "mouseinput undefined for: " + WorldViewController.getWorldViewStatus());
 
@@ -676,6 +691,24 @@ public class WorldView
             System.out.println(CLASSNAME + methodName + "Clicked on tile X/Y " + (int) mouseWorldPosition.getX() / 64 + "/" + (int) mouseWorldPosition.getY() / 64 + ", exact: " + Utilities.roundTwoDigits(mouseWorldPosition.getX()) + "/" + Utilities.roundTwoDigits(mouseWorldPosition.getY()));
 
         GameWindow.getSingleton().setMouseClicked(false);
+    }
+
+    private void mouseWorldInteraction(String methodName, Point2D mousePosition, boolean isMouseClicked)
+    {
+        int xpos = (int) (getCamX() + mousePosition.getX() - mousePosition.getX() % 64);
+        int ypos = (int) (getCamY() + mousePosition.getY() - mousePosition.getY() % 64);
+        hoveredGrid = new Point2D(xpos, ypos);
+        if (isMouseClicked)
+        {
+
+            System.out.println(CLASSNAME + methodName + "Clicked on tile X/Y " + xpos + "/" + ypos);
+            CollectibleStack item = inventoryController.getMenuCollectible();
+            getPlayer().getActor().getInventory().removeItem(item);
+            GameVariables.getStolenCollectibles().remove(item);
+            inventoryController.setMenuCollectible(CollectibleStack.empty());
+            addToLayer(item.createSprite(xpos, ypos));
+            WorldViewController.setWorldViewStatus(INVENTORY);
+        }
     }
 
     private void calcCameraPosition()
@@ -789,12 +822,16 @@ public class WorldView
                 WritableImage daySummaryImage = daySummaryScreenController.getWritableImage();
                 hudCanvas.getGraphicsContext2D().drawImage(daySummaryImage, daySummaryScreenPosition.getX(), daySummaryScreenPosition.getY());
                 break;
+            case COLLECTIBLE_USE:
+                drawGrid();
+
         }
 
         //Debugdata
         if (Config.DEBUG_BLOCKER)
         {
-            gc.setStroke(Color.RED);
+            //gc.setStroke(Color.RED);
+            gc.setLineWidth(1);
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.getBasewidth(), borders.getHeight() + player.getBaseheight());
         }
 
@@ -813,6 +850,19 @@ public class WorldView
         root.getChildren().add(blackOverlayCanvas);
         root.getChildren().add(hudCanvas);
         gc.translate(camX, camY);
+    }
+
+    private void drawGrid()
+    {
+        gc.setGlobalAlpha(0.5);
+        gc.setFill(COLOR_GREEN);
+        gc.fillRect(hoveredGrid.getX(), hoveredGrid.getY(), 64, 64);
+        gc.setGlobalAlpha(1);
+        gc.setStroke(COLOR_MARKING);
+        gc.setLineWidth(2);
+        for (int x = (int) getCamX(); x < getCamX() + CAMERA_WIDTH; x += 64)
+            for (int y = (int) getCamY(); y < getCamY() + CAMERA_HEIGHT; y += 64)
+                gc.strokeRect(x, y, 64, 64);
     }
 
     public void calcBlackOverlay(long currentNanoTime)

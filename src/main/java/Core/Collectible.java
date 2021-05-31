@@ -13,24 +13,26 @@ import static Core.Configs.Config.*;
 
 public class Collectible
 {
-    static final String CLASSNAME = "Collectible";
+    static final String CLASSNAME = "Collectible/";
     static int collectibleNextId = 0;
     int id;
     String ingameName;
-    String technicalName;
+    String spriteStatus;
     Image image;
     CollectableType type;
     int baseValue;
     String description = "";
+    Actor actor;
 
-    public Collectible(String technicalName, CollectableType type, String nameGame, int baseValue)
+    private Collectible(String spriteStatus, CollectableType type, String nameGame, int baseValue)
     {
-        this.technicalName = technicalName;
+        this.spriteStatus = spriteStatus;
         this.type = type;
         this.ingameName = nameGame;
         this.baseValue = baseValue;
         id = collectibleNextId++;
     }
+
 
     public static Collectible createCollectible(String actorfilepath, String spriteStatus)
     {
@@ -38,6 +40,7 @@ public class Collectible
         String ingameName = collectibleActor.getSpriteDataMap().get(spriteStatus.toLowerCase()).get(0).name;
         Collectible collectible = new Collectible(spriteStatus, CollectableType.getType(collectibleActor.getCollectable_type()), ingameName, (collectibleActor.getGenericDoubleAttributes().get("base_value").intValue()));
         collectible.image = Utilities.readImage(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).spriteName + PNG_POSTFIX);
+        collectible.actor = collectibleActor;
 
         String path = collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).dialogieFile;
         if(Utilities.doesXMLFileExist(path))
@@ -64,7 +67,7 @@ public class Collectible
     @Override
     public String toString()
     {
-        return "{" + technicalName + " " + type +  " value: " + baseValue + "}";
+        return "{" + spriteStatus + " " + type +  " value: " + baseValue + "}";
     }
 
     public String getIngameName()
@@ -72,9 +75,9 @@ public class Collectible
         return ingameName;
     }
 
-    public String getTechnicalName()
+    public String getSpriteStatus()
     {
-        return technicalName;
+        return spriteStatus;
     }
 
     public Image getImage()
@@ -109,7 +112,7 @@ public class Collectible
         if (!(o instanceof Collectible)) return false;
         Collectible that = (Collectible) o;
         return Objects.equals(getIngameName(), that.getIngameName()) &&
-                Objects.equals(getTechnicalName(), that.getTechnicalName()) &&
+                Objects.equals(getSpriteStatus(), that.getSpriteStatus()) &&
                 getType() == that.getType();
     }
 

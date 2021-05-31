@@ -87,26 +87,6 @@ public class InventoryController
 
     }
 
-    private void drawCollectibleMenu(GraphicsContext gc)
-    {
-        List<String> lines = new ArrayList<>();
-        lines.add("USE");
-        lines.add("BACK");
-        Rectangle tooltipRect = menuCollectiblePosition;
-        gc.setFill(COLOR_GREEN);
-        gc.fillRect(tooltipRect.getX(), tooltipRect.getY(), tooltipRect.getWidth(), tooltipRect.getHeight());
-        gc.setFill(COLOR_BACKGROUND_GREY);
-        gc.fillRect(tooltipRect.getX() + 2, tooltipRect.getY() + 2, tooltipRect.getWidth() - 4, tooltipRect.getHeight() - 4);
-        gc.setFill(COLOR_FONT);
-        gc.setFont(FONT_ORBITRON_12);
-        for (int l = 0; l < lines.size(); l++)
-        {
-            gc.fillText(lines.get(l),
-                    tooltipRect.getX() + 5 + 60 * l,
-                    tooltipRect.getY() + 5 + 25 + FONT_ORBITRON_12.getSize());
-        }
-    }
-
     private void drawTooltip(GraphicsContext gc)
     {
         double tooltipWidth = max(300, Utilities.calcStringWidth(FONT_ORBITRON_20, tooltippedCollectible.getIngameName() + 2));
@@ -166,40 +146,7 @@ public class InventoryController
 
         if (menuCollectible.isDefined() && menuCollectiblePosition.contains(mousePosition))
         {
-            int numberButtons = 3;
-            double buttonwith = menuCollectiblePosition.getWidth() / numberButtons;
-            Rectangle leftButton = new Rectangle(menuCollectiblePosition.getX(), menuCollectiblePosition.getY(), buttonwith, menuCollectiblePosition.getHeight());
-            Rectangle middleButton = new Rectangle(menuCollectiblePosition.getX() + buttonwith, menuCollectiblePosition.getY(), buttonwith, menuCollectiblePosition.getHeight());
-            Rectangle rightButton = new Rectangle(menuCollectiblePosition.getX() + buttonwith * 2, menuCollectiblePosition.getY(), buttonwith, menuCollectiblePosition.getHeight());
-
             collectibleMenu.processMouse(mousePosition, isMouseClicked);
-            /*
-            if (leftButton.contains(mousePosition))
-            {
-                System.out.println("use hovering menu");
-                if (isMouseClicked && menuCollectible.getType() == CollectableType.FOOD)
-                {
-                    System.out.println(CLASSNAME + "You ate " + menuCollectible.getIngameName());
-                    GameVariables.addHunger(menuCollectible.getBaseValue());
-                    playerActor.getInventory().removeItem(menuCollectible);
-                    GameVariables.getStolenCollectibles().remove(menuCollectible);
-                    setMenuCollectible(CollectibleStack.empty());
-                }
-            }
-            else if (isMouseClicked && middleButton.contains(mousePosition))
-            {
-                System.out.println("world hovering menu");
-                setMenuCollectible(CollectibleStack.empty());
-            }
-            else if (isMouseClicked && rightButton.contains(mousePosition))
-            {
-                System.out.println("back hovering menu");
-                setMenuCollectible(CollectibleStack.empty());
-            }
-
-             */
-
-
         }
         else if (menuCollectible.isDefined() && !menuCollectiblePosition.contains(mousePosition))
         {

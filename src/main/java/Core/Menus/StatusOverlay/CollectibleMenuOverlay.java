@@ -6,6 +6,9 @@ import Core.Menus.Inventory.MouseElement;
 import Core.Menus.Inventory.MouseElementsContainer;
 import Core.Menus.Inventory.MouseInteractionType;
 import Core.Utilities;
+import Core.WorldView.WorldView;
+import Core.WorldView.WorldViewController;
+import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -27,7 +30,6 @@ public class CollectibleMenuOverlay
     private static final String BACK_ID = "BACK";
     private final MouseElementsContainer mouseElements = new MouseElementsContainer();
     private final InventoryController controller;
-    Image frameImage;
     int numberButtons = 3;
     double buttonwith;
     private Rectangle SCREEN_AREA;
@@ -97,7 +99,8 @@ public class CollectibleMenuOverlay
         else if (isMouseClicked && highlightedElement.identifier.equals(WORLD_ID))
         {
             System.out.println("world hovering menu");
-            controller.setMenuCollectible(CollectibleStack.empty());
+            WorldViewController.setWorldViewStatus(WorldViewStatus.COLLECTIBLE_USE);
+            //controller.setMenuCollectible(CollectibleStack.empty());
         }
         else if (isMouseClicked && highlightedElement.identifier.equals(BACK_ID))
         {

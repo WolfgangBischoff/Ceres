@@ -1,25 +1,21 @@
 
+##### 06 21
+* from inventory world interaction mode
+* sprite an Pos adden via Key
+* Sprite von Menu und maus adden
+
 ##### 05 21
 * interact => set bacteria, info
 * bacteria can rot
 * added collectibeStack
-* added sprites: elevator
-##### 06 05 21
+* added sprites: elevator + tank big
 * first grow script
-##### 28 04 21
 * Test: nur mehr dicke wände
-* added sprite
-##### 27 04 21
 * level build
-##### 26 04 21
-* level build
+
 ##### 19 04 21
 * consoel levelchange
-* added sprite
-##### 12 04 21
-* added a
 * added sprites medic and traveler
-##### 08 04 21
 * Incubator Button and bacteria
 ##### 07 04 21
 * Space suit: front helmrahmen fehlt

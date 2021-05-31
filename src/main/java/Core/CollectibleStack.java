@@ -1,6 +1,8 @@
 package Core;
 
 import Core.Enums.CollectableType;
+import Core.Enums.Direction;
+import Core.Sprite.Sprite;
 import javafx.scene.image.Image;
 
 public class CollectibleStack
@@ -12,6 +14,15 @@ public class CollectibleStack
     public static CollectibleStack empty()
     {
         return  new CollectibleStack();
+    }
+
+    public Sprite createSprite(int x, int y)
+    {
+        Actor collectibleActor = collectible.actor;
+        Sprite sprite = Sprite.createSprite(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0), x, y);
+        sprite.setActor(collectibleActor);
+        collectibleActor.addSprite(sprite);
+        return sprite;
     }
 
     public CollectibleStack()
@@ -84,7 +95,7 @@ public class CollectibleStack
     public String getTechnicalName()
     {
         if (collectible != null)
-            return collectible.technicalName;
+            return collectible.spriteStatus;
         else return null;
     }
 

@@ -79,33 +79,32 @@ public class Sprite
         hitBoxHeight = frameHeight;
     }
 
-    public static Sprite createSprite(SpriteData tile, double x, double y)
+    public static Sprite createSprite(SpriteData spriteData, double x, double y)
     {
-        String methodName = "createSprite() ";
         Sprite ca;
         try {
-            if (tile.totalFrames > 1)
-                ca = new Sprite(tile.spriteName, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight);
+            if (spriteData.totalFrames > 1)
+                ca = new Sprite(spriteData.spriteName, spriteData.fps, spriteData.totalFrames, spriteData.cols, spriteData.rows, spriteData.frameWidth, spriteData.frameHeight);
             else
-                ca = new Sprite(tile.spriteName);
+                ca = new Sprite(spriteData.spriteName);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             ca = new Sprite(IMAGE_DIRECTORY_PATH + "notfound_64_64" + CSV_POSTFIX);
         }
 
-        ca.setName(tile.name);
+        ca.setName(spriteData.name);
         ca.setPosition(x, y);
-        ca.setBlocker(tile.blocking);
-        ca.setLightningSpriteName(tile.lightningSprite);
+        ca.setBlocker(spriteData.blocking);
+        ca.setLightningSpriteName(spriteData.lightningSprite);
+        ca.setLayer(spriteData.renderLayer);
+        ca.setAnimationEnds(spriteData.animationEnds);
 
-        ca.setAnimationEnds(tile.animationEnds);
-
-        ca.setDialogueFileName(tile.dialogieFile);
-        ca.setInitDialogueId(tile.dialogueID);
+        ca.setDialogueFileName(spriteData.dialogieFile);
+        ca.setInitDialogueId(spriteData.dialogueID);
 
         //If Hitbox differs
-        if (tile.hitboxOffsetX != 0 || tile.hitboxOffsetY != 0 || tile.hitboxWidth != 0 || tile.hitboxHeight != 0)
-            ca.setHitBox(tile.hitboxOffsetX, tile.hitboxOffsetY, tile.hitboxWidth, tile.hitboxHeight);
+        if (spriteData.hitboxOffsetX != 0 || spriteData.hitboxOffsetY != 0 || spriteData.hitboxWidth != 0 || spriteData.hitboxHeight != 0)
+            ca.setHitBox(spriteData.hitboxOffsetX, spriteData.hitboxOffsetY, spriteData.hitboxWidth, spriteData.hitboxHeight);
 
         return ca;
     }
@@ -141,7 +140,6 @@ public class Sprite
 
     public void update(Long updateTime)
     {
-        String methodName = "update() ";
         long methodStartTime = System.nanoTime();
         double time = min(((updateTime - lastUpdated) / 1000000000.0), DEBUG_LAG_TIME_MAX);
         double elapsedTimeSinceLastInteraction = (updateTime - actor.getLastInteraction()) / 1000000000.0;
