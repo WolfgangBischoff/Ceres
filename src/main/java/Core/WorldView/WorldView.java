@@ -31,7 +31,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -77,9 +76,6 @@ public class WorldView
     private static WorldView singleton;
     private static Rectangle2D borders;
     String levelName;
-    private GridManager gridManager = new GridManager();
-    private boolean alreadyAtPos;//Refactor to Gridmanager
-
     //Render
     Pane root;
     Canvas worldCanvas;
@@ -89,14 +85,11 @@ public class WorldView
     Canvas hudCanvas;
     Map<String, Image> lightsImageMap = new HashMap<>();
     Color shadowColor;
-    Rectangle2D hoveredGrid = new Rectangle2D(0, 0, 64, 64);
-
     Canvas blackOverlayCanvas;
     GraphicsContext blackOverlayGc;
     boolean isFadedOut = false;
     float fadedOutPercent = 0;
     long lastBlackOverlayChangeTime = 0;
-
     //Camera
     double offsetMaxX;
     double offsetMaxY;
@@ -106,6 +99,7 @@ public class WorldView
     Long timeStartBump = null;
     float durationBump = RUMBLE_MAX_DURATION;
     boolean bumpActive = false;
+    private GridManager gridManager = new GridManager();
 
     private WorldView(String levelName)
     {
@@ -219,14 +213,12 @@ public class WorldView
         getBottomLayer().remove(sprite);
         getMiddleLayer().remove(sprite);
         getUpperLayer().remove(sprite);
-        if (sprite.getActor() != null && !actorList.contains(sprite.getActor()))
-        {
+        if (sprite.getActor() != null && !actorList.contains(sprite.getActor())) {
             actorList.add(sprite.getActor());
             passiveCollisionRelevantSpritesLayer.remove(sprite);
             passiveCollisionRelevantSpritesLayer.add(sprite);
         }
-        switch (sprite.getLayer())
-        {
+        switch (sprite.getLayer()) {
             case 0:
                 getBottomLayer().add(sprite);
                 break;
@@ -242,6 +234,15 @@ public class WorldView
     public static boolean isSpriteLoaded(Sprite sprite)
     {
         return bottomLayer.contains(sprite) || middleLayer.contains(sprite) || upperLayer.contains(sprite) || topLayer.contains(sprite);
+    }
+
+    public static boolean isSpriteAtPosition(List<Sprite> layer, Rectangle2D checkedArea)
+    {
+        for (Sprite sprite : layer) {
+            if (sprite.getHitbox().intersects(checkedArea))
+                return true;
+        }
+        return false;
     }
 
     public void changeStage(String levelName, String spawnId, boolean invalidateSavedStages)
@@ -350,14 +351,11 @@ public class WorldView
         tmp_actors.addAll(persistentActors);
 
         //add persistent actors from state
-        for (Sprite activeSprite : levelState.getActorSpritesLayer())
-        {
-            if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT))
-            {
+        for (Sprite activeSprite : levelState.getActorSpritesLayer()) {
+            if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT)) {
                 //System.out.println(CLASSNAME + methodName + activeSprite.getActor().getActorInGameName());
                 tmp_actorSpritesLayer.add(activeSprite);
-                switch (activeSprite.getLayer())
-                {
+                switch (activeSprite.getLayer()) {
                     case 0:
                         tmp_bottomLayer.add(activeSprite);
                         break;
@@ -467,16 +465,14 @@ public class WorldView
             loadStage("test", "default");
         if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
             activateBump();
-        if (input.contains("U") && elapsedTimeSinceLastInteraction > 1)
-        {
+        if (input.contains("U") && elapsedTimeSinceLastInteraction > 1) {
             if (shadowColor != COLOR_EMERGENCY_LIGHT)
                 shadowColor = COLOR_EMERGENCY_LIGHT;
             else
                 shadowColor = null;
             lastTimeMenuWasOpened = currentUpdateTime;
         }
-        if (input.contains("I") && elapsedTimeSinceLastInteraction > 1)
-        {
+        if (input.contains("I") && elapsedTimeSinceLastInteraction > 1) {
             isFadedOut = !isFadedOut;
             lastTimeMenuWasOpened = currentUpdateTime;
         }
@@ -485,8 +481,7 @@ public class WorldView
         //Process Input
         if (WorldViewController.getWorldViewStatus() != WORLD && player.getActor().isMoving())
             player.getActor().setVelocity(0, 0);
-        switch (WorldViewController.getWorldViewStatus())
-        {
+        switch (WorldViewController.getWorldViewStatus()) {
             case WORLD:
                 processInputAsMovement(input, currentUpdateTime);
                 break;
@@ -511,8 +506,8 @@ public class WorldView
             case INCUBATOR:
                 break;
             case COLLECTIBLE_USE:
-                if (input.contains(KEYBOARD_ESCAPE))
-                {
+                gridManager.setCollectibleToPlace(inventoryController.getMenuCollectible());
+                if (input.contains(KEYBOARD_ESCAPE)) {
                     WorldViewController.setWorldViewStatus(WORLD);
                     inventoryController.setMenuCollectible(CollectibleStack.empty());
                 }
@@ -527,8 +522,7 @@ public class WorldView
         List<Sprite> spritesOfActiveActor = actorList.stream().filter(Actor::isActiveActor).map(Actor::getSpriteList).collect(Collectors.toList()).stream().flatMap(List::stream).collect(Collectors.toList());//Maybe a predefined list?
         for (Sprite active : spritesOfActiveActor)
             active.update(currentUpdateTime);
-        for (Sprite sprite : toRemove)
-        {
+        for (Sprite sprite : toRemove) {
             WorldView.bottomLayer.remove(sprite);
             WorldView.middleLayer.remove(sprite);
             WorldView.upperLayer.remove(sprite);
@@ -558,12 +552,10 @@ public class WorldView
     {
         DateTime time = GameVariables.gameDateTime();
         //update Level
-        if (shadowColor == COLOR_EMERGENCY_LIGHT)
-        {
+        if (shadowColor == COLOR_EMERGENCY_LIGHT) {
             //No energy
         }
-        else if (Time.isWithin(DAY_LIGHT_ON_TIME, DAY_LIGHT_OFF_TIME, time.getTime()))
-        {
+        else if (Time.isWithin(DAY_LIGHT_ON_TIME, DAY_LIGHT_OFF_TIME, time.getTime())) {
             setShadowColor(null);
         }
         else
@@ -575,8 +567,7 @@ public class WorldView
     private void toggleInventory(Long currentNanoTime)
     {
         double elapsedTimeSinceLastInteraction = (currentNanoTime - player.getActor().getLastInteraction()) / 1000000000.0;
-        if (elapsedTimeSinceLastInteraction > 1)
-        {
+        if (elapsedTimeSinceLastInteraction > 1) {
             WorldViewController.toggleInventory();
             player.getActor().setLastInteraction(currentNanoTime);
         }
@@ -584,43 +575,36 @@ public class WorldView
 
     private void processInputAsMovement(ArrayList<String> input, Long currentNanoTime)
     {
-        String methodName = "processInputAsMovement(ArrayList<String>()";
         boolean moveButtonPressed = false;
         int addedVelocityX = 0, addedVelocityY = 0;
         Direction newDirection = null;
         Actor playerActor = player.getActor();
         double elapsedTimeSinceLastInteraction = (currentNanoTime - playerActor.getLastInteraction()) / 1000000000.0;
 
-        if (input.contains("LEFT") || input.contains("A"))
-        {
+        if (input.contains("LEFT") || input.contains("A")) {
             addedVelocityX += -playerActor.getVelocity();
             moveButtonPressed = true;
             newDirection = Direction.WEST;
         }
-        if (input.contains("RIGHT") || input.contains("D"))
-        {
+        if (input.contains("RIGHT") || input.contains("D")) {
             addedVelocityX += playerActor.getVelocity();
             moveButtonPressed = true;
             newDirection = Direction.EAST;
         }
-        if (input.contains("UP") || input.contains("W"))
-        {
+        if (input.contains("UP") || input.contains("W")) {
             addedVelocityY += -playerActor.getVelocity();
             moveButtonPressed = true;
             newDirection = Direction.NORTH;
         }
-        if (input.contains("DOWN") || input.contains("S"))
-        {
+        if (input.contains("DOWN") || input.contains("S")) {
             addedVelocityY += playerActor.getVelocity();
             moveButtonPressed = true;
             newDirection = Direction.SOUTH;
         }
-        if (input.contains(KEYBOARD_SPRINT))
-        {
+        if (input.contains(KEYBOARD_SPRINT)) {
             addedVelocityX *= 2;
             addedVelocityY *= 2;
         }
-
 
         if (moveButtonPressed)
             player.getActor().setVelocity(addedVelocityX, addedVelocityY);
@@ -630,13 +614,11 @@ public class WorldView
         if (newDirection != null && playerActor.getDirection() != newDirection)
             playerActor.setDirection(newDirection);
 
-        if (input.contains(KEYBOARD_INTERACT) && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
-        {
+        if (input.contains(KEYBOARD_INTERACT) && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS) {
             player.setInteract(true);
         }
 
-        if (input.contains(KEYBOARD_INVENTORY))
-        {
+        if (input.contains(KEYBOARD_INVENTORY)) {
             toggleInventory(currentNanoTime);
         }
 
@@ -654,8 +636,7 @@ public class WorldView
             if (blocker.intersectsRelativeToWorldView(mousePosition))
                 mouseHoveredSprites.add(blocker);
 
-        switch (WorldViewController.getWorldViewStatus())
-        {
+        switch (WorldViewController.getWorldViewStatus()) {
             case WORLD:
                 for (Sprite clicked : mouseHoveredSprites)
                     if (isMouseClicked)
@@ -688,8 +669,7 @@ public class WorldView
         }
 
         for (Sprite active : actorSpritesLayer)
-            if (active.intersectsRelativeToWorldView(mousePosition) && DEBUG_MOUSE_ANALYSIS && active.getActor() != null && isMouseClicked)
-            {
+            if (active.intersectsRelativeToWorldView(mousePosition) && DEBUG_MOUSE_ANALYSIS && active.getActor() != null && isMouseClicked) {
                 Actor actor = active.getActor();
                 System.out.println(actor.getActorInGameName() + ": " + actor.getSensorStatus().getStatusName() + " Sprite: " + actor.getGeneralStatus());
             }
@@ -700,43 +680,26 @@ public class WorldView
         GameWindow.getSingleton().setMouseClicked(false);
     }
 
-    private void mouseWorldInteraction( Point2D mousePosition, boolean isMouseClicked)
+    private void mouseWorldInteraction(Point2D mousePosition, boolean isMouseClicked)
     {
-        int xpos = (int) (getCamX() + mousePosition.getX() - mousePosition.getX() % 64);
-        int ypos = (int) (getCamY() + mousePosition.getY() - mousePosition.getY() % 64);
-        hoveredGrid = new Rectangle2D(xpos, ypos, 64, 64);
-        CollectibleStack item = inventoryController.getMenuCollectible();
-        Sprite sp = item.createSprite(xpos, ypos);
-        alreadyAtPos = isSpriteAtPosition(passiveCollisionRelevantSpritesLayer, sp.getHitbox());
-
-        if (isMouseClicked && !alreadyAtPos)
-        {
-
+        int xpos = (int) ((getCamX() + mousePosition.getX()) - (getCamX() + mousePosition.getX()) % 64);
+        int ypos = (int) ((getCamY() + mousePosition.getY()) - (getCamY() + mousePosition.getY()) % 64);
+        gridManager.setHoveredGrid(new Rectangle2D(xpos, ypos, 64, 64));
+        if (isMouseClicked && !gridManager.isGridBlocked()) {
             System.out.println(CLASSNAME + "Clicked on tile X/Y " + xpos + "/" + ypos);
-            getPlayer().getActor().getInventory().removeItem(item);
-            GameVariables.getStolenCollectibles().remove(item);
+            getPlayer().getActor().getInventory().removeItem(gridManager.collectibleToPlace);
+            GameVariables.getStolenCollectibles().remove(gridManager.collectibleToPlace);
             inventoryController.setMenuCollectible(CollectibleStack.empty());
-            addToLayer(sp);
+            addToLayer(gridManager.collectibeSprite);
             WorldViewController.setWorldViewStatus(INVENTORY);
         }
-        else if(isMouseClicked)
-        {
+        else if (isMouseClicked) {
             System.out.println(CLASSNAME + "Blocked due to other Sprite");
         }
     }
 
-    private boolean isSpriteAtPosition(List<Sprite> layer, Rectangle2D checkedArea)
-    {
-        for (Sprite sprite : layer) {
-            if(sprite.getHitbox().intersects(checkedArea))
-                return true;
-        }
-          return false;
-    }
-
     private void calcCameraPosition()
     {
-        String methodName = "calcCameraPosition() ";
         //Camera at world border
         camX = player.getX() - CAMERA_WIDTH / 2f;
         camY = player.getY() - CAMERA_HEIGHT / 2f;
@@ -757,20 +720,17 @@ public class WorldView
 
 
         //Bump
-        if (bumpActive)
-        {
+        if (bumpActive) {
             if (timeStartBump == null)
                 timeStartBump = GameWindow.getCurrentNanoRenderTimeGameWindow();
             double elapsedTimeSinceBump = (GameWindow.getSingleton().getRenderTime() - timeStartBump) / 1000000000.0;
             double offsetCamX = 0, offsetCamY = 0;
-            if (durationBump < elapsedTimeSinceBump)
-            {
+            if (durationBump < elapsedTimeSinceBump) {
                 bumpActive = false;
                 rumbleGrade = RUMBLE_GRADE;//Reset
                 timeStartBump = null;//To manual retrigger
             }
-            else
-            {
+            else {
                 offsetCamX += Math.sin(bumpX) * rumbleGrade;
                 offsetCamY += Math.cos(bumpY) * (rumbleGrade + 3);
                 bumpX++;
@@ -788,40 +748,33 @@ public class WorldView
     public void render(Long currentNanoTime)
     {
         Long methodStartTime = System.nanoTime();
-        String methodName = "render(Long) ";
         gc.clearRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
         gc.translate(-camX, -camY);
 
-        for (Sprite sprite : passiveSpritesLayer)
-        {
+        for (Sprite sprite : passiveSpritesLayer) {
             sprite.render(gc, currentNanoTime);
         }
         bottomLayer.sort(new SpriteComparator());
-        for (Sprite sprite : bottomLayer)
-        {
+        for (Sprite sprite : bottomLayer) {
             sprite.render(gc, currentNanoTime);
         }
         middleLayer.sort(new SpriteComparator());
-        for (Sprite sprite : middleLayer)
-        {
+        for (Sprite sprite : middleLayer) {
             sprite.render(gc, currentNanoTime);
         }
         upperLayer.sort(new SpriteComparator());
-        for (Sprite sprite : upperLayer)
-        {
+        for (Sprite sprite : upperLayer) {
             sprite.render(gc, currentNanoTime);
         }
         topLayer.sort(new SpriteComparator());
-        for (Sprite sprite : topLayer)
-        {
+        for (Sprite sprite : topLayer) {
             sprite.render(gc, currentNanoTime);
         }
 
         //Overlays
         hudCanvas.getGraphicsContext2D().clearRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
         renderHUD(currentNanoTime);
-        switch (WorldViewController.getWorldViewStatus())
-        {
+        switch (WorldViewController.getWorldViewStatus()) {
 
             case WORLD:
                 break;
@@ -846,14 +799,12 @@ public class WorldView
                 hudCanvas.getGraphicsContext2D().drawImage(daySummaryImage, daySummaryScreenPosition.getX(), daySummaryScreenPosition.getY());
                 break;
             case COLLECTIBLE_USE:
-                drawGrid();
+                gridManager.drawGrid(gc);
 
         }
 
         //Debugdata
-        if (Config.DEBUG_BLOCKER)
-        {
-            //gc.setStroke(Color.RED);
+        if (Config.DEBUG_BLOCKER) {
             gc.setLineWidth(1);
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.getBasewidth(), borders.getHeight() + player.getBaseheight());
         }
@@ -862,8 +813,7 @@ public class WorldView
         root.getChildren().add(worldCanvas);
 
         //LightMap
-        if (shadowColor != null)
-        {
+        if (shadowColor != null) {
             renderLightEffect(currentNanoTime);
             root.getChildren().add(shadowMask);
             shadowMask.setBlendMode(BlendMode.MULTIPLY);
@@ -874,12 +824,15 @@ public class WorldView
         root.getChildren().add(hudCanvas);
         gc.translate(camX, camY);
     }
-
+/*
     private void drawGrid()
     {
         gc.setGlobalAlpha(0.5);
-        gc.setFill(alreadyAtPos ? COLOR_RED: COLOR_GREEN);
-        gc.fillRect(hoveredGrid.getMinX(), hoveredGrid.getMinY(), hoveredGrid.getWidth(), hoveredGrid.getHeight());
+        gc.setFill(gridManager.isGridBlocked() ? COLOR_RED: COLOR_GREEN);
+        gc.fillRect(gridManager.hoveredGrid.getMinX(), gridManager.hoveredGrid.getMinY(), gridManager.hoveredGrid.getWidth(), gridManager.hoveredGrid.getHeight());
+        gc.setStroke(RED);
+        gc.strokeRect(gridManager.collectibleOccupiedRect().getMinX(),gridManager.collectibleOccupiedRect().getMinY(),gridManager.collectibleOccupiedRect().getWidth(),gridManager.collectibleOccupiedRect().getHeight());
+        gc.drawImage(gridManager.getCollectibeSprite().getBaseimage(),gridManager.hoveredGrid.getMinX(), gridManager.hoveredGrid.getMinY() );
         gc.setGlobalAlpha(1);
         gc.setStroke(COLOR_MARKING);
         gc.setLineWidth(2);
@@ -888,12 +841,13 @@ public class WorldView
                 gc.strokeRect(x, y, 64, 64);
     }
 
+ */
+
     public void calcBlackOverlay(long currentNanoTime)
     {
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastBlackOverlayChangeTime) / 1000000000.0;
         if ((elapsedTimeSinceLastInteraction > 0.05) &&
-                ((fadedOutPercent < 1 && isFadedOut) || (fadedOutPercent > 0 && !isFadedOut)))
-        {
+                ((fadedOutPercent < 1 && isFadedOut) || (fadedOutPercent > 0 && !isFadedOut))) {
             blackOverlayGc.clearRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
             fadedOutPercent += isFadedOut ? 0.1 : -0.1;
             blackOverlayGc.setGlobalAlpha(fadedOutPercent);
@@ -925,14 +879,12 @@ public class WorldView
     {
         shadowMaskGc.setFill(shadowColor);
         shadowMaskGc.fillRect(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-        for (Sprite sprite : passiveCollisionRelevantSpritesLayer)
-        {
+        for (Sprite sprite : passiveCollisionRelevantSpritesLayer) {
             if (sprite.getLightningSpriteName().equalsIgnoreCase("none"))
                 continue;
 
             String lightSpriteName = sprite.getLightningSpriteName();
-            if (!lightsImageMap.containsKey(sprite.getLightningSpriteName()))
-            {
+            if (!lightsImageMap.containsKey(sprite.getLightningSpriteName())) {
                 lightsImageMap.put(lightSpriteName, Utilities.readImage(IMAGE_DIRECTORY_PATH + "lightglows/" + lightSpriteName + ".png"));
             }
             Image lightImage = lightsImageMap.get(lightSpriteName);
@@ -944,8 +896,7 @@ public class WorldView
     {
         String methodName = "getSpriteByName() ";
         List<Actor> re = new ArrayList<>();
-        for (Sprite sprite : actorSpritesLayer)
-        {
+        for (Sprite sprite : actorSpritesLayer) {
             if (sprite.getActor().getActorId().equals(id))
                 re.add(sprite.getActor());
         }

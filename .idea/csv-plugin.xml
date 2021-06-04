@@ -73,6 +73,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/java/Core/WorldView/GridManager.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/java/Core/WorldView/WorldView.java">
           <value>
             <Attribute>

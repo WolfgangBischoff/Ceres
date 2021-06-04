@@ -22,7 +22,8 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Bacteria Resource can be put into splicer to craft
 
 #### Set/Interact item mechanic (provide Service)
-* Position check
+* Interact Item with Sprite
+* Set Item which remains
 
 #### Engine
 * Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können
