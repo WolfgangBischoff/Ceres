@@ -2,17 +2,16 @@ package Core.Sprite;
 
 import Core.Actor;
 import Core.Configs.Config;
-import Core.Enums.ActorTag;
 import Core.Enums.Direction;
 import Core.GameWindow;
 import Core.Utilities;
-import Core.Utils.FXUtils;
 import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
 import java.util.List;
@@ -165,7 +164,7 @@ public class Sprite
 
             //Interact within interaction area
             if (interact
-                    && otherSprite.getBoundary().intersects(interactionArea)
+                    && otherSprite.getHitbox().intersects(interactionArea)
                     && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS) {
 
                 if (otherSprite.actor != null &&
@@ -185,7 +184,7 @@ public class Sprite
             //In range
              if (otherSprite.actor != null
                      && actor.getSensorStatus().getOnInRange_TriggerSprite() != NOTHING
-                     && otherSprite.getBoundary().intersects(interactionArea)) {
+                     && otherSprite.getHitbox().intersects(interactionArea)) {
                  actor.onInRange(otherSprite, updateTime);
              }
              //Intersect
@@ -227,7 +226,7 @@ public class Sprite
     {
         if (otherSprite == this)
             return false;
-        return otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition);
+        return otherSprite.isBlocker && otherSprite.getHitbox().intersects(plannedPosition);
     }
 
     private boolean isBlockedByOtherSprites(double deltaX, double deltaY)
@@ -266,7 +265,7 @@ public class Sprite
         Pair<Double, Double> ret = new Pair<>(0d, 0d);
         for (Sprite otherSprite : WorldView.getPassiveCollisionRelevantSpritesLayer())
             if (isBlockedBy(otherSprite, plannedPosition))
-                blockingSprite = otherSprite.getBoundary();
+                blockingSprite = otherSprite.getHitbox();
 
         if (direction == NORTH || direction == SOUTH) {
             playerLeftEdge = plannedPosition.getMinX();
@@ -310,7 +309,7 @@ public class Sprite
         Sprite player = WorldView.getPlayer();
         player.calcInteractionRectangle();
         double elapsedTimeSinceLastInteraction = (currentNanoTime - player.actor.getLastInteraction()) / 1000000000.0;
-        if (getBoundary().intersects(player.interactionArea)
+        if (getHitbox().intersects(player.interactionArea)
                 && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS
 
         ) {
@@ -339,7 +338,7 @@ public class Sprite
 
     public boolean intersects(Sprite s)
     {
-        return s.getBoundary().intersects(this.getBoundary());
+        return s.getHitbox().intersects(this.getHitbox());
     }
 
     public void render(GraphicsContext gc, Long renderTime)
@@ -412,7 +411,7 @@ public class Sprite
         return (currentRow * cols) + currentCol >= totalFrames - 1;
     }
 
-    public Rectangle2D getBoundary()
+    public Rectangle2D getHitbox()
     {
         return new Rectangle2D(position.getX() + hitBoxOffsetX, position.getY() + hitBoxOffsetY, hitBoxWidth, hitBoxHeight);
     }

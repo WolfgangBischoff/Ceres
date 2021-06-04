@@ -22,9 +22,7 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Bacteria Resource can be put into splicer to craft
 
 #### Set/Interact item mechanic (provide Service)
-* check why you cann collect placed items. 
 * Position check
-        
 
 #### Engine
 * Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können
@@ -60,13 +58,20 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 
 # Ideas
 ##Basemechanics
-### Transform your Transporter to better place to live
-* Build Support Infrastructure (predefinded place or semi free)
-* Maintain Service by inputs to increase revolutionary spirit
-* Propaganda actions also increase revSpirit
-* Once revSpirit Threshold is reached you can go to another area
-* Delegate mtx to other people
-* Bonus for good service in an area, endgame if all areas are maintained
+### Transform your Transporter to a better place to live
+* Build and maintain Support Infrastructure (predefinded place or semi free)
+* gather resources on Ceres or asteriods => Random Encounters with hazards or enemies
+* Infrastructure for Daily needs like Sleep, Food, Air, Entertainment
+* Find new People for the ship, maybe moral dillema (bad skills vs good, Laster)
+
+###Ceres
+* board time and ceres time are different, ceres night/day changes world
+* You are a criminal, stay undetected during operations
+* public areas / maintenance areas / Work areas / forgotten areas to trade/harvest/scavenge/sabotage
+    * Propaganda actions increase revSpirit
+    * Once revSpirit Threshold is reached you can go to another area/ world changes
+    * Bonus for good service in an area, endgame if all areas are maintained
+    * Maintain Service by inputs to increase revolutionary spirit
 
 ###Work for companies
 * destroy them from inside (Tagelöhner) and get resources
@@ -81,24 +86,12 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * randomly generated to loot and textadventures
 * getting tips from rumors for events
 
-###Daily needs
-* Sleep -> based on time like in StardewVallay, but maybe no defined end time. Some areas dont have time
-* board time and ceres time are different, ceres night/day changes world
-* Better bed increases skills, also Kuschis; different places over time
-* Food -> Eat during game (if not eaten for days, dies)
-* Air -> needed for space suit
-* Entertainment -> maybe useless but nice value
-
 ###Social
 * go to cafes and talk to people, befriend them
 * everyday other people there
 * meet entertainers and use their influence
 * storyrelevant characters that can be recruited => assign to activieties 
 * Dossiers in INFO, background story
-
-### stability / Gesetzlosigkeit
-* resultat von propaganda / missions in sector
-* mehr polizei, aber unruhe
 
 ##Contents
 - Biocomputer

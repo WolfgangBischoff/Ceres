@@ -239,7 +239,6 @@ public class Actor
 
     private ActorCondition readCondition(String[] linedata)
     {
-        String methodName = "readCondition() ";
         int spriteStatusConditionIdx = 1;
         int sensorStatusConditionIdx = 2;
         int actorConditionTypeIdx = 3;
@@ -281,7 +280,6 @@ public class Actor
 
     private SensorStatus readSensorData(String[] lineData) throws ArrayIndexOutOfBoundsException
     {
-        String methodName = "readSensorData(String[]) ";
         int sensorDataNameIdx = 1;
 
         int onInteractionIdx = 2;
@@ -349,7 +347,6 @@ public class Actor
     public void onUpdate(Long currentNanoTime)
     {
         //No lastInteraction time update, just resets if not used. like a automatic door
-        String methodName = "onUpdate(Long) ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastAutomaticInteraction) / 1000000000.0;
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_AUTOMATIC_INTERACTIONS)
         {
@@ -431,7 +428,6 @@ public class Actor
                     || sensorStatus.getOnInteraction_TriggerSprite() == TEXTBOX_CONDITION)
                 updateStatusFromConditions(activeSprite.getActor());
 
-            //react
             evaluateTriggerTypeSprite(sensorStatus.onInteraction_TriggerSprite, sensorStatus.onInteractionToStatusSprite, activeSprite.getActor());
             evaluateTriggerTypeSensor(sensorStatus.onInteraction_TriggerSensor, sensorStatus.onInteraction_StatusSensor);
             setLastInteraction(currentNanoTime);

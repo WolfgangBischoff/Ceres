@@ -31,6 +31,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -76,6 +77,8 @@ public class WorldView
     private static WorldView singleton;
     private static Rectangle2D borders;
     String levelName;
+    private GridManager gridManager = new GridManager();
+    private boolean alreadyAtPos;//Refactor to Gridmanager
 
     //Render
     Pane root;
@@ -86,7 +89,7 @@ public class WorldView
     Canvas hudCanvas;
     Map<String, Image> lightsImageMap = new HashMap<>();
     Color shadowColor;
-    Point2D hoveredGrid = new Point2D(0, 0);
+    Rectangle2D hoveredGrid = new Rectangle2D(0, 0, 64, 64);
 
     Canvas blackOverlayCanvas;
     GraphicsContext blackOverlayGc;
@@ -217,7 +220,11 @@ public class WorldView
         getMiddleLayer().remove(sprite);
         getUpperLayer().remove(sprite);
         if (sprite.getActor() != null && !actorList.contains(sprite.getActor()))
+        {
             actorList.add(sprite.getActor());
+            passiveCollisionRelevantSpritesLayer.remove(sprite);
+            passiveCollisionRelevantSpritesLayer.add(sprite);
+        }
         switch (sprite.getLayer())
         {
             case 0:
@@ -673,7 +680,7 @@ public class WorldView
                 inventoryController.processMouse(mousePosition, isMouseClicked, isMouseDragged, currentNanoTime);
                 break;
             case COLLECTIBLE_USE:
-                mouseWorldInteraction(methodName, mousePosition, isMouseClicked);
+                mouseWorldInteraction(mousePosition, isMouseClicked);
                 break;
             default:
                 System.out.println(CLASSNAME + methodName + "mouseinput undefined for: " + WorldViewController.getWorldViewStatus());
@@ -693,22 +700,38 @@ public class WorldView
         GameWindow.getSingleton().setMouseClicked(false);
     }
 
-    private void mouseWorldInteraction(String methodName, Point2D mousePosition, boolean isMouseClicked)
+    private void mouseWorldInteraction( Point2D mousePosition, boolean isMouseClicked)
     {
         int xpos = (int) (getCamX() + mousePosition.getX() - mousePosition.getX() % 64);
         int ypos = (int) (getCamY() + mousePosition.getY() - mousePosition.getY() % 64);
-        hoveredGrid = new Point2D(xpos, ypos);
-        if (isMouseClicked)
+        hoveredGrid = new Rectangle2D(xpos, ypos, 64, 64);
+        CollectibleStack item = inventoryController.getMenuCollectible();
+        Sprite sp = item.createSprite(xpos, ypos);
+        alreadyAtPos = isSpriteAtPosition(passiveCollisionRelevantSpritesLayer, sp.getHitbox());
+
+        if (isMouseClicked && !alreadyAtPos)
         {
 
-            System.out.println(CLASSNAME + methodName + "Clicked on tile X/Y " + xpos + "/" + ypos);
-            CollectibleStack item = inventoryController.getMenuCollectible();
+            System.out.println(CLASSNAME + "Clicked on tile X/Y " + xpos + "/" + ypos);
             getPlayer().getActor().getInventory().removeItem(item);
             GameVariables.getStolenCollectibles().remove(item);
             inventoryController.setMenuCollectible(CollectibleStack.empty());
-            addToLayer(item.createSprite(xpos, ypos));
+            addToLayer(sp);
             WorldViewController.setWorldViewStatus(INVENTORY);
         }
+        else if(isMouseClicked)
+        {
+            System.out.println(CLASSNAME + "Blocked due to other Sprite");
+        }
+    }
+
+    private boolean isSpriteAtPosition(List<Sprite> layer, Rectangle2D checkedArea)
+    {
+        for (Sprite sprite : layer) {
+            if(sprite.getHitbox().intersects(checkedArea))
+                return true;
+        }
+          return false;
     }
 
     private void calcCameraPosition()
@@ -855,8 +878,8 @@ public class WorldView
     private void drawGrid()
     {
         gc.setGlobalAlpha(0.5);
-        gc.setFill(COLOR_GREEN);
-        gc.fillRect(hoveredGrid.getX(), hoveredGrid.getY(), 64, 64);
+        gc.setFill(alreadyAtPos ? COLOR_RED: COLOR_GREEN);
+        gc.fillRect(hoveredGrid.getMinX(), hoveredGrid.getMinY(), hoveredGrid.getWidth(), hoveredGrid.getHeight());
         gc.setGlobalAlpha(1);
         gc.setStroke(COLOR_MARKING);
         gc.setLineWidth(2);

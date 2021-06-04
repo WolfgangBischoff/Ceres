@@ -1,7 +1,6 @@
 
 ##### 06 21
 * from inventory world interaction mode
-* sprite an Pos adden via Key
 * Sprite von Menu und maus adden
 
 ##### 05 21
