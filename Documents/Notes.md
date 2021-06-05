@@ -53,8 +53,8 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * test: Air hub deutlicherer sprite das kaputt
 
 * Level changes with time
-*      While Map load set global actors according to time, date, variables defined in actor file
-*      Set Actor script according to time
+    * While Map load set global actors according to time, date, variables defined in actor file
+    * Set Actor script according to time
 
 
 # Ideas
@@ -203,7 +203,7 @@ Lore (Info not related to Plot, History, descriptions)
             - schlechte, gefährliche Arbeitsbedingungen
             - Protest führt zu Entlassung und maschinsierung
             - Revolution zu besseren arbeitsbedingungen und produkten für die menschen
-        - Medics Company (Giftterror?)
+        - Medics Company "CapiGen" (African Company, founded in Cap ...?)
             - Heilt niemand, will weiter Kunden haben; teuer
             - Protest: Some products are cheaper, but more people are waiting
             - Revolution: Gesundheitssystem heilt und ist nicht mehr überlastet, jeder wird behandelt

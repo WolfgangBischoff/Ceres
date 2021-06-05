@@ -6,7 +6,7 @@
         <line>Check out work opportunities on your deck!</line>
     </dialogue>
     <dialogue id="JOB_DECISION" type="normal" >
-        <line>Biotech</line>
+        <line>Apply to CapiGen</line>
     </dialogue>
 
 </root>
