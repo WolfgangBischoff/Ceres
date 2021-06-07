@@ -2,7 +2,6 @@
 
 <root name="medic">
 
-
     <dialogue id="INTRO_AIRLOCK" type = "normal" nextDialogue="INTRO_AIRLOCK_1">
         <line>I can't believe that we made it to Ceres! %%VTPanchaia station%% looks as beautiful as on the pictures.</line>
         <line>.. and the CereX guys didn't even noted our little adventure.</line>
@@ -12,9 +11,8 @@
         <line>Talk to me again, if you want to look for a job.</line>
     </dialogue>
     <dialogue id="INTRO_AIRLOCK_REPEAT" type = "normal" dialogueId="INTRO_AIRLOCK_REPEAT">
-        <line>It seems that CapiGen hires workers, go to Oppurtunities Screen to get the job.</line>
+        <line>It seems that CapiGen hires workers, go to the Oppurtunities Screen to get the job.</line>
     </dialogue>
-
 
 </root>
 

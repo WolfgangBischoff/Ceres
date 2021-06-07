@@ -1,11 +1,6 @@
 
 
 <root name="elevator">
-    <dialogue id="none" type="normal">
-        <line>Lorem Ipsum</line>
-        <line>Dolorem</line>
-    </dialogue>
-
 
     <dialogue id="INIT-toFreightDeck" type="decision">
         <option nextDialogue="DECISION-toFreightDeck">[Control Deck]</option>

@@ -7,7 +7,8 @@
 Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistance
 * Introduction to Ceres and you room
 * Find work at bioTech company (With biocomputer, special furntiture)
-    Collect Food, create Cell => Form some bacteria
+  * unpaid traineeship to know process
+  * Collect Food, create Fuella Cell => Form some bacteria
 * Investigation starts (mail at morning)
 * Get help of resistance (somebody blocks the way) => come in the night to place
 * augen verdunkelt, base is shown with team, its not safe here, we need a base
