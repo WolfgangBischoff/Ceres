@@ -6,7 +6,7 @@
 #### Main Quest
 Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistance
 * Introduction to Ceres and you room
-* Find work at bioTech company (With biocomputer, special furntiture)
+* Find work at bioTech company => move by train then person dialogue
   * unpaid traineeship to know process
   * Collect Food, create Fuella Cell => Form some bacteria
 * Investigation starts (mail at morning)
@@ -15,6 +15,11 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * plan: We have a ship with no fuel => go to work and steal fuel bacteria / fuel => bring to resistance & and fly to ship
 * start engine and flee
 * smuggler docks shuttle
+
+#### Docking Bay
+* add ladder to enter MTX area which leads to air control;
+* function remains, lever should within the room; some items/stamps
+* add biocomputer or ore as exhibition piece
 
 #### Crafting mechanic
 * Food, Bacteria vom aud dem Inventar genutzen Item; verwendet in eigenem Modus-> Nährboden
