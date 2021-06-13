@@ -7,12 +7,15 @@
 Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistance
 * Introduction to Ceres and you room
 * Find work at bioTech company => move by train then person dialogue
-  * unpaid traineeship to know process
-  * Collect Food, create Fuella Cell => Form some bacteria
+  * unpaid traineeship to know process by trainee bacteria
 * Investigation starts (mail at morning)
 * Get help of resistance (somebody blocks the way) => come in the night to place
 * augen verdunkelt, base is shown with team, its not safe here, we need a base
-* plan: We have a ship with no fuel => go to work and steal fuel bacteria / fuel => bring to resistance & and fly to ship
+* plan: We have a ship with no fuel 
+  => go to work and steal fuel
+  => find fuel in MTX area under trainee area
+  => use elevator from MTX (one way) to exit
+  => bring to resistance
 * start engine and flee
 * smuggler docks shuttle
 
