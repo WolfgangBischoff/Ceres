@@ -25,10 +25,12 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * add biocomputer or ore as exhibition piece
 
 #### Crafting mechanic
-* Food, Bacteria vom aud dem Inventar genutzen Item; verwendet in eigenem Modus-> Nährboden
+* aus Inventor genutzten Scrap/Food Item auf Growspace anwenden => Nahrung
+* aus Inventor genutzten Bacteriatprobe Item auf Growspace anwenden => Beginne Prozess
+* ergebnis ergibt sich aus Nahrung/Bac Kombination => Fail/BacterioColony
 * Bacteria spreads on time (Sichtbare Verbindung, Felder checken position)
-* While Spreading, new bacteria can be created
-* Bacteria Resource can be put into splicer to craft
+* While Spreading, new bacteria can be created/ kreuzung
+* Bacteria Resource can be put into splicer to craft or extract resource
 
 #### Set/Interact item mechanic (provide Service)
 * Interact Item with Sprite

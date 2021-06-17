@@ -245,6 +245,15 @@ public class WorldView
         return false;
     }
 
+    public static Actor getSpriteAtPosition(List<Sprite> layer, Rectangle2D checkedArea)
+    {
+        for (Sprite sprite : layer) {
+            if (sprite.getHitbox().intersects(checkedArea) && sprite.hasActor())
+                return sprite.getActor();
+        }
+        return null;
+    }
+
     public void changeStage(String levelName, String spawnId, boolean invalidateSavedStages)
     {
         if (!invalidateSavedStages)
@@ -688,10 +697,14 @@ public class WorldView
         if (isMouseClicked && !gridManager.isGridBlocked()) {
             System.out.println(CLASSNAME + "Clicked on tile X/Y " + xpos + "/" + ypos);
             getPlayer().getActor().getInventory().removeItem(gridManager.collectibleToPlace);
-            GameVariables.getStolenCollectibles().remove(gridManager.collectibleToPlace);
+            GameVariables.getStolenCollectibles().remove(gridManager.collectibleToPlace);//TODO das wird nicht mehr funktionieren, items verschwinden ja
             inventoryController.setMenuCollectible(CollectibleStack.empty());
             addToLayer(gridManager.collectibeSprite);
             WorldViewController.setWorldViewStatus(INVENTORY);
+        }
+        else if (isMouseClicked && gridManager.isGridBlocked()  && gridManager.getBlockingActor() != null)
+        {
+            System.out.println(CLASSNAME + "Use Item on " + gridManager.getBlockingActor().getActorInGameName());
         }
         else if (isMouseClicked) {
             System.out.println(CLASSNAME + "Blocked due to other Sprite");

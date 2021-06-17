@@ -150,7 +150,6 @@ public class InventoryController
         }
         else if (menuCollectible.isDefined() && !menuCollectiblePosition.contains(mousePosition))
         {
-            System.out.println("not hovering menu");
             if (isMouseClicked)
                 setMenuCollectible(CollectibleStack.empty());
         }

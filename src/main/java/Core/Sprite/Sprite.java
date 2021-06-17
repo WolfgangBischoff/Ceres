@@ -470,6 +470,11 @@ public class Sprite
         this.animated = animated;
     }
 
+    public boolean hasActor()
+    {
+        return actor != null;
+    }
+
     public String getName()
     {
         return name;
@@ -650,29 +655,10 @@ public class Sprite
         this.initDialogueId = initDialogueId;
     }
 
-    public int getCurrentCol()
-    {
-        return currentCol;
-    }
-
-    public int getCurrentRow()
-    {
-        return currentRow;
-    }
-
-    public Boolean getAnimationEnds()
-    {
-        return animationEnds;
-    }
 
     public void setAnimationEnds(Boolean animationEnds)
     {
         this.animationEnds = animationEnds;
-    }
-
-    public Boolean getInteract()
-    {
-        return interact;
     }
 
     public void setInteract(Boolean interact)
@@ -680,24 +666,10 @@ public class Sprite
         this.interact = interact;
     }
 
-    //public Boolean getBlockedByOtherSprite()
-    //{
-    //    return blockedByOtherSprite;
-    //}
 
     public Image getBaseimage()
     {
         return baseimage;
-    }
-
-    public Long getLastFrame()
-    {
-        return lastFrame;
-    }
-
-    public Long getLastUpdated()
-    {
-        return lastUpdated;
     }
 
     public Rectangle2D getInteractionArea()

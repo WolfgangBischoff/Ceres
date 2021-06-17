@@ -93,18 +93,14 @@ public class CollectibleMenuOverlay
 
         if (isMouseClicked && highlightedElement.identifier.equals(USE_ID))
         {
-            System.out.println("use hovering menu");
             controller.useMenuCollectible();
         }
         else if (isMouseClicked && highlightedElement.identifier.equals(WORLD_ID))
         {
-            System.out.println("world hovering menu");
             WorldViewController.setWorldViewStatus(WorldViewStatus.COLLECTIBLE_USE);
-            //controller.setMenuCollectible(CollectibleStack.empty());
         }
         else if (isMouseClicked && highlightedElement.identifier.equals(BACK_ID))
         {
-            System.out.println("back hovering menu");
             controller.setMenuCollectible(CollectibleStack.empty());
         }
 

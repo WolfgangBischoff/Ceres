@@ -1,5 +1,6 @@
 package Core.WorldView;
 
+import Core.Actor;
 import Core.CollectibleStack;
 import Core.Sprite.Sprite;
 import javafx.geometry.Rectangle2D;
@@ -14,6 +15,7 @@ public class GridManager
     CollectibleStack collectibleToPlace;
     Sprite collectibeSprite;
     private boolean isGridBlocked;
+    Actor blockingActor;
 
     public Rectangle2D collectibleOccupiedRect()
     {
@@ -36,7 +38,8 @@ public class GridManager
         for (int x = (int) getCamX() - (int) getCamX() % 64; x < getCamX() + CAMERA_WIDTH; x += 64)
             for (int y = (int) getCamY() - (int) getCamY() % 64; y < getCamY() + CAMERA_HEIGHT; y += 64)
                 gc.strokeRect(x, y, 64, 64);
-        if (collectibleToPlace != null) {
+        if (collectibleToPlace != null)
+        {
             gc.setStroke(COLOR_RED);
             gc.strokeRect(collectibleOccupiedRect().getMinX(), collectibleOccupiedRect().getMinY(), collectibleOccupiedRect().getWidth(), collectibleOccupiedRect().getHeight());
         }
@@ -57,6 +60,10 @@ public class GridManager
         this.collectibleToPlace = collectibleToPlace;
         collectibeSprite = collectibleToPlace.createSprite((int) hoveredGrid.getMinX(), (int) hoveredGrid.getMinY());
         isGridBlocked = WorldView.isSpriteAtPosition(passiveCollisionRelevantSpritesLayer, collectibeSprite.getHitbox());
+        if (isGridBlocked)
+            blockingActor = WorldView.getSpriteAtPosition(passiveCollisionRelevantSpritesLayer, collectibeSprite.getHitbox());
+        else
+            blockingActor = null;
     }
 
     public Sprite getCollectibeSprite()
@@ -64,4 +71,8 @@ public class GridManager
         return collectibeSprite;
     }
 
+    public Actor getBlockingActor()
+    {
+        return blockingActor;
+    }
 }
