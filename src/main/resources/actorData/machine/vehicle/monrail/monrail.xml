@@ -8,10 +8,12 @@
 
     <dialogue id="INIT_DECISION" type="decision" spritestatus="transition">
         <option nextDialogue="LEVEL_DOCKINGBAY">Docking Bay</option>
+        <option nextDialogue="LEVEL_TRAINEEAREA">Trainee Area</option>
         <option>Back</option>
     </dialogue>
 
     <dialogue id="LEVEL_DOCKINGBAY" type="normal" levelchange="dockingBay" spawnID="elevator"/>
+    <dialogue id="LEVEL_TRAINEEAREA" type="normal" levelchange="capigeni/traineeArea" spawnID="default"/>
 
 </root>
 
