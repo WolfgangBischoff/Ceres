@@ -5,6 +5,7 @@ import Core.Enums.Direction;
 import Core.Sprite.Sprite;
 import javafx.scene.image.Image;
 
+import static Core.Configs.Config.GENERIC_STACK_AMOUNT;
 import static java.lang.Integer.max;
 import static java.lang.Integer.min;
 
@@ -25,6 +26,7 @@ public class CollectibleStack
         Sprite sprite = Sprite.createSprite(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0), x, y);
         sprite.setActor(collectibleActor);
         collectibleActor.addSprite(sprite);
+        collectibleActor.genericDoubleAttributes.put(GENERIC_STACK_AMOUNT, (double)number);
         return sprite;
     }
 
@@ -87,10 +89,10 @@ public class CollectibleStack
         return !(collectible == null);
     }
 
-    private int remove(int amount)
+    public int remove(int amount)
     {
         int reducedBy = min(number, amount);
-        number =- reducedBy;
+        number -= reducedBy;
         if(number <= 0)
             collectible = null;
         return reducedBy;
@@ -124,6 +126,11 @@ public class CollectibleStack
         if (collectible != null)
             return collectible.spriteStatus;
         else return null;
+    }
+
+    public int getNumber()
+    {
+        return number;
     }
 
     public Image getImage()

@@ -168,7 +168,8 @@ public class Actor
                 break;
             case CONTAINS_COLLECTIBLE_ACTOR:
                 Collectible collectible = Collectible.createCollectible(linedata[1], linedata[2]);
-                inventory.addCollectibleStackNextSlot(new CollectibleStack(collectible));
+                int number = Integer.parseInt(linedata[3]);
+                inventory.addCollectibleStackNextSlot(new CollectibleStack(collectible, number));
                 break;
             case KEYWORD_sensorStatus:
                 sensorStatusMap.put(linedata[1], readSensorData(linedata));
@@ -687,7 +688,8 @@ public class Actor
     {
         Collectible collected = Collectible.createCollectible(actorFileName, generalStatus);
         collected.image = spriteList.get(0).getBaseimage();
-        boolean wasCollected = collectingActor.inventory.addCollectibleStackNextSlot(new CollectibleStack(collected));
+        double amountCollected = genericDoubleAttributes.getOrDefault(GENERIC_STACK_AMOUNT, 1D);
+        boolean wasCollected = collectingActor.inventory.addCollectibleStackNextSlot(new CollectibleStack(collected, (int)amountCollected));
 
         if (wasCollected)
         {

@@ -150,6 +150,8 @@ public class Config
     public static final String STAGE_FILE_PATH = "level/";
     public static final String IMAGE_DIRECTORY_PATH = "img/";
     public static final String COINGAME_DIRECTORY_PATH = "discussions/";
+    //Generic Attribute Names
+    public static final String GENERIC_STACK_AMOUNT = "stack_amount";
     //Discussion-Game
     public static final String COIN_BEHAVIOR_MOVING = "moving";
     public static final String COIN_BEHAVIOR_JUMP = "jump";

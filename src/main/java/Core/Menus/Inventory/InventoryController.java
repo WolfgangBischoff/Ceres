@@ -119,7 +119,8 @@ public class InventoryController
         {
             System.out.println(CLASSNAME + "You ate " + menuCollectible.getIngameName());
             GameVariables.addHunger(menuCollectible.getBaseValue());
-            playerActor.getInventory().removeCollectibleStack(menuCollectible);
+            playerActor.getInventory().reduceCollectibleStack(menuCollectible, 1);
+           // playerActor.getInventory().removeCollectibleStack(menuCollectible);
             GameVariables.getStolenCollectibles().remove(menuCollectible);
             setMenuCollectible(CollectibleStack.empty());
         }

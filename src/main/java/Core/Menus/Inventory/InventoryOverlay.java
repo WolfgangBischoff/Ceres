@@ -130,6 +130,8 @@ public class InventoryOverlay implements DragAndDropOverlay
                     current = actor.getInventory().itemsList.get(itemSlotNumber);
                 if (current != null) {
                     gc.drawImage(current.getImage(), currentRect.getX() -2, currentRect.getY()-2);
+                    gc.setFill(COLOR_RED);
+                    gc.fillText(""+current.getNumber(), currentRect.getX() + 22, currentRect.getY() + 22);
                     //Stolen sign
                     if (GameVariables.getStolenCollectibles().contains(current)) {
                         gc.setFill(darkRed);
@@ -298,15 +300,6 @@ public class InventoryOverlay implements DragAndDropOverlay
             {
                 controller.setMenuCollectible(CollectibleStack.empty());
             }
-/*
-            if (chosenCollectible != null
-                    && chosenCollectible.getType() == CollectableType.FOOD) {
-                System.out.println(CLASSNAME + methodName + "You ate " + chosenCollectible.getIngameName());
-                GameVariables.addHunger(chosenCollectible.getBaseValue());
-                actor.getInventory().removeItem(chosenCollectible);
-                GameVariables.getStolenCollectibles().remove(chosenCollectible);
-            }
- */
         }
 
     }

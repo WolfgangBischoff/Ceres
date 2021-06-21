@@ -62,6 +62,13 @@ public class Inventory
             removeCollectibleStack(itemsList.indexOf(collectible));
     }
 
+    public void reduceCollectibleStack(CollectibleStack collectible, int amount)
+    {
+        collectible.remove(amount);
+        if(collectible.isEmpty())
+            removeCollectibleStack(itemsList.indexOf(collectible));
+    }
+
     public void removeCollectibleStack(int idx)
     {
         if (idx >= 0)
