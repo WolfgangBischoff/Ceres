@@ -605,7 +605,7 @@ public class Actor
                 activateText(activeActor);
                 break;
             case PERSISTENT_HARVEST:
-                harvest();
+                GrowspaceManager.harvest(this);
                 applySpriteStatus(targetStatusField);
                 break;
             case TIMED_TEXT:
@@ -648,19 +648,24 @@ public class Actor
     public void interactWithMenuItem(CollectibleStack from)
     {
         System.out.println(CLASSNAME + "Use Item on " + getActorInGameName());
-        if (GrowspaceManager.isBacteriaFood(from.getCollectible()) && getGeneralStatus().equals("empty"))
+        if(tags.contains(GROWPLACE))
         {
-            setSpriteStatus(GrowspaceManager.getFoodStatus(from.getCollectible()));
-            getInventory().addNumberOfCollectibleNextSlot(from, 1);
-            System.out.println(CLASSNAME + "got food");
+            if (GrowspaceManager.isBacteriaFood(from.getCollectible()) && getGeneralStatus().equals("empty"))
+            {
+                setSpriteStatus(GrowspaceManager.getFoodStatus(from.getCollectible()));
+                getInventory().addNumberOfCollectibleNextSlot(from, 1);
+                System.out.println(CLASSNAME + "got food " + getInventory().toString());
+            }
+            else if (GrowspaceManager.isBacteriaCulture(from.getCollectible()) && getGeneralStatus().equals("bac_food_food"))
+            {
+                setSpriteStatus(GrowspaceManager.getGrowingStatus(from.getCollectible()));
+                getInventory().addNumberOfCollectibleNextSlot(from, 1);
+                System.out.println(CLASSNAME + "start process " + getInventory().toString());
+            }
+            else
+                System.out.println(CLASSNAME + "nothing happpens");
         }
-        else if (GrowspaceManager.isBacteriaCulture(from.getCollectible()) && getGeneralStatus().equals("fuel_seed"))
-        {
-            //TODO Start Grow process by sensorstatus
-            System.out.println(CLASSNAME + "start process");
-        }
-        else
-            System.out.println(CLASSNAME + "nothing happpens");
+
 
     }
 
@@ -679,7 +684,7 @@ public class Actor
         if (WorldViewController.getWorldViewStatus() == WORLD)
         {
             if (hasTag(GROWPLACE))
-                GrowManager.get().grow(this);
+                GrowspaceManager.grow(this);
         }
     }
 
@@ -704,12 +709,6 @@ public class Actor
         }
     }
 
-    private void harvest()
-    {
-        Collectible collected = Collectible.createCollectible("actorData/collectibles/bacteria/bacteria_crafted", generalStatus);
-        if (WorldView.getPlayer().getActor().getInventory().addCollectibleStackNextSlot(new CollectibleStack(collected)))
-            CentralMessageOverlay.showMsg("New " + collected.getIngameName() + "!");
-    }
 
     private void playTimedStatus()
     {

@@ -93,8 +93,13 @@ public class Inventory
     @Override
     public String toString()
     {
+        StringBuilder stringBuilder = new StringBuilder();
+        itemsList.forEach(s -> {
+            if(s.isDefined())
+                stringBuilder.append(s.getCollectible().getSpriteStatus() + " " + s.getNumber());
+        });
         return owner.getActorInGameName() +
-                " inv: " + itemsList.toString()
+                " " + stringBuilder.toString()
                 ;
     }
 

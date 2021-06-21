@@ -20,6 +20,7 @@ import static Core.Configs.Config.*;
 import static Core.Menus.Inventory.MouseInteractionType.CLICK;
 import static Core.Menus.Inventory.MouseInteractionType.DRAG;
 import static Core.WorldView.WorldViewStatus.*;
+import static javafx.scene.paint.Color.BLACK;
 
 public class InventoryOverlay implements DragAndDropOverlay
 {
@@ -130,7 +131,8 @@ public class InventoryOverlay implements DragAndDropOverlay
                     current = actor.getInventory().itemsList.get(itemSlotNumber);
                 if (current != null) {
                     gc.drawImage(current.getImage(), currentRect.getX() -2, currentRect.getY()-2);
-                    gc.setFill(COLOR_RED);
+                    gc.setFont(FONT_ORBITRON_12);
+                    gc.setFill(BLACK);
                     gc.fillText(""+current.getNumber(), currentRect.getX() + 50, currentRect.getY() + 15);
                     //Stolen sign
                     if (GameVariables.getStolenCollectibles().contains(current)) {

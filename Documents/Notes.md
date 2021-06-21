@@ -25,8 +25,7 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * add biocomputer or ore as exhibition piece
 
 #### Crafting mechanic
-* aus Inventor genutzten Scrap/Food Item auf Growspace anwenden => Nahrung
-* aus Inventor genutzten Bacteriatprobe Item auf Growspace anwenden => Beginne Prozess (Sprite entspricht Pflanze)
+* growspace löscht inventar nach rotten/leerung
 * ergebnis ergibt sich aus Nahrung/Bac Kombination => Fail/BacterioColony
 * Bacteria spreads on time (Sichtbare Verbindung, Felder checken position)
 * While Spreading, new bacteria can be created/ kreuzung
@@ -39,7 +38,7 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 #### Engine
 * Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können
     * Includes sollten gespeichert werden (Teil von LevelState?), bei initial geladenen werden auch persistente hinzugefügt
-* Inventory soll CollectibleStack nutzen um zu stapeln, teilen und benutzen sinnvoll
+* Inventory soll CollectibleStack nutzen um zu stapeln, teilen button
 
 #### Various
 * first stranger sound
