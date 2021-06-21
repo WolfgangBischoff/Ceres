@@ -131,7 +131,7 @@ public class InventoryOverlay implements DragAndDropOverlay
                 if (current != null) {
                     gc.drawImage(current.getImage(), currentRect.getX() -2, currentRect.getY()-2);
                     gc.setFill(COLOR_RED);
-                    gc.fillText(""+current.getNumber(), currentRect.getX() + 22, currentRect.getY() + 22);
+                    gc.fillText(""+current.getNumber(), currentRect.getX() + 50, currentRect.getY() + 15);
                     //Stolen sign
                     if (GameVariables.getStolenCollectibles().contains(current)) {
                         gc.setFill(darkRed);
