@@ -26,7 +26,7 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 
 #### Crafting mechanic
 * aus Inventor genutzten Scrap/Food Item auf Growspace anwenden => Nahrung
-* aus Inventor genutzten Bacteriatprobe Item auf Growspace anwenden => Beginne Prozess
+* aus Inventor genutzten Bacteriatprobe Item auf Growspace anwenden => Beginne Prozess (Sprite entspricht Pflanze)
 * ergebnis ergibt sich aus Nahrung/Bac Kombination => Fail/BacterioColony
 * Bacteria spreads on time (Sichtbare Verbindung, Felder checken position)
 * While Spreading, new bacteria can be created/ kreuzung

@@ -694,21 +694,31 @@ public class WorldView
         int xpos = (int) ((getCamX() + mousePosition.getX()) - (getCamX() + mousePosition.getX()) % 64);
         int ypos = (int) ((getCamY() + mousePosition.getY()) - (getCamY() + mousePosition.getY()) % 64);
         gridManager.setHoveredGrid(new Rectangle2D(xpos, ypos, 64, 64));
-        if (isMouseClicked && !gridManager.isGridBlocked()) {
+        if (isMouseClicked && !gridManager.isGridBlocked()) //set on ground
+        {
             System.out.println(CLASSNAME + "Clicked on tile X/Y " + xpos + "/" + ypos);
-            getPlayer().getActor().getInventory().removeItem(gridManager.collectibleToPlace);
+            getPlayer().getActor().getInventory().removeCollectibleStack(gridManager.collectibleToPlace);
             GameVariables.getStolenCollectibles().remove(gridManager.collectibleToPlace);//TODO das wird nicht mehr funktionieren, items verschwinden ja
             inventoryController.setMenuCollectible(CollectibleStack.empty());
             addToLayer(gridManager.collectibeSprite);
             WorldViewController.setWorldViewStatus(INVENTORY);
         }
-        else if (isMouseClicked && gridManager.isGridBlocked()  && gridManager.getBlockingActor() != null)
+        else if (isMouseClicked && gridManager.isGridBlocked()  && gridManager.getBlockingActor() != null) //interact with actor at pos
         {
-            System.out.println(CLASSNAME + "Use Item on " + gridManager.getBlockingActor().getActorInGameName());
+            gridManager.getBlockingActor().interactWithMenuItem(gridManager.collectibleToPlace);
         }
         else if (isMouseClicked) {
             System.out.println(CLASSNAME + "Blocked due to other Sprite");
         }
+
+        //close grid
+        if(gridManager.collectibleToPlace.isEmpty())
+        {
+            inventoryController.setMenuCollectible(CollectibleStack.empty());
+            WorldViewController.setWorldViewStatus(WORLD);
+        }
+
+
     }
 
     private void calcCameraPosition()

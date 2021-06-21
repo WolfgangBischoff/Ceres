@@ -101,7 +101,7 @@ public class Dialogue
                     Collectible collectible = Collectible.createCollectible(
                             currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_ACTOR)
                             , currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEM_STATUS));
-                    if (WorldView.getPlayer().getActor().getInventory().addItemNextSlot(new CollectibleStack(collectible)))
+                    if (WorldView.getPlayer().getActor().getInventory().addCollectibleStackNextSlot(new CollectibleStack(collectible)))
                         CentralMessageOverlay.showMsg("New " + collectible.getIngameName() + "!");
                     else
                         System.out.println(CLASSNAME + "TODO Item could not be added to Inventory");

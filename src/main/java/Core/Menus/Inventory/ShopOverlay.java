@@ -4,17 +4,12 @@ import Core.*;
 import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static Core.Configs.Config.*;
@@ -196,7 +191,7 @@ public class ShopOverlay
             if (GameVariables.getPlayerMoney() >= price)
             {
                 GameVariables.addPlayerMoney(-price);
-                player.getInventory().addItemNextSlot(collectible);
+                player.getInventory().addCollectibleStackNextSlot(collectible);
             }
             else
                 System.out.println(CLASSNAME + methodName + "You cannot afford this item.");

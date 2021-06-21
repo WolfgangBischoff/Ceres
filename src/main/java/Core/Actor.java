@@ -168,7 +168,7 @@ public class Actor
                 break;
             case CONTAINS_COLLECTIBLE_ACTOR:
                 Collectible collectible = Collectible.createCollectible(linedata[1], linedata[2]);
-                inventory.addItemNextSlot(new CollectibleStack(collectible));
+                inventory.addCollectibleStackNextSlot(new CollectibleStack(collectible));
                 break;
             case KEYWORD_sensorStatus:
                 sensorStatusMap.put(linedata[1], readSensorData(linedata));
@@ -644,6 +644,25 @@ public class Actor
         }
     }
 
+    public void interactWithMenuItem(CollectibleStack from)
+    {
+        System.out.println(CLASSNAME + "Use Item on " + getActorInGameName());
+        if (GrowspaceManager.isBacteriaFood(from.getCollectible()) && getGeneralStatus().equals("empty"))
+        {
+            setSpriteStatus(GrowspaceManager.getFoodStatus(from.getCollectible()));
+            getInventory().addNumberOfCollectibleNextSlot(from, 1);
+            System.out.println(CLASSNAME + "got food");
+        }
+        else if (GrowspaceManager.isBacteriaCulture(from.getCollectible()) && getGeneralStatus().equals("fuel_seed"))
+        {
+            //TODO Start Grow process by sensorstatus
+            System.out.println(CLASSNAME + "start process");
+        }
+        else
+            System.out.println(CLASSNAME + "nothing happpens");
+
+    }
+
     public void actAccordingToScript(Long currentNanoTime)
     {
         if (WorldViewController.getWorldViewStatus() == WORLD)
@@ -658,7 +677,7 @@ public class Actor
     {
         if (WorldViewController.getWorldViewStatus() == WORLD)
         {
-            if(hasTag(GROWPLACE))
+            if (hasTag(GROWPLACE))
                 GrowManager.get().grow(this);
         }
     }
@@ -668,7 +687,7 @@ public class Actor
     {
         Collectible collected = Collectible.createCollectible(actorFileName, generalStatus);
         collected.image = spriteList.get(0).getBaseimage();
-        boolean wasCollected = collectingActor.inventory.addItemNextSlot(new CollectibleStack(collected));
+        boolean wasCollected = collectingActor.inventory.addCollectibleStackNextSlot(new CollectibleStack(collected));
 
         if (wasCollected)
         {
@@ -685,8 +704,8 @@ public class Actor
 
     private void harvest()
     {
-        Collectible collected = Collectible.createCollectible("actorData/collectibles/bacteria/bacteria_crafted",  generalStatus);
-        if (WorldView.getPlayer().getActor().getInventory().addItemNextSlot(new CollectibleStack(collected)))
+        Collectible collected = Collectible.createCollectible("actorData/collectibles/bacteria/bacteria_crafted", generalStatus);
+        if (WorldView.getPlayer().getActor().getInventory().addCollectibleStackNextSlot(new CollectibleStack(collected)))
             CentralMessageOverlay.showMsg("New " + collected.getIngameName() + "!");
     }
 

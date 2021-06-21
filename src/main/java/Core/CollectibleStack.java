@@ -5,10 +5,13 @@ import Core.Enums.Direction;
 import Core.Sprite.Sprite;
 import javafx.scene.image.Image;
 
+import static java.lang.Integer.max;
+import static java.lang.Integer.min;
+
 public class CollectibleStack
 {
     int maxNumber;
-    int number;
+    private int number;
     Collectible collectible;
 
     public static CollectibleStack empty()
@@ -38,6 +41,14 @@ public class CollectibleStack
         this.number = 1;
         this.collectible = collectible;
     }
+
+    public CollectibleStack(Collectible collectible, int initNumber)
+    {
+        this.maxNumber = 5;
+        this.number = initNumber;
+        this.collectible = collectible;
+    }
+
 
     public boolean add(Collectible addedCollectible)
     {
@@ -76,10 +87,26 @@ public class CollectibleStack
         return !(collectible == null);
     }
 
-    public void remove()
+    private int remove(int amount)
     {
-        if (number > 0)
-            number--;
+        int reducedBy = min(number, amount);
+        number =- reducedBy;
+        if(number <= 0)
+            collectible = null;
+        return reducedBy;
+    }
+
+    public CollectibleStack split(int amount)
+    {
+        int numberToTransfer = remove(amount);
+        return new CollectibleStack(collectible, numberToTransfer);
+    }
+
+    public void transferTo(CollectibleStack target, int amount)
+    {
+        int numberTotransfer = min(amount, number);
+        number -= numberTotransfer;
+        target.add(split(numberTotransfer));
         if (number == 0)
             collectible = null;
     }

@@ -1,8 +1,6 @@
 package Core.Menus.Inventory;
 
 import Core.*;
-import Core.Enums.CollectableType;
-import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
@@ -16,7 +14,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static Core.Configs.Config.*;
@@ -181,7 +178,7 @@ public class InventoryOverlay implements DragAndDropOverlay
                     controller.setTooltipElement(tooltipElement);
                     if (mouseElements.indexOf(tooltipElement) >= 0 && mouseElements.indexOf(tooltipElement) < actor.getInventory().itemsList.size())
                     {
-                        controller.setTooltippedCollectible(actor.getInventory().getItem(mouseElements.indexOf(tooltipElement)));
+                        controller.setTooltippedCollectible(actor.getInventory().getCollectibeStack(mouseElements.indexOf(tooltipElement)));
                     }
                 }
             }
@@ -203,21 +200,21 @@ public class InventoryOverlay implements DragAndDropOverlay
 
     public void removeItem(CollectibleStack collectible)
     {
-        actor.getInventory().removeItem(collectible);
+        actor.getInventory().removeCollectibleStack(collectible);
     }
 
     public void dropCollectible(DragAndDropItem dropped)
     {
         if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG)) {
             CollectibleStack collectibleToDrop = dropped.collectible;
-            CollectibleStack collectibleAtTargetSlot = actor.getInventory().getItem(mouseElements.indexOf(highlightedElement));
-            dropped.previousInventory.addItemIdx(//Swap item if exists
+            CollectibleStack collectibleAtTargetSlot = actor.getInventory().getCollectibeStack(mouseElements.indexOf(highlightedElement));
+            dropped.previousInventory.addCollectibleStackIdx(//Swap item if exists
                     collectibleAtTargetSlot,
                     dropped.previousIdx);
-            actor.getInventory().addItemIdx(collectibleToDrop, mouseElements.indexOf(highlightedElement));
+            actor.getInventory().addCollectibleStackIdx(collectibleToDrop, mouseElements.indexOf(highlightedElement));
         }
         else {
-            dropped.previousInventory.addItemIdx(//Back to previous Inventory
+            dropped.previousInventory.addCollectibleStackIdx(//Back to previous Inventory
                     dropped.collectible,
                     dropped.previousIdx);
         }
@@ -228,10 +225,10 @@ public class InventoryOverlay implements DragAndDropOverlay
     public void dragCollectible(Long currentNanoTime, Point2D mousePosition)
     {
         if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG)) {
-            CollectibleStack tocheck = actor.getInventory().getItem(mouseElements.indexOf(highlightedElement));
+            CollectibleStack tocheck = actor.getInventory().getCollectibeStack(mouseElements.indexOf(highlightedElement));
             if (!tocheck.isEmpty() && controller.getDragAndDropItem() == null) {
-                CollectibleStack collectible = actor.getInventory().getItem(mouseElements.indexOf(highlightedElement));
-                actor.getInventory().removeItem(collectible);
+                CollectibleStack collectible = actor.getInventory().getCollectibeStack(mouseElements.indexOf(highlightedElement));
+                actor.getInventory().removeCollectibleStack(collectible);
                 controller.setDragAndDropItem(new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible, actor.getInventory(), mouseElements.indexOf(highlightedElement)));
             }
         }
@@ -266,12 +263,12 @@ public class InventoryOverlay implements DragAndDropOverlay
             if (chosenCollectible != null) {
                 //check from which inventory to which inventory we exchange
                 if (InventoryController.playerInventoryOverlay == this) {
-                    InventoryController.exchangeInventoryActor.getInventory().addItemNextSlot(chosenCollectible);
-                    InventoryController.playerActor.getInventory().removeItem(chosenCollectible);
+                    InventoryController.exchangeInventoryActor.getInventory().addCollectibleStackNextSlot(chosenCollectible);
+                    InventoryController.playerActor.getInventory().removeCollectibleStack(chosenCollectible);
                 }
                 else if (InventoryController.otherInventoryOverlay == this) {
-                    InventoryController.playerActor.getInventory().addItemNextSlot(chosenCollectible);
-                    InventoryController.exchangeInventoryActor.getInventory().removeItem(chosenCollectible);
+                    InventoryController.playerActor.getInventory().addCollectibleStackNextSlot(chosenCollectible);
+                    InventoryController.exchangeInventoryActor.getInventory().removeCollectibleStack(chosenCollectible);
                 }
             }
 

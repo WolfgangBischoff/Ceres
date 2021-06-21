@@ -11,7 +11,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static Core.Configs.Config.*;
@@ -120,7 +119,7 @@ public class InventoryController
         {
             System.out.println(CLASSNAME + "You ate " + menuCollectible.getIngameName());
             GameVariables.addHunger(menuCollectible.getBaseValue());
-            playerActor.getInventory().removeItem(menuCollectible);
+            playerActor.getInventory().removeCollectibleStack(menuCollectible);
             GameVariables.getStolenCollectibles().remove(menuCollectible);
             setMenuCollectible(CollectibleStack.empty());
         }

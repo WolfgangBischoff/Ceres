@@ -22,7 +22,7 @@ public class Inventory
             itemsList.add(CollectibleStack.empty());
     }
 
-    public boolean hasItemOfType(String technicalName, CollectableType type)
+    public boolean hasCollectibleStackOfType(String technicalName, CollectableType type)
     {
         for (CollectibleStack c : itemsList)
             if (c != null && c.getType() == type && c.getTechnicalName().equals(technicalName))
@@ -30,35 +30,45 @@ public class Inventory
         return false;
     }
 
-    public void addItemIdx(CollectibleStack collectible, int idx)
+    public void addCollectibleStackIdx(CollectibleStack collectible, int idx)
     {
         if (idx < MAX_IDX_ITEMS)
             itemsList.get(idx).add(collectible);
     }
 
-    public boolean addItemNextSlot(CollectibleStack collectible)
+    public boolean addCollectibleStackNextSlot(CollectibleStack collectible)
     {
         if (hasFreeSlot())
         {
-            addItemIdx(collectible, nextFreeIdx());
+            addCollectibleStackIdx(collectible, nextFreeIdx());
             return true;
         }
         return false;
     }
 
-    public void removeItem(CollectibleStack collectible)
+    public boolean addNumberOfCollectibleNextSlot(CollectibleStack from, int number)
     {
-        if(!collectible.isEmpty())
-            removeItem(itemsList.indexOf(collectible));
+        if (hasFreeSlot())
+        {
+            addCollectibleStackIdx(from.split(number), nextFreeIdx());
+            return true;
+        }
+        return false;
     }
 
-    public void removeItem(int idx)
+    public void removeCollectibleStack(CollectibleStack collectible)
+    {
+        if(!collectible.isEmpty())
+            removeCollectibleStack(itemsList.indexOf(collectible));
+    }
+
+    public void removeCollectibleStack(int idx)
     {
         if (idx >= 0)
             itemsList.set(idx, CollectibleStack.empty());
     }
 
-    public CollectibleStack getItem(int idx)
+    public CollectibleStack getCollectibeStack(int idx)
     {
         return itemsList.get(idx);
     }

@@ -1,6 +1,5 @@
 package Core;
 
-import Core.Configs.GenericVariablesManager;
 import Core.Enums.ActorConditionType;
 import Core.Enums.CollectableType;
 
@@ -47,7 +46,7 @@ public class ActorCondition
         //If at least on item fits return true
         for (int i = 0; i < params.size(); i = i + 2)
         {
-            if (actor.inventory.hasItemOfType(params.get(i), CollectableType.getType(params.get(i + 1))))
+            if (actor.inventory.hasCollectibleStackOfType(params.get(i), CollectableType.getType(params.get(i + 1))))
                 return true;
         }
         return false;
