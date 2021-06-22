@@ -53,8 +53,10 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Cooperation value just increases two time a day
 * Create Questlog 
 
-####Sprites  
+####Sprites
+* bacteren/growplace sprites
 * einrahmen der meldung bei items
+* aktenschrank; schachteln
 * Ship: rename sleep capsules
 * Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
 * Hammer and Sickle modern, Säulen, Tank
