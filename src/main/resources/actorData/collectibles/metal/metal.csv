@@ -6,7 +6,7 @@
 sensorStatus	;default										;collectable														;none  	 																;none 																			;none																			;none																;none																;none 																;none															;none																					;none																						;none 																				;none																				;none															;none														;none															;none														;none																;none																;none																;none
 
 
-collectible_tags; BACTERIA_NUTRITION
+collectible_tags; BACTERIA_NUTRITION; METAL
 collectible_base_value; 5
 
 #status to image

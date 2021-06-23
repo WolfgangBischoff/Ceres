@@ -12,7 +12,7 @@ import Core.WorldView.WorldView;
 import java.util.HashMap;
 import java.util.Map;
 
-import static Core.Enums.CollectableType.FOOD;
+import static Core.Enums.CollectableType.*;
 
 public class GrowspaceManager
 {
@@ -24,6 +24,9 @@ public class GrowspaceManager
         GrowData fuel = new GrowData("bac_fuella_grown", 10, 10);
         seedData.put("bac_fuella_growing", fuel);
         grownData.put("bac_fuella_grown", fuel);
+        GrowData metal = new GrowData("bac_metal_grown", 10, 10);
+        seedData.put("bac_metal_growing", metal);
+        grownData.put("bac_metal_grown", metal);
     }
 
     public static void grow(Actor growspace)
@@ -37,6 +40,7 @@ public class GrowspaceManager
         }
         else if (seedData.containsKey(growplaceStatus))
         {
+            //TODO should be killed if nutrition does not fit
             GrowData seed = seedData.get(growplaceStatus);
             if (growspace.getGenericDateTimeAttribute(BUILDTIME) == null)
             {
@@ -81,7 +85,7 @@ public class GrowspaceManager
 
     public static boolean isBacteriaNutrition(Collectible collectible)
     {
-        return collectible.getType().contains(FOOD);
+        return collectible.getType().contains(BACTERIA_NUTRITION);
     }
 
     public static boolean isBacteriaSpore(Collectible collectible)
@@ -91,10 +95,14 @@ public class GrowspaceManager
 
     public static String getFoodStatus(Collectible collectible)
     {
-        if (collectible.getType().contains(FOOD))
-            return "bac_food_food";
-        else
-            return "none";
+        if (collectible.getType().contains(BACTERIA_NUTRITION))
+        {
+            if (collectible.getType().contains(FOOD))
+                return "bac_nutrition_food";
+            if (collectible.getType().contains(METAL))
+                return "bac_nutrition_metal";
+        }
+        return "none";
     }
 
 
@@ -104,6 +112,8 @@ public class GrowspaceManager
         {
             case "fuel":
                 return "bac_fuella_growing";
+            case "metal":
+                return "bac_metal_growing";
             default:
                 return "none";
         }

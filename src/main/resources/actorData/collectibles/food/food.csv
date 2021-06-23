@@ -6,7 +6,7 @@
 sensorStatus	;default										;collectable														;none  	 																;none 																			;none																			;none																;none																;none 																;none															;none																					;none																						;none 																				;none																				;none															;none														;none															;none														;none																;none																;none																;none
 
 
-collectible_tags; food
+collectible_tags; food; BACTERIA_NUTRITION
 collectible_base_value; 5
 
 suspicious_value; 5

@@ -23,6 +23,7 @@ import java.util.*;
 
 import static Core.Configs.Config.*;
 import static Core.Enums.ActorTag.*;
+import static Core.Enums.CollectableType.BACTERIA_NUTRITION;
 import static Core.Enums.Direction.*;
 import static Core.Enums.TriggerType.*;
 import static Core.WorldView.WorldView.addToLayer;
@@ -664,13 +665,13 @@ public class Actor
     {
         if (tags.contains(GROWPLACE))
         {
-            if (GrowspaceManager.isBacteriaNutrition(from.getCollectible()) && getGeneralStatus().equals("empty"))
+            if (from.getCollectible().getType().contains(BACTERIA_NUTRITION) && getGeneralStatus().equals("empty"))
             {
                 setSpriteStatus(GrowspaceManager.getFoodStatus(from.getCollectible()));
                 getInventory().addNumberOfCollectibleNextSlot(from, 1);
                 System.out.println(CLASSNAME + "got food " + getInventory().toString());
             }
-            else if (GrowspaceManager.isBacteriaSpore(from.getCollectible()) && getGeneralStatus().equals("bac_food_food"))
+            else if (from.getCollectible().getType().contains(CollectableType.BACTERIA_SPORE) && (getGeneralStatus().startsWith("bac_nutrition_")))
             {
                 setSpriteStatus(GrowspaceManager.getGrowingStatus(from.getCollectible()));
                 getInventory().addNumberOfCollectibleNextSlot(from, 1);
