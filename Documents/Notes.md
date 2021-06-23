@@ -46,7 +46,8 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Coin Game
     * Test: Game ends if no correct coins are left
 * Cooperation value just increases two time a day
-* Create Questlog 
+* Create Questlog
+* render method for CollectibleStack, damit auch der Incubator anzahl anzeigt
 
 ####Sprites
 * bacteren/growplace sprites

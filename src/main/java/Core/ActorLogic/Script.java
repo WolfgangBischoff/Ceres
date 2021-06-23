@@ -1,8 +1,8 @@
-package Core;
+package Core.ActorLogic;
 
+import Core.Actor;
 import Core.Enums.Direction;
-import Core.GameTime.DateTime;
-import Core.WorldView.WorldView;
+import Core.GameWindow;
 import javafx.geometry.Point2D;
 import org.w3c.dom.Element;
 
@@ -125,7 +125,7 @@ public class Script
             {
                 randomDirection = randomDirection();
             }
-            if (!actor.spriteList.get(0).isBlockedByOtherSprites(randomDirection, IDLE_VELOCITY * time))
+            if (!actor.getSpriteList().get(0).isBlockedByOtherSprites(randomDirection, IDLE_VELOCITY * time))
                 switch (randomDirection)
                 {
                     case EAST:
@@ -160,7 +160,6 @@ public class Script
 
     private void repeat(Actor actor)
     {
-        String methodName = "repeat() ";
         if (route.isEmpty())
             return;
         Point2D target = route.peek().target;
@@ -171,19 +170,17 @@ public class Script
 
     private void route(Actor actor)
     {
-        String methodName = "route() ";
         if (route.isEmpty())
             return;
         Point2D target = route.peek().target;
         boolean reachedTarget = moveUnchecked(actor, target, route.peek().parameter);
         if (reachedTarget)
             route.remove(target);
-//        System.out.println(CLASSNAME + methodName + target.getX() + " " + target.getY());
     }
 
     private boolean moveUnchecked(Actor actor, Point2D target, String parameter)
     {
-        Point2D currentPos = new Point2D(actor.spriteList.get(0).getX(), actor.spriteList.get(0).getY());
+        Point2D currentPos = new Point2D(actor.getSpriteList().get(0).getX(), actor.getSpriteList().get(0).getY());
         double deltaX = target.getX() * 64 - currentPos.getX();
         double deltaY = target.getY() * 64 - currentPos.getY();
         double moveThreshold = 5d;
@@ -203,7 +200,7 @@ public class Script
 
         if (parameter.equals("warp"))
         {
-            actor.spriteList.forEach(s -> s.setPosition(target.getX() * 64, target.getY() * 64));
+            actor.getSpriteList().forEach(s -> s.setPosition(target.getX() * 64, target.getY() * 64));
             return true;
         }
 

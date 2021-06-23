@@ -1,7 +1,11 @@
-package Core;
+package Core.ActorLogic;
 
+import Core.Actor;
+import Core.Collectible;
+import Core.CollectibleStack;
 import Core.Enums.CollectableType;
 import Core.GameTime.DateTime;
+import Core.GameVariables;
 import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.WorldView.WorldView;
 
@@ -75,17 +79,17 @@ public class GrowspaceManager
         return false;
     }
 
-    static boolean isBacteriaNutrition(Collectible collectible)
+    public static boolean isBacteriaNutrition(Collectible collectible)
     {
         return collectible.getType().contains(FOOD);
     }
 
-    static boolean isBacteriaSpore(Collectible collectible)
+    public static boolean isBacteriaSpore(Collectible collectible)
     {
         return collectible.getType().contains(CollectableType.BACTERIA_SPORE);
     }
 
-    static String getFoodStatus(Collectible collectible)
+    public static String getFoodStatus(Collectible collectible)
     {
         if (collectible.getType().contains(FOOD))
             return "bac_food_food";
@@ -94,7 +98,7 @@ public class GrowspaceManager
     }
 
 
-    static String getGrowingStatus(Collectible collectible)
+    public static String getGrowingStatus(Collectible collectible)
     {
         switch (collectible.getSpriteStatus())
         {
