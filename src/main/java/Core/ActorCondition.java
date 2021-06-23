@@ -32,6 +32,8 @@ public class ActorCondition
         {
             case HAS_ITEM:
                 return hasItem(activeActor);
+            case CONSUMES_ITEM:
+                return consumesItem(activeActor);
             case  VARIABLE:
                 return variable();
             default:
@@ -41,20 +43,36 @@ public class ActorCondition
 
     private boolean hasItem(Actor actor)
     {
-        String methodName = "hasItem() ";
         //Params must be in pairs of name - type
         //If at least on item fits return true
         for (int i = 0; i < params.size(); i = i + 2)
         {
-            if (actor.inventory.hasCollectibleStackOfType(params.get(i), CollectableType.getType(params.get(i + 1))))
+            String technicalName = params.get(i);
+            CollectableType type = CollectableType.getType(params.get(i + 1));
+            if (actor.inventory.hasCollectibleStackOfType(technicalName, type))
                 return true;
+        }
+        return false;
+    }
+
+    private boolean consumesItem(Actor actor)
+    {
+        for (int i = 0; i < params.size(); i = i + 2)
+        {
+            String technicalName = params.get(i);
+            CollectableType type = CollectableType.getType(params.get(i + 1));
+            if (actor.inventory.hasCollectibleStackOfType(technicalName, type))
+            {
+                CollectibleStack s = actor.getInventory().getCollectibleStackOfType(technicalName, type);
+                actor.getInventory().reduceCollectibleStack(s, 1);
+                return true;
+            }
         }
         return false;
     }
 
     private boolean variable()
     {
-        String methodName = "value() ";
         String variableName = params.get(0);
         return Boolean.parseBoolean(GameVariables.getGenericVariableManager().getValue(variableName));
     }

@@ -30,6 +30,14 @@ public class Inventory
         return false;
     }
 
+    public CollectibleStack getCollectibleStackOfType(String technicalName, CollectableType type)
+    {
+        for (CollectibleStack c : itemsList)
+            if (c.isDefined() && c.getTypes().contains(type) && c.getTechnicalName().equals(technicalName))
+                return c;
+        return CollectibleStack.empty();
+    }
+
     public void addCollectibleStackIdx(CollectibleStack collectible, int idx)
     {
         if (idx < MAX_IDX_ITEMS)
