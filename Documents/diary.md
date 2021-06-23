@@ -5,6 +5,8 @@
 * aus Inventor genutzten Bacteriatprobe Item auf Growspace anwenden => Beginne Prozess (Sprite entspricht Pflanze)
 * Sprite von Menu und maus adden
 * item stacks können einzelne items bewegen
+* item grid shows hint "Esc to leave"
+* growspace löscht inventar nach rotten/leerung
 
 ##### 05 21
 * interact => set bacteria, info

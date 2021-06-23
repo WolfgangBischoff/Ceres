@@ -25,15 +25,10 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * add biocomputer or ore as exhibition piece
 
 #### Crafting mechanic
-* growspace löscht inventar nach rotten/leerung
 * ergebnis ergibt sich aus Nahrung/Bac Kombination => Fail/BacterioColony
 * Bacteria spreads on time (Sichtbare Verbindung, Felder checken position)
 * While Spreading, new bacteria can be created/ kreuzung
 * Bacteria Resource can be put into splicer to craft or extract resource
-
-#### Set/Interact item mechanic (provide Service)
-* Interact Item with Sprite
-* Set Item which remains
 
 #### Engine
 * Problem mit Persistens, wird nur geladen beim ersten laden des basis files, danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein problem bei truhen die später kommen sollen und die nicht immer neu geladen weredn können
@@ -55,9 +50,10 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 
 ####Sprites
 * bacteren/growplace sprites
+* grüner graben, deutlicher
 * einrahmen der meldung bei items
-* aktenschrank; schachteln
-* Ship: rename sleep capsules
+* aktenschrank; schachteln; pflanze, water dispenser/sink
+* Ship: rename sleep capsules to numbers
 * Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
 * Hammer and Sickle modern, Säulen, Tank
 * stranger bright hair    

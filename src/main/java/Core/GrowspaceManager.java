@@ -52,6 +52,7 @@ public class GrowspaceManager
             DateTime rottenTime = growspace.getGenericDateTimeAttribute(BUILDTIME).add(grown.minutesTillGrown + grown.minutesTillGrown);
             if (currentTime.compareTo(rottenTime) >= 0)
             {
+                growspace.getInventory().flush();
                 growspace.setSpriteStatus("rotten");
                 growspace.setSensorStatus("resetToEmpty");
             }
@@ -59,11 +60,16 @@ public class GrowspaceManager
 
     }
 
-    public static void harvest(Actor actor)
+    public static boolean harvest(Actor growspace)
     {
-        Collectible collected = Collectible.createCollectible("actorData/collectibles/bacteria/bacteria_grown", actor.getGeneralStatus());
+        Collectible collected = Collectible.createCollectible("actorData/collectibles/bacteria/bacteria_grown", growspace.getGeneralStatus());
         if (WorldView.getPlayer().getActor().getInventory().addCollectibleStackNextSlot(new CollectibleStack(collected)))
+        {
+            growspace.getInventory().flush();
             CentralMessageOverlay.showMsg("New " + collected.getIngameName() + "!");
+            return true;
+        }
+        return false;
     }
 
     static boolean isBacteriaFood(Collectible collectible)

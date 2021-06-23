@@ -5,6 +5,7 @@ import Core.CollectibleStack;
 import Core.Sprite.Sprite;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.text.Text;
 
 import static Core.Configs.Config.*;
 import static Core.WorldView.WorldView.*;
@@ -16,6 +17,12 @@ public class GridManager
     Sprite collectibeSprite;
     private boolean isGridBlocked;
     Actor blockingActor;
+    Text returnMsg = new Text("Press Esc to return");
+
+public GridManager()
+{
+    returnMsg.setFont(FONT_ESTROG_30_DEFAULT);
+}
 
     public Rectangle2D collectibleOccupiedRect()
     {
@@ -45,6 +52,10 @@ public class GridManager
             gc.setStroke(COLOR_RED);
             gc.strokeRect(collectibleOccupiedRect().getMinX(), collectibleOccupiedRect().getMinY(), collectibleOccupiedRect().getWidth(), collectibleOccupiedRect().getHeight());
         }
+
+        double textWidth = returnMsg.getBoundsInLocal().getWidth();
+        gc.setFill(COLOR_GREEN);
+        gc.fillText(returnMsg.getText(), getCamX() + CAMERA_WIDTH/2 - textWidth/2, getCamY() + CAMERA_HEIGHT/2 - 200);
     }
 
     public boolean isGridBlocked()

@@ -5,7 +5,6 @@ import Core.ActorSystem.ActorMonitor;
 import Core.Configs.Config;
 import Core.Enums.*;
 import Core.GameTime.DateTime;
-import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.Menus.CoinGame.CoinType;
 import Core.Menus.Inventory.Inventory;
 import Core.Menus.Inventory.InventoryController;
@@ -605,8 +604,8 @@ public class Actor
                 activateText(activeActor);
                 break;
             case PERSISTENT_HARVEST:
-                GrowspaceManager.harvest(this);
-                applySpriteStatus(targetStatusField);
+                if (GrowspaceManager.harvest(this))
+                    applySpriteStatus(targetStatusField);
                 break;
             case TIMED_TEXT:
                 applySpriteStatus(targetStatusField);
@@ -648,7 +647,7 @@ public class Actor
     public void interactWithMenuItem(CollectibleStack from)
     {
         System.out.println(CLASSNAME + "Use Item on " + getActorInGameName());
-        if(tags.contains(GROWPLACE))
+        if (tags.contains(GROWPLACE))
         {
             if (GrowspaceManager.isBacteriaFood(from.getCollectible()) && getGeneralStatus().equals("empty"))
             {
@@ -694,7 +693,7 @@ public class Actor
         Collectible collected = Collectible.createCollectible(actorFileName, generalStatus);
         collected.image = spriteList.get(0).getBaseimage();
         double amountCollected = genericDoubleAttributes.getOrDefault(GENERIC_STACK_AMOUNT, 1D);
-        boolean wasCollected = collectingActor.inventory.addCollectibleStackNextSlot(new CollectibleStack(collected, (int)amountCollected));
+        boolean wasCollected = collectingActor.inventory.addCollectibleStackNextSlot(new CollectibleStack(collected, (int) amountCollected));
 
         if (wasCollected)
         {

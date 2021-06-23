@@ -58,14 +58,14 @@ public class Inventory
 
     public void removeCollectibleStack(CollectibleStack collectible)
     {
-        if(!collectible.isEmpty())
+        if (!collectible.isEmpty())
             removeCollectibleStack(itemsList.indexOf(collectible));
     }
 
     public void reduceCollectibleStack(CollectibleStack collectible, int amount)
     {
         collectible.remove(amount);
-        if(collectible.isEmpty())
+        if (collectible.isEmpty())
             removeCollectibleStack(itemsList.indexOf(collectible));
     }
 
@@ -85,6 +85,12 @@ public class Inventory
         return itemsList.contains(toCheck);
     }
 
+    public void flush()
+    {
+        for (int i = 0; i < MAX_IDX_ITEMS; i++)
+            itemsList.set(i, CollectibleStack.empty());
+    }
+
     public void removeAll(List<CollectibleStack> collectibles)
     {
         itemsList.removeAll(collectibles);
@@ -94,8 +100,9 @@ public class Inventory
     public String toString()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        itemsList.forEach(s -> {
-            if(s.isDefined())
+        itemsList.forEach(s ->
+        {
+            if (s.isDefined())
                 stringBuilder.append(s.getCollectible().getSpriteStatus() + " " + s.getNumber());
         });
         return owner.getActorInGameName() +
