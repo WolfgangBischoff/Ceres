@@ -25,7 +25,7 @@ public class Inventory
     public boolean hasCollectibleStackOfType(String technicalName, CollectableType type)
     {
         for (CollectibleStack c : itemsList)
-            if (c != null && c.getType() == type && c.getTechnicalName().equals(technicalName))
+            if (c.isDefined() && c.getTypes().contains(type) && c.getTechnicalName().equals(technicalName))
                 return true;
         return false;
     }

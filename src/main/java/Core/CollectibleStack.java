@@ -5,6 +5,9 @@ import Core.Enums.Direction;
 import Core.Sprite.Sprite;
 import javafx.scene.image.Image;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static Core.Configs.Config.GENERIC_STACK_AMOUNT;
 import static java.lang.Integer.max;
 import static java.lang.Integer.min;
@@ -140,12 +143,12 @@ public class CollectibleStack
         else return null;
     }
 
-    public CollectableType getType()
+    public Set<CollectableType> getTypes()
     {
         if (collectible != null)
             return collectible.type;
         else
-            return null;
+            return new HashSet<>();
     }
 
     public int getBaseValue()

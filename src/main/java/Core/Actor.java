@@ -35,6 +35,7 @@ public class Actor
     final Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
     final List<Sprite> spriteList = new ArrayList<>();
     public Set<ActorTag> tags = new HashSet<>();
+    private Set<CollectableType> collectableTags = new HashSet<>();
     //General
     String actorFileName;
     String actorId;
@@ -64,7 +65,6 @@ public class Actor
     private double interactionAreaOffsetY = 0;
     private Long lastInteraction = 0L;
     private Long lastAutomaticInteraction = 0L;
-    private String collectable_type;
 
     public Actor(String actorFileName, String actorInGameName, String initGeneralStatus, String initSensorStatus, Direction direction)
     {
@@ -82,7 +82,8 @@ public class Actor
             actorDefinitionKeywords.add(KEYWORD_transition);
             actorDefinitionKeywords.add(KEYWORD_interactionArea);
             actorDefinitionKeywords.add(KEYWORD_text_box_analysis_group);
-            actorDefinitionKeywords.add(COLLECTIBLE_DATA_ACTOR);
+            actorDefinitionKeywords.add(COLLECTIBLE_BASE_VALUE);
+            actorDefinitionKeywords.add(COLLECTIBLE_TAGS);
             actorDefinitionKeywords.add(CONTAINS_COLLECTIBLE_ACTOR);
             actorDefinitionKeywords.add(KEYWORD_sensorStatus);
             actorDefinitionKeywords.add(TAGS_ACTOR);
@@ -161,9 +162,11 @@ public class Actor
             case KEYWORD_text_box_analysis_group:
                 textbox_analysis_group_name = linedata[1];
                 break;
-            case COLLECTIBLE_DATA_ACTOR:
-                collectable_type = linedata[1];
-                getGenericDoubleAttributes().put("base_value", Double.parseDouble(linedata[2]));
+            case COLLECTIBLE_BASE_VALUE:
+                getGenericDoubleAttributes().put("base_value", Double.parseDouble(linedata[1]));
+                break;
+            case COLLECTIBLE_TAGS:
+                collectableTags.addAll(readCollectibleTagData(linedata));
                 break;
             case CONTAINS_COLLECTIBLE_ACTOR:
                 Collectible collectible = Collectible.createCollectible(linedata[1], linedata[2]);
@@ -274,6 +277,17 @@ public class Actor
         for (int i = startIdxTags; i < linedata.length; i++)
         {
             tagDataSet.add(ActorTag.getType(linedata[i]));
+        }
+        return tagDataSet;
+    }
+
+    private Set<CollectableType> readCollectibleTagData(String[] linedata)
+    {
+        Set<CollectableType> tagDataSet = new HashSet<>();
+        int startIdxTags = 1;
+        for (int i = startIdxTags; i < linedata.length; i++)
+        {
+            tagDataSet.add(CollectableType.getType(linedata[i]));
         }
         return tagDataSet;
     }
@@ -646,16 +660,15 @@ public class Actor
 
     public void interactWithMenuItem(CollectibleStack from)
     {
-        System.out.println(CLASSNAME + "Use Item on " + getActorInGameName());
         if (tags.contains(GROWPLACE))
         {
-            if (GrowspaceManager.isBacteriaFood(from.getCollectible()) && getGeneralStatus().equals("empty"))
+            if (GrowspaceManager.isBacteriaNutrition(from.getCollectible()) && getGeneralStatus().equals("empty"))
             {
                 setSpriteStatus(GrowspaceManager.getFoodStatus(from.getCollectible()));
                 getInventory().addNumberOfCollectibleNextSlot(from, 1);
                 System.out.println(CLASSNAME + "got food " + getInventory().toString());
             }
-            else if (GrowspaceManager.isBacteriaCulture(from.getCollectible()) && getGeneralStatus().equals("bac_food_food"))
+            else if (GrowspaceManager.isBacteriaSpore(from.getCollectible()) && getGeneralStatus().equals("bac_food_food"))
             {
                 setSpriteStatus(GrowspaceManager.getGrowingStatus(from.getCollectible()));
                 getInventory().addNumberOfCollectibleNextSlot(from, 1);
@@ -1007,14 +1020,9 @@ public class Actor
         this.compoundStatus = compoundStatus;
     }
 
-    public String getCollectable_type()
+    public Set<CollectableType> getCollectableTags()
     {
-        return collectable_type;
-    }
-
-    public void setCollectable_type(String collectable_type)
-    {
-        this.collectable_type = collectable_type;
+        return collectableTags;
     }
 
     public List<String> getMemberActorGroups()

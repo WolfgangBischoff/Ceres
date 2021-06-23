@@ -153,7 +153,7 @@ public class IncubatorOverlay implements DragAndDropOverlay
         CollectibleStack inputSlotItem = actor.getInventory().getCollectibeStack(mouseElements.indexOf(mouseElements.get(BASE_INPUT_SLOT)));
         CollectibleStack outputSlotItem = actor.getInventory().getCollectibeStack(mouseElements.indexOf(mouseElements.get(BASE_OUTPUT_SLOT)));
 
-        if (inputSlotItem.getType() == CollectableType.BACTERIA_BASE && outputSlotItem.isEmpty())
+        if (inputSlotItem.isDefined() && inputSlotItem.getTypes().contains(CollectableType.BACTERIA_CULTURE) && outputSlotItem.isEmpty())
         {
             Collectible converted = Collectible.createCollectible("actorData/collectibles/key/keycard", "electric_lockpic");
             actor.getInventory().addCollectibleStackIdx(new CollectibleStack(converted), mouseElements.indexOf(mouseElements.get(BASE_OUTPUT_SLOT)));
@@ -176,11 +176,11 @@ public class IncubatorOverlay implements DragAndDropOverlay
     {
         if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG))
         {
-            Collectible collectibleToDrop = dropped.collectible.getCollectible();
+
             dropped.previousInventory.addCollectibleStackIdx(//Swap item if exists
                     actor.getInventory().getCollectibeStack(mouseElements.indexOf(highlightedElement)),
                     dropped.previousIdx);
-            actor.getInventory().addCollectibleStackIdx(new CollectibleStack(collectibleToDrop), mouseElements.indexOf(highlightedElement));
+            actor.getInventory().addCollectibleStackIdx(dropped.collectible, mouseElements.indexOf(highlightedElement));
         }
         else
         {

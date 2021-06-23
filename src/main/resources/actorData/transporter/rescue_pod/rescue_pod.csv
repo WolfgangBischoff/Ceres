@@ -4,7 +4,7 @@
 #transition; fromStatus; toStatus
 #condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
 #tags; automated_door, persistent
-#collectible_data; TYPE (food, quest, ...); base_value
+# collectible_tags; TYPE (food, quest, ...); base_value
 #suspicious_value; 5
 #personality;initCooperation;trait1, trait1-cooperationThreshold,trai1-knowledgeTag; trait2 ...
 #personality;005;INTROVERSION,1,none;SENSING,1,none;THINKING,9,none;PERCEIVING,12,none

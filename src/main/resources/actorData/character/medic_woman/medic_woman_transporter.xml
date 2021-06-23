@@ -103,7 +103,7 @@
     <dialogue id="RESCUE_POD_4" type="normal" nextDialogue="RESCUE_POD_5">
         <line>You cannot launch the rescue pods without %%RDactivating the alarm%%, and this would wake up the CereX guys.</line>
     </dialogue>
-    <dialogue id="RESCUE_POD_5" type="normal" nextDialogue="RESCUE_POD_6"  item_actor="actorData/collectibles/bacteria/bacteria_seed" item_status="electric">
+    <dialogue id="RESCUE_POD_5" type="normal" nextDialogue="RESCUE_POD_6"  item_actor="actorData/collectibles/bacteria/bacteria_grown" item_status="bac_electric_grown">
         <line>But the console could be overridden by some of my %%GRsmall friends%%..</line>
     </dialogue>
     <dialogue id="RESCUE_POD_6" type="normal" dialogueId="RESCUE_POD_6">

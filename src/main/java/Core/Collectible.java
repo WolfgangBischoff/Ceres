@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import java.util.Objects;
+import java.util.Set;
 
 import static Core.Configs.Config.*;
 
@@ -19,15 +20,15 @@ public class Collectible
     String ingameName;
     String spriteStatus;
     Image image;
-    CollectableType type;
+    Set<CollectableType> type;
     int baseValue;
     String description = "";
     Actor actor;
 
-    private Collectible(String spriteStatus, CollectableType type, String nameGame, int baseValue)
+    private Collectible(String spriteStatus, Set<CollectableType> collecibleTags, String nameGame, int baseValue)
     {
         this.spriteStatus = spriteStatus;
-        this.type = type;
+        this.type = collecibleTags;
         this.ingameName = nameGame;
         this.baseValue = baseValue;
         id = collectibleNextId++;
@@ -38,7 +39,7 @@ public class Collectible
     {
         Actor collectibleActor = new Actor(actorfilepath, spriteStatus, spriteStatus, "default", Direction.UNDEFINED);
         String ingameName = collectibleActor.getSpriteDataMap().get(spriteStatus.toLowerCase()).get(0).name;
-        Collectible collectible = new Collectible(spriteStatus, CollectableType.getType(collectibleActor.getCollectable_type()), ingameName, (collectibleActor.getGenericDoubleAttributes().get("base_value").intValue()));
+        Collectible collectible = new Collectible(spriteStatus, collectibleActor.getCollectableTags(), ingameName, (collectibleActor.getGenericDoubleAttributes().getOrDefault("base_value", 0D).intValue()));
         collectible.image = Utilities.readImage(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).spriteName + PNG_POSTFIX);
         collectible.actor = collectibleActor;
 
@@ -85,7 +86,7 @@ public class Collectible
         return image;
     }
 
-    public CollectableType getType()
+    public Set<CollectableType> getType()
     {
         return type;
     }

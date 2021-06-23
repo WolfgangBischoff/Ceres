@@ -115,7 +115,7 @@ public class InventoryController
 
     public void useMenuCollectible()
     {
-        if (menuCollectible.getType() == CollectableType.FOOD)
+        if (menuCollectible.getTypes().contains(CollectableType.FOOD))
         {
             System.out.println(CLASSNAME + "You ate " + menuCollectible.getIngameName());
             GameVariables.addHunger(menuCollectible.getBaseValue());

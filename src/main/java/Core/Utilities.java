@@ -84,7 +84,6 @@ public class Utilities
 
     public static List<String[]> readAllLineFromTxt(String path)
     {
-        String methodName = "readAllLineFromTxt() ";
         String row;
         List<String[]> data = new ArrayList<>();
         try

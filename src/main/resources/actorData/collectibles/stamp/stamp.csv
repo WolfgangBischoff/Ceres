@@ -8,8 +8,8 @@
 sensorStatus	;default																			;collectable														;none  	 																;none										 									;none																			;none																;none												;none 									;none												;none																			;none																	;none 									;none																	;none																	;none											;none 									;none													;none											;none														;none														;none															;none
 
 tags; persistent
-#collectable_type; key
-collectible_data; NONFUNCTION; 0
+collectible_tags; NONFUNCTION
+collectible_base_value; 0
 
 #status to image
 #status 																							;name   				;spritename  																																																		;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID 																;dialogueFile																							;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds

@@ -20,8 +20,8 @@ public class Config
     public static final boolean GAME_WINDOW_FULL_SCREEN_DISABLE_EXIT = false;
     //public static final String FIRST_LEVEL = "transporter/transporter";
     //public static final String FIRST_LEVEL = "dockingBay";
-    //public static final String FIRST_LEVEL = "crewdeck/crewdeck";
-    public static final String FIRST_LEVEL = "living_quarter/air_lock";
+    public static final String FIRST_LEVEL = "crewdeck/crewdeck";
+    //public static final String FIRST_LEVEL = "living_quarter/air_lock";
     public static final Font FONT_ESTROG_30_DEFAULT = Utilities.readFont("font/estrog__.ttf", 30);
     public static final Font FONT_ESTROG_20 = Utilities.readFont("font/estrog__.ttf", 20);
     public static final Font FONT_ORBITRON_20 = Utilities.readFont("font/Orbitron-Regular.ttf", 22);
@@ -97,7 +97,8 @@ public class Config
     public static final String KEYWORD_transition = "transition";
     public static final String KEYWORD_interactionArea = "interactionArea";
     public static final String KEYWORD_text_box_analysis_group = "textbox_analysis_group";
-    public static final String COLLECTIBLE_DATA_ACTOR = "collectible_data";
+    public static final String COLLECTIBLE_BASE_VALUE = "collectible_base_value";
+    public static final String COLLECTIBLE_TAGS = "collectible_tags";
     public static final String CONTAINS_COLLECTIBLE_ACTOR = "contains_collectible";
     public static final String TAGS_ACTOR = "tags";
     public static final String CONDITION_ACTOR = "condition";

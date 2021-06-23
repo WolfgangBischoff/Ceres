@@ -8,10 +8,13 @@ import Core.WorldView.WorldView;
 import java.util.HashMap;
 import java.util.Map;
 
+import static Core.Enums.CollectableType.FOOD;
+
 public class GrowspaceManager
 {
     private static Map<String, GrowData> seedData = new HashMap<>();
     private static Map<String, GrowData> grownData = new HashMap<>();
+
     static
     {
         GrowData fuel = new GrowData("bac_fuella_grown", 10, 10);
@@ -24,11 +27,11 @@ public class GrowspaceManager
         String BUILDTIME = "buildtime";
         String growplaceStatus = growspace.getGeneralStatus();
         DateTime currentTime = GameVariables.getClock().getCurrentGameTime();
-        if(growplaceStatus.equals("empty"))
+        if (growplaceStatus.equals("empty"))
         {
             growspace.setGenericDateTimeAttribute(BUILDTIME, null);
         }
-        else if(seedData.containsKey(growplaceStatus))
+        else if (seedData.containsKey(growplaceStatus))
         {
             GrowData seed = seedData.get(growplaceStatus);
             if (growspace.getGenericDateTimeAttribute(BUILDTIME) == null)
@@ -46,7 +49,7 @@ public class GrowspaceManager
             }
 
         }
-        else if(grownData.containsKey(growplaceStatus))
+        else if (grownData.containsKey(growplaceStatus))
         {
             GrowData grown = grownData.get(growplaceStatus);
             DateTime rottenTime = growspace.getGenericDateTimeAttribute(BUILDTIME).add(grown.minutesTillGrown + grown.minutesTillGrown);
@@ -72,26 +75,25 @@ public class GrowspaceManager
         return false;
     }
 
-    static boolean isBacteriaFood(Collectible collectible)
+    static boolean isBacteriaNutrition(Collectible collectible)
     {
-        return collectible.getType() == CollectableType.FOOD;
+        return collectible.getType().contains(FOOD);
     }
 
-    static boolean isBacteriaCulture(Collectible collectible)
+    static boolean isBacteriaSpore(Collectible collectible)
     {
-        return collectible.getType() == CollectableType.BACTERIA_BASE;
+        return collectible.getType().contains(CollectableType.BACTERIA_SPORE);
     }
 
     static String getFoodStatus(Collectible collectible)
     {
-        switch (collectible.getType())
-        {
-            case FOOD:
-                return "bac_food_food";
-            default:
-                return "none";
-        }
+        if (collectible.getType().contains(FOOD))
+            return "bac_food_food";
+        else
+            return "none";
     }
+
+
     static String getGrowingStatus(Collectible collectible)
     {
         switch (collectible.getSpriteStatus())

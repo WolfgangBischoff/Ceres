@@ -4,7 +4,8 @@
 sensorStatus	;default																			;collectable														;none  	 																;none										 									;none																			;none																;none												;none 									;none												;none																			;none																	;none 									;none																	;none																	;none											;none 									;none													;none											;none														;none														;none															;none
 
 tags; persistent
-collectible_data; key; 0
+collectible_tags; key
+collectible_base_value; 0
 
 #status to image
 #status 														;name   																;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;dialogueID 									;dialogueFile																																							;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds

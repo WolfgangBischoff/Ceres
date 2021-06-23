@@ -1,0 +1,11 @@
+
+
+
+<root name = "actorName">
+    <dialogue id="scrapmetal" type="normal">
+        <line>Some pieces of scrap metal, suitable for recycling.</line>
+    </dialogue>
+
+</root>
+
+
