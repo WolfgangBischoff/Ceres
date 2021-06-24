@@ -3,12 +3,12 @@ package Core.ActorLogic;
 import Core.Actor;
 import Core.Collectible;
 import Core.CollectibleStack;
-import Core.Enums.CollectableType;
 import Core.GameTime.DateTime;
 import Core.GameVariables;
 import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.WorldView.WorldView;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,48 +16,66 @@ import static Core.Enums.CollectableType.*;
 
 public class GrowspaceManager
 {
+    public static final String BUILDTIME = "buildtime";
+    public static final String NUTRITION = "nutrition";
     private static Map<String, GrowData> seedData = new HashMap<>();
     private static Map<String, GrowData> grownData = new HashMap<>();
 
     static
     {
-        GrowData fuel = new GrowData("bac_fuella_grown", 10, 10);
+        GrowData fuel = new GrowData("bac_fuella_grown", 10, 10, Arrays.asList("bac_nutrition_food"));
         seedData.put("bac_fuella_growing", fuel);
         grownData.put("bac_fuella_grown", fuel);
-        GrowData metal = new GrowData("bac_metal_grown", 10, 10);
+        GrowData metal = new GrowData("bac_metal_grown", 10, 10, Arrays.asList("bac_nutrition_metal"));
         seedData.put("bac_metal_growing", metal);
         grownData.put("bac_metal_grown", metal);
     }
 
     public static void grow(Actor growspace)
     {
-        String BUILDTIME = "buildtime";
+
         String growplaceStatus = growspace.getGeneralStatus();
         DateTime currentTime = GameVariables.getClock().getCurrentGameTime();
         if (growplaceStatus.equals("empty"))
         {
-            growspace.setGenericDateTimeAttribute(BUILDTIME, null);
+            growspace.removeGenericDateTimeAttribute(BUILDTIME);
+            growspace.removeGenericStringAttribute(NUTRITION);
         }
-        else if (seedData.containsKey(growplaceStatus))
+        else if (seedData.containsKey(growplaceStatus))//In seed state
         {
-            //TODO should be killed if nutrition does not fit
-            GrowData seed = seedData.get(growplaceStatus);
+            GrowData seedData = GrowspaceManager.seedData.get(growplaceStatus);
             if (growspace.getGenericDateTimeAttribute(BUILDTIME) == null)
             {
                 growspace.setGenericDateTimeAttribute(BUILDTIME, currentTime);
                 System.out.println("Set: " + growspace.getGenericDateTimeAttribute(BUILDTIME));
-                System.out.println("Finished " + growspace.getGenericDateTimeAttribute(BUILDTIME).add(seed.minutesTillGrown));
-                System.out.println("rotten " + growspace.getGenericDateTimeAttribute(BUILDTIME).add(seed.minutesTillGrown + seed.minutesTillGrown));
-            }
-            DateTime grownTime = growspace.getGenericDateTimeAttribute(BUILDTIME).add(seed.minutesTillGrown);
-            if (currentTime.compareTo(grownTime) >= 0)
-            {
-                growspace.setSpriteStatus(seed.statusGrown);
-                growspace.setSensorStatus("readyToHarvest");
+                System.out.println("Finished " + growspace.getGenericDateTimeAttribute(BUILDTIME).add(seedData.minutesTillGrown));
+                System.out.println("rotten " + growspace.getGenericDateTimeAttribute(BUILDTIME).add(seedData.minutesTillGrown + seedData.minutesTillGrown));
             }
 
+            if (seedData.suitableNutritions.contains(growspace.getGenericStringAttributes().get(NUTRITION)))
+            {
+                DateTime grownTime = growspace.getGenericDateTimeAttribute(BUILDTIME).add(seedData.minutesTillGrown);
+                if (currentTime.compareTo(grownTime) >= 0)
+                {
+                    growspace.setSpriteStatus(seedData.statusGrown);
+                    growspace.setSensorStatus("readyToHarvest");
+                }
+            }
+            else
+            {
+                DateTime rottenTime = growspace.getGenericDateTimeAttribute(BUILDTIME).add(5);
+                if (currentTime.compareTo(rottenTime) >= 0)
+                {
+                    System.out.println("Rotten due to wrong nutrition");
+                    growspace.getInventory().flush();
+                    growspace.setSpriteStatus("rotten");
+                    growspace.setSensorStatus("resetToEmpty");
+                }
+            }
+
+
         }
-        else if (grownData.containsKey(growplaceStatus))
+        else if (grownData.containsKey(growplaceStatus))// in grown state
         {
             GrowData grown = grownData.get(growplaceStatus);
             DateTime rottenTime = growspace.getGenericDateTimeAttribute(BUILDTIME).add(grown.minutesTillGrown + grown.minutesTillGrown);
@@ -81,16 +99,6 @@ public class GrowspaceManager
             return true;
         }
         return false;
-    }
-
-    public static boolean isBacteriaNutrition(Collectible collectible)
-    {
-        return collectible.getType().contains(BACTERIA_NUTRITION);
-    }
-
-    public static boolean isBacteriaSpore(Collectible collectible)
-    {
-        return collectible.getType().contains(CollectableType.BACTERIA_SPORE);
     }
 
     public static String getFoodStatus(Collectible collectible)

@@ -56,8 +56,9 @@ public class Actor
     Inventory inventory;
     PersonalityContainer personalityContainer;
     Map<String, Double> genericDoubleAttributes = new HashMap<>();
-    Script script;
+    Map<String, String> genericStringAttributes = new HashMap<>();
     private Map<String, DateTime> genericDateTimeAttributes = new HashMap<>();
+    Script script;
     private Direction direction;
     private double currentVelocityX;
     private double currentVelocityY;
@@ -667,7 +668,9 @@ public class Actor
         {
             if (from.getCollectible().getType().contains(BACTERIA_NUTRITION) && getGeneralStatus().equals("empty"))
             {
-                setSpriteStatus(GrowspaceManager.getFoodStatus(from.getCollectible()));
+                String nutritiontype = GrowspaceManager.getFoodStatus(from.getCollectible());
+                setSpriteStatus(nutritiontype);
+                setGenericStringAttribute(GrowspaceManager.NUTRITION, nutritiontype);
                 getInventory().addNumberOfCollectibleNextSlot(from, 1);
                 System.out.println(CLASSNAME + "got food " + getInventory().toString());
             }
@@ -1126,5 +1129,25 @@ public class Actor
     public void setGenericDateTimeAttribute(String id, DateTime datetime)
     {
         genericDateTimeAttributes.put(id, datetime);
+    }
+
+    public void removeGenericDateTimeAttribute(String id)
+    {
+        genericDateTimeAttributes.remove(id);
+    }
+
+    public void setGenericStringAttribute(String id, String string)
+    {
+        genericStringAttributes.put(id, string);
+    }
+
+    public void removeGenericStringAttribute(String id)
+    {
+        genericStringAttributes.remove(id);
+    }
+
+    public Map<String, String> getGenericStringAttributes()
+    {
+        return genericStringAttributes;
     }
 }
