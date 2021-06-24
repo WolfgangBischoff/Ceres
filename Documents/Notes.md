@@ -24,8 +24,7 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * function remains, lever should within the room; some items/stamps
 * add biocomputer or ore as exhibition piece
 
-#### Crafting mechanic
-* ergebnis ergibt sich aus Nahrung/Bac Kombination => Fail/BacterioColony
+#### Bacteria mechanic
 * Bacteria spreads on time (Sichtbare Verbindung, Felder checken position)
 * While Spreading, new bacteria can be created/ kreuzung
 * Bacteria Resource can be put into splicer to craft or extract resource
@@ -50,14 +49,12 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * render method for CollectibleStack, damit auch der Incubator anzahl anzeigt
 
 ####Sprites
-* bacteren/growplace sprites
 * grüner graben, deutlicher
 * einrahmen der meldung bei items
 * aktenschrank; schachteln; pflanze, water dispenser/sink
 * Ship: rename sleep capsules to numbers
 * Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
-* Hammer and Sickle modern, Säulen, Tank
-* stranger bright hair    
+* Hammer and Sickle modern, Säulen, Tank    
 * Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
 * test: Air hub deutlicherer sprite das kaputt
 

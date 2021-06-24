@@ -75,7 +75,6 @@ pipe_l																					;pipe																																														;a
 pipe_r																					;pipe																																														;actorData/machine/stasis_capsule/battery/corner_right										       ;false																	 ;0																						     ;0							 ;0												;0				 ;0				 ;0										;0											;000									 	;000									 	;000									;000										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
 cross_																					;pipe																																														;actorData/machine/stasis_capsule/battery/crossing														       ;false																	 ;0																						     ;0							 ;0												;0				 ;0				 ;0										;0											;000									 	;000									 	;000									;000										;none 															;none																	;none																																															 ;unused0;unused1;unused2;unused3;unused4
 
-
 #Control Room
 contrL				                 ;terminal								                                  ;actorData/computer/control/small_left																													    ;true					              ;1												               ;0			     ;0												;0				 ;0				 ;0										;0											;000									 	;032									 	;064									;096										;none 															;DATA																	;dialogue_files/transporter_decks																			;unused0;unused1;unused2;unused3;unused4
 contrR				                 ;terminal								                                  ;actorData/computer/control/small_right																												    ;true					              ;1												               ;0			     ;0												;0				 ;0				 ;0										;0											;000									 	;032									 	;064									;096										;none 															;DATA																	;dialogue_files/transporter_decks																			;unused0;unused1;unused2;unused3;unused4
@@ -111,18 +110,19 @@ flatBx																					;greenBox																																										;a
 
 
 ACTORS:
-#code 					;actorFileN																																								;IngameName															;sprite-status						;sensor-status										;direction
-player					;actorData/player																																		;Revolutionary												;default												;default																;north
+#code 					;actorFileN																																																			;IngameName															;sprite-status						;sensor-status										;direction
+player					;actorData/player																																													;Revolutionary												;default												;default																;north
 autoDo					;actorData/doors/vertical/autoBulkheadVertical_persistent					;bulkhead																	;on																	;LOCKED																	;west
 leftDo					;actorData/doors/vertical/autoBulkheadVertical_persistent					;bulkhead to Ceres								;on																	;LOCKED																	;west
 capsuD					;actorData/doors/vertical/autoBulkheadVertical_persistent					;Capsule Bulkhead									;on									        ;textbox						          ;undefined
-laddeD					;actorData/doors/updown/ladder/transporter_ladder		;ladder																			;blocked												;default																;undefined
-elevSc					;actorData/doors/updown/elevator/elevator										;main elevator										  ;toCrewDeck								 ;default											     ;undefined
-door_H					;actorData/doors/horizontal/automatedDoor										;bulkhead																	;on																	;UNLOCKED															;south
-windL1					;actorData/quest/main/frontwindow/actor												;front window													;spaceView										;default																;undefined
-metrod					;actorData/transporter/metroid/metroid													;metroid																		;default												;default																;north
-metro2					;actorData/transporter/metroid/metroid2												;metroid																		;default												;default																;north
-metro3					;actorData/transporter/metroid/metroid3												;metroid																		;default												;default																;north
+laddeD					;actorData/doors/updown/ladder/transporter_ladder													;ladder																			;blocked												;default																;undefined
+elevSc					;actorData/doors/updown/elevator/elevator																					;main elevator										  ;toCrewDeck								 ;default											     ;undefined
+door_H					;actorData/doors/horizontal/automatedDoor																					;bulkhead																	;on																	;UNLOCKED															;south
+windL1					;actorData/quest/main/frontwindow/actor																							;front window													;spaceView										;default																;undefined
+metrod					;actorData/transporter/metroid/metroid																								;metroid																		;default												;default																;north
+metro2					;actorData/transporter/metroid/metroid2																							;metroid																		;default												;default																;north
+metro3					;actorData/transporter/metroid/metroid3																							;metroid																		;default												;default																;north
+
 
 
 #control center

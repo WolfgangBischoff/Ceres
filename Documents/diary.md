@@ -7,6 +7,7 @@
 * item stacks können einzelne items bewegen
 * item grid shows hint "Esc to leave"
 * growspace löscht inventar nach rotten/leerung
+* ergebnis ergibt sich aus Nahrung/Bac Kombination => Fail/BacterioColony
 
 ##### 05 21
 * interact => set bacteria, info
