@@ -666,25 +666,8 @@ public class Actor
     {
         if (tags.contains(GROWPLACE))
         {
-            if (from.getCollectible().getType().contains(BACTERIA_NUTRITION) && getGeneralStatus().equals("empty"))
-            {
-                String nutritiontype = GrowspaceManager.getFoodStatus(from.getCollectible());
-                setSpriteStatus(nutritiontype);
-                setGenericStringAttribute(GrowspaceManager.NUTRITION, nutritiontype);
-                getInventory().addNumberOfCollectibleNextSlot(from, 1);
-                System.out.println(CLASSNAME + "got food " + getInventory().toString());
-            }
-            else if (from.getCollectible().getType().contains(CollectableType.BACTERIA_SPORE) && (getGeneralStatus().startsWith("bac_nutrition_")))
-            {
-                setSpriteStatus(GrowspaceManager.getGrowingStatus(from.getCollectible()));
-                getInventory().addNumberOfCollectibleNextSlot(from, 1);
-                System.out.println(CLASSNAME + "start process " + getInventory().toString());
-            }
-            else
-                System.out.println(CLASSNAME + "nothing happpens");
+            GrowspaceManager.handleCollectible(from, this);
         }
-
-
     }
 
     public void actAccordingToScript(Long currentNanoTime)

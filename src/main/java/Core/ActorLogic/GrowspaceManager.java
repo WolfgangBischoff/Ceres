@@ -3,6 +3,7 @@ package Core.ActorLogic;
 import Core.Actor;
 import Core.Collectible;
 import Core.CollectibleStack;
+import Core.Enums.CollectableType;
 import Core.GameTime.DateTime;
 import Core.GameVariables;
 import Core.Menus.AchievmentLog.CentralMessageOverlay;
@@ -18,6 +19,7 @@ public class GrowspaceManager
 {
     public static final String BUILDTIME = "buildtime";
     public static final String NUTRITION = "nutrition";
+    private static final String CLASSNAME = "GrowspaceManager";
     private static Map<String, GrowData> seedData = new HashMap<>();
     private static Map<String, GrowData> grownData = new HashMap<>();
 
@@ -125,5 +127,23 @@ public class GrowspaceManager
             default:
                 return "none";
         }
+    }
+
+    public static void handleCollectible(CollectibleStack from, Actor growspace)
+    {
+        if (from.getCollectible().getType().contains(BACTERIA_NUTRITION) && growspace.getGeneralStatus().equals("empty"))
+        {
+            String nutritiontype = GrowspaceManager.getFoodStatus(from.getCollectible());
+            growspace.setSpriteStatus(nutritiontype);
+            growspace.setGenericStringAttribute(GrowspaceManager.NUTRITION, nutritiontype);
+            growspace.getInventory().addNumberOfCollectibleNextSlot(from, 1);
+        }
+        else if (from.getCollectible().getType().contains(CollectableType.BACTERIA_SPORE) && (growspace.getGeneralStatus().startsWith("bac_nutrition_")))
+        {
+            growspace.setSpriteStatus(GrowspaceManager.getGrowingStatus(from.getCollectible()));
+            growspace.getInventory().addNumberOfCollectibleNextSlot(from, 1);
+        }
+        else
+            System.out.println(CLASSNAME + "nothing happpens");
     }
 }
