@@ -1,23 +1,50 @@
 package Core.ActorLogic;
 
-import Core.Enums.CollectableType;
+import java.util.*;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
+import static Core.ActorLogic.BacteriaCulture.FUEL_CULTURE;
+import static Core.ActorLogic.BacteriaCulture.METAL_CULTURE;
+import static Core.ActorLogic.BacteriaNutrition.NUTRITION_METAL;
+import static Core.ActorLogic.BacteriaNutrition.NUTRITION_ORGANIC;
+import static Core.ActorLogic.BacteriaSpore.FUEL_SPORE;
+import static Core.ActorLogic.BacteriaSpore.METAL_SPORE;
 
 public class GrowData
 {
-    String statusGrown;
-    List<String> suitableNutritions = new ArrayList<>();
+    BacteriaCulture statusGrown;
+    List<BacteriaNutrition> suitableNutritions;
     int minutesTillGrown;
     int minutesTillRotten;
 
-    public GrowData(String statusGrown, int minutesTillGrown, int minutesTillRotten, List<String> suitableNutritions)
+    public static final Map<BacteriaSpore, GrowData> sporeData = new HashMap<>();
+    public static final Map<BacteriaCulture, GrowData> cultureData = new HashMap<>();
+    static
+    {
+        GrowData fuel = new GrowData(FUEL_CULTURE, 10, 10, Arrays.asList(NUTRITION_ORGANIC));
+        sporeData.put(FUEL_SPORE, fuel);
+        cultureData.put(FUEL_CULTURE, fuel);
+
+        GrowData metal = new GrowData(METAL_CULTURE, 10, 10, Arrays.asList(NUTRITION_METAL));
+        sporeData.put(METAL_SPORE, metal);
+        cultureData.put(METAL_CULTURE, metal);
+    }
+
+    public GrowData(BacteriaCulture statusGrown, int minutesTillGrown, int minutesTillRotten, List<BacteriaNutrition> suitableNutritions)
     {
         this.statusGrown = statusGrown;
         this.minutesTillGrown = minutesTillGrown;
         this.minutesTillRotten = minutesTillRotten;
         this.suitableNutritions = suitableNutritions;
     }
+
+    public boolean isNutritionSuitable(BacteriaNutrition nutrition)
+    {
+        return suitableNutritions.contains(nutrition);
+    }
+
+    public boolean isNutritionSuitable(String nutrition)
+    {
+        return suitableNutritions.contains(BacteriaNutrition.fromString(nutrition));
+    }
+
 }

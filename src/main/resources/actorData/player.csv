@@ -11,7 +11,7 @@ tags; automated_door_relevant; player
 
 #contains_collectible ;actor file path																																	;SpriteStatus												;AMOUNT
 contains_collectible 	;actorData/collectibles/food/food																;asiaStar																;5
-contains_collectible 	;actorData/collectibles/bacteria/bacteria_seed			;fuel				                ;5
+contains_collectible 	;actorData/collectibles/bacteria/bacteria_seed			;FUEL_SPORE              ;5
 contains_collectible 	;actorData/collectibles/metal/metal														;scrapmetal              ;5
 contains_collectible 	;actorData/collectibles/key/keycard														;electric_lockpic        ;1
 
