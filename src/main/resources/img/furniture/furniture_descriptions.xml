@@ -1,0 +1,16 @@
+
+
+
+
+<root name = "furniture">
+    <dialogue id="PUBLIC_BENCH" type="normal">
+        <line>Not sure if this is a bench or a torture instrument.</line>
+    </dialogue>
+
+    <dialogue id="WASTE" type="normal">
+        <line>Just some waste, nothing interesting.</line>
+    </dialogue>
+
+</root>
+
+

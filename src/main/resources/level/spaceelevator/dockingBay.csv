@@ -80,11 +80,11 @@ plannw				;plant							;img/plants/green_plant_nw							 										;true					;1 
 
 
 #Furniture
-desk__				;desk								;img/furniture/tableSqare																				;true					;0												;0			;0												;0				;0				;0										;0											;0             ;0             ;0           ;0							     ;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-bench_				;bench							;img/furniture/bench																									;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;050           ;128									;050          ;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-wasteB				;wastebin				;img/furniture/wasteBin																						;true					;0												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;000           ;000									;000          ;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-benchV				;benchV      ;img/furniture/public_bench																		;true					;1            ;000 ;000						 			;0			;0		 		;000								;000									;000									 	;000									 	;000									;000										;none 				  ;none					  ;none							  ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-
+desk__				;desk								;img/furniture/tableSqare																										;true					;0												;000	;000										;0				;0				;000								;000									;000           ;0             ;0           ;0							     ;none 																;none																	;none																																															;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+bench_				;bench							;img/furniture/bench																															;true					;1												;000 ;000          ;0    ;0    ;000        ;000         ;000           ;050           ;128									;050          ;none 																;none																	;none																																															;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+wasteB				;wastebin				;img/furniture/wasteBin																												;true					;0												;000 ;000          ;0    ;0    ;000        ;000         ;000           ;000           ;000									;000          ;none 																;WASTE																;img/furniture/furniture_descriptions															;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+benchV				;benchV      ;img/furniture/public_bench																								;true					;1            ;000 ;000						 			;0			 ;0				;000								;000									;000									 	;000									 	;000									;000										;none 														  ;PUBLIC_BENCH					 	  ;img/furniture/furniture_descriptions														 ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+shelfV			 ;shelf					  ;img/furniture/storage/storage_shelf_vertical						;true			  ;1												;000	;000										;0			 ;0			 ;000								;000									;000											;0080									 ;064									;0100									;none 						          ;SHELF_FLUIDS									;dialogue_files/transporter_decks																			;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 actors:
 #code 					;actorFileN																																																			;IngameName															;sprite-status						;sensor-status	;direction
@@ -113,6 +113,10 @@ screeA					;actorData/statusScreen/statusScreen															;Status Screen				
 airVeR					;actorData/airSystem/airVent/airVent															;Right ventilation								;off																;default							;undefined
 airVeL					;actorData/airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;default							;undefined
 airCon					;actorData/airSystem/hub/airControl																;Air hub																		;off																;default							;undefined
+
+#Collectible
+scrapm																					;actorData/collectibles/metal/metal																;scrap metal														;scrapmetal								 ;default					  ;none
+un150_					                ;actorData/collectibles/stamp/stamp																;stamp																				;un150													 ;default		     ;undefined
 
 global_system_actor:
 #character           ;mapId ,spStatus   ,direction ,sensStatus ,dialogFile                               ,dialogueID
@@ -176,15 +180,15 @@ layer:
 006 ;b_ne__; back_n; back_n; back_n; back_n; back_n; back_n; bck_ne; mtxFS1; glasDo; ______; mtxFS1; bck_nw; back_n; back_n; back_n; back_n; back_n; back_n; back_n; b_nw__; ______; ______; ______; ______; ______; ______; ______; ______
 007 ;back_e; mtxFS1; mtxFS1; mtxFS2; mtxFS1; mtxFS1; back_w; back_e; ______; ______; ______; ______; ______; back_e; mtxFS1; mtxFS1; mtxFS1; mtxFS1; mtxFS1; mtxFS1; back_w; ______; ______; ______; ______; ______; ______; ______; ______
 008 ;back_e; ______; ______; ______; ______; ______; back_w; back_e; desInL; ______; ______; ______; back_w; back_e; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
-009 ;back_e; ______; ______; ______; ______; ______; back_w; back_e; ______; ______; ______; ______; back_w; back_e; crate_; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
+009 ;back_e; ______; ______; ______; ______; ______; back_w; back_e; ______; ______; ______; ______; back_w; back_e; crate_; scrapm; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
 010 ;back_e; ______; ______; ______; ______; ______; fro_sw; mtxFS1; mtxFS3; glasDo; ______; mtxFSl; mtxFSr; fro_se; ______; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; mtxFS1; mtxFS0; mtxFS2; mtxFS1; back_w
 011 ;back_e; ______; ______; bck_nw; bck_ne; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; bck_nw; bck_ne; ______; ______; ______; back_w; ______; ______; back_e; airCon; ______; ______; ______; back_w
 012 ;back_e; airPip; ______; fro_sw; fro_se; ______; ______; ______; ______; trigge; ______; ______; ______; ______; ______; fro_sw; fro_se; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
 013 ;back_e; ______; boge_3; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
 014 ;back_e; boge_3; boge_4; ______; ______; travel; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
-015 ;back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; diff__; ______; ______; ______; fro_sw; mtxFS1; mtxFS1; fro_se; lever_; ______; ______; ______; back_w
-016 ;back_e; bench_; ______; bench_; ______; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
-017 ;back_e; ______; ______; ______; ______; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
+015 ;back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; diff__; ______; ______; ______; fro_sw; mtxFS1; mtxFS1; fro_se; lever_; ______; ______; shelfV; back_w
+016 ;back_e; bench_; ______; bench_; ______; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; ______; ______; ______; ______; ______; un150_; ______; ______; ______; back_w
+017 ;back_e; ______; ______; ______; ______; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; shelfV; back_w
 018 ;back_e; desk__; ______; desk__; ______; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; plannw; planne; ______; bck_nw; back_n; back_n; bck_ne; ______; ______; ______; ______; back_w
 019 ;back_e; bench_; ______; bench_; ______; ______; ______; ______; ______; potP_s; ______; ______; ______; ______; potP_s; ______; laddeL; plan_w; plan_e; ______; back_w; ______; ______; back_e; ______; laddeR; ______; ______; back_w
 020 ;______; back_n; back_n; back_n; back_n; back_n; back_n; back_n; back_n;	back_n; bck_ne; auDoor; ______; bck_nw; back_n; back_n; back_n; back_n; back_n; back_n;	b_nw__; ______; ______; b_ne__; back_n; back_n; back_n; back_n; b_nw__

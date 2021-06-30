@@ -59,11 +59,10 @@ A71___				;greenBox			 ;img/walls/signs/A71																																					
 A72___				;greenBox			 ;img/walls/signs/A72																																																		;false 			;1												;000	;000										;000	;000	;000								;000									;000											;064	 									;064									;064										;none							;none	;none						;unused;unused;unused;unused;unused;000						;000							;false
 A73___				;greenBox			 ;img/walls/signs/A73																																																		;false 			;1												;000	;000										;000	;000	;000								;000									;000											;064	 									;064									;064										;none							;none	;none						;unused;unused;unused;unused;unused;000						;000							;false
 rohreP				;labMas      ;img/machines/rohre_prop																																						    				;true					;1            ;000 ;000						 			;0			;0		 ;000								;000									;000									 	;100									 	;128									;080										;none 				  ;none					  ;none							  ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-benchV				;benchV      ;img/furniture/public_bench																																			    				;true					;1            ;000 ;000						 			;0			;0		 ;000								;000									;000									 	;000									 	;000									;000										;none 				  ;none					  ;none							  ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+benchV				;benchV      ;img/furniture/public_bench																																											;true					;1            ;000 ;000						 			;0			 ;0				;000								;000									;000									 	;000									 	;000									;000										;none 														  ;PUBLIC_BENCH					 	  ;img/furniture/furniture_descriptions														 ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 elevFl				;floor	      ;img/floor/elevator/elevator_floor																												    				;false				;0            ;0   ;0												;0			 ;0			 ;0								;0											;000									 	;256									 	;128									;128										;none 				  ;none					  ;none							  ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 elSign				;elSign      ;img/floor/deco/elevator_marking																					    													;false				;0            ;0   ;0												;0			 ;0			 ;0								;0											;000									 	;000									 	;000									;000										;none 				  ;none					  ;none							  ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-
 
 actors:
 #code 					;actorFileN																																																																					;IngameName															;sprite-status						;sensor-status	;direction

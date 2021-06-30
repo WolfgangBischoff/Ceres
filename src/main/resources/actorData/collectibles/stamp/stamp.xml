@@ -14,6 +14,10 @@
         <line>Technologies of the 22nd century: Biocomputers</line>
     </dialogue>
 
+    <dialogue id="un150" type="normal">
+        <line>150 anniversary of the Unites Nations Organization. They already used the new logo honouring the human colonies.</line>
+    </dialogue>
+
 </root>
 
 

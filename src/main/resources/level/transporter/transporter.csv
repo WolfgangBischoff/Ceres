@@ -108,7 +108,6 @@ qube__				                 ;qube																						          		            ;i
 
 flatBx																					;greenBox																																										;actorData/storages/box_flat/green								   																										;true				;1												;000	;000										;000	;000	;000								;000									;005											;064	 									;118									;100										;none						;flat_box_1;dialogue_files/transporter_decks						;unused;unused;unused;unused;unused;000						;000							;false
 
-
 ACTORS:
 #code 					;actorFileN																																																			;IngameName															;sprite-status						;sensor-status										;direction
 player					;actorData/player																																													;Revolutionary												;default												;default																;north
@@ -122,8 +121,6 @@ windL1					;actorData/quest/main/frontwindow/actor																							;front 
 metrod					;actorData/transporter/metroid/metroid																								;metroid																		;default												;default																;north
 metro2					;actorData/transporter/metroid/metroid2																							;metroid																		;default												;default																;north
 metro3					;actorData/transporter/metroid/metroid3																							;metroid																		;default												;default																;north
-
-
 
 #control center
 contro					;actorData/computer/control/control																;control terminal									;default												;default																;undefined
