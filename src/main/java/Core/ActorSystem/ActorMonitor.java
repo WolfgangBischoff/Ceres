@@ -112,7 +112,6 @@ public class ActorMonitor
 
     private void changeLevel(String filename_level, String spawnId)
     {
-        String methodName = "changeLevel(String) ";
         //System.out.println(CLASSNAME + methodName + "loaded: " + filename_level + " spawn at " + spawnId);
         WorldView.getSingleton().changeStage(filename_level, spawnId, false);
     }

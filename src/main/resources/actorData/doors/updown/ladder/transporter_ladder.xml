@@ -11,6 +11,13 @@
         <option nextDialogue="DECISION_TO_FREIGHT_DECK">[Control Deck]</option>
         <option>[Back]</option>
     </dialogue>
+    <dialogue id="DECISION_TO_FREIGHT_DECK" type="normal" levelchange="transporter/transporter" spawnID="ladder"/>
+
+    <dialogue id="TO_DOCKING_BAY_MTX_LEFT" type="decision">
+        <option nextDialogue="DECISION_TO_DOCKING_BAY_MTX_LEFT">[Enter the maintenance area]</option>
+        <option>[Back]</option>
+    </dialogue>
+    <dialogue id="DECISION_TO_DOCKING_BAY_MTX_LEFT" type="normal" levelchange="spaceelevator/mtx_area" spawnID="left"/>
 
     <dialogue id="BLOCKED" type="normal" nextDialogue="BLOCKED_DECISION">
         <line>Its blocked.</line>
@@ -23,14 +30,15 @@
         <option nextDialogue="DECISION_TO_CREW_DECK">[Crew Deck]</option>
         <option>[Back]</option>
     </dialogue>
+    <dialogue id="DECISION_TO_CREW_DECK" type="normal" levelchange="crewdeck/crewdeck" spawnID="ladder"/>
 
     <dialogue id="NO_ENERGY" type="normal">
         <line>No energy</line>
     </dialogue>
 
-    <dialogue id="DECISION_TO_CREW_DECK" type="normal" levelchange="crewdeck/crewdeck" spawnID="ladder"/>
 
-    <dialogue id="DECISION_TO_FREIGHT_DECK" type="normal" levelchange="transporter/transporter" spawnID="ladder"/>
+
+
 </root>
 
 

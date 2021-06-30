@@ -23,7 +23,6 @@ import java.util.*;
 
 import static Core.Configs.Config.*;
 import static Core.Enums.ActorTag.*;
-import static Core.Enums.CollectableType.BACTERIA_NUTRITION;
 import static Core.Enums.Direction.*;
 import static Core.Enums.TriggerType.*;
 import static Core.WorldView.WorldView.addToLayer;
@@ -38,7 +37,6 @@ public class Actor
     final Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
     final List<Sprite> spriteList = new ArrayList<>();
     public Set<ActorTag> tags = new HashSet<>();
-    private Set<CollectableType> collectableTags = new HashSet<>();
     //General
     String actorFileName;
     String actorId;
@@ -57,8 +55,9 @@ public class Actor
     PersonalityContainer personalityContainer;
     Map<String, Double> genericDoubleAttributes = new HashMap<>();
     Map<String, String> genericStringAttributes = new HashMap<>();
-    private Map<String, DateTime> genericDateTimeAttributes = new HashMap<>();
     Script script;
+    private Set<CollectableType> collectableTags = new HashSet<>();
+    private Map<String, DateTime> genericDateTimeAttributes = new HashMap<>();
     private Direction direction;
     private double currentVelocityX;
     private double currentVelocityY;
@@ -554,32 +553,42 @@ public class Actor
         if (targetSpriteData == null)
         {
             StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("Could not find: ").append(compoundStatus.toLowerCase()).append(" in \n");
             for (Map.Entry<String, List<SpriteData>> entry : spriteDataMap.entrySet())
                 stringBuilder.append("\t").append(entry.getKey()).append("\n");
-            applySpriteData(List.of(new SpriteData("error", "img/void_64_64", false,
+            System.out.println(stringBuilder.toString());
+            applySpriteData(List.of(new SpriteData("error", "img/notfound_64_64", false,
                     0.0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, "none", "none", "none")));
         }
+        else
+            //For all Sprites of the actor onUpdate to new Status
+            applySpriteData(targetSpriteData);
 
         if (spriteList.isEmpty())//Before Actor is initialized
             return;
 
-        //For all Sprites of the actor onUpdate to new Status
-        applySpriteData(targetSpriteData);
     }
 
     public void applySpriteData(List<SpriteData> targetSpriteData)
     {
-        for (int i = 0; i < spriteList.size(); i++)
+        try
         {
-            SpriteData ts = targetSpriteData.get(i);
-            Sprite toChange = spriteList.get(i);
-            toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
-            toChange.setBlocker(ts.blocking);
-            toChange.setLightningSpriteName(ts.lightningSprite);
-            toChange.setAnimationEnds(ts.animationEnds);
-            toChange.setLayer(ts.renderLayer);
-            if (isSpriteLoaded(toChange))
-                addToLayer(toChange);//Change layer if sprite in current stage, not on other map (global system) but sprite change triggered by StageMonitor
+            for (int i = 0; i < spriteList.size(); i++)
+            {
+                SpriteData ts = targetSpriteData.get(i);
+                Sprite toChange = spriteList.get(i);
+                toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
+                toChange.setBlocker(ts.blocking);
+                toChange.setLightningSpriteName(ts.lightningSprite);
+                toChange.setAnimationEnds(ts.animationEnds);
+                toChange.setLayer(ts.renderLayer);
+                if (isSpriteLoaded(toChange))
+                    addToLayer(toChange);//Change layer if sprite in current stage, not on other map (global system) but sprite change triggered by StageMonitor
+            }
+        }
+        catch (NullPointerException e)
+        {
+            targetSpriteData.forEach(s -> System.out.println("Data:" + s));
         }
     }
 
@@ -792,7 +801,7 @@ public class Actor
         compoundStatus = createCompoundStatus(spriteStatus);
 
         if (!(oldCompoundStatus.equals(compoundStatus)))
-                changeSprites();
+            changeSprites();
 
         //If is part of a group
         if (actorMonitor != null)
