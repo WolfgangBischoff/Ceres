@@ -12,7 +12,7 @@
         <option>Back</option>
     </dialogue>
 
-    <dialogue id="LEVEL_DOCKINGBAY" type="normal" levelchange="dockingBay" spawnID="elevator"/>
+    <dialogue id="LEVEL_DOCKINGBAY" type="normal" levelchange="spaceelevator/dockingBay" spawnID="elevator"/>
     <dialogue id="LEVEL_TRAINEEAREA" type="normal" levelchange="capigeni/traineeArea" spawnID="default"/>
 
 </root>

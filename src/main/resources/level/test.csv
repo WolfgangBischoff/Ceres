@@ -90,7 +90,7 @@ doorVe					;actorData/doors/vertical/autoBulkheadVertical_persistent					;vertic
 Actorgroups:
 #System-Name					;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
 #level change
-dockingBay							;levelchange																				;northDoor														;doorVe
+spaceelevator/dockingBay							;levelchange																				;northDoor														;doorVe
 
 
 

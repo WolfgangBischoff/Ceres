@@ -24,7 +24,7 @@ roofw_					;img/walls/spaceway/roof														             ;roof													
 ACTORGROUPS:
 #level change
 #System-Name														;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
-dockingBay															 ;levelchange															     ;northDoor	        ;exit__
+spaceelevator/dockingBay															 ;levelchange															     ;northDoor	        ;exit__
 
 #spaceway
 triggerRoof											 ;transitionOnChange													;SW_roof											;trigge
