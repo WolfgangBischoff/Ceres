@@ -9,6 +9,9 @@
 * growspace löscht inventar nach rotten/leerung
 * ergebnis ergibt sich aus Nahrung/Bac Kombination => Fail/BacterioColony
 * Sprites: grüner graben, deutlicher; public bench, rohrprop
+* Docking Bay: add ladder to enter MTX area which leads to air control;
+* Docking Bay: function remains, lever should within the room; some items/stamps
+* added levelchange V2
 
 ##### 05 21
 * interact => set bacteria, info

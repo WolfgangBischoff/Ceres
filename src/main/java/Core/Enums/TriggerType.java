@@ -16,6 +16,7 @@ public enum TriggerType
     INVENTORY_SHOP,
     CONDITION,
     PERSISTENT_HARVEST,
+    LEVELCHANGE,
     INCUBATOR;
 
     public static TriggerType getStatus(String status)
@@ -38,6 +39,7 @@ public enum TriggerType
             case "condition": return CONDITION;
             case "incubator": return INCUBATOR;
             case "persistent_harvest": return PERSISTENT_HARVEST;
+            case "levelchange": return LEVELCHANGE;
             default: throw new RuntimeException("TriggerType unknown: " + status);
         }
     }

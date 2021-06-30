@@ -41,15 +41,15 @@ backVN				;thinwall				;img/walls/_genericWall/standalone_wall_vertical_northend
 actors:
 #code 					;actorFileN																																																											;IngameName																		;sprite-status						;sensor-status	;direction
 player					;actorData/player																																																					;Revolutionary															;default												;default							;north
-laddeL					;actorData/doors/updown/ladder/transporter_ladder																					;ladder																						;levelchangeUp						;levelchange	  ;undefined
-laddeR					;actorData/doors/updown/ladder/transporter_ladder																					;ladder																						;levelchangeUp						;levelchange	  ;undefined
+laddeL					;actorData/doors/updown/ladder/transporter_ladder																					;ladder																						;levelchangeUp						;toDockBayLeftMtx	  ;undefined
+laddeR					;actorData/doors/updown/ladder/transporter_ladder																					;ladder																						;levelchangeUp						;toDockBayRightMtx	  ;undefined
 
 Actorgroups:
 #System-Name					;Logic																																																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
 #level change
 #dockingBay															;levelchange																				;northDoor									;doorLe
-spaceelevator/dockingBay		;levelchange																    ;leftMtx											;laddeL
-spaceelevator/dockingBay		;levelchange																    ;rightMtx										;laddeR
+#spaceelevator/dockingBay		;levelchange																    ;leftMtx											;laddeL
+#spaceelevator/dockingBay		;levelchange																    ;rightMtx										;laddeR
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision

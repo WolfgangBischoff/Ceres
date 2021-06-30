@@ -19,11 +19,6 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * start engine and flee
 * smuggler docks shuttle
 
-#### Docking Bay
-* add ladder to enter MTX area which leads to air control;
-* function remains, lever should within the room; some items/stamps
-* add biocomputer or ore as exhibition piece
-
 #### Bacteria mechanic
 * Bacteria spreads on time (Sichtbare Verbindung, Felder checken position)
 * While Spreading, new bacteria can be created/ kreuzung

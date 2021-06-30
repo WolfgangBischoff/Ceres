@@ -7,8 +7,8 @@ spawnpoints:
 default		;18		;2				;west
 northDoor;03		;01			;south
 elevator ;21		;23			;west
-rightMtx ;16		;16			;north
-leftMtx 	;07		;16			;north
+rightMtx ;25		;16			;north
+leftMtx 	;15		;16			;north
 
 tiledefinition:
 #layer: 0 => behind; 1 => middle; 2 => in front
@@ -94,7 +94,7 @@ auDoor					;actorData/doors/horizontal/automatedDoor																					;horizo
 glasDo					;actorData/doors/horizontal/glass/glassLock																			;horizontal glasdoor						;on																	;UNLOCKED						;south
 doorVe					;actorData/doors/vertical/autoBulkheadVertical_persistent					;vertical bulkhead								;on																	;LOCKED								;west
 dooVOp					;actorData/doors/vertical/autoBulkheadVertical_persistent					;vertical bulkhead								;on																	;UNLOCKED						;west
-doorLe					;actorData/doors/horizontal/automatedDoor																					;level bulkhead											;on																	;levelchange			;south
+doorLe					;actorData/doors/horizontal/automatedDoor																					;level bulkhead											;on																	;toTransporter	;south
 ele_di					;actorData/doors/updown/elevator/elevator																					;space elevator											;toCeres												;default							;undefined
 ele_d2					;actorData/doors/updown/elevator/elevator																					;space elevator											;toCeres2											;default							;undefined
 diff__					;actorData/furniture/diffuser/diffuser																								;big diffuser													;default												;default							;undefined
@@ -102,7 +102,7 @@ crate_					;actorData/storages/boxSmall/prop																													;green 
 lever_					;actorData/machine/lever																																						;lever																				;off																;default							;undefined
 ufo___					;actorData/robot/ufo																																										;ufo																						;default												;default							;undefined
 laddeL					;actorData/doors/updown/ladder/transporter_ladder													;ladder																			;toDockingBLeft					;default							;undefined
-laddeR					;actorData/doors/updown/ladder/transporter_ladder													;ladder																			;levelchangeDown				;levelchange			;undefined
+laddeR					;actorData/doors/updown/ladder/transporter_ladder													;ladder																			;levelchangeDown				;toDockBayMtxAreaRight			;undefined
 
 #Desinfection
 desinf					;actorData/machine/desinfection/desinfect										;Desinfection													;on																	;ON     															;west
@@ -132,10 +132,6 @@ door													;none																											;none														;doorVe
 #desfinfection reset
 triggerDesinfect ;always_sensorDefault_spriteOn		;desinfect									;trigge
 desinfect								;none																											;none														;desinf
-
-#level change
-transporter/transporter						;levelchange																    ;exit														;doorLe
-spaceelevator/mtx_area							;levelchange																    ;right													;laddeR
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
@@ -184,9 +180,9 @@ layer:
 010 ;back_e; ______; ______; ______; ______; ______; fro_sw; mtxFS1; mtxFS3; glasDo; ______; mtxFSl; mtxFSr; fro_se; ______; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; mtxFS1; mtxFS0; mtxFS2; mtxFS1; back_w
 011 ;back_e; ______; ______; bck_nw; bck_ne; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; bck_nw; bck_ne; ______; ______; ______; back_w; ______; ______; back_e; airCon; ______; ______; ______; back_w
 012 ;back_e; airPip; ______; fro_sw; fro_se; ______; ______; ______; ______; trigge; ______; ______; ______; ______; ______; fro_sw; fro_se; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
-013 ;back_e; ______; boge_3; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; lever_; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
+013 ;back_e; ______; boge_3; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
 014 ;back_e; boge_3; boge_4; ______; ______; travel; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
-015 ;back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; diff__; ______; ______; ______; fro_sw; mtxFS1; mtxFS1; fro_se; ______; ______; ______; ______; back_w
+015 ;back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; diff__; ______; ______; ______; fro_sw; mtxFS1; mtxFS1; fro_se; lever_; ______; ______; ______; back_w
 016 ;back_e; bench_; ______; bench_; ______; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
 017 ;back_e; ______; ______; ______; ______; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
 018 ;back_e; desk__; ______; desk__; ______; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; plannw; planne; ______; bck_nw; back_n; back_n; bck_ne; ______; ______; ______; ______; back_w

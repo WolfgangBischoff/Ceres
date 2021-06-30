@@ -668,6 +668,11 @@ public class Actor
                 WorldViewController.setWorldViewStatus(WorldViewStatus.INCUBATOR);
                 InventoryController.setExchangeInventoryActor(this);
                 break;
+            case LEVELCHANGE:
+                String filename_level = sensorStatus.onInteractionToStatusSprite;
+                String spawnId = sensorStatus.onInteraction_StatusSensor;
+                WorldView.getSingleton().changeStage(filename_level, spawnId, false);
+                break;
         }
     }
 
