@@ -8,7 +8,7 @@
 * item grid shows hint "Esc to leave"
 * growspace löscht inventar nach rotten/leerung
 * ergebnis ergibt sich aus Nahrung/Bac Kombination => Fail/BacterioColony
-* Sprites: grüner graben, deutlicher
+* Sprites: grüner graben, deutlicher; public bench, rohrprop
 
 ##### 05 21
 * interact => set bacteria, info

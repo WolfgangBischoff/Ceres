@@ -100,7 +100,7 @@ public class GrowspaceManager
             if (collectible.getType().contains(METAL))
                 return "NUTRITION_METAL";
         }
-        return "none";
+        throw new RuntimeException("Nutrition Status unknown: " + collectible.getSpriteStatus());
     }
 
 
