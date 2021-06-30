@@ -792,7 +792,7 @@ public class Actor
         compoundStatus = createCompoundStatus(spriteStatus);
 
         if (!(oldCompoundStatus.equals(compoundStatus)))
-            changeSprites();
+                changeSprites();
 
         //If is part of a group
         if (actorMonitor != null)

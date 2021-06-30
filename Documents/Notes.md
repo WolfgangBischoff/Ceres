@@ -49,7 +49,6 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * render method for CollectibleStack, damit auch der Incubator anzahl anzeigt
 
 ####Sprites
-* grüner graben, deutlicher
 * einrahmen der meldung bei items
 * aktenschrank; schachteln; pflanze, water dispenser/sink
 * Ship: rename sleep capsules to numbers

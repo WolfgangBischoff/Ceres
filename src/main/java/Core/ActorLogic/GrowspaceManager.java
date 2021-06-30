@@ -106,14 +106,14 @@ public class GrowspaceManager
 
     public static String getGrowingStatus(Collectible collectible)
     {
-        switch (collectible.getSpriteStatus())
+        switch (collectible.getSpriteStatus().toUpperCase())
         {
             case "FUEL_SPORE":
                 return "FUEL_SPORE";
             case "METAL_SPORE":
                 return "METAL_SPORE";
             default:
-                return "none";
+                throw new RuntimeException("GrowStatus unknown: " + collectible.getSpriteStatus());
         }
     }
 

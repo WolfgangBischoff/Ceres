@@ -2,27 +2,34 @@ package Core.WorldView;
 
 import Core.Actor;
 import Core.CollectibleStack;
+import Core.Enums.ActorTag;
 import Core.Sprite.Sprite;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.Text;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import static Core.Configs.Config.*;
 import static Core.WorldView.WorldView.*;
 
 public class GridManager
 {
+    static Set<ActorTag> itemInteractionPossibleTags = new HashSet<>();
     Rectangle2D hoveredGrid = new Rectangle2D(0, 0, 64, 64);
     CollectibleStack collectibleToPlace = CollectibleStack.empty();
     Sprite collectibeSprite;
-    private boolean isGridBlocked;
     Actor blockingActor;
     Text returnMsg = new Text("Press Esc to return");
+    private boolean isGridBlocked;
 
-public GridManager()
-{
-    returnMsg.setFont(FONT_ESTROG_30_DEFAULT);
-}
+    public GridManager()
+    {
+        returnMsg.setFont(FONT_ESTROG_30_DEFAULT);
+        itemInteractionPossibleTags.add(ActorTag.GROWPLACE);
+    }
 
     public Rectangle2D collectibleOccupiedRect()
     {
@@ -36,7 +43,8 @@ public GridManager()
     {
         gc.setGlobalAlpha(0.5);
         gc.setFill(isGridBlocked() ?
-                ((getBlockingActor() != null) ? COLOR_GOLD : COLOR_RED)
+                ((getBlockingActor() != null
+                        && !Collections.disjoint(getBlockingActor().getTags(),itemInteractionPossibleTags)) ? COLOR_GOLD : COLOR_RED)
                 : COLOR_GREEN);
         gc.fillRect(hoveredGrid.getMinX(), hoveredGrid.getMinY(), hoveredGrid.getWidth(), hoveredGrid.getHeight());
         if (collectibleToPlace.isDefined())
@@ -55,8 +63,9 @@ public GridManager()
 
         double textWidth = returnMsg.getBoundsInLocal().getWidth();
         gc.setFill(COLOR_GREEN);
-        gc.fillText(returnMsg.getText(), getCamX() + CAMERA_WIDTH/2 - textWidth/2, getCamY() + CAMERA_HEIGHT/2 - 200);
+        gc.fillText(returnMsg.getText(), getCamX() + CAMERA_WIDTH / 2 - textWidth / 2, getCamY() + CAMERA_HEIGHT / 2 - 200);
     }
+
 
     public boolean isGridBlocked()
     {
