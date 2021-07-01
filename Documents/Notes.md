@@ -13,8 +13,8 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * augen verdunkelt, base is shown with team, its not safe here, we need a base
 * plan: We have a ship with no fuel 
   => go to work and steal fuel
-  => find fuel in MTX area under trainee area
-  => use elevator from MTX (one way) to exit
+  => Option A; Create Electric Lockpic and enter storage
+  => Option B; Get in touch with teacher, he will give you the key
   => bring to resistance
 * start engine and flee
 * smuggler docks shuttle

@@ -4,10 +4,12 @@
 
     <dialogue id="INIT" type="normal" nextDialogue="EXPLANATION">
         <line>Welcome to the CapiGeni Training Center!</line>
-        <line>In your free and unpaid course you will learn the basics of our success.</line>
+        <line>In your course you will learn the basics of our success.</line>
+        <line>The costs of the training will be automatically covered by your first salaries.</line>
     </dialogue>
 
     <dialogue id="EXPLANATION" type="normal">
+        <line>Meet with your coach after visiting our hall of wonders on the left side.</line>
         <line>Take some bacteria nutrition and spores to start.</line>
         <line>They will spawn every day if you need further training seccions.</line>
     </dialogue>
