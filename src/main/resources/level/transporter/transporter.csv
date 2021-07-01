@@ -151,7 +151,7 @@ bxCart					                ;actorData/storages/greenBoxLarge/largeBox									;g
 #collectibles
 algaeS					                ;actorData/collectibles/food/food																		;Algae Stew				 					;algaeStew													 ;default																     ;undefined
 asiaBe					                ;actorData/collectibles/food/food																		;Asia Star Bento					;asiastar														 ;default																     ;undefined
-pda__0					                ;actorData/collectibles/reader/reader														;Cargo list										;reader																 ;default																     ;undefined
+pda__0					                ;actorData/collectibles/reader/reader														;Cargo list										;FREIGHT_NOTES									 ;default																     ;undefined
 stamp0					                ;actorData/collectibles/stamp/stamp																;10 years GSC								;10_years_gsc										 ;default																     ;undefined
 stamp1					                ;actorData/collectibles/stamp/stamp																;Biocomputing								;biocomputing										 ;default																     ;undefined
 

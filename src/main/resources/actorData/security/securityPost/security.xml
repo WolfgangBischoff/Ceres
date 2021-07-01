@@ -4,8 +4,9 @@
 <root name = "security">
 
     <dialogue id="INIT" type="normal" nextDialogue="INIT_REPEAT" dialogueId="INIT_REPEAT">
-        <line>Welcome to CereX Housing facility. Are you one of the new arrivals?</line>
+        <line>Welcome to CereX Housing facility, second class. Are you one of the new arrivals?</line>
         <line>Please keep you eyes still for the identification procedure..</line>
+        <line>.. Ok, identification complete.</line>
     </dialogue>
     <dialogue id="INIT_REPEAT" type="normal" >
         <line>Your apartment is number A72 on this floor, at the end of the corridor. Please observe the house rules and inform yourself about current CereX services and job opportunities.</line>

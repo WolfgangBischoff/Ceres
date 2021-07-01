@@ -1,8 +1,5 @@
 
-#InteractionArea; Distance; Width; OffsetX; OffsetY
-#dialogueFile; actorData/dictionary/dialogueFile
 #transition; fromStatus; toStatus
-#tags; ActorTag ...
 
 #sensorStatus											;sensorStatusName																									;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
 sensorStatus	           ;default																			               ;textbox											       ;none  	 																;none 								  									;none 								     					;none								 							;none																;none 																;none 														;none																					;none																						;none 																			 ;none 																			;none													  ;none														;none 														;none 				         ;none																;none 															;none  														;none
@@ -11,6 +8,8 @@ sensorStatus	           ;initTxtInRange												               ;textbox						
 
 #personality;initCooperation;trait1, trait1-cooperationThreshold,trai1-knowledgeTag; trait2 ...
 personality ;005            ;INTROVERSION ,0 ,none	     ;SENSING,1,none    ;FEELING,9,none; PERCEIVING,12,none
+
+tags; TURNS_DIRECTION_ONINTERACTION
 
 default-NORTH													;medic																;actorData/character/medic_woman/medic_back																															;true				;1												;0			;0												;0			;0			;0										;0											;10												;84												;44										;44											;whitelight_256;intro					;actorData/character/medic_woman/medic_woman_transporter; unused; unused; unused; unused; unused ;0        ;300							;false
 default-NORTH-MOVING						;medic																;actorData/character/medic_woman/medic_woman_back_a8																						;true				;1												;10		;6												;06			;01	;64									;128									;10												;84												;44										;44											;whitelight_256;intro					;actorData/character/medic_woman/medic_woman_transporter;unused;unused;unused;unused;unused;0        ;300							;false

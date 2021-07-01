@@ -36,10 +36,8 @@
         <line>You are on level A.</line>
     </dialogue>
     <dialogue id="INIT_toBiotech" type="decision">
-        <option nextDialogue="toBiotech">[Biotech]</option>
         <option>[Back]</option>
     </dialogue>
-    <dialogue id="toBiotech" type="normal" levelchange="living_quarter/air_lock" spawnID="default"/>
 
 </root>
 

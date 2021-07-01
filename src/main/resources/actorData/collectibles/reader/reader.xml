@@ -2,7 +2,7 @@
 
 
 <root name = "reader">
-    <dialogue id="pda" type="normal">
+    <dialogue id="FREIGHT_NOTES" type="normal">
         <line>Flight ZBER-CRXB %n
             1) Auxiliaries, Consumer Goods %n
             2) Precision mechanics (Wobi Inc) %n
@@ -11,6 +11,13 @@
             5) Auxiliaries %n
             6) Auxiliaries %n
         </line>
+    </dialogue>
+
+    <dialogue id="SISTER_VISITME" type="normal">
+        <line>Hey! %n
+            Come over to me, if you didnt already, my room is just next yours, isn't that great? Seems like CapiGeni hires at the moment, we should check if we can earn money there. %n
+            You want to keep this room, don't you? %n
+            greez sis :D</line>
     </dialogue>
 
 </root>
