@@ -42,6 +42,7 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Cooperation value just increases two time a day
 * Create Questlog
 * render method for CollectibleStack, damit auch der Incubator anzahl anzeigt
+* add sprite layer between 1 - 2 for items
 
 ####Sprites
 * einrahmen der meldung bei items
