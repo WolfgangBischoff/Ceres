@@ -118,7 +118,7 @@
 29 01 21    - added black overal side sprites - fixed animation missing bug
 28 01 21    - refactored Sprite - added idle script
 26 01 21    - remove __xx__, default is nothing. - arrianne reference poster
-25 01 21    - new level air_lock - refinery sprite update, new shelf sprite
+25 01 21    - new level living_quarter - refinery sprite update, new shelf sprite
 14 01 21    - fixed air vent doesnt change dialogue on trigger - moved box - sprites added
 13 01 21    - changed air-hub sprite - security guy added - Test with Bisa
 12 01 21    - added ladder and rescue pods - disable lift while no energy - sprites: Schriftzug MachineRoom, added animation control central damaged

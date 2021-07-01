@@ -30,7 +30,7 @@
         <option nextDialogue="TO_CERES">[Use Space Elevator]</option>
         <option>[Back]</option>
     </dialogue>
-    <dialogue id="TO_CERES" type="normal" levelchange="living_quarter/air_lock" spawnID="default"/>
+    <dialogue id="TO_CERES" type="normal" levelchange="living_quarter/living_quarter" spawnID="default"/>
 
     <dialogue id="INIT_A" type="normal">
         <line>You are on level A.</line>

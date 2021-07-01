@@ -1,5 +1,5 @@
 log:
-living_quarter/air_lock loading
+living_quarter/living_quarter loading
 
 shadow:
 none
@@ -7,7 +7,7 @@ none
 spawnpoints:
 #ID						;PosX;PosY	;Direction
 default		;24		;45			;north
-
+train				;24		;45			;north
 
 tiledefinition:
 #code     ;name        											;spritename                  																														;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY	 ;hitBoxWidth;hitBoxHeight ;lightning  ;dialogueId ;dialogueFile ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
