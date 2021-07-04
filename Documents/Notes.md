@@ -45,6 +45,7 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * add sprite layer between 1 - 2 for items
 
 ####Sprites
+* Docking Bay Bench im Tisch look
 * einrahmen der meldung bei items
 * aktenschrank; schachteln; pflanze, water dispenser/sink
 * Ship: rename sleep capsules to numbers
@@ -96,9 +97,7 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Dossiers in INFO, background story
 
 ##Contents
-- Biocomputer
-- People are created by bioengeneering, sexuality is fluent
-- get a robot begleiter, Robot Avatars, remote control
+- get a robot begleiter, Robot Avatars, remote control, oder Amöbe
 - Cook Serve delicious
 Mechanics:
     With high attention meter place has surveilance
@@ -154,30 +153,27 @@ Spiritual Mission:
 
 
 
-### Lore & World
+### Lore & World (Info not related to Plot, History, descriptions)
+##### General 
+- Earth damaged, people want to live in space and station, Ceres is base for asteriod belt mining
+    - Private Company build Station, Earth law doesnt apply, Earth Gov am Gängelband
+    - Free trade and frequent new faces from mining ships
+- Subscriptions to benefits like housing, food and air
+- Board time / Ceres Time (9h 4min per day) connection affects world (year 4,605 years)
+- Society changes, very liberal. Open Sex at Clubs, man/women not important, just prefered position, no classic partnerships
+- People are created by bioengeneering, sexuality is fluent
+- Children usually designed, just Ökos take old way
+- drugs are normal
+- home-delivery of goods is standard, maybe stealing?
+- biotechnology is advanced: Materials (green) for goods, human genes optimmized
 
-Lore (Info not related to Plot, History, descriptions)
-    Third Class
-        => Earth damaged, people want to live in space and station, Ceres is base for asteriod belt mining
-            - Private Company build Station, Earth law doesnt apply, Earth Gov am Gängelband
-        => Subscriptions to benefits like housing, food and air
-        => Dwarf planet Ceres, Water colony with science and mining; can travel to asteriods; Vanguard of Humankind in private ownership (CereX company)
-        => Board time / Ceres Time (9h 4min per day) connection affects world (year 4,605 years)
-        => Society changes, very liberal. Open Sex at Clubs, man/women not important, just prefered position, no classic partnerships
-        => drugs are normal
-        => home-delivery of goods is standard, maybe stealing?
-        => arguments for human body
-        => Children usually designed, just Ökos take old way
-
-    Ceres
-        - Ceres Base gets energy and water from old colony ship, which works automated;
-        - The Colony Ship has no air life systems, but in secret workers life there under bad conditions,
-                - need air masks all day, union knows about
-                - workers are dept slaves from cryo capsules
-        - The trade hub contains a space elevator and in secret luxury apartements
-        - There are water and mineral resource fields near cryo vulcanos + other asteriods
-        - Resources very limited, nearly autarc; cheap drones with oxygen fuel can sent back resources, but oxygen is rare;
-            goods from earth must be sent to space, expensive, from ceres weight is not a problem
+##### Ceres
+- Ceres Base gets energy and water from old colony ship, which works automated;
+- The Colony Ship has no air life systems, but in secret workers life there under bad conditions (air masks all day, dept slaves from cryo capsules)
+- The trade hub contains a space elevator and in secret luxury apartements
+- There are water and mineral resource fields near cryo vulcanos + other asteriods
+- Resources very limited, nearly autarc; cheap drones with oxygen fuel can sent back resources, but oxygen is rare;
+-   goods from earth must be sent to space, expensive, from ceres weight is not a problem
 
 => Vielleciht auch unabhängige Systeme. Besiegte Firmen geben nur Bereiche frei, aber Verbesserungen individuell
        - Food/Water Supplies Company (Erster Gegner; Stolen Knowledge / Algae)
@@ -210,9 +206,9 @@ Lore (Info not related to Plot, History, descriptions)
             - Revolution: Gesundheitssystem heilt und ist nicht mehr überlastet, jeder wird behandelt
 
 
-------------------------------------------
------ INSPIRATION ------------------------
-------------------------------------------
+
+### Inspiration
+
 Oasis-Movie
     Eigenes Team und böse Firma wollen Kontrolle über Oasis, Firma inhafiert Mitglied, wird befreit und ist jetzt in der Firma, schädigt von innen
 
