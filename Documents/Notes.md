@@ -54,7 +54,7 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 ####Sprites
 * Docking Bay Bench im Tisch look
 * einrahmen der meldung bei items
-* aktenschrank; schachteln; pflanze, water dispenser/sink
+* aktenschrank; schachteln; pflanze, water dispenser/sink, Server
 * Ship: rename sleep capsules to numbers
 * Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
 * Hammer and Sickle modern, Säulen, Tank    

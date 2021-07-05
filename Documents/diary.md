@@ -1,4 +1,10 @@
 
+
+##### 07 21
+* added item consume from textbox
+* level build trainee area
+* new sprites: public_desk
+
 ##### 06 21
 * from inventory world interaction mode
 * aus Inventor genutzten Scrap/Food Item auf Growspace anwenden => Nahrung
