@@ -235,7 +235,6 @@ public class Textbox
 
     public void groupAnalysis(List<Actor> actorsList, Actor speakingActor)
     {
-        String methodName = "groupAnalysis(List<Actor>, Actor) ";
         startConversation(speakingActor);
         for (Actor actor : actorsList) {
             Element analysisDialogueFileObserved = Utilities.readXMLFile(actor.getSpriteList().get(0).getDialogueFileName());
@@ -251,12 +250,12 @@ public class Textbox
 
     public void nextMessage(Long currentNanoTime)
     {
-        String methodName = "nextMessage(Long) ";
         Actor playerActor = WorldView.getPlayer().getActor();
         maxLettersIdxRendered = 0;
 
         if (readDialogue.type.equals(DIALOGUE_TYPE_DECISION)) {
-            nextDialogueID = readDialogue.options.get(markedOption).nextDialogue;
+            Option activatedOption = readDialogue.options.get(markedOption);
+            nextDialogueID = activatedOption.getNextDialogueEvaluated();
             markedOption = 0;
         }
 
@@ -347,10 +346,11 @@ public class Textbox
 
     public void setNextDialogueFromDiscussionResult(boolean hasWon)
     {
+        var map = readDialogue.getOption(TEXTBOX_ATTRIBUTE_COIN_GAME).conditionData.messageOutcomes;
         if (hasWon)
-            nextDialogueID = readDialogue.getOption(TEXTBOX_ATTRIBUTE_SUCCESS).nextDialogue;
+            nextDialogueID = map.get(TEXTBOX_ATTRIBUTE_SUCCESS);
         else
-            nextDialogueID = readDialogue.getOption(TEXTBOX_ATTRIBUTE_DEFEAT).nextDialogue;
+            nextDialogueID = map.get(TEXTBOX_ATTRIBUTE_DEFEAT);
     }
 
     private void changeActorStatus(String toSpriteStatus)

@@ -12,16 +12,14 @@ public class Config
     public static final Boolean DEBUG_ACTORS = true;
     public static final Boolean DEBUG_BLOCKER = true;
     public static final Boolean DEBUG_NO_WALL = true;
-    public static final Boolean DEBUG_MOUSE_ANALYSIS = true;
+    public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
     public static final Boolean DEBUG_ALL_TEXT_OPTIONS_VISIBLE = false;
     public static final Boolean DEBUG_CONSOLE = false;
     public static final Boolean DEBUG_FPS = false;
     public static final boolean GAME_WINDOW_FULL_SCREEN = false;
     public static final boolean GAME_WINDOW_FULL_SCREEN_DISABLE_EXIT = false;
-    //public static final String FIRST_LEVEL = "transporter/transporter";
-    //public static final String FIRST_LEVEL = "dockingBay";
-    //public static final String FIRST_LEVEL = "crewdeck/crewdeck";
-    public static final String FIRST_LEVEL = "living_quarter/living_quarter";
+    public static final String FIRST_LEVEL = "crewdeck/crewdeck";
+    //public static final String FIRST_LEVEL = "living_quarter/living_quarter";
     public static final Font FONT_ESTROG_30_DEFAULT = Utilities.readFont("font/estrog__.ttf", 30);
     public static final Font FONT_ESTROG_20 = Utilities.readFont("font/estrog__.ttf", 20);
     public static final Font FONT_ORBITRON_20 = Utilities.readFont("font/Orbitron-Regular.ttf", 22);
@@ -122,6 +120,7 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_NEW_STATUS = "status";
     public static final String TEXTBOX_ATTRIBUTE_SENSOR_STATUS = "sensorstatus";
     public static final String TEXTBOX_ATTRIBUTE_TYPE = "type";
+    public static final String TEXTBOX_ATTRIBUTE_ITEMTYPE = "itemtype";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_ACTOR = "item_actor";
     public static final String TEXTBOX_ATTRIBUTE_ITEM_STATUS = "item_status";
     public static final String TEXTBOX_ATTRIBUTE_SUCCESS = "success";
@@ -144,6 +143,8 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_DAY_CHANGE = "daychange";
     public static final String TEXTBOX_ATTRIBUTE_FADE = "fadeout";
     public static final String TEXTBOX_ATTRIBUTE_INVALID_STAGES = "invalidstages";
+    public static final String TEXTBOX_OPTION_ATTRIBUTE_CONSUME_ITEMS = "consumeitems";
+    public static final String TEXTBOX_ATTRIBUTE_AMOUNT = "amount";
     //Paths
     public static final String CSV_POSTFIX = ".csv";
     public static final String PNG_POSTFIX = ".png";

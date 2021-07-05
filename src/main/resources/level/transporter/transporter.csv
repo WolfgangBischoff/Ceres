@@ -142,7 +142,7 @@ redLgt					                ;img/lightglows/blink_light											             ;r
 #machine room
 spLock				                 ;actorData/doors/other/space_suit_locker/locker				;Space Suit Locker								                                             ;locked 														  ;default																     ;none
 reacto					                ;actorData/transporter/reactor/reactor													;Reactor																		                                             ;on																	    ;textbox																					;undefined
-travel					                ;actorData/character/lime_woman/lime_woman									;Traveller																                                             ;default												    ;script																						;south
+#travel					                ;actorData/character/lime_woman/lime_woman									;Traveller																                                             ;default												    ;script																						;south
 
 smalBx					                ;actorData/storages/boxSmall/prop																		;green Box											;default													   ;default																     ;none
 largeB					                ;actorData/storages/greenBoxLarge/largeBox									;green Box											;default													   ;default																     ;none

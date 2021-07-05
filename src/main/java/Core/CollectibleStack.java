@@ -1,7 +1,6 @@
 package Core;
 
 import Core.Enums.CollectableType;
-import Core.Enums.Direction;
 import Core.Sprite.Sprite;
 import javafx.scene.image.Image;
 
@@ -9,13 +8,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static Core.Configs.Config.GENERIC_STACK_AMOUNT;
-import static java.lang.Integer.max;
 import static java.lang.Integer.min;
 
 public class CollectibleStack
 {
-    int maxNumber;
-    private int number;
+    int maxAmount;
+    private int amount;
     Collectible collectible;
 
     public static CollectibleStack empty()
@@ -29,28 +27,28 @@ public class CollectibleStack
         Sprite sprite = Sprite.createSprite(collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0), x, y);
         sprite.setActor(collectibleActor);
         collectibleActor.addSprite(sprite);
-        collectibleActor.genericDoubleAttributes.put(GENERIC_STACK_AMOUNT, (double)number);
+        collectibleActor.genericDoubleAttributes.put(GENERIC_STACK_AMOUNT, (double) amount);
         return sprite;
     }
 
     public CollectibleStack()
     {
-        this.maxNumber = 5;
-        this.number = 0;
+        this.maxAmount = 5;
+        this.amount = 0;
         this.collectible = null;
     }
 
     public CollectibleStack(Collectible collectible)
     {
-        this.maxNumber = 5;
-        this.number = 1;
+        this.maxAmount = 5;
+        this.amount = 1;
         this.collectible = collectible;
     }
 
     public CollectibleStack(Collectible collectible, int initNumber)
     {
-        this.maxNumber = 5;
-        this.number = initNumber;
+        this.maxAmount = 5;
+        this.amount = initNumber;
         this.collectible = collectible;
     }
 
@@ -64,7 +62,7 @@ public class CollectibleStack
         }
         else if (addedCollectible.equals(collectible))
         {
-            number++;
+            amount++;
             return true;
         }
         return false;
@@ -73,12 +71,12 @@ public class CollectibleStack
     {
         if (!addedCollectible.isEmpty() && addedCollectible.collectible.equals(collectible))
         {
-            number += addedCollectible.number;
+            amount += addedCollectible.amount;
         }
         else
         {
             collectible = addedCollectible.collectible;
-            number = addedCollectible.number;
+            amount = addedCollectible.amount;
         }
     }
 
@@ -94,9 +92,9 @@ public class CollectibleStack
 
     public int remove(int amount)
     {
-        int reducedBy = min(number, amount);
-        number -= reducedBy;
-        if(number <= 0)
+        int reducedBy = min(this.amount, amount);
+        this.amount -= reducedBy;
+        if(this.amount <= 0)
             collectible = null;
         return reducedBy;
     }
@@ -109,10 +107,10 @@ public class CollectibleStack
 
     public void transferTo(CollectibleStack target, int amount)
     {
-        int numberTotransfer = min(amount, number);
-        number -= numberTotransfer;
+        int numberTotransfer = min(amount, this.amount);
+        this.amount -= numberTotransfer;
         target.add(split(numberTotransfer));
-        if (number == 0)
+        if (this.amount == 0)
             collectible = null;
     }
 
@@ -131,9 +129,9 @@ public class CollectibleStack
         else return null;
     }
 
-    public int getNumber()
+    public int getAmount()
     {
-        return number;
+        return amount;
     }
 
     public Image getImage()

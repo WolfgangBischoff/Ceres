@@ -16,7 +16,7 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
   => go to work and steal fuel in manufacturing area
   => Option A; Create Electric Lockpic in advanced area (get key after first day, then spawn) 
   => Option B; Get in touch with teacher, and tell you need to the storage
-  => Option C; Use mtx area, its blocked on the first day
+  => Option C; Use mtx area, maybe blocked by cartonage that can be removed, its blocked on the first day
   => bring to resistance
 * start engine and flee
 * smuggler docks shuttle
@@ -44,6 +44,12 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Cooperation value just increases two time a day
 * Create Questlog
 * render method for CollectibleStack, damit auch der Incubator anzahl anzeigt
+
+#### Konzept laden
+* Einige Sachen sollen immer geladen werden => Immer vom File oder Save (aber keine Spawnitems mehr)
+* Einige Sachen sollen nur einmal geladen werden und ihr zustand gespeichert werden. bzw ihre Löschung => Persistent tag, aber merken ob file mal geladen wurde (Auch items)
+* Andere sollen erst abhängig von Vars geladen werden => Über FileCondition
+* Andere in Zeitabständen geladen werden => Unsichtbares Item hat SpawnData(eg. alle zwei Stunden, um 0000 Uhr)
 
 ####Sprites
 * Docking Bay Bench im Tisch look

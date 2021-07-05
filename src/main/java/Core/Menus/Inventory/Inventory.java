@@ -4,6 +4,7 @@ import Core.Actor;
 import Core.Collectible;
 import Core.CollectibleStack;
 import Core.Enums.CollectableType;
+import Core.WorldView.WorldView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,11 @@ public class Inventory
     private final Integer MAX_IDX_ITEMS = 30;
     List<CollectibleStack> itemsList = new ArrayList<>();
     Actor owner;
+
+    public static Inventory getPlayerInventory()
+    {
+        return WorldView.getPlayer().getActor().getInventory();
+    }
 
     public Inventory(Actor owner)
     {
@@ -28,6 +34,22 @@ public class Inventory
             if (c.isDefined() && c.getTypes().contains(type) && c.getTechnicalName().equals(technicalName))
                 return true;
         return false;
+    }
+
+    public boolean hasCollectibleStackOfTypeAndNumber(String technicalName, CollectableType type, int amount)
+    {
+        for (CollectibleStack c : itemsList)
+            if (c.isDefined() && c.getTypes().contains(type) && c.getTechnicalName().equals(technicalName) && c.getAmount() >= amount)
+                return true;
+        return false;
+    }
+
+    public CollectibleStack getCollectibleStackOfTypeOfTypeAndNumber(String technicalName, CollectableType type,  int amount)
+    {
+        for (CollectibleStack c : itemsList)
+            if (c.isDefined() && c.getTypes().contains(type) && c.getTechnicalName().equals(technicalName) && c.getAmount() >= amount)
+                return c;
+        return CollectibleStack.empty();
     }
 
     public CollectibleStack getCollectibleStackOfType(String technicalName, CollectableType type)
@@ -111,7 +133,7 @@ public class Inventory
         itemsList.forEach(s ->
         {
             if (s.isDefined())
-                stringBuilder.append(s.getCollectible().getSpriteStatus() + " " + s.getNumber());
+                stringBuilder.append(s.getCollectible().getSpriteStatus() + " " + s.getAmount());
         });
         return owner.getActorInGameName() +
                 " " + stringBuilder.toString()

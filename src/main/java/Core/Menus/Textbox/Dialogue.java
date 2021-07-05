@@ -1,6 +1,7 @@
 package Core.Menus.Textbox;
 
 import Core.*;
+import Core.Enums.CollectableType;
 import Core.Enums.Knowledge;
 import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.Menus.CoinGame.CoinGame;
@@ -60,8 +61,13 @@ public class Dialogue
                     String discussionGameName = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_COIN_GAME);
                     String successNextMsg = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SUCCESS);
                     String defeatNextMsg = currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_DEFEAT);
-                    addOption(TEXTBOX_ATTRIBUTE_SUCCESS, successNextMsg);
-                    addOption(TEXTBOX_ATTRIBUTE_DEFEAT, defeatNextMsg);
+                    OptionConditionData gameData = new OptionConditionData();
+                    gameData.conditionType = TEXTBOX_ATTRIBUTE_COIN_GAME;
+                    gameData.messageOutcomes.put(TEXTBOX_ATTRIBUTE_SUCCESS, successNextMsg);
+                    gameData.messageOutcomes.put(TEXTBOX_ATTRIBUTE_DEFEAT, defeatNextMsg);
+                    addOption(new Option(TEXTBOX_ATTRIBUTE_COIN_GAME, "none", gameData));
+                    //addOption(TEXTBOX_ATTRIBUTE_SUCCESS, successNextMsg);
+                    //addOption(TEXTBOX_ATTRIBUTE_DEFEAT, defeatNextMsg);
                     WorldView.setDiscussionGame(new CoinGame(discussionGameName, actorOfDialogue));
                     WorldViewController.setWorldViewStatus(WorldViewStatus.COIN_GAME);
                 }
@@ -133,32 +139,47 @@ public class Dialogue
 
     private void readOptions(Element currentDialogueXML)
     {
-        //For all options
         NodeList optionData = currentDialogueXML.getElementsByTagName(OPTION_TAG);
-        boolean isOptionVisible = true;
         for (int optionsIdx = 0; optionsIdx < optionData.getLength(); optionsIdx++)
         {
-            Node optionNode = optionData.item(optionsIdx);
-            NodeList optionChildNodes = optionNode.getChildNodes();
+            Element optionNode = (Element) optionData.item(optionsIdx);
+            // NodeList optionChildNodes = optionNode.getChildNodes();
             String nextDialogue = null;
             String optionText = null;
+            OptionConditionData conditionData = readOptionConditions(optionNode);
 
             //Check all elements for relevant data
-            for (int j = 0; j < optionChildNodes.getLength(); j++)
-                if (optionNode.getNodeName().equals(OPTION_TAG))
-                {
-                    Element optionNodeElement = (Element) optionNode;
-                    if (optionNodeElement.hasAttribute(NEXT_DIALOGUE_TAG))
-                        nextDialogue = optionNodeElement.getAttribute(NEXT_DIALOGUE_TAG);
-                    optionText = Utilities.removeAllBlanksExceptOne(optionNode.getTextContent());
+            //for (int j = 0; j < optionChildNodes.getLength(); j++)//TODO needed, ist nicht immer eine Option?
+            //if (optionNode.getNodeName().equals(OPTION_TAG))
+            //  {
+            if (optionNode.hasAttribute(NEXT_DIALOGUE_TAG))
+                nextDialogue = optionNode.getAttribute(NEXT_DIALOGUE_TAG);
+            optionText = Utilities.removeAllBlanksExceptOne(optionNode.getTextContent());
 
-                    isOptionVisible = !optionNodeElement.hasAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF) ||
-                            optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF)
-                                    .equals(getVariableCondition(optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_TYPE), optionNodeElement.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME)));
-                }
+            boolean isOptionVisible = !optionNode.hasAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF) ||
+                    optionNode.getAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF)
+                            .equals(getVariableCondition(optionNode.getAttribute(TEXTBOX_ATTRIBUTE_TYPE), optionNode.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME)));
+            //   }
+
+            Option option = new Option(optionText, nextDialogue, conditionData);
             if (isOptionVisible || DEBUG_ALL_TEXT_OPTIONS_VISIBLE)
-                addOption(optionText, nextDialogue);
+                addOption(option);
         }
+    }
+
+    private OptionConditionData readOptionConditions(Element currentDialogueXML)
+    {
+        OptionConditionData optionConditionData = new OptionConditionData();
+        if (currentDialogueXML.hasAttribute(TEXTBOX_OPTION_ATTRIBUTE_CONSUME_ITEMS))
+        {
+            optionConditionData.conditionType = TEXTBOX_OPTION_ATTRIBUTE_CONSUME_ITEMS;
+            optionConditionData.collectableTechnicalName = currentDialogueXML.getAttribute(TEXTBOX_OPTION_ATTRIBUTE_CONSUME_ITEMS);
+            optionConditionData.amount = Integer.parseInt(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_AMOUNT));
+            optionConditionData.collectableType = CollectableType.getType(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_ITEMTYPE));
+            optionConditionData.messageOutcomes.put(TEXTBOX_ATTRIBUTE_SUCCESS, currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SUCCESS));
+            optionConditionData.messageOutcomes.put(TEXTBOX_ATTRIBUTE_DEFEAT, currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_DEFEAT));
+        }
+        return optionConditionData;
     }
 
     private String getVariableCondition(String type, String varName)
@@ -202,6 +223,11 @@ public class Dialogue
         options.add(new Option(optionMessage, nextDialogue));
     }
 
+    public void addOption(Option option)
+    {
+        options.add(option);
+    }
+
     public Option getOption(String optionMsg)
     {
         for (Option option : options)
@@ -240,7 +266,6 @@ public class Dialogue
 
     public void setSensorStatus(String sensorStatus)
     {
-        String methodName = "setSensorStatus() ";
         if (sensorStatus.trim().isEmpty())
             this.sensorStatus = null;
         else
@@ -265,24 +290,4 @@ public class Dialogue
                 '}';
     }
 
-    class Option
-    {
-        String nextDialogue;
-        String optionMessage;
-
-        Option(String optionMessage, String nextDialogue)
-        {
-            this.optionMessage = optionMessage;
-            this.nextDialogue = nextDialogue;
-        }
-
-        @Override
-        public String toString()
-        {
-            return "Option{" +
-                    "nextDialogue='" + nextDialogue + '\'' +
-                    ", optionMessage='" + optionMessage + '\'' +
-                    '}';
-        }
-    }
 }

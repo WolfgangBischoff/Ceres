@@ -22,7 +22,6 @@ public class GlobalActorsManager
 
     public static void loadGlobalSystem(String path)
     {
-        String methodName = "loadGlobalSystem() ";
         keywords.add(KEYWORD_ACTORS);
         keywords.add(KEYWORD_GROUPS);
 
@@ -36,7 +35,6 @@ public class GlobalActorsManager
 
     private static void parse(List<String[]> file)
     {
-        String methodName = "parse() ";
         String readStatus = null;
         List<String> createdActorGroupsId = new ArrayList<>();
         for (String[] lineData : file) {
@@ -95,7 +93,6 @@ public class GlobalActorsManager
 
     public static Map<String, Actor> getGlobalActorsWithStatus(List<String> actorData)
     {
-        String methodName = "getGlobalActors() ";
         Map<String, Actor> globalActors = new HashMap<>();
         int idIdx = 0, spriteStatusIdx = 1, directionIdx = 2, sensorStatusIdx = 3, dialogueFileIdx = 4, dialogueIdIdx = 5, scriptIdx = 6;
         actorData.forEach(id ->
