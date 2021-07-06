@@ -3,7 +3,7 @@
 ##### 07 21
 * added item consume from textbox
 * level build trainee area
-* new sprites: public_desk
+* new sprites: public_desk, resistance blue jacket
 
 ##### 06 21
 * from inventory world interaction mode

@@ -52,13 +52,15 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Andere in Zeitabständen geladen werden => Unsichtbares Item hat SpawnData(eg. alle zwei Stunden, um 0000 Uhr)
 
 ####Sprites
+* mehr NPC, Varianten Generiert
+* Maschenzaun für Polizei
 * Docking Bay Bench im Tisch look
 * einrahmen der meldung bei items
 * aktenschrank; schachteln; pflanze, water dispenser/sink, Server
 * Ship: rename sleep capsules to numbers
-* Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
+* Industrial: Ventilation/Movingpart with bridge, Lavalampen Maschine, solar panels
 * Hammer and Sickle modern, Säulen, Tank    
-* Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Food, Medics, Brothel, Museum
+* Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Medics, Brothel, Museum
 * test: Air hub deutlicherer sprite das kaputt
 
 * Level changes with time

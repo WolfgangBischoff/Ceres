@@ -1,0 +1,21 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+#tags; automated_door, persistent
+# collectible_tags; TYPE (food, quest, ...); base_value
+#suspicious_value; 5
+#personality;initCooperation;trait1, trait1-cooperationThreshold,trai1-knowledgeTag; trait2 ...
+#personality;005;INTROVERSION,1,none;SENSING,1,none;THINKING,9,none;PERCEIVING,12,none
+
+
+#sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+#sensorStatus	;nothing																			;none																	    ;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+#sensorStatus	;manualDoor   		 									 ;persistent											    ;transition 													;none 																			;none 																		;none																;none																;none 																;none 														;persistent															;off																							;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+#sensorStatus	;script																				;textbox														    ;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;SCRIPT													;none														;none 														;none 													;none																;none 															;none																;none
+sensorStatus	;textbox																			;textbox														    ;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+sensorStatus	;initTxtInRange												;textbox														    ;none  	 																;none 																			;none 																		;textbox													;none																;persistent											;textbox												;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+
+#status to image
+#status 																																;name   																		;spritename  																																																														;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning 												;dialogueID															;dialogueFile																																					;unused		;unused		;unused		;unused		;unused		;duration 	;velocity  ;AnimationEnds
+default-south																											;Rene Columbus       					;actorData/character/jacket/blue_man/standing																														;true				;1			;1							;2			;02		;01									;64										;128											;10												;84										;44						 				;44																				;none					 								;STOP					 															;actorData/character/jacket/blue_man/resistance_helper 								;unused		;unused		;unused		;unused		;unused		;000							;000							;false
