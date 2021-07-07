@@ -31,6 +31,11 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
     * Includes sollten gespeichert werden (Teil von LevelState?), bei initial geladenen werden auch persistente hinzugefügt
 * Inventory soll CollectibleStack nutzen um zu stapeln, teilen button
 
+#### Zeit
+* Zeittrigger: Leave area with message
+* Sprite: Change dialogue, img, position, script at time
+* Sprite: set position
+
 #### Various
 * first stranger sound
 * Test: StatusInfo over sprite on key + ExclamationMark
@@ -41,7 +46,7 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Show money in Shop view
 * Coin Game
     * Test: Game ends if no correct coins are left
-* Cooperation value just increases two time a day
+* Cooperation value just increases after time
 * Create Questlog
 * render method for CollectibleStack, damit auch der Incubator anzahl anzeigt
 
@@ -62,10 +67,6 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Hammer and Sickle modern, Säulen, Tank    
 * Placeabel Structures: Kindergarten, HoloKino, Bar, Schule, Krankenhaus, Küche, LuftErfrischer, Medics, Brothel, Museum
 * test: Air hub deutlicherer sprite das kaputt
-
-* Level changes with time
-    * While Map load set global actors according to time, date, variables defined in actor file
-    * Set Actor script according to time
 
 
 # Ideas

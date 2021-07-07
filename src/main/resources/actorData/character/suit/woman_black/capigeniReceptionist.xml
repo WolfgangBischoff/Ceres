@@ -18,7 +18,7 @@
         <option>Back</option>
         <option consumeitems="FUEL_SPORE" amount="2" itemtype="BACTERIA_SPORE" success="GOT_RESULTS" defeat="NO_RESULTS">I got enough bacteria fuella</option>
     </dialogue>
-    <dialogue id="GOT_RESULTS" type="normal">
+    <dialogue id="GOT_RESULTS" type="normal" variablename="CAPIGENI_DELIVERED_BACTERIA" set="true">
         <line>Thank you, you passed the test!</line>
     </dialogue>
     <dialogue id="NO_RESULTS" type="normal">

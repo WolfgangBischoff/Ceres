@@ -19,6 +19,7 @@ public class GenericVariablesManager
         stringWorldVariables.put("STRANGER_APPEARANCE_QUEST", "false");
         stringWorldVariables.put("RESCUE_POD_QUEST_STATUS", "false");
         stringWorldVariables.put("ARRIVED_CERES", "false");
+        stringWorldVariables.put("CAPIGENI_DELIVERED_BACTERIA", "false");
     }
 
     public String getValue(String varName)
@@ -28,8 +29,7 @@ public class GenericVariablesManager
 
     public void setValue(String varName, String newValue)
     {
-        String methodName = "setValue() ";
-        //System.out.println(CLASSNAME + methodName + "Set " + varName + " from " + stringWorldVariables.get(varName) + " to " + newValue);
+        System.out.println(CLASSNAME + " Set " + varName + " from " + stringWorldVariables.get(varName) + " to " + newValue);
         stringWorldVariables.put(varName,newValue);
     }
 

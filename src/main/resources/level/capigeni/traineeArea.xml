@@ -1,0 +1,14 @@
+
+
+<root name="actorName">
+
+    <dialogue id="MANUAL_GROWSPACE" type="normal">
+        <line>To grow bacteria, you have to provide %%GRnutrition%% and the fitting %%GRbacteria spore%%.</line>
+        <line>Take the bacteria nutrition and the spores next to the terminal and put the %%GRnutrition in the growspace first%%.</line>
+        <line>The second step is to activate the growth process by putting the %%GRbacteria spore onto the nutritioned growspace%%.</line>
+        <line>After some time the bacteria will have consumed the nutrition and you can harvest it.</line>
+    </dialogue>
+
+</root>
+
+
