@@ -4,6 +4,7 @@
 * added item consume from textbox
 * level build trainee area
 * new sprites: public_desk, resistance blue jacket; fence, green_display
+* Bacteria spreads on time
 
 ##### 06 21
 * from inventory world interaction mode

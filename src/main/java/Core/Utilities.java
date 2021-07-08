@@ -33,6 +33,13 @@ public class Utilities
         return random.nextFloat();
     }
 
+    public static boolean hasRandomEventOccured(double probability)
+    {
+        float r = randomFloat();
+        //System.out.println(probability + " > " + r + " = " + (probability > r));
+        return probability > r;
+    }
+
     public static int randomSignedInt(int min, int max)
     {
         int number = random.nextInt(max - min) + min;

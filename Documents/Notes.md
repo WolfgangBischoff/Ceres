@@ -22,8 +22,8 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * smuggler docks shuttle
 
 #### Bacteria mechanic
-* Bacteria spreads on time (Sichtbare Verbindung, Felder checken position)
-* While Spreading, new bacteria can be created/ kreuzung
+* Bacteria spreads just to fitting nutrition
+* While Spreading, new bacteria can be created/ kreuzung => mit example bild sprite
 * Bacteria Resource can be put into splicer to craft or extract resource
 
 #### Engine

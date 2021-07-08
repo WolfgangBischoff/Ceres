@@ -1,6 +1,5 @@
 package Core;
 
-import Core.ActorLogic.GrowspaceManager;
 import Core.Configs.GenericVariablesManager;
 import Core.Enums.ActorTag;
 import Core.Enums.Knowledge;
@@ -84,7 +83,7 @@ public class GameVariables
         clock.skipToNextDay();
     }
 
-    public static void updateFromTime(Long currentNanoTime, List<Actor> actorList)
+    public static void updateFromTimeGameTimeDependent(Long currentNanoTime, List<Actor> actorList)
     {
         if (WorldViewController.getWorldViewStatus() == WORLD)
         {
@@ -97,11 +96,11 @@ public class GameVariables
             }
 
             //Other Actors
-            applyTime(currentNanoTime, actorList.stream().filter(a -> a.hasTag(ActorTag.APPLY_TIME)).collect(Collectors.toList()));
+            applyTimeToActorsGameTimeDepentend(currentNanoTime, actorList.stream().filter(a -> a.hasTag(ActorTag.APPLY_TIME)).collect(Collectors.toList()));
         }
     }
 
-    private static void applyTime(Long currentNanoTime, List<Actor> timeDependentActors)
+    private static void applyTimeToActorsGameTimeDepentend(Long currentNanoTime, List<Actor> timeDependentActors)
     {
         DateTime current = clock.getCurrentGameTime();
         updateGrowplaces(timeDependentActors.stream().filter(a -> a.hasTag(ActorTag.GROWPLACE)).collect(Collectors.toList()));

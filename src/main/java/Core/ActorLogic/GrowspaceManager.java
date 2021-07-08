@@ -19,9 +19,16 @@ import static Core.ActorLogic.GrowData.cultureData;
 import static Core.ActorLogic.GrowData.sporeData;
 import static Core.Enums.CollectableType.*;
 import static Core.Enums.Direction.*;
+import static Core.Utilities.hasRandomEventOccured;
 
 public class GrowspaceManager
 {
+    /*
+    Spores kosten Geld
+    Nutrition kostet Geld
+    Weniger Spores setzen günstiger, aber langsamer spread
+    Schnell verrottene Bacteria sollte mehr Spore haben
+     */
     public static final String BUILDTIME = "buildtime";
     public static final String NUTRITION = "nutrition";
     private static final String CLASSNAME = "GrowspaceManager";
@@ -44,7 +51,9 @@ public class GrowspaceManager
         }
         else if (isBacteriaNutrition(growplaceStatus))//In Nutrition state
         {
-            updateNutritionState(growspace);
+
+                updateNutritionState(growspace);
+
         }
         else if (sporeData.containsKey(BacteriaSpore.fromString(growplaceStatus)))//In seed state
         {
@@ -59,28 +68,42 @@ public class GrowspaceManager
 
     private static void updateNutritionState(Actor growspace)
     {
-        BacteriaSpore neighborSporeNorth = checkInvestation(growspace, NORTH);
-        BacteriaSpore neighborSporeSouth =checkInvestation(growspace, SOUTH);
-        BacteriaSpore neighborSporeWest = checkInvestation(growspace, WEST);
-        BacteriaSpore neighborSporeEast = checkInvestation(growspace, EAST);
+        BacteriaSpore neighborSporeNorth = getBacteriaCultureNeighbor(growspace, NORTH);
+        BacteriaSpore neighborSporeSouth = getBacteriaCultureNeighbor(growspace, SOUTH);
+        BacteriaSpore neighborSporeWest = getBacteriaCultureNeighbor(growspace, WEST);
+        BacteriaSpore neighborSporeEast = getBacteriaCultureNeighbor(growspace, EAST);
 
-        if(neighborSporeNorth != null)
-            growspace.setSpriteStatus(neighborSporeNorth.toString());
-        else if(neighborSporeSouth != null)
-            growspace.setSpriteStatus(neighborSporeSouth.toString());
-        else if(neighborSporeWest != null)
-            growspace.setSpriteStatus(neighborSporeWest.toString());
-        else if(neighborSporeEast != null)
-            growspace.setSpriteStatus(neighborSporeEast.toString());
+            if (neighborSporeNorth != null)
+            {
+                tryToSpread(growspace, neighborSporeNorth.toString());
+            }
+            if (neighborSporeSouth != null)
+                tryToSpread(growspace, neighborSporeSouth.toString());
+            if (neighborSporeWest != null)
+                tryToSpread(growspace, neighborSporeWest.toString());
+            if (neighborSporeEast != null)
+                tryToSpread(growspace, neighborSporeEast.toString());
+
     }
 
-    private static BacteriaSpore checkInvestation(Actor growspace, Direction d)
+    private static void tryToSpread(Actor growspace, String s)
+    {
+        if(hasRandomEventOccured(0.4))
+        {
+            System.out.println("Bacteria spread");
+            growspace.setSpriteStatus(s);
+        }
+        else
+            System.out.println("Bacteria did not spread");
+    }
+
+    private static BacteriaSpore getBacteriaCultureNeighbor(Actor growspace, Direction d)
     {
         Actor neightborGS = growspace.getGenericActorAttributes().get(d.toString());
-        if(neightborGS == null)
+        if (neightborGS == null)
             return null;
         BacteriaCulture neighborCulture = BacteriaCulture.fromString(neightborGS.getGeneralStatus());
-        if(neighborCulture == null)
+        if (neighborCulture == null)
             return null;
         BacteriaSpore neighborSpore = cultureData.get(neighborCulture).spore;
         return neighborSpore;
@@ -102,9 +125,9 @@ public class GrowspaceManager
         if (growspace.getGenericDateTimeAttribute(BUILDTIME) == null)
         {
             growspace.setGenericDateTimeAttribute(BUILDTIME, currentTime);
-            System.out.println("Set: " + growspace.getGenericDateTimeAttribute(BUILDTIME));
-            System.out.println("Finished " + growspace.getGenericDateTimeAttribute(BUILDTIME).add(data.minutesTillGrown));
-            System.out.println("rotten " + growspace.getGenericDateTimeAttribute(BUILDTIME).add(data.minutesTillGrown + data.minutesTillGrown));
+            //System.out.println("Set: " + growspace.getGenericDateTimeAttribute(BUILDTIME));
+            //System.out.println("Finished " + growspace.getGenericDateTimeAttribute(BUILDTIME).add(data.minutesTillGrown));
+            //System.out.println("rotten " + growspace.getGenericDateTimeAttribute(BUILDTIME).add(data.minutesTillGrown + data.minutesTillGrown));
         }
 
         if (data.isNutritionSuitable(growspace.getGenericStringAttributes().get(NUTRITION)))
@@ -140,7 +163,6 @@ public class GrowspaceManager
                 Direction d = nextTo(currentRect, otherRect);
                 if (d != UNDEFINED)
                 {
-                    //System.out.println(currentRect + " is " + d + " from " + otherRect);
                     setNeightbors(gs, d, otherGs);
                 }
             }

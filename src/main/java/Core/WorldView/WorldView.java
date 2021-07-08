@@ -557,7 +557,7 @@ public class WorldView
         calcCameraPosition();
 
         GameVariables.getClock().tryIncrementTime(currentUpdateTime);
-        GameVariables.updateFromTime(currentUpdateTime, actorList);
+        //GameVariables.updateFromTimeGameTimeDependent(currentUpdateTime, actorList);
         long hudEndTime = System.nanoTime();
 
         long timeInput = inputEndTime - updateStartTime;
@@ -1002,5 +1002,10 @@ public class WorldView
     public void setFadedOut(boolean fadedOut)
     {
         isFadedOut = fadedOut;
+    }
+
+    public static List<Actor> getActorList()
+    {
+        return actorList;
     }
 }
