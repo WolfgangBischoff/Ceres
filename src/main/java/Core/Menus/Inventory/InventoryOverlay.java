@@ -30,11 +30,11 @@ public class InventoryOverlay implements DragAndDropOverlay
     final String CANCEL_BUTTON_ID = "CANCEL";
     private final InventoryController controller;
     private final Rectangle2D SCREEN_AREA;
+    private final MouseElementsContainer mouseElements = new MouseElementsContainer();
     Image cornerTopLeft;
     Image cornerBtmRight;
     Image cancelButton;
     private Actor actor;
-    private final MouseElementsContainer mouseElements = new MouseElementsContainer();
     private MouseElement highlightedElement = null;
     private Point2D SCREEN_POSITION;
 
@@ -72,9 +72,11 @@ public class InventoryOverlay implements DragAndDropOverlay
         int initialOffsetX = (WIDTH - (numberColumns * itemTileWidth + (numberColumns - 1) * spaceBetweenTiles)) / 2; //Centered
         int initialOffsetY = 75;
         int slotNumber = 0;
-        for (int y = 0; y < numberRows; y++) {
+        for (int y = 0; y < numberRows; y++)
+        {
             int slotY = y * (itemTileWidth + spaceBetweenTiles) + initialOffsetY;
-            for (int i = 0; i < numberColumns; i++) {
+            for (int i = 0; i < numberColumns; i++)
+            {
                 //Rectangle
                 int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
                 Rectangle rectangle2D = new Rectangle(SCREEN_POSITION.getX() + slotX + 2, SCREEN_POSITION.getY() + slotY + 2, itemTileWidth - 4, itemTileWidth - 4);
@@ -109,8 +111,10 @@ public class InventoryOverlay implements DragAndDropOverlay
         int initialOffsetX = (WIDTH - (numberColumns * itemTileWidth + (numberColumns - 1) * spaceBetweenTiles)) / 2; //Centered
         int itemSlotNumber = 0;
         int slotNumber = 0;
-        for (int y = 0; y < numberRows; y++) {
-            for (int i = 0; i < numberColumns; i++) {
+        for (int y = 0; y < numberRows; y++)
+        {
+            for (int i = 0; i < numberColumns; i++)
+            {
                 Rectangle currentRect = (Rectangle) mouseElements.get(slotNumber).position;
                 gc.setFill(font);
                 gc.fillRect(currentRect.getX(), currentRect.getY(), currentRect.getWidth(), currentRect.getHeight());
@@ -129,13 +133,15 @@ public class InventoryOverlay implements DragAndDropOverlay
                 CollectibleStack current = null;
                 if (itemSlotNumber < actor.getInventory().itemsList.size())
                     current = actor.getInventory().itemsList.get(itemSlotNumber);
-                if (current != null) {
-                    gc.drawImage(current.getImage(), currentRect.getX() -2, currentRect.getY()-2);
+                if (current != null)
+                {
+                    gc.drawImage(current.getImage(), currentRect.getX() - 2, currentRect.getY() - 2);
                     gc.setFont(FONT_ORBITRON_12);
                     gc.setFill(BLACK);
-                    gc.fillText(""+current.getAmount(), currentRect.getX() + 50, currentRect.getY() + 15);
+                    gc.fillText("" + current.getAmount(), currentRect.getX() + 50, currentRect.getY() + 15);
                     //Stolen sign
-                    if (GameVariables.getStolenCollectibles().contains(current)) {
+                    if (GameVariables.getStolenCollectibles().contains(current))
+                    {
                         gc.setFill(darkRed);
                         gc.fillOval(currentRect.getX() + 44, currentRect.getY() + 44, 16, 16);
                         gc.setFill(COLOR_RED);
@@ -160,21 +166,22 @@ public class InventoryOverlay implements DragAndDropOverlay
         Rectangle cancelButtonRect = (Rectangle) mouseElements.get(CANCEL_BUTTON_ID).position;
         gc.drawImage(cancelButton, cancelButtonRect.getX(), cancelButtonRect.getY());
 
-        if(false)
+        if (false)
         {//Mouse visible
             Point2D m = GameWindow.getSingleton().getMousePosition();
             Circle mouseClickSpace = new Circle(m.getX(), m.getY(), 10);
-            gc.fillOval( mouseClickSpace.getCenterX() - mouseClickSpace.getRadius(), mouseClickSpace.getCenterY() - mouseClickSpace.getRadius(), mouseClickSpace.getRadius() * 2, mouseClickSpace.getRadius() * 2);
+            gc.fillOval(mouseClickSpace.getCenterX() - mouseClickSpace.getRadius(), mouseClickSpace.getCenterY() - mouseClickSpace.getRadius(), mouseClickSpace.getRadius() * 2, mouseClickSpace.getRadius() * 2);
         }
 
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, boolean isMouseDragged, Long currentNanoTime)
     {
-        String methodName = "processMouse(Point2D, boolean) ";
         MouseElement hoveredElement = null;
-        for (int i = 0; i < mouseElements.size(); i++) {
-            if (mouseElements.get(i).getPosition().contains(mousePosition)) {
+        for (int i = 0; i < mouseElements.size(); i++)
+        {
+            if (mouseElements.get(i).getPosition().contains(mousePosition))
+            {
                 hoveredElement = mouseElements.get(i);
                 if (hoveredElement == highlightedElement)
                 {
@@ -187,7 +194,6 @@ public class InventoryOverlay implements DragAndDropOverlay
                 }
             }
         }
-        //System.out.println(CLASSNAME + mousePosition.getX() + " " + mousePosition.getY());
 
         if ((GameWindow.getSingleton().isMouseMoved()) && hoveredElement != null)//Set highlight if mouse moved
         {
@@ -209,7 +215,8 @@ public class InventoryOverlay implements DragAndDropOverlay
 
     public void dropCollectible(DragAndDropItem dropped)
     {
-        if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG)) {
+        if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG))
+        {
             CollectibleStack collectibleToDrop = dropped.collectible;
             CollectibleStack collectibleAtTargetSlot = actor.getInventory().getCollectibeStack(mouseElements.indexOf(highlightedElement));
             dropped.previousInventory.addCollectibleStackIdx(//Swap item if exists
@@ -217,7 +224,8 @@ public class InventoryOverlay implements DragAndDropOverlay
                     dropped.previousIdx);
             actor.getInventory().addCollectibleStackIdx(collectibleToDrop, mouseElements.indexOf(highlightedElement));
         }
-        else {
+        else
+        {
             dropped.previousInventory.addCollectibleStackIdx(//Back to previous Inventory
                     dropped.collectible,
                     dropped.previousIdx);
@@ -228,9 +236,11 @@ public class InventoryOverlay implements DragAndDropOverlay
     @Override
     public void dragCollectible(Long currentNanoTime, Point2D mousePosition)
     {
-        if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG)) {
+        if (highlightedElement != null && highlightedElement.reactiveTypes.contains(DRAG))
+        {
             CollectibleStack tocheck = actor.getInventory().getCollectibeStack(mouseElements.indexOf(highlightedElement));
-            if (!tocheck.isEmpty() && controller.getDragAndDropItem() == null) {
+            if (!tocheck.isEmpty() && controller.getDragAndDropItem() == null)
+            {
                 CollectibleStack collectible = actor.getInventory().getCollectibeStack(mouseElements.indexOf(highlightedElement));
                 actor.getInventory().removeCollectibleStack(collectible);
                 controller.setDragAndDropItem(new DragAndDropItem(mousePosition.getX(), mousePosition.getY(), collectible, actor.getInventory(), mouseElements.indexOf(highlightedElement)));
@@ -240,21 +250,23 @@ public class InventoryOverlay implements DragAndDropOverlay
 
     public void updateDraggedCollectible(Long currentNanoTime, Point2D mousePosition)
     {
-        if (controller.getDragAndDropItem() != null) {
+        if (controller.getDragAndDropItem() != null)
+        {
             controller.getDragAndDropItem().setPosition(new Point2D(mousePosition.getX(), mousePosition.getY()));
         }
     }
 
     private void activateHighlightedOption()
     {
-        String methodName = "activateHighlightedOption() ";
         CollectibleStack chosenCollectible = null;
         int itemIdx = mouseElements.indexOf(highlightedElement);
         if (actor.getInventory().itemsList.size() > itemIdx && itemIdx >= 0)
             chosenCollectible = actor.getInventory().itemsList.get(itemIdx);
 
-        if (WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE) {
-            switch (highlightedElement.identifier) {
+        if (WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE)
+        {
+            switch (highlightedElement.identifier)
+            {
                 case CANCEL_BUTTON_ID:
                     if (InventoryController.playerInventoryOverlay == this)
                         WorldViewController.setWorldViewStatus(WORLD);
@@ -264,39 +276,45 @@ public class InventoryOverlay implements DragAndDropOverlay
                 default:
             }
 
-            if (chosenCollectible != null) {
+            if (chosenCollectible != null)
+            {
                 //check from which inventory to which inventory we exchange
-                if (InventoryController.playerInventoryOverlay == this) {
+                if (InventoryController.playerInventoryOverlay == this)
+                {
                     InventoryController.exchangeInventoryActor.getInventory().addCollectibleStackNextSlot(chosenCollectible);
                     InventoryController.playerActor.getInventory().removeCollectibleStack(chosenCollectible);
                 }
-                else if (InventoryController.otherInventoryOverlay == this) {
+                else if (InventoryController.otherInventoryOverlay == this)
+                {
                     InventoryController.playerActor.getInventory().addCollectibleStackNextSlot(chosenCollectible);
                     InventoryController.exchangeInventoryActor.getInventory().removeCollectibleStack(chosenCollectible);
                 }
             }
 
         }
-        else if (WorldViewController.getWorldViewStatus() == INVENTORY_SHOP || WorldViewController.getWorldViewStatus() == INCUBATOR) {
-            switch (highlightedElement.identifier) {
+        else if (WorldViewController.getWorldViewStatus() == INVENTORY_SHOP || WorldViewController.getWorldViewStatus() == INCUBATOR)
+        {
+            switch (highlightedElement.identifier)
+            {
                 case CANCEL_BUTTON_ID:
                     WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
                     break;
                 default:
             }
         }
-        else if (WorldViewController.getWorldViewStatus() == INVENTORY) {
-            switch (highlightedElement.identifier) {
+        else if (WorldViewController.getWorldViewStatus() == INVENTORY)
+        {
+            switch (highlightedElement.identifier)
+            {
                 case CANCEL_BUTTON_ID:
                     WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
                     break;
                 default:
             }
 
-            if(chosenCollectible != null && chosenCollectible.isDefined())
+            if (chosenCollectible != null && chosenCollectible.isDefined())
             {
                 controller.setMenuCollectible(chosenCollectible);
-                System.out.println(CLASSNAME + chosenCollectible.getIngameName() + " clicked");
             }
             else
             {
@@ -308,7 +326,6 @@ public class InventoryOverlay implements DragAndDropOverlay
 
     public void setHighlightedElement(MouseElement highlightedElement)
     {
-        String methodName = "setHighlightedElement() ";
         this.highlightedElement = highlightedElement;
     }
 
@@ -320,16 +337,6 @@ public class InventoryOverlay implements DragAndDropOverlay
     public void setSCREEN_POSITION(Point2D SCREEN_POSITION)
     {
         this.SCREEN_POSITION = SCREEN_POSITION;
-    }
-
-    public void setCornerTopLeft(Image cornerTopLeft)
-    {
-        this.cornerTopLeft = cornerTopLeft;
-    }
-
-    public void setCornerBtmRight(Image cornerBtmRight)
-    {
-        this.cornerBtmRight = cornerBtmRight;
     }
 
     public Rectangle2D getSCREEN_AREA()

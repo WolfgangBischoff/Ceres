@@ -52,7 +52,7 @@ public class GrowspaceManager
         else if (isBacteriaNutrition(growplaceStatus))//In Nutrition state
         {
 
-                updateNutritionState(growspace);
+            updateNutritionState(growspace);
 
         }
         else if (sporeData.containsKey(BacteriaSpore.fromString(growplaceStatus)))//In seed state
@@ -73,28 +73,28 @@ public class GrowspaceManager
         BacteriaSpore neighborSporeWest = getBacteriaCultureNeighbor(growspace, WEST);
         BacteriaSpore neighborSporeEast = getBacteriaCultureNeighbor(growspace, EAST);
 
-            if (neighborSporeNorth != null)
-            {
-                tryToSpread(growspace, neighborSporeNorth.toString());
-            }
-            if (neighborSporeSouth != null)
-                tryToSpread(growspace, neighborSporeSouth.toString());
-            if (neighborSporeWest != null)
-                tryToSpread(growspace, neighborSporeWest.toString());
-            if (neighborSporeEast != null)
-                tryToSpread(growspace, neighborSporeEast.toString());
+        if (neighborSporeNorth != null)
+        {
+            tryToSpread(growspace, neighborSporeNorth.toString());
+        }
+        if (neighborSporeSouth != null)
+            tryToSpread(growspace, neighborSporeSouth.toString());
+        if (neighborSporeWest != null)
+            tryToSpread(growspace, neighborSporeWest.toString());
+        if (neighborSporeEast != null)
+            tryToSpread(growspace, neighborSporeEast.toString());
 
     }
 
     private static void tryToSpread(Actor growspace, String s)
     {
-        if(hasRandomEventOccured(0.4))
+        if (hasRandomEventOccured(0.4))
         {
-            System.out.println("Bacteria spread");
+            //System.out.println("Bacteria spread");
             growspace.setSpriteStatus(s);
         }
-        else
-            System.out.println("Bacteria did not spread");
+        //else
+        //System.out.println("Bacteria did not spread");
     }
 
     private static BacteriaSpore getBacteriaCultureNeighbor(Actor growspace, Direction d)

@@ -21,21 +21,19 @@ import static Core.WorldView.WorldViewStatus.WORLD;
 public class GameVariables
 {
     private static final String CLASSNAME = "GameVariables/";
-    private static GameVariables singleton;
-    static private IntegerProperty playerMoney = new SimpleIntegerProperty(INIT_MONEY);
     static IntegerProperty playerMaM_duringDay = new SimpleIntegerProperty();
     static IntegerProperty playerHunger = new SimpleIntegerProperty(INIT_HUNGER);
-    static private Set<Knowledge> playerKnowledge = new HashSet<>();
     static Long lastTimeHungerFromTime;
     static Integer health = INIT_HEALTH;
+    //Game State persistent over days
+    static Sprite player;
+    private static GameVariables singleton;
+    static private IntegerProperty playerMoney = new SimpleIntegerProperty(INIT_MONEY);
+    static private Set<Knowledge> playerKnowledge = new HashSet<>();
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
     static private Clock clock;
     static private DateTime lastTimeTickUpdated;
     static private GenericVariablesManager booleanWorldVariables = new GenericVariablesManager();
-
-    //Game State persistent over days
-    static Sprite player;
-
     //Game State persistent on same day
     private static Map<String, LevelState> levelData = new HashMap<>();
     private static List<Collectible> stolenCollectibles = new ArrayList<>();
@@ -44,11 +42,6 @@ public class GameVariables
     {
         clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
         lastTimeHungerFromTime = clock.getTotalTimeTicks();
-    }
-
-    public static void setPlayer(Sprite player)
-    {
-        GameVariables.player = player;
     }
 
     public static void saveLevelState(LevelState levelState)
@@ -60,7 +53,6 @@ public class GameVariables
         if (debug)
             System.out.println(CLASSNAME + methodName + "Saved: " + levelState);
     }
-
 
     public static void addPlayerMAM_duringDay(int deltaMAM)
     {
@@ -131,6 +123,12 @@ public class GameVariables
         return playerMaM_duringDay.getValue();
     }
 
+    public static void setPlayerMaM_duringDay(int playerMaM_duringDay)
+    {
+        String methodName = "setPlayerMaM_duringDay() ";
+        GameVariables.playerMaM_duringDay.setValue(playerMaM_duringDay);
+    }
+
     public static IntegerProperty getPlayerMaM_duringDayProperty()
     {
         return playerMaM_duringDay;
@@ -146,12 +144,6 @@ public class GameVariables
         return stolenCollectibles;
     }
 
-    public static void setPlayerMaM_duringDay(int playerMaM_duringDay)
-    {
-        String methodName = "setPlayerMaM_duringDay() ";
-        GameVariables.playerMaM_duringDay.setValue(playerMaM_duringDay);
-    }
-
     public static String getCLASSNAME()
     {
         return CLASSNAME;
@@ -165,6 +157,11 @@ public class GameVariables
     public static Sprite getPlayer()
     {
         return player;
+    }
+
+    public static void setPlayer(Sprite player)
+    {
+        GameVariables.player = player;
     }
 
     public static void addPlayerMoney(int delta)

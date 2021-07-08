@@ -258,6 +258,11 @@ public class WorldView
         return null;
     }
 
+    public static List<Actor> getActorList()
+    {
+        return actorList;
+    }
+
     public void changeStage(String levelName, String spawnId, boolean invalidateSavedStages)
     {
         if (!invalidateSavedStages)
@@ -796,6 +801,24 @@ public class WorldView
         }
 
     }
+/*
+    private void drawGrid()
+    {
+        gc.setGlobalAlpha(0.5);
+        gc.setFill(gridManager.isGridBlocked() ? COLOR_RED: COLOR_GREEN);
+        gc.fillRect(gridManager.hoveredGrid.getMinX(), gridManager.hoveredGrid.getMinY(), gridManager.hoveredGrid.getWidth(), gridManager.hoveredGrid.getHeight());
+        gc.setStroke(RED);
+        gc.strokeRect(gridManager.collectibleOccupiedRect().getMinX(),gridManager.collectibleOccupiedRect().getMinY(),gridManager.collectibleOccupiedRect().getWidth(),gridManager.collectibleOccupiedRect().getHeight());
+        gc.drawImage(gridManager.getCollectibeSprite().getBaseimage(),gridManager.hoveredGrid.getMinX(), gridManager.hoveredGrid.getMinY() );
+        gc.setGlobalAlpha(1);
+        gc.setStroke(COLOR_MARKING);
+        gc.setLineWidth(2);
+        for (int x = (int) getCamX(); x < getCamX() + CAMERA_WIDTH; x += 64)
+            for (int y = (int) getCamY(); y < getCamY() + CAMERA_HEIGHT; y += 64)
+                gc.strokeRect(x, y, 64, 64);
+    }
+
+ */
 
     public void render(Long currentNanoTime)
     {
@@ -884,24 +907,6 @@ public class WorldView
         root.getChildren().add(hudCanvas);
         gc.translate(camX, camY);
     }
-/*
-    private void drawGrid()
-    {
-        gc.setGlobalAlpha(0.5);
-        gc.setFill(gridManager.isGridBlocked() ? COLOR_RED: COLOR_GREEN);
-        gc.fillRect(gridManager.hoveredGrid.getMinX(), gridManager.hoveredGrid.getMinY(), gridManager.hoveredGrid.getWidth(), gridManager.hoveredGrid.getHeight());
-        gc.setStroke(RED);
-        gc.strokeRect(gridManager.collectibleOccupiedRect().getMinX(),gridManager.collectibleOccupiedRect().getMinY(),gridManager.collectibleOccupiedRect().getWidth(),gridManager.collectibleOccupiedRect().getHeight());
-        gc.drawImage(gridManager.getCollectibeSprite().getBaseimage(),gridManager.hoveredGrid.getMinX(), gridManager.hoveredGrid.getMinY() );
-        gc.setGlobalAlpha(1);
-        gc.setStroke(COLOR_MARKING);
-        gc.setLineWidth(2);
-        for (int x = (int) getCamX(); x < getCamX() + CAMERA_WIDTH; x += 64)
-            for (int y = (int) getCamY(); y < getCamY() + CAMERA_HEIGHT; y += 64)
-                gc.strokeRect(x, y, 64, 64);
-    }
-
- */
 
     public void calcBlackOverlay(long currentNanoTime)
     {
@@ -1002,10 +1007,5 @@ public class WorldView
     public void setFadedOut(boolean fadedOut)
     {
         isFadedOut = fadedOut;
-    }
-
-    public static List<Actor> getActorList()
-    {
-        return actorList;
     }
 }
