@@ -143,15 +143,10 @@ public class Dialogue
         for (int optionsIdx = 0; optionsIdx < optionData.getLength(); optionsIdx++)
         {
             Element optionNode = (Element) optionData.item(optionsIdx);
-            // NodeList optionChildNodes = optionNode.getChildNodes();
             String nextDialogue = null;
-            String optionText = null;
+            String optionText;
             OptionConditionData conditionData = readOptionConditions(optionNode);
 
-            //Check all elements for relevant data
-            //for (int j = 0; j < optionChildNodes.getLength(); j++)//TODO needed, ist nicht immer eine Option?
-            //if (optionNode.getNodeName().equals(OPTION_TAG))
-            //  {
             if (optionNode.hasAttribute(NEXT_DIALOGUE_TAG))
                 nextDialogue = optionNode.getAttribute(NEXT_DIALOGUE_TAG);
             optionText = Utilities.removeAllBlanksExceptOne(optionNode.getTextContent());
@@ -159,7 +154,6 @@ public class Dialogue
             boolean isOptionVisible = !optionNode.hasAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF) ||
                     optionNode.getAttribute(TEXTBOX_ATTRIBUTE_VISIBLE_IF)
                             .equals(getVariableCondition(optionNode.getAttribute(TEXTBOX_ATTRIBUTE_TYPE), optionNode.getAttribute(TEXTBOX_ATTRIBUTE_VARIABLE_NAME)));
-            //   }
 
             Option option = new Option(optionText, nextDialogue, conditionData);
             if (isOptionVisible || DEBUG_ALL_TEXT_OPTIONS_VISIBLE)
@@ -216,11 +210,6 @@ public class Dialogue
         {
             return null;
         }
-    }
-
-    public void addOption(String optionMessage, String nextDialogue)
-    {
-        options.add(new Option(optionMessage, nextDialogue));
     }
 
     public void addOption(Option option)

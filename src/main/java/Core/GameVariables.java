@@ -1,5 +1,6 @@
 package Core;
 
+import Core.ActorLogic.GrowspaceManager;
 import Core.Configs.GenericVariablesManager;
 import Core.Enums.ActorTag;
 import Core.Enums.Knowledge;
@@ -7,13 +8,16 @@ import Core.GameTime.Clock;
 import Core.GameTime.DateTime;
 import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.Sprite.Sprite;
+import Core.WorldView.WorldViewController;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static Core.ActorLogic.GrowspaceManager.updateGrowplaces;
 import static Core.Configs.Config.*;
+import static Core.WorldView.WorldViewStatus.WORLD;
 
 public class GameVariables
 {
@@ -82,21 +86,25 @@ public class GameVariables
 
     public static void updateFromTime(Long currentNanoTime, List<Actor> actorList)
     {
-        //Hunger
-        int intervalsForHunger = 9;// 12hours = 43 200 ticks
-        if (lastTimeHungerFromTime + intervalsForHunger < clock.getTotalTimeTicks()) {
-            addHunger(-1);
-            lastTimeHungerFromTime = clock.getTotalTimeTicks();
-        }
+        if (WorldViewController.getWorldViewStatus() == WORLD)
+        {
+            //Hunger
+            int intervalsForHunger = 9;// 12hours = 43 200 ticks
+            if (lastTimeHungerFromTime + intervalsForHunger < clock.getTotalTimeTicks())
+            {
+                addHunger(-1);
+                lastTimeHungerFromTime = clock.getTotalTimeTicks();
+            }
 
-        //Other Actors
-        applyTime(currentNanoTime, actorList.stream().filter(a -> a.hasTag(ActorTag.APPLY_TIME)).collect(Collectors.toList()));
+            //Other Actors
+            applyTime(currentNanoTime, actorList.stream().filter(a -> a.hasTag(ActorTag.APPLY_TIME)).collect(Collectors.toList()));
+        }
     }
 
     private static void applyTime(Long currentNanoTime, List<Actor> timeDependentActors)
     {
         DateTime current = clock.getCurrentGameTime();
-        timeDependentActors.forEach(a -> a.actAccordingToApplyTimeTag(currentNanoTime));
+        updateGrowplaces(timeDependentActors.stream().filter(a -> a.hasTag(ActorTag.GROWPLACE)).collect(Collectors.toList()));
     }
 
     public static void addHunger(int delta)

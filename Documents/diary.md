@@ -8,7 +8,7 @@
 ##### 06 21
 * from inventory world interaction mode
 * aus Inventor genutzten Scrap/Food Item auf Growspace anwenden => Nahrung
-* aus Inventor genutzten Bacteriatprobe Item auf Growspace anwenden => Beginne Prozess (Sprite entspricht Pflanze)
+* aus Inventor genutzten Bagrcteriatprobe Item auf Growspace anwenden => Beginne Prozess (Sprite entspricht Pflanze)
 * Sprite von Menu und maus adden
 * item stacks können einzelne items bewegen
 * item grid shows hint "Esc to leave"

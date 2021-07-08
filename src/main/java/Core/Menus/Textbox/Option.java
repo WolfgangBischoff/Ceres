@@ -6,12 +6,6 @@ class Option
     OptionConditionData conditionData;
     private String nextDialogue;
 
-    Option(String optionMessage, String nextDialogue)
-    {
-        this.optionMessage = optionMessage;
-        this.nextDialogue = nextDialogue;
-    }
-
     Option(String optionMessage, String nextDialogue, OptionConditionData conditionData)
     {
         this.optionMessage = optionMessage;

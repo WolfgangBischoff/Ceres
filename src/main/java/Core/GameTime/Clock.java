@@ -25,7 +25,6 @@ public class Clock
 
     public void tryIncrementTime(Long currentNanoTime)
     {
-        String methodName = "tryIncrementTime() ";
         switch (timeMode)
         {
             case DAY:

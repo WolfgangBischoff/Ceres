@@ -10,9 +10,9 @@ sensorStatus	;default												;none																					;none  	 												
 tags; automated_door_relevant; player
 
 #contains_collectible ;actor file path																																	;SpriteStatus												;AMOUNT
-contains_collectible 	;actorData/collectibles/food/food																;asiaStar																;5
-contains_collectible 	;actorData/collectibles/bacteria/bacteria_seed			;FUEL_SPORE              ;5
-contains_collectible 	;actorData/collectibles/metal/metal														;scrapmetal              ;5
+contains_collectible 	;actorData/collectibles/food/food																;asiaStar																;10
+contains_collectible 	;actorData/collectibles/bacteria/bacteria_seed			;FUEL_SPORE              ;10
+contains_collectible 	;actorData/collectibles/metal/metal														;scrapmetal              ;10
 contains_collectible 	;actorData/collectibles/key/keycard														;electric_lockpic        ;1
 
 #status 																		;name   																;spritename  																																																													;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning 				;dialogueID;dialogueFile;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds

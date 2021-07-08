@@ -550,6 +550,11 @@ public class Sprite
         return position.getX();
     }
 
+    public Point2D getPosition()
+    {
+        return position;
+    }
+
     public double getY()
     {
         return position.getY();

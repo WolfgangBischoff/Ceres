@@ -14,8 +14,13 @@ public enum BacteriaNutrition
             case "NUTRITION_METAL":
                 return NUTRITION_METAL;
             default:
-                throw new RuntimeException("BacteriaNutrition unknown: " + type);
+                return null;
         }
+    }
+
+    public static boolean isBacteriaNutrition(String s)
+    {
+        return fromString(s) != null;
     }
 
 }

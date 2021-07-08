@@ -55,6 +55,7 @@ public class Actor
     PersonalityContainer personalityContainer;
     Map<String, Double> genericDoubleAttributes = new HashMap<>();
     Map<String, String> genericStringAttributes = new HashMap<>();
+    Map<String, Actor> genericActorAttributes = new HashMap<>();
     Script script;
     private Set<CollectableType> collectableTags = new HashSet<>();
     private Map<String, DateTime> genericDateTimeAttributes = new HashMap<>();
@@ -694,15 +695,6 @@ public class Actor
             setVelocity(0, 0);
     }
 
-    public void actAccordingToApplyTimeTag(Long currentNanoTime)
-    {
-        if (WorldViewController.getWorldViewStatus() == WORLD)
-        {
-            if (hasTag(GROWPLACE))
-                GrowspaceManager.grow(this);
-        }
-    }
-
 
     private void collect(Actor collectingActor)
     {
@@ -1053,9 +1045,14 @@ public class Actor
         return sensorStatusMap;
     }
 
-    public void setSensorStatusMap(Map<String, SensorStatus> sensorStatusMap)
+    public Map<String, DateTime> getGenericDateTimeAttributes()
     {
-        this.sensorStatusMap = sensorStatusMap;
+        return genericDateTimeAttributes;
+    }
+
+    public Map<String, Actor> getGenericActorAttributes()
+    {
+        return genericActorAttributes;
     }
 
     public SensorStatus getSensorStatus()
@@ -1063,9 +1060,13 @@ public class Actor
         return sensorStatus;
     }
 
+    public void setGenericActorAttribute(String id, Actor actor)
+    {
+        genericActorAttributes.put(id, actor);
+    }
+
     public void setSensorStatus(String sensorStatusString)
     {
-        String methodName = "setSensorStatus(String) ";
         if (sensorStatusMap.get(sensorStatusString) == null)
             throw new RuntimeException("Sensor Status not defined: " + sensorStatusString + " at actor " + actorFileName + " known status: " + sensorStatusMap);
 
@@ -1093,11 +1094,6 @@ public class Actor
         return genericDoubleAttributes;
     }
 
-    public void setGenericDoubleAttributes(Map<String, Double> genericDoubleAttributes)
-    {
-        this.genericDoubleAttributes = genericDoubleAttributes;
-    }
-
     public void setStageMonitor(ActorMonitor actorMonitor)
     {
         this.actorMonitor = actorMonitor;
@@ -1111,11 +1107,6 @@ public class Actor
     public void setActorId(String actorId)
     {
         this.actorId = actorId;
-    }
-
-    public void setTextbox_analysis_group_name(String textbox_analysis_group_name)
-    {
-        this.textbox_analysis_group_name = textbox_analysis_group_name;
     }
 
     public DateTime getGenericDateTimeAttribute(String id)
