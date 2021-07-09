@@ -61,7 +61,6 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 
 ####Sprites
 * mehr NPC, Varianten Generiert
-* Maschenzaun für Polizei
 * Docking Bay Bench im Tisch look
 * einrahmen der meldung bei items
 * aktenschrank; schachteln; pflanze, water dispenser/sink, Server
@@ -110,6 +109,8 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Dossiers in INFO, background story
 
 ##Contents
+- Checkpoints als Barierer, man will nicht kontrolliert werden
+-Nightclub
 - get a robot begleiter, Robot Avatars, remote control, oder Amöbe
 - Cook Serve delicious
 Mechanics:
