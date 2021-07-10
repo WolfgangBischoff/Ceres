@@ -74,14 +74,34 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 # Ideas
 ##Basemechanics
 ### Transform your Transporter to a better place to live
-* Build and maintain Support Infrastructure (predefinded place or semi free)
-* gather resources on Ceres or asteriods => Random Encounters with hazards or enemies
-* Infrastructure for Daily needs like Sleep, Food, Air, Entertainment
+* Build and maintain Support Infrastructure
+  - Food/Air Recycling 
+    => Food ist recycelt by 90%, for new persons we have to stock up. Constant supply of neutral biomass from bacteria
+  - Private Capsules show who lives there
+    => Upgrades
+  - Holo Cinema
+    => Goods from Ceres
+  - Bar
+  - Childcare
+  - Medical Bay
+  - Garden with Earth Food
+* Gather resources on Ceres or asteriods => Random Encounters with hazards or enemies
+  - Lost Places without athmosphere
+  - Criminal UnderStation
+  - Asteriod, Crypto Volcano
 * Find new People for the ship, maybe moral dillema (bad skills vs good, Laster)
+  - People come to better their life
+  - leave if needs not fullfilled
+  - Your access to Ceres/resources is limited by the MaM
+  - You are not biometrical registered on Ceres, you can move like a trader
+  - You are a criminal, stay undetected during operations
+  - Citiziens of Ceres are registered, you fellows are dept slaves
+  - Level 0 => Open gates
+  - Level 1 Ausfuhrbeschränkungen, bestimmte Güter werden konfisziert (bypass)
+  - Level 2 ID Checks, Checkpoint are a no Go
 
 ###Ceres
 * board time and ceres time are different, ceres night/day changes world
-* You are a criminal, stay undetected during operations
 * public areas / maintenance areas / Work areas / forgotten areas to trade/harvest/scavenge/sabotage
     * Propaganda actions increase revSpirit
     * Once revSpirit Threshold is reached you can go to another area/ world changes
