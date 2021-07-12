@@ -22,7 +22,6 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * smuggler docks shuttle
 
 #### Bacteria mechanic
-* Bacteria spreads just to fitting nutrition
 * While Spreading, new bacteria can be created/ kreuzung => mit example bild sprite
 * Bacteria Resource can be put into splicer to craft or extract resource
 
@@ -127,6 +126,8 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * meet entertainers and use their influence
 * storyrelevant characters that can be recruited => assign to activieties 
 * Dossiers in INFO, background story
+
+###Textadenture wie Gloria Vicits
 
 ##Contents
 - Checkpoints als Barierer, man will nicht kontrolliert werden

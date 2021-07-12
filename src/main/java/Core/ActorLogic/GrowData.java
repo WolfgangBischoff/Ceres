@@ -19,7 +19,7 @@ public class GrowData
 
     static
     {
-        GrowData fuel = new GrowData(FUEL_CULTURE, FUEL_SPORE, 10, 10, Arrays.asList(NUTRITION_ORGANIC));
+        GrowData fuel = new GrowData(FUEL_CULTURE, FUEL_SPORE, 10, 60, Arrays.asList(NUTRITION_ORGANIC));
         sporeData.put(FUEL_SPORE, fuel);
         cultureData.put(FUEL_CULTURE, fuel);
 
