@@ -5,7 +5,7 @@ shadow:
 none
 
 time_mode:
-DAY
+STOPPED
 
 spawnpoints:
 #ID												;PosX;PosY	;Direction

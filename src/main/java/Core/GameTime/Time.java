@@ -1,6 +1,7 @@
 package Core.GameTime;
 
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 public class Time implements Comparable
 {
@@ -27,19 +28,14 @@ public class Time implements Comparable
         return new Time(this.hours + hours, this.minutes + minutes);
     }
 
-    public static boolean isWithin(Time minRange, Time maxRange, Time now)
+    public static boolean isBetween(Time minRange, Time maxRange, Time now)
     {
         TimeComparator comparator = new TimeComparator();
         if (comparator.compare(minRange, maxRange) > 1)
             throw new RuntimeException("Min is less than max");
 
-        if ((comparator.compare(minRange, now) == 0 || comparator.compare(minRange, now) < 0)
-                && (comparator.compare(maxRange, now) == 0 || comparator.compare(maxRange, now) > 0))
-        {
-            return true;//within interval
-        }
-        else
-            return false;
+        return (comparator.compare(minRange, now) == 0 || comparator.compare(minRange, now) < 0)
+                && (comparator.compare(maxRange, now) == 0 || comparator.compare(maxRange, now) > 0);//within interval
     }
 
     public Long ticks()
@@ -85,4 +81,16 @@ public class Time implements Comparable
         return 0;
 
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (!(o instanceof Time)) return false;
+        Time time = (Time) o;
+        return getMinutes().equals(time.getMinutes()) &&
+                Objects.equals(getFiveMinutes(), time.getFiveMinutes()) &&
+                getHours().equals(time.getHours());
+    }
+
 }

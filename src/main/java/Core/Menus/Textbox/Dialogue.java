@@ -128,9 +128,9 @@ public class Dialogue
                 if (currentDialogueXML.hasAttribute((TEXTBOX_ATTRIBUTE_SET_WORLD_LIGHT)))
                 {
                     if (currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SET_WORLD_LIGHT).equals("night"))
-                        WorldView.getSingleton().setShadowColor(COLOR_EMERGENCY_LIGHT);
+                        WorldView.setShadowColor(COLOR_EMERGENCY_LIGHT);
                     else
-                        WorldView.getSingleton().setShadowColor(null);
+                        WorldView.setShadowColor(null);
                 }
                 break;
         }

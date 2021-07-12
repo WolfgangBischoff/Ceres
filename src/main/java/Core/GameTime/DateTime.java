@@ -19,7 +19,7 @@ public class DateTime implements Comparable
         dayTime = new Time(ticks % 1440);
     }
 
-    public static boolean isWithin(DateTime minRange, DateTime maxRange, DateTime now)
+    public static boolean isBetween(DateTime minRange, DateTime maxRange, DateTime now)
     {
         DateTimeComparator comparator = new DateTimeComparator();
         if (comparator.compare(minRange, maxRange) > 1)

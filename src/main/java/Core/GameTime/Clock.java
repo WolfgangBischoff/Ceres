@@ -1,14 +1,20 @@
 package Core.GameTime;
 
 import Core.GameVariables;
+import Core.GameWindow;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
+import javafx.scene.paint.Color;
 
-import static Core.Configs.Config.DAY_WAKE_UP_TIME;
-import static Core.Configs.Config.LENGTH_GAME_MINUTE_SECONDS;
+import java.util.Date;
+
+import static Core.Configs.Config.*;
+import static Core.GameTime.DayPart.DAY;
+import static Core.GameTime.DayPart.NIGHT;
+import static Core.WorldView.WorldView.setShadowColor;
 
 
 public class Clock
@@ -19,7 +25,8 @@ public class Clock
     private static String CLASSNAME = "Clock/";
     LongProperty totalTimeTicks = new SimpleLongProperty(DAY_WAKE_UP_TIME.ticks());
     Long lastTimeIncremented;
-    TimeMode timeMode = TimeMode.RUNNING;
+    ClockMode clockMode = ClockMode.RUNNING;
+    DayPart dayPart = DAY;
 
     public Clock(Long initRealTime)
     {
@@ -28,16 +35,16 @@ public class Clock
 
     public void tryIncrementTime(Long currentNanoTime)
     {
-        switch (timeMode)
+        switch (clockMode)
         {
-            case DAY:
-            case NIGHT:
+            case STOPPED:
                 break;
             case RUNNING:
                 double elapsedTimeSinceLastIncrement = (currentNanoTime - lastTimeIncremented) / 1000000000.0;
                 if (elapsedTimeSinceLastIncrement > LENGTH_GAME_MINUTE_SECONDS && WorldViewController.getWorldViewStatus() == WorldViewStatus.WORLD)
                 {
                     incrementTime(currentNanoTime);
+                    updateWorld(currentNanoTime);
                 }
         }
     }
@@ -46,16 +53,50 @@ public class Clock
     {
         totalTimeTicks.set(totalTimeTicks.getValue() + 1);
         lastTimeIncremented = currentNanoTime;
+    }
+
+    public void updateWorld(Long currentNanoTime)
+    {
+        DateTime date = GameVariables.gameDateTime();
+        if (Time.isBetween(DAY_LIGHT_ON_TIME, DAY_LIGHT_OFF_TIME, date.getTime()) && dayPart == NIGHT)
+        {
+            dayPart = DAY;
+            String reloadDay = WorldView.getLevelName();
+            //WorldView.getSingleton().changeStage(reloadDay, "default", false);
+            System.out.println("Day begins");
+        }
+        else if (!Time.isBetween(DAY_LIGHT_ON_TIME, DAY_LIGHT_OFF_TIME, date.getTime()) && dayPart == DAY)
+        {
+            dayPart = NIGHT;
+            String reloadDay = WorldView.getLevelName();
+            //WorldView.getSingleton().changeStage(reloadDay, "default", false);
+            System.out.println("Night begins");
+        }
+        setShadowColor(getShadowColorFromTime(date));
 
         //Jede 5 Minute ausführen
         if (totalTimeTicks.get() % 5 == 0)
             GameVariables.updateFromTimeGameTimeDependent(currentNanoTime, WorldView.getActorList());
     }
 
+    private Color getShadowColorFromTime(DateTime time)
+    {
+        if (WorldView.getShadowColor() == COLOR_EMERGENCY_LIGHT)
+        {
+            return COLOR_EMERGENCY_LIGHT;
+        }
+        else if (dayPart == DAY)
+        {
+            return null;
+        }
+        else
+            return COLOR_NIGHT_LIGHT;
+    }
 
     public void addTime(int hours)
     {
         totalTimeTicks.setValue(totalTimeTicks.getValue() + hours * TICKS_PER_HOUR);
+        //updateWorld(GameWindow.getCurrentNanoRenderTimeGameWindow());
     }
 
     public void skipToNextDay()
@@ -86,14 +127,14 @@ public class Clock
         return totalTimeTicks;
     }
 
-    public TimeMode getTimeMode()
+    public ClockMode getClockMode()
     {
-        return timeMode;
+        return clockMode;
     }
 
-    public void setTimeMode(TimeMode timeMode)
+    public void setClockMode(ClockMode clockMode)
     {
-        this.timeMode = timeMode;
+        this.clockMode = clockMode;
         //System.out.println(CLASSNAME + "setTimeMode: " + timeMode.name());
     }
 }

@@ -4,7 +4,7 @@ import Core.ActorSystem.ActorMonitor;
 import Core.ActorSystem.GlobalActorsManager;
 import Core.Configs.Config;
 import Core.Enums.Direction;
-import Core.GameTime.TimeMode;
+import Core.GameTime.ClockMode;
 import Core.Sprite.Sprite;
 import Core.Sprite.SpriteData;
 import Core.WorldView.WorldView;
@@ -45,7 +45,7 @@ public class WorldLoader
     int currentVerticalTile = 0;
     int currentHorizontalTile = 0;
     int maxHorizontalTile = 0;
-    TimeMode timeMode = TimeMode.RUNNING;
+    ClockMode clockMode = ClockMode.RUNNING;
     private Rectangle2D borders;
 
     public WorldLoader()
@@ -169,7 +169,7 @@ public class WorldLoader
                 getGlobalSystemActor(lineData);
                 break;
             case KEYWORD_TIME_MODE:
-                timeMode = readTimeMode(lineData);
+                clockMode = readTimeMode(lineData);
                 break;
             case KEYWORD_LOG:
                 log(lineData);
@@ -188,9 +188,9 @@ public class WorldLoader
         System.out.println();
     }
 
-    private TimeMode readTimeMode(String[] linedata)
+    private ClockMode readTimeMode(String[] linedata)
     {
-        return TimeMode.of(linedata[0]);
+        return ClockMode.of(linedata[0]);
     }
 
     private void getGlobalSystemActor(String[] linedata)
@@ -336,7 +336,6 @@ public class WorldLoader
 
     private Color readWorldShadow(String[] lineData)
     {
-        String methodName = CLASSNAME + "readWorldShadow() ";
         if (lineData[0].equalsIgnoreCase("EMERGENCY_LIGHT"))
             return COLOR_EMERGENCY_LIGHT;
         else if (lineData[0].equalsIgnoreCase("none"))
@@ -649,9 +648,9 @@ public class WorldLoader
         return maxHorizontalTile;
     }
 
-    public TimeMode getTimeMode()
+    public ClockMode getClockMode()
     {
-        return timeMode;
+        return clockMode;
     }
 
     public List<Sprite> getTopLayer()
