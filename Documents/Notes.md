@@ -30,9 +30,8 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
     * Includes sollten gespeichert werden (Teil von LevelState?), bei initial geladenen werden auch persistente hinzugefügt
 
 #### Zeit
-* Zeittrigger: Leave area with message
+* Zeittrigger: Leave area with message => Definiert in Level reload options
 * Sprite: Change dialogue, img, position, script at time
-* Sprite: set position
 
 #### Inventar
 * Item sollen stacken beim aufsammeln

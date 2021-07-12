@@ -5,6 +5,7 @@
 * level build trainee area
 * new sprites: public_desk, resistance blue jacket; fence, green_display
 * Bacteria spreads on time, just to fitting nutrition
+* load include from dayPart
 
 ##### 06 21
 * from inventory world interaction mode

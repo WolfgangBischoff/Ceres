@@ -14,6 +14,7 @@ import java.util.Date;
 import static Core.Configs.Config.*;
 import static Core.GameTime.DayPart.DAY;
 import static Core.GameTime.DayPart.NIGHT;
+import static Core.WorldView.WorldView.getPlayer;
 import static Core.WorldView.WorldView.setShadowColor;
 
 
@@ -61,22 +62,25 @@ public class Clock
         if (Time.isBetween(DAY_LIGHT_ON_TIME, DAY_LIGHT_OFF_TIME, date.getTime()) && dayPart == NIGHT)
         {
             dayPart = DAY;
-            String reloadDay = WorldView.getLevelName();
-            //WorldView.getSingleton().changeStage(reloadDay, "default", false);
-            System.out.println("Day begins");
+            reloadStageAfterDayChange();
         }
         else if (!Time.isBetween(DAY_LIGHT_ON_TIME, DAY_LIGHT_OFF_TIME, date.getTime()) && dayPart == DAY)
         {
             dayPart = NIGHT;
-            String reloadDay = WorldView.getLevelName();
-            //WorldView.getSingleton().changeStage(reloadDay, "default", false);
-            System.out.println("Night begins");
+            reloadStageAfterDayChange();
         }
         setShadowColor(getShadowColorFromTime(date));
 
         //Jede 5 Minute ausführen
         if (totalTimeTicks.get() % 5 == 0)
             GameVariables.updateFromTimeGameTimeDependent(currentNanoTime, WorldView.getActorList());
+    }
+
+    private void reloadStageAfterDayChange()
+    {
+        String reloadDay = WorldView.getLevelName();
+        WorldView.getSingleton().changeStage(reloadDay, getPlayer().getPosition(), true);
+        System.out.println("Reloaded world");
     }
 
     private Color getShadowColorFromTime(DateTime time)
@@ -96,7 +100,6 @@ public class Clock
     public void addTime(int hours)
     {
         totalTimeTicks.setValue(totalTimeTicks.getValue() + hours * TICKS_PER_HOUR);
-        //updateWorld(GameWindow.getCurrentNanoRenderTimeGameWindow());
     }
 
     public void skipToNextDay()
@@ -135,6 +138,10 @@ public class Clock
     public void setClockMode(ClockMode clockMode)
     {
         this.clockMode = clockMode;
-        //System.out.println(CLASSNAME + "setTimeMode: " + timeMode.name());
+    }
+
+    public DayPart getDayPart()
+    {
+        return dayPart;
     }
 }

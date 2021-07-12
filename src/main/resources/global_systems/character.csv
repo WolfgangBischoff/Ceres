@@ -1,10 +1,11 @@
 
 
 ACTORS:
-#code 					;actorFileName																																					;IngameName															;sprite-status						;sensor-status										;direction
-medic_					;actorData/character/medic_woman/medic_woman							;Kay Bishop															;default												;default																;south
-techni					;actorData/character/technician/technician									;Luca Grethart												;default												;default																;south
-tender					;actorData/character/tenderer/tenderer													;Julius Soulles											;day0															;default																;south
-strang					;actorData/character/stranger/stranger													;Stranger																	;default												;default																;south
-guard_					;actorData/character/black_overall/black_overall			;Guard																				;default												;default																;south
-travel					;actorData/character/lime_woman/lime_woman									;Traveller Alina 							  ;default												;script																	;south
+#code 					;actorFileName																																										;IngameName															;sprite-status						;sensor-status										;direction
+medic_					;actorData/character/medic_woman/medic_woman												;Kay Bishop															;default												;default																;south
+techni					;actorData/character/technician/technician														;Luca Grethart												;default												;default																;south
+tender					;actorData/character/tenderer/tenderer																		;Julius Soulles											;day0															;default																;south
+strang					;actorData/character/stranger/stranger																		;Stranger																	;default												;default																;south
+guard_					;actorData/character/black_overall/black_overall								;Guard																				;default												;default																;south
+travel					;actorData/character/lime_woman/lime_woman														;Traveller Alina 							  ;default												;script																	;south
+reneCo					;actorData/character/jacket/blue_man/resistance_helper		;Lincoln Partius			  ;default												;default																;south

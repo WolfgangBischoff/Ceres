@@ -273,6 +273,14 @@ public class WorldView
         loadStage(levelName, spawnId);
     }
 
+    public void changeStage(String levelName, Point2D spawnPoint, boolean invalidateSavedStages)
+    {
+        Direction d = player.getActor().getDirection();
+        changeStage(levelName, "default", invalidateSavedStages);
+        player.setPosition(spawnPoint);//Maybe refactor out from WorldLoader
+        player.getActor().setDirection(d);
+    }
+
     private void saveStage()
     {
         String levelNameToSave = levelName;

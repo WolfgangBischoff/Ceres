@@ -459,6 +459,11 @@ public class Sprite
         position = new Point2D(x, y);
     }
 
+    public void setPosition(Point2D p)
+    {
+        position = p;
+    }
+
     public Boolean getAnimated()
     {
         return animated;

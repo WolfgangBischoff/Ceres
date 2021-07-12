@@ -66,7 +66,8 @@ public class Config
     public static final Time DAY_WAKE_UP_TIME = new Time(7, 0);
     public static final Color COLOR_EMERGENCY_LIGHT = Color.rgb(0, 30, 30);
     public static final Color COLOR_NIGHT_LIGHT = Color.rgb(50, 80, 80);
-    public static final float LENGTH_GAME_MINUTE_SECONDS = 0.01f;
+    //public static final float LENGTH_GAME_MINUTE_SECONDS = 0.01f;
+    public static final float LENGTH_GAME_MINUTE_SECONDS = 1f;
     public static final int MAX_HUNGER = 100;
     public static final int INIT_HUNGER = 50;
     public static final int INIT_HEALTH = 5;
@@ -90,6 +91,7 @@ public class Config
     public static final String INCLUDE_CONDITION_day_greaterequal = "day_greaterequal";
     public static final String INCLUDE_CONDITION_IF = "onDaystart_if";
     public static final String INCLUDE_CONDITION_IF_NOT = "onDaystart_ifNot";
+    public static final String INCLUDE_CONDITION_DAYPART = "daypart";
     //Actorfile Keywords
     public static final String KEYWORD_sensorStatus = "sensorStatus";
     public static final String KEYWORD_transition = "transition";

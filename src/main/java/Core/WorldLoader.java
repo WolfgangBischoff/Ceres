@@ -5,6 +5,7 @@ import Core.ActorSystem.GlobalActorsManager;
 import Core.Configs.Config;
 import Core.Enums.Direction;
 import Core.GameTime.ClockMode;
+import Core.GameTime.DayPart;
 import Core.Sprite.Sprite;
 import Core.Sprite.SpriteData;
 import Core.WorldView.WorldView;
@@ -195,7 +196,6 @@ public class WorldLoader
 
     private void getGlobalSystemActor(String[] linedata)
     {
-        String methodName = "getGlobalSystemActor() ";
         GlobalActorsManager.loadGlobalSystem(linedata[0]);
         List<String> actorIds = Arrays.asList(linedata).subList(1, linedata.length);
         globalActorsMap.putAll(GlobalActorsManager.getGlobalActorsWithStatus(actorIds));
@@ -204,7 +204,6 @@ public class WorldLoader
 
     private void readPosition(String[] lineData)
     {
-        String methodName = "readPosition() ";
         String actorId = lineData[0];
         int xPos = Integer.parseInt(lineData[1]);
         int yPos = Integer.parseInt(lineData[2]);
@@ -220,19 +219,15 @@ public class WorldLoader
             actor.spriteList.get(j).setPosition(xPos, yPos);
             addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).renderLayer);
             loadedTileIdsSet.remove(actorId);//Check for ununsed Definitions
-            //System.out.println(CLASSNAME + methodName + actor.spriteList.get(j).getPositionX() +" "+ actor.spriteList.get(j).getPositionY());
         }
     }
 
     private void readInclude(String[] lineData)
     {
-        String methodName = "readInclude()";
-        boolean debug = false;
         int includeFilePathIdx = 0;
         int includeConditionTypeIdx = 1;
         int includeConditionParamsStartIdx = 2;
 
-        //Check include condition
         String condition = lineData[includeConditionTypeIdx];
         switch (condition)
         {
@@ -241,8 +236,6 @@ public class WorldLoader
                 int currentSuspicion = GameVariables.getPlayerMaM_dayStart();
                 if (currentSuspicion <= suspicionThreshold)//condition met
                 {
-                    if (debug)
-                        System.out.println(CLASSNAME + methodName + "" + Arrays.toString(lineData) + " " + currentSuspicion + " / " + suspicionThreshold);
                     break;
                 }
                 else
@@ -266,18 +259,25 @@ public class WorldLoader
                     return;
 
             case INCLUDE_CONDITION_IF_NOT:
-                List<Pair<String, String>> paramsnot = Utilities.readParameterPairs(Arrays.copyOfRange(lineData, includeConditionParamsStartIdx, lineData.length));
-                boolean allVariabelsTrue2 = true;
-                for (Pair<String, String> pair : paramsnot)
-                    if (GameVariables.getGenericVariableManager().getValue(pair.getKey()).equals(pair.getValue()))
-                        allVariabelsTrue2 = false;
-                if (allVariabelsTrue2)
+            List<Pair<String, String>> paramsnot = Utilities.readParameterPairs(Arrays.copyOfRange(lineData, includeConditionParamsStartIdx, lineData.length));
+            boolean allVariabelsTrue2 = true;
+            for (Pair<String, String> pair : paramsnot)
+                if (GameVariables.getGenericVariableManager().getValue(pair.getKey()).equals(pair.getValue()))
+                    allVariabelsTrue2 = false;
+            if (allVariabelsTrue2)
+                break;
+            else
+                return;
+
+            case INCLUDE_CONDITION_DAYPART:
+                DayPart truePart = DayPart.of(lineData[includeConditionParamsStartIdx]);
+                if(GameVariables.getClock().getDayPart() == truePart)
                     break;
                 else
                     return;
 
             default:
-                throw new RuntimeException(CLASSNAME + methodName + " Include Condition unknown: " + condition);
+                throw new RuntimeException(CLASSNAME + " Include Condition unknown: " + condition);
 
         }
 
@@ -287,7 +287,6 @@ public class WorldLoader
 
     private void readSpawnPoint(String[] lineData)
     {
-        String methodName = "readSpawnPoint()";
         int spawnIdIdx = 0;
         int spawnXId = 1;
         int spawnYId = 2;
@@ -301,14 +300,10 @@ public class WorldLoader
 
     private void readActorGroups(String[] lineData)
     {
-        String methodName = "readActorGroups(String[])";
-        boolean debug = false;
-
         int groupName_Idx = 0;
         int groupLogic_Idx = 1;
         int dependentGroupName_Idx = 2;
         int start_idx_memberIds = 3;
-        //System.out.println(CLASS_NAME + methodName + Arrays.toString(lineData));
         actorMonitor.getGroupToLogicMap().put(lineData[groupName_Idx], lineData[groupLogic_Idx]);
         actorMonitor.getGroupIdToInfluencedGroupIdMap().put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
 
@@ -324,13 +319,6 @@ public class WorldLoader
             actorGroupData = actorGroupDataMap.get(actorId);
             actorGroupData.memberOfGroups.add(lineData[groupName_Idx]);
         }
-
-        if (debug)
-        {
-            for (Map.Entry<String, ActorGroupData> actorData : actorGroupDataMap.entrySet())
-                System.out.println(CLASSNAME + methodName + actorData.getKey() + " " + actorData.getValue().memberOfGroups);
-        }
-
 
     }
 
@@ -367,10 +355,7 @@ public class WorldLoader
 
     private void readLineOfTiles(String[] lineData, Boolean isPassiv) throws IllegalArgumentException
     {
-        String methodName = "readLineOfTiles() ";
         String lineNumber = "[not set]";
-
-
         //from left to right, reads tile codes
         for (currentHorizontalTile = 0; currentHorizontalTile < lineData.length; currentHorizontalTile++)
         {
