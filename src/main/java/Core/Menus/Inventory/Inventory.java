@@ -16,16 +16,16 @@ public class Inventory
     List<CollectibleStack> itemsList = new ArrayList<>();
     Actor owner;
 
-    public static Inventory getPlayerInventory()
-    {
-        return WorldView.getPlayer().getActor().getInventory();
-    }
-
     public Inventory(Actor owner)
     {
         this.owner = owner;
         for (int i = 0; i < MAX_IDX_ITEMS; i++)
             itemsList.add(CollectibleStack.empty());
+    }
+
+    public static Inventory getPlayerInventory()
+    {
+        return WorldView.getPlayer().getActor().getInventory();
     }
 
     public boolean hasCollectibleStackOfType(String technicalName, CollectableType type)
@@ -44,7 +44,7 @@ public class Inventory
         return false;
     }
 
-    public CollectibleStack getCollectibleStackOfTypeOfTypeAndNumber(String technicalName, CollectableType type,  int amount)
+    public CollectibleStack getCollectibleStackOfTypeOfTypeAndNumber(String technicalName, CollectableType type, int amount)
     {
         for (CollectibleStack c : itemsList)
             if (c.isDefined() && c.getTypes().contains(type) && c.getTechnicalName().equals(technicalName) && c.getAmount() >= amount)
@@ -68,12 +68,29 @@ public class Inventory
 
     public boolean addCollectibleStackNextSlot(CollectibleStack collectible)
     {
-        if (hasFreeSlot())
+        if (getStackOfSameType(collectible) != null)
+        {
+            getStackOfSameType(collectible).add(collectible);
+            return true;
+        }
+        else if (hasFreeSlot())
         {
             addCollectibleStackIdx(collectible, nextFreeIdx());
             return true;
         }
         return false;
+    }
+
+    private CollectibleStack getStackOfSameType(CollectibleStack collectible)
+    {
+        for (CollectibleStack slot : itemsList)
+        {
+            if (slot.isDefined()
+                    && slot.getCollectible().equals(collectible.getCollectible())
+                    && slot.getFreeSpace() >= collectible.getAmount())
+                return slot;
+        }
+        return null;
     }
 
     public boolean addNumberOfCollectibleNextSlot(CollectibleStack from, int number)

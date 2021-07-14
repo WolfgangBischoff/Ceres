@@ -33,7 +33,6 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Sprite: Change dialogue, img, position, script at time (eg. when to enter an area and dialogue)
 
 #### Inventar
-* Item sollen stacken beim aufsammeln
 * Teilen button
 * render method for CollectibleStack, damit auch der Incubator anzahl anzeigt
 

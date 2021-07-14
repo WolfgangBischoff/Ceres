@@ -5,14 +5,16 @@ import Core.Sprite.Sprite;
 import javafx.scene.image.Image;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import static Core.Configs.Config.GENERIC_STACK_AMOUNT;
+import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.min;
 
 public class CollectibleStack
 {
-    int maxAmount;
+    int maxAmount = 25;
     private int amount;
     Collectible collectible;
 
@@ -33,21 +35,18 @@ public class CollectibleStack
 
     public CollectibleStack()
     {
-        this.maxAmount = 5;
         this.amount = 0;
         this.collectible = null;
     }
 
     public CollectibleStack(Collectible collectible)
     {
-        this.maxAmount = 5;
         this.amount = 1;
         this.collectible = collectible;
     }
 
     public CollectibleStack(Collectible collectible, int initNumber)
     {
-        this.maxAmount = 5;
         this.amount = initNumber;
         this.collectible = collectible;
     }
@@ -78,6 +77,11 @@ public class CollectibleStack
             collectible = addedCollectible.collectible;
             amount = addedCollectible.amount;
         }
+    }
+
+    public int getFreeSpace()
+    {
+        return maxAmount - amount;
     }
 
     public boolean isEmpty()
@@ -176,5 +180,31 @@ public class CollectibleStack
     public Collectible getCollectible()
     {
         return collectible;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (!(o instanceof CollectibleStack)) return false;
+        CollectibleStack that = (CollectibleStack) o;
+        return maxAmount == that.maxAmount &&
+                getAmount() == that.getAmount() &&
+                Objects.equals(getCollectible(), that.getCollectible());
+    }
+
+
+    public boolean equalType(CollectibleStack o)
+    {
+        if (this == o) return true;
+        if (o == null) return false;
+        CollectibleStack that = (CollectibleStack) o;
+        return Objects.equals(getCollectible(), that.getCollectible());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(maxAmount, getAmount(), getCollectible());
     }
 }

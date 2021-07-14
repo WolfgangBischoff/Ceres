@@ -7,6 +7,7 @@
 * Bacteria spreads on time, just to fitting nutrition
 * load include from dayPart
 * MapTimeData; Leave area with message; dayNight cycle and TimeMode
+* Inventar: stacken beim aufsammeln
 
 ##### 06 21
 * from inventory world interaction mode

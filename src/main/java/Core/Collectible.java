@@ -112,9 +112,9 @@ public class Collectible
         if (this == o) return true;
         if (!(o instanceof Collectible)) return false;
         Collectible that = (Collectible) o;
-        return Objects.equals(getIngameName(), that.getIngameName()) &&
-                Objects.equals(getSpriteStatus(), that.getSpriteStatus()) &&
-                getType() == that.getType();
+        return Objects.equals(getIngameName().toUpperCase(), that.getIngameName().toUpperCase()) &&
+                Objects.equals(getSpriteStatus().toUpperCase(), that.getSpriteStatus().toUpperCase()) &&
+                getType().equals(that.getType());
     }
 
 }
