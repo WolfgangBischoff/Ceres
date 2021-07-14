@@ -102,7 +102,6 @@ public class Script
 
     private void idle(Actor actor)
     {
-        String methodName = "idle() ";
         long currentTime = GameWindow.getCurrentNanoRenderTimeGameWindow();
         double time = (currentTime - lastScriptActTime) / 1000000000.0;
         double elapsedTimeLastStatusChange = (currentTime - lastStatusChangeTime) / 1000000000.0;

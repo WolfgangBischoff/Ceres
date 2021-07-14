@@ -2,6 +2,7 @@ package Core;
 
 import Core.GameTime.ClockMode;
 import Core.Sprite.Sprite;
+import Core.WorldView.MapTimeData;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 
@@ -25,8 +26,9 @@ public class LevelState
     private Map<String, WorldLoader.SpawnData> spawnPointsMap;
     private ClockMode clockMode;
     private boolean isValid = true;
+    private MapTimeData mapTimeData;
 
-    public LevelState(String levelName, long day, Rectangle2D borders, List<Sprite> activeSpritesLayer, List<Sprite> passiveSpritesLayer, List<Sprite> bottomLayer, List<Sprite> middleLayer, List<Sprite> topLayer, Color shadowColor, Map<String, WorldLoader.SpawnData> spawnPointsMap, ClockMode clockMode, List<Actor> activeActors)
+    public LevelState(String levelName, long day, Rectangle2D borders, List<Sprite> activeSpritesLayer, List<Sprite> passiveSpritesLayer, List<Sprite> bottomLayer, List<Sprite> middleLayer, List<Sprite> topLayer, Color shadowColor, Map<String, WorldLoader.SpawnData> spawnPointsMap, ClockMode clockMode, List<Actor> activeActors, MapTimeData mapTimeData)
     {
         this.levelName = levelName;
         this.day = day;
@@ -40,6 +42,7 @@ public class LevelState
         this.spawnPointsMap = new HashMap<>(spawnPointsMap);
         this.clockMode = clockMode;
         this.actorList = activeActors;
+        this.mapTimeData = mapTimeData;
     }
 
     @Override
@@ -127,5 +130,15 @@ public class LevelState
     public List<Actor> getactorList()
     {
         return actorList;
+    }
+
+    public List<Actor> getActorList()
+    {
+        return actorList;
+    }
+
+    public MapTimeData getMapTimeData()
+    {
+        return mapTimeData;
     }
 }

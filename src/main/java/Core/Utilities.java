@@ -124,7 +124,6 @@ public class Utilities
 
     public static Element readXMLFile(String path)
     {
-        String methodName = "readXMLFile() ";
         String xmlPath = path + ".xml";
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setIgnoringElementContentWhitespace(true);
@@ -132,7 +131,7 @@ public class Utilities
         {
             DocumentBuilder builder = factory.newDocumentBuilder();
             if (Utilities.class.getClassLoader().getResourceAsStream(xmlPath) == null)
-                throw new IOException(CLASSNAME + methodName + xmlPath + " not found.");
+                throw new IOException(CLASSNAME  + xmlPath + " not found.");
             Document doc = builder.parse(Objects.requireNonNull(Utilities.class.getClassLoader().getResourceAsStream(xmlPath)));
             return doc.getDocumentElement();
         }

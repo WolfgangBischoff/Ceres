@@ -9,8 +9,8 @@ import Core.Utilities;
 
 import java.util.*;
 
-import static Core.Configs.Config.KEYWORD_ACTORS;
-import static Core.Configs.Config.KEYWORD_GROUPS;
+import static Core.Configs.Config.MAPFILE_ACTORS;
+import static Core.Configs.Config.MAPFILE_GROUPS;
 
 public class GlobalActorsManager
 {
@@ -22,8 +22,8 @@ public class GlobalActorsManager
 
     public static void loadGlobalSystem(String path)
     {
-        keywords.add(KEYWORD_ACTORS);
-        keywords.add(KEYWORD_GROUPS);
+        keywords.add(MAPFILE_ACTORS);
+        keywords.add(MAPFILE_GROUPS);
 
         if (!loadedSystems.contains(path)) {
             var lines = Utilities.readAllLineFromTxt("global_systems/" + path + Config.CSV_POSTFIX);
@@ -44,7 +44,7 @@ public class GlobalActorsManager
             }
 
             //Read Actors
-            if (readStatus.equals(KEYWORD_ACTORS)) {
+            if (readStatus.equals(MAPFILE_ACTORS)) {
                 //airVeR;airSystem/airVent/airVent;Right ventilation;off;default;undefined
                 Actor actor = new Actor(lineData[1], lineData[2], lineData[3], lineData[4], Direction.of(lineData[5]));
 
@@ -64,7 +64,7 @@ public class GlobalActorsManager
                 actor.setActorId(lineData[0]);
                 actorsIdsMap.put(lineData[0], actor);
             }
-            else if (readStatus.equals(KEYWORD_GROUPS)) {
+            else if (readStatus.equals(MAPFILE_GROUPS)) {
                 int groupName_Idx = 0;
                 int groupLogic_Idx = 1;
                 int dependentGroupName_Idx = 2;

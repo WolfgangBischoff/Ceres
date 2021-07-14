@@ -8,6 +8,7 @@ import Core.GameTime.ClockMode;
 import Core.GameTime.DayPart;
 import Core.Sprite.Sprite;
 import Core.Sprite.SpriteData;
+import Core.WorldView.MapTimeData;
 import Core.WorldView.WorldView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
@@ -48,23 +49,24 @@ public class WorldLoader
     int maxHorizontalTile = 0;
     ClockMode clockMode = ClockMode.RUNNING;
     private Rectangle2D borders;
+    private MapTimeData mapTimeData;
 
     public WorldLoader()
     {
         if (keywords.isEmpty())
         {
-            keywords.add(KEYWORD_NEW_LAYER);
-            keywords.add(KEYWORD_ACTORS);
-            keywords.add(KEYWORD_TILEDEF);
-            keywords.add(KEYWORD_PASSIV_LAYER);
-            keywords.add(KEYWORD_WORLDSHADOW);
-            keywords.add(KEYWORD_GROUPS);
-            keywords.add(KEYWORD_SPAWNPOINTS);
-            keywords.add(KEYWORD_INCLUDE);
-            keywords.add(KEYWORD_POSITION);
-            keywords.add(KEYWORD_GLOBAL_SYSTEM_ACTOR);
-            keywords.add(KEYWORD_TIME_MODE);
-            keywords.add(KEYWORD_LOG);
+            keywords.add(MAPFILE_NEW_LAYER);
+            keywords.add(MAPFILE_ACTORS);
+            keywords.add(MAPFILE_TILEDEF);
+            keywords.add(MAPFILE_PASSIV_LAYER);
+            keywords.add(MAPFILE_WORLDSHADOW);
+            keywords.add(MAPFILE_GROUPS);
+            keywords.add(MAPFILE_MAPFILE);
+            keywords.add(MAPFILE_INCLUDE);
+            keywords.add(MAPFILE_POSITION);
+            keywords.add(MAPFILE_GLOBAL_SYSTEM_ACTOR);
+            keywords.add(MAPFILE_LOG);
+            keywords.add(MAPFILE_MAPTIMEDATA);
         }
 
     }
@@ -136,49 +138,54 @@ public class WorldLoader
         //process line according to keyword
         switch (readMode)
         {
-            case KEYWORD_TILEDEF:
+            case MAPFILE_TILEDEF:
                 tileDataMap.put(lineData[SpriteData.getTileCodeIdx()], SpriteData.tileDefinition(lineData));
                 loadedTileIdsSet.add(lineData[SpriteData.getTileCodeIdx()]);
                 break;
-            case KEYWORD_NEW_LAYER:
+            case MAPFILE_NEW_LAYER:
                 readLineOfTiles(lineData, false);
                 break;
-            case KEYWORD_PASSIV_LAYER:
+            case MAPFILE_PASSIV_LAYER:
                 readLineOfTiles(lineData, true);
                 break;
-            case KEYWORD_ACTORS:
+            case MAPFILE_ACTORS:
                 readActorData(lineData);
                 break;
-            case KEYWORD_WORLDSHADOW:
+            case MAPFILE_WORLDSHADOW:
                 shadowColor = readWorldShadow(lineData);
                 break;
-            case KEYWORD_GROUPS:
+            case MAPFILE_GROUPS:
                 readActorGroups(lineData);
                 break;
-            case KEYWORD_SPAWNPOINTS:
+            case MAPFILE_MAPFILE:
                 readSpawnPoint(lineData);
                 break;
-            case KEYWORD_INCLUDE:
+            case MAPFILE_INCLUDE:
                 String readModeTmp = readMode;
                 readInclude(lineData);
                 readMode = readModeTmp;
                 break;
-            case KEYWORD_POSITION:
+            case MAPFILE_POSITION:
                 readPosition(lineData);
                 break;
-            case KEYWORD_GLOBAL_SYSTEM_ACTOR:
+            case MAPFILE_GLOBAL_SYSTEM_ACTOR:
                 getGlobalSystemActor(lineData);
                 break;
-            case KEYWORD_TIME_MODE:
-                clockMode = readTimeMode(lineData);
-                break;
-            case KEYWORD_LOG:
+            case MAPFILE_LOG:
                 log(lineData);
+                break;
+            case MAPFILE_MAPTIMEDATA:
+                setMapTimeData(readMapData(lineData));
                 break;
             default:
                 throw new RuntimeException(CLASSNAME + methodName + "readMode unknown: " + readMode);
         }
 
+    }
+
+    private MapTimeData readMapData(String[] linedata)
+    {
+        return new MapTimeData(linedata);
     }
 
     private void log(String[] linedate)
@@ -259,19 +266,19 @@ public class WorldLoader
                     return;
 
             case INCLUDE_CONDITION_IF_NOT:
-            List<Pair<String, String>> paramsnot = Utilities.readParameterPairs(Arrays.copyOfRange(lineData, includeConditionParamsStartIdx, lineData.length));
-            boolean allVariabelsTrue2 = true;
-            for (Pair<String, String> pair : paramsnot)
-                if (GameVariables.getGenericVariableManager().getValue(pair.getKey()).equals(pair.getValue()))
-                    allVariabelsTrue2 = false;
-            if (allVariabelsTrue2)
-                break;
-            else
-                return;
+                List<Pair<String, String>> paramsnot = Utilities.readParameterPairs(Arrays.copyOfRange(lineData, includeConditionParamsStartIdx, lineData.length));
+                boolean allVariabelsTrue2 = true;
+                for (Pair<String, String> pair : paramsnot)
+                    if (GameVariables.getGenericVariableManager().getValue(pair.getKey()).equals(pair.getValue()))
+                        allVariabelsTrue2 = false;
+                if (allVariabelsTrue2)
+                    break;
+                else
+                    return;
 
             case INCLUDE_CONDITION_DAYPART:
                 DayPart truePart = DayPart.of(lineData[includeConditionParamsStartIdx]);
-                if(GameVariables.getClock().getDayPart() == truePart)
+                if (GameVariables.getClock().getDayPart() == truePart)
                     break;
                 else
                     return;
@@ -643,6 +650,11 @@ public class WorldLoader
         return topLayer;
     }
 
+    public List<Actor> getActorsList()
+    {
+        return actorsList;
+    }
+
     static class ActorGroupData
     {
         ArrayList memberOfGroups = new ArrayList();
@@ -713,25 +725,15 @@ public class WorldLoader
         }
     }
 
-    public List<Actor> getActorsList()
+    public MapTimeData getMapTimeData()
     {
-        return actorsList;
+        if(mapTimeData == null)
+            return MapTimeData.getDefault();
+        return mapTimeData;
     }
 
-    //public void addActiveActorChecked(Actor actor)
-    //{
-    //    if(actor.sensorStatus.onInRange_TriggerSensor != NOTHING
-    //    || actor.sensorStatus.onInRange_TriggerSprite != NOTHING
-    //    || actor.sensorStatus.onIntersection_TriggerSensor != NOTHING
-    //    || actor.sensorStatus.onIntersection_TriggerSprite != NOTHING
-    //    || actor.sensorStatus.onUpdate_TriggerSensor != NOTHING
-    //    || actor.sensorStatus.onUpdate_TriggerSprite != NOTHING
-    //    || actor.getSpriteList().get(0).getName().equalsIgnoreCase("player")
-    //    )
-    //    activeActors.add(actor);
-    //    else
-    //        System.out.println(CLASSNAME + actor.getActorInGameName());
-    //}
-
-
+    public void setMapTimeData(MapTimeData mapTimeData)
+    {
+        this.mapTimeData = mapTimeData;
+    }
 }

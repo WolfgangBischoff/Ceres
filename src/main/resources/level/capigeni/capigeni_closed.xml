@@ -1,0 +1,5 @@
+
+<root type="second_class">
+    <time DAY_LIGHT_ON_TIME = "06:00" DAY_LIGHT_OFF_TIME = "19:00" TIME_MODE="RUNNING"/>
+    <closed OPENED="06:00" CLOSED="18:00" MAP_AFTER_CLOSE="living_quarter/living_quarter" SPAWN="default"/>
+</root>

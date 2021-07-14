@@ -4,7 +4,6 @@ import Core.*;
 import Core.Configs.Config;
 import Core.Enums.ActorTag;
 import Core.Enums.Direction;
-import Core.GameTime.Clock;
 import Core.GameTime.DateTime;
 import Core.GameTime.Time;
 import Core.GameTime.ClockMode;
@@ -101,6 +100,7 @@ public class WorldView
     float durationBump = RUMBLE_MAX_DURATION;
     boolean bumpActive = false;
     private GridManager gridManager = new GridManager();
+    private static MapTimeData mapTimeData;
 
     private WorldView(String levelName)
     {
@@ -287,7 +287,7 @@ public class WorldView
         actorSpritesLayer.remove(player);
         middleLayer.remove(player); //Player Layer
         GameVariables.setPlayer(player);
-        GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.gameDateTime().getDays(), borders, actorSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, upperLayer, shadowColor, spawnPointsMap, GameVariables.getClock().getClockMode(), actorList));
+        GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.gameDateTime().getDays(), borders, actorSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, upperLayer, shadowColor, spawnPointsMap, mapTimeData.getClockMode(), actorList, mapTimeData));
     }
 
     public void loadStage(String levelName, String spawnId)
@@ -428,6 +428,7 @@ public class WorldView
         setShadowColor(worldLoader.getShadowColor());
         spawnPointsMap = worldLoader.getSpawnPointsMap();
         GameVariables.getClock().setClockMode(worldLoader.getClockMode());
+        mapTimeData = worldLoader.getMapTimeData();
     }
 
     private void loadLevelFromFile(String spawnId)
@@ -450,6 +451,7 @@ public class WorldView
         setShadowColor(worldLoader.getShadowColor());
         spawnPointsMap = worldLoader.getSpawnPointsMap();
         GameVariables.getClock().setClockMode(worldLoader.getClockMode());
+        mapTimeData = worldLoader.getMapTimeData();
     }
 
     private void loadFromLevelDailyState(LevelState levelState, String spawnId)
@@ -465,6 +467,7 @@ public class WorldView
         setShadowColor(levelState.getShadowColor());
         spawnPointsMap = levelState.getSpawnPointsMap();
         GameVariables.getClock().setClockMode(levelState.getClockMode());
+        mapTimeData = levelState.getMapTimeData();
 
         //Player
         player = GameVariables.getPlayer();
@@ -932,7 +935,7 @@ public class WorldView
         hungerOverlay.render(hudCanvas.getGraphicsContext2D());
         mamOverlay.render(hudCanvas.getGraphicsContext2D());
         moneyOverlay.render(hudCanvas.getGraphicsContext2D());
-        if (GameVariables.getClock().getClockMode() == ClockMode.RUNNING)
+        if (mapTimeData.getClockMode() == ClockMode.RUNNING)
             boardTimeOverlay.render(hudCanvas.getGraphicsContext2D());
         if (centralMessageOverlay.isVisible())
             centralMessageOverlay.render(hudCanvas.getGraphicsContext2D(), currentNanoTime);
@@ -1005,4 +1008,16 @@ public class WorldView
     {
         isFadedOut = fadedOut;
     }
+
+    public static MapTimeData getMapTimeData()
+    {
+        return mapTimeData;
+    }
+
+    public void setMapTimeData(MapTimeData mapTimeData)
+    {
+        this.mapTimeData = mapTimeData;
+    }
+
+
 }

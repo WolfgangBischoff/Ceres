@@ -46,6 +46,19 @@ public class Config
     public static final int MONEY_FIELD_HEIGHT = 64;
     public static final int BOARD_TIME_WIDTH = 150;
     public static final int BOARD_TIME_HEIGHT = 64;
+    //Game Time
+    //public static final float LENGTH_GAME_MINUTE_SECONDS = 0.01f;
+    public static final float LENGTH_GAME_MINUTE_SECONDS = 1f;
+    public static final int MAX_HUNGER = 100;
+    public static final Time DAY_LIGHT_ON_TIME = new Time(6, 30);
+    public static final Time DAY_LIGHT_OFF_TIME = new Time(22, 0);
+    public static final Time DAY_WAKE_UP_TIME = new Time(7, 0);
+    public static final Color COLOR_EMERGENCY_LIGHT = Color.rgb(0, 30, 30);
+    public static final Color COLOR_NIGHT_LIGHT = Color.rgb(50, 80, 80);
+    public static final int INIT_HUNGER = 50;
+    public static final int INIT_HEALTH = 5;
+    public static final int MAX_HEALTH = 5;
+    public static final int INIT_MONEY = 5;
     //Keyboard
     public static final String KEYBOARD_INVENTORY = "TAB";
     public static final String KEYBOARD_INTERACT = "E";
@@ -60,33 +73,20 @@ public class Config
     public static final float RUMBLE_GRADE = 8;
     public static final float RUMBLE_GRADE_DECREASE = 0.1f;
     public static final float RUMBLE_MAX_DURATION = 1.3f;
-    //Game Time
-    public static final Time DAY_LIGHT_ON_TIME = new Time(6, 30);
-    public static final Time DAY_LIGHT_OFF_TIME = new Time(22, 0);
-    public static final Time DAY_WAKE_UP_TIME = new Time(7, 0);
-    public static final Color COLOR_EMERGENCY_LIGHT = Color.rgb(0, 30, 30);
-    public static final Color COLOR_NIGHT_LIGHT = Color.rgb(50, 80, 80);
-    //public static final float LENGTH_GAME_MINUTE_SECONDS = 0.01f;
-    public static final float LENGTH_GAME_MINUTE_SECONDS = 1f;
-    public static final int MAX_HUNGER = 100;
-    public static final int INIT_HUNGER = 50;
-    public static final int INIT_HEALTH = 5;
-    public static final int MAX_HEALTH = 5;
-    public static final int INIT_MONEY = 5;
     //Map file keywords
     public static final String MAPDEFINITION_EMPTY = "______";
-    public static final String KEYWORD_NEW_LAYER = "layer:";
-    public static final String KEYWORD_PASSIV_LAYER = "passivlayer:";
-    public static final String KEYWORD_ACTORS = "actors:";
-    public static final String KEYWORD_TILEDEF = "tiledefinition:";
-    public static final String KEYWORD_WORLDSHADOW = "shadow:";
-    public static final String KEYWORD_GROUPS = "actorgroups:";
-    public static final String KEYWORD_SPAWNPOINTS = "spawnpoints:";
-    public static final String KEYWORD_INCLUDE = "include:";
-    public static final String KEYWORD_POSITION = "position:";
-    public static final String KEYWORD_GLOBAL_SYSTEM_ACTOR = "global_system_actor:";
-    public static final String KEYWORD_TIME_MODE = "time_mode:";
-    public static final String KEYWORD_LOG = "log:";
+    public static final String MAPFILE_NEW_LAYER = "layer:";
+    public static final String MAPFILE_PASSIV_LAYER = "passivlayer:";
+    public static final String MAPFILE_ACTORS = "actors:";
+    public static final String MAPFILE_TILEDEF = "tiledefinition:";
+    public static final String MAPFILE_WORLDSHADOW = "shadow:";
+    public static final String MAPFILE_GROUPS = "actorgroups:";
+    public static final String MAPFILE_MAPFILE = "spawnpoints:";
+    public static final String MAPFILE_INCLUDE = "include:";
+    public static final String MAPFILE_POSITION = "position:";
+    public static final String MAPFILE_GLOBAL_SYSTEM_ACTOR = "global_system_actor:";
+    public static final String MAPFILE_LOG = "log:";
+    public static final String MAPFILE_MAPTIMEDATA = "timedata:";
     public static final String INCLUDE_CONDITION_suspicion_lessequal = "suspicion_lessequal";
     public static final String INCLUDE_CONDITION_day_greaterequal = "day_greaterequal";
     public static final String INCLUDE_CONDITION_IF = "onDaystart_if";
@@ -193,7 +193,6 @@ public class Config
     public static final Point2D TEXT_BOX_POSITION = new Point2D(CAMERA_WIDTH / 2f - TEXT_WIDTH / 2f, CAMERA_HEIGHT - TEXT_HEIGHT - 32);
     public static final Point2D PERSONALITY_POSITION = new Point2D(CAMERA_WIDTH / 2f - PERSONALITY_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - PERSONALITY_HEIGHT / 2.0); //Centered
     public static final Point2D SCREEN_CENTER = new Point2D(CAMERA_WIDTH / 2.0, CAMERA_HEIGHT / 2.0); //Centered
-    public static final Point2D EQUIPPED_COLLECTIBLE_POSITION = new Point2D(CAMERA_WIDTH / 2, CAMERA_HEIGHT - 200);
     public static Point2D INVENTORY_POSITION = new Point2D(64, CAMERA_HEIGHT / 2.0 - INVENTORY_HEIGHT / 2.0);
     public static Point2D EXCHANGE_INVENTORY_POSITION = new Point2D(64 + INVENTORY_WIDTH, CAMERA_HEIGHT / 2.0 - INVENTORY_HEIGHT / 2.0);
     public static Point2D INCUBATOR_POSITION = new Point2D(64 + INVENTORY_WIDTH, CAMERA_HEIGHT / 2.0 - INVENTORY_HEIGHT / 2.0);

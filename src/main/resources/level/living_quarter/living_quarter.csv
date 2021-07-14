@@ -4,6 +4,9 @@ living_quarter/living_quarter loading
 shadow:
 none
 
+TIMEDATA:
+level/living_quarter/second_class_day_night
+
 spawnpoints:
 #ID						;PosX;PosY	;Direction
 default		;24		;45			;north

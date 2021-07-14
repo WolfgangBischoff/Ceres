@@ -8,4 +8,4 @@ tender					;actorData/character/tenderer/tenderer																		;Julius Soull
 strang					;actorData/character/stranger/stranger																		;Stranger																	;default												;default																;south
 guard_					;actorData/character/black_overall/black_overall								;Guard																				;default												;default																;south
 travel					;actorData/character/lime_woman/lime_woman														;Traveller Alina 							  ;default												;script																	;south
-reneCo					;actorData/character/jacket/blue_man/resistance_helper		;Lincoln Partius			  ;default												;default																;south
+reneCo					;actorData/character/jacket/blue_man/resistance_helper		;Lincoln Partius			  					;default												;initTxtInRange									;south

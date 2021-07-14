@@ -46,12 +46,7 @@ public class GameVariables
 
     public static void saveLevelState(LevelState levelState)
     {
-        String methodName = "saveLevelState() ";
-        boolean debug = false;
         levelData.put(levelState.levelName, levelState);
-
-        if (debug)
-            System.out.println(CLASSNAME + methodName + "Saved: " + levelState);
     }
 
     public static void addPlayerMAM_duringDay(int deltaMAM)

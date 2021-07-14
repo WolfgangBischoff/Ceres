@@ -1,12 +1,4 @@
-<!-->Absolute/Relative?<!-->
-
 
 <root type="second_class">
-    <route>
-        <point x="25" y="40"/>
-        <point x="33" y="40"/>
-        <point x="33" y="43"/>
-        <point x="25" y="43"/>
-    </route>
-
+    <time DAY_LIGHT_ON_TIME = "07:00" DAY_LIGHT_OFF_TIME = "20:00" TIME_MODE="RUNNING"/>
 </root>

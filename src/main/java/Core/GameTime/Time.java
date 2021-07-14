@@ -3,7 +3,9 @@ package Core.GameTime;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
-public class Time implements Comparable
+import static Core.Utilities.tryParseInt;
+
+public class Time implements Comparable<Time>
 {
     Long minutes;
     Long fiveMinutes;
@@ -23,9 +25,15 @@ public class Time implements Comparable
         fiveMinutes = ticks % 60 / 5;
     }
 
-    public Time add(int hours, int minutes)
+    public static Time of(String time)
     {
-        return new Time(this.hours + hours, this.minutes + minutes);
+        var s = time.split(":");
+        if(s.length < 2)
+            return null;
+        if (tryParseInt((s[0])) && tryParseInt((s[1])))
+            return new Time(Integer.parseInt(s[0]), Integer.parseInt(s[1]));
+        else
+            return null;
     }
 
     public static boolean isBetween(Time minRange, Time maxRange, Time now)
@@ -36,6 +44,11 @@ public class Time implements Comparable
 
         return (comparator.compare(minRange, now) == 0 || comparator.compare(minRange, now) < 0)
                 && (comparator.compare(maxRange, now) == 0 || comparator.compare(maxRange, now) > 0);//within interval
+    }
+
+    public Time add(int hours, int minutes)
+    {
+        return new Time(this.hours + hours, this.minutes + minutes);
     }
 
     public Long ticks()
@@ -68,15 +81,14 @@ public class Time implements Comparable
     }
 
     @Override
-    public int compareTo(Object o)
+    public int compareTo(Time o)
     {
-        if (o instanceof Time)
+        if (o != null)
         {
-            Time other = (Time) o;
-            if (hours.compareTo(other.hours) != 0)
-                return hours.compareTo(other.hours);
+            if (hours.compareTo(((Time) o).hours) != 0)
+                return hours.compareTo(((Time) o).hours);
             else
-                return minutes.compareTo(other.minutes);
+                return minutes.compareTo(((Time) o).minutes);
         }
         return 0;
 

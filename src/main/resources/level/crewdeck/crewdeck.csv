@@ -3,8 +3,8 @@
 shadow:
 none
 
-time_mode:
-STOPPED
+TIMEDATA:
+level/time_stopped
 
 spawnpoints:
 #ID						;PosX;PosY	;Direction

@@ -88,12 +88,8 @@ public class GrowspaceManager
     private static void tryToSpread(Actor growspace, String s)
     {
         if (hasRandomEventOccured(1))
-        {
-            //System.out.println("Bacteria spread");
             growspace.setSpriteStatus(s);
-        }
-        //else
-        //System.out.println("Bacteria did not spread");
+
     }
 
     private static BacteriaSpore getBacteriaCultureNeighbor(Actor growspace, Direction d)
@@ -124,9 +120,9 @@ public class GrowspaceManager
         if (growspace.getGenericDateTimeAttribute(BUILDTIME) == null)
         {
             growspace.setGenericDateTimeAttribute(BUILDTIME, currentTime);
-            System.out.println("Set: " + growspace.getGenericDateTimeAttribute(BUILDTIME));
-            System.out.println("Finished " + growspace.getGenericDateTimeAttribute(BUILDTIME).add(data.minutesTillGrown));
-            System.out.println("rotten " + growspace.getGenericDateTimeAttribute(BUILDTIME).add(data.minutesTillGrown + data.minutesTillRotten));
+            //System.out.println("Set: " + growspace.getGenericDateTimeAttribute(BUILDTIME));
+            //System.out.println("Finished " + growspace.getGenericDateTimeAttribute(BUILDTIME).add(data.minutesTillGrown));
+            //System.out.println("rotten " + growspace.getGenericDateTimeAttribute(BUILDTIME).add(data.minutesTillGrown + data.minutesTillRotten));
         }
 
         if (data.isNutritionSuitable(growspace.getGenericStringAttributes().get(NUTRITION)))
