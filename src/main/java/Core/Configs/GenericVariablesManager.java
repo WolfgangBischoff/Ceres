@@ -20,7 +20,7 @@ public class GenericVariablesManager
         stringWorldVariables.put("RESCUE_POD_QUEST_STATUS", "false");
         stringWorldVariables.put("ARRIVED_CERES", "false");
         stringWorldVariables.put("CAPIGENI_DELIVERED_BACTERIA", "false");
-        stringWorldVariables.put("CAPIGENI_TRAINEE_AREA_ACESS_LEVEL_2", "true");
+        stringWorldVariables.put("CAPIGENI_TRAINEE_AREA_ACESS_LEVEL_2", "false");
     }
 
     public String getValue(String varName)

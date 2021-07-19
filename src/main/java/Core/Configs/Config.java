@@ -48,8 +48,8 @@ public class Config
     public static final int BOARD_TIME_HEIGHT = 64;
     //Game Time
     //public static final float LENGTH_GAME_MINUTE_SECONDS = 0.01f;
-    public static final float LENGTH_GAME_MINUTE_SECONDS = 0.09f;
-    //public static final float LENGTH_GAME_MINUTE_SECONDS = 1f;
+    //public static final float LENGTH_GAME_MINUTE_SECONDS = 0.09f;
+    public static final float LENGTH_GAME_MINUTE_SECONDS = 1f;
     public static final int MAX_HUNGER = 100;
     public static final Time DAY_LIGHT_ON_TIME = new Time(6, 30);
     public static final Time DAY_LIGHT_OFF_TIME = new Time(22, 0);

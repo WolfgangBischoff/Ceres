@@ -8,6 +8,7 @@
 * load include from dayPart
 * MapTimeData; Leave area with message; dayNight cycle and TimeMode
 * Inventar: stacken beim aufsammeln
+* Emails empfangen basic
 
 ##### 06 21
 * from inventory world interaction mode

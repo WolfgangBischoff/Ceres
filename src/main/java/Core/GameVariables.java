@@ -6,6 +6,7 @@ import Core.Enums.Knowledge;
 import Core.GameTime.Clock;
 import Core.GameTime.DateTime;
 import Core.Menus.AchievmentLog.CentralMessageOverlay;
+import Core.Menus.Email.EmailManager;
 import Core.Sprite.Sprite;
 import Core.WorldView.WorldViewController;
 import javafx.beans.property.IntegerProperty;
@@ -32,6 +33,7 @@ public class GameVariables
     static private Set<Knowledge> playerKnowledge = new HashSet<>();
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
     static private Clock clock;
+    static private EmailManager emailManager;
     static private DateTime lastTimeTickUpdated;
     static private GenericVariablesManager booleanWorldVariables = new GenericVariablesManager();
     //Game State persistent on same day
@@ -41,6 +43,7 @@ public class GameVariables
     public static void init()
     {
         clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
+        emailManager = EmailManager.getInstance();
         lastTimeHungerFromTime = clock.getTotalTimeTicks();
     }
 

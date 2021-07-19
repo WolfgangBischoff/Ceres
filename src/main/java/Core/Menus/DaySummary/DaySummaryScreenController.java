@@ -1,6 +1,9 @@
 package Core.Menus.DaySummary;
 
-import Core.*;
+import Core.CollectibleStack;
+import Core.GameVariables;
+import Core.GameWindow;
+import Core.Utilities;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -15,15 +18,10 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Core.Configs.Config.DAY_SUMMARY_HEIGHT;
-import static Core.Configs.Config.DAY_SUMMARY_POSITION;
-import static Core.Configs.Config.DAY_SUMMARY_WIDTH;
-import static Core.Configs.Config.IMAGE_DIRECTORY_PATH;
-import static Core.Configs.Config.TIME_BETWEEN_DIALOGUE;
+import static Core.Configs.Config.*;
 
 public class DaySummaryScreenController
 {
@@ -32,16 +30,13 @@ public class DaySummaryScreenController
     private static final int HEIGHT = DAY_SUMMARY_HEIGHT;
     private static final Point2D SCREEN_POSITION = DAY_SUMMARY_POSITION;
     private static DaySummary daySummary;
-
+    Image cornerTopLeft;
+    Image cornerBtmRight;
     private Canvas canvas;
-    private GraphicsContext graphicsContext;
+    private GraphicsContext gc;
     private WritableImage writableImage;
     private Integer highlightedElement;
     private List<String> interfaceElements_list = new ArrayList<>();
-
-    Image cornerTopLeft;
-    Image cornerBtmRight;
-
     //MAM Information
     private int mamInfoWidth = 300;
     private int mamInfoHeight = 300;
@@ -60,14 +55,12 @@ public class DaySummaryScreenController
     public DaySummaryScreenController()
     {
         canvas = new Canvas(WIDTH, HEIGHT);
-        graphicsContext = canvas.getGraphicsContext2D();
+        gc = canvas.getGraphicsContext2D();
         highlightedElement = 0;
         daySummary = new DaySummary();
         cornerTopLeft = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = Utilities.readImage(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
 
-//        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
-//        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
     }
 
     public static void newDay()
@@ -75,90 +68,98 @@ public class DaySummaryScreenController
         daySummary.init();
     }
 
-    private void draw() throws NullPointerException
+    public static int getMenuWidth()
     {
-        String methodName = "draw() ";
-        graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
-        Color background = Color.rgb(60, 90, 85);
-        double hue = background.getHue();
-        double sat = background.getSaturation();
-        double brig = background.getBrightness();
-        Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
-        Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-        Color red = Color.hsb(0, 0.33, 0.90);
-        Color green = Color.hsb(140, 0.33, 0.90);
+        return WIDTH;
+    }
+
+    public static int getMenuHeight()
+    {
+        return HEIGHT;
+    }
+
+    private void render() throws NullPointerException
+    {
+        gc.clearRect(0, 0, WIDTH, HEIGHT);
+        Color marking = COLOR_MARKING;
+        Color font = COLOR_FONT;
         interfaceElements_list.clear();
 
         //Background
-        graphicsContext.setGlobalAlpha(0.8);
-        graphicsContext.setFill(background);
+        gc.setGlobalAlpha(0.8);
+        gc.setFill(COLOR_BACKGROUND_BLUE);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
-        graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
-
+        gc.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
 
         //MaM message field
         int strokeThickness = 6;
         int round = 15;
         if (daySummary.isHasInterrogation())
-            graphicsContext.setFill(red);
+            gc.setFill(COLOR_RED);
         else
-            graphicsContext.setFill(green);
-        graphicsContext.fillRoundRect(mamInformationArea.getMinX() - strokeThickness, mamInformationArea.getMinY() - strokeThickness, mamInformationArea.getWidth() + strokeThickness * 2, mamInformationArea.getHeight() + strokeThickness * 2, round, round);
-        graphicsContext.setFill(marking);
-        graphicsContext.fillRoundRect(mamInformationArea.getMinX(), mamInformationArea.getMinY(), mamInformationArea.getWidth(), mamInformationArea.getHeight(), round, round);
+            gc.setFill(COLOR_GREEN);
+        gc.fillRoundRect(mamInformationArea.getMinX() - strokeThickness, mamInformationArea.getMinY() - strokeThickness, mamInformationArea.getWidth() + strokeThickness * 2, mamInformationArea.getHeight() + strokeThickness * 2, round, round);
+        gc.setFill(marking);
+        gc.fillRoundRect(mamInformationArea.getMinX(), mamInformationArea.getMinY(), mamInformationArea.getWidth(), mamInformationArea.getHeight(), round, round);
 
         //Text
         int spaceY = 5;
         int initOffsetY = 20;
         int tmpOffsetY = 0;
-        graphicsContext.setTextBaseline(VPos.BOTTOM);
-        graphicsContext.setTextAlign(TextAlignment.LEFT);
-        graphicsContext.setGlobalAlpha(1);
-        graphicsContext.setFill(font);
+        gc.setTextBaseline(VPos.BOTTOM);
+        gc.setTextAlign(TextAlignment.LEFT);
+        gc.setGlobalAlpha(1);
+        gc.setFill(font);
         StringBuilder stringBuilder = new StringBuilder();
         if (daySummary.isHasInterrogation())
         {
             stringBuilder.append("You were interrogated.");
-            if(!daySummary.foundStolenCollectibles.isEmpty())
+            if (!daySummary.foundStolenCollectibles.isEmpty())
                 stringBuilder.append(" Some items were confiscated.");
             else
                 stringBuilder.append(" They found no stolen items.");
         }
         else
             stringBuilder.append("You had a silent night.");
-        graphicsContext.fillText(stringBuilder.toString(), mamInformationArea.getMinX() + 5, mamInformationArea.getMinY() + initOffsetY);
+        gc.fillText(stringBuilder.toString(), mamInformationArea.getMinX() + 5, mamInformationArea.getMinY() + initOffsetY);
         for (int i = 0; i < daySummary.foundStolenCollectibles.size(); i++)
         {
             CollectibleStack collectible = daySummary.foundStolenCollectibles.get(i);
-            tmpOffsetY += 20 + i * (graphicsContext.getFont().getSize() + spaceY);
-            graphicsContext.fillText(collectible.getIngameName(), mamInformationArea.getMinX() + 5,
+            tmpOffsetY += 20 + i * (gc.getFont().getSize() + spaceY);
+            gc.fillText(collectible.getIngameName(), mamInformationArea.getMinX() + 5,
                     mamInformationArea.getMinY() + initOffsetY + tmpOffsetY);
         }
 
+
+        if (!daySummary.newMails.isEmpty())
+            gc.fillText(daySummary.newMails.get(0).getText(), 50, 50);
+        else
+            gc.fillText("No New Emails", 50, 50);
+
         //Healt Info
         StringBuilder healthMsg = new StringBuilder();
-        if(daySummary.isStarving())
+        if (daySummary.isStarving())
             healthMsg.append("You are starving.");
         else
             healthMsg.append("You are well fed.");
         healthMsg.append(" Health: ").append(GameVariables.getHealth());
-        tmpOffsetY += 20 + (graphicsContext.getFont().getSize() + spaceY);
-        graphicsContext.fillText(healthMsg.toString(), mamInformationArea.getMinX() + 5,
+        tmpOffsetY += 20 + (gc.getFont().getSize() + spaceY);
+        gc.fillText(healthMsg.toString(), mamInformationArea.getMinX() + 5,
                 mamInformationArea.getMinY() + initOffsetY + tmpOffsetY);
 
         //Close button
-        graphicsContext.setTextBaseline(VPos.CENTER);
-        graphicsContext.setTextAlign(TextAlignment.CENTER);
-        graphicsContext.setFill(marking);
+        gc.setTextBaseline(VPos.CENTER);
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setFill(marking);
         interfaceElements_list.add(CLOSE_BUTTON_ID);
         if (highlightedElement == interfaceElements_list.indexOf(CLOSE_BUTTON_ID))
-            graphicsContext.fillRect(closeButton.getMinX(), closeButton.getMinY(), closeButton.getWidth(), closeButton.getHeight());
-        graphicsContext.setFill(font);
-        graphicsContext.fillText(CLOSE_BUTTON_ID, closeButton.getMinX() + closeButton.getWidth() / 2, closeButton.getMinY() + closeButton.getHeight() / 2);
+            gc.fillRect(closeButton.getMinX(), closeButton.getMinY(), closeButton.getWidth(), closeButton.getHeight());
+        gc.setFill(font);
+        gc.fillText(CLOSE_BUTTON_ID, closeButton.getMinX() + closeButton.getWidth() / 2, closeButton.getMinY() + closeButton.getHeight() / 2);
 
         //Decoration
-        graphicsContext.drawImage(cornerTopLeft, 0, 0);
-        graphicsContext.drawImage(cornerBtmRight, WIDTH - cornerBtmRight.getWidth(), HEIGHT - cornerBtmRight.getHeight());
+        gc.drawImage(cornerTopLeft, 0, 0);
+        gc.drawImage(cornerBtmRight, WIDTH - cornerBtmRight.getWidth(), HEIGHT - cornerBtmRight.getHeight());
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
@@ -168,8 +169,6 @@ public class DaySummaryScreenController
 
     public void processKey(ArrayList<String> input, Long currentNanoTime)
     {
-        String methodName = "processKey() ";
-
         int maxMarkedOptionIdx = interfaceElements_list.size() - 1;
         int newMarkedOption = highlightedElement;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - WorldView.getPlayer().getActor().getLastInteraction()) / 1000000000.0;
@@ -197,7 +196,7 @@ public class DaySummaryScreenController
         {
             setHighlightedElement(newMarkedOption);
             WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
-            draw();
+            render();
         }
 
     }
@@ -219,7 +218,7 @@ public class DaySummaryScreenController
         if (closeButton.contains(mousePosRelativeToDiscussionOverlay))
             hoveredElement = interfaceElements_list.indexOf(CLOSE_BUTTON_ID);
 
-        if(debug)
+        if (debug)
             System.out.println(CLASSNAME + methodName + hoveredElement);
 
         if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved
@@ -267,18 +266,8 @@ public class DaySummaryScreenController
 
     public WritableImage getWritableImage()
     {
-        draw();
+        render();
         return writableImage;
-    }
-
-    public static int getMenuWidth()
-    {
-        return WIDTH;
-    }
-
-    public static int getMenuHeight()
-    {
-        return HEIGHT;
     }
 
 }

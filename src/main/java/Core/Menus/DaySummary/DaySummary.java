@@ -3,6 +3,8 @@ package Core.Menus.DaySummary;
 import Core.Collectible;
 import Core.CollectibleStack;
 import Core.GameVariables;
+import Core.Menus.Email.Email;
+import Core.Menus.Email.EmailManager;
 import Core.WorldView.WorldView;
 
 import java.util.ArrayList;
@@ -13,10 +15,11 @@ import static Core.Configs.Config.MAM_THRESHOLD_INTERROGATION;
 
 public class DaySummary
 {
-    static private final String CLASSNAME = "DaySummary ";
+    static private final String CLASSNAME = "DaySummary/";
     private boolean hasInterrogation = false;
     private boolean isStarving = false;
     List<CollectibleStack> foundStolenCollectibles = new ArrayList<>();
+    List<Email> newMails;
 
     public DaySummary()
     {
@@ -24,7 +27,8 @@ public class DaySummary
 
     void init()
     {
-        String methodName = "init() ";
+        newMails = EmailManager.checkNewMails(true);
+
         //Check interogation and MaM
         foundStolenCollectibles.clear();
         if (GameVariables.getPlayerMaM_duringDay() >= MAM_THRESHOLD_INTERROGATION)

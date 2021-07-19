@@ -11,6 +11,7 @@ spawnpoints:
 #ID						;PosX;PosY	;Direction
 default		;24		;45			;north
 train				;24		;45			;north
+bed						;28		;11			;south
 
 tiledefinition:
 #code     ;name        											;spritename                  																														;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY	 ;hitBoxWidth;hitBoxHeight ;lightning  ;dialogueId ;dialogueFile ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
@@ -23,7 +24,7 @@ black_    ;black																		;img/void_64_64																															
 metalU    ;darkMetal														;img/floor/darkMetalUpper																																		;false				;0            ;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0              ;0          ;0            ;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 metal_    ;darkMetal														;img/floor/darkMetal																																							;false				;0            ;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0              ;0          ;0            ;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 metalL    ;darkMetal														;img/floor/darkMetalLower																																		;false				;0            ;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0              ;0          ;0            ;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
-black_    ;black																		;img/void_64_64																																												;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
+black_    ;black																		;img/void_64_64																																												;false				;0												;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none 						;none							;none									;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 #Walls
 #code     ;name        											;spritename                     																											;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning;dialogueId ;dialogueFile ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
@@ -73,28 +74,29 @@ elevFl				;floor	      ;img/floor/elevator/elevator_floor																							
 elSign				;elSign      ;img/floor/deco/elevator_marking																					    													;false				;0            ;0   ;0												;0			 ;0			 ;0								;0											;000									 	;000									 	;000									;000										;none 				  ;none					  ;none							  ;unused0 ;unused1 ;unused2 ;unused3 ;unused4
 
 actors:
-#code 					;actorFileN																																																																					;IngameName															;sprite-status						;sensor-status	;direction
-player					;actorData/player																																																															;Revolutionary												;default												;default							;north
-hedgeh					;actorData/character/hedgehog/hedge																																													;Little Hedgehog										;default												;initTxtInRange;undefined
-purple					;actorData/character/coat/purple/woman/coatPurpleWoman																										;purple woman   										;default												;textbox							;south
-blackm					;actorData/character/schulteranzug/red/blackman/schulteranzugRedBlackman								;red man					   										;default												;textbox							;south
-oraOve					;actorData/character/overall/woman/orange/technician																												;technician 	   										;default												;textbox							;south
-smalBx					;actorData/storages/boxSmall/prop																																															;green Box																;default											 ;default					  ;none
-box___					;actorData/storages/boxSmall/green_persistent																																			;green Box																;locked 									   ;default						 ;none
-boxOpn					;actorData/storages/boxSmall/green_persistent																																			;green Box																;unlocked								   ;inventory				 ;none
-securP					;actorData/security/securityPost/security    																																			;security post												;default									   ;textbox						 ;none
-monrai					;actorData/machine/vehicle/monrail/monrail   																																			;monrail																		;default									   ;textbox						 ;none
-bulkhe					;actorData/doors/horizontal/bulkhead_192/bulkhead																															;bulkhead																	;on														   ;textbox						 ;none
-door64					;actorData/doors/horizontal/simple64/simple																																					;door																					;on														   ;manualDoor	 		;none
-doorVe					;actorData/doors/vertical/autoBulkheadVertical           																							;vertical bulkhead								;closed_rightblack		;textbox							;undefined
-jobScr					;actorData/computer/jobscreen/jobscreen																																									;job screen															;default												;textbox							;undefined
-ele_di					;actorData/doors/updown/elevator/elevator																																							;elevator																	;toBiotech										;default							;undefined
-ele__A					;actorData/doors/updown/elevator/elevator																																							;elevator																	;a																		;default							;undefined
-pdaSis					;actorData/collectibles/reader/reader																																											;PDA																						;SISTER_VISITME				 ;default		     ;undefined
+#code 					;actorFileN																																																																					;IngameName															;sprite-status						;sensor-status										;direction
+player					;actorData/player																																																															;Revolutionary												;default												;default																;north
+hedgeh					;actorData/character/hedgehog/hedge																																													;Little Hedgehog										;default												;initTxtInRange									;undefined
+purple					;actorData/character/coat/purple/woman/coatPurpleWoman																										;purple woman   										;default												;textbox																;south
+blackm					;actorData/character/schulteranzug/red/blackman/schulteranzugRedBlackman								;red man					   										;default												;textbox																;south
+oraOve					;actorData/character/overall/woman/orange/technician																												;technician 	   										;default												;textbox																;south
+smalBx					;actorData/storages/boxSmall/prop																																															;green Box																;default											 ;default					  									;none
+box___					;actorData/storages/boxSmall/green_persistent																																			;green Box																;locked 									   ;default						 									;none
+boxOpn					;actorData/storages/boxSmall/green_persistent																																			;green Box																;unlocked								   ;inventory				 									;none
+securP					;actorData/security/securityPost/security    																																			;security post												;default									   ;textbox						 									;none
+monrai					;actorData/machine/vehicle/monrail/monrail   																																			;monrail																		;default									   ;textbox						 									;none
+bulkhe					;actorData/doors/horizontal/bulkhead_192/bulkhead																															;bulkhead																	;on														   ;textbox						 									;none
+door64					;actorData/doors/horizontal/simple64/simple																																					;door																					;on														   ;manualDoor	 											;none
+doorVe					;actorData/doors/vertical/autoBulkheadVertical           																							;vertical bulkhead								;closed_rightblack		;textbox																;undefined
+jobScr					;actorData/computer/jobscreen/jobscreen																																									;job screen															;default												;textbox																;undefined
+ele_di					;actorData/doors/updown/elevator/elevator																																							;elevator																	;toBiotech										;default																;undefined
+ele__A					;actorData/doors/updown/elevator/elevator																																							;elevator																	;a																		;default																;undefined
+pdaSis					;actorData/collectibles/reader/reader																																											;PDA																						;SISTER_VISITME				 ;default		     									;undefined
 largB0					;actorData/storages/greenBoxLarge/largeBox																																						;green Box																;default												;default												    ;none
 largB1					;actorData/storages/greenBoxLarge/largeBox																																						;green Box																;cut																;default												    ;none
 largB2					;actorData/storages/greenBoxLarge/largeBox																																						;green Box																;crates													;default												    ;none
 smileV					;actorData/system_vendor/smile/smile																																												;Smile vendor													;default												;inventory														;undefined
+plaBed					;actorData/furniture/bed/simpleBed/simpleBed																																				;Bed																						;default												;sleep																		;undefined
 
 global_system_actor:
 #character           ;mapId ,spStatus   ,direction	 ,sensStatus					,dialogFile																																														,dialogueID 												,scriptPath
@@ -168,7 +170,7 @@ layer:
 008 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 009 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;wallN_ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 010 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;wallE_ ;front_ ;front_ ;front_ ;front_ ;veWall ;front_ ;front_ ;front_ ;front_ ;veWall ;front_ ;front_ ;front_ ;front_ ;veWall ;front_ ;front_ ;front_ ;front_ ;veWall ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
-011 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;wallE_ ;bed1__ ;______ ;______ ;______ ;veWall ;bed0__ ;______ ;______ ;______ ;veWall ;bed0__ ;______ ;______ ;______ ;veWall ;bed2__ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
+011 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;wallE_ ;bed1__ ;______ ;______ ;______ ;veWall ;bed0__ ;______ ;______ ;______ ;veWall ;plaBed ;______ ;______ ;______ ;veWall ;bed2__ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 012 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;wallE_ ;______ ;______ ;______ ;close2 ;veWall ;______ ;medic_ ;______ ;______ ;veWall ;______ ;______ ;______ ;boxOpn ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 013 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;wallE_ ;______ ;______ ;______ ;______ ;veWall ;lighte ;______ ;______ ;close1 ;veWall ;______ ;______ ;______ ;close0 ;veWall ;______ ;oraOve ;______ ;close1 ;veWall ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 014 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;wallE_ ;nights ;blackm ;______ ;couch_ ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;veWall ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______

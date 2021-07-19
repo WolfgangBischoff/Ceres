@@ -1,0 +1,13 @@
+
+
+<root name="bed">
+
+    <dialogue id="SLEEP" type="decision">
+        <option nextDialogue="decision_nextDay">Rest till next day.</option>
+        <option>[back]</option>
+    </dialogue>
+    <dialogue id="decision_nextDay" type="technical" daychange="" />
+
+</root>
+
+

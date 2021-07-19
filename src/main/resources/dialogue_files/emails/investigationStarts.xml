@@ -1,0 +1,15 @@
+
+
+<root name = "mail">
+    <mail variable="CAPIGENI_DELIVERED_BACTERIA" value="true" sleep="true">
+        <sender>The office</sender>
+        <text>Please come to the security office!</text>
+    </mail>
+
+    <mail>
+        <sender>The office Of doom</sender>
+        <text>Second mail!</text>
+    </mail>
+</root>
+
+
