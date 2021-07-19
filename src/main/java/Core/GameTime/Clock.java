@@ -89,7 +89,7 @@ public class Clock
 
     private void checkAreaOpenedTime(DateTime date, MapTimeData mapTimeData)
     {
-        if (TimeSpan.notWithin(mapTimeData.getOpenedTime(), date.getTime().add(1, 30)))
+        if (mapTimeData.getOpenedTime().getEnd().equals(date.getTime().add(1, 0)))
             CentralMessageOverlay.showMsg("The Area will close soon!");
         if (TimeSpan.notWithin(mapTimeData.getOpenedTime(), date.getTime()))
         {

@@ -2,23 +2,23 @@ package Core.GameTime;
 
 public class TimeSpan
 {
-    Time earlier;
-    Time later;
+    Time begin;
+    Time end;
 
-    public TimeSpan(Time earlier, Time later)
+    public TimeSpan(Time begin, Time end)
     {
-        this.earlier = earlier;
-        this.later = later;
+        this.begin = begin;
+        this.end = end;
     }
 
     public static boolean within(TimeSpan timeSpan, Time now)
     {
         TimeComparator comparator = new TimeComparator();
-        if (comparator.compare(timeSpan.earlier, timeSpan.later) > 1)
+        if (comparator.compare(timeSpan.begin, timeSpan.end) > 1)
             throw new RuntimeException("Min is less than max");
 
-        return (comparator.compare(timeSpan.earlier, now) == 0 || comparator.compare(timeSpan.earlier, now) < 0)
-                && (comparator.compare(timeSpan.later, now) == 0 || comparator.compare(timeSpan.later, now) > 0);
+        return (comparator.compare(timeSpan.begin, now) == 0 || comparator.compare(timeSpan.begin, now) < 0)
+                && (comparator.compare(timeSpan.end, now) == 0 || comparator.compare(timeSpan.end, now) > 0);
     }
 
     public static boolean notWithin(TimeSpan timeSpan, Time now)
@@ -26,9 +26,19 @@ public class TimeSpan
         return !within(timeSpan, now);
     }
 
+    public Time getBegin()
+    {
+        return begin;
+    }
+
+    public Time getEnd()
+    {
+        return end;
+    }
+
     @Override
     public String toString()
     {
-        return "(" + earlier + " - " + later + ")";
+        return "(" + begin + " - " + end + ")";
     }
 }

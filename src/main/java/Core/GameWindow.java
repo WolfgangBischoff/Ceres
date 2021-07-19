@@ -58,7 +58,6 @@ public class GameWindow extends Stage
 
     public void createNextScene(WorldView controller)
     {
-        String methodName = "createNextScene()";
         this.currentView = controller;
 
         //https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size

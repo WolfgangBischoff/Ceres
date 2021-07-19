@@ -9,6 +9,18 @@
         <line>After some time the bacteria will have consumed the nutrition and you can harvest it.</line>
     </dialogue>
 
+
+    <dialogue id="CHECK_LEVEL2" type="normal" nextDialogue="CHECK_LEVEL2_1">
+        <line>Its locked, you need an access card to enter. Maybe the staff has one.</line>
+    </dialogue>
+    <dialogue id="CHECK_LEVEL2_1" type="decision">
+        <option>[back]</option>
+        <option variablename="CAPIGENI_TRAINEE_AREA_ACESS_LEVEL_2" type="boolean" visibleIf="true" nextDialogue="OPENED_LEVEL2">Open the door</option>
+    </dialogue>
+    <dialogue id="OPENED_LEVEL2" type="normal" sensorstatus="UNLOCKED" nextDialogue="CHECK_LEVEL2_1">
+        <line>Access granted!</line>
+    </dialogue>
+
 </root>
 
 

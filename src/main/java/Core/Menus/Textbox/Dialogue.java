@@ -10,7 +10,6 @@ import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
@@ -66,8 +65,6 @@ public class Dialogue
                     gameData.messageOutcomes.put(TEXTBOX_ATTRIBUTE_SUCCESS, successNextMsg);
                     gameData.messageOutcomes.put(TEXTBOX_ATTRIBUTE_DEFEAT, defeatNextMsg);
                     addOption(new Option(TEXTBOX_ATTRIBUTE_COIN_GAME, "none", gameData));
-                    //addOption(TEXTBOX_ATTRIBUTE_SUCCESS, successNextMsg);
-                    //addOption(TEXTBOX_ATTRIBUTE_DEFEAT, defeatNextMsg);
                     WorldView.setDiscussionGame(new CoinGame(discussionGameName, actorOfDialogue));
                     WorldViewController.setWorldViewStatus(WorldViewStatus.COIN_GAME);
                 }
@@ -178,13 +175,12 @@ public class Dialogue
 
     private String getVariableCondition(String type, String varName)
     {
-        String methodName = "checkVariableCondition() ";
-        String eval = null;
+        String eval;
         if (type.equals("boolean"))
         {
             eval = GameVariables.getGenericVariableManager().getValue(varName);
-            if (eval == null)
-                System.out.println(CLASSNAME + methodName + "variable not set: " + varName);
+            if (eval != null)
+                return eval;
         }
         else if (type.equals("player"))
         {
@@ -192,7 +188,8 @@ public class Dialogue
                 return WorldView.getPlayer().getActor().getGeneralStatus();
         }
 
-        return eval;
+        throw new RuntimeException(CLASSNAME + "variable not found, do you forgot to enter a type? : " + varName);
+
     }
 
     private String checkForNextDialogues(Element currentDialogue)

@@ -491,8 +491,6 @@ public class WorldView
         ArrayList<String> input = GameWindow.getInput();
         double elapsedTimeSinceLastInteraction = (currentUpdateTime - lastTimeMenuWasOpened) / 1000000000.0;
 
-        //updateAccordingToTime();
-
         //Test Menu Hotkeys
         if (input.contains("T") && elapsedTimeSinceLastInteraction > 1)
             loadStage("test", "default");

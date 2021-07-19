@@ -3,7 +3,7 @@
 ##### 07 21
 * added item consume from textbox
 * level build trainee area
-* new sprites: public_desk, resistance blue jacket; fence, green_display
+* new sprites: public_desk, resistance blue jacket; fence, green_display, carton
 * Bacteria spreads on time, just to fitting nutrition
 * load include from dayPart
 * MapTimeData; Leave area with message; dayNight cycle and TimeMode
