@@ -5,8 +5,16 @@
     <dialogue id="INIT_JOB" type="normal" nextDialogue="JOB_DECISION">
         <line>Check out work opportunities on your deck!</line>
     </dialogue>
-    <dialogue id="JOB_DECISION" type="normal" >
-        <line>Apply to CapiGen</line>
+    <dialogue id="JOB_DECISION" type="decision" >
+        <option nextDialogue="CAPIGENIAPPLY">[Apply to CapiGeni]</option>
+        <option>[back]</option>
+    </dialogue>
+    <dialogue id="CAPIGENIAPPLY" type="normal" nextDialogue="CAPIGENIAPPLY_REPEAT" dialogueId="CAPIGENIAPPLY_REPEAT">
+        <line>Congratulations on your new opportunity at CapiGeni. Our spirit is to grow together, so start your journey at our %%VTfree trainee camp%%!</line>
+    </dialogue>
+    <dialogue id="CAPIGENIAPPLY_REPEAT" type="normal" >
+        <line>In the %%VTfree trainee camp%% you will learn about our core business, after the course you can work with us for a better future!</line>
+        <line>Visit us via %%VTmonrail at work time%%!</line>
     </dialogue>
 
 </root>

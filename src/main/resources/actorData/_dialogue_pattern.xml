@@ -8,21 +8,15 @@ id - identifier for lookup of textbox
 type - normal/decision/discussion
 spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
 
-    <dialogue id="welcome" type="normal" spritestatus="transition">
+    <dialogue id="welcome" type="normal" spritestatus="transition" dialogueId="CHANGE_INIT">
         <line>Shown message</line>
         <line>Shown message 2</line>
         <nextDialogue>nextDialogueID</nextDialogue>
     </dialogue>
 
-    <dialogue id="info" type="decision" spritestatus="transition">
-        <option>
-            <line>Optiontext1</line>
-            <nextDialogue>option1ID</nextDialogue>
-        </option>
-
-        <option>
-            <line>Optiontext1, Nothing happens</line>
-        </option>
+     <dialogue id="OPTION_GOALS" type="decision" >
+        <option nextDialogue="WANT_MONEY">&gt;.. need %%GRmoney%%.&lt;</option>
+        <option>[back]</option>
     </dialogue>
 
      <dialogue id="DECISION-DISCUSSION" type="technical" coingame="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
@@ -35,7 +29,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 <-->
 
 <root name = "actorName">
-    <dialogue id="none" type="normal" nextDialogue="INIT_DECISION">
+    <dialogue id="none" type="normal" nextDialogue="INIT_DECISION" >
         <line>Lorem Ipsum</line>
         <line>Dolorem</line>
     </dialogue>
