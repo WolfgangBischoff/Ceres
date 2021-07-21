@@ -424,7 +424,6 @@ public class Sprite
 
     public void setImage(String filename)
     {
-        String methodName = "setImage(String) ";
         baseimage = Utilities.readImage(filename + PNG_POSTFIX);
         basewidth = baseimage.getWidth();
         baseheight = baseimage.getHeight();

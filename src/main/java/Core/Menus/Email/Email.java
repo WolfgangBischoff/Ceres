@@ -11,7 +11,6 @@ public class Email
     String sender;
     String text;
     boolean sent = false;
-    boolean read = false;
     EmailCondition condition;
 
     public Email(Node mail)

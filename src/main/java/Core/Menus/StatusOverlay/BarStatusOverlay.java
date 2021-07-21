@@ -47,8 +47,6 @@ public class BarStatusOverlay
 
     public void render(GraphicsContext gc) throws NullPointerException
     {
-        String methodName = "render() ";
-
         //Background
         int backgroundOffsetY = 15;
         gc.setGlobalAlpha(0.8);

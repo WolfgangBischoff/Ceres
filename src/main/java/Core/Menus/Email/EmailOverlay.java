@@ -1,7 +1,6 @@
 package Core.Menus.Email;
 
 import Core.WorldView.WorldViewController;
-import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -27,16 +26,6 @@ public class EmailOverlay
         return HEIGHT;
     }
 
-    public static Point2D getScreenPosition()
-    {
-        return SCREEN_POSITION;
-    }
-
-    public static Rectangle2D getScreenArea()
-    {
-        return SCREEN_AREA;
-    }
-
     public void render(GraphicsContext gc)
     {
         gc.setFill(COLOR_BACKGROUND_BLUE);
@@ -48,12 +37,10 @@ public class EmailOverlay
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked)
     {
-        //System.out.println("Email hovered");
         if (isMouseClicked)
         {
             WorldViewController.setWorldViewStatus(WORLD);
         }
-
 
     }
 }

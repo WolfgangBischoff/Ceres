@@ -976,7 +976,7 @@ public class WorldView
             boardTimeOverlay.render(hudCanvas.getGraphicsContext2D());
         if (centralMessageOverlay.isVisible())
             centralMessageOverlay.render(hudCanvas.getGraphicsContext2D(), currentNanoTime);
-        emailButtonOverlay.render(hudCanvas.getGraphicsContext2D());
+        emailButtonOverlay.render(hudCanvas.getGraphicsContext2D(), currentNanoTime);
     }
 
     private void renderLightEffect(Long currentNanoTime)
