@@ -130,12 +130,6 @@ public class DaySummaryScreenController
                     mamInformationArea.getMinY() + initOffsetY + tmpOffsetY);
         }
 
-
-        if (!daySummary.newMails.isEmpty())
-            gc.fillText(daySummary.newMails.get(0).getText(), 50, 50);
-        else
-            gc.fillText("No New Emails", 50, 50);
-
         //Healt Info
         StringBuilder healthMsg = new StringBuilder();
         if (daySummary.isStarving())

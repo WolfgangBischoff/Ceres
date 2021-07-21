@@ -124,7 +124,6 @@ public class CoinGame
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
-        String methodName = "processMouse() ";
         Circle checkMarkButton = (Circle) mouseElements.get(CHECKMARK_BUTTON_ID).getPosition();
 
         //Button Image

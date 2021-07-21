@@ -23,13 +23,23 @@ public class Email
 
         String var = ((Element)mail).getAttribute("variable");
         String trueValue = ((Element)mail).getAttribute("value");
-        boolean sleepNeeded = Boolean.parseBoolean(((Element)mail).getAttribute("sleep"));
-        condition = new EmailCondition(sleepNeeded, var, trueValue);
+        condition = new EmailCondition(var, trueValue);
     }
 
-    public boolean isSendConditionFullfilled(boolean slept)
+    private Email()
     {
-        return condition.evaluate(slept) && !isSent();
+        text = "No emails";
+        sender = "empty";
+    }
+
+    public boolean isSendConditionFullfilled()
+    {
+        return condition.evaluate() && !isSent();
+    }
+
+    public static Email empty()
+    {
+        return new Email();
     }
 
     public String getSender()

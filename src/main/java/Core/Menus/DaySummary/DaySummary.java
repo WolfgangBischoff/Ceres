@@ -19,7 +19,7 @@ public class DaySummary
     private boolean hasInterrogation = false;
     private boolean isStarving = false;
     List<CollectibleStack> foundStolenCollectibles = new ArrayList<>();
-    List<Email> newMails;
+
 
     public DaySummary()
     {
@@ -27,8 +27,6 @@ public class DaySummary
 
     void init()
     {
-        newMails = EmailManager.checkNewMails(true);
-
         //Check interogation and MaM
         foundStolenCollectibles.clear();
         if (GameVariables.getPlayerMaM_duringDay() >= MAM_THRESHOLD_INTERROGATION)

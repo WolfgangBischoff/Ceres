@@ -4,12 +4,14 @@ import Core.*;
 import Core.Configs.Config;
 import Core.Enums.ActorTag;
 import Core.Enums.Direction;
+import Core.GameTime.ClockMode;
 import Core.GameTime.DateTime;
 import Core.GameTime.Time;
-import Core.GameTime.ClockMode;
 import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.Menus.CoinGame.CoinGame;
 import Core.Menus.DaySummary.DaySummaryScreenController;
+import Core.Menus.Email.EmailButtonOverlay;
+import Core.Menus.Email.EmailOverlay;
 import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Personality.PersonalityScreenController;
 import Core.Menus.StatusOverlay.BarStatusConfig;
@@ -58,6 +60,8 @@ public class WorldView
     static VariableStatusOverlay moneyOverlay = new VariableStatusOverlay(MONEY_FIELD_WIDTH, MONEY_FIELD_HEIGHT, GameVariables.playerMoneyProperty(), "interface/bars/money_field_150x64.png", MONEY_POSITION);
     static BarStatusOverlay hungerOverlay = new BarStatusOverlay(new BarStatusConfig("interface/bars/food_bar_400x64.png", null, COLOR_GREEN,
             MAM_BAR_WIDTH, MAM_BAR_HEIGHT, MAX_HUNGER, GameVariables.playerHungerProperty(), HUNGER_BAR_POSITION));
+    static EmailButtonOverlay emailButtonOverlay = new EmailButtonOverlay();
+    static EmailOverlay emailOverlay = new EmailOverlay();
     static ClockOverlay boardTimeOverlay;
     static CentralMessageOverlay centralMessageOverlay = new CentralMessageOverlay();
     static List<Actor> actorList = new ArrayList<>();
@@ -73,9 +77,11 @@ public class WorldView
     static List<Sprite> toRemove = new ArrayList<>();
     static double camX;
     static double camY;
+    static String levelName;
+    static Color shadowColor;
     private static WorldView singleton;
     private static Rectangle2D borders;
-    static String levelName;
+    private static MapTimeData mapTimeData;
     //Render
     Pane root;
     Canvas worldCanvas;
@@ -84,7 +90,6 @@ public class WorldView
     GraphicsContext shadowMaskGc;
     Canvas hudCanvas;
     Map<String, Image> lightsImageMap = new HashMap<>();
-    static Color shadowColor;
     Canvas blackOverlayCanvas;
     GraphicsContext blackOverlayGc;
     boolean isFadedOut = false;
@@ -100,7 +105,6 @@ public class WorldView
     float durationBump = RUMBLE_MAX_DURATION;
     boolean bumpActive = false;
     private GridManager gridManager = new GridManager();
-    private static MapTimeData mapTimeData;
 
     private WorldView(String levelName)
     {
@@ -262,6 +266,31 @@ public class WorldView
     public static List<Actor> getActorList()
     {
         return actorList;
+    }
+
+    public static Color getShadowColor()
+    {
+        return shadowColor;
+    }
+
+    public static void setShadowColor(Color shadowColor)
+    {
+        WorldView.shadowColor = shadowColor;
+    }
+
+    static public String getLevelName()
+    {
+        return levelName;
+    }
+
+    public static MapTimeData getMapTimeData()
+    {
+        return mapTimeData;
+    }
+
+    public void setMapTimeData(MapTimeData mapTimeData)
+    {
+        this.mapTimeData = mapTimeData;
     }
 
     public void changeStage(String levelName, String spawnId, boolean invalidateSavedStages)
@@ -537,6 +566,7 @@ public class WorldView
             case COIN_GAME://No keyboard input so far
                 coinGame.update(currentUpdateTime);
                 break;
+            case EMAIL:
             case INCUBATOR:
                 break;
             case COLLECTIBLE_USE:
@@ -547,6 +577,7 @@ public class WorldView
                     inventoryController.setMenuCollectible(CollectibleStack.empty());
                 }
                 break;
+
             default:
                 System.out.println(CLASSNAME + methodName + "Undefined WorldViewStatus: " + WorldViewController.getWorldViewStatus());
         }
@@ -685,9 +716,16 @@ public class WorldView
         switch (WorldViewController.getWorldViewStatus())
         {
             case WORLD:
-                for (Sprite clicked : mouseHoveredSprites)
-                    if (isMouseClicked)
-                        clicked.onClick(currentNanoTime);//Wraps onInteraction
+                if (EmailButtonOverlay.getScreenArea().contains(mousePosition))
+                {
+                    emailButtonOverlay.processMouse(mousePosition, isMouseClicked);
+                }
+                else
+                {
+                    for (Sprite clicked : mouseHoveredSprites)
+                        if (isMouseClicked)
+                            clicked.onClick(currentNanoTime);//Wraps onInteraction
+                }
                 break;
             case COIN_GAME:
                 coinGame.processMouse(mousePosition, isMouseClicked, currentNanoTime);
@@ -709,6 +747,9 @@ public class WorldView
                 break;
             case COLLECTIBLE_USE:
                 mouseWorldInteraction(mousePosition, isMouseClicked);
+                break;
+            case EMAIL:
+                emailOverlay.processMouse(mousePosition, isMouseClicked);
                 break;
             default:
                 System.out.println(CLASSNAME + methodName + "mouseinput undefined for: " + WorldViewController.getWorldViewStatus());
@@ -812,12 +853,6 @@ public class WorldView
 
     }
 
-
-    public static Color getShadowColor()
-    {
-        return shadowColor;
-    }
-
     public void render(Long currentNanoTime)
     {
         Long methodStartTime = System.nanoTime();
@@ -879,6 +914,10 @@ public class WorldView
                 break;
             case COLLECTIBLE_USE:
                 gridManager.drawGrid(gc);
+                break;
+            case EMAIL:
+                emailOverlay.render(hudCanvas.getGraphicsContext2D());
+                break;
 
         }
 
@@ -937,6 +976,7 @@ public class WorldView
             boardTimeOverlay.render(hudCanvas.getGraphicsContext2D());
         if (centralMessageOverlay.isVisible())
             centralMessageOverlay.render(hudCanvas.getGraphicsContext2D(), currentNanoTime);
+        emailButtonOverlay.render(hudCanvas.getGraphicsContext2D());
     }
 
     private void renderLightEffect(Long currentNanoTime)
@@ -977,11 +1017,6 @@ public class WorldView
         return root;
     }
 
-    static public String getLevelName()
-    {
-        return levelName;
-    }
-
     public Canvas getWorldCanvas()
     {
         return worldCanvas;
@@ -992,11 +1027,6 @@ public class WorldView
         return gc;
     }
 
-    public static void setShadowColor(Color shadowColor)
-    {
-        WorldView.shadowColor = shadowColor;
-    }
-
     public boolean isFadedOut()
     {
         return isFadedOut;
@@ -1005,16 +1035,6 @@ public class WorldView
     public void setFadedOut(boolean fadedOut)
     {
         isFadedOut = fadedOut;
-    }
-
-    public static MapTimeData getMapTimeData()
-    {
-        return mapTimeData;
-    }
-
-    public void setMapTimeData(MapTimeData mapTimeData)
-    {
-        this.mapTimeData = mapTimeData;
     }
 
 

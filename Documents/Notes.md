@@ -69,6 +69,7 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 * Einige Sachen sollen nur einmal geladen werden und ihr zustand gespeichert werden. bzw ihre Löschung => Persistent tag, aber merken ob file mal geladen wurde (Auch items)
 * Andere sollen erst abhängig von Vars geladen werden => Über FileCondition
 * Andere in Zeitabständen geladen werden => Unsichtbares Item hat SpawnData(eg. alle zwei Stunden, um 0000 Uhr)
+* Reload Befehl von Actor/Textbox
 
 ####Sprites
 * mehr NPC, Varianten Generiert
@@ -84,6 +85,10 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
 
 # Ideas
 ##Basemechanics
+### Zeit
+* Spieler muss schlafen, Hunger wird beim schlafen aufgefüllt
+* In schlafzeit wird Wirtschaft weiterberechnet, man muss also ggf täglcih lager auffüllen
+
 ### Transform your Transporter to a better place to live
 * Build and maintain Support Infrastructure
   - Food/Air Recycling 

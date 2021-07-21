@@ -2,6 +2,7 @@ package Core.GameTime;
 
 import Core.GameVariables;
 import Core.Menus.AchievmentLog.CentralMessageOverlay;
+import Core.Menus.Email.EmailManager;
 import Core.WorldView.MapTimeData;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
@@ -69,7 +70,10 @@ public class Clock
 
         //Jede 5 Minute ausführen
         if (totalTimeTicks.get() % 5 == 0)
+        {
             GameVariables.updateFromTimeGameTimeDependent(currentNanoTime, WorldView.getActorList());
+            EmailManager.checkSendMails();
+        }
     }
 
     private void checkDayNightCycle(DateTime date, MapTimeData mapTimeData)

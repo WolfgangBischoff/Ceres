@@ -11,5 +11,6 @@ public enum WorldViewStatus
     PERSONALITY,
     DAY_SUMMARY,
     COLLECTIBLE_USE,
-    INCUBATOR
+    INCUBATOR,
+    EMAIL
 }

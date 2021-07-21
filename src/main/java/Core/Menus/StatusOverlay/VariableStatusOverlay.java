@@ -42,7 +42,6 @@ public class VariableStatusOverlay
 
     public void render(GraphicsContext gc)
     {
-        String methodName = "render() ";
         int backgroundOffsetX = 80;
         gc.drawImage(field, SCREEN_POSITION.getX(), SCREEN_POSITION.getY());
         gc.setFill(COLOR_FONT);

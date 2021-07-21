@@ -1,7 +1,7 @@
 
 
 <root name = "mail">
-    <mail variable="CAPIGENI_DELIVERED_BACTERIA" value="true" sleep="true">
+    <mail variable="CAPIGENI_DELIVERED_BACTERIA" value="true">
         <sender>The office</sender>
         <text>Please come to the security office!</text>
     </mail>
