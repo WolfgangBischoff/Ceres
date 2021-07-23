@@ -33,9 +33,7 @@ Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistan
     * steal fuel
     * meet resistance => goto hideout => goto ship
 
-#### Bacteria mechanic
-* While Spreading, new bacteria can be created/ kreuzung => mit example bild sprite
-* Bacteria Resource can be put into splicer to craft or extract resource
+
 
 #### Speicher
 * Problem mit Persistens, wird nur geladen beim ersten laden des basis files, 
@@ -45,9 +43,19 @@ danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein proble
 * V2: Base Karte bleibt auch im Speicher, includes werden geprüft und ggf vom Speicher geholt
 * V2: Respawn wird über eigenen persistenten ActorType gemanaged
 * V2: Includes abhängig von Var und diskreter Zeit die reload triggered wie Tag/Nacht wechsel
+#### Konzept laden
+* Einige Sachen sollen immer geladen werden => Immer vom File oder Save (aber keine Spawnitems mehr)
+* Einige Sachen sollen nur einmal geladen werden und ihr zustand gespeichert werden. bzw ihre Löschung => Persistent tag, aber merken ob file mal geladen wurde (Auch items)
+* Andere sollen erst abhängig von Vars geladen werden => Über FileCondition
+* Andere in Zeitabständen geladen werden => Unsichtbares Item hat SpawnData(eg. alle zwei Stunden, um 0000 Uhr)
+* Reload Befehl von Actor/Textbox
 
 #### Zeit
 * Sprite: Change dialogue, img, position, script at time (eg. when to enter an area and dialogue)
+
+#### Bacteria mechanic
+* While Spreading, new bacteria can be created/ kreuzung => mit example bild sprite
+* Bacteria Resource can be put into splicer to craft or extract resource
 
 #### Inventar
 * Teilen button
@@ -65,13 +73,6 @@ danach lassen sich keine solchen actors mehr hinzufügen, ggf später ein proble
     * Test: Game ends if no correct coins are left
 * Cooperation value just increases after time
 * Create Questlog
-
-#### Konzept laden
-* Einige Sachen sollen immer geladen werden => Immer vom File oder Save (aber keine Spawnitems mehr)
-* Einige Sachen sollen nur einmal geladen werden und ihr zustand gespeichert werden. bzw ihre Löschung => Persistent tag, aber merken ob file mal geladen wurde (Auch items)
-* Andere sollen erst abhängig von Vars geladen werden => Über FileCondition
-* Andere in Zeitabständen geladen werden => Unsichtbares Item hat SpawnData(eg. alle zwei Stunden, um 0000 Uhr)
-* Reload Befehl von Actor/Textbox
 
 ####Sprites
 * mehr NPC, Varianten Generiert
