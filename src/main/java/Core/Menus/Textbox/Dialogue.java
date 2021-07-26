@@ -188,7 +188,7 @@ public class Dialogue
                 return WorldView.getPlayer().getActor().getGeneralStatus();
         }
 
-        throw new RuntimeException(CLASSNAME + "variable not found, do you forgot to enter a type? : " + varName);
+        throw new RuntimeException(CLASSNAME + " type: " + type + " varname: " + varName);
 
     }
 

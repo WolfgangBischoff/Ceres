@@ -6,9 +6,8 @@ import Core.WorldView.MapTimeData;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.logging.Level;
 
 public class LevelState
 {
@@ -17,7 +16,7 @@ public class LevelState
     long day;
     private Rectangle2D borders;
     private List<Actor> actorList;
-    private List<Sprite> actorSpritesLayer;
+    private List<Sprite> actorSpritesLayer = new ArrayList<>();
     private List<Sprite> passiveSpritesLayer;
     private List<Sprite> bottomLayer;
     private List<Sprite> middleLayer;
@@ -25,13 +24,24 @@ public class LevelState
     private Color shadowColor;
     private Map<String, WorldLoader.SpawnData> spawnPointsMap;
     private ClockMode clockMode;
-    private boolean isValid = true;
     private MapTimeData mapTimeData;
+    private Set<String> loadedIncludes = new HashSet<>();
 
-    public LevelState(String levelName, long day, Rectangle2D borders, List<Sprite> activeSpritesLayer, List<Sprite> passiveSpritesLayer, List<Sprite> bottomLayer, List<Sprite> middleLayer, List<Sprite> topLayer, Color shadowColor, Map<String, WorldLoader.SpawnData> spawnPointsMap, ClockMode clockMode, List<Actor> activeActors, MapTimeData mapTimeData)
+    public static LevelState empty(String levelName)
+    {
+        return new LevelState(levelName);
+    }
+
+    private LevelState(String levelName)
     {
         this.levelName = levelName;
-        this.day = day;
+        this.day = GameVariables.gameDateTime().getDays();
+    }
+
+    public LevelState(String levelName,  Rectangle2D borders, List<Sprite> activeSpritesLayer, List<Sprite> passiveSpritesLayer, List<Sprite> bottomLayer, List<Sprite> middleLayer, List<Sprite> topLayer, Color shadowColor, Map<String, WorldLoader.SpawnData> spawnPointsMap, ClockMode clockMode, List<Actor> activeActors, MapTimeData mapTimeData)
+    {
+        this.levelName = levelName;
+        this.day = GameVariables.gameDateTime().getDays();
         this.borders = borders;
         this.actorSpritesLayer = activeSpritesLayer;
         this.passiveSpritesLayer = passiveSpritesLayer;
@@ -117,16 +127,6 @@ public class LevelState
         return clockMode;
     }
 
-    public boolean isValid()
-    {
-        return isValid;
-    }
-
-    public void setValid(boolean valid)
-    {
-        isValid = valid;
-    }
-
     public List<Actor> getactorList()
     {
         return actorList;
@@ -140,5 +140,73 @@ public class LevelState
     public MapTimeData getMapTimeData()
     {
         return mapTimeData;
+    }
+
+    public Set<String> getLoadedIncludes()
+    {
+        return loadedIncludes;
+    }
+
+    public void setBorders(Rectangle2D borders)
+    {
+        this.borders = borders;
+    }
+
+    public void setActorList(List<Actor> actorList)
+    {
+        this.actorList = actorList;
+    }
+
+    public void setActorSpritesLayer(List<Sprite> actorSpritesLayer)
+    {
+        this.actorSpritesLayer = actorSpritesLayer;
+    }
+
+    public void setPassiveSpritesLayer(List<Sprite> passiveSpritesLayer)
+    {
+        this.passiveSpritesLayer = passiveSpritesLayer;
+    }
+
+    public void setBottomLayer(List<Sprite> bottomLayer)
+    {
+        this.bottomLayer = bottomLayer;
+    }
+
+    public void setMiddleLayer(List<Sprite> middleLayer)
+    {
+        this.middleLayer = middleLayer;
+    }
+
+    public void setTopLayer(List<Sprite> topLayer)
+    {
+        this.topLayer = topLayer;
+    }
+
+    public void setShadowColor(Color shadowColor)
+    {
+        this.shadowColor = shadowColor;
+    }
+
+    public void setSpawnPointsMap(Map<String, WorldLoader.SpawnData> spawnPointsMap)
+    {
+        this.spawnPointsMap = spawnPointsMap;
+    }
+
+    public void setClockMode(ClockMode clockMode)
+    {
+        this.clockMode = clockMode;
+    }
+
+    public void setMapTimeData(MapTimeData mapTimeData)
+    {
+        this.mapTimeData = mapTimeData;
+    }
+
+    public void addLoadedIncludes(String loadedInclude)
+    {
+        loadedIncludes.add(loadedInclude);
+
+
+
     }
 }

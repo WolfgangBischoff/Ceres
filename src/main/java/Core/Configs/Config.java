@@ -18,8 +18,8 @@ public class Config
     public static final Boolean DEBUG_FPS = false;
     public static final boolean GAME_WINDOW_FULL_SCREEN = false;
     public static final boolean GAME_WINDOW_FULL_SCREEN_DISABLE_EXIT = false;
-    //public static final String FIRST_LEVEL = "crewdeck/crewdeck";
-    public static final String FIRST_LEVEL = "living_quarter/living_quarter";
+    public static final String FIRST_LEVEL = "crewdeck/crewdeck";
+    //public static final String FIRST_LEVEL = "living_quarter/living_quarter";
     public static final Font FONT_ESTROG_30_DEFAULT = Utilities.readFont("font/estrog__.ttf", 30);
     public static final Font FONT_ESTROG_20 = Utilities.readFont("font/estrog__.ttf", 20);
     public static final Font FONT_ORBITRON_20 = Utilities.readFont("font/Orbitron-Regular.ttf", 22);

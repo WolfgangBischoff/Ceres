@@ -8,7 +8,7 @@
     </dialogue>
 
     <dialogue id="GET_AIR_SYSTEM_QUEST" type="decision">
-        <option nextDialogue="COIN_GAME_EXPLANATION" variablename="transporter_air_system_quest_started"
+        <option nextDialogue="COIN_GAME_EXPLANATION" type="boolean" variablename="transporter_air_system_quest_started"
                 visibleIf="true">&gt;How should I fix the air system?&lt;
         </option>
         <option nextDialogue="air_system_check"

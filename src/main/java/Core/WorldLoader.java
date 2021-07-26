@@ -3,6 +3,7 @@ package Core;
 import Core.ActorSystem.ActorMonitor;
 import Core.ActorSystem.GlobalActorsManager;
 import Core.Configs.Config;
+import Core.Enums.ActorTag;
 import Core.Enums.Direction;
 import Core.GameTime.ClockMode;
 import Core.GameTime.DayPart;
@@ -32,7 +33,7 @@ public class WorldLoader
     List<Sprite> actorSprites = new ArrayList<>();
     List<Actor> actorsList = new ArrayList<>();
     List<Sprite> bttmLayer = new ArrayList<>();
-    List<Sprite> mediumLayer = new ArrayList<>();
+    List<Sprite> middleLayer = new ArrayList<>();
     List<Sprite> upperLayer = new ArrayList<>();
     List<Sprite> topLayer = new ArrayList<>();
     Set<String> loadedTileIdsSet = new HashSet<>();
@@ -50,9 +51,11 @@ public class WorldLoader
     ClockMode clockMode = ClockMode.RUNNING;
     private Rectangle2D borders;
     private MapTimeData mapTimeData;
+    private LevelState previousLevelState;
 
-    public WorldLoader()
+    public WorldLoader(LevelState levelState)
     {
+        previousLevelState = levelState;
         if (keywords.isEmpty())
         {
             keywords.add(MAPFILE_NEW_LAYER);
@@ -76,26 +79,15 @@ public class WorldLoader
         return CLASSNAME;
     }
 
-    public static Set<String> getKeywords()
+    private void readFile(String fileName, boolean readFirstTime)
     {
-        return keywords;
-    }
-
-    private void readFile(String fileName)
-    {
-        String methodName = "readFile() ";
-        boolean debug = false;
         List<String[]> leveldata = Utilities.readAllLineFromTxt(STAGE_FILE_PATH + fileName + CSV_POSTFIX);
-
         readMode = null;
-        if (debug)
-            System.out.println(CLASSNAME + methodName + "begin read file: " + fileName);
-        for (int i = 0; i < leveldata.size(); i++)
+        leveldata.stream().forEach(lineData ->
         {
-            String[] lineData = leveldata.get(i);
             try
             {
-                readLine(lineData);
+                readLine(lineData, readFirstTime);
             }
             catch (IndexOutOfBoundsException | NumberFormatException e)
             {
@@ -104,30 +96,25 @@ public class WorldLoader
                     stringBuilder.append(s).append("; ");
                 throw new RuntimeException(e.getMessage() + "\nRead Mode: " + readMode + "\nat\t" + stringBuilder.toString() + "\n" + Arrays.toString(e.getStackTrace()));
             }
-        }
-
-        if (debug)
-            System.out.println(CLASSNAME + methodName + "finished read file: " + fileName);
+        });
     }
 
     public void load(String levelName, String spawnId)
     {
-        String methodName = "load() ";
+        boolean readFirstTime = previousLevelState == null;
         this.levelName = levelName;
         this.spawnId = spawnId;
-        readFile(this.levelName);
+        readFile(this.levelName, readFirstTime);
         borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64, (maxVerticalTile) * 64);
 
         if (loadedTileIdsSet.size() > 0)
-            System.out.println(CLASSNAME + methodName + " found unused tile or actor definitions " + loadedTileIdsSet + " while loading: " + levelName);
+            System.out.println(CLASSNAME + " found unused tile or actor definitions " + loadedTileIdsSet + " while loading: " + levelName);
         loadedTileIdsSet.clear();
 
     }
 
-    private void readLine(String[] lineData)
+    private void readLine(String[] lineData, boolean readFirstTime)
     {
-        String methodName = "readLine() ";
-
         if (keywords.contains(lineData[0].toLowerCase()))
         {
             readMode = lineData[0].toLowerCase();
@@ -135,7 +122,6 @@ public class WorldLoader
             return;
         }
 
-        //process line according to keyword
         switch (readMode)
         {
             case MAPFILE_TILEDEF:
@@ -143,10 +129,10 @@ public class WorldLoader
                 loadedTileIdsSet.add(lineData[SpriteData.getTileCodeIdx()]);
                 break;
             case MAPFILE_NEW_LAYER:
-                readLineOfTiles(lineData, false);
+                readLineOfTiles(lineData, false, readFirstTime);
                 break;
             case MAPFILE_PASSIV_LAYER:
-                readLineOfTiles(lineData, true);
+                readLineOfTiles(lineData, true, readFirstTime);
                 break;
             case MAPFILE_ACTORS:
                 readActorData(lineData);
@@ -166,7 +152,7 @@ public class WorldLoader
                 readMode = readModeTmp;
                 break;
             case MAPFILE_POSITION:
-                readPosition(lineData);
+                readPosition(lineData, readFirstTime);
                 break;
             case MAPFILE_GLOBAL_SYSTEM_ACTOR:
                 getGlobalSystemActor(lineData);
@@ -178,7 +164,7 @@ public class WorldLoader
                 setMapTimeData(readMapData(lineData));
                 break;
             default:
-                throw new RuntimeException(CLASSNAME + methodName + "readMode unknown: " + readMode);
+                throw new RuntimeException(CLASSNAME + "readMode unknown: " + readMode);
         }
 
     }
@@ -196,11 +182,6 @@ public class WorldLoader
         System.out.println();
     }
 
-    private ClockMode readTimeMode(String[] linedata)
-    {
-        return ClockMode.of(linedata[0]);
-    }
-
     private void getGlobalSystemActor(String[] linedata)
     {
         GlobalActorsManager.loadGlobalSystem(linedata[0]);
@@ -209,23 +190,23 @@ public class WorldLoader
         loadedTileIdsSet.addAll(actorIds.stream().map(string -> string.split(",")[0].trim()).collect(Collectors.toList()));//remove additional status data. eg: medic_,windo
     }
 
-    private void readPosition(String[] lineData)
+    private void readPosition(String[] lineData, boolean readFirstTime)
     {
         String actorId = lineData[0];
         int xPos = Integer.parseInt(lineData[1]);
         int yPos = Integer.parseInt(lineData[2]);
         Actor actor = createActor(actorId, 0, 0);
-
-        actorSprites.addAll(actor.spriteList);
-        actorsList.add(actor);
-
-        List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
-
-        for (int j = 0; j < spriteDataList.size(); j++)
+        if (readFirstTime || !actor.hasTag(ActorTag.PERSISTENT))
         {
-            actor.spriteList.get(j).setPosition(xPos, yPos);
-            addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).renderLayer);
-            loadedTileIdsSet.remove(actorId);//Check for ununsed Definitions
+            actorSprites.addAll(actor.spriteList);
+            actorsList.add(actor);
+            List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
+            for (int j = 0; j < spriteDataList.size(); j++)
+            {
+                actor.spriteList.get(j).setPosition(xPos, yPos);
+                addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).renderLayer);
+                loadedTileIdsSet.remove(actorId);//Check for ununsed Definitions
+            }
         }
     }
 
@@ -288,8 +269,13 @@ public class WorldLoader
 
         }
 
-        readFile(lineData[includeFilePathIdx]);
-
+        boolean includeWasReadFirstTime = true;
+        if (GameVariables.getLevelData(levelName) != null)
+            includeWasReadFirstTime = !GameVariables.getLevelData(levelName).getLoadedIncludes().contains(lineData[includeFilePathIdx]);
+        else
+            GameVariables.saveLevelState(LevelState.empty(levelName));
+        readFile(lineData[includeFilePathIdx], includeWasReadFirstTime);
+        GameVariables.getLevelData(levelName).addLoadedIncludes(lineData[includeFilePathIdx]);
     }
 
     private void readSpawnPoint(String[] lineData)
@@ -347,7 +333,7 @@ public class WorldLoader
                 bttmLayer.add(sprite);
                 break;
             case 1:
-                mediumLayer.add(sprite);
+                middleLayer.add(sprite);
                 break;
             case 2:
                 upperLayer.add(sprite);
@@ -360,14 +346,14 @@ public class WorldLoader
         }
     }
 
-    private void readLineOfTiles(String[] lineData, Boolean isPassiv) throws IllegalArgumentException
+    private void readLineOfTiles(String[] lineData, Boolean isPassiv, boolean readFirstTime)
     {
         String lineNumber = "[not set]";
         //from left to right, reads tile codes
         for (currentHorizontalTile = 0; currentHorizontalTile < lineData.length; currentHorizontalTile++)
         {
             //if first column is line number
-            if (currentHorizontalTile == 0 && lineData[currentHorizontalTile].chars().allMatch(x -> Character.isDigit(x)))
+            if (currentHorizontalTile == 0 && lineData[currentHorizontalTile].chars().allMatch(Character::isDigit))
             {
                 lineNumber = lineData[0];
                 lineData = Arrays.copyOfRange(lineData, 1, lineData.length);
@@ -378,36 +364,24 @@ public class WorldLoader
             {
                 SpriteData tile = tileDataMap.get(lineData[currentHorizontalTile]);
                 Sprite ca;
-                try
-                {
-                    ca = Sprite.createSprite(tile, 64 * currentHorizontalTile, currentVerticalTile * 64);
-                }
-                catch (IllegalArgumentException e)
-                {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (String s : lineData)
-                    {
-                        stringBuilder.append(s).append(" ");
-                    }
-                    throw new IllegalArgumentException("\nLine: " + stringBuilder.toString() +
-                            "\n " + lineData[currentHorizontalTile] + " ===> /res/img/" + tile.spriteName + ".png" + " not found");
-                }
-
-
+                ca = Sprite.createSprite(tile, 64 * currentHorizontalTile, currentVerticalTile * 64);
                 if (isPassiv)
                     passivLayer.add(ca);
                 else
                     addToCollisionLayer(ca, tile.renderLayer);
             }
-            //Is Actor that is just relevant on this stage
             else if (actorDataMap.containsKey(lineData[currentHorizontalTile]))
             {
                 Actor actor = createActor(lineData[currentHorizontalTile]);
-                actorSprites.addAll(actor.spriteList);
-                actorsList.add(actor);
-                List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
-                for (int j = 0; j < spriteDataList.size(); j++)
-                    addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).renderLayer);
+                if (readFirstTime || !actor.hasTag(ActorTag.PERSISTENT))
+                {
+                    actorSprites.addAll(actor.spriteList);
+                    actorsList.add(actor);
+                    List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
+                    for (int j = 0; j < spriteDataList.size(); j++)
+                        addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).renderLayer);
+                }
+
             }
             //Is Actor of global System
             else if (globalActorsMap.containsKey(lineData[currentHorizontalTile]))
@@ -483,7 +457,6 @@ public class WorldLoader
 
     private void readActorData(String[] lineData)
     {
-        String methodName = "readActorData() ";
         //Reads sprite data from given status and add to tile definition, later actor will be added
         int actorCodeIdx = 0;
         int actorFileNameIdx = 1;
@@ -505,7 +478,6 @@ public class WorldLoader
 
     private void createPlayer(ActorData actorData)
     {
-        String methodName = "createPlayer(ActorData) ";
         SpawnData playerSpawn;
         if (spawnPointsMap.containsKey(spawnId))
             playerSpawn = spawnPointsMap.get(spawnId);
@@ -540,9 +512,9 @@ public class WorldLoader
         return borders;
     }
 
-    public List<Sprite> getMediumLayer()
+    public List<Sprite> getMiddleLayer()
     {
-        return mediumLayer;
+        return middleLayer;
     }
 
     public List<Sprite> getBttmLayer()
@@ -655,6 +627,18 @@ public class WorldLoader
         return actorsList;
     }
 
+    public MapTimeData getMapTimeData()
+    {
+        if (mapTimeData == null)
+            return MapTimeData.getDefault();
+        return mapTimeData;
+    }
+
+    public void setMapTimeData(MapTimeData mapTimeData)
+    {
+        this.mapTimeData = mapTimeData;
+    }
+
     static class ActorGroupData
     {
         ArrayList memberOfGroups = new ArrayList();
@@ -723,17 +707,5 @@ public class WorldLoader
                     "actorname='" + actorFileName + '\'' +
                     '}';
         }
-    }
-
-    public MapTimeData getMapTimeData()
-    {
-        if(mapTimeData == null)
-            return MapTimeData.getDefault();
-        return mapTimeData;
-    }
-
-    public void setMapTimeData(MapTimeData mapTimeData)
-    {
-        this.mapTimeData = mapTimeData;
     }
 }

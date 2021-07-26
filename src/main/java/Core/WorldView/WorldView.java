@@ -211,17 +211,9 @@ public class WorldView
         return mapTimeData;
     }
 
-    public void setMapTimeData(MapTimeData mapTimeData)
-    {
-        this.mapTimeData = mapTimeData;
-    }
-
     public void changeStage(String levelName, String spawnId, boolean invalidateSavedStages)
     {
-        if (!invalidateSavedStages)
-            saveStage();
-        else
-            GameVariables.getLevelData().forEach((stageName, stage) -> stage.setValid(false));
+        saveStage();
         loadStage(levelName, spawnId);
     }
 
@@ -235,35 +227,18 @@ public class WorldView
 
     private void saveStage()
     {
-        String levelNameToSave = levelName;
-        actorSpritesLayer.remove(player);
-        middleLayer.remove(player); //Player Layer
-        GameVariables.setPlayer(player);
-        GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.gameDateTime().getDays(), borders, actorSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, upperLayer, shadowColor, spawnPointsMap, mapTimeData.getClockMode(), actorList, mapTimeData));
+        var persistentActors = actorList.stream().filter(a -> a.hasTag(ActorTag.PERSISTENT)).collect(Collectors.toList());
+        GameVariables.saveLevelState(levelName, persistentActors);
     }
 
     public void loadStage(String levelName, String spawnId)
     {
-        String methodName = "loadStage() ";
         clearLevel();
         WorldView.levelName = levelName;
         setFadedOut(false);
         fadedOutPercent = 1;
-        LevelState levelState = GameVariables.getLevelData().get(WorldView.levelName);
 
-
-        if (levelState != null && levelState.isValid())
-            loadFromLevelDailyState(levelState, spawnId);
-        else if (levelState != null)//Level was already loaded on another day
-        {
-            System.out.println(CLASSNAME + methodName + "loaded persistent state");
-            loadLevelFromPersistentState(levelState, spawnId);//TODO find solution for respawning items to spawn after time not always if invalidated
-        }
-        else //Level loaded the first time
-        {
-            System.out.println(CLASSNAME + methodName + "loaded from file");
-            loadLevelFromFile(spawnId);
-        }
+        loadLevelFromPersistentState(spawnId);
         GameVariables.getClock().updateWorld(GameWindow.getCurrentNanoRenderTimeGameWindow());
 
         offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
@@ -285,73 +260,52 @@ public class WorldView
         setShadowColor(null);
     }
 
-    private void loadLevelFromPersistentState(LevelState levelState, String spawnId)
+    private void loadLevelFromPersistentState(String spawnId)
     {
-
-        WorldLoader worldLoader = new WorldLoader();
+        LevelState levelState = GameVariables.getLevelData(WorldView.levelName);
+        WorldLoader worldLoader = new WorldLoader(levelState);
         worldLoader.load(levelName, spawnId);
         List<Sprite> tmp_passiveSpritesLayer = worldLoader.getPassivLayer();
         List<Sprite> tmp_actorSpritesLayer = worldLoader.getActorSprites();
         List<Sprite> tmp_bottomLayer = worldLoader.getBttmLayer();
-        List<Sprite> tmp_middleLayer = worldLoader.getMediumLayer();
+        List<Sprite> tmp_middleLayer = worldLoader.getMiddleLayer();
         List<Sprite> tmp_upperLayer = worldLoader.getUpperLayer();
         List<Sprite> tmp_topLayer = worldLoader.getTopLayer();
         List<Actor> tmp_actors = worldLoader.getActorsList();
 
-        //remove persistent actors, just not persistent should remain or actorless sprites
-        tmp_actorSpritesLayer = tmp_actorSpritesLayer.stream()
-                .filter(sprite ->
-                                sprite.getActor() == null || //just a tile
-                                        !sprite.getActor().tags.contains(ActorTag.PERSISTENT) // Wenn du den Tag hast, wirst du nicht neu geladen
-                )
-                .collect(Collectors.toList());
-        tmp_bottomLayer = tmp_bottomLayer.stream()
-                .filter(sprite ->
-                        sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))
-                .collect(Collectors.toList());
-        tmp_middleLayer = tmp_middleLayer.stream()
-                .filter(sprite ->
-                        sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))
-                .collect(Collectors.toList());
-        tmp_upperLayer = tmp_upperLayer.stream()
-                .filter(sprite ->
-                        sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))
-                .collect(Collectors.toList());
-        tmp_topLayer = tmp_topLayer.stream()
-                .filter(sprite ->
-                        sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))
-                .collect(Collectors.toList());
+        //TODO jedes include muss geprüft werden; World Loader soll prüfen ob file schon geladen wurde, dann persistente nicht laden => Vom State müssen nur persistente genommen werden
+        //TODO gespeichert werden auch nur mehr PERSIstente
+        //TODO remove isValid from state
 
-        tmp_actors = tmp_actors.stream()
-                .filter(actor ->
-                        !actor.tags.contains(ActorTag.PERSISTENT))
-                .collect(Collectors.toList());
-        var persistentActors = levelState.getactorList().stream().filter(a -> a.tags.contains(ActorTag.PERSISTENT)).collect(Collectors.toList());
-        tmp_actors.addAll(persistentActors);
-
-        //add persistent actors from state
-        for (Sprite activeSprite : levelState.getActorSpritesLayer())
+        if(levelState != null)
         {
-            if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT))
+            var persistentActors = levelState.getactorList().stream().filter(a -> a.tags.contains(ActorTag.PERSISTENT)).collect(Collectors.toList());
+            tmp_actors.addAll(persistentActors);
+            List<Sprite> persistentActorSprites = persistentActors.stream().flatMap(actor -> actor.getSpriteList().stream()).collect(Collectors.toList());
+            //add persistent actors from state
+            for (Sprite activeSprite : persistentActorSprites)
             {
-                //System.out.println(CLASSNAME + methodName + activeSprite.getActor().getActorInGameName());
-                tmp_actorSpritesLayer.add(activeSprite);
-                switch (activeSprite.getLayer())
+                if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT))
                 {
-                    case 0:
-                        tmp_bottomLayer.add(activeSprite);
-                        break;
-                    case 1:
-                        tmp_middleLayer.add(activeSprite);
-                        break;
-                    case 2:
-                        tmp_upperLayer.add(activeSprite);
-                        break;
-                    case 3:
-                        tmp_topLayer.add(activeSprite);
-                        break;
-                    default:
-                        throw new RuntimeException("Invalid Layer: " + activeSprite.getLayer());
+                    //System.out.println(CLASSNAME + methodName + activeSprite.getActor().getActorInGameName());
+                    tmp_actorSpritesLayer.add(activeSprite);
+                    switch (activeSprite.getLayer())
+                    {
+                        case 0:
+                            tmp_bottomLayer.add(activeSprite);
+                            break;
+                        case 1:
+                            tmp_middleLayer.add(activeSprite);
+                            break;
+                        case 2:
+                            tmp_upperLayer.add(activeSprite);
+                            break;
+                        case 3:
+                            tmp_topLayer.add(activeSprite);
+                            break;
+                        default:
+                            throw new RuntimeException("Invalid Layer: " + activeSprite.getLayer());
+                    }
                 }
             }
         }
@@ -365,8 +319,8 @@ public class WorldView
         topLayer = tmp_topLayer;
 
         //Player
-        player = GameVariables.getPlayer();
-        WorldLoader.SpawnData spawnData = levelState.getSpawnPointsMap().get(spawnId);
+        player = GameVariables.getPlayer() == null ? worldLoader.getPlayer() : GameVariables.getPlayer();
+        WorldLoader.SpawnData spawnData = worldLoader.getSpawnPointsMap().get(spawnId);// levelState.getSpawnPointsMap().get(spawnId);
         player.getActor().setDirection(spawnData.getDirection());
         player.setPosition(spawnData.getX() * 64, spawnData.getY() * 64);
         middleLayer.add(player); //assumption player on layer 1
@@ -381,59 +335,6 @@ public class WorldView
         spawnPointsMap = worldLoader.getSpawnPointsMap();
         GameVariables.getClock().setClockMode(worldLoader.getClockMode());
         mapTimeData = worldLoader.getMapTimeData();
-    }
-
-    private void loadLevelFromFile(String spawnId)
-    {
-        WorldLoader worldLoader = new WorldLoader();
-        worldLoader.load(levelName, spawnId);
-        player = worldLoader.getPlayer();
-        passiveSpritesLayer = worldLoader.getPassivLayer(); //No collision just render
-        actorSpritesLayer = worldLoader.getActorSprites();
-        bottomLayer = worldLoader.getBttmLayer(); //Render height
-        middleLayer = worldLoader.getMediumLayer();
-        upperLayer = worldLoader.getUpperLayer();
-        topLayer = worldLoader.getTopLayer();
-        actorList = worldLoader.getActorsList();
-        passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
-        passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
-        passiveCollisionRelevantSpritesLayer.addAll(upperLayer);
-        passiveCollisionRelevantSpritesLayer.addAll(topLayer);
-        borders = worldLoader.getBorders();
-        setShadowColor(worldLoader.getShadowColor());
-        spawnPointsMap = worldLoader.getSpawnPointsMap();
-        GameVariables.getClock().setClockMode(worldLoader.getClockMode());
-        mapTimeData = worldLoader.getMapTimeData();
-    }
-
-    private void loadFromLevelDailyState(LevelState levelState, String spawnId)
-    {
-        String methodName = "loadFromLevelDailyState() ";
-        actorList = levelState.getactorList();
-        passiveSpritesLayer = levelState.getPassiveSpritesLayer(); //No collision just render
-        actorSpritesLayer = levelState.getActorSpritesLayer();
-        bottomLayer = levelState.getBottomLayer(); //Render height
-        middleLayer = levelState.getMiddleLayer();
-        upperLayer = levelState.getTopLayer();
-        borders = levelState.getBorders();
-        setShadowColor(levelState.getShadowColor());
-        spawnPointsMap = levelState.getSpawnPointsMap();
-        GameVariables.getClock().setClockMode(levelState.getClockMode());
-        mapTimeData = levelState.getMapTimeData();
-
-        //Player
-        player = GameVariables.getPlayer();
-        WorldLoader.SpawnData spawnData = levelState.getSpawnPointsMap().get(spawnId);
-        player.getActor().setDirection(spawnData.getDirection());
-        player.setPosition(spawnData.getX() * 64, spawnData.getY() * 64);
-        middleLayer.add(player); //assumption player on layer 1
-        actorSpritesLayer.add(player);
-
-        passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
-        passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
-        passiveCollisionRelevantSpritesLayer.addAll(upperLayer);
-
-        System.out.println(CLASSNAME + methodName);
     }
 
     public void update(Long currentUpdateTime)
@@ -1036,5 +937,16 @@ public class WorldView
     {
         return camY;
     }
+
+    public static List<Sprite> getmiddleLayer()
+    {
+        return middleLayer;
+    }
+
+    public static List<Sprite> getactorSpritesLayer()
+    {
+        return actorSpritesLayer;
+    }
+
 
 }

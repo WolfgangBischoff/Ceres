@@ -214,7 +214,6 @@ public class Actor
 
     private PersonalityContainer readPersonality(String[] linedata)
     {
-        String methodName = "readPersonality() ";
         PersonalityContainer readContainer = new PersonalityContainer(this);
         int initCooperationValue = Integer.parseInt(linedata[1]);
         readContainer.increaseCooperation(initCooperationValue);
@@ -713,6 +712,7 @@ public class Actor
                 GameVariables.addStolenCollectible(collected);
             }
             WorldView.getToRemove().addAll(spriteList);
+            WorldView.getActorList().remove(this);
         }
     }
 
