@@ -136,83 +136,6 @@ public class WorldView
         player.getActor().setLastInteraction(currentNanoTime);
     }
 
-    public static List<Sprite> getPassiveCollisionRelevantSpritesLayer()
-    {
-        return passiveCollisionRelevantSpritesLayer;
-    }
-
-    public static List<Sprite> getMiddleLayer()
-    {
-        return middleLayer;
-    }
-
-    public static List<Sprite> getUpperLayer()
-    {
-        return upperLayer;
-    }
-
-    public static Rectangle2D getBorders()
-    {
-        return borders;
-    }
-
-    public static Sprite getPlayer()
-    {
-        return player;
-    }
-
-    public static WorldView getSingleton()
-    {
-        if (singleton == null)
-            singleton = new WorldView(Config.FIRST_LEVEL);
-        return singleton;
-    }
-
-    public static Textbox getTextbox()
-    {
-        return textbox;
-    }
-
-    public static String getCLASSNAME()
-    {
-        return CLASSNAME;
-    }
-
-    public static void setPersonalityScreenController(PersonalityScreenController personalityScreenController)
-    {
-        WorldView.personalityScreenController = personalityScreenController;
-    }
-
-    public static void setDiscussionGame(CoinGame coinArea)
-    {
-        WorldView.coinGame = coinArea;
-    }
-
-    public static List<Sprite> getBottomLayer()
-    {
-        return bottomLayer;
-    }
-
-    public static Map<String, WorldLoader.SpawnData> getSpawnPointsMap()
-    {
-        return spawnPointsMap;
-    }
-
-    public static List<Sprite> getToRemove()
-    {
-        return toRemove;
-    }
-
-    public static double getCamX()
-    {
-        return camX;
-    }
-
-    public static double getCamY()
-    {
-        return camY;
-    }
-
     public static void addToLayer(Sprite sprite)
     {
         getBottomLayer().remove(sprite);
@@ -328,6 +251,7 @@ public class WorldView
         fadedOutPercent = 1;
         LevelState levelState = GameVariables.getLevelData().get(WorldView.levelName);
 
+
         if (levelState != null && levelState.isValid())
             loadFromLevelDailyState(levelState, spawnId);
         else if (levelState != null)//Level was already loaded on another day
@@ -379,7 +303,6 @@ public class WorldView
                 .filter(sprite ->
                                 sprite.getActor() == null || //just a tile
                                         !sprite.getActor().tags.contains(ActorTag.PERSISTENT) // Wenn du den Tag hast, wirst du nicht neu geladen
-                        //  || (sprite.getActor().tags.contains(ActorTag.PERSISTENT) && !activeSpritesLayer.contains(sprite))//persisten
                 )
                 .collect(Collectors.toList());
         tmp_bottomLayer = tmp_bottomLayer.stream()
@@ -1037,5 +960,81 @@ public class WorldView
         isFadedOut = fadedOut;
     }
 
+    public static List<Sprite> getPassiveCollisionRelevantSpritesLayer()
+    {
+        return passiveCollisionRelevantSpritesLayer;
+    }
+
+    public static List<Sprite> getMiddleLayer()
+    {
+        return middleLayer;
+    }
+
+    public static List<Sprite> getUpperLayer()
+    {
+        return upperLayer;
+    }
+
+    public static Rectangle2D getBorders()
+    {
+        return borders;
+    }
+
+    public static Sprite getPlayer()
+    {
+        return player;
+    }
+
+    public static WorldView getSingleton()
+    {
+        if (singleton == null)
+            singleton = new WorldView(Config.FIRST_LEVEL);
+        return singleton;
+    }
+
+    public static Textbox getTextbox()
+    {
+        return textbox;
+    }
+
+    public static String getCLASSNAME()
+    {
+        return CLASSNAME;
+    }
+
+    public static void setPersonalityScreenController(PersonalityScreenController personalityScreenController)
+    {
+        WorldView.personalityScreenController = personalityScreenController;
+    }
+
+    public static void setDiscussionGame(CoinGame coinArea)
+    {
+        WorldView.coinGame = coinArea;
+    }
+
+    public static List<Sprite> getBottomLayer()
+    {
+        return bottomLayer;
+    }
+
+    public static Map<String, WorldLoader.SpawnData> getSpawnPointsMap()
+    {
+        return spawnPointsMap;
+    }
+
+    public static List<Sprite> getToRemove()
+    {
+        return toRemove;
+    }
+
+    public static double getCamX()
+    {
+        return camX;
+    }
+
+    public static double getCamY()
+    {
+        return camY;
+    }
 
 }
