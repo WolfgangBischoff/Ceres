@@ -4,25 +4,20 @@ import Core.Configs.GenericVariablesManager;
 import Core.Enums.ActorTag;
 import Core.Enums.Knowledge;
 import Core.GameTime.Clock;
-import Core.GameTime.ClockMode;
 import Core.GameTime.DateTime;
 import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.Menus.Email.EmailManager;
 import Core.Sprite.Sprite;
-import Core.WorldView.MapTimeData;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.paint.Color;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static Core.ActorLogic.GrowspaceManager.updateGrowplaces;
 import static Core.Configs.Config.*;
-import static Core.WorldView.WorldView.*;
 import static Core.WorldView.WorldViewStatus.WORLD;
 
 public class GameVariables
@@ -53,6 +48,19 @@ public class GameVariables
         lastTimeHungerFromTime = clock.getTotalTimeTicks();
     }
 
+    public static LevelState getLevelData(String levelName)
+    {
+        if(!levelDataExists(levelName))
+            levelData.put(levelName, LevelState.empty(levelName));
+        return levelData.get(levelName);
+    }
+
+    public static boolean levelDataExists(String levelName)
+    {
+        return levelData.containsKey(levelName);
+
+    }
+
     public static void saveLevelState(LevelState levelState)
     {
         savePlayer();
@@ -62,7 +70,7 @@ public class GameVariables
     public static void saveLevelState(String levelName, List<Actor> persistentActors)
     {
         savePlayer();
-        LevelState state = levelData.get(levelName);
+        LevelState state = getLevelData(levelName);
         state.setActorList(persistentActors);
     }
 
@@ -146,11 +154,6 @@ public class GameVariables
     public static IntegerProperty getPlayerMaM_duringDayProperty()
     {
         return playerMaM_duringDay;
-    }
-
-    public static LevelState getLevelData(String path)
-    {
-        return levelData.get(path);
     }
 
     public static List<Collectible> getStolenCollectibles()

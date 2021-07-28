@@ -211,6 +211,93 @@ public class WorldView
         return mapTimeData;
     }
 
+    public static List<Sprite> getPassiveCollisionRelevantSpritesLayer()
+    {
+        return passiveCollisionRelevantSpritesLayer;
+    }
+
+    public static List<Sprite> getMiddleLayer()
+    {
+        return middleLayer;
+    }
+
+    public static List<Sprite> getUpperLayer()
+    {
+        return upperLayer;
+    }
+
+    public static Rectangle2D getBorders()
+    {
+        return borders;
+    }
+
+    public static Sprite getPlayer()
+    {
+        return player;
+    }
+
+    public static WorldView getSingleton()
+    {
+        if (singleton == null)
+            singleton = new WorldView(Config.FIRST_LEVEL);
+        return singleton;
+    }
+
+    public static Textbox getTextbox()
+    {
+        return textbox;
+    }
+
+    public static String getCLASSNAME()
+    {
+        return CLASSNAME;
+    }
+
+    public static void setPersonalityScreenController(PersonalityScreenController personalityScreenController)
+    {
+        WorldView.personalityScreenController = personalityScreenController;
+    }
+
+    public static void setDiscussionGame(CoinGame coinArea)
+    {
+        WorldView.coinGame = coinArea;
+    }
+
+    public static List<Sprite> getBottomLayer()
+    {
+        return bottomLayer;
+    }
+
+    public static Map<String, WorldLoader.SpawnData> getSpawnPointsMap()
+    {
+        return spawnPointsMap;
+    }
+
+    public static List<Sprite> getToRemove()
+    {
+        return toRemove;
+    }
+
+    public static double getCamX()
+    {
+        return camX;
+    }
+
+    public static double getCamY()
+    {
+        return camY;
+    }
+
+    public static List<Sprite> getmiddleLayer()
+    {
+        return middleLayer;
+    }
+
+    public static List<Sprite> getactorSpritesLayer()
+    {
+        return actorSpritesLayer;
+    }
+
     public void changeStage(String levelName, String spawnId, boolean invalidateSavedStages)
     {
         saveStage();
@@ -247,7 +334,6 @@ public class WorldView
 
     private void clearLevel()
     {
-        //Not clear(), lists are copied to LevelState
         actorList = new ArrayList<>();
         passiveSpritesLayer = new ArrayList<>();
         actorSpritesLayer = new ArrayList<>();
@@ -262,9 +348,10 @@ public class WorldView
 
     private void loadLevelFromPersistentState(String spawnId)
     {
-        LevelState levelState = GameVariables.getLevelData(WorldView.levelName);
-        WorldLoader worldLoader = new WorldLoader(levelState);
-        worldLoader.load(levelName, spawnId);
+        boolean readFirstTime = !GameVariables.levelDataExists(levelName);
+        LevelState levelState = GameVariables.getLevelData(levelName);
+        WorldLoader worldLoader = new WorldLoader();
+        worldLoader.load(levelName, spawnId, readFirstTime);
         List<Sprite> tmp_passiveSpritesLayer = worldLoader.getPassivLayer();
         List<Sprite> tmp_actorSpritesLayer = worldLoader.getActorSprites();
         List<Sprite> tmp_bottomLayer = worldLoader.getBttmLayer();
@@ -273,42 +360,36 @@ public class WorldView
         List<Sprite> tmp_topLayer = worldLoader.getTopLayer();
         List<Actor> tmp_actors = worldLoader.getActorsList();
 
-        //TODO jedes include muss geprüft werden; World Loader soll prüfen ob file schon geladen wurde, dann persistente nicht laden => Vom State müssen nur persistente genommen werden
-        //TODO gespeichert werden auch nur mehr PERSIstente
-        //TODO remove isValid from state
-
-        if(levelState != null)
+        var persistentActors = levelState.getactorList().stream().filter(a -> a.tags.contains(ActorTag.PERSISTENT)).collect(Collectors.toList());
+        tmp_actors.addAll(persistentActors);
+        List<Sprite> persistentActorSprites = persistentActors.stream().flatMap(actor -> actor.getSpriteList().stream()).collect(Collectors.toList());
+        //add persistent actors from state
+        for (Sprite activeSprite : persistentActorSprites)
         {
-            var persistentActors = levelState.getactorList().stream().filter(a -> a.tags.contains(ActorTag.PERSISTENT)).collect(Collectors.toList());
-            tmp_actors.addAll(persistentActors);
-            List<Sprite> persistentActorSprites = persistentActors.stream().flatMap(actor -> actor.getSpriteList().stream()).collect(Collectors.toList());
-            //add persistent actors from state
-            for (Sprite activeSprite : persistentActorSprites)
+            if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT))
             {
-                if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT))
+                //System.out.println(CLASSNAME + methodName + activeSprite.getActor().getActorInGameName());
+                tmp_actorSpritesLayer.add(activeSprite);
+                switch (activeSprite.getLayer())
                 {
-                    //System.out.println(CLASSNAME + methodName + activeSprite.getActor().getActorInGameName());
-                    tmp_actorSpritesLayer.add(activeSprite);
-                    switch (activeSprite.getLayer())
-                    {
-                        case 0:
-                            tmp_bottomLayer.add(activeSprite);
-                            break;
-                        case 1:
-                            tmp_middleLayer.add(activeSprite);
-                            break;
-                        case 2:
-                            tmp_upperLayer.add(activeSprite);
-                            break;
-                        case 3:
-                            tmp_topLayer.add(activeSprite);
-                            break;
-                        default:
-                            throw new RuntimeException("Invalid Layer: " + activeSprite.getLayer());
-                    }
+                    case 0:
+                        tmp_bottomLayer.add(activeSprite);
+                        break;
+                    case 1:
+                        tmp_middleLayer.add(activeSprite);
+                        break;
+                    case 2:
+                        tmp_upperLayer.add(activeSprite);
+                        break;
+                    case 3:
+                        tmp_topLayer.add(activeSprite);
+                        break;
+                    default:
+                        throw new RuntimeException("Invalid Layer: " + activeSprite.getLayer());
                 }
             }
         }
+
 
         passiveSpritesLayer = tmp_passiveSpritesLayer;
         actorSpritesLayer = tmp_actorSpritesLayer;
@@ -859,93 +940,6 @@ public class WorldView
     public void setFadedOut(boolean fadedOut)
     {
         isFadedOut = fadedOut;
-    }
-
-    public static List<Sprite> getPassiveCollisionRelevantSpritesLayer()
-    {
-        return passiveCollisionRelevantSpritesLayer;
-    }
-
-    public static List<Sprite> getMiddleLayer()
-    {
-        return middleLayer;
-    }
-
-    public static List<Sprite> getUpperLayer()
-    {
-        return upperLayer;
-    }
-
-    public static Rectangle2D getBorders()
-    {
-        return borders;
-    }
-
-    public static Sprite getPlayer()
-    {
-        return player;
-    }
-
-    public static WorldView getSingleton()
-    {
-        if (singleton == null)
-            singleton = new WorldView(Config.FIRST_LEVEL);
-        return singleton;
-    }
-
-    public static Textbox getTextbox()
-    {
-        return textbox;
-    }
-
-    public static String getCLASSNAME()
-    {
-        return CLASSNAME;
-    }
-
-    public static void setPersonalityScreenController(PersonalityScreenController personalityScreenController)
-    {
-        WorldView.personalityScreenController = personalityScreenController;
-    }
-
-    public static void setDiscussionGame(CoinGame coinArea)
-    {
-        WorldView.coinGame = coinArea;
-    }
-
-    public static List<Sprite> getBottomLayer()
-    {
-        return bottomLayer;
-    }
-
-    public static Map<String, WorldLoader.SpawnData> getSpawnPointsMap()
-    {
-        return spawnPointsMap;
-    }
-
-    public static List<Sprite> getToRemove()
-    {
-        return toRemove;
-    }
-
-    public static double getCamX()
-    {
-        return camX;
-    }
-
-    public static double getCamY()
-    {
-        return camY;
-    }
-
-    public static List<Sprite> getmiddleLayer()
-    {
-        return middleLayer;
-    }
-
-    public static List<Sprite> getactorSpritesLayer()
-    {
-        return actorSpritesLayer;
     }
 
 

@@ -51,11 +51,10 @@ public class WorldLoader
     ClockMode clockMode = ClockMode.RUNNING;
     private Rectangle2D borders;
     private MapTimeData mapTimeData;
-    private LevelState previousLevelState;
 
-    public WorldLoader(LevelState levelState)
+
+    public WorldLoader()
     {
-        previousLevelState = levelState;
         if (keywords.isEmpty())
         {
             keywords.add(MAPFILE_NEW_LAYER);
@@ -99,9 +98,8 @@ public class WorldLoader
         });
     }
 
-    public void load(String levelName, String spawnId)
+    public void load(String levelName, String spawnId, boolean readFirstTime)
     {
-        boolean readFirstTime = previousLevelState == null;
         this.levelName = levelName;
         this.spawnId = spawnId;
         readFile(this.levelName, readFirstTime);
@@ -155,7 +153,7 @@ public class WorldLoader
                 readPosition(lineData, readFirstTime);
                 break;
             case MAPFILE_GLOBAL_SYSTEM_ACTOR:
-                getGlobalSystemActor(lineData);
+                getGlobalSystemActor(lineData, readFirstTime);
                 break;
             case MAPFILE_LOG:
                 log(lineData);
@@ -182,12 +180,18 @@ public class WorldLoader
         System.out.println();
     }
 
-    private void getGlobalSystemActor(String[] linedata)
+    private void getGlobalSystemActor(String[] linedata, boolean readFirstTime)
     {
-        GlobalActorsManager.loadGlobalSystem(linedata[0]);
-        List<String> actorIds = Arrays.asList(linedata).subList(1, linedata.length);
-        globalActorsMap.putAll(GlobalActorsManager.getGlobalActorsWithStatus(actorIds));
-        loadedTileIdsSet.addAll(actorIds.stream().map(string -> string.split(",")[0].trim()).collect(Collectors.toList()));//remove additional status data. eg: medic_,windo
+
+        List<String> linedateWithoutKeyword = Arrays.asList(linedata).subList(1, linedata.length);
+        if(readFirstTime)
+        {
+            GlobalActorsManager.loadGlobalSystem(linedata[0]);
+            globalActorsMap.putAll(GlobalActorsManager.getAndUpdateGlobalActorsWithStatus(linedateWithoutKeyword));
+        }
+        else
+            globalActorsMap.putAll(GlobalActorsManager.  getGlobalActorsWithStatus(linedateWithoutKeyword));
+        loadedTileIdsSet.addAll(linedateWithoutKeyword.stream().map(string -> string.split(",")[0].trim()).collect(Collectors.toList()));//remove additional status data. eg: medic_,windo => id remains
     }
 
     private void readPosition(String[] lineData, boolean readFirstTime)

@@ -89,8 +89,6 @@ public class Dialogue
                 }
                 if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE))
                 {
-                    //TODO BUG, stage wird auch gespeichtert am schon inkrementierten tag, deshalb wird nicht vom file geladen. Vorher wurde nur geladen
-                    //TODO Konzeptionelles Problem mit Fileload nur bei neuem Tag => Soll nur Spawned items nicht sändig laden
                     WorldView.getSingleton().changeStage(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE), currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID), currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_INVALID_STAGES));
                     WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
                 }

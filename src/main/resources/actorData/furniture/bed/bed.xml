@@ -11,7 +11,10 @@
         </option>
         <option>[back]</option>
     </dialogue>
-    <dialogue id="decision_nextDay" type="technical" daychange="" dialogueId="day2"/>
+    <dialogue id="decision_nextDay" nextDialogue="decision_nextDay2" type="normal" variablename="transporter_air_system_quest_started" set="DONE_AND_SLEPT">
+        <line>Sleep well!</line>
+    </dialogue>
+    <dialogue id="decision_nextDay2" type="technical" daychange="" dialogueId="day2"/>
 
     <dialogue id="day2" type="normal" nextDialogue="day2_decision">
         <line>You can rest if there is no work left...</line>

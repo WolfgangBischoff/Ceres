@@ -314,7 +314,7 @@ layer:
 #include	;path																		;condition 												;params
 include:
 crewdeck/suspicion_low										;suspicion_lessequal 		;2
-crewdeck/afterAirQuest 									;onDaystart_if									;transporter_air_system_quest_started ;done; RESCUE_POD_QUEST_STATUS; false
-crewdeck/beforeAirQuest 								;onDaystart_ifNot						;transporter_air_system_quest_started ;done;
+crewdeck/afterAirQuest 									;onDaystart_if									;transporter_air_system_quest_started ;DONE_AND_SLEPT; RESCUE_POD_QUEST_STATUS; false
+crewdeck/beforeAirQuest 								;onDaystart_ifNot						;transporter_air_system_quest_started ;DONE_AND_SLEPT;
 crewdeck/rescuePodQuest 								;onDaystart_if									;RESCUE_POD_QUEST_STATUS													 ;true;
 crewdeck/after_arrival_crewdeck	;onDaystart_if									;ARRIVED_CERES																							 ;true

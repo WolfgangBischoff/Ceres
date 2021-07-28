@@ -91,21 +91,18 @@ public class GlobalActorsManager
             globalActorMonitor.sendSignalFrom(groupId);//init new groups to init world variables
     }
 
-    public static Map<String, Actor> getGlobalActorsWithStatus(List<String> actorData)
+    public static Map<String, Actor> getAndUpdateGlobalActorsWithStatus(List<String> actorData)
     {
         Map<String, Actor> globalActors = new HashMap<>();
         int idIdx = 0, spriteStatusIdx = 1, directionIdx = 2, sensorStatusIdx = 3, dialogueFileIdx = 4, dialogueIdIdx = 5, scriptIdx = 6;
         actorData.forEach(id ->
         {
             String[] detailData = id.split(",");
-            String actorId = "not set";
+            String actorId = detailData[idIdx].trim();
             for (int i = 0; i < detailData.length; i++)//check optional data to change actor
             {
                 if (!detailData[i].trim().isEmpty())
                     switch (i) {
-                        case 0:
-                            actorId = detailData[idIdx].trim();
-                            break;
                         case 1:
                             actorsIdsMap.get(actorId).setSpriteStatus(detailData[spriteStatusIdx].trim());
                             break;
@@ -126,6 +123,19 @@ public class GlobalActorsManager
                             break;
                     }
             }
+            globalActors.put(actorId, actorsIdsMap.get(actorId));
+        });
+
+        return globalActors;
+    }
+
+    public static Map<String, Actor> getGlobalActorsWithStatus(List<String> actorData)
+    {
+        Map<String, Actor> globalActors = new HashMap<>();
+        actorData.forEach(id ->
+        {
+            String[] detailData = id.split(",");
+            String actorId = detailData[0].trim();;
             globalActors.put(actorId, actorsIdsMap.get(actorId));
         });
 
