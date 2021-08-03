@@ -136,7 +136,10 @@ public class WorldLoader
                 readActorData(lineData);
                 break;
             case MAPFILE_WORLDSHADOW:
-                shadowColor = readWorldShadow(lineData);
+                Color c = readWorldShadow(lineData);
+                Color current = WorldView.getShadowColor();
+                shadowColor = c;
+//                shadowColor = WorldView.getShadowColor() == COLOR_EMERGENCY_LIGHT ? COLOR_EMERGENCY_LIGHT : c;
                 break;
             case MAPFILE_GROUPS:
                 readActorGroups(lineData);

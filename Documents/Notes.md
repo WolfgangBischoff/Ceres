@@ -3,9 +3,11 @@
 
 ####Bug
 * Speicherkonzeptänderung macht Ablauf mit Bett falsch. GGf überarbeiten
-    * Lime Woman wir währen AirQuest nicht geladen (second day works)
-    * before Air Quest, technician resets Dialogue
+    * after leaving capsule, Energy ist back
+    * Lime Woman verliert Impact message nach neuladen => actor script shaut auf var (level variablen)
+    * während nachtschicht sind alle geladen => actor script
     * Vllt eine Quest Variable machen von der alles abhängt
+    
        
 #### Main Quest
 Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistance

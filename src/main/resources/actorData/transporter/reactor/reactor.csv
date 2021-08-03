@@ -11,6 +11,7 @@
 
 #sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
 sensorStatus	;textbox																			;textbox																		;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+tags;persistent
 
 #status to image
 #status 			;name   				;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning 										;dialogueID											;dialogueFile																															;unused;unused;unused;unused;unused;duration 					;velocity  ;AnimationEnds

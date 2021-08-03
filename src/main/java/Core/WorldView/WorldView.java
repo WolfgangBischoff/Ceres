@@ -343,7 +343,7 @@ public class WorldView
         topLayer = new ArrayList<>();
         passiveCollisionRelevantSpritesLayer = new ArrayList<>();
         borders = null;
-        setShadowColor(null);
+        //setShadowColor(null);
     }
 
     private void loadLevelFromPersistentState(String spawnId)

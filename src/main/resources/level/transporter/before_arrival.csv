@@ -6,7 +6,7 @@ transporter/before_arrival loading
 actors:
 FCtr_2					                ;actorData/floor/trigger																											;Trigger																		                                             ;12x5_yellow									   ;readyToFire_12x5							     ;undefined
 FCr__2					                ;img/walls/freightcapsule/roof								             ;roofFC																			                                             ;visible													   ;waitForMonitor									     ;none
-#travel					                ;actorData/character/lime_woman/lime_woman									;Traveller																                                             ;default												    ;script																						;south
+travel					                ;actorData/character/lime_woman/lime_woman									;Traveller																                                             ;default												    ;script																						;south
 
 ACTORGROUPS:
 trigger_FC_2											;transitionOnChange													;FC_roof_2									;FCtr_2
