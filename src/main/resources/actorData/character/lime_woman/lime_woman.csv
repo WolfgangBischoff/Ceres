@@ -12,7 +12,7 @@ sensorStatus	           ;initTxtInRange												               ;textbox						
 #personality;initCooperation;trait1, trait1-cooperationThreshold,trai1-knowledgeTag; trait2 ...
 personality ;005            ;INTROVERSION ,0 ,none	     ;SENSING,1,none    ;FEELING,9,none; PERCEIVING,12,none
 
-tags; TURNS_DIRECTION_ONINTERACTION
+tags; TURNS_DIRECTION_ONINTERACTION; APPLY_VARIABLE_CHECK
 
 script               					;actorData/character/tenderer/behavior_idle
 

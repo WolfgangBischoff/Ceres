@@ -6,7 +6,8 @@ public enum ActorTag
     BECOME_TRANSPARENT, DETECTS_PLAYER, PLAYER,
     PERSISTENT, //is loaded on the next day from LevelState
     TURNS_DIRECTION_ONINTERACTION,
-    APPLY_TIME,
+    APPLY_TIME_5_MINUTES,
+    APPLY_VARIABLE_CHECK,
     GROWPLACE,
     NO_COLLISION;
 
@@ -30,8 +31,10 @@ public enum ActorTag
                 return TURNS_DIRECTION_ONINTERACTION;
             case "NO_COLLISION":
                 return NO_COLLISION;
-            case "APPLY_TIME":
-                return APPLY_TIME;
+            case "APPLY_TIME_5_MINUTES":
+                return APPLY_TIME_5_MINUTES;
+            case "APPLY_VARIABLE_CHECK":
+                return APPLY_VARIABLE_CHECK;
             case "GROWPLACE":
                 return GROWPLACE;
             default:

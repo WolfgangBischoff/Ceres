@@ -193,7 +193,7 @@ public class WorldLoader
             globalActorsMap.putAll(GlobalActorsManager.getAndUpdateGlobalActorsWithStatus(linedateWithoutKeyword));
         }
         else
-            globalActorsMap.putAll(GlobalActorsManager.  getGlobalActorsWithStatus(linedateWithoutKeyword));
+            globalActorsMap.putAll(GlobalActorsManager.getGlobalActorsWithStatus(linedateWithoutKeyword));
         loadedTileIdsSet.addAll(linedateWithoutKeyword.stream().map(string -> string.split(",")[0].trim()).collect(Collectors.toList()));//remove additional status data. eg: medic_,windo => id remains
     }
 

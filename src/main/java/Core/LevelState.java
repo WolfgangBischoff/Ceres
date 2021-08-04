@@ -1,30 +1,23 @@
 package Core;
 
-import Core.GameTime.ClockMode;
-import Core.Sprite.Sprite;
-import Core.WorldView.MapTimeData;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.paint.Color;
-
 import java.util.*;
-import java.util.logging.Level;
 
 public class LevelState
 {
     final private static String CLASSNAME = "LevelState/";
     String levelName;
-    private List<Actor> actorList= new ArrayList<>();
+    private List<Actor> actorList = new ArrayList<>();
     private Set<String> loadedIncludes = new HashSet<>();
-
-    public static LevelState empty(String levelName)
-    {
-        return new LevelState(levelName);
-    }
+    private Map<String, String> levelStringVariables = new HashMap<>();
 
     private LevelState(String levelName)
     {
         this.levelName = levelName;
-        //this.day = GameVariables.gameDateTime().getDays();
+    }
+
+    public static LevelState empty(String levelName)
+    {
+        return new LevelState(levelName);
     }
 
     @Override
@@ -56,4 +49,5 @@ public class LevelState
     {
         loadedIncludes.add(loadedInclude);
     }
+
 }

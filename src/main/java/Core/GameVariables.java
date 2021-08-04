@@ -97,7 +97,7 @@ public class GameVariables
         clock.skipToNextDay();
     }
 
-    public static void updateFromTimeGameTimeDependent(Long currentNanoTime, List<Actor> actorList)
+    public static void updateTimeDependent_5Minutes(Long currentNanoTime, List<Actor> actorList)
     {
         if (WorldViewController.getWorldViewStatus() == WORLD)
         {
@@ -110,7 +110,21 @@ public class GameVariables
             }
 
             //Other Actors
-            applyTimeToActorsGameTimeDepentend(currentNanoTime, actorList.stream().filter(a -> a.hasTag(ActorTag.APPLY_TIME)).collect(Collectors.toList()));
+            applyTimeToActorsGameTimeDepentend(currentNanoTime, actorList);
+        }
+    }
+
+    public static void updateActorsByVariableCheck(Long currentNanoTime, List<Actor> actorList)
+    {
+        if (WorldViewController.getWorldViewStatus() == WORLD)
+        {
+            for (Actor a :actorList
+                 )
+            {
+                System.out.println(a.getActorInGameName() + " updated One Minute");
+            }
+            //Check if Script fits
+            //applyTimeToActorsGameTimeDepentend(currentNanoTime, actorList);
         }
     }
 

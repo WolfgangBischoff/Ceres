@@ -1,5 +1,6 @@
 package Core.GameTime;
 
+import Core.Enums.ActorTag;
 import Core.GameVariables;
 import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.Menus.Email.EmailManager;
@@ -10,6 +11,8 @@ import Core.WorldView.WorldViewStatus;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.scene.paint.Color;
+
+import java.util.stream.Collectors;
 
 import static Core.Configs.Config.*;
 import static Core.GameTime.DayPart.DAY;
@@ -26,6 +29,7 @@ public class Clock
     private static String CLASSNAME = "Clock/";
     LongProperty totalTimeTicks = new SimpleLongProperty(DAY_WAKE_UP_TIME.ticks());
     Long lastTimeIncremented;
+    Long lastTimeActorUpdatedFromVariableCheck = 0L;
     ClockMode clockMode = ClockMode.RUNNING;
     DayPart dayPart = DAY;
 
@@ -45,8 +49,16 @@ public class Clock
                 if (elapsedTimeSinceLastIncrement > LENGTH_GAME_MINUTE_SECONDS && WorldViewController.getWorldViewStatus() == WorldViewStatus.WORLD)
                 {
                     incrementTime(currentNanoTime);
-                    updateWorld(currentNanoTime);
+                    updateWorldFromTime(currentNanoTime);
                 }
+                break;
+        }
+        long second = 1000000000;
+        //Always
+        if (currentNanoTime > lastTimeActorUpdatedFromVariableCheck + second)
+        {
+            lastTimeActorUpdatedFromVariableCheck = currentNanoTime;//jede game minute
+            GameVariables.updateActorsByVariableCheck(currentNanoTime, WorldView.getActorList().stream().filter(a -> a.hasTag(ActorTag.APPLY_VARIABLE_CHECK)).collect(Collectors.toList()));
         }
     }
 
@@ -56,7 +68,7 @@ public class Clock
         lastTimeIncremented = currentNanoTime;
     }
 
-    public void updateWorld(Long currentNanoTime)
+    public void updateWorldFromTime(Long currentNanoTime)
     {
         DateTime date = GameVariables.gameDateTime();
         MapTimeData mapTimeData = WorldView.getMapTimeData() == null ? MapTimeData.getDefault() : WorldView.getMapTimeData();
@@ -71,7 +83,7 @@ public class Clock
         //Jede 5 Minute ausführen
         if (totalTimeTicks.get() % 5 == 0)
         {
-            GameVariables.updateFromTimeGameTimeDependent(currentNanoTime, WorldView.getActorList());
+            GameVariables.updateTimeDependent_5Minutes(currentNanoTime, WorldView.getActorList().stream().filter(a -> a.hasTag(ActorTag.APPLY_TIME_5_MINUTES)).collect(Collectors.toList()));
             EmailManager.checkSendMails();
         }
     }

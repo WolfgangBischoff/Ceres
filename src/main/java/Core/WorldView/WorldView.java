@@ -82,6 +82,8 @@ public class WorldView
     private static WorldView singleton;
     private static Rectangle2D borders;
     private static MapTimeData mapTimeData;
+
+    private static Map<String, String> levelStringVariables = new HashMap<>();
     //Render
     Pane root;
     Canvas worldCanvas;
@@ -326,7 +328,7 @@ public class WorldView
         fadedOutPercent = 1;
 
         loadLevelFromPersistentState(spawnId);
-        GameVariables.getClock().updateWorld(GameWindow.getCurrentNanoRenderTimeGameWindow());
+        GameVariables.getClock().updateWorldFromTime(GameWindow.getCurrentNanoRenderTimeGameWindow());
 
         offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
         offsetMaxY = borders.getMaxY() - CAMERA_HEIGHT;
