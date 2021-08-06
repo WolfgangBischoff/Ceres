@@ -3,6 +3,7 @@ package Core;
 
 import Core.ActorLogic.GrowspaceManager;
 import Core.ActorLogic.Script;
+import Core.ActorLogic.VariableListeningScript;
 import Core.ActorSystem.ActorMonitor;
 import Core.Configs.Config;
 import Core.Enums.*;
@@ -69,6 +70,7 @@ public class Actor
     private double interactionAreaOffsetY = 0;
     private Long lastInteraction = 0L;
     private Long lastAutomaticInteraction = 0L;
+    VariableListeningScript variablelisteningScript;
 
     public Actor(String actorFileName, String actorInGameName, String initGeneralStatus, String initSensorStatus, Direction direction)
     {
@@ -95,6 +97,7 @@ public class Actor
             actorDefinitionKeywords.add(SUSPICIOUS_VALUE_ACTOR);
             actorDefinitionKeywords.add(PERSONALITY_ACTOR);
             actorDefinitionKeywords.add(SCRIPT_ACTOR);
+            actorDefinitionKeywords.add(LISTENING_TO_VARIABLES);
         }
         actordata = Utilities.readAllLineFromTxt(actorFileName + CSV_POSTFIX);
         for (String[] linedata : actordata)
@@ -195,12 +198,16 @@ public class Actor
             case SCRIPT_ACTOR:
                 setScript(linedata[1]);
                 break;
+            case LISTENING_TO_VARIABLES:
+                variablelisteningScript = VariableListeningScript.read(linedata);
+                break;
             default:
                 throw new RuntimeException("Keyword unknown: " + keyword);
         }
 
         return true;
     }
+
 
     private Script readScript(String path)
     {
@@ -1060,11 +1067,6 @@ public class Actor
         return sensorStatus;
     }
 
-    public void setGenericActorAttribute(String id, Actor actor)
-    {
-        genericActorAttributes.put(id, actor);
-    }
-
     public void setSensorStatus(String sensorStatusString)
     {
         if (sensorStatusMap.get(sensorStatusString) == null)
@@ -1077,6 +1079,11 @@ public class Actor
     public void setSensorStatus(SensorStatus sensorStatus)
     {
         this.sensorStatus = sensorStatus;
+    }
+
+    public void setGenericActorAttribute(String id, Actor actor)
+    {
+        genericActorAttributes.put(id, actor);
     }
 
     public Set<ActorTag> getTags()

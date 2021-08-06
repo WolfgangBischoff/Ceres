@@ -106,6 +106,7 @@ public class Config
     public static final String PERSONALITY_ACTOR = "personality";
     public static final String SUSPICIOUS_VALUE_ACTOR = "suspicious_value";
     public static final String SCRIPT_ACTOR = "script";
+    public static final String LISTENING_TO_VARIABLES = "LISTENING_TO_VARIABLES";
     //DialogueFile Keywords
     public static final String DIALOGUE_TYPE_DECISION = "decision";
     public static final String DIALOGUE_TYPE_TEXT = "normal";

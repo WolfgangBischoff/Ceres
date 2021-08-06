@@ -1,0 +1,19 @@
+
+
+<root name = "actorName">
+
+    <variable variablename="yx">
+        <possiblevalue variablevalue="true" dialoguefile="path" dialogueid="id"/>
+        <possiblevalue variablevalue="false" dialoguefile="path" dialogueid="id"/>
+        <possiblevalue variablevalue="xxx" dialoguefile="path" dialogueid="id"/>
+    </variable>
+
+    <variable variablename="var2">
+        <possiblevalue variablevalue="true" dialoguefile="path" dialogueid="id"/>
+        <possiblevalue variablevalue="false" dialoguefile="path" dialogueid="id"/>
+        <possiblevalue variablevalue="xxx" dialoguefile="path" dialogueid="id"/>
+    </variable>
+
+</root>
+
+

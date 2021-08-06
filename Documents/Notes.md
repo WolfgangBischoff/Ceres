@@ -5,7 +5,7 @@
 * Speicherkonzeptänderung macht Ablauf mit Bett falsch. GGf überarbeiten
     * after leaving capsule, Energy ist back
     * Lime Woman verliert Impact message nach neuladen => actor script shaut auf var (level variablen)
-        => check for variables an fit txt
+        => use variablelisteningScript in Clock
     * während nachtschicht sind alle geladen => actor script
     * Vllt eine Quest Variable machen von der alles abhängt
     * globals sollen doch immer geladen werden, actor aber ggf auf vars achten (on load und nach zeit)

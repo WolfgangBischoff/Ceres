@@ -15,6 +15,7 @@ personality ;005            ;INTROVERSION ,0 ,none	     ;SENSING,1,none    ;FEEL
 tags; TURNS_DIRECTION_ONINTERACTION; APPLY_VARIABLE_CHECK
 
 script               					;actorData/character/tenderer/behavior_idle
+LISTENING_TO_VARIABLES;actorData/character/lime_woman/traveler
 
 #status 																		;name   																			;spritename  																																																																;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning 				;dialogueID;dialogueFile;unused;unused;unused;unused;unused;duration ;velocity  ;AnimationEnds
 default-NORTH													;lime woman																;actorData/character/lime_woman/lime_woman_back_standing																					;true				;1												;1			;2												;02		;01		;64									;128									;10												;84												;44										;44											;whitelight_256;INTRO					;actorData/character/lime_woman/transporter; unused; unused; unused; unused; unused ;0        ;300							;false

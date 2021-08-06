@@ -123,8 +123,6 @@ public class GameVariables
             {
                 System.out.println(a.getActorInGameName() + " updated One Minute");
             }
-            //Check if Script fits
-            //applyTimeToActorsGameTimeDepentend(currentNanoTime, actorList);
         }
     }
 
