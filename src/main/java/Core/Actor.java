@@ -240,16 +240,6 @@ public class Actor
         return readContainer;
     }
 
-    public void setDialogueFile(String dialogueFile)
-    {
-        spriteList.forEach(sprite -> sprite.setDialogueFileName(dialogueFile));
-    }
-
-    public void setDialogueId(String dialogueId)
-    {
-        spriteList.forEach(sprite -> sprite.setInitDialogueId(dialogueId));
-    }
-
     private ActorCondition readCondition(String[] linedata)
     {
         int spriteStatusConditionIdx = 1;
@@ -1145,4 +1135,30 @@ public class Actor
     {
         return genericStringAttributes;
     }
+
+    public VariableListeningScript getVariablelisteningScript()
+    {
+        return variablelisteningScript;
+    }
+
+    public void setDialogueFile(String dialogueFile)
+    {
+        spriteList.forEach(sprite -> sprite.setDialogueFileName(dialogueFile));
+    }
+
+    public void setDialogueId(String dialogueId)
+    {
+        spriteList.forEach(sprite -> sprite.setInitDialogueId(dialogueId));
+    }
+
+    public String getDialogueFile()
+    {
+        return spriteList.get(0).getDialogueFileName();
+    }
+
+    public String getDialogueId()
+    {
+        return spriteList.get(0).getInitDialogueId();
+    }
+
 }

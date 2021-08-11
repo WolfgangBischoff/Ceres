@@ -2,15 +2,12 @@
 
 <root name = "actorName">
 
-    <variable variablename="yx">
-        <possiblevalue variablevalue="true" dialoguefile="path" dialogueid="id"/>
-        <possiblevalue variablevalue="false" dialoguefile="path" dialogueid="id"/>
-        <possiblevalue variablevalue="xxx" dialoguefile="path" dialogueid="id"/>
+    <variable variablename="METEROIT_HIT">
+        <possiblevalue variablevalue="true" dialoguefile="actorData/character/lime_woman/transporter" dialogueid="METROID"/>
     </variable>
 
-    <variable variablename="var2">
-        <possiblevalue variablevalue="true" dialoguefile="path" dialogueid="id"/>
-        <possiblevalue variablevalue="false" dialoguefile="path" dialogueid="id"/>
+    <variable variablename="METEROIT_DAMAGE_ANALYZED">
+        <possiblevalue variablevalue="true" dialoguefile="actorData/character/lime_woman/transporter" dialogueid="METROID_ANALYZED"/>
         <possiblevalue variablevalue="xxx" dialoguefile="path" dialogueid="id"/>
     </variable>
 

@@ -1,4 +1,6 @@
 
+##### 08 21
+* GameVariableManager implemented
 
 ##### 07 21
 * added item consume from textbox

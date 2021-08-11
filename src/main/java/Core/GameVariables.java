@@ -1,5 +1,6 @@
 package Core;
 
+import Core.ActorLogic.VariableListeningScript;
 import Core.Configs.GenericVariablesManager;
 import Core.Enums.ActorTag;
 import Core.Enums.Knowledge;
@@ -36,7 +37,7 @@ public class GameVariables
     static private Clock clock;
     static private EmailManager emailManager;
     static private DateTime lastTimeTickUpdated;
-    static private GenericVariablesManager booleanWorldVariables = new GenericVariablesManager();
+    static private GenericVariablesManager worldVariables = new GenericVariablesManager();
     //Game State persistent on same day
     private static Map<String, LevelState> levelData = new HashMap<>();
     private static List<Collectible> stolenCollectibles = new ArrayList<>();
@@ -121,7 +122,8 @@ public class GameVariables
             for (Actor a :actorList
                  )
             {
-                System.out.println(a.getActorInGameName() + " updated One Minute");
+                if(a.getVariablelisteningScript() != null)
+                    VariableListeningScript.apply(a);
             }
         }
     }
@@ -238,12 +240,12 @@ public class GameVariables
 
     public static GenericVariablesManager getGenericVariableManager()
     {
-        return booleanWorldVariables;
+        return worldVariables;
     }
 
     public static void setGenericVariable(String varName, String newValue)
     {
-        booleanWorldVariables.setValue(varName, newValue);
+        worldVariables.setValue(varName, newValue);
         System.out.println(CLASSNAME + "set " + varName + " to " + newValue);
     }
 
