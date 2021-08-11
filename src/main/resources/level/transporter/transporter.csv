@@ -1,8 +1,4 @@
-#Testlevel
 
-#Red Green Blue ;the higher the brighter ;>none< leads to no shadow
-#shadow:
-#none
 
 TIMEDATA:
 level/time_stopped
@@ -444,7 +440,7 @@ layer:
 include:
 #include	                                                             ;path																                                    ;condition 																																								                             ;params
 transporter/beforeAirQuest			                                         ;onDaystart_ifNot						                                  ;transporter_air_system_quest_started									                                  ;DONE_AND_SLEPT
-transporter/afterAirQuest 				                                        ;onDaystart_if									                                  ;transporter_air_system_quest_started                                           ;DONE_AND_SLEPT                                            ;STRANGER_APPEARANCE_QUEST   ;false
+transporter/afterAirQuest 				                                        ;onDaystart_if									                                  ;transporter_air_system_quest_started                                           ;DONE_AND_SLEPT            ;STRANGER_APPEARANCE_QUEST   ;false
 transporter/before_arrival 			                                        ;onDaystart_if									                                  ;ARRIVED_CERES																							                                           ;false
 transporter/stranger_appeared                                         ;onDaystart_if									                                  ;STRANGER_APPEARANCE_QUEST											                                           ;started ;ARRIVED_CERES; false
 transporter/after_arrival 			                                         ;onDaystart_if									                                  ;ARRIVED_CERES																							                                           ;true

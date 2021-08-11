@@ -5,8 +5,6 @@ import Core.Configs.Config;
 import Core.Enums.ActorTag;
 import Core.Enums.Direction;
 import Core.GameTime.ClockMode;
-import Core.GameTime.DateTime;
-import Core.GameTime.Time;
 import Core.Menus.AchievmentLog.CentralMessageOverlay;
 import Core.Menus.CoinGame.CoinGame;
 import Core.Menus.DaySummary.DaySummaryScreenController;
@@ -45,7 +43,6 @@ import static javafx.scene.paint.Color.BLACK;
 public class WorldView
 {
     private static final String CLASSNAME = "WorldView/";
-    //Inventory Overlay
     static InventoryController inventoryController;
     static Long lastTimeMenuWasOpened = 0L;
     static Textbox textbox;
@@ -83,7 +80,6 @@ public class WorldView
     private static Rectangle2D borders;
     private static MapTimeData mapTimeData;
 
-    private static Map<String, String> levelStringVariables = new HashMap<>();
     //Render
     Pane root;
     Canvas worldCanvas;
@@ -188,128 +184,29 @@ public class WorldView
         return null;
     }
 
-    public static List<Actor> getActorList()
+    private void clearLevel()
     {
-        return actorList;
+        actorList = new ArrayList<>();
+        passiveSpritesLayer = new ArrayList<>();
+        actorSpritesLayer = new ArrayList<>();
+        bottomLayer = new ArrayList<>();
+        middleLayer = new ArrayList<>();
+        upperLayer = new ArrayList<>();
+        topLayer = new ArrayList<>();
+        passiveCollisionRelevantSpritesLayer = new ArrayList<>();
+        borders = null;
     }
 
-    public static Color getShadowColor()
-    {
-        return shadowColor;
-    }
-
-    public static void setShadowColor(Color shadowColor)
-    {
-        WorldView.shadowColor = shadowColor;
-    }
-
-    static public String getLevelName()
-    {
-        return levelName;
-    }
-
-    public static MapTimeData getMapTimeData()
-    {
-        return mapTimeData;
-    }
-
-    public static List<Sprite> getPassiveCollisionRelevantSpritesLayer()
-    {
-        return passiveCollisionRelevantSpritesLayer;
-    }
-
-    public static List<Sprite> getMiddleLayer()
-    {
-        return middleLayer;
-    }
-
-    public static List<Sprite> getUpperLayer()
-    {
-        return upperLayer;
-    }
-
-    public static Rectangle2D getBorders()
-    {
-        return borders;
-    }
-
-    public static Sprite getPlayer()
-    {
-        return player;
-    }
-
-    public static WorldView getSingleton()
-    {
-        if (singleton == null)
-            singleton = new WorldView(Config.FIRST_LEVEL);
-        return singleton;
-    }
-
-    public static Textbox getTextbox()
-    {
-        return textbox;
-    }
-
-    public static String getCLASSNAME()
-    {
-        return CLASSNAME;
-    }
-
-    public static void setPersonalityScreenController(PersonalityScreenController personalityScreenController)
-    {
-        WorldView.personalityScreenController = personalityScreenController;
-    }
-
-    public static void setDiscussionGame(CoinGame coinArea)
-    {
-        WorldView.coinGame = coinArea;
-    }
-
-    public static List<Sprite> getBottomLayer()
-    {
-        return bottomLayer;
-    }
-
-    public static Map<String, WorldLoader.SpawnData> getSpawnPointsMap()
-    {
-        return spawnPointsMap;
-    }
-
-    public static List<Sprite> getToRemove()
-    {
-        return toRemove;
-    }
-
-    public static double getCamX()
-    {
-        return camX;
-    }
-
-    public static double getCamY()
-    {
-        return camY;
-    }
-
-    public static List<Sprite> getmiddleLayer()
-    {
-        return middleLayer;
-    }
-
-    public static List<Sprite> getactorSpritesLayer()
-    {
-        return actorSpritesLayer;
-    }
-
-    public void changeStage(String levelName, String spawnId, boolean invalidateSavedStages)
+    public void changeStage(String levelName, String spawnId)
     {
         saveStage();
         loadStage(levelName, spawnId);
     }
 
-    public void changeStage(String levelName, Point2D spawnPoint, boolean invalidateSavedStages)
+    public void changeStage(String levelName, Point2D spawnPoint)
     {
         Direction d = player.getActor().getDirection();
-        changeStage(levelName, "default", invalidateSavedStages);
+        changeStage(levelName, "default");
         player.setPosition(spawnPoint);//Maybe refactor out from WorldLoader
         player.getActor().setDirection(d);
     }
@@ -334,19 +231,7 @@ public class WorldView
         offsetMaxY = borders.getMaxY() - CAMERA_HEIGHT;
     }
 
-    private void clearLevel()
-    {
-        actorList = new ArrayList<>();
-        passiveSpritesLayer = new ArrayList<>();
-        actorSpritesLayer = new ArrayList<>();
-        bottomLayer = new ArrayList<>();
-        middleLayer = new ArrayList<>();
-        upperLayer = new ArrayList<>();
-        topLayer = new ArrayList<>();
-        passiveCollisionRelevantSpritesLayer = new ArrayList<>();
-        borders = null;
-        //setShadowColor(null);
-    }
+
 
     private void loadLevelFromPersistentState(String spawnId)
     {
@@ -370,7 +255,6 @@ public class WorldView
         {
             if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT))
             {
-                //System.out.println(CLASSNAME + methodName + activeSprite.getActor().getActorInGameName());
                 tmp_actorSpritesLayer.add(activeSprite);
                 switch (activeSprite.getLayer())
                 {
@@ -391,7 +275,6 @@ public class WorldView
                 }
             }
         }
-
 
         passiveSpritesLayer = tmp_passiveSpritesLayer;
         actorSpritesLayer = tmp_actorSpritesLayer;
@@ -414,7 +297,8 @@ public class WorldView
         passiveCollisionRelevantSpritesLayer.addAll(upperLayer);
         passiveCollisionRelevantSpritesLayer.addAll(topLayer);
         borders = worldLoader.getBorders();
-        setShadowColor(worldLoader.getShadowColor());
+        var persistentShadowColor = shadowColor == COLOR_EMERGENCY_LIGHT ? COLOR_EMERGENCY_LIGHT : worldLoader.getShadowColor();
+        setShadowColor(persistentShadowColor);
         spawnPointsMap = worldLoader.getSpawnPointsMap();
         GameVariables.getClock().setClockMode(worldLoader.getClockMode());
         mapTimeData = worldLoader.getMapTimeData();
@@ -422,7 +306,6 @@ public class WorldView
 
     public void update(Long currentUpdateTime)
     {
-        String methodName = "update(Long) ";
         long updateStartTime = System.nanoTime();
         ArrayList<String> input = GameWindow.getInput();
         double elapsedTimeSinceLastInteraction = (currentUpdateTime - lastTimeMenuWasOpened) / 1000000000.0;
@@ -445,7 +328,6 @@ public class WorldView
             isFadedOut = !isFadedOut;
             lastTimeMenuWasOpened = currentUpdateTime;
         }
-
 
         //Process Input
         if (WorldViewController.getWorldViewStatus() != WORLD && player.getActor().isMoving())
@@ -486,7 +368,7 @@ public class WorldView
                 break;
 
             default:
-                System.out.println(CLASSNAME + methodName + "Undefined WorldViewStatus: " + WorldViewController.getWorldViewStatus());
+                System.out.println(CLASSNAME  + "Undefined WorldViewStatus: " + WorldViewController.getWorldViewStatus());
         }
 
         processMouse(currentUpdateTime);
@@ -510,7 +392,6 @@ public class WorldView
         calcCameraPosition();
 
         GameVariables.getClock().tryIncrementTime(currentUpdateTime);
-        //GameVariables.updateFromTimeGameTimeDependent(currentUpdateTime, actorList);
         long hudEndTime = System.nanoTime();
 
         long timeInput = inputEndTime - updateStartTime;
@@ -520,24 +401,6 @@ public class WorldView
         FXUtils.addData("Sprites: " + timeSprites / 1000000);
         FXUtils.addData("Hud: " + hudTime / 1000000);
         //System.out.println("inputTime: " + timeInput + " sprites: " + timeSprites + " hud: " + hudTime);
-    }
-
-    private void updateAccordingToTime()
-    {
-        DateTime time = GameVariables.gameDateTime();
-        //update Level
-        if (shadowColor == COLOR_EMERGENCY_LIGHT)
-        {
-            //No energy
-        }
-        else if (Time.isBetween(DAY_LIGHT_ON_TIME, DAY_LIGHT_OFF_TIME, time.getTime()))
-        {
-            setShadowColor(null);
-        }
-        else
-            setShadowColor(COLOR_NIGHT_LIGHT);
-
-        //TODO update Actors that are time dependent
     }
 
     private void toggleInventory(Long currentNanoTime)
@@ -944,5 +807,116 @@ public class WorldView
         isFadedOut = fadedOut;
     }
 
+    public static Color getShadowColor()
+    {
+        return shadowColor;
+    }
+
+    public static void setShadowColor(Color shadowColor)
+    {
+        WorldView.shadowColor = shadowColor;
+    }
+
+    static public String getLevelName()
+    {
+        return levelName;
+    }
+
+    public static MapTimeData getMapTimeData()
+    {
+        return mapTimeData;
+    }
+
+    public static List<Sprite> getPassiveCollisionRelevantSpritesLayer()
+    {
+        return passiveCollisionRelevantSpritesLayer;
+    }
+
+    public static List<Sprite> getMiddleLayer()
+    {
+        return middleLayer;
+    }
+
+    public static List<Sprite> getUpperLayer()
+    {
+        return upperLayer;
+    }
+
+    public static Rectangle2D getBorders()
+    {
+        return borders;
+    }
+
+    public static Sprite getPlayer()
+    {
+        return player;
+    }
+
+    public static WorldView getSingleton()
+    {
+        if (singleton == null)
+            singleton = new WorldView(Config.FIRST_LEVEL);
+        return singleton;
+    }
+
+    public static Textbox getTextbox()
+    {
+        return textbox;
+    }
+
+    public static String getCLASSNAME()
+    {
+        return CLASSNAME;
+    }
+
+    public static void setPersonalityScreenController(PersonalityScreenController personalityScreenController)
+    {
+        WorldView.personalityScreenController = personalityScreenController;
+    }
+
+    public static void setDiscussionGame(CoinGame coinArea)
+    {
+        WorldView.coinGame = coinArea;
+    }
+
+    public static List<Sprite> getBottomLayer()
+    {
+        return bottomLayer;
+    }
+
+    public static Map<String, WorldLoader.SpawnData> getSpawnPointsMap()
+    {
+        return spawnPointsMap;
+    }
+
+    public static List<Sprite> getToRemove()
+    {
+        return toRemove;
+    }
+
+    public static double getCamX()
+    {
+        return camX;
+    }
+
+    public static double getCamY()
+    {
+        return camY;
+    }
+
+    public static List<Sprite> getmiddleLayer()
+    {
+        return middleLayer;
+    }
+
+    public static List<Sprite> getactorSpritesLayer()
+    {
+        return actorSpritesLayer;
+    }
+
+    public static List<Actor> getActorList()
+    {
+        return actorList;
+    }
 
 }

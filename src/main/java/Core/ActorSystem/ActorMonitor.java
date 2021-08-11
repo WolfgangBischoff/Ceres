@@ -113,7 +113,7 @@ public class ActorMonitor
     private void changeLevel(String filename_level, String spawnId)
     {
         //System.out.println(CLASSNAME + methodName + "loaded: " + filename_level + " spawn at " + spawnId);
-        WorldView.getSingleton().changeStage(filename_level, spawnId, false);
+        WorldView.getSingleton().changeStage(filename_level, spawnId);
     }
 
     private void always_sensorStatus(String notifyingGroup, String targetGroupID, SystemStatus sensorStatus)

@@ -242,7 +242,7 @@ public class DaySummaryScreenController
             //Same level loads but next day
             String levelname = WorldView.getSingleton().getLevelName();
             String spawnId = "bed";
-            WorldView.getSingleton().changeStage(levelname, spawnId, true);
+            WorldView.getSingleton().changeStage(levelname, spawnId);
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
         }
 

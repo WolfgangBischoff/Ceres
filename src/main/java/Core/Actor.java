@@ -668,7 +668,7 @@ public class Actor
             case LEVELCHANGE:
                 String filename_level = sensorStatus.onInteractionToStatusSprite;
                 String spawnId = sensorStatus.onInteraction_StatusSensor;
-                WorldView.getSingleton().changeStage(filename_level, spawnId, false);
+                WorldView.getSingleton().changeStage(filename_level, spawnId);
                 break;
         }
     }

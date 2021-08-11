@@ -8,7 +8,7 @@
 
     <variable variablename="METEROIT_DAMAGE_ANALYZED">
         <possiblevalue variablevalue="true" dialoguefile="actorData/character/lime_woman/transporter" dialogueid="METROID_ANALYZED"/>
-        <possiblevalue variablevalue="xxx" dialoguefile="path" dialogueid="id"/>
+        <possiblevalue variablevalue="restored" dialoguefile="actorData/character/lime_woman/transporter" dialogueid="METROID_ANALYZED"/>
     </variable>
 
 </root>

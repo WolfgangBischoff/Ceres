@@ -15,7 +15,7 @@ personality    ;03                                   ;INTROVERSION,3,none       
 
 script               ;actorData/character/tenderer/behavior_idle
 
-tags; TURNS_DIRECTION_ONINTERACTION; PERSISTENT
+tags; TURNS_DIRECTION_ONINTERACTION;
 
 interactionArea; 						100;				060;							0;				0
 

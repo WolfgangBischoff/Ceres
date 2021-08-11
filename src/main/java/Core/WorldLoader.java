@@ -136,10 +136,7 @@ public class WorldLoader
                 readActorData(lineData);
                 break;
             case MAPFILE_WORLDSHADOW:
-                Color c = readWorldShadow(lineData);
-                Color current = WorldView.getShadowColor();
-                shadowColor = c;
-//                shadowColor = WorldView.getShadowColor() == COLOR_EMERGENCY_LIGHT ? COLOR_EMERGENCY_LIGHT : c;
+                shadowColor = readWorldShadow(lineData);
                 break;
             case MAPFILE_GROUPS:
                 readActorGroups(lineData);
@@ -187,7 +184,7 @@ public class WorldLoader
     {
 
         List<String> linedateWithoutKeyword = Arrays.asList(linedata).subList(1, linedata.length);
-        if(readFirstTime)
+        if (readFirstTime)
         {
             GlobalActorsManager.loadGlobalSystem(linedata[0]);
             globalActorsMap.putAll(GlobalActorsManager.getAndUpdateGlobalActorsWithStatus(linedateWithoutKeyword));

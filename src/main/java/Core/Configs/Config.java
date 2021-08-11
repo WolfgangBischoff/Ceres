@@ -146,7 +146,6 @@ public class Config
     public static final String TEXTBOX_ATTRIBUTE_LEVEL_CHANGE = "levelchange";
     public static final String TEXTBOX_ATTRIBUTE_DAY_CHANGE = "daychange";
     public static final String TEXTBOX_ATTRIBUTE_FADE = "fadeout";
-    public static final String TEXTBOX_ATTRIBUTE_INVALID_STAGES = "invalidstages";
     public static final String TEXTBOX_OPTION_ATTRIBUTE_CONSUME_ITEMS = "consumeitems";
     public static final String TEXTBOX_ATTRIBUTE_AMOUNT = "amount";
     //Paths

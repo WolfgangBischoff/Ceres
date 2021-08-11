@@ -26,7 +26,7 @@
         <option>[back]</option>
     </dialogue>
     <dialogue id="start_night_shift" type="normal" levelchange="transporter/transporter" spawnID="ladder"
-              timechange="18" invalidstages=""
+              timechange="18"
               variablename="STRANGER_APPEARANCE_QUEST" set="started">
         <spritechange sprite_id="player" status="default"/>
     </dialogue>

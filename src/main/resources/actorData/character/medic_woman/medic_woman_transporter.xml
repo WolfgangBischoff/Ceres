@@ -120,7 +120,7 @@
         <spritechange sprite_id="elevSc" dialogueId="INIT-toFreightDeck"/>
         <spritechange sprite_id="recPoL" dialogueId="ARRIVAL_DAY"/>
     </dialogue>
-    <dialogue id="ARRIVAL_DAY" type="normal" levelchange="crewdeck/crewdeck" invalidstages="" spawnID="default" timechange="30" />
+    <dialogue id="ARRIVAL_DAY" type="normal" levelchange="crewdeck/crewdeck" spawnID="default" timechange="30" />
 
     <dialogue id="INIT_AFTER_ARRIVAL" type="normal">
         <line>Till now no guard asked me what happened in the night. I am not sure if they suspect us..</line>

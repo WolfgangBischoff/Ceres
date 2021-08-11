@@ -93,12 +93,12 @@ public class Clock
         if (Time.isBetween(mapTimeData.getLightOnTime(), mapTimeData.getLightOffTime(), date.getTime()) && dayPart == NIGHT)
         {
             dayPart = DAY;
-            WorldView.getSingleton().changeStage(WorldView.getLevelName(), getPlayer().getPosition(), true);
+            WorldView.getSingleton().changeStage(WorldView.getLevelName(), getPlayer().getPosition());
         }
         else if (!Time.isBetween(mapTimeData.getLightOnTime(), mapTimeData.getLightOffTime(), date.getTime()) && dayPart == DAY)
         {
             dayPart = NIGHT;
-            WorldView.getSingleton().changeStage(WorldView.getLevelName(), getPlayer().getPosition(), true);
+            WorldView.getSingleton().changeStage(WorldView.getLevelName(), getPlayer().getPosition());
         }
         setShadowColor(getShadowColorFromTime(date));
     }
@@ -110,7 +110,7 @@ public class Clock
         if (TimeSpan.notWithin(mapTimeData.getOpenedTime(), date.getTime()))
         {
             CentralMessageOverlay.showMsg("The Area is closed now, you had to leave!");
-            WorldView.getSingleton().changeStage(mapTimeData.getLevelAfterClose(), mapTimeData.getSpawnPointAfterClose(), true);
+            WorldView.getSingleton().changeStage(mapTimeData.getLevelAfterClose(), mapTimeData.getSpawnPointAfterClose());
         }
     }
 

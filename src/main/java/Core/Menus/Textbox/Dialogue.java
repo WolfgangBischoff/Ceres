@@ -89,7 +89,7 @@ public class Dialogue
                 }
                 if (currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE))
                 {
-                    WorldView.getSingleton().changeStage(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE), currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID), currentDialogueXML.hasAttribute(TEXTBOX_ATTRIBUTE_INVALID_STAGES));
+                    WorldView.getSingleton().changeStage(currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_LEVEL_CHANGE), currentDialogueXML.getAttribute(TEXTBOX_ATTRIBUTE_SPAWN_ID));
                     WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
                 }
 

@@ -65,7 +65,7 @@ public class ConsoleCommandInterpreter
             case "level":
                 if (tokens.size() >= 2)
                 {
-                    WorldView.getSingleton().changeStage(tokens.get(1).text, "default", false);
+                    WorldView.getSingleton().changeStage(tokens.get(1).text, "default");
                 }
                 break;
         }

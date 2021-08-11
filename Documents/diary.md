@@ -1,6 +1,8 @@
 
 ##### 08 21
 * GameVariableManager implemented
+* after leaving capsule, Energy ist back
+* während nachtschicht sind alle geladen fix
 
 ##### 07 21
 * added item consume from textbox

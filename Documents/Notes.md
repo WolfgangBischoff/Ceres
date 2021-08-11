@@ -3,12 +3,10 @@
 
 ####Bug
 * Speicherkonzeptänderung macht Ablauf mit Bett falsch. GGf überarbeiten
-    * after leaving capsule, Energy ist back
-    * während nachtschicht sind alle geladen => actor script
+    * man kann nach dem fixen des reaktors wieder in die kapsel gehen, capsel scheint zu resetten
     * Vllt eine Quest Variable machen von der alles abhängt
     * globals sollen doch immer geladen werden, actor aber ggf auf vars achten (on load und nach zeit)
     
-       
 #### Main Quest
 Level: auf Seite Lift, viele Wohnungen, gemeinschaftplatz mit Müll und Resistance
 * Introduction to Ceres and you room
